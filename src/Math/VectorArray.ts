@@ -22,8 +22,29 @@ class VectorArray {
     for (let i = 0; i < dimension * length; i++) {
       array.rawElements[i] = 0;
     }
-    array._dimension = 0;
+    array._dimension = dimension;
     return array;
+  }
+
+  public static fromArray(dimension: number, source: number[]): VectorArray {
+    const array = new VectorArray(source.length);
+    array._dimension = dimension;
+    for (let i = 0; i < source.length; i++) {
+      array.rawElements[i] = source[i];
+    }
+    return array;
+  }
+
+  public static equals(v1: VectorArray, v2: VectorArray): boolean {
+    if (v1.rawElements.length !== v2.rawElements.length || v1._dimension !== v2._dimension) {
+      return false;
+    }
+    for (let i = 0; i < v1.rawElements.length; i++) {
+      if (v1.rawElements[i] !== v2.rawElements[i]) {
+        return false;
+      }
+    }
+    return true;
   }
 
   constructor(length?: number) {
@@ -34,19 +55,8 @@ class VectorArray {
     }
   }
 
-  public static equal(v1: VectorBase, v2: VectorBase): boolean {
-    if (v1.ElementCount === v2.ElementCount) {
-    return VectorArray.elementEqual(v1, v2);
-    }
-  }
-
-  public static elementEqual(v1: VectorBase, v2: VectorBase): boolean {
-    for (let i = 0; i < v1.ElementCount; i++) {
-      if (v1.rawElements[i] !== v2.rawElements[i]) {
-        return false;
-      }
-    }
-    return true;
+  public equalWith(v1: VectorArray): boolean {
+    return VectorArray.equals(this, v1);
   }
 
   public appendVector(vector: VectorBase): void {

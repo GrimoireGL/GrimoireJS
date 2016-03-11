@@ -68,108 +68,119 @@ class DefaultValuePreProcessor {
   }
 
   private static _forFloat(uniform: IVariableDescription): void {
-    if (!uniform.variableAnnotation["default"]) {
-      uniform.variableAnnotation["default"] = 0;
+    if (!uniform.variableAnnotation.default) {
+      uniform.variableAnnotation.default = 0;
     }
   }
 
   private static _forFloatArray(uniform: IVariableDescription): void {
-    if (!uniform.variableAnnotation["default"]) {
-      const defaultValue = new Array(uniform.arrayLength);
-      for (let i = 0; i < defaultValue.length; i++) {
-        defaultValue[i] = 0; // [0,0,0.....0,0] will be used as default
+    const defaultArray = uniform.variableAnnotation.default;
+    if (defaultArray) {
+      if (defaultArray.length !== uniform.arrayLength) {
+        throw new Error("specified array length is unmatch!");
       }
-      uniform.variableAnnotation["default"] = defaultValue.slice(0, uniform.arrayLength);
+      uniform.variableAnnotation.default = defaultArray;
+    } else {
+      uniform.variableAnnotation.default = new Array(uniform.arrayLength);
+      for (let i = 0; i < uniform.arrayLength; i++) {
+        uniform.variableAnnotation.default[i] = 0; // [0,0,0.....0,0] will be used as default
+      }
     }
   }
 
   private static _forVectorarray(dimension: number, uniform: IVariableDescription): void {
     const defaultArray = VectorArray.zeroVectorArray(dimension, uniform.arrayLength);
-    const defaultValue = uniform.variableAnnotation["default"];
-    if (isArray(defaultValue)) {
-      if (isArray(defaultValue[0])) {
-        for (let i = 0; i < defaultValue.length; i++) {
-          defaultArray.setRawArray(i, defaultValue[i]);
+    const defaultValue = uniform.variableAnnotation.default;
+    if (defaultArray) {
+      if (isArray(defaultValue)) {
+        if (isArray(defaultValue[0])) {
+          for (let i = 0; i < defaultValue.length; i++) {
+            defaultArray.setRawArray(i, defaultValue[i]);
+          }
+        } else {
+          for (let i = 0; i < defaultValue.length; i++) {
+            defaultArray.rawElements[i] = defaultValue[i];
+          }
         }
       } else {
-        for (let i = 0; i < defaultValue.length; i++) {
-          defaultArray.rawElements[i] = defaultValue[i];
-        }
+        throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType}[] ${uniform.variableName}'`);
       }
     }
-    uniform.variableAnnotation["defualt"] = defaultArray;
+    uniform.variableAnnotation.default = defaultArray;
   }
 
   private static _forVec2(uniform: IVariableDescription): void {
-    const defaultValue = uniform.variableAnnotation["default"];
+    const defaultValue = uniform.variableAnnotation.default;
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
       if (Array.isArray(defaultValue)) {
-        annotations["default"] = new Vector2(defaultValue[0], defaultValue[1]); // parse array as vector
+        annotations.default = new Vector2(defaultValue[0], defaultValue[1]); // parse array as vector
       } else if (typeof defaultValue === "string") {
-        annotations["default"] = Vector2.parse(defaultValue); // parse string representation as vector
+        annotations.default = Vector2.parse(defaultValue); // parse string representation as vector
       } else {
         throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
-      annotations["default"] = new Vector2(0, 0); // use (0,0) as default when the default annotation was not specified
+      annotations.default = new Vector2(0, 0); // use (0,0) as default when the default annotation was not specified
     }
   }
 
   private static _forVec3(uniform: IVariableDescription): void {
-    const defaultValue = uniform.variableAnnotation["default"];
+    const defaultValue = uniform.variableAnnotation.default;
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
       if (Array.isArray(defaultValue)) {
-        annotations["default"] = new Vector3(defaultValue[0], defaultValue[1], defaultValue[2]); // parse array as vector
+        annotations.default = new Vector3(defaultValue[0], defaultValue[1], defaultValue[2]); // parse array as vector
       } else if (typeof defaultValue === "string") {
-        annotations["default"] = Vector3.parse(defaultValue); // parse string representation as vector
+        annotations.default = Vector3.parse(defaultValue); // parse string representation as vector
       } else {
-       throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
+        throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
-      annotations["default"] = new Vector3(0, 0, 0); // use (0,0,0) as default when the default annotation was not specified
+      annotations.default = new Vector3(0, 0, 0); // use (0,0,0) as default when the default annotation was not specified
     }
   }
 
   private static _forVec4(uniform: IVariableDescription): void {
-    const defaultValue = uniform.variableAnnotation["default"];
+    const defaultValue = uniform.variableAnnotation.default;
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
       if (Array.isArray(defaultValue)) {
-        annotations["default"] = new Vector4(defaultValue[0], defaultValue[1], defaultValue[2], defaultValue[3]); // parse array as vector
+        annotations.default = new Vector4(defaultValue[0], defaultValue[1], defaultValue[2], defaultValue[3]); // parse array as vector
       } else if (typeof defaultValue === "string") {
-        annotations["default"] = Vector4.parse(defaultValue); // parse string representation as vector
+        annotations.default = Vector4.parse(defaultValue); // parse string representation as vector
       } else {
-       throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
+        throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
-      annotations["default"] = new Vector4(0, 0, 0, 0); // use (0,0,0,0) as default when the default annotation was not specified
+      annotations.default = new Vector4(0, 0, 0, 0); // use (0,0,0,0) as default when the default annotation was not specified
     }
   }
 
   private static _forMat4(uniform: IVariableDescription): void {
-    const defaultValue = uniform.variableAnnotation["default"];
+    const defaultValue = uniform.variableAnnotation.default;
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
       if (Array.isArray(defaultValue)) {
-        annotations["default"] = Matrix.fromElements.apply(defaultValue);
+        if (defaultValue.length !== 16) {
+          throw new Error(`Default value for mat4 must have 16 elements`);
+        }
+        annotations.default = Matrix.fromElements.apply(Matrix, defaultValue);
       } else {
-        console.error(`Unknown default value ${defaultValue}`);
-        annotations["default"] = Matrix.identity();
+        throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
-      annotations["default"] = Matrix.identity();
+      annotations.default = Matrix.identity();
     }
   }
 
   private static _forMat4Array(uniform: IVariableDescription): void {
-    const defaultValue = uniform.variableAnnotation["default"];
-    uniform.variableAnnotation["default"] = MatrixArray.getIdentityMatrixArray(uniform.arrayLength);
+    const defaultValue = uniform.variableAnnotation.default;
+    uniform.variableAnnotation.default = MatrixArray.getIdentityMatrixArray(uniform.arrayLength);
     if (defaultValue) {
       if (isArray(defaultValue)) {
         for (let i = 0; i < defaultValue.length; i++) {
-          uniform.variableAnnotation["default"].rawElements[i] = defaultValue[i];
+          uniform.variableAnnotation.default.rawElements[i] = defaultValue[i];
         }
       }
     }
