@@ -8,6 +8,5 @@ class Server
     connect.server
       root: config.serverRoot
       livereload: true
-      fallback:"index.html"
 
 module.exports = Server

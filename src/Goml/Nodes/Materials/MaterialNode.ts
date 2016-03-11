@@ -33,7 +33,6 @@ class MaterialNode extends MaterialNodeBase<Material> {
             attr.done();
           });
         }
-        attr.done();
       });
     }
   }

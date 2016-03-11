@@ -1,8 +1,12 @@
+interface IVariableAnnotation {
+  default: any;
+  [key: string]: any;
+}
 interface IVariableDescription {
   variableName: string;
   variableType: string;
   variablePrecision: string;
-  variableAnnotation: { [key: string]: any; };
+  variableAnnotation: IVariableAnnotation;
   isArray: boolean;
   arrayLength: number;
 }
