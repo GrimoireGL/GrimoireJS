@@ -16,6 +16,18 @@ class TestTask
   task: (name, config) =>
     switch name
       when 'test'
-        exec "#{path.resolve(process.cwd(), './node_modules/.bin/ava')} -v --require babel-register path.resolve(process.cwd(), './test/**/*Test.js'))}"
+        # gulp.start ['mocha']
+        throw new Error "Deprecated command! Use 'npm run test' instead."
+      when 'watch-mocha'
+        # gulp.watch config.testTarget, ['mocha']
+        throw new Error "Deprecated command! Use 'npm run test' instead."
+      when 'mocha'
+        throw new Error "Deprecated command! Use 'npm run test' instead."
+        # @requireAsString ['.glsl','.html']
+        # @requireAsJSON ['.json']
+        # require 'espower-babel/guess'
+        # gulp
+        #   .src config.testTarget
+        #   .pipe mocha()
 
 module.exports = TestTask

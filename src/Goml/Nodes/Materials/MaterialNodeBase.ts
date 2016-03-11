@@ -41,6 +41,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
    */
   protected __setMaterial(material: T, callbackfn: () => void): void {
     this.target = material;
+    this._name = this.attributes.getValue("name");
     this.target.on("ready", () => {
       this._generateAttributeForPasses();
       this.nodeExport(this._name);
@@ -59,7 +60,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   private _onNameAttrChanged(attr: GomlAttribute): void {
     const name = attr.Value;
     if (typeof name !== "string") {
-      throw Error(`${this.getTypeName()}: name attribute must be required.`);
+      throw Error(`${this.getTypeName() }: name attribute must be required.`);
     }
     this._name = name;
     if (this.target && this.target.Initialized) {

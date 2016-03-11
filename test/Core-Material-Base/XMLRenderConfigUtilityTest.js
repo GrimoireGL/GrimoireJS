@@ -86,3 +86,81 @@ test('_parseBlendConfigure should works when empty blend tag was specified', (t)
     blendDstFactor: "DST_COLOR"
   }));
 });
+
+test('_depthConfigure should works when depth tag was not specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseDepthConfigure, "./Resources/Empty.xml", {
+    depthEnabled:true,
+    depthMode:"LESS"
+  }, {
+    depthEnabled:true,
+    depthMode:"LESS"
+  }));
+});
+
+test('_depthConfigure should works when empty depth tag was specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseDepthConfigure, "./Resources/DepthConfig1.xml", {
+    depthEnabled:true,
+    depthMode:"LESS"
+  }, {
+    depthEnabled:true,
+    depthMode:"LESS"
+  }));
+});
+
+test('_depthConfigure should works when valid depth tag was specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseDepthConfigure, "./Resources/DepthConfig2.xml", {
+    depthEnabled:true,
+    depthMode:"LESS"
+  }, {
+    depthEnabled:false,
+    depthMode:"GREATER"
+  }));
+});
+
+test('_parseMaskConfigure should works when depth tag was not specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseMaskConfigure, "./Resources/Empty.xml", {
+    redMask:true,
+    blueMask:false,
+    greenMask:false,
+    alphaMask:false,
+    depthMask:false
+  }, {
+    redMask:true,
+    blueMask:false,
+    greenMask:false,
+    alphaMask:false,
+    depthMask:false
+  }));
+});
+
+test('_parseMaskConfigure should works when empty depth tag was specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseMaskConfigure, "./Resources/MaskConfig1.xml", {
+    redMask:true,
+    blueMask:false,
+    greenMask:false,
+    alphaMask:false,
+    depthMask:false
+  }, {
+    redMask:true,
+    blueMask:false,
+    greenMask:false,
+    alphaMask:false,
+    depthMask:false
+  }));
+});
+
+test('_parseMaskConfigure should works when valid depth tag was specified', (t) => {
+  t.ok(parseTest(XMLRenderConfigUtility._parseMaskConfigure, "./Resources/MaskConfig2.xml", {
+    redMask:true,
+    blueMask:false,
+    greenMask:false,
+    alphaMask:false,
+    depthMask:false
+  }, {
+    redMask:true,
+    blueMask:false,
+    greenMask:true,
+    alphaMask:true,
+    depthMask:true
+  }));
+});

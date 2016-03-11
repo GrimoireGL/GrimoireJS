@@ -13,7 +13,7 @@ WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
 BundleTask = require './build/task/bundle'
 CoverTask = require './build/task/cover'
-
+fs = require 'fs'
 env_production = false
 
 
@@ -95,3 +95,14 @@ TaskManager.register config,[
   BundleTask,
   CoverTask
 ]
+
+
+# When there was no debug.json in wwwroot folder, debug.json will be generated
+fs.open "wwwroot/debug/debug.json","ax+",384,(err,fd)=>
+  if !err
+    # Assume the file was not existing
+    fs.createReadStream 'wwwroot/debug/debug.json.template'
+      .pipe fs.createWriteStream('wwwroot/debug/debug.json');
+  else
+   fd && fs.close fd, (err)=>
+     undefined

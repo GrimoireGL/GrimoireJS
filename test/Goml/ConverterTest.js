@@ -23,8 +23,8 @@ test('Color3 parser #XYZ', (t) => {
   t.ok(Color3.parse('#0F0').equalWith(new Color3(0, 1, 0)));
 });
 
-test('Color3 parser #XYZAF must be undefined', (t) => {
-  t.ok(typeof Color3.parse('#0F00F') === 'undefined');
+test('Color3 parser #XYZAF must throws error', (t) => {
+  t.throws(() => Color3.parse('#0F00F'));
 });
 
 test('Color4 parser #XXYYZZ', (t) => {
@@ -47,8 +47,8 @@ test('Color4 parser #XYZA', (t) => {
   t.ok(Color4.parse('#0F00').equalWith(new Color4(0, 1, 0, 0)));
 });
 
-test('Color4 parser #XYZAF must be undefined', (t) => {
-  t.ok(typeof Color4.parse('#0F00F') === 'undefined');
+test('Color4 parser #XYZAF must throw error', (t) => {
+  t.throws(() => typeof Color4.parse('#0F00F'));
 });
 
 test('Vector3 parser (x,y,z)', (t) => {
@@ -123,8 +123,8 @@ test('Color3 parseTuple3 #XYZ', (t) => {
   t.ok(VectorColorCombinedParser.parseTuple3('#0F0').equalWith(new Color3(0, 1, 0)));
 });
 
-test('Color3 parseTuple3 #XYZAF must be undefined', (t) => {
-  t.ok(typeof VectorColorCombinedParser.parseTuple3('#0F00F') === 'undefined');
+test('Color3 parseTuple3 #XYZAF must throws error', (t) => {
+  t.throws(()=>VectorColorCombinedParser.parseTuple3('#0F00F'));
 });
 
 test('180 should convert into radians', (t) => {
@@ -195,9 +195,9 @@ test('axis rotation with space', (t) => {
 });
 
 test('euler rotation', (t) => {
-  t.ok(AttributeParser.parseRotation3D("30,20,50").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"),AttributeParser.parseAngle("20"),AttributeParser.parseAngle("50"))));
+  t.ok(AttributeParser.parseRotation3D("30,20,50").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"), AttributeParser.parseAngle("20"), AttributeParser.parseAngle("50"))));
 });
 
 test('euler rotation with space', (t) => {
-  t.ok(AttributeParser.parseRotation3D(" 30 , 20 , 50 ").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"),AttributeParser.parseAngle("20"),AttributeParser.parseAngle("50"))));
+  t.ok(AttributeParser.parseRotation3D(" 30 , 20 , 50 ").equalWith(Quaternion.euler(AttributeParser.parseAngle("30"), AttributeParser.parseAngle("20"), AttributeParser.parseAngle("50"))));
 });
