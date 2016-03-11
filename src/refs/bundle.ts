@@ -17,3 +17,4 @@
 /// <reference path="lodash.is[type]/lodash.isplainobject.d.ts"/>
 /// <reference path="lodash.is[type]/lodash.isstring.d.ts"/>
 /// <reference path="lodash.is[type]/lodash.isundefined.d.ts"/>
+/// <reference path="is-promise/is-promise.d.ts"/>

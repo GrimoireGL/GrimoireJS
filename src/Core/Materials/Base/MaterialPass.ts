@@ -50,8 +50,9 @@ class MaterialPass extends JThreeObjectWithID {
     const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
     return ShaderParser.parseCombined(shaderCode).then((result) => {
       this.programDescription = result;
-      DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);
       this._constructProgram(this.materialName + this.passIndex);
+      return DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);
+    }).then(() => {
       return Q.all(uniformRegisters.map(m => m.preprocess(this, this.programDescription.uniforms)));
     }).then(() => {
       this.ready = true;

@@ -327,6 +327,7 @@
     "./src/refs/chai/chai.d.ts",
     "./src/refs/empower/empower.d.ts",
     "./src/refs/gl-matrix/gl-matrix.d.ts",
+    "./src/refs/is-promise/is-promise.d.ts",
     "./src/refs/js-yaml/js-yaml.d.ts",
     "./src/refs/jsdom/jsdom.d.ts",
     "./src/refs/json5/json5.d.ts",

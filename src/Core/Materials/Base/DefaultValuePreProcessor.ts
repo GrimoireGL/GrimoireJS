@@ -6,50 +6,61 @@ import Vector3 from "../../../Math/Vector3";
 import Vector4 from "../../../Math/Vector4";
 import IVariableDescription from "./IVariableDescription";
 import isArray from "lodash.isarray";
+import Q from "q";
 class DefaultValuePreProcessor {
-  public static preprocess(uniforms: { [name: string]: IVariableDescription }): void {
+  public static preprocess(uniforms: { [name: string]: IVariableDescription }): Q.IPromise<void[]> {
+    const tasks: Q.IPromise<void>[] = [];
     for (let variableName in uniforms) {
       const uniform = uniforms[variableName];
       if (!uniform.isArray) { // When this uniform is not array , just a element.
         switch (uniform.variableType) {
           case "float":
-            DefaultValuePreProcessor._forFloat(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloat(variableName, uniform); }));
+            break;
           case "vec2":
-            DefaultValuePreProcessor._forVec2(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec2(variableName, uniform); }));
+            break;
           case "vec3":
-            DefaultValuePreProcessor._forVec3(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec3(variableName, uniform); }));
+            break;
           case "vec4":
-            DefaultValuePreProcessor._forVec4(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec4(variableName, uniform); }));
+            break;
           case "mat4":
-            DefaultValuePreProcessor._forMat4(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4(variableName, uniform); }));
+            break;
         }
       } else {
         // When this uniform is array.
         switch (uniform.variableType) {
           case "float":
-            DefaultValuePreProcessor._forFloatArray(variableName, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloatArray(variableName, uniform); }));
+            break;
           case "vec2":
-            DefaultValuePreProcessor._forVectorarray(variableName, 2, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 2, uniform); }));
+            break;
           case "vec3":
-            DefaultValuePreProcessor._forVectorarray(variableName, 3, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 3, uniform); }));
+            break;
           case "vec4":
-            DefaultValuePreProcessor._forVectorarray(variableName, 4, uniform);
-            continue;
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 4, uniform); }));
+            break;
           case "mat4":
-            DefaultValuePreProcessor._forMat4Array(variableName, uniform);
-            continue;
-
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4Array(variableName, uniform); }));
+            break;
         }
       }
     }
+    return Q.all<void>(tasks);
+  }
+
+  private static _syncPromise(fn: any): Q.IPromise<void> {
+    const defer = Q.defer<void>();
+    process.nextTick(() => {
+      fn();
+      defer.resolve(null);
+    });
+    return defer.promise;
   }
 
   private static _forFloat(name: string, uniform: IVariableDescription): void {
