@@ -29,14 +29,17 @@ class TestTask
   task:(name,config)=>
     switch name
       when 'test'
-        gulp.start ['mocha']
+        # gulp.start ['mocha']
+        throw new Error "Deprecated command! Use 'npm run test' instead."
       when 'watch-mocha'
-        gulp.watch config.testTarget, ['mocha']
+        # gulp.watch config.testTarget, ['mocha']
+        throw new Error "Deprecated command! Use 'npm run test' instead."
       when 'mocha'
-        @requireAsString ['.glsl','.html']
-        @requireAsJSON ['.json']
-        require 'espower-babel/guess'
-        gulp
-          .src config.testTarget
-          .pipe mocha()
+        throw new Error "Deprecated command! Use 'npm run test' instead."
+        # @requireAsString ['.glsl','.html']
+        # @requireAsJSON ['.json']
+        # require 'espower-babel/guess'
+        # gulp
+        #   .src config.testTarget
+        #   .pipe mocha()
 module.exports = TestTask

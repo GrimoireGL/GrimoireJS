@@ -15,38 +15,38 @@ class DefaultValuePreProcessor {
       if (!uniform.isArray) { // When this uniform is not array , just a element.
         switch (uniform.variableType) {
           case "float":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloat(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloat(uniform); }));
             break;
           case "vec2":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec2(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec2(uniform); }));
             break;
           case "vec3":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec3(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec3(uniform); }));
             break;
           case "vec4":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec4(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVec4(uniform); }));
             break;
           case "mat4":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4(uniform); }));
             break;
         }
       } else {
         // When this uniform is array.
         switch (uniform.variableType) {
           case "float":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloatArray(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forFloatArray(uniform); }));
             break;
           case "vec2":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 2, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(2, uniform); }));
             break;
           case "vec3":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 3, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(3, uniform); }));
             break;
           case "vec4":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(variableName, 4, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forVectorarray(4, uniform); }));
             break;
           case "mat4":
-            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4Array(variableName, uniform); }));
+            tasks.push(DefaultValuePreProcessor._syncPromise(() => { DefaultValuePreProcessor._forMat4Array(uniform); }));
             break;
         }
       }
@@ -57,19 +57,23 @@ class DefaultValuePreProcessor {
   private static _syncPromise(fn: any): Q.IPromise<void> {
     const defer = Q.defer<void>();
     process.nextTick(() => {
-      fn();
+      try {
+        fn();
+      } catch (e) {
+        defer.reject(e);
+      }
       defer.resolve(null);
     });
     return defer.promise;
   }
 
-  private static _forFloat(name: string, uniform: IVariableDescription): void {
+  private static _forFloat(uniform: IVariableDescription): void {
     if (!uniform.variableAnnotation["default"]) {
       uniform.variableAnnotation["default"] = 0;
     }
   }
 
-  private static _forFloatArray(name: string, uniform: IVariableDescription): void {
+  private static _forFloatArray(uniform: IVariableDescription): void {
     if (!uniform.variableAnnotation["default"]) {
       const defaultValue = new Array(uniform.arrayLength);
       for (let i = 0; i < defaultValue.length; i++) {
@@ -79,7 +83,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forVectorarray(name: string, dimension: number, uniform: IVariableDescription): void {
+  private static _forVectorarray(dimension: number, uniform: IVariableDescription): void {
     const defaultArray = VectorArray.zeroVectorArray(dimension, uniform.arrayLength);
     const defaultValue = uniform.variableAnnotation["default"];
     if (isArray(defaultValue)) {
@@ -96,7 +100,7 @@ class DefaultValuePreProcessor {
     uniform.variableAnnotation["defualt"] = defaultArray;
   }
 
-  private static _forVec2(name: string, uniform: IVariableDescription): void {
+  private static _forVec2(uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -105,15 +109,14 @@ class DefaultValuePreProcessor {
       } else if (typeof defaultValue === "string") {
         annotations["default"] = Vector2.parse(defaultValue); // parse string representation as vector
       } else {
-        console.error(`Unknown default value ${defaultValue}`);
-        annotations["default"] = new Vector2(0, 0);
+        throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
       annotations["default"] = new Vector2(0, 0); // use (0,0) as default when the default annotation was not specified
     }
   }
 
-  private static _forVec3(name: string, uniform: IVariableDescription): void {
+  private static _forVec3(uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -122,15 +125,14 @@ class DefaultValuePreProcessor {
       } else if (typeof defaultValue === "string") {
         annotations["default"] = Vector3.parse(defaultValue); // parse string representation as vector
       } else {
-        console.error(`Unknown default value ${defaultValue}`);
-        annotations["default"] = new Vector3(0, 0, 0);
+       throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
       annotations["default"] = new Vector3(0, 0, 0); // use (0,0,0) as default when the default annotation was not specified
     }
   }
 
-  private static _forVec4(name: string, uniform: IVariableDescription): void {
+  private static _forVec4(uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -139,15 +141,14 @@ class DefaultValuePreProcessor {
       } else if (typeof defaultValue === "string") {
         annotations["default"] = Vector4.parse(defaultValue); // parse string representation as vector
       } else {
-        console.error(`Unknown default value ${defaultValue}`);
-        annotations["default"] = new Vector4(0, 0, 0, 0);
+       throw new Error(`Unknown default value '${defaultValue}' was specified for variable '${uniform.variableType} ${uniform.variableName}'`);
       }
     } else {
       annotations["default"] = new Vector4(0, 0, 0, 0); // use (0,0,0,0) as default when the default annotation was not specified
     }
   }
 
-  private static _forMat4(name: string, uniform: IVariableDescription): void {
+  private static _forMat4(uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     const annotations = uniform.variableAnnotation;
     if (defaultValue) {
@@ -162,7 +163,7 @@ class DefaultValuePreProcessor {
     }
   }
 
-  private static _forMat4Array(name: string, uniform: IVariableDescription): void {
+  private static _forMat4Array(uniform: IVariableDescription): void {
     const defaultValue = uniform.variableAnnotation["default"];
     uniform.variableAnnotation["default"] = MatrixArray.getIdentityMatrixArray(uniform.arrayLength);
     if (defaultValue) {

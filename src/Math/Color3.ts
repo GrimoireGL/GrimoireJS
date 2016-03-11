@@ -16,14 +16,14 @@ class Color3 extends VectorBase {
     return new Color3(col.R, col.G, col.B);
   }
 
-  public static parse(color: string): Color3 {
-    return Color3.internalParse(color, true);
+  public static parse(color: string, tryParse?: boolean): Color3 {
+    return Color3.internalParse(color, true, tryParse);
   }
 
   /// Color parser for css like syntax
-  public static internalParse(color: string, isFirst: boolean): Color3 {
+  public static internalParse(color: string, isFirst: boolean, tryParse?: boolean): Color3 {
     if (isFirst && Color4.colorTable[color]) {
-      const col = Color4.internalParse(Color4.colorTable[color], false);
+      const col = Color4.internalParse(Color4.colorTable[color], false, tryParse);
       return Color3.fromColor4(col);
     }
     let m;
@@ -55,7 +55,10 @@ class Color3 extends VectorBase {
     if (n && isFirst) {
       return new Color3(parseInt(n[1], 10) / 0xff, parseInt(n[2], 10) / 0xff, parseInt(n[3], 10) / 0xff);
     }
-    return undefined;
+    if (tryParse) {
+      return undefined;
+    }
+    throw new Error("Unexpected color string" + color);
   }
 
   public static equals(col1: Color3, col2: Color3): boolean {

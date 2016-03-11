@@ -100,7 +100,7 @@ class VectorBase {
     for (let i = 0; i < splitted.length; i++) {
       result[i] = parseFloat(splitted[i]);
       if (isNaN(result[i])) {
-        return undefined;
+        throw new Error(`Unexpected vector string ${str}`);
       }
     }
     return result;
