@@ -35,7 +35,8 @@ class ShaderParser {
             uniforms: null,
             attributes: null,
             fragmentPrecisions: null,
-            vertexPrecisions: null
+            vertexPrecisions: null,
+            functions: null
           } : arg.description
         };
         console.log("current arg:initialSource:" + obj.initialSource);
@@ -62,7 +63,6 @@ class ShaderParser {
       public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
         return this._func(input);
       }
-<<<<<<< HEAD
     }
     class StringTransformer implements IProgramTransformer {
       private _stringTransformFunc: (string) => string = null;
@@ -74,7 +74,7 @@ class ShaderParser {
           initialSource: input.initialSource,
           transformSource: this._stringTransformFunc(input.transformSource),
           description: input.description
-        }
+        };
         return Promise.resolve(pt);
       }
     }
@@ -108,21 +108,19 @@ class ShaderParser {
           initialSource: arg.initialSource,
           transformSource: s,
           description: arg.description
-        }
-      })
+        };
+      });
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
       let uniforms = ShaderParser._parseVariables(arg.transformSource, "uniform");
-=======
-      console.log(fragment);
->>>>>>> origin/develop
       return {
         fragment: arg.description.fragment,
         vertex: arg.description.vertex,
         uniforms: uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -133,18 +131,20 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let functions = ShaderParser._parseFunctions(arg.transformSource);//dont use!
+      let functions = ShaderParser._parseFunctions(arg.transformSource);
       return {
         fragment: arg.description.fragment,
         vertex: arg.description.vertex,
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -155,7 +155,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -166,7 +167,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -176,7 +178,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -186,7 +189,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -196,7 +200,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -206,7 +211,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: ShaderParser._obtainPrecisions(arg.description.fragment),
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -216,7 +222,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: ShaderParser._obtainPrecisions(arg.description.vertex)
+        vertexPrecisions: ShaderParser._obtainPrecisions(arg.description.vertex),
+        functions: arg.description.functions
       };
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
@@ -226,7 +233,8 @@ class ShaderParser {
         uniforms: arg.description.uniforms,
         attributes: arg.description.attributes,
         fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions
+        vertexPrecisions: arg.description.vertexPrecisions,
+        functions: arg.description.functions
       };
       if (!arg.description.fragmentPrecisions["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
         description.fragment = this._addPrecision(description.fragment, "float", "mediump");
