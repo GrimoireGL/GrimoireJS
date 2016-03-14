@@ -208,6 +208,10 @@ class Matrix extends MatrixBase {
     return Matrix.multiply(this, m);
   }
 
+  public equalWith(m: Matrix): boolean {
+    return Matrix.equals(m, this);
+  }
+
   public toString(): string {
     return (`|${this.getBySingleIndex(0) } ${this.getBySingleIndex(4) } ${this.getBySingleIndex(8) } ${this.getBySingleIndex(12) }|\n
                  |${this.getBySingleIndex(1) } ${this.getBySingleIndex(5) } ${this.getBySingleIndex(9) } ${this.getBySingleIndex(13) }|\n

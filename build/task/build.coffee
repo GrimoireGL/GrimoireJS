@@ -4,7 +4,7 @@ gutil = require 'gulp-util'
 cached = require 'gulp-cached'
 gulp = require 'gulp'
 runSequence = require 'run-sequence'
-
+gulpif = require 'gulp-if'
 
 class Build
 
@@ -45,7 +45,7 @@ class Build
           .js
           .pipe cached
             title: "ts"
-          .pipe sourcemaps.write()
+          .pipe gulpif(c.sourcemap, sourcemaps.write())
           .pipe gulp.dest config.tsDest
           .on 'end', ->
             unless config.buildSuccess

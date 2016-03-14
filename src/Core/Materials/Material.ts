@@ -182,7 +182,8 @@ class Material extends JThreeObjectEEWithID {
           } else {
             register = 0;
           }
-          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeTexture, register);
+          const texture = uniform.variableAnnotation.default ? uniform.variableAnnotation.default : renderer.alternativeTexture;
+          pWrapper.uniformSampler(uniform.variableName, texture, register);
           if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }

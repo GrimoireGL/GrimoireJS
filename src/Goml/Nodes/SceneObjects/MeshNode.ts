@@ -82,6 +82,7 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
     this._mat_instance = null;
     // console.warn("onMatAttrChanged", attr.Value);
     this.nodeImport("jthree.resource.material", this._mat, (mat: MaterialNode<Material>) => {
+      console.info("material was updated");
       if (mat) {
         this._mat_instance = mat.target;
       } else {
@@ -93,7 +94,9 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
   }
 
   private _updateTarget(): void {
+    console.info(this._geo_instance, this._mat_instance);
     if (this._geo_instance && this._mat_instance) {
+      console.info("target was updated");
       this.TargetSceneObject = new BasicMeshObject(this._geo_instance, this._mat_instance);
     }
   }

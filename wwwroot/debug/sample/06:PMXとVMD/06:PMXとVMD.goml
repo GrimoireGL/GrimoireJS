@@ -1,0 +1,17 @@
+<goml>
+  <resources></resources>
+  <canvases>
+    <canvas clearColor="#11022A" frame=".canvasContainer">
+      <viewport cam="CAM1" id="main" width="640" height="480" name="MAIN"/>
+    </canvas>
+  </canvases>
+  <scenes>
+    <scene name="mainScene">
+      <camera id="maincam" aspect="1" far="200" fovy="1/2p" name="CAM1" near="0.1" position="(0,16,10)" rotation="axis(15d,1,1,1)"></camera>
+      <pmx src="/resource/model/Tune/Tune.pmx">
+        <vmd src="/resource/motion/melt2.vmd" autoSpeed="3.0" frame="1000" enabled="true"/>
+      </pmx>
+      <scenelight color="gray"/>
+    </scene>
+  </scenes>
+</goml>

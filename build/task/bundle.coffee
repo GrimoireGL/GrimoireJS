@@ -81,7 +81,7 @@ class Bundle
         .pipe sourcemaps.init
           loadMaps: true
         .pipe gulpif(!config.watching, gulpif(c.minify, uglify()))
-        .pipe sourcemaps.write('./')
+        .pipe gulpif(c.sourcemap, sourcemaps.write('./'))
         .pipe gulp.dest(c.dest[0])
     if config.watching
       b.on 'update', bundle

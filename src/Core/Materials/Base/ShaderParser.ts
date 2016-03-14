@@ -62,6 +62,7 @@ class ShaderParser {
       public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
         return this._func(input);
       }
+<<<<<<< HEAD
     }
     class StringTransformer implements IProgramTransformer {
       private _stringTransformFunc: (string) => string = null;
@@ -112,6 +113,9 @@ class ShaderParser {
     }));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
       let uniforms = ShaderParser._parseVariables(arg.transformSource, "uniform");
+=======
+      console.log(fragment);
+>>>>>>> origin/develop
       return {
         fragment: arg.description.fragment,
         vertex: arg.description.vertex,
@@ -318,11 +322,6 @@ class ShaderParser {
       let returnType = regexResult[1];
       let functionName = regexResult[2];
       let args = regexResult[3];
-      // console.log("returnType:" + returnType);
-      // console.log("funcName:" + functionName);
-      // console.log("args:" + args);
-
-
       let argumentDescriptions: IArgumentDescription[] = [];
 
       // parse arguments
@@ -389,11 +388,10 @@ class ShaderParser {
     }
     return result;
   }
-
+  // `
   private static _removeVariableAnnotations(source: string): string {
-    const regex = new RegExp("@\\{.+\\}", "g");
     let regexResult;
-    while ((regexResult = regex.exec(source))) {
+    while (regexResult = /@\{.+\}/g.exec(source)) {
       source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);
     }
     return source;

@@ -11,7 +11,7 @@ class Color4 extends VectorBase {
   }
 
   /// Color parser for css like syntax
-  public static internalParse(color: string, isFirst: boolean): Color4 {
+  public static internalParse(color: string, isFirst: boolean, tryParse?: boolean): Color4 {
     if (isFirst && Color4.colorTable[color]) {
       return Color4.internalParse(Color4.colorTable[color], false);
     }
@@ -76,11 +76,14 @@ class Color4 extends VectorBase {
       d = d <= 1 ? d : d / 0xff;
       return new Color4(parseInt(n[1], 10) / 0xff, parseInt(n[2], 10) / 0xff, parseInt(n[3], 10) / 0xff, parseInt(n[4], 10));
     }
-    return undefined;
+    if (tryParse) {
+      return undefined;
+    }
+    throw new Error("Unexpected color string" + color);
   }
 
-  public static parse(color: string): Color4 {
-    return Color4.internalParse(color, true);
+  public static parse(color: string, tryParse?: boolean): Color4 {
+    return Color4.internalParse(color, true, tryParse);
   }
 
   public static equals(col1: Color4, col2: Color4): boolean {

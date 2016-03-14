@@ -8,7 +8,7 @@ class AngleAttributeConverter extends AttributeConverterBase {
   }
 
   public toObjectAttr(attr: string): number {
-    return AttributeParser.ParseAngle(attr);
+    return AttributeParser.parseAngle(attr);
   }
 
   public fromInterface(val: any): any {

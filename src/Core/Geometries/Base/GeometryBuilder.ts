@@ -10,7 +10,7 @@ class GeometryBuilder {
         const y = 1 - yP * j;
         pos.push(x, y, 0);
         normal.push(0, 0, 1);
-        uv.push(0, 0);
+        uv.push(x / 2 + 0.5, 1 - y / 2 - 0.5);
       }
     }
     for (let i = 0; i < divX; i++) {
