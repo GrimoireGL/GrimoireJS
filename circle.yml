@@ -14,7 +14,7 @@ test:
   override:
     - echo $CIRCLE_NODE_INDEX
     - sh ./build/shell/test.sh:
-     parallel: true
+      parallel: true
   post:
     - git config --global user.email "admin@jthree.io"
     - git config --global user.name "CircleCI"
