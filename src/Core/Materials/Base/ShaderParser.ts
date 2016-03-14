@@ -4,6 +4,9 @@ import IArgumentDescription from "./IArgumentDescription";
 import IProgramDescription from "./IProgramDescription";
 import IProgramTransformer from "./IProgramTransformer";
 import IProgramTransform from "./IProgramTransform";
+import ProgramTransformer from "./ShaderTransformers/ProgramTransformer";
+import StringTransformer from "./ShaderTransformers/StringTransformer";
+import DescriptionTransformer from "./ShaderTransformers/DescriptionTransformer";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import MaterialManager from "./MaterialManager";
@@ -14,7 +17,6 @@ import Q from "q";
  * This class provides all useful methods for parsing XMML.
  */
 class ShaderParser {
-
   public static transform(source: string, transformers: IProgramTransformer[]): Q.IPromise<IProgramTransform> {
     let promise: Q.IPromise<IProgramTransform> = Q.when(null);
     for (let i = 0; i < transformers.length; i++) {
@@ -55,44 +57,6 @@ class ShaderParser {
    * @return {IProgramDescription} information of parsed codes.
    */
   public static parseCombined(codeString: string): Q.IPromise<IProgramDescription> {
-    class ProgramTransformer implements IProgramTransformer {
-      private _func: (IProgramTransform) => Q.IPromise<IProgramTransform> = null;
-      constructor(func: (IProgramTransform) => Q.IPromise<IProgramTransform>) {
-        this._func = func;
-      }
-      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
-        return this._func(input);
-      }
-    }
-    class StringTransformer implements IProgramTransformer {
-      private _stringTransformFunc: (string) => string = null;
-      constructor(func: (string) => string) {
-        this._stringTransformFunc = func;
-      }
-      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
-        let pt: IProgramTransform = {
-          initialSource: input.initialSource,
-          transformSource: this._stringTransformFunc(input.transformSource),
-          description: input.description
-        };
-        return Promise.resolve(pt);
-      }
-    }
-    class DescriptionTransformer implements IProgramTransformer {
-      private _descriptionTransformFunc: (IProgramTransform) => IProgramDescription = null;
-      constructor(func: (IProgramTransform) => IProgramDescription) {
-        this._descriptionTransformFunc = func;
-      }
-      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
-        let nextDescription = this._descriptionTransformFunc(input);
-        let pt: IProgramTransform = {
-          initialSource: input.initialSource,
-          transformSource: input.transformSource,
-          description: nextDescription
-        };
-        return Promise.resolve(pt);
-      }
-    }
 
     const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     let transformers: IProgramTransformer[] = [];
