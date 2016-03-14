@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">55.88% </span>
+        <span class="strong">23.53% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>19/34</span>
+        <span class='fraction'>8/34</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/6</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">54.55% </span>
+        <span class="strong">24.24% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>18/33</span>
+        <span class='fraction'>8/33</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -130,13 +130,13 @@
 85
 86
 87
-88</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+88</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,20 +149,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,9 +192,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -208,8 +208,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -236,20 +236,20 @@ class Canvas extends CanvasRegion {
      * Constructor
      * @param  {HTMLCanvasElement} canvasElement the HTMLCanvasElement that is managed by this class.
      */
-    constructor(canvasElement) {
+<span class="fstat-no" title="function not covered" >    constructor(canvasElement) <span class="cstat-no" title="statement not covered" ></span>{</span>
         super(canvasElement);
         /**
          * event cache for resize event.
          */
-        this.canvasResized = new JThreeEvent();
+<span class="cstat-no" title="statement not covered" >        this.canvasResized = new JThreeEvent();</span>
         /**
         * backing field for ClearColor
         */
         this.clearColor = new Color4(1, 1, 1, 1);
-        this.glExtensionResolver = new GLExtensionRegistory();
-        this._lastWidth = canvasElement.width;
-        this._lastHeight = canvasElement.height;
-        this.__setGLContext(this._tryGetGLContext());
+<span class="cstat-no" title="statement not covered" >        this.glExtensionResolver = new GLExtensionRegistory();</span>
+<span class="cstat-no" title="statement not covered" >        this._lastWidth = canvasElement.width;</span>
+<span class="cstat-no" title="statement not covered" >        this._lastHeight = canvasElement.height;</span>
+<span class="cstat-no" title="statement not covered" >        this.__setGLContext(this._tryGetGLContext());</span>
     }
     /**
      * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
@@ -279,9 +279,9 @@ class Canvas extends CanvasRegion {
      * apply gl context after webglrendering context initiated.
      */
     __setGLContext(glContext) {
-        this.gl = glContext;
-        this.glExtensionResolver.checkExtensions(glContext);
-        return;
+<span class="cstat-no" title="statement not covered" >        this.gl = glContext;</span>
+<span class="cstat-no" title="statement not covered" >        this.glExtensionResolver.checkExtensions(glContext);</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
     }
     _clearCanvas() {
 <span class="cstat-no" title="statement not covered" >        this.gl.colorMask(true, true, true, true);</span>
@@ -295,8 +295,8 @@ class Canvas extends CanvasRegion {
      * @return {WebGLRenderingContext} [description]
      */
     _tryGetGLContext() {
-        try {
-            return this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            return this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");</span>
         }
         catch (e) {
 <span class="cstat-no" title="statement not covered" >            throw new WebGLNotSupportedException();</span>
@@ -310,7 +310,7 @@ export default Canvas;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 00:47:38 GMT+0900 (JST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 01:02:03 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
