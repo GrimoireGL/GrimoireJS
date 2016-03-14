@@ -12,9 +12,10 @@ dependencies:
     - sh ./build/shell/deploy-gp-init.sh
 test:
   override:
-    - npm rebuild
+    - npm rebuild:
+      parallel: true
     - sh ./build/shell/test.sh:
-        parallel: true
+      parallel: true
   post:
     - git config --global user.email "admin@jthree.io"
     - git config --global user.name "CircleCI"
