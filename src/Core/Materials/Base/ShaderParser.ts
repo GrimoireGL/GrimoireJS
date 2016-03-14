@@ -36,7 +36,7 @@ class ShaderParser {
         fragment = this._addPrecision(fragment, "float", "mediump");
         fragPrecision["float"] = "mediump";
       }
-      console.log(fragment);
+      // console.log(fragment);
       return {
         attributes: attributes,
         fragment: fragment,
