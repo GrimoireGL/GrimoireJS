@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5% </span>
+        <span class="strong">85% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>1/20</span>
+        <span class='fraction'>17/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>3/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5% </span>
+        <span class="strong">85% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>1/20</span>
+        <span class='fraction'>17/20</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -85,45 +85,45 @@
 40
 41
 42
-43</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+43</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,39 +133,39 @@
 */
 class ColorBufferFloatExtensionResolver extends ExtensionResolverBase {
     request(gl) {
-<span class="cstat-no" title="statement not covered" >        const isSupported = this._checkWebglColorBufferFloat(gl);</span>
-<span class="cstat-no" title="statement not covered" ></span>        if (isSupported) {
+        const isSupported = this._checkWebglColorBufferFloat(gl);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (isSupported) {
 <span class="cstat-no" title="statement not covered" >            return {};</span>
         }
         else {
-<span class="cstat-no" title="statement not covered" >            return null;</span>
+            return null;
         }
     }
     /**
      * To check being able to use float value texture as rendering target, just calling getExtension is not sufficient.
      */
     _checkWebglColorBufferFloat(gl) {
-<span class="cstat-no" title="statement not covered" >        let isSupported;</span>
-<span class="cstat-no" title="statement not covered" ></span>        if (gl.getExtension("WEBGL_color_buffer_float") === null) {
-<span class="cstat-no" title="statement not covered" >            const fbo = gl.createFramebuffer();</span>
-<span class="cstat-no" title="statement not covered" >            const tex = gl.createTexture();</span>
-<span class="cstat-no" title="statement not covered" >            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);</span>
-<span class="cstat-no" title="statement not covered" >            gl.bindTexture(gl.TEXTURE_2D, tex);</span>
-<span class="cstat-no" title="statement not covered" >            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.FLOAT, null);</span>
-<span class="cstat-no" title="statement not covered" >            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);</span>
-<span class="cstat-no" title="statement not covered" ></span>            if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
-<span class="cstat-no" title="statement not covered" >                isSupported = false;</span>
+        let isSupported;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (gl.getExtension("WEBGL_color_buffer_float") === null) {
+            const fbo = gl.createFramebuffer();
+            const tex = gl.createTexture();
+            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+            gl.bindTexture(gl.TEXTURE_2D, tex);
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.FLOAT, null);
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {
+                isSupported = false;
             }
             else {
 <span class="cstat-no" title="statement not covered" >                isSupported = true;</span>
             }
-<span class="cstat-no" title="statement not covered" >            gl.deleteTexture(tex);</span>
-<span class="cstat-no" title="statement not covered" >            gl.deleteFramebuffer(fbo);</span>
+            gl.deleteTexture(tex);
+            gl.deleteFramebuffer(fbo);
         }
         else {
 <span class="cstat-no" title="statement not covered" >            isSupported = true;</span>
         }
-<span class="cstat-no" title="statement not covered" >        return isSupported;</span>
+        return isSupported;
     }
 }
 export default ColorBufferFloatExtensionResolver;
@@ -175,7 +175,7 @@ export default ColorBufferFloatExtensionResolver;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 01:02:03 GMT+0900 (JST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 01:11:27 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../../../prettify.js"></script>
