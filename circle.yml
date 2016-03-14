@@ -12,7 +12,7 @@ dependencies:
     - sh ./build/shell/deploy-gp-init.sh
 test:
   override:
-    - bash ./build/shell/test.sh:
+    - sh ./build/shell/test.sh:
         parallel: true
   post:
     - git config --global user.email "admin@jthree.io"
