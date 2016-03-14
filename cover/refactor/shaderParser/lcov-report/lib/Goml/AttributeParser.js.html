@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/AttributeParser.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Goml/</a> AttributeParser.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>38/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.46% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>23/26</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/1</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>38/40</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">22×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jThreeObject from "../Base/JThreeObject";
+import Quaternion from "../Math/Quaternion";
+import Vector3 from "../Math/Vector3";
+/**
+ * Utility class to parse the arguments of attributes.
+ */
+class AttributeParser extends jThreeObject {
+    /**
+     * Parse angle strings.
+     * "p" means Pi. Ex) 3/4 p
+     * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+     * @param input the string to parse.
+     * @returns {number} parsed angle in radians.
+     */
+    static parseAngle(input) {
+        const regex = /^ *(-? *(?:0|[1-9]\d*)(?: *\.\d+)?) *(?:\/ *((?:0|[1-9]\d*)(?: *\.\d+)?))? *(p|prad|deg|d|r|rad)? *$/gm;
+        const result = regex.exec(input);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (result == null) {
+<span class="cstat-no" title="statement not covered" >            throw new Error(`faild parse Angle string:'${input}'`);</span>
+        }
+        let numerator = parseFloat(result[1]);
+        if (result[2]) {
+            numerator /= parseFloat(result[2]);
+        }
+        let unit = result[3];
+        if (unit == null) {
+            unit = "d";
+        }
+        if (unit === "r" || unit === "rad") {
+            return numerator;
+        }
+        if (unit === "p" || unit === "prad") {
+            return numerator * Math.PI;
+        }
+        return numerator / 180 * Math.PI;
+    }
+    /**
+     * Parse angle string in 3D.
+     * "p" means Pi. Ex) 3/4 p
+     * "d" means degree. if this unit was specified, the argument will be parsed as degree. Ex) 90d
+     * "eular(x,y,z)" means rotation in eular. This means Z-X-Y rotation like Unity.
+     * "axis(angle,x,y,z)" means rotation around specified axis. This means angle radians will be rotated around the axis (x,y,z).
+     * This angle can be specified with the character "p" or "d".
+     * "x(angle)","y(angle)" or "z(angle)" means rotation around unit axis.
+     * This angle can be specified with the character "p" or "d".
+     * @param input the string to be parsed as angle in 3D.
+     * @returns {Quaternion} parsed rotation in Quaternion.
+     */
+    static parseRotation3D(input) {
+        const reg1 = /^ *(x|y|z) *\(([^\(\)]+)\) *$/gm;
+        const reg2 = /^ *axis *\(([^\(\),]+),([^\(\),]+),([^\(\),]+),([^\(\),]+)\) *$/gm;
+        const reg3 = /^ *([^\(\),]+),([^\(\),]+),([^\(\),]+) *$/gm;
+        const result = reg1.exec(input);
+        if (result) {
+            if (result[1] === "x") {
+                return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.XUnit);
+            }
+            if (result[1] === "y") {
+                return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.YUnit);
+            }
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (result[1] === "z") {
+                return Quaternion.angleAxis(AttributeParser.parseAngle(result[2]), Vector3.ZUnit);
+            }
+        }
+        const res2 = reg2.exec(input);
+        if (res2) {
+            let rotation = AttributeParser.parseAngle(res2[1]);
+            let x = parseFloat(res2[2]);
+            let y = parseFloat(res2[3]);
+            let z = parseFloat(res2[4]);
+            return Quaternion.angleAxis(rotation, new Vector3(x, y, z));
+        }
+        const res3 = reg3.exec(input);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (res3) {
+            return Quaternion.euler(AttributeParser.parseAngle(res3[1]), AttributeParser.parseAngle(res3[2]), AttributeParser.parseAngle(res3[3]));
+        }
+<span class="cstat-no" title="statement not covered" >        throw new Error(`Unknown format for rotation3D:'${input}'`);</span>
+    }
+}
+export default AttributeParser;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 14 2016 18:50:24 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
