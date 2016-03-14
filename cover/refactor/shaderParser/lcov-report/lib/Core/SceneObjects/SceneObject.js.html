@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Core/SceneObjects/SceneObject.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">lib/Core/SceneObjects/</a> SceneObject.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.94% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/72</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">16.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.04% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/71</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import JThreeCollection from "../../Base/JThreeCollection";
+import Transformer from "../Transform/Transformer";
+import JThreeEvent from "../../Base/JThreeEvent";
+/**
+ * This is most base class for SceneObject.
+ * SceneObject is same as GameObject in Unity.
+ */
+class SceneObject extends JThreeObjectEEWithID {
+<span class="fstat-no" title="function not covered" >    constructor(transformer) <span class="cstat-no" title="statement not covered" ></span>{</span>
+        super();
+<span class="cstat-no" title="statement not covered" >        this.isVisible = true;</span>
+<span class="cstat-no" title="statement not covered" >        this._onStructureChangedEvent = new JThreeEvent();</span>
+<span class="cstat-no" title="statement not covered" >        this._materialChanagedHandler = [];</span>
+<span class="cstat-no" title="statement not covered" >        this._materials = {};</span>
+        /**
+         * Contains the children.
+         */
+        this._children = [];
+<span class="cstat-no" title="statement not covered" >        this.__transformer = transformer || new Transformer(this);</span>
+<span class="cstat-no" title="statement not covered" >        this.name = this.ID;</span>
+    }
+    /**
+    * Getter for children
+    */
+    get Children() {
+<span class="cstat-no" title="statement not covered" >        return this._children;</span>
+    }
+    addChild(obj) {
+<span class="cstat-no" title="statement not covered" >        this._children.push(obj);</span>
+<span class="cstat-no" title="statement not covered" >        obj._parent = this;</span>
+<span class="cstat-no" title="statement not covered" >        obj.Transformer.updateTransform();</span>
+<span class="cstat-no" title="statement not covered" >        const eventArg = {</span>
+            owner: this,
+            scene: this.ParentScene,
+            isAdditionalChange: true,
+            changedSceneObject: obj,
+            changedSceneObjectID: obj.ID
+        };
+<span class="cstat-no" title="statement not covered" >        this._onStructureChangedEvent.fire(this, eventArg);</span>
+<span class="cstat-no" title="statement not covered" >        this.onChildrenChanged();</span>
+<span class="cstat-no" title="statement not covered" >        obj.onParentChanged();</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (this.ParentScene) {
+<span class="cstat-no" title="statement not covered" >            this.ParentScene.notifySceneObjectChanged(eventArg);</span>
+        }
+    }
+    /**
+     * remove SceneObject from children.
+     * @param {SceneObject} obj [description]
+     */
+    removeChild(obj) {
+<span class="cstat-no" title="statement not covered" >        const childIndex = this._children.indexOf(obj);</span>
+<span class="cstat-no" title="statement not covered" ></span>        if (childIndex !== -1) {
+<span class="cstat-no" title="statement not covered" >            this._children.splice(childIndex, 1);</span>
+<span class="cstat-no" title="statement not covered" >            const eventArg = {</span>
+                owner: this,
+                scene: this.ParentScene,
+                isAdditionalChange: false,
+                changedSceneObject: obj,
+                changedSceneObjectID: obj.ID
+            };
+<span class="cstat-no" title="statement not covered" >            this._onStructureChangedEvent.fire(this, eventArg);</span>
+<span class="cstat-no" title="statement not covered" >            obj.onParentChanged();</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (this.ParentScene) {
+<span class="cstat-no" title="statement not covered" >                this.ParentScene.notifySceneObjectChanged(eventArg);</span>
+            }
+        }
+    }
+    /**
+     * remove this SceneObject from parent.
+     */
+    remove() {
+<span class="cstat-no" title="statement not covered" >        this._parent.removeChild(this);</span>
+    }
+    get Parent() {
+<span class="cstat-no" title="statement not covered" >        return this._parent;</span>
+    }
+    /**
+    * The Getter for the parent scene containing this SceneObject.
+    */
+    get ParentScene() {
+<span class="cstat-no" title="statement not covered" ></span>        if (!this._parentScene) {
+<span class="cstat-no" title="statement not covered" ></span>            if (!this._parent) {
+<span class="cstat-no" title="statement not covered" >                return null;</span>
+            }
+            else <span class="cstat-no" title="statement not covered" ></span>{
+<span class="cstat-no" title="statement not covered" >                this.ParentScene = t</span>his._parent.ParentScene; // Retrieve and cache parent scene
+                return this._parentScene;
+            }
+        }
+        else {
+            // The parent scene was already cached.
+<span class="cstat-no" title="statement not covered" >            return this._parentScene;</span>
+        }
+    }
+    /**
+    * The Getter for the parent scene containing this SceneObject.
+    */
+    set ParentScene(scene) <span class="cstat-no" title="statement not covered" ></span>{
+<span class="cstat-no" title="statement not covered" ></span>        if (scene === this._parentScene) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        const lastScene = this._parentScene;</span>
+<span class="cstat-no" title="statement not covered" >        this._parentScene = scene;</span>
+        // if(!this.parent||this.parent.ParentScene.ID!=scene.ID)
+        //     console.error("There is something wrong in Scene structure.");
+        // insert recursively to the children this SceneObject contains.
+        this._children.forEach(<span class="fstat-no" title="function not covered" >(v) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            v.ParentScene = scene;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        this.onParentSceneChanged({</span>
+            lastParentScene: lastScene,
+            currentParentScene: this._parentScene
+        });
+    }
+    onMaterialChanged(func) {
+<span class="cstat-no" title="statement not covered" >        this._materialChanagedHandler.push(func);</span>
+    }
+    /**
+     * すべてのマテリアルに対して処理を実行します。
+     */
+    eachMaterial(func) {
+<span class="cstat-no" title="statement not covered" ></span>        for (let material in this._materials) {
+<span class="cstat-no" title="statement not covered" >            this._materials[material].each(<span class="fstat-no" title="function not covered" >(e) =&gt; func(e));</span></span>
+        }
+    }
+    addMaterial(mat) {
+<span class="cstat-no" title="statement not covered" ></span>        if (!this._materials[mat.MaterialGroup]) {
+<span class="cstat-no" title="statement not covered" >            this._materials[mat.MaterialGroup] = new JThreeCollection();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this._materials[mat.MaterialGroup].insert(mat);</span>
+    }
+    getMaterial(matGroup) {
+<span class="cstat-no" title="statement not covered" ></span>        if (this._materials[matGroup]) {
+<span class="cstat-no" title="statement not covered" >            const a = this._materials[matGroup];</span>
+<span class="cstat-no" title="statement not covered" >            let ret = null;</span>
+<span class="cstat-no" title="statement not covered" >            a.each(<span class="fstat-no" title="function not covered" >(e) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                ret = e;</span>
+<span class="cstat-no" title="statement not covered" >                return;</span>
+            });
+<span class="cstat-no" title="statement not covered" >            return ret;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return null;</span>
+    }
+    getMaterials(matGroup) {
+<span class="cstat-no" title="statement not covered" ></span>        if (this._materials[matGroup]) {
+<span class="cstat-no" title="statement not covered" >            return this._materials[matGroup].asArray();</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return [];</span>
+    }
+    get Geometry() {
+<span class="cstat-no" title="statement not covered" >        return this.__geometry;</span>
+    }
+    set Geometry(geo) {
+<span class="cstat-no" title="statement not covered" >        this.__geometry = geo;</span>
+    }
+    get Transformer() {
+<span class="cstat-no" title="statement not covered" >        return this.__transformer;</span>
+    }
+    callRecursive(action) {
+<span class="cstat-no" title="statement not covered" ></span>        if (this._children) {
+<span class="cstat-no" title="statement not covered" >            this._children.forEach(<span class="fstat-no" title="function not covered" >t =&gt; t.callRecursive(action));</span></span>
+        }
+<span class="cstat-no" title="statement not covered" >        action(this);</span>
+    }
+    onChildrenChanged() {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+    onParentChanged() {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+    onParentSceneChanged(sceneInfo) {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+    update() {
+<span class="cstat-no" title="statement not covered" >        return;</span>
+    }
+}
+export default SceneObject;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 00:47:38 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

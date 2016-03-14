@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/Goml/GomlNodeList.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/Goml/</a> GomlNodeList.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>40/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>40/40</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import GomlNodeListElement from "./GomlNodeListElement";
+import CanvasesNode from "./Nodes/TopLevel/CanvasesNode";
+import ResourcesNode from "./Nodes/TopLevel/ResourcesNode";
+import ScenesNode from "./Nodes/TopLevel/ScenesNode";
+import TemplatesNode from "./Nodes/TopLevel/TemplatesNode";
+import LoadersNode from "./Nodes/TopLevel/LoadersNode";
+import GomlNode from "./Nodes/TopLevel/GomlNode";
+import TriangleGeometryNode from "./Nodes/Geometries/TriangleGeometryNode";
+import GridGeometryNode from "./Nodes/Geometries/GridGeometryNode";
+import CubeGeometryNode from "./Nodes/Geometries/CubeGeometryNode";
+import SphereGeometryNode from "./Nodes/Geometries/SphereGeometryNode";
+import CircleGeometryNode from "./Nodes/Geometries/CircleGeometryNode";
+import CylinderGeometryNode from "./Nodes/Geometries/CylinderGeometryNode";
+import QuadGeometryNode from "./Nodes/Geometries/QuadGeometryNode";
+import ConeGeometryNode from "./Nodes/Geometries/ConeGeometryNode";
+import CanvasNode from "./Nodes/Canvases/CanvasNode";
+import ViewPortNode from "./Nodes/Renderers/ViewPortNode";
+import SceneNode from "./Nodes/SceneNode";
+import MaterialNode from "./Nodes/Materials/MaterialNode";
+import CameraNode from "./Nodes/SceneObjects/Cameras/CameraNode";
+import OrthoCameraNode from "./Nodes/SceneObjects/Cameras/OrthoCameraNode";
+import MeshNode from "./Nodes/SceneObjects/MeshNode";
+import ObjectNode from "./Nodes/SceneObjects/ObjectNode";
+import PointLightNode from "./Nodes/SceneObjects/Lights/PointLightNode";
+import DirectionalLightNode from "./Nodes/SceneObjects/Lights/DirectionalLightNode";
+import AreaLightNode from "./Nodes/SceneObjects/Lights/AreaLightNode";
+import SpotLightNode from "./Nodes/SceneObjects/Lights/SpotLightNode";
+import SceneLightNode from "./Nodes/SceneObjects/Lights/SceneLightNode";
+import PMXNode from "../PMX/Goml/PMXNode";
+import TextureNode from "./Nodes/Texture/TextureNode";
+import CubeTextureNode from "./Nodes/Texture/CubeTextureNode";
+import BehaviorsNode from "./Nodes/Behaviors/BehaviorsNode";
+import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
+import TemplateNode from "./Nodes/Templates/TemplateNode";
+import LoaderNode from "./Nodes/Loaders/LoaderNode";
+import VMDNode from "../VMD/Goml/VMDNode";
+import XNode from "../X/Goml/XNode";
+import ImportNode from "./Nodes/Imports/ImportNode";
+import ImportsNode from "./Nodes/TopLevel/ImportsNode";
+const gomlList = [
+    new GomlNodeListElement("jthree.toplevel", {
+        "CANVASES": CanvasesNode,
+        "RESOURCES": ResourcesNode,
+        "SCENES": ScenesNode,
+        "TEMPLATES": TemplatesNode,
+        "LOADERS": LoadersNode,
+        "IMPORTS": ImportsNode,
+        "GOML": GomlNode,
+    }),
+    new GomlNodeListElement("jthree.geometries", {
+        "TRI": TriangleGeometryNode,
+        "GRID": GridGeometryNode,
+        "CUBE": CubeGeometryNode,
+        "SPHERE": SphereGeometryNode,
+        "CIRCLE": CircleGeometryNode,
+        "CYLINDER": CylinderGeometryNode,
+        "QUAD": QuadGeometryNode,
+        "CONE": ConeGeometryNode,
+    }),
+    new GomlNodeListElement("jthree.basic", {
+        "CANVAS": CanvasNode,
+        "VIEWPORT": ViewPortNode,
+        "SCENE": SceneNode,
+    }),
+    new GomlNodeListElement("jthree.materials", {
+        "MATERIAL": MaterialNode,
+    }),
+    new GomlNodeListElement("jthree.sceneobject", {
+        "CAMERA": CameraNode,
+        "OCAMERA": OrthoCameraNode,
+        "MESH": MeshNode,
+        "OBJECT": ObjectNode,
+        "PLIGHT": PointLightNode,
+        "DLIGHT": DirectionalLightNode,
+        "ALIGHT": AreaLightNode,
+        "SLIGHT": SpotLightNode,
+        "SCENELIGHT": SceneLightNode,
+        "PMX": PMXNode
+    }),
+    new GomlNodeListElement("jthree.textures", {
+        "TEXTURE": TextureNode,
+        "CUBETEXTURE": CubeTextureNode
+    }),
+    new GomlNodeListElement("jthree.behaviors", {
+        "BEHAVIORS": BehaviorsNode,
+    }),
+    new GomlNodeListElement("jthree.behavior", {
+        "BEHAVIOR": BehaviorNode
+    }),
+    new GomlNodeListElement("jthree.template", {
+        "TEMPLATE": TemplateNode
+    }),
+    new GomlNodeListElement("jthree.loader", {
+        "LOADER": LoaderNode
+    }),
+    // new GomlNodeListElement("jthree.pmx.morph",
+    //   {
+    //     "MORPH": PMXMorphNode,
+    //   }),
+    // new GomlNodeListElement("jthree.pmx.bone",
+    //   {
+    //     "BONE": PMXBoneNode,
+    //   }),
+    new GomlNodeListElement("jthree.pmx.contents", {
+        // "MORPHS": PMXMorphsNode,
+        // "BONES": PMXBonesNode,
+        "VMD": VMDNode
+    }),
+    new GomlNodeListElement("x", {
+        "X": XNode
+    }),
+    new GomlNodeListElement("jthree.import", {
+        "IMPORT": ImportNode
+    }),
+];
+export default gomlList;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 00:47:38 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

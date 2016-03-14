@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for lib/X/XFileData.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">lib/X/</a> XFileData.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.11% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>7/137</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">20% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.19% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>7/135</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import ImageLoader from "../Core/Resources/ImageLoader";
+import Vector3 from "../Math/Vector3";
+import Vector4 from "../Math/Vector4";
+import AsyncLoader from "../Core/Resources/AsyncLoader";
+import Q from "q";
+class XFileData {
+<span class="fstat-no" title="function not covered" >    constructor(dataSource, directory) {</span>
+<span class="cstat-no" title="statement not covered" >        this.materials = [];</span>
+<span class="cstat-no" title="statement not covered" >        this._dataSource = dataSource;</span>
+<span class="cstat-no" title="statement not covered" >        this._directory = directory;</span>
+<span class="cstat-no" title="statement not covered" >        const meshSection = this._sliceSection(dataSource, "Mesh", 0);</span>
+<span class="cstat-no" title="statement not covered" >        const meshMaterialSection = this._sliceSection(meshSection, "MeshMaterialList", 0);</span>
+<span class="cstat-no" title="statement not covered" >        this._parsePositions(meshSection);</span>
+<span class="cstat-no" title="statement not covered" >        this._parseTexCoords(this._sliceSection(meshSection, "MeshTextureCoords", 0));</span>
+<span class="cstat-no" title="statement not covered" >        this._parseMaterials(meshMaterialSection);</span>
+<span class="cstat-no" title="statement not covered" >        this._parseFaces(meshSection, meshMaterialSection);</span>
+<span class="cstat-no" title="statement not covered" >        this._generateNormals();</span>
+<span class="cstat-no" title="statement not covered" >        this._prepareForUsing();</span>
+    }
+    static loadFile(src) {
+<span class="cstat-no" title="statement not covered" >        const directory = src.substr(0, src.lastIndexOf("/") + 1);</span>
+<span class="cstat-no" title="statement not covered" >        return this._loader.fetch(src, <span class="fstat-no" title="function not covered" >(absPath) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >            const deferred = Q.defer();</span>
+<span class="cstat-no" title="statement not covered" >            const xhr = new XMLHttpRequest();</span>
+<span class="cstat-no" title="statement not covered" >            xhr.open("GET", absPath, true);</span>
+<span class="cstat-no" title="statement not covered" >            xhr.setRequestHeader("Accept", "text");</span>
+<span class="cstat-no" title="statement not covered" >            xhr.onload = <span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                deferred.resolve(new XFileData(xhr.responseText, directory));</span>
+            };
+<span class="cstat-no" title="statement not covered" >            xhr.onerror = <span class="fstat-no" title="function not covered" >(err) =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered" >                deferred.reject(err);</span>
+            };
+<span class="cstat-no" title="statement not covered" >            xhr.send(null);</span>
+<span class="cstat-no" title="statement not covered" >            return deferred.promise;</span>
+        });
+    }
+    _sliceSection(source, sectionName, offset) {
+<span class="cstat-no" title="statement not covered" >        const regex = new RegExp(`([^{template}]\\s+)${sectionName}\\s*\\{`, "g");</span>
+<span class="cstat-no" title="statement not covered" >        let found = regex.exec(source);</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; offset; i++) {
+<span class="cstat-no" title="statement not covered" >            found = regex.exec(source);</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        if (!found) {
+<span class="cstat-no" title="statement not covered" >            return undefined;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        let bracketCount = 0;</span>
+<span class="cstat-no" title="statement not covered" >        let index = found.index;</span>
+<span class="cstat-no" title="statement not covered" ></span>        while (true) {
+<span class="cstat-no" title="statement not covered" >            const nextEndBlacket = source.indexOf("}", index);</span>
+<span class="cstat-no" title="statement not covered" >            const nextBeginBlacket = source.indexOf("{", index);</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (nextEndBlacket &lt; 0 &amp;&amp; nextBeginBlacket &lt; 0) {
+<span class="cstat-no" title="statement not covered" >                throw new Error("Unmatch blacket!!");</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if (nextBeginBlacket &lt; 0) {</span>
+                // This means this blacket is end of this section
+<span class="cstat-no" title="statement not covered" >                index = nextEndBlacket + 1;</span>
+<span class="cstat-no" title="statement not covered" >                break;</span>
+            }
+            else <span class="cstat-no" title="statement not covered" ></span>if (nextBeginBlacket &lt; nextEndBlacket) {
+<span class="cstat-no" title="statement not covered" >                index = nextBeginBlacket + 1;</span>
+<span class="cstat-no" title="statement not covered" >                bracketCount++;</span>
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                index = nextEndBlacket + 1;</span>
+<span class="cstat-no" title="statement not covered" >                bracketCount--;</span>
+            }
+<span class="cstat-no" title="statement not covered" ></span>            if (bracketCount === 0) {
+<span class="cstat-no" title="statement not covered" >                break;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return source.substring(found.index + found[1].length, index);</span>
+    }
+    _parsePositions(meshSection) {
+<span class="cstat-no" title="statement not covered" >        const positionRegex = /([-\.\d]+);\s*([-\.\d]+);\s*([-\.\d]+);\s*/g;</span>
+<span class="cstat-no" title="statement not covered" >        let regexResult;</span>
+<span class="cstat-no" title="statement not covered" >        let positionCache = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        while ((regexResult = positionRegex.exec(meshSection))) {
+<span class="cstat-no" title="statement not covered" >            positionCache.push(parseFloat(regexResult[1]), parseFloat(regexResult[2]), parseFloat(regexResult[3]));</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.positions = new Float32Array(positionCache);</span>
+    }
+    _parseFaces(meshSection, meshMaterialListSection) <span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span>{</span>
+<span class="cstat-no" title="statement not covered" >        const faceRegex = /[34];(\d+),(\d+),(\d+)(?:,(\d+))?;/g;</span>
+<span class="cstat-no" title="statement not covered" >        let faceRegexResult;</span>
+<span class="cstat-no" title="statement not covered" >        let faceCache = [];</span>
+<span class="cstat-no" title="statement not covered" >        const materialIndexRegex = /(\d+)/g;</span>
+<span class="cstat-no" title="statement not covered" >        let materialGroupCount = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);</span>
+<span class="cstat-no" title="statement not covered" >        const matIndiciesCount = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; materialGroupCount; i++) {
+<span class="cstat-no" title="statement not covered" >            faceCache[i] = [];</span>
+        }
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; matIndiciesCount; i++) {
+<span class="cstat-no" title="statement not covered" >            faceRegexResult = faceRegex.exec(meshSection);</span>
+<span class="cstat-no" title="statement not covered" >            const materialIndex = parseInt(materialIndexRegex.exec(meshMaterialListSection)[1], 10);</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (faceRegexResult[4]) {
+<span class="cstat-no" title="statement not covered" >                const f1 = parseInt(faceRegexResult[1], 10), f2 = parseInt(faceRegexResult[2], 10), f3 = parseInt(faceRegexResult[3], 10), f4 = parseInt(faceRegexResult[4], 10);</span>
+<span class="cstat-no" title="statement not covered" >                faceCache[materialIndex].push(f1, f2, f4, f2, f3, f4);</span>
+            }
+            else {
+<span class="cstat-no" title="statement not covered" >                faceCache[materialIndex].push(parseInt(faceRegexResult[1], 10), parseInt(faceRegexResult[2], 10), parseInt(faceRegexResult[3], 10));</span>
+            }
+        }
+        // Reduce unused materials
+        for (let i = 0; i &lt; faceCache.length; i++) {
+<span class="cstat-no" title="statement not covered" ></span>            if (faceCache[i].length === 0) {
+<span class="cstat-no" title="statement not covered" >                faceCache.splice(i, 1);</span>
+<span class="cstat-no" title="statement not covered" >                this.materials.splice(i, 1);</span>
+<span class="cstat-no" title="statement not covered" >                i--;</span>
+            }
+        }
+        // Set face count for materials
+        let offset = 0;
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; faceCache.length; i++) {
+<span class="cstat-no" title="statement not covered" >            this.materials[i].indexOffset = offset;</span>
+<span class="cstat-no" title="statement not covered" >            offset += this.materials[i].indexCount = faceCache[i].length;</span>
+        }
+        // Concat face Array
+        let concattedFaceArray = [];
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; faceCache.length; i++) {
+<span class="cstat-no" title="statement not covered" >            concattedFaceArray = concattedFaceArray.concat(faceCache[i]);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.indicies = new Uint32Array(concattedFaceArray);</span>
+    }
+    _parseMaterials(meshMaterialSection) {
+<span class="cstat-no" title="statement not covered" >        let materialSection;</span>
+<span class="cstat-no" title="statement not covered" >        let materialIndex = 0;</span>
+<span class="cstat-no" title="statement not covered" ></span>        while ((materialSection = this._sliceSection(meshMaterialSection, "Material", materialIndex))) {
+<span class="cstat-no" title="statement not covered" >            const numberRegex = /([-\.\d]+);/;</span>
+<span class="cstat-no" title="statement not covered" >            const foundNumbers = new Array(11);</span>
+<span class="cstat-no" title="statement not covered" ></span>            for (let i = 0; i &lt; 11; i++) {
+<span class="cstat-no" title="statement not covered" >                const regexResult = numberRegex.exec(materialSection);</span>
+<span class="cstat-no" title="statement not covered" >                foundNumbers[i] = parseFloat(regexResult[1]);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            const textureSection = this._sliceSection(materialSection, "TextureFilename", 0);</span>
+<span class="cstat-no" title="statement not covered" >            let texturePath;</span>
+<span class="cstat-no" title="statement not covered" ></span>            if (textureSection) {
+<span class="cstat-no" title="statement not covered" >                texturePath = /"([^"]+)"/.exec(textureSection)[1].replace(/\\/g, "/");</span>
+<span class="cstat-no" title="statement not covered" >                texturePath = texturePath.replace(".tga", ".tga.png");</span>
+            }
+<span class="cstat-no" title="statement not covered" >            this.materials[materialIndex] = {</span>
+                faceColor: new Vector4(foundNumbers[0], foundNumbers[1], foundNumbers[2], foundNumbers[3]),
+                power: foundNumbers[4],
+                specularColor: new Vector3(foundNumbers[5], foundNumbers[6], foundNumbers[7]),
+                emissiveColor: new Vector3(foundNumbers[8], foundNumbers[9], foundNumbers[10]),
+                texture: texturePath ? this._directory + texturePath : undefined,
+                indexCount: undefined,
+                indexOffset: undefined
+            };
+<span class="cstat-no" title="statement not covered" >            materialIndex++;</span>
+        }
+    }
+    _parseTexCoords(meshTextureSection) {
+<span class="cstat-no" title="statement not covered" >        const texCoordRegex = /([-\.\d]+);([-\.\d]+);/g;</span>
+<span class="cstat-no" title="statement not covered" >        let regexResult;</span>
+<span class="cstat-no" title="statement not covered" >        let texCoordCache = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        while ((regexResult = texCoordRegex.exec(meshTextureSection))) {
+<span class="cstat-no" title="statement not covered" >            texCoordCache.push(parseFloat(regexResult[1]), parseFloat(regexResult[2]));</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.texCoords = new Float32Array(texCoordCache);</span>
+    }
+    _prepareForUsing() {
+        // Load textures
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; this.materials.length; i++) {
+<span class="cstat-no" title="statement not covered" ></span>            if (this.materials[i].texture) {
+<span class="cstat-no" title="statement not covered" >                ImageLoader.loadImage(this.materials[i].texture);</span>
+            }
+        }
+    }
+    _generateNormals() {
+<span class="cstat-no" title="statement not covered" >        let normalCache = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>        for (let i = 0; i &lt; this.indicies.length; i += 3) {
+<span class="cstat-no" title="statement not covered" >            const f1i = this.indicies[i];</span>
+<span class="cstat-no" title="statement not covered" >            const f2i = this.indicies[i + 1];</span>
+<span class="cstat-no" title="statement not covered" >            const f3i = this.indicies[i + 2];</span>
+<span class="cstat-no" title="statement not covered" >            const normal = this._generateNormal(f1i, f2i, f3i);</span>
+<span class="cstat-no" title="statement not covered" >            normalCache[3 * f1i] = normalCache[3 * f2i] = normalCache[3 * f3i] = normal[0];</span>
+<span class="cstat-no" title="statement not covered" >            normalCache[3 * f1i + 1] = normalCache[3 * f2i + 1] = normalCache[3 * f3i + 1] = normal[1];</span>
+<span class="cstat-no" title="statement not covered" >            normalCache[3 * f1i + 2] = normalCache[3 * f2i + 2] = normalCache[3 * f3i + 2] = normal[2];</span>
+        }
+<span class="cstat-no" title="statement not covered" >        this.normals = new Float32Array(normalCache);</span>
+    }
+    _generateNormal(p1Index, p2Index, p3Index) {
+<span class="cstat-no" title="statement not covered" >        const p1x = this.positions[3 * p1Index];</span>
+<span class="cstat-no" title="statement not covered" >        const p1y = this.positions[3 * p1Index + 1];</span>
+<span class="cstat-no" title="statement not covered" >        const p1z = this.positions[3 * p1Index + 2];</span>
+<span class="cstat-no" title="statement not covered" >        const p2x = this.positions[3 * p2Index];</span>
+<span class="cstat-no" title="statement not covered" >        const p2y = this.positions[3 * p2Index + 1];</span>
+<span class="cstat-no" title="statement not covered" >        const p2z = this.positions[3 * p2Index + 2];</span>
+<span class="cstat-no" title="statement not covered" >        const p3x = this.positions[3 * p3Index];</span>
+<span class="cstat-no" title="statement not covered" >        const p3y = this.positions[3 * p3Index + 1];</span>
+<span class="cstat-no" title="statement not covered" >        const p3z = this.positions[3 * p3Index + 2];</span>
+<span class="cstat-no" title="statement not covered" >        const ret = [(p2y - p1y) * (p3z - p1z) - (p2z - p1z) * (p3y - p1y),</span>
+            (p2z - p1z) * (p3x - p1x) - (p2x - p1x) * (p3z - p1z),
+            (p2x - p1x) * (p3y - p1y) - (p2y - p1y) * (p3x - p1x)];
+<span class="cstat-no" title="statement not covered" >        const length = Math.sqrt(ret[0] * ret[0] + ret[1] * ret[1] + ret[2] * ret[2]);</span>
+<span class="cstat-no" title="statement not covered" >        ret[0] /= length;</span>
+<span class="cstat-no" title="statement not covered" >        ret[1] /= length;</span>
+<span class="cstat-no" title="statement not covered" >        ret[2] /= length;</span>
+<span class="cstat-no" title="statement not covered" >        return ret;</span>
+    }
+}
+XFileData._loader = new AsyncLoader();
+export default XFileData;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 00:47:38 GMT+0900 (JST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

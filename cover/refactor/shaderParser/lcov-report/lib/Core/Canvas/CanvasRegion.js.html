@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.97% </span>
+        <span class="strong">35.82% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/67</span>
+        <span class='fraction'>24/67</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/2</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.97% </span>
+        <span class="strong">35.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/67</span>
+        <span class='fraction'>24/67</span>
       </div>
     </div>
   </div>
@@ -227,9 +227,9 @@
 182
 183
 184
-185</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">1×</span>
+185</td><td class="line-coverage quiet"><span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,33 +242,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -426,33 +426,33 @@ class CanvasRegion extends JThreeObjectEEWithID {
      * Constructor
      * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
      */
-<span class="fstat-no" title="function not covered" >    constructor(canvasElement) {</span>
+    constructor(canvasElement) {
         super();
         /**
          * Whether mouse is on the region or not.
          *
          * マウスが現在このクラスが管理する領域の上に乗っているかどうか。
          */
-<span class="cstat-no" title="statement not covered" >        this.mouseOver = false;</span>
-<span class="cstat-no" title="statement not covered" >        this.mouseX = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.mouseY = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.lastMouseX = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.lastMouseY = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.lastMouseDownX = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.lastMouseDownY = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.mouseDownTracking = false;</span>
-<span class="cstat-no" title="statement not covered" >        this.mouseLocalX = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.mouseLocalY = 0;</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement = canvasElement;</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);</span>
-<span class="cstat-no" title="statement not covered" >        this.name = this.ID;</span>
+        this.mouseOver = false;
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.lastMouseX = 0;
+        this.lastMouseY = 0;
+        this.lastMouseDownX = 0;
+        this.lastMouseDownY = 0;
+        this.mouseDownTracking = false;
+        this.mouseLocalX = 0;
+        this.mouseLocalY = 0;
+        this.canvasElement = canvasElement;
+        this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
+        this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
+        this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
+        this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
+        this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
+        this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
+        this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
+        this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
+        this.name = this.ID;
     }
     /**
      * The region managed by this class.(This getter should be overridden)
@@ -601,7 +601,7 @@ export default CanvasRegion;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 14 2016 20:00:59 GMT+0900 (JST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 15 2016 00:47:38 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
