@@ -1,3 +1,45 @@
+import assert from 'power-assert';
+import sinon from 'sinon';
+import util from "util"
+import ConditionBlock from "../../../../lib/Core/Materials/Base/ConditionBlock";
+import TestConditionChecker from "./TestConditionChecker";
+import TestConditionRegister from "./TestConditionRegister";
+import ConditionInput from './ConditionInput.glsl';
+import ShaderParser from "../../../../lib/Core/Materials/Base/ShaderParser";
+import _ from "lodash"
+import JSON5 from "json5";
+import Q from "q";
+
+class TestTransformer1{
+      transform(input){
+        return Q.when({
+          initialSource: input.initialSource,
+          transformSource: input.transformSource+"_1",
+          description: input.description
+        });
+      }
+}
+class TestTransformer2{
+      transform(input){
+        return Q.when({
+          initialSource: input.initialSource,
+          transformSource: input.transformSource+"_2",
+          description: input.description
+        });
+      }
+}
+
+describe('ShaderParser class test', () => {
+  it('Test for transeform', () => {
+    var promise = ShaderParser.transform("aaa",[new TestTransformer1(),new TestTransformer2]);
+    promise.then(function(res){
+      console.log("success!!!");
+      console.log("result:"+res.transformSource);
+    });
+    assert(true);
+  });
+});
+
 // import assert from 'power-assert';
 // import sinon from 'sinon';
 // //import ShaderSource from './TestSource.glsl'

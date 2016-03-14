@@ -11,7 +11,7 @@ import Q from "q";
 
 describe('Condition block class test', () => {
   it('Test for parseCondition', () => {
-    console.log("input: "+ConditionInput)
+    // console.log("input: "+ConditionInput)
     let tcc = new TestConditionChecker("t123")
     let tcc2 = new TestConditionChecker("tt1")
     let tcc3 = new TestConditionChecker("tt2")

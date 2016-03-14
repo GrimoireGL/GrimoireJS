@@ -2,6 +2,8 @@ import IVariableDescription from "./IVariableDescription";
 import IFunctionDescription from "./IFunctionDescription";
 import IArgumentDescription from "./IArgumentDescription";
 import IProgramDescription from "./IProgramDescription";
+import IProgramTransformer from "./IProgramTransformer";
+import IProgramTransform from "./IProgramTransform";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import MaterialManager from "./MaterialManager";
@@ -12,40 +14,251 @@ import Q from "q";
  * This class provides all useful methods for parsing XMML.
  */
 class ShaderParser {
+
+  public static transform(source: string, transformers: IProgramTransformer[]): Q.IPromise<IProgramTransform> {
+    let promise: Q.IPromise<IProgramTransform> = Q.when(null);
+    for (let i = 0; i < transformers.length; i++) {
+      promise = promise.then<IProgramTransform>(function(arg): Q.IPromise<IProgramTransform> {
+        console.log("");
+        console.log("stage:" + (i + 1));
+        let obj: {
+          initialSource: string,
+          transformSource: string,
+          description: IProgramDescription
+        };
+        obj = {
+          initialSource: source,
+          transformSource: arg == null ? source : arg.transformSource,
+          description: arg == null ? {
+            fragment: null,
+            vertex: null,
+            uniforms: null,
+            attributes: null,
+            fragmentPrecisions: null,
+            vertexPrecisions: null
+          } : arg.description
+        };
+        console.log("current arg:initialSource:" + obj.initialSource);
+        console.log("transformSource:" + obj.transformSource);
+        console.log("description:" + obj.description);
+        let t = transformers[i];
+        return t.transform(obj);
+      });
+    }
+    return promise;
+  }
+
   /**
    * Parse raw XMML
    * @param  {string}               whole string code of XMML
    * @return {IProgramDescription} information of parsed codes.
    */
   public static parseCombined(codeString: string): Q.IPromise<IProgramDescription> {
-    codeString = ShaderParser._removeMultiLineComment(codeString);
-    codeString = ShaderParser._removeLineComment(codeString);
-    const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-    return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
-      const uniforms = ShaderParser._parseVariables(codeString, "uniform");
-      const attributes = ShaderParser._parseVariables(codeString, "attribute");
-      const functions = ShaderParser._parseFunctions(codeString);
-      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vert"), "frag");
-      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "frag"), "vert");
-      fragment = ShaderParser._removeAttributeVariables(fragment);
-      fragment = ShaderParser._removeVariableAnnotations(fragment);
-      vertex = ShaderParser._removeVariableAnnotations(vertex);
-      let fragPrecision = ShaderParser._obtainPrecisions(fragment);
-      let vertPrecision = ShaderParser._obtainPrecisions(vertex);
-      if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
-        fragment = this._addPrecision(fragment, "float", "mediump");
-        fragPrecision["float"] = "mediump";
+    class ProgramTransformer implements IProgramTransformer {
+      private _func: (IProgramTransform) => Q.IPromise<IProgramTransform> = null;
+      constructor(func: (IProgramTransform) => Q.IPromise<IProgramTransform>) {
+        this._func = func;
       }
+      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+        return this._func(input);
+      }
+    }
+    class StringTransformer implements IProgramTransformer {
+      private _stringTransformFunc: (string) => string = null;
+      constructor(func: (string) => string) {
+        this._stringTransformFunc = func;
+      }
+      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+        let pt: IProgramTransform = {
+          initialSource: input.initialSource,
+          transformSource: this._stringTransformFunc(input.transformSource),
+          description: input.description
+        }
+        return Promise.resolve(pt);
+      }
+    }
+    class DescriptionTransformer implements IProgramTransformer {
+      private _descriptionTransformFunc: (IProgramTransform) => IProgramDescription = null;
+      constructor(func: (IProgramTransform) => IProgramDescription) {
+        this._descriptionTransformFunc = func;
+      }
+      public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+        let nextDescription = this._descriptionTransformFunc(input);
+        let pt: IProgramTransform = {
+          initialSource: input.initialSource,
+          transformSource: input.transformSource,
+          description: nextDescription
+        };
+        return Promise.resolve(pt);
+      }
+    }
+
+    const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    let transformers: IProgramTransformer[] = [];
+    transformers.push(new StringTransformer((x: string) => {
+      return ShaderParser._removeMultiLineComment(x);
+    }));
+    transformers.push(new StringTransformer((arg: string) => {
+      return ShaderParser._removeLineComment(arg);
+    }));
+    transformers.push(new ProgramTransformer((arg: IProgramTransform) => {
+      return ShaderParser.parseImport(arg.transformSource, materialManager).then((s: string) => {
+        return {
+          initialSource: arg.initialSource,
+          transformSource: s,
+          description: arg.description
+        }
+      })
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let uniforms = ShaderParser._parseVariables(arg.transformSource, "uniform");
       return {
-        attributes: attributes,
-        fragment: fragment,
-        vertex: vertex,
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
         uniforms: uniforms,
-        fragmentPrecisions: fragPrecision,
-        vertexPrecisions: vertPrecision,
-        functions: functions
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
       };
-    });
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let attributes = ShaderParser._parseVariables(arg.transformSource, "attribute");
+      return {
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let functions = ShaderParser._parseFunctions(arg.transformSource);//dont use!
+      return {
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(arg.transformSource, "vert"), "frag");
+      return {
+        fragment: fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(arg.transformSource, "frag"), "vert");
+      return {
+        fragment: arg.description.fragment,
+        vertex: vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      return {
+        fragment: ShaderParser._removeAttributeVariables(arg.description.fragment),
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      return {
+        fragment: ShaderParser._removeVariableAnnotations(arg.description.fragment),
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      return {
+        fragment: arg.description.fragment,
+        vertex: ShaderParser._removeVariableAnnotations(arg.description.vertex),
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      return {
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: ShaderParser._obtainPrecisions(arg.description.fragment),
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      return {
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: ShaderParser._obtainPrecisions(arg.description.vertex)
+      };
+    }));
+    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
+      let description: IProgramDescription = {
+        fragment: arg.description.fragment,
+        vertex: arg.description.vertex,
+        uniforms: arg.description.uniforms,
+        attributes: arg.description.attributes,
+        fragmentPrecisions: arg.description.fragmentPrecisions,
+        vertexPrecisions: arg.description.vertexPrecisions
+      };
+      if (!arg.description.fragmentPrecisions["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
+        description.fragment = this._addPrecision(description.fragment, "float", "mediump");
+        description.fragmentPrecisions["float"] = "mediump";
+      }
+      return description;
+    }));
+
+    return ShaderParser.transform(codeString, transformers).then((arg: IProgramTransform) => arg.description);
+    // codeString = ShaderParser._removeMultiLineComment(codeString);
+    // codeString = ShaderParser._removeLineComment(codeString);
+    // return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
+    //   // const uniforms = ShaderParser._parseVariables(codeString, "uniform");
+    //   // const attributes = ShaderParser._parseVariables(codeString, "attribute");
+    //   // const functions = ShaderParser._parseFunctions(codeString);
+    //   // let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vert"), "frag");
+    //   // let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "frag"), "vert");
+    //   // fragment = ShaderParser._removeAttributeVariables(fragment);
+    //   // fragment = ShaderParser._removeVariableAnnotations(fragment);
+    //   // vertex = ShaderParser._removeVariableAnnotations(vertex);
+    //   // let fragPrecision = ShaderParser._obtainPrecisions(fragment);
+    //   // let vertPrecision = ShaderParser._obtainPrecisions(vertex);
+    //   // if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
+    //   //   fragment = this._addPrecision(fragment, "float", "mediump");
+    //   //   fragPrecision["float"] = "mediump";
+    //   // }
+    //   // return {
+    //   //   attributes: attributes,
+    //   //   fragment: fragment,
+    //   //   vertex: vertex,
+    //   //   uniforms: uniforms,
+    //   //   fragmentPrecisions: fragPrecision,
+    //   //   vertexPrecisions: vertPrecision,
+    //   //   functions: functions
+    //   // };
+    // });
   }
 
   public static getImports(source: string): string[] {
