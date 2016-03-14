@@ -13,10 +13,7 @@ dependencies:
 test:
   override:
     - npm rebuild
-    - npm run build -- --branch=$CIRCLE_BRANCH
-    - npm run doc -- --branch=$CIRCLE_BRANCH
-    - npm run lint -- --branch=$CIRCLE_BRANCH
-    - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
+    - sh ./build/shell/test.sh
   post:
     - git config --global user.email "admin@jthree.io"
     - git config --global user.name "CircleCI"
