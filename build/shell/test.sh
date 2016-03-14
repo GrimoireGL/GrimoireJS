@@ -7,7 +7,7 @@ case $CIRCLE_NODE_INDEX in
   2)
     npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
     rc=$?;
-    if [[ $rc != 0 ]]; then
+    if [ $rc != 0 ]; then
       npm run rebuild
       npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
       exit $?
