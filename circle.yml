@@ -13,7 +13,7 @@ dependencies:
 test:
   override:
     - npm rebuild
-    - sh ./build/shell/test.sh
+    - sh ./build/shell/test.sh:
      parallel: true
   post:
     - git config --global user.email "admin@jthree.io"
