@@ -1,6 +1,6 @@
 import Geometry from "../../Core/Geometries/Base/Geometry";
 import IXMaterialData from "../IXMaterialData";
-import BasicMaterial from "../../Core/Materials/Base/BasicMaterial";
+import BasicMaterial from "../../Core/Materials/BasicMaterial";
 class XPrimaryMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
     super(require("../Material/Primary.html"));

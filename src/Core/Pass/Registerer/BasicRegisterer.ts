@@ -1,8 +1,8 @@
-import Vector2 from "../../../../Math/Vector2";
-import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
-import IApplyMaterialArgument from "../IApplyMaterialArgument";
-import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
-import Matrix from "../../../../Math/Matrix";
+import Vector2 from "../../../Math/Vector2";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
+import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import Matrix from "../../../Math/Matrix";
 import RegistererBase from "./RegistererBase";
 class BasicRegisterer extends RegistererBase {
   public getName(): string {

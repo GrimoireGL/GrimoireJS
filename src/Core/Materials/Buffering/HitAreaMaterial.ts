@@ -1,5 +1,5 @@
-import BasicMaterial from "../Base/BasicMaterial";
-import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
+import BasicMaterial from "../BasicMaterial";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import Vector4 from "../../../Math/Vector4";
 
 class HitAreaMaterial extends BasicMaterial {

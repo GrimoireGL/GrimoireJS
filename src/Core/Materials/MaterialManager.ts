@@ -1,14 +1,14 @@
-import BasicRegisterer from "./Registerer/BasicRegisterer";
-import RegistererBase from "./Registerer/RegistererBase";
-import StageDescriptionRegisterer from "./Registerer/StageDescriptionRegisterer";
+import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
+import RegistererBase from "../Pass/Registerer/RegistererBase";
+import StageDescriptionRegisterer from "../Pass/Registerer/StageDescriptionRegisterer";
 import BasicMaterial from "./BasicMaterial";
-import ShaderParser from "../../ProgramTransformer/ShaderParser";
-import IContextComponent from "../../../IContextComponent";
-import ContextComponents from "../../../ContextComponents";
-import BufferRegisterer from "./Registerer/BufferRegisterer";
-import TimeRegisterer from "./Registerer/TimeRegisterer";
-import AsyncLoader from "../../Resources/AsyncLoader";
-import IConditionChecker from "../../ProgramTransformer/Base/IConditionChecker";
+import ProgramTranspiler from "../ProgramTransformer/ProgramTranspiler";
+import IContextComponent from "../../IContextComponent";
+import ContextComponents from "../../ContextComponents";
+import BufferRegisterer from "../Pass/Registerer/BufferRegisterer";
+import TimeRegisterer from "../Pass/Registerer/TimeRegisterer";
+import AsyncLoader from "../Resources/AsyncLoader";
+import IConditionChecker from "../ProgramTransformer/Base/IConditionChecker";
 import Q from "q";
 /**
  * A ContextComponent provides the feature to manage materials.
@@ -23,18 +23,18 @@ class MaterialManager implements IContextComponent {
   private _chunkLoader: AsyncLoader<string> = new AsyncLoader<string>();
 
   constructor() {
-    this.addShaderChunk("builtin.packing", require("../BuiltIn/Chunk/_Packing.glsl"));
-    this.addShaderChunk("builtin.gbuffer-packing", require("../BuiltIn/GBuffer/_GBufferPacking.glsl"));
-    this.addShaderChunk("jthree.builtin.vertex", require("../BuiltIn/Vertex/_BasicVertexTransform.glsl"));
-    this.addShaderChunk("jthree.builtin.shadowfragment", require("../BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
-    this.addShaderChunk("builtin.gbuffer-reader", require("../BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
+    this.addShaderChunk("builtin.packing", require("./BuiltIn/Chunk/_Packing.glsl"));
+    this.addShaderChunk("builtin.gbuffer-packing", require("./BuiltIn/GBuffer/_GBufferPacking.glsl"));
+    this.addShaderChunk("jthree.builtin.vertex", require("./BuiltIn/Vertex/_BasicVertexTransform.glsl"));
+    this.addShaderChunk("jthree.builtin.shadowfragment", require("./BuiltIn/ShadowMap/_ShadowMapFragment.glsl"));
+    this.addShaderChunk("builtin.gbuffer-reader", require("./BuiltIn/Light/Chunk/_LightAccumulation.glsl"));
     this.addUniformRegister(BasicRegisterer);
     this.addUniformRegister(TimeRegisterer);
     // this.addUniformRegister(TextureRegister);
     this.addUniformRegister(BufferRegisterer);
     this.addUniformRegister(StageDescriptionRegisterer);
-    this.registerMaterial(require("../BuiltIn/Materials/Phong.html"));
-    this.registerMaterial(require("../BuiltIn/Materials/SolidColor.html"));
+    this.registerMaterial(require("./BuiltIn/Materials/Phong.html"));
+    this.registerMaterial(require("./BuiltIn/Materials/SolidColor.html"));
   }
 
   public getContextComponentIndex(): number {
@@ -47,7 +47,7 @@ class MaterialManager implements IContextComponent {
    * @param {string} val shader chunk code
    */
   public addShaderChunk(key: string, val: string): void {
-    this._chunkLoader.pushLoaded(key, ShaderParser.parseInternalImport(val, this));
+    this._chunkLoader.pushLoaded(key, ProgramTranspiler.parseInternalImport(val, this));
   }
 
   public loadChunks(srcs: string[]): Promise<string[]> {
@@ -119,8 +119,8 @@ class MaterialManager implements IContextComponent {
       xhr.open("GET", absPath, true);
       xhr.setRequestHeader("Accept", "text");
       xhr.onload = () => {
-        this.loadChunks(ShaderParser.getImports(xhr.responseText));
-        ShaderParser.parseImport(xhr.responseText, this).then((source) => {
+        this.loadChunks(ProgramTranspiler.getImports(xhr.responseText));
+        ProgramTranspiler.parseImport(xhr.responseText, this).then((source) => {
           deferred.resolve(source);
         });
       };

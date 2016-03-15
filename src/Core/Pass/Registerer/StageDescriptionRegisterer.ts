@@ -1,7 +1,7 @@
 import RegistererBase from "./RegistererBase";
-import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
-import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
+import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
 class StageDescriptionRegisterer extends RegistererBase {
   public getName(): string {
     return "builtin.stageInfo";

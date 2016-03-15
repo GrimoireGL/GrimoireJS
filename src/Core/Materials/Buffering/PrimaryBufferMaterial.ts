@@ -1,5 +1,5 @@
-import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
-import BasicMaterial from "../Base/BasicMaterial";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import BasicMaterial from "../BasicMaterial";
 class PrimaryBufferMaterial extends BasicMaterial {
   constructor() {
     super(require("../BuiltIn/GBuffer/PrimaryBuffer.html"));

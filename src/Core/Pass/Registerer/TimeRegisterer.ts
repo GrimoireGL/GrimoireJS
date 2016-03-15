@@ -1,11 +1,11 @@
 import RegistererBase from "./RegistererBase";
-import Vector4 from "../../../../Math/Vector4";
-import JThreeContext from "../../../../JThreeContext";
-import ContextComponents from "../../../../ContextComponents";
-import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
-import IApplyMaterialArgument from "../IApplyMaterialArgument";
-import Timer from "../../../Timer";
+import Vector4 from "../../../Math/Vector4";
+import JThreeContext from "../../../JThreeContext";
+import ContextComponents from "../../../ContextComponents";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
+import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
+import Timer from "../../Timer";
 
 class TimeRegisterer extends RegistererBase {
 
