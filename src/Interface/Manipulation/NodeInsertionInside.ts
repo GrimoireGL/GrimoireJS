@@ -44,9 +44,9 @@ class NodeInsertionInside extends J3ObjectBase {
     const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     switch (true) {
       case isString(argu0):
-        const xml = new XMLParser(<string>argu0);
-        if (xml.isValid) {
-          // argu0 is xml
+        const parseObj = new XMLParser(<string>argu0);
+        if (parseObj.isValid) {
+          // argu0 is parseObj
           throw new Error("Not implemented yet");
         } else {
           // argu0 is selector

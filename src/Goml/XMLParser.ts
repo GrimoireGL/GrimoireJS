@@ -3,32 +3,59 @@
  */
 class XMLParser {
   /**
-   * parsed document
+   * parsed document.
    * @type {Document}
    */
-
   private _doc: Document;
+
   /**
-   * get source xml
+   * parsed elements.
+   * @type {HTMLElement[]}
+   */
+  private _elements: HTMLElement[];
+
+  /**
+   * get source xml.
    * @type {string}
    */
   private _xml: string;
 
   /**
-   * parse xml
-   * @param {string} xml xml string for parse
+   * XMLParserError object.
+   * @type {XMLParserError}
    */
-  constructor(xml: string) {
+  private _error: XMLParserError;
+
+  /**
+   * parse xml. By default, multiple root element is available.
+   * @param {string}  xml    xml string for parse.
+   * @param {boolean} nowrap If this flag is true, root element must be single element.
+   */
+  constructor(xml: string, nowrap?: boolean) {
     this._xml = xml;
-    this._doc = (new DOMParser()).parseFromString(xml, "text/xml")
+    this._doc = (new DOMParser()).parseFromString(xml, "text/xml");
+    if (!nowrap) {
+      this.updateError();
+      if (!this.error.all) {
+        this._elements = [this._doc.documentElement];
+      } else if (this.error.message === "Extra content at the end of the document") {
+        this._doc = (new DOMParser()).parseFromString(`<root>${xml}</root>`, "text/xml");
+        this.updateError();
+        if (this.isValid) {
+          this._elements = Array.prototype.slice.call(this._doc.documentElement.childNodes);
+        } else {
+          this._elements = void 0;
+        }
+      }
+    }
   }
 
   /**
-   * get root element
-   * @return {Element} root element
+   * get root elements.
+   * @return {HTMLElement[]} root elements
    */
-  public get element(): Element {
-    return this.doc.documentElement;
+  public get elements(): HTMLElement[] {
+    return this._elements;
   }
 
   /**
@@ -36,23 +63,72 @@ class XMLParser {
    * @return {boolean} valid or not
    */
   public get isValid(): boolean {
-    return !this.doc.querySelector("parsererror");
+    return !this.error;
   }
 
   /**
-   * get original xml string
-   * @return {string} [description]
+   * get XMLParserError.
+   * @return {XMLParserError} XMLParserError object.
+   */
+  public get error(): XMLParserError {
+    if (!this._error) {
+      this.updateError();
+    }
+    if (this._error.all) {
+      return this._error;
+    } else {
+      return;
+    }
+  }
+
+  /**
+   * get original xml string.
+   * @return {string} xml string
    */
   public get xml(): string {
     return this._xml;
   }
 
+  private updateError(): void {
+    this._error = new XMLParserError(this._doc);
+  }
+}
+
+export class XMLParserError {
   /**
-   * get parsed document
-   * @return {Document} [description]
+   * whole error message.
+   * @type {string}
    */
-  public get doc(): Document {
-    return this._doc;
+  private _all: string;
+
+  /**
+   * message part of error.
+   * @type {string}
+   */
+  private _message: string;
+
+  constructor(doc: Document) {
+    const parsererrorElement = doc.querySelector("parsererror div");
+    if (parsererrorElement) {
+      this._all = parsererrorElement.innerHTML.replace(/^\s+|\s+$/g, '');
+      this._message = this._all.match(/^.+?:\s?(.+)$/)[1];
+    }
+  }
+
+  /**
+   * get whole error message.
+   * @return {string} error message string.
+   */
+  public get all(): string {
+    return this._all;
+  }
+
+  /**
+   * get message part of error.
+   * @return {string} error message string.
+   */
+  public get message() : string {
+    return this._message;
   }
 }
 

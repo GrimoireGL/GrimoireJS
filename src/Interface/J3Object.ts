@@ -2,6 +2,11 @@ import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 import J3ObjectBase from "./J3ObjectBase";
 import isArray from "lodash.isarray";
 import isString from "lodash.isstring";
+import XMLParser from "../Goml/XMLParser";
+import GomlParser from "../Goml/GomlParser";
+import JThreeContext from "../JThreeContext";
+import ContextComponents from "../ContextComponents";
+import NodeManager from "../Goml/NodeManager";
 // for Implements
 import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
 import TreeTraversal from "./Traversing/TreeTraversal";
@@ -34,7 +39,15 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
     let query: string;
     switch (true) {
       case (isString(argu)):
-        query = argu;
+        const parseObj = new XMLParser(<string>argu);
+        if (parseObj.isValid) {
+          const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+          nodes = parseObj.elements.map((elem) => {
+            return GomlParser.parse(elem, nodeManager.configurator);
+          });
+        } else {
+          query = argu;
+        }
         break;
       case (argu instanceof GomlTreeNodeBase):
         nodes = [argu];
