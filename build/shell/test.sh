@@ -12,6 +12,6 @@ case $CIRCLE_NODE_INDEX in
       npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
       exit $?
     else
-      exit rc
+      exit $rc
     fi;;
 esac
