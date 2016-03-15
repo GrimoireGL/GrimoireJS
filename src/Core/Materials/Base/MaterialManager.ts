@@ -50,8 +50,8 @@ class MaterialManager implements IContextComponent {
     this._chunkLoader.pushLoaded(key, ShaderParser.parseInternalImport(val, this));
   }
 
-  public loadChunks(srcs: string[]): Q.IPromise<string[]> {
-    return Q.all(srcs.map(src => this._loadChunk(src)));
+  public loadChunks(srcs: string[]): Promise<string[]> {
+    return Promise.all(srcs.map(src => this._loadChunk(src)));
   }
 
 

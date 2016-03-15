@@ -7,7 +7,7 @@ class DescriptionTransformer implements IProgramTransformer {
   constructor(func: (IProgramTransform) => IProgramDescription) {
     this._descriptionTransformFunc = func;
   }
-  public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+  public transform(input: IProgramTransform): Promise<IProgramTransform> {
     let nextDescription = this._descriptionTransformFunc(input);
     let pt: IProgramTransform = {
       initialSource: input.initialSource,

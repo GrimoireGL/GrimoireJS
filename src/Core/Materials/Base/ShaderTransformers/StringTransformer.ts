@@ -6,7 +6,7 @@ class StringTransformer implements IProgramTransformer {
   constructor(func: (string) => string) {
     this._stringTransformFunc = func;
   }
-  public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+  public transform(input: IProgramTransform): Promise<IProgramTransform> {
     let pt: IProgramTransform = {
       initialSource: input.initialSource,
       transformSource: this._stringTransformFunc(input.transformSource),

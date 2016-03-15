@@ -17,12 +17,14 @@ import Q from "q";
  * This class provides all useful methods for parsing XMML.
  */
 class ShaderParser {
-  public static transform(source: string, transformers: IProgramTransformer[]): Q.IPromise<IProgramTransform> {
-    let promise: Q.IPromise<IProgramTransform> = Q.when(null);
+  public static transform(source: string, transformers: IProgramTransformer[]): Promise<IProgramTransform> {
+    let promise: Promise<IProgramTransform> = new Promise((resolve, reject) => {
+      process.nextTick(() => {
+        resolve();
+      });
+    });
     for (let i = 0; i < transformers.length; i++) {
-      promise = promise.then<IProgramTransform>(function(arg): Q.IPromise<IProgramTransform> {
-        console.log("");
-        console.log("stage:" + (i + 1));
+      promise = promise.then<IProgramTransform>(function(arg): Promise<IProgramTransform> {
         let obj: {
           initialSource: string,
           transformSource: string,
@@ -41,9 +43,6 @@ class ShaderParser {
             functions: null
           } : arg.description
         };
-        console.log("current arg:initialSource:" + obj.initialSource);
-        console.log("transformSource:" + obj.transformSource);
-        console.log("description:" + obj.description);
         let t = transformers[i];
         return t.transform(obj);
       });
@@ -208,33 +207,6 @@ class ShaderParser {
     }));
 
     return ShaderParser.transform(codeString, transformers).then((arg: IProgramTransform) => arg.description);
-    // codeString = ShaderParser._removeMultiLineComment(codeString);
-    // codeString = ShaderParser._removeLineComment(codeString);
-    // return ShaderParser.parseImport(codeString, materialManager).then<IProgramDescription>(result => {
-    //   // const uniforms = ShaderParser._parseVariables(codeString, "uniform");
-    //   // const attributes = ShaderParser._parseVariables(codeString, "attribute");
-    //   // const functions = ShaderParser._parseFunctions(codeString);
-    //   // let fragment = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "vert"), "frag");
-    //   // let vertex = ShaderParser._removeSelfOnlyTag(ShaderParser._removeOtherPart(result, "frag"), "vert");
-    //   // fragment = ShaderParser._removeAttributeVariables(fragment);
-    //   // fragment = ShaderParser._removeVariableAnnotations(fragment);
-    //   // vertex = ShaderParser._removeVariableAnnotations(vertex);
-    //   // let fragPrecision = ShaderParser._obtainPrecisions(fragment);
-    //   // let vertPrecision = ShaderParser._obtainPrecisions(vertex);
-    //   // if (!fragPrecision["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
-    //   //   fragment = this._addPrecision(fragment, "float", "mediump");
-    //   //   fragPrecision["float"] = "mediump";
-    //   // }
-    //   // return {
-    //   //   attributes: attributes,
-    //   //   fragment: fragment,
-    //   //   vertex: vertex,
-    //   //   uniforms: uniforms,
-    //   //   fragmentPrecisions: fragPrecision,
-    //   //   vertexPrecisions: vertPrecision,
-    //   //   functions: functions
-    //   // };
-    // });
   }
 
   public static getImports(source: string): string[] {
@@ -254,7 +226,7 @@ class ShaderParser {
    * @param  {MaterialManager} materialManager the material manager instance containing imported codes.
    * @return {string}                          replaced codes.
    */
-  public static parseImport(source: string, materialManager: MaterialManager): Q.IPromise<string> {
+  public static parseImport(source: string, materialManager: MaterialManager): Promise<string> {
     return materialManager.loadChunks(ShaderParser.getImports(source)).then<string>(() => {
       while (true) {
         const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
@@ -360,7 +332,7 @@ class ShaderParser {
     }
     return result;
   }
-  // `
+
   private static _removeVariableAnnotations(source: string): string {
     let regexResult;
     while (regexResult = /@\{.+\}/g.exec(source)) {

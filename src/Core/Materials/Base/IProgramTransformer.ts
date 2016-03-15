@@ -1,8 +1,7 @@
 import IProgramTransform from "./IProgramTransform";
-import Q from "q";
 
 interface IProgramTransformer {
-  transform(input: IProgramTransform): Q.IPromise<IProgramTransform>;
+  transform(input: IProgramTransform): Promise<IProgramTransform>;
 }
 
 export default IProgramTransformer;
