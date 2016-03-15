@@ -1,5 +1,5 @@
-import IProgramTransformer from "../IProgramTransformer";
-import IProgramTransform from "../IProgramTransform";
+import IProgramTransformer from "../Base/IProgramTransformer";
+import IProgramTransform from "../Base/IProgramTransform";
 
 class StringTransformer implements IProgramTransformer {
   private _stringTransformFunc: (string) => string = null;

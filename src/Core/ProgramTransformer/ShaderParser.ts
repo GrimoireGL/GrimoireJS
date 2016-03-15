@@ -1,15 +1,15 @@
-import IVariableDescription from "./IVariableDescription";
-import IFunctionDescription from "./IFunctionDescription";
-import IArgumentDescription from "./IArgumentDescription";
-import IProgramDescription from "./IProgramDescription";
-import IProgramTransformer from "./IProgramTransformer";
-import IProgramTransform from "./IProgramTransform";
-import ProgramTransformer from "./ShaderTransformers/ProgramTransformer";
-import StringTransformer from "./ShaderTransformers/StringTransformer";
-import DescriptionTransformer from "./ShaderTransformers/DescriptionTransformer";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
-import MaterialManager from "./MaterialManager";
+import IVariableDescription from "./Base/IVariableDescription";
+import IFunctionDescription from "./Base/IFunctionDescription";
+import IArgumentDescription from "./Base/IArgumentDescription";
+import IProgramDescription from "./Base/IProgramDescription";
+import IProgramTransformer from "./Base/IProgramTransformer";
+import IProgramTransform from "./Base/IProgramTransform";
+import ProgramTransformer from "./Transformer/ProgramTransformer";
+import StringTransformer from "./Transformer/StringTransformer";
+import DescriptionTransformer from "./Transformer/DescriptionTransformer";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import MaterialManager from "../Materials/Base/MaterialManager";
 import JSON5 from "json5";
 import Q from "q";
 /**
@@ -24,7 +24,7 @@ class ShaderParser {
       });
     });
     for (let i = 0; i < transformers.length; i++) {
-      promise = promise.then<IProgramTransform>(function(arg): Promise<IProgramTransform> {
+      promise = promise.then<IProgramTransform>((arg) => {
         let obj: {
           initialSource: string,
           transformSource: string,

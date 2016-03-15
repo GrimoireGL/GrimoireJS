@@ -1,5 +1,5 @@
-import IProgramTransformer from "../IProgramTransformer";
-import IProgramTransform from "../IProgramTransform";
+import IProgramTransformer from "../Base/IProgramTransformer";
+import IProgramTransform from "../Base/IProgramTransform";
 
 class ProgramTransformer implements IProgramTransformer {
   private _func: (IProgramTransform) => Promise<IProgramTransform> = null;

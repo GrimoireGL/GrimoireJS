@@ -3,7 +3,7 @@ import Vector4 from "../../../../Math/Vector4";
 import JThreeContext from "../../../../JThreeContext";
 import ContextComponents from "../../../../ContextComponents";
 import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "../IVariableDescription";
+import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import Timer from "../../../Timer";
 

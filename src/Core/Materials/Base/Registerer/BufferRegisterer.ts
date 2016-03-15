@@ -2,7 +2,7 @@ import TextureBase from "../../../Resources/Texture/TextureBase";
 import RBO from "../../../Resources/RBO/RBO";
 import RegistererBase from "./RegistererBase";
 import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
-import IVariableDescription from "../IVariableDescription";
+import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../IApplyMaterialArgument";
 
 class BufferRegitserer extends RegistererBase {

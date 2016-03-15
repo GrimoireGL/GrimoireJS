@@ -1,5 +1,5 @@
 import Vector2 from "../../../../Math/Vector2";
-import IVariableDescription from "../IVariableDescription";
+import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
 import Matrix from "../../../../Math/Matrix";

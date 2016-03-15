@@ -7,7 +7,7 @@ import Matrix from "../../../Math/Matrix";
 import Vector2 from "../../../Math/Vector2";
 import Vector3 from "../../../Math/Vector3";
 import Vector4 from "../../../Math/Vector4";
-import IVariableDescription from "./IVariableDescription";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import isArray from "lodash.isarray";
 import Q from "q";
 class DefaultValuePreProcessor {

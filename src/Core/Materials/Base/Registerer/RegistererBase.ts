@@ -1,5 +1,5 @@
 import MaterialPass from "../MaterialPass";
-import IVariableDescription from "../IVariableDescription";
+import IVariableDescription from "../../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
 import Q from "q";

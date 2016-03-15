@@ -4,7 +4,7 @@ import MaterialManager from "../../../Core/Materials/Base/MaterialManager";
 import JThreeContext from "../../../JThreeContext";
 import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
 import ContextComponents from "../../../ContextComponents";
-import IVariableDescription from "../../../Core/Materials/Base/IVariableDescription";
+import IVariableDescription from "../../../Core/ProgramTransformer/Base/IVariableDescription";
 import AttributeDeclationBody from "../../AttributeDeclationBody";
 import Vector3 from "../../../Math/Vector3";
 import Vector2 from "../../../Math/Vector2";

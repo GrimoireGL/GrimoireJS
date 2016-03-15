@@ -2,13 +2,13 @@ import BasicRegisterer from "./Registerer/BasicRegisterer";
 import RegistererBase from "./Registerer/RegistererBase";
 import StageDescriptionRegisterer from "./Registerer/StageDescriptionRegisterer";
 import BasicMaterial from "./BasicMaterial";
-import ShaderParser from "./ShaderParser";
+import ShaderParser from "../../ProgramTransformer/ShaderParser";
 import IContextComponent from "../../../IContextComponent";
 import ContextComponents from "../../../ContextComponents";
 import BufferRegisterer from "./Registerer/BufferRegisterer";
 import TimeRegisterer from "./Registerer/TimeRegisterer";
 import AsyncLoader from "../../Resources/AsyncLoader";
-import IConditionChecker from "./IConditionChecker";
+import IConditionChecker from "../../ProgramTransformer/Base/IConditionChecker";
 import Q from "q";
 /**
  * A ContextComponent provides the feature to manage materials.

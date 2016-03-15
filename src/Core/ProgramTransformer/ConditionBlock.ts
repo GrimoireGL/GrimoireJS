@@ -1,4 +1,4 @@
-import IConditionRegister from "./IConditionRegister";
+import IConditionRegister from "./Base/IConditionRegister";
 import JSON5 from "json5";
 
 class ConditionBlock {

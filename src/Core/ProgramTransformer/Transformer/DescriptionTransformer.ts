@@ -1,6 +1,6 @@
-import IProgramTransformer from "../IProgramTransformer";
-import IProgramTransform from "../IProgramTransform";
-import IProgramDescription from "../IProgramDescription";
+import IProgramTransformer from "../Base/IProgramTransformer";
+import IProgramTransform from "../Base/IProgramTransform";
+import IProgramDescription from "../Base/IProgramDescription";
 
 class DescriptionTransformer implements IProgramTransformer {
   private _descriptionTransformFunc: (IProgramTransform) => IProgramDescription = null;
