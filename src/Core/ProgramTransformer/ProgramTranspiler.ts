@@ -11,7 +11,6 @@ import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import MaterialManager from "../Materials/MaterialManager";
 import JSON5 from "json5";
-import Q from "q";
 /**
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
@@ -55,7 +54,7 @@ class ProgramTranspiler {
    * @param  {string}               whole string code of XMML
    * @return {IProgramDescription} information of parsed codes.
    */
-  public static parseCombined(codeString: string): Q.IPromise<IProgramDescription> {
+  public static parseCombined(codeString: string): Promise<IProgramDescription> {
 
     const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     let transformers: IProgramTransformer[] = [];

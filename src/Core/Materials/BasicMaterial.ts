@@ -5,7 +5,6 @@ import JThreeContext from "../../JThreeContext";
 import MaterialManager from "./MaterialManager";
 import MaterialPass from "../Pass/MaterialPass";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
-import Q from "q";
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
@@ -62,14 +61,14 @@ class BasicMaterial extends Material {
     });
   }
 
-  private _parsePasses(doc: Document): Q.IPromise<void[]> {
+  private _parsePasses(doc: Document): Promise<void[]> {
     const passes = doc.querySelectorAll("material > passes > pass");
     for (let i = 0; i < passes.length; i++) {
       const pass = passes.item(i);
       this._passes.push(new MaterialPass(this, pass, this._materialName, i));
     }
     this._passCount = passes.length;
-    return Q.all(this._passes.map<Q.IPromise<void>>(e => e.initialize(this._uniformRegisters)));
+    return Promise.all(this._passes.map<Promise<void>>(e => e.initialize(this._uniformRegisters)));
   }
 
   private _initializeUniformRegisters(doc: Document): void {
