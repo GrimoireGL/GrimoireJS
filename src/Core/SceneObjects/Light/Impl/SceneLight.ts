@@ -1,5 +1,5 @@
-import IApplyMaterialArgument from "../../../Materials/Base/IApplyMaterialArgument";
-import BasicMaterial from "../../../Materials/Base/BasicMaterial";
+import IApplyMaterialArgument from "../../../Materials/IApplyMaterialArgument";
+import BasicMaterial from "../../../Materials/BasicMaterial";
 import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
 import JThreeContext from "../../../../JThreeContext";
 import ContextComponents from "../../../../ContextComponents";

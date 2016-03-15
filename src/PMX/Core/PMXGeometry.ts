@@ -1,11 +1,12 @@
 import BasicGeometry from "../../Core/Geometries/Base/BasicGeometry";
-import IVariableDescription from "../../Core/Materials/Base/IVariableDescription";
+import IVariableDescription from "../../Core/ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Core/Resources/Program/ProgramWrapper";
 import PMX from "../PMXData";
 import Buffer from "../../Core/Resources/Buffer/Buffer";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import ResourceManager from "../../Core/ResourceManager";
+
 
 class PMXGeometry extends BasicGeometry {
 

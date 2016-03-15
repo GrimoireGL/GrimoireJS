@@ -1,9 +1,9 @@
-import BasicRegisterer from "./Registerer/BasicRegisterer";
-import Material from "../Material";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
+import Material from "./Material";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
 import MaterialManager from "./MaterialManager";
-import MaterialPass from "./MaterialPass";
+import MaterialPass from "../Pass/MaterialPass";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import Q from "q";
 class BasicMaterial extends Material {

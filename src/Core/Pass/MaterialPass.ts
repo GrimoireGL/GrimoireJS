@@ -1,18 +1,18 @@
 import BasicRegisterer from "./Registerer/BasicRegisterer";
 import DefaultValuePreProcessor from "./DefaultValuePreProcessor";
-import IConfigureEventArgs from "../../IConfigureEventArgs";
-import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
-import IRenderStageRenderConfigure from "../../Renderers/RenderStages/IRenderStageRendererConfigure";
-import Material from "../Material";
-import IProgramDescription from "./IProgramDescription";
-import IApplyMaterialArgument from "./IApplyMaterialArgument";
+import IConfigureEventArgs from "../IConfigureEventArgs";
+import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
+import IRenderStageRenderConfigure from "../Renderers/RenderStages/IRenderStageRendererConfigure";
+import Material from "../Materials/Material";
+import IProgramDescription from "../ProgramTransformer/Base/IProgramDescription";
+import IApplyMaterialArgument from "../Materials/IApplyMaterialArgument";
 import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
-import Program from "../../Resources/Program/Program";
-import Shader from "../../Resources/Shader/Shader";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
-import ResourceManager from "../../ResourceManager";
-import ShaderParser from "./ShaderParser";
+import Program from "../Resources/Program/Program";
+import Shader from "../Resources/Shader/Shader";
+import ContextComponents from "../../ContextComponents";
+import JThreeContext from "../../JThreeContext";
+import ResourceManager from "../ResourceManager";
+import ProgramTranspiler from "../ProgramTransformer/ProgramTranspiler";
 import Q from "q";
 class MaterialPass extends JThreeObjectWithID {
 
@@ -48,7 +48,7 @@ class MaterialPass extends JThreeObjectWithID {
 
   public initialize(uniformRegisters: BasicRegisterer[]): Q.IPromise<void> {
     const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
-    return ShaderParser.parseCombined(shaderCode).then((result) => {
+    return ProgramTranspiler.parseCombined(shaderCode).then((result) => {
       this.programDescription = result;
       this._constructProgram(this.materialName + this.passIndex);
       return DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);

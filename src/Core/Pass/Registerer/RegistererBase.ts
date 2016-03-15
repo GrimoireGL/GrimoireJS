@@ -1,7 +1,7 @@
 import MaterialPass from "../MaterialPass";
-import IVariableDescription from "../IVariableDescription";
-import IApplyMaterialArgument from "../IApplyMaterialArgument";
-import ProgramWrapper from "../../../Resources/Program/ProgramWrapper";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
+import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
+import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import Q from "q";
 /**
  * Uniform variable registerer base. This class process uniform variables with '_' as initial.

@@ -1,5 +1,5 @@
 import JThreeContext from "../../JThreeContext";
-import MaterialManager from "../../Core/Materials/Base/MaterialManager";
+import MaterialManager from "../../Core/Materials/MaterialManager";
 import ContextComponents from "../../ContextComponents";
 /**
  * Provide initializing methods for PMX.

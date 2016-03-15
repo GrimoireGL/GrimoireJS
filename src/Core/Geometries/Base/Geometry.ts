@@ -1,5 +1,5 @@
 import IDisposable from "../../../Base/IDisposable";
-import IVariableDescription from "../../Materials/Base/IVariableDescription";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import jThreeObject from "../../../Base/JThreeObject";
 import Buffer from "./../../Resources/Buffer/Buffer";

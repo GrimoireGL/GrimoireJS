@@ -1,13 +1,13 @@
-import IProgramTransformer from "../IProgramTransformer";
-import IProgramTransform from "../IProgramTransform";
-import IProgramDescription from "../IProgramDescription";
+import IProgramTransformer from "../Base/IProgramTransformer";
+import IProgramTransform from "../Base/IProgramTransform";
+import IProgramDescription from "../Base/IProgramDescription";
 
 class DescriptionTransformer implements IProgramTransformer {
   private _descriptionTransformFunc: (IProgramTransform) => IProgramDescription = null;
   constructor(func: (IProgramTransform) => IProgramDescription) {
     this._descriptionTransformFunc = func;
   }
-  public transform(input: IProgramTransform): Q.IPromise<IProgramTransform> {
+  public transform(input: IProgramTransform): Promise<IProgramTransform> {
     let nextDescription = this._descriptionTransformFunc(input);
     let pt: IProgramTransform = {
       initialSource: input.initialSource,
