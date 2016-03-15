@@ -106,6 +106,38 @@ class TreeNodeBase extends JThreeObjectEEWithID {
     }
   }
 
+  /**
+   * get parent of this Node
+   * @return {TreeNodeBase} [description]
+   */
+  public get parent(): TreeNodeBase {
+    return this.__parent;
+  }
+
+  /**
+   * get children of this Node.
+   * @return {TreeNodeBase[]} [description]
+   */
+  public get children(): TreeNodeBase[] {
+    return this.__children;
+  }
+
+  /**
+   * get index of this node from parent.
+   * @return {number} [description]
+   */
+  public get index(): number {
+    return this.__parent.__children.indexOf(this);
+  }
+
+  /**
+   * return true when this Node is Root(no parent).
+   * @return {boolean} is root.
+   */
+  public get isRoot(): boolean {
+    return !this.__parent;
+  }
+
 	/**
 	 * Add child to this node
 	 */

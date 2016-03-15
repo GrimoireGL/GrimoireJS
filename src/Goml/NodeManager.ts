@@ -109,6 +109,47 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public insertNodeByElement(source: HTMLElement, parentNode: GomlTreeNodeBase, index?: number): void {
     const newNode = GomlParser.parse(source, this.configurator);
     parentNode.addChild(newNode, index);
+    this.insertNode(newNode, parentNode, index);
+  }
+
+  /**
+   * Move node
+   * @param {GomlTreeNodeBase} targetNode target node to move
+   * @param {GomlTreeNodeBase} parentNode parent node insert in
+   */
+  public moveNode(targetNode: GomlTreeNodeBase, parentNode: GomlTreeNodeBase, index?: number): void {
+    if (targetNode.isRoot) {
+      if (targetNode.Mounted) {
+        throw new Error("Mounted root node cannot be moved.");
+      }
+    } else {
+      this.removeNode(targetNode);
+    }
+    this.insertNode(targetNode, parentNode, index);
+  }
+
+  /**
+   * Insert Node
+   * @param {GomlTreeNodeBase} targetNode insert target Node
+   * @param {GomlTreeNodeBase} parentNode parent node which is inserted.
+   * @param {number}           index      index of node which target will be inserted.
+   */
+  public insertNode(targetNode: GomlTreeNodeBase, parentNode:GomlTreeNodeBase, index?: number): void {
+    parentNode.addChild(targetNode, index);
+    const parentElement = parentNode.props.getProp<HTMLElement>("elem");
+    const targetElement = targetNode.props.getProp<HTMLElement>("elem");
+    const nodeIndex = this._getNodeListIndexByElementIndex(parentElement, index);
+    parentElement.insertBefore(targetElement, parentElement[nodeIndex]);
+  }
+
+  /**
+   * Remove Node. Root of Node cannot be removed.
+   * @param {GomlTreeNodeBase} targetNode remove target Node.
+   */
+  public removeNode(targetNode: GomlTreeNodeBase): void {
+    targetNode.remove();
+    const targetElement = targetNode.props.getProp<HTMLElement>("elem");
+    targetElement.remove();
   }
 
   /**
@@ -142,25 +183,20 @@ class NodeManager extends JThreeObject implements IContextComponent {
     });
   }
 
-  // public instanciateTemplate(template: string, parentNode: GomlTreeNodeBase) {
-  //   var templateInElems = (new DOMParser()).parseFromString(template, 'text/xml').documentElement;
-  //   this.append(templateInElems, parentNode.Element, false);
-  // }
-
-  // public append(source: HTMLElement, parent: HTMLElement, needLoad?: boolean) {
-  //   if (typeof needLoad === 'undefined') needLoad = true;
-  //   var id = parent.getAttribute("x-j3-id");
-  //   var parentOfGoml = this.NodesById.get(id);
-  //   var loadedGomls=GomlParser.parseChild(parentOfGoml,source,this.configurator)
-  //   this.loadTags(loadedGomls);
-  // var loadedGomls = [];
-  // this.parseChild(parentOfGoml, source, (v) => { loadedGomls.push(v) });
-  // if (!needLoad) return;
-  // this.eachNode(v=> v.beforeLoad(), loadedGomls);
-  // this.eachNode(v=> v.Load(), loadedGomls);
-  // this.eachNode(v=> v.afterLoad(), loadedGomls);
-  // this.eachNode(v=> v.attributes.applyDefaultValue(), loadedGomls);
-  // }
+  private _getNodeListIndexByElementIndex(targetElement, elementIndex): number {
+    let _elementIndex = 0;
+    let nodeIndex = 0;
+    for (let j = 0; j <= targetElement.childNodes.length - 1; j++) {
+      if (targetElement.childNodes[j].nodeType === 1) {
+        _elementIndex += 1;
+        if (_elementIndex === elementIndex) {
+          nodeIndex = j;
+          break;
+        }
+      }
+    }
+    return nodeIndex;
+  }
 }
 
 export default NodeManager;

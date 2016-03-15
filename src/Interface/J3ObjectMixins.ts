@@ -3,7 +3,7 @@ import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
 import TreeTraversal from "./Traversing/TreeTraversal";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
-import NodeInsertion from "./Manipulation/NodeInsertion";
+import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import Utilities from "./Static/Utilities";
 import Find from "./Static/Find";
 
@@ -13,7 +13,7 @@ function J3ObjectMixins() {
     TreeTraversal,
     GeneralAttributes,
     CollectionManipulation,
-    NodeInsertion,
+    NodeInsertionInside,
   ];
 
   const staticMixins = [
