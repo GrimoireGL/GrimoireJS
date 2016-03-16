@@ -31,31 +31,27 @@ class ProgramTranspiler {
   };
 
   public static transform(source: string, transformers: IProgramTransformer[]): Promise<IProgramTransform> {
+    let obj = {
+      initialSource: source,
+      transformSource: source,
+      description: {
+        fragment: null,
+        vertex: null,
+        uniforms: null,
+        attributes: null,
+        fragmentPrecisions: null,
+        vertexPrecisions: null,
+        functions: null
+      }
+    };
     let promise: Promise<IProgramTransform> = new Promise((resolve, reject) => {
       process.nextTick(() => {
-        resolve();
+        resolve(obj);
       });
     });
     for (let i = 0; i < transformers.length; i++) {
       promise = promise.then<IProgramTransform>((arg) => {
-        let obj: {
-          initialSource: string,
-          transformSource: string,
-          description: IProgramDescription
-        };
-        obj = {
-          initialSource: source,
-          transformSource: arg == null ? source : arg.transformSource,
-          description: arg == null ? {
-            fragment: null,
-            vertex: null,
-            uniforms: null,
-            attributes: null,
-            fragmentPrecisions: null,
-            vertexPrecisions: null,
-            functions: null
-          } : arg.description
-        };
+        obj.initialSource = source;
         let t = transformers[i];
         return t.transform(obj);
       });
