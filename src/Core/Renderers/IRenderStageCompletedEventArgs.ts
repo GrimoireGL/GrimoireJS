@@ -1,9 +1,9 @@
 import RenderStageChain from "./RenderStageChain";
-import BufferSet from "./BufferSet";
+import BufferInput from "./BufferInput";
 interface IRenderStageCompletedEventArgs {
   completedChain: RenderStageChain;
   index: number;
-  bufferTextures: BufferSet;
+  bufferTextures: BufferInput;
 }
 
 export default IRenderStageCompletedEventArgs;

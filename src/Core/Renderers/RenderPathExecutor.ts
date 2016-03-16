@@ -47,7 +47,7 @@ class RenderPathExecutor {
         stage.postStage(scene, texs);
         renderer.emit("rendered-stage", <IRenderStageCompletedEventArgs>{
           completedChain: chain,
-          bufferTextures: renderer.bufferSet,
+          bufferTextures: texs,
           index: stageIndex
         });
         stageIndex++;

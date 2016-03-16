@@ -19,7 +19,6 @@ abstract class RendererBase extends CanvasRegion {
       this._region = area;
       this.emit("resize", area);
     }
-
   }
 }
 export default RendererBase;

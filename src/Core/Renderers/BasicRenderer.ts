@@ -80,8 +80,8 @@ class BasicRenderer extends RendererBase implements IRenderer {
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.defaultRenderBuffer = rm.createRBO(this.ID + ".rbo.default", this.region.Width, this.region.Height);
-    this.on("resize",()=>{
-     JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(this.region.Width, this.region.Height);
+    this.on("resize", () => {
+      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(this.region.Width, this.region.Height);
     });
   }
 
