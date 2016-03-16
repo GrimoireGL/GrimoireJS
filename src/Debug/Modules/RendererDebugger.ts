@@ -101,7 +101,6 @@ class RendererDebugger extends DebuggerModuleBase {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.on("rendered-stage", (v) => {
       if (this._bufferTextureRequest && v.completedChain.stage.ID === this._bufferTextureRequest.stageID) {
-       debugger;
         if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null) {
           this._bufferTextureRequest.deffered.resolve(this._canvasToimg(renderer));
           this._bufferTextureRequest = null;
