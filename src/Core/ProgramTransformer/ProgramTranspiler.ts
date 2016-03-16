@@ -1,3 +1,5 @@
+import PrecisionComplementTransformer from "./Transformer/PrecisionComplementTransformer";
+import PrecisionParser from "./Transformer/PrecisionParser";
 import VariableParser from "./Transformer/VariableParser";
 import ImportTransformer from "./Transformer/ImportTransformer";
 import RemoveCommentTransformer from "./Transformer/RemoveCommentTransformer";
@@ -126,44 +128,8 @@ class ProgramTranspiler {
         functions: arg.description.functions
       };
     }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      return {
-        fragment: arg.description.fragment,
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: ProgramTranspiler._obtainPrecisions(arg.description.fragment),
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      return {
-        fragment: arg.description.fragment,
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: ProgramTranspiler._obtainPrecisions(arg.description.vertex),
-        functions: arg.description.functions
-      };
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let description: IProgramDescription = {
-        fragment: arg.description.fragment,
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-      if (!arg.description.fragmentPrecisions["float"]) {// When precision of float in fragment shader was not declared,precision mediump float need to be inserted.
-        description.fragment = this._addPrecision(description.fragment, "float", "mediump");
-        description.fragmentPrecisions["float"] = "mediump";
-      }
-      return description;
-    }));
+    transformers.push(new PrecisionParser());
+    transformers.push(new PrecisionComplementTransformer("mediump"));
 
     return ProgramTranspiler.transform(codeString, transformers).then((arg: IProgramTransform) => arg.description);
   }
@@ -311,23 +277,6 @@ class ProgramTranspiler {
       source = source.substr(0, found.index) + source.substring(beginPoint + 1, endPoint - 1) + source.substring(endPoint + 1, source.length);
     }
     return source;
-  }
-
-  private static _addPrecision(source: string, targetType: string, precision: string): string {
-    return `precision ${precision} ${targetType};\n` + source;
-  }
-
-  private static _obtainPrecisions(source: string): { [type: string]: string } {
-    const regex = /\s*precision\s+([a-z]+)\s+([a-z0-9]+)/g;
-    let result: { [type: string]: string } = {};
-    while (true) {
-      const found = regex.exec(source);
-      if (!found) {
-        break;
-      }
-      result[found[2]] = found[1];
-    }
-    return result;
   }
 
   private static _removeAttributeVariables(source: string): string {
