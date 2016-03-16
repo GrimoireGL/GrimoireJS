@@ -1,16 +1,13 @@
-import IVariableDescription from "./Base/IVariableDescription";
+import VariableParser from "./Transformer/VariableParser";
+import ImportTransformer from "./Transformer/ImportTransformer";
+import RemoveCommentTransformer from "./Transformer/RemoveCommentTransformer";
 import IFunctionDescription from "./Base/IFunctionDescription";
 import IArgumentDescription from "./Base/IArgumentDescription";
 import IProgramDescription from "./Base/IProgramDescription";
 import IProgramTransformer from "./Base/IProgramTransformer";
 import IProgramTransform from "./Base/IProgramTransform";
-import ProgramTransformer from "./Transformer/ProgramTransformer";
-import StringTransformer from "./Transformer/StringTransformer";
-import DescriptionTransformer from "./Transformer/DescriptionTransformer";
-import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
+import DescriptionTransformer from "./Transformer/Base/DescriptionTransformer";
 import MaterialManager from "../Materials/MaterialManager";
-import JSON5 from "json5";
 /**
  * Static parsing methods for XMML (eXtended Material Markup Language).
  * This class provides all useful methods for parsing XMML.
@@ -55,48 +52,11 @@ class ProgramTranspiler {
    * @return {IProgramDescription} information of parsed codes.
    */
   public static parseCombined(codeString: string): Promise<IProgramDescription> {
-
-    const materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     let transformers: IProgramTransformer[] = [];
-    transformers.push(new StringTransformer((x: string) => {
-      return ProgramTranspiler._removeMultiLineComment(x);
-    }));
-    transformers.push(new StringTransformer((arg: string) => {
-      return ProgramTranspiler._removeLineComment(arg);
-    }));
-    transformers.push(new ProgramTransformer((arg: IProgramTransform) => {
-      return ProgramTranspiler.parseImport(arg.transformSource, materialManager).then((s: string) => {
-        return {
-          initialSource: arg.initialSource,
-          transformSource: s,
-          description: arg.description
-        };
-      });
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let uniforms = ProgramTranspiler._parseVariables(arg.transformSource, "uniform");
-      return {
-        fragment: arg.description.fragment,
-        vertex: arg.description.vertex,
-        uniforms: uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let attributes = ProgramTranspiler._parseVariables(arg.transformSource, "attribute");
-      return {
-        fragment: arg.description.fragment,
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
+    transformers.push(new RemoveCommentTransformer());
+    transformers.push(new ImportTransformer());
+    transformers.push(new VariableParser("uniform"));
+    transformers.push(new VariableParser("attribute"));
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
       let functions = ProgramTranspiler._parseFunctions(arg.transformSource);
       return {
@@ -208,40 +168,6 @@ class ProgramTranspiler {
     return ProgramTranspiler.transform(codeString, transformers).then((arg: IProgramTransform) => arg.description);
   }
 
-  public static getImports(source: string): string[] {
-    let importArgs = [];
-    const importRegex = /\s*@import\s+"([^"]+)"/g;
-    while (true) {
-      const importEnum = importRegex.exec(source);
-      if (!importEnum) { break; }
-      importArgs.push(importEnum[1]);
-    }
-    return importArgs;
-  }
-
-  /**
-   * Parse @import syntax and replace them with corresponded codes.
-   * @param  {string}          source          source code XMML to be processed for @import.
-   * @param  {MaterialManager} materialManager the material manager instance containing imported codes.
-   * @return {string}                          replaced codes.
-   */
-  public static parseImport(source: string, materialManager: MaterialManager): Promise<string> {
-    return materialManager.loadChunks(ProgramTranspiler.getImports(source)).then<string>(() => {
-      while (true) {
-        const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
-        if (!regexResult) { break; }
-        let importContent;
-        importContent = materialManager.getShaderChunk(regexResult[1]);
-        if (!importContent) {
-          console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
-          importContent = "";
-        }
-        source = source.replace(regexResult[0], `\n${importContent}\n`);
-      }
-      return source;
-    });
-  }
-
   public static parseInternalImport(source: string, materialManager: MaterialManager): string {
     while (true) {
       const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
@@ -303,71 +229,10 @@ class ProgramTranspiler {
     return result;
   }
 
-  private static _parseVariableAttributes(attributes: string): { [key: string]: string } {
-    return JSON5.parse(attributes);
-  }
-  // http://regexper.com/#(%3F%3A%5C%2F%5C%2F%40%5C((.%2B)%5C))%3F%5Cs*uniform%5Cs%2B((%3F%3Alowp%7Cmediump%7Chighp)%5Cs%2B)%3F(%5Ba-z0-9A-Z%5D%2B)%5Cs%2B(%5Ba-zA-Z0-9_%5D%2B)(%3F%3A%5Cs*%5C%5B%5Cs*(%5Cd%2B)%5Cs*%5C%5D%5Cs*)%3F%5Cs*%3B
-  private static _generateVariableFetchRegex(variableType: string): RegExp {
-    return new RegExp(`(?:@(\\{.+\\}))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
-  }
-
-  private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableDescription } {
-    const result = <{ [name: string]: IVariableDescription }>{};
-    const regex = ProgramTranspiler._generateVariableFetchRegex(variableType);
-    let regexResult;
-    while ((regexResult = regex.exec(source))) {
-      let name = regexResult[4];
-      let type = regexResult[3];
-      let precision = regexResult[2];
-      let rawAnnotations = regexResult[1];
-      result[name] = <IVariableDescription>{
-        variableName: name,
-        variableType: type,
-        variablePrecision: precision,
-        variableAnnotation: rawAnnotations ? this._parseVariableAttributes(rawAnnotations) : {},
-        isArray: (typeof regexResult[5] !== "undefined"),
-        arrayLength: (typeof regexResult[5] !== "undefined") ? parseInt(regexResult[5], 10) : undefined
-      };
-    }
-    return result;
-  }
-
   private static _removeVariableAnnotations(source: string): string {
     let regexResult;
     while (regexResult = /@\{.+\}/g.exec(source)) {
       source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);
-    }
-    return source;
-  }
-
-  private static _removeLineComment(source: string): string {
-    let text: string = source;
-    const regex = /(\/\/.*)/g;
-    while (true) {
-      const found = regex.exec(text);
-      if (!found) {
-        break;
-      }
-      let beginPoint = found.index;
-      text = text.substr(0, beginPoint) + text.substring(beginPoint + found[0].length, text.length);
-    }
-    return text;
-  }
-  private static _removeMultiLineComment(source: string): string {
-    while (true) {
-      const found = source.indexOf("/*", 0);
-      if (found < 0) {
-        break; // When there was no more found
-      }
-      let beginPoint = found;
-      const endPoint: number = source.indexOf("*/", beginPoint);
-      if (endPoint < 1) {
-        // error no bracket matching
-        console.error("Invalid bracket matching!");
-        return source;
-      }
-
-      source = source.substr(0, beginPoint) + source.substring(endPoint + 2, source.length);
     }
     return source;
   }
