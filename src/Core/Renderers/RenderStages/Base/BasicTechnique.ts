@@ -1,8 +1,8 @@
 import RBO from "../../../Resources/RBO/RBO";
 import TextureBase from "../../../Resources/Texture/TextureBase";
-import RSMLRenderConfigUtility from "./RSMLRenderConfigUtility";
+import RenderStageConfigUtility from "./RenderStageConfigUtility";
 import IFBOBindingConfig from "./IFBOBindingConfig";
-import RSMLRenderStage from "./RSMLRenderStage";
+import BasicRenderStage from "./BasicRenderStage";
 import XMLRenderConfigUtility from "../../../Pass/XMLRenderConfigUtility";
 import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
 import MaterialManager from "../../../Materials/MaterialManager";
@@ -22,7 +22,7 @@ class BasicTechnique extends JThreeObjectWithID {
 
   public defaultRenderConfigure: IRenderStageRendererConfigure;
 
-  protected __renderStage: RSMLRenderStage;
+  protected __renderStage: BasicRenderStage;
 
   protected __fbo: FBO;
 
@@ -43,7 +43,7 @@ class BasicTechnique extends JThreeObjectWithID {
     return this.__renderStage.GL;
   }
 
-  constructor(renderStage: RSMLRenderStage, technique: Element, techniqueIndex: number) {
+  constructor(renderStage: BasicRenderStage, technique: Element, techniqueIndex: number) {
     super();
     this.__renderStage = renderStage;
     this._techniqueDocument = technique;
@@ -52,7 +52,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
-    this._fboBindingInfo = RSMLRenderConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.Canvas);
+    this._fboBindingInfo = RenderStageConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.Canvas);
     if (this._target !== "scene") {
       this.defaultMaterial = this._getMaterial();
     }

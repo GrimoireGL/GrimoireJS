@@ -1,5 +1,5 @@
 import TextureBase from "../../Resources/Texture/TextureBase";
-import RSMLRenderStageBase from "./RSML/RSMLRenderStage";
+import BasicRenderStage from "./Base/BasicRenderStage";
 import SceneObject from "../../SceneObjects/SceneObject";
 import ResolvedChainInfo from "../ResolvedChainInfo";
 import Scene from "../../Scene";
@@ -11,7 +11,7 @@ interface HitTestQuery {
   deferred: Q.Deferred<SceneObject>;
 }
 
-class HitAreaRenderStage extends RSMLRenderStageBase {
+class HitAreaRenderStage extends BasicRenderStage {
   constructor(renderer) {
     super(renderer, require("./BuiltIn/HitAreaRenderingStage.html"));
     this.Renderer.on("mouse-move", (e) => {
