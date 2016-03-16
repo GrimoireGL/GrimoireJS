@@ -1,11 +1,9 @@
-import RenderPathExecutor from "./RenderPathExecutor";
 import RenderStageChain from "./RenderStageChain";
-import ResolvedChainInfo from "./ResolvedChainInfo";
+import BufferSet from "./BufferSet";
 interface IRenderStageCompletedEventArgs {
-  owner: RenderPathExecutor;
   completedChain: RenderStageChain;
   index: number;
-  bufferTextures: ResolvedChainInfo;
+  bufferTextures: BufferSet;
 }
 
 export default IRenderStageCompletedEventArgs;

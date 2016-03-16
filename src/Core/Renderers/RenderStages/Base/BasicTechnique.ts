@@ -14,7 +14,7 @@ import ContextComponents from "../../../../ContextComponents";
 import ResourceManager from "../../../ResourceManager";
 import JThreeContext from "../../../../JThreeContext";
 import FBOWrapper from "../../../Resources/FBO/FBOWrapper";
-import ResolvedChainInfo from "../../ResolvedChainInfo";
+import BufferInput from "../../BufferInput";
 import Scene from "../../../Scene";
 class BasicTechnique extends JThreeObjectWithID {
 
@@ -62,11 +62,11 @@ class BasicTechnique extends JThreeObjectWithID {
     return this._target;
   }
 
-  public preTechnique(scene: Scene, texs: ResolvedChainInfo): void {
+  public preTechnique(scene: Scene, texs: BufferInput): void {
     this._applyBufferConfiguration(scene, texs);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
@@ -79,7 +79,7 @@ class BasicTechnique extends JThreeObjectWithID {
     }
   }
 
-  protected __initializeFBO(texs: ResolvedChainInfo): void {
+  protected __initializeFBO(texs: BufferInput): void {
     this.__fboInitialized = true;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.ID);
@@ -102,13 +102,13 @@ class BasicTechnique extends JThreeObjectWithID {
     return mm.constructMaterial(matName);
   }
 
-  private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo): void {
+  private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: BufferInput): void {
     // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
     fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name] as TextureBase);
   }
 
-  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: ResolvedChainInfo): void {
+  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: BufferInput): void {
     if (!this._fboBindingInfo.rbo) {// When there was no rbo tag in fbo tag.
       fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
     } else {
@@ -116,7 +116,7 @@ class BasicTechnique extends JThreeObjectWithID {
       let targetBuffer: TextureBase | RBO;
       let isRBO = true;
       if (rboConfigure.name === "default") {
-        targetBuffer = this.__renderStage.DefaultRBO;
+        targetBuffer = texs.defaultRenderBuffer;
       } else {
         if (!texs[rboConfigure.name]) {
           throw new Error("Specified render buffer was not found");
@@ -155,7 +155,7 @@ class BasicTechnique extends JThreeObjectWithID {
     }
   }
 
-  private _applyBufferConfiguration(scene: Scene, texs: ResolvedChainInfo): void {
+  private _applyBufferConfiguration(scene: Scene, texs: BufferInput): void {
     if (!this._fboBindingInfo || !this._fboBindingInfo[0]) { // When fbo configuration was not specified
       // if there was no fbo configuration, use screen buffer as default
       this._applyViewport(true);

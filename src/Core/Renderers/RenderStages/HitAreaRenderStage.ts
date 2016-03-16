@@ -1,7 +1,7 @@
 import TextureBase from "../../Resources/Texture/TextureBase";
 import BasicRenderStage from "./Base/BasicRenderStage";
 import SceneObject from "../../SceneObjects/SceneObject";
-import ResolvedChainInfo from "../ResolvedChainInfo";
+import BufferInput from "../BufferInput";
 import Scene from "../../Scene";
 import Q from "q";
 
@@ -32,18 +32,18 @@ class HitAreaRenderStage extends BasicRenderStage {
 
   public hitTestQueries: HitTestQuery[] = [];
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     super.preTechnique(scene, techniqueIndex, texs);
     this.objectIndex = 1;
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
     this.indexObjectPair[this.objectIndex] = object;
     super.render(scene, object, techniqueCount, techniqueIndex, texs);
     this.objectIndex++;
   }
 
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     if (texs["OUT"]) {
       if (!(texs["OUT"] instanceof TextureBase)) {
         throw new Error("OUT argument cannnot acceptable except TextureBase");

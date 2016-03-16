@@ -4,11 +4,7 @@ import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
 import BasicRenderer from "../BasicRenderer";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
-import ResolvedChainInfo from "../ResolvedChainInfo";
-import RBO from "../../Resources/RBO/RBO";
-import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
-import ResourceManager from "../../ResourceManager";
+import BufferInput from "../BufferInput";
 abstract class RenderStageBase extends JThreeObjectWithID {
 
   public stageVariables: {} = {};
@@ -49,28 +45,28 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return this.Renderer.GL;
   }
 
-  public preStage(scene: Scene, texs: ResolvedChainInfo): void {
+  public preStage(scene: Scene, texs: BufferInput): void {
     return;
   }
 
-  public postStage(scene: Scene, texs: ResolvedChainInfo): void {
+  public postStage(scene: Scene, texs: BufferInput): void {
     return;
   }
 
 	/**
 	 * This method will be called before process render in each pass
 	 */
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     return;
   }
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     this.Renderer.GL.flush();
   }
 
-  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void;
+  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void;
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
     return false;
@@ -84,7 +80,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     return "scene";
   }
 
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, materialGroup: string, isWireframed: boolean): void {
+  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput, materialGroup: string, isWireframed: boolean): void {
     if (!object.isVisible) {
       return;
     }
@@ -94,7 +90,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
     }
   }
 
-  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo, material: Material, isWireframed: boolean): void {
+  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput, material: Material, isWireframed: boolean): void {
     if (!material || !material.Initialized || !material.Enabled || !object.isVisible) { return; }
     const passCount = material.getPassCount(techniqueIndex);
     for (let pass = 0; pass < passCount; pass++) {
@@ -108,7 +104,7 @@ abstract class RenderStageBase extends JThreeObjectWithID {
         techniqueCount: techniqueCount,
         passIndex: pass,
         passCount: passCount,
-        camera: this.Renderer.Camera
+        camera: this.Renderer.camera
       });
       if (isWireframed) {
         object.Geometry.drawWireframe(this.Renderer.Canvas, material);
@@ -116,14 +112,6 @@ abstract class RenderStageBase extends JThreeObjectWithID {
       }
       object.Geometry.drawElements(this.Renderer.Canvas, material);
     }
-  }
-
-	/**
-	 * Get default rbo that is allocated for this renderer.
-	 */
-  public get DefaultRBO(): RBO {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    return rm.getRBO(this.Renderer.ID + ".rbo.default");
   }
 }
 
