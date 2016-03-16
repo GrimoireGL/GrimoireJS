@@ -93,6 +93,8 @@
     "./src/Core/ProgramTransformer/Transformer/PrecisionComplementTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/PrecisionParser.ts",
     "./src/Core/ProgramTransformer/Transformer/RemoveCommentTransformer.ts",
+    "./src/Core/ProgramTransformer/Transformer/RemoveVariableAnnotationsTransformer.ts",
+    "./src/Core/ProgramTransformer/Transformer/SourceSeparateTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/VariableParser.ts",
     "./src/Core/RendererListChangedEventArgs.ts",
     "./src/Core/Renderers/BasicRenderer.ts",

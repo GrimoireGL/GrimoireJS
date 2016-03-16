@@ -1,3 +1,5 @@
+import RemoveVariableAnnotationTransformer from "./Transformer/RemoveVariableAnnotationsTransformer";
+import SourceSeparateTransformer from "./Transformer/SourceSeparateTransformer";
 import PrecisionComplementTransformer from "./Transformer/PrecisionComplementTransformer";
 import PrecisionParser from "./Transformer/PrecisionParser";
 import VariableParser from "./Transformer/VariableParser";
@@ -71,30 +73,7 @@ class ProgramTranspiler {
         functions: functions
       };
     }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let fragment = ProgramTranspiler._removeSelfOnlyTag(ProgramTranspiler._removeOtherPart(arg.transformSource, "vert"), "frag");
-      return {
-        fragment: fragment,
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      let vertex = ProgramTranspiler._removeSelfOnlyTag(ProgramTranspiler._removeOtherPart(arg.transformSource, "frag"), "vert");
-      return {
-        fragment: arg.description.fragment,
-        vertex: vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
+    transformers.push(new SourceSeparateTransformer());
     transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
       return {
         fragment: ProgramTranspiler._removeAttributeVariables(arg.description.fragment),
@@ -106,28 +85,7 @@ class ProgramTranspiler {
         functions: arg.description.functions
       };
     }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      return {
-        fragment: ProgramTranspiler._removeVariableAnnotations(arg.description.fragment),
-        vertex: arg.description.vertex,
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
-    transformers.push(new DescriptionTransformer((arg: IProgramTransform) => {
-      return {
-        fragment: arg.description.fragment,
-        vertex: ProgramTranspiler._removeVariableAnnotations(arg.description.vertex),
-        uniforms: arg.description.uniforms,
-        attributes: arg.description.attributes,
-        fragmentPrecisions: arg.description.fragmentPrecisions,
-        vertexPrecisions: arg.description.vertexPrecisions,
-        functions: arg.description.functions
-      };
-    }));
+    transformers.push(new RemoveVariableAnnotationTransformer());
     transformers.push(new PrecisionParser());
     transformers.push(new PrecisionComplementTransformer("mediump"));
 
@@ -199,82 +157,6 @@ class ProgramTranspiler {
     let regexResult;
     while (regexResult = /@\{.+\}/g.exec(source)) {
       source = source.substr(0, regexResult.index) + source.substring(regexResult.index + regexResult[0].length, source.length);
-    }
-    return source;
-  }
-
-  private static _getEndBracketIndex(source: string, startIndex: number, beginBracket: string, endBracket: string): number {
-    // get index of matching endBracket
-    let index = startIndex;
-
-    let bracketCount = 1;
-    while (true) { // find matching bracket
-      if (bracketCount === 0) {
-        break;
-      }
-      index++;
-      const nextEndBlacket = source.indexOf(endBracket, index);
-      const nextBeginBlacket = source.indexOf(beginBracket, index);
-      if (nextEndBlacket < 0) {
-        // error no bracket matching
-        console.error("Invalid bracket matching!");
-        return -1;
-      }
-      if (nextBeginBlacket < 0) {
-        index = nextEndBlacket;
-        bracketCount--;
-        continue;
-      }
-      if (nextEndBlacket < nextBeginBlacket) {
-        index = nextEndBlacket;
-        bracketCount--;
-        continue;
-      } else {
-        index = nextBeginBlacket;
-        bracketCount++;
-        continue;
-      }
-    }
-    return index;
-  }
-
-  private static _removeOtherPart(source: string, partFlag: string): string {
-    const regex = new RegExp(`\s*(?:\/\/+)?\s*@${partFlag}`, "g");
-    while (true) {
-      const found = regex.exec(source);
-      if (!found) {
-        break; // When there was no more found
-      }
-      let beginPoint = found.index;
-      let index = source.indexOf("{", beginPoint); // ignore next {
-      const endPoint: number = this._getEndBracketIndex(source, index, "{", "}") + 1;
-      if (endPoint < 1) {
-        // error no bracket matching
-        console.error("Invalid bracket matching!");
-        return source;
-      }
-
-      source = source.substr(0, beginPoint) + source.substring(endPoint, source.length);
-    }
-    return source;
-  }
-
-  private static _removeSelfOnlyTag(source: string, partFlag: string): string {
-    const regex = new RegExp(`(\s*(?:\/\/+)?\s*@${partFlag})`, "g");
-    while (true) {
-      const found = regex.exec(source);
-      if (!found) {
-        break; // When there was no more found
-      }
-      let index = source.indexOf("{", found.index); // ignore next {
-      let beginPoint = index;
-      const endPoint: number = this._getEndBracketIndex(source, index, "{", "}") + 1;
-      if (endPoint < 1) {
-        // error no bracket matching
-        console.error("Invalid bracket matching!");
-        return source;
-      }
-      source = source.substr(0, found.index) + source.substring(beginPoint + 1, endPoint - 1) + source.substring(endPoint + 1, source.length);
     }
     return source;
   }
