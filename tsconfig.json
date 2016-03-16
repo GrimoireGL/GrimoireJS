@@ -92,6 +92,7 @@
     "./src/Core/ProgramTransformer/Transformer/ImportTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/PrecisionComplementTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/PrecisionParser.ts",
+    "./src/Core/ProgramTransformer/Transformer/RemoveAttributeVariableTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/RemoveCommentTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/RemoveVariableAnnotationsTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/SourceSeparateTransformer.ts",
