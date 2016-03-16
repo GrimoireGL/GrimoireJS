@@ -1,3 +1,4 @@
+import ImportTransformer from "../ProgramTransformer/Transformer/ImportTransformer";
 import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
 import RegistererBase from "../Pass/Registerer/RegistererBase";
 import StageDescriptionRegisterer from "../Pass/Registerer/StageDescriptionRegisterer";
@@ -119,8 +120,8 @@ class MaterialManager implements IContextComponent {
       xhr.open("GET", absPath, true);
       xhr.setRequestHeader("Accept", "text");
       xhr.onload = () => {
-        this.loadChunks(ProgramTranspiler.getImports(xhr.responseText));
-        ProgramTranspiler.parseImport(xhr.responseText, this).then((source) => {
+        this.loadChunks(ImportTransformer.getImports(xhr.responseText));
+        ImportTransformer.parseImport(xhr.responseText).then((source) => {
           deferred.resolve(source);
         });
       };
