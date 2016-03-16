@@ -1,4 +1,3 @@
-import IProgramTransformer from "../../Base/IProgramTransformer";
 import IProgramTransform from "../../Base/IProgramTransform";
 import IProgramDescription from "../../Base/IProgramDescription";
 import ProgramTransformer from "./ProgramTransformer";
