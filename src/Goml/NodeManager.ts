@@ -113,33 +113,21 @@ class NodeManager extends JThreeObject implements IContextComponent {
   }
 
   /**
-   * Move node
-   * @param {GomlTreeNodeBase} targetNode target node to move
-   * @param {GomlTreeNodeBase} parentNode parent node insert in
-   */
-  public moveNode(targetNode: GomlTreeNodeBase, parentNode: GomlTreeNodeBase, index?: number): void {
-    if (targetNode.isRoot) {
-      if (targetNode.Mounted) {
-        throw new Error("Mounted root node cannot be moved.");
-      }
-    } else {
-      this.removeNode(targetNode);
-    }
-    this.insertNode(targetNode, parentNode, index);
-  }
-
-  /**
    * Insert Node
-   * @param {GomlTreeNodeBase} targetNode insert target Node
+   * @param {GomlTreeNodeBase} contentNode insert target Node
    * @param {GomlTreeNodeBase} parentNode parent node which is inserted.
-   * @param {number}           index      index of node which target will be inserted.
+   * @param {number}           index      index of node which target will be inserted. If index is not given, node will be inserted to the end of children.
    */
-  public insertNode(targetNode: GomlTreeNodeBase, parentNode:GomlTreeNodeBase, index?: number): void {
-    parentNode.addChild(targetNode, index);
+  public insertNode(contentNode: GomlTreeNodeBase, parentNode:GomlTreeNodeBase, index?: number): void {
+    parentNode.addChild(contentNode, index);
     const parentElement = parentNode.props.getProp<HTMLElement>("elem");
-    const targetElement = targetNode.props.getProp<HTMLElement>("elem");
-    const nodeIndex = this._getNodeListIndexByElementIndex(parentElement, index);
-    parentElement.insertBefore(targetElement, parentElement[nodeIndex]);
+    const targetElement = contentNode.props.getProp<HTMLElement>("elem");
+    let referenceElement: HTMLElement = null;
+    if (index != null) {
+      const nodeIndex = this._getNodeListIndexByElementIndex(parentElement, index);
+      referenceElement = parentElement[nodeIndex];
+    }
+    parentElement.insertBefore(targetElement, referenceElement);
   }
 
   /**
@@ -150,6 +138,22 @@ class NodeManager extends JThreeObject implements IContextComponent {
     targetNode.remove();
     const targetElement = targetNode.props.getProp<HTMLElement>("elem");
     targetElement.remove();
+  }
+
+  /**
+   * Move node
+   * @param {GomlTreeNodeBase} contentNode target node to move
+   * @param {GomlTreeNodeBase} parentNode parent node insert in
+   */
+  public moveNode(contentNode: GomlTreeNodeBase, parentNode: GomlTreeNodeBase, index?: number): void {
+    if (contentNode.isRoot) {
+      if (contentNode.Mounted) {
+        throw new Error("Mounted root node cannot be moved.");
+      }
+    } else {
+      this.removeNode(contentNode);
+    }
+    this.insertNode(contentNode, parentNode, index);
   }
 
   /**
@@ -183,19 +187,18 @@ class NodeManager extends JThreeObject implements IContextComponent {
     });
   }
 
-  private _getNodeListIndexByElementIndex(targetElement, elementIndex): number {
-    let _elementIndex = 0;
-    let nodeIndex = 0;
-    for (let j = 0; j <= targetElement.childNodes.length - 1; j++) {
-      if (targetElement.childNodes[j].nodeType === 1) {
-        _elementIndex += 1;
-        if (_elementIndex === elementIndex) {
-          nodeIndex = j;
-          break;
-        }
-      }
-    }
-    return nodeIndex;
+  /**
+   * Get index in NodeList object by index in Element array.
+   * @param  {HTMLElement} targetElement target element for searching index. If this argument is negative number, index will be searched from last.
+   * @param  {number}      elementIndex  index in Element array
+   * @return {number}                    index in NodeList
+   */
+  private _getNodeListIndexByElementIndex(targetElement: HTMLElement, elementIndex: number): number {
+    const nodeListArray: Node[] = Array.prototype.slice.call(targetElement.childNodes);
+    elementIndex = elementIndex < 0 ? nodeListArray.length + elementIndex : elementIndex;
+    return nodeListArray.indexOf(nodeListArray.filter((v) => {
+      return v.nodeType === 1;
+    })[elementIndex]);
   }
 }
 

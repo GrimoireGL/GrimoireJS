@@ -14,11 +14,12 @@ import Filtering from "./Traversing/Filtering";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
+import NodeRemoval from "./Manipulation/NodeRemoval";
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, Filtering, GeneralAttributes, CollectionManipulation, NodeInsertionInside {
+class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, Filtering, GeneralAttributes, CollectionManipulation, NodeInsertionInside, NodeRemoval {
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -223,6 +224,16 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
     (targets: GomlTreeNodeBase[]): J3Object;
     (targets: J3Object[]): J3Object;
     (argu: any): any;
+  }
+
+  /**
+   * Manipulation/NodeRemoval
+   */
+
+  public remove: {
+    (): J3Object;
+    (filter: string): J3Object;
+    (argu?: string): any;
   }
 }
 

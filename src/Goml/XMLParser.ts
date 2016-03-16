@@ -36,9 +36,9 @@ class XMLParser {
     this._doc = (new DOMParser()).parseFromString(xml, "text/xml");
     if (!nowrap) {
       this.updateError();
-      if (!this.error.all) {
+      if (!this._error.all) {
         this._elements = [this._doc.documentElement];
-      } else if (this.error.message === "Extra content at the end of the document") {
+      } else if (this._error.message === "Extra content at the end of the document") {
         this._doc = (new DOMParser()).parseFromString(`<root>${xml}</root>`, "text/xml");
         this.updateError();
         if (this.isValid) {

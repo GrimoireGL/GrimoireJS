@@ -138,12 +138,17 @@ class TreeNodeBase extends JThreeObjectEEWithID {
     return !this.__parent;
   }
 
-	/**
-	 * Add child to this node
-	 */
+  /**
+   * Add child to this node
+   * @param {TreeNodeBase} child Target node to be inserted
+   * @param {number}       index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
+   */
   public addChild(child: TreeNodeBase, index?: number): void {
     child.__parent = this;
-    const insertIndex = isNumber(index) ? index : -1;
+    if (!isNumber(index) && index != null) {
+      throw new Error("insert index should be number or null or undefined.");
+    }
+    const insertIndex = index == null ? this.__children.length : index;
     this.__children.splice(insertIndex, 0, child);
     if (this.Mounted) {
       child.Mounted = true;
