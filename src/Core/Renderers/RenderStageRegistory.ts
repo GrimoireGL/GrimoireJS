@@ -1,5 +1,5 @@
 import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
-import RSMLRenderStage from "./RenderStages/RSML/RSMLRenderStage";
+import BasicRenderStage from "./RenderStages/Base/BasicRenderStage";
 import BasicRenderer from "./BasicRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import ContextComponents from "../../ContextComponents";
@@ -50,7 +50,7 @@ class RenderStageRegistory implements IContextComponent {
       console.error(`The name field was not found in RSML file.\n${nameOrsource}`);
       return;
     }
-    this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new RSMLRenderStage(renderer, nameOrsource);
+    this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new BasicRenderStage(renderer, nameOrsource);
   }
 
   /**

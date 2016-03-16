@@ -13,7 +13,6 @@ import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import ResourceManager from "../ResourceManager";
 import ProgramTranspiler from "../ProgramTransformer/ProgramTranspiler";
-import Q from "q";
 class MaterialPass extends JThreeObjectWithID {
 
   public ready: boolean = false;
@@ -46,14 +45,14 @@ class MaterialPass extends JThreeObjectWithID {
     this.materialName = materialName;
   }
 
-  public initialize(uniformRegisters: BasicRegisterer[]): Q.IPromise<void> {
+  public initialize(uniformRegisters: BasicRegisterer[]): Promise<void> {
     const shaderCode = this._passDocument.getElementsByTagName("glsl").item(0).textContent;
     return ProgramTranspiler.parseCombined(shaderCode).then((result) => {
       this.programDescription = result;
       this._constructProgram(this.materialName + this.passIndex);
       return DefaultValuePreProcessor.preprocess(this.programDescription.uniforms);
     }).then(() => {
-      return Q.all(uniformRegisters.map(m => m.preprocess(this, this.programDescription.uniforms)));
+      return Promise.all(uniformRegisters.map(m => m.preprocess(this, this.programDescription.uniforms)));
     }).then(() => {
       this.ready = true;
     });

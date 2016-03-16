@@ -4,8 +4,8 @@ import BasicRenderer from "../../BasicRenderer";
 import SceneObject from "../../../SceneObjects/SceneObject";
 import RenderStageBase from "../RenderStageBase";
 import Scene from "../../../Scene";
-import ResolvedChainInfo from "../../ResolvedChainInfo";
-class RSMLRenderStage extends RenderStageBase {
+import BufferInput from "../../BufferInput";
+class BasicRenderStage extends RenderStageBase {
   public techniques: BasicTechnique[];
 
   private _parsedRSML: Document;
@@ -31,11 +31,11 @@ class RSMLRenderStage extends RenderStageBase {
     return super.getDefaultRendererConfigure(0);
   }
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     this.techniques[techniqueIndex].preTechnique(scene, texs);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
     this.techniques[techniqueIndex].render(scene, object, techniqueCount, techniqueIndex, texs);
   }
 
@@ -68,4 +68,4 @@ class RSMLRenderStage extends RenderStageBase {
   }
 }
 
-export default RSMLRenderStage;
+export default BasicRenderStage;

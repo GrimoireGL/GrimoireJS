@@ -1,15 +1,13 @@
-import RenderPathExecutor from "./RenderPathExecutor";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import SceneObject from "../SceneObjects/SceneObject";
 import RenderStageChain from "./RenderStageChain";
-import ResolvedChainInfo from "./ResolvedChainInfo";
+import BufferInput from "./BufferInput";
 
 interface IRenderObjectCompletedEventArgs {
-  owner: RenderPathExecutor;
   renderedObject: SceneObject;
   stage: RenderStageBase;
   stageChain: RenderStageChain;
-  bufferTextures: ResolvedChainInfo;
+  bufferTextures: BufferInput;
   technique: number;
 }
 export default IRenderObjectCompletedEventArgs;

@@ -1,7 +1,7 @@
 import BasicRenderer from "../Renderers/BasicRenderer";
 import Camera from "../SceneObjects/Camera/Camera";
 import RenderStageBase from "../Renderers/RenderStages/RenderStageBase";
-import ResolvedChainInfo from "../Renderers/ResolvedChainInfo";
+import BufferInput from "../Renderers/BufferInput";
 import SceneObject from "../SceneObjects/SceneObject";
 import Scene from "../Scene";
 interface IApplyMaterialArgument {
@@ -10,7 +10,7 @@ interface IApplyMaterialArgument {
   renderer: BasicRenderer;
   renderStage: RenderStageBase;
   object: SceneObject;
-  textureResource: ResolvedChainInfo;
+  textureResource: BufferInput;
   techniqueIndex: number;
   techniqueCount: number;
   passIndex: number;

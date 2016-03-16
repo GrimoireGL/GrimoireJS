@@ -1,7 +1,8 @@
 import RBO from "../Resources/RBO/RBO";
 import TextureBase from "../Resources/Texture/TextureBase";
-interface ResolvedChainInfo {
+interface BufferInput {
   [name: string]: TextureBase | RBO;
+  defaultRenderBuffer: RBO;
 }
 
-export default ResolvedChainInfo;
+export default BufferInput;

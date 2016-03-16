@@ -3,7 +3,7 @@ import IRenderBufferBindingConfig from "./IRenderBufferBindingConfig";
 import IColorBufferBindingConfig from "./IColorBufferBindingConfig";
 import Vector4 from "../../../../Math/Vector4";
 import IFBOBindingConfig from "./IFBOBindingConfig";
-class RSMLRenderConfigUtility {
+class RenderStageConfigUtility {
   public static parseFBOConfiguration(fboElement: Element, canvas: Canvas): IFBOBindingConfig {
     if (!fboElement) {
       return undefined;
@@ -14,13 +14,13 @@ class RSMLRenderConfigUtility {
     const rboNode = fboElement.getElementsByTagName("rbo").item(0);
     result.primaryName = primary;
     for (let i = 0; i < colorNodes.length; i++) {
-      const colorBuffer = RSMLRenderConfigUtility._parseColorBuffer(colorNodes.item(i), canvas);
+      const colorBuffer = RenderStageConfigUtility._parseColorBuffer(colorNodes.item(i), canvas);
       result[colorBuffer.registerIndex] = colorBuffer;
       if (colorBuffer.name === primary) {
         result.primaryIndex = colorBuffer.registerIndex;
       }
     }
-    result.rbo = RSMLRenderConfigUtility._parseRenderBuffer(rboNode);
+    result.rbo = RenderStageConfigUtility._parseRenderBuffer(rboNode);
     return result;
   }
 
@@ -96,4 +96,4 @@ class RSMLRenderConfigUtility {
   }
 }
 
-export default RSMLRenderConfigUtility;
+export default RenderStageConfigUtility;
