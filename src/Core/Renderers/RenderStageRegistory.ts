@@ -10,15 +10,15 @@ class RenderStageRegistory implements IContextComponent {
 
   constructor() {
     this.register("jthree.hitarea", (renderer) => new HitAreaRenderStage(renderer));
-    this.register(require("./RenderStages/BuiltIn/GBuffer.html"));
-    this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.html"));
-    this.register(require("./RenderStages/BuiltIn/ForwardShading.html"));
-    this.register(require("./RenderStages/BuiltIn/Fog.html"));
-    this.register(require("./RenderStages/BuiltIn/FogExp2.html"));
-    this.register(require("./RenderStages/BuiltIn/Skybox.html"));
-    this.register(require("./RenderStages/BuiltIn/FXAA.html"));
-    this.register(require("./RenderStages/BuiltIn/Sobel.html"));
-    this.register(require("./RenderStages/BuiltIn/Gaussian.html"));
+    this.register(require("./RenderStages/BuiltIn/GBuffer.rsml"));
+    this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.rsml"));
+    this.register(require("./RenderStages/BuiltIn/ForwardShading.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Fog.rsml"));
+    this.register(require("./RenderStages/BuiltIn/FogExp2.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Skybox.rsml"));
+    this.register(require("./RenderStages/BuiltIn/FXAA.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Sobel.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Gaussian.rsml"));
   }
 
   public getContextComponentIndex(): number {

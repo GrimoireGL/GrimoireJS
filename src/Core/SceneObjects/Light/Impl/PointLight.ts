@@ -14,7 +14,7 @@ class PointLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("sphere");
-    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/PointLight.html"));
+    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/PointLight.xmml"));
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
       diffuseMaterial.materialVariables = {
@@ -24,7 +24,7 @@ class PointLight extends LightBase {
         lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
        };
     });
-    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/PointLight.html"));
+    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/PointLight.xmml"));
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
       specularMaterial.materialVariables = {

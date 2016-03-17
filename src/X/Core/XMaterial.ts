@@ -6,7 +6,7 @@ import IXMaterialData from "../IXMaterialData";
 import BasicMaterial from "../../Core/Materials/BasicMaterial";
 class XMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
-    super(require("../Material/Forward.html"));
+    super(require("../Material/Forward.xmml"));
     this.materialVariables = {
       faceColor: this._material.faceColor,
       power: this._material.power,
