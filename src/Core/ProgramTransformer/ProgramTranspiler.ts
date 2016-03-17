@@ -50,10 +50,10 @@ class ProgramTranspiler {
       });
     });
     for (let i = 0; i < transformers.length; i++) {
-      promise = promise.then<IProgramTransform>((arg) => {
-        obj.initialSource = source;
+      promise = promise.then<IProgramTransform>((result) => {
+        result.initialSource = source;
         let t = transformers[i];
-        return t.transform(obj);
+        return t.transform(result);
       });
     }
     return promise;
@@ -68,7 +68,7 @@ class ProgramTranspiler {
     return ProgramTranspiler.transform(codeString, ProgramTranspiler.transformerGenerator()).then((arg: IProgramTransform) => arg.description);
   }
 
-  public static parseInternalImport(source: string, materialManager: MaterialManager): string {
+  public static parseInternalImport(source: string, materialManager: MaterialManager): string { // TODO must be moved
     while (true) {
       const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
       if (!regexResult) { break; }
