@@ -24,7 +24,7 @@ class PMXHitAreaMaterial extends BasicMaterial {
   }
 
   constructor(material: PMXMaterial) {
-    super(require("../../Materials/HitAreaTest.html"));
+    super(require("../../Materials/HitAreaTest.xmml"));
     this.__associatedMaterial = material;
   }
 

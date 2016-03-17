@@ -139,7 +139,7 @@
     "through2": "^2.0.1",
     "tsify": "^0.14.1",
     "tslint": "^3.6.0",
-    "txtify": "jThreeJS/txtify#ab4d0fe28e3b1e94e349504688f6011143ad622c",
+    "txtify": "jThreeJS/txtify#40854f05048e072720261010297315a543593a7e",
     "typedoc": "^0.3.12",
     "typescript": "^1.8.7",
     "underscore": "^1.8.3",

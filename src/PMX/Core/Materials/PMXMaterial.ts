@@ -78,7 +78,7 @@ class PMXMaterial extends Material {
     this._specular = new Vector4(materialData.specular);
     this._edgeSize = materialData.edgeSize;
     this._sphereMode = materialData.sphereMode;
-    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
+    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.xmml"));
     const tm = this._parentModel.pmxTextureManager;
     tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
       this._sphere = texture;
