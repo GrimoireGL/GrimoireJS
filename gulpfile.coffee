@@ -35,14 +35,13 @@ config =
     main:
       entries: './lib/jThree.js'
       name: 'j3.js'
-      extensions: ['.js', '.json', '.glsl', '.html','.xmml']
+      extensions: ['.js', '.json', '.glsl', '.html','.xmml','.rsml']
       dest: ['./wwwroot', './bin/product']
       target: 'web'
       minify: false
       sourcemap: !args.nosourcemap
       transform: [
-        'shaderify'
-        'txtify'
+        {name:'txtify',opt:{extensions:['.json','.html','.css','.glsl','.xmml','.rsml']}}
         {name: 'babelify', opt: {presets: 'es2015',plugins:["transform-es2015-modules-commonjs","add-module-exports"]}}
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
       ]
@@ -104,5 +103,5 @@ fs.open "wwwroot/debug/debug.json","ax+",384,(err,fd)=>
     fs.createReadStream 'wwwroot/debug/debug.json.template'
       .pipe fs.createWriteStream('wwwroot/debug/debug.json');
   else
-   fd && fs.close fd, (err)=>
-     undefined
+    fd && fs.close fd, (err)=>
+      undefined
