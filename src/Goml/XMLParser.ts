@@ -108,9 +108,9 @@ export class XMLParserError {
   private _message: string;
 
   constructor(doc: Document) {
-    const parsererrorElement = doc.querySelector("parsererror div");
+    const parsererrorElement: any = doc.querySelector("parsererror div");
     if (parsererrorElement) {
-      this._all = parsererrorElement.innerHTML.replace(/^\s+|\s+$/g, "");
+      this._all = (<HTMLElement>parsererrorElement).innerHTML.replace(/^\s+|\s+$/g, "");
       this._message = this._all.match(/^.+?:\s?(.+)$/)[1];
     }
   }
