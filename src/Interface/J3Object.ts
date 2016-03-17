@@ -15,11 +15,21 @@ import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
+import Basic, {IOption} from "./Effects/Basic";
 
 /**
  * Provides jQuery like API for jThree.
  */
-class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, Filtering, GeneralAttributes, CollectionManipulation, NodeInsertionInside, NodeRemoval {
+class J3Object extends J3ObjectBase implements
+  GomlNodeMethods,
+  TreeTraversal,
+  Filtering,
+  GeneralAttributes,
+  CollectionManipulation,
+  NodeInsertionInside,
+  NodeRemoval,
+  Basic {
+
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -234,6 +244,40 @@ class J3Object extends J3ObjectBase implements GomlNodeMethods, TreeTraversal, F
     (): J3Object;
     (filter: string): J3Object;
     (argu?: string): any;
+  }
+
+  /**
+   * Effects/Basic
+   */
+
+  public show: {
+    (): J3Object;
+    (option: IOption): J3Object;
+    (duration: number): J3Object;
+    (duration: string): J3Object;
+    (complete: () => void): J3Object;
+    (duration: number, complete: () => void): J3Object;
+    (duration: string, complete: () => void): J3Object;
+    (duration: number, easing: string): J3Object;
+    (duration: string, easing: string): J3Object;
+    (duration: number, easing: string, complete: () => void): J3Object;
+    (duration: string, easing: string, complete: () => void): J3Object;
+    (argu0?: any, argu1?: any, argu2?: any): any;
+  }
+
+  public hide: {
+    (): J3Object;
+    (option: IOption): J3Object;
+    (duration: number): J3Object;
+    (duration: string): J3Object;
+    (complete: () => void): J3Object;
+    (duration: number, complete: () => void): J3Object;
+    (duration: string, complete: () => void): J3Object;
+    (duration: number, easing: string): J3Object;
+    (duration: string, easing: string): J3Object;
+    (duration: number, easing: string, complete: () => void): J3Object;
+    (duration: string, easing: string, complete: () => void): J3Object;
+    (argu0?: any, argu1?: any, argu2?: any): any;
   }
 }
 
