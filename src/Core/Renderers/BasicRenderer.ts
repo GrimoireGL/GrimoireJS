@@ -1,3 +1,6 @@
+import IRenderer from "./IRenderer";
+import RendererBase from "./RendererBase";
+import RBO from "../Resources/RBO/RBO";
 import BufferSet from "./BufferSet";
 import CubeTexture from "../Resources/Texture/CubeTexture";
 import BufferTexture from "../Resources/Texture/BufferTexture";
@@ -13,11 +16,11 @@ import ResourceManager from "../ResourceManager";
 import Scene from "../Scene";
 import RenderPath from "./RenderPath";
 import Canvas from "../Canvas/Canvas";
-import CanvasRegion from "../Canvas/CanvasRegion";
+
 /**
 * Provides base class feature for renderer classes.
 */
-class BasicRenderer extends CanvasRegion {
+class BasicRenderer extends RendererBase implements IRenderer {
 
   /**
    * The texture which will be used for unassigned texture sampler2D variable in GLSL.
@@ -35,27 +38,20 @@ class BasicRenderer extends CanvasRegion {
    */
   public alternativeCubeTexture: CubeTexture;
 
+  public defaultRenderBuffer: RBO;
+
   public renderPath: RenderPath = new RenderPath(this);
 
   public bufferSet: BufferSet;
-
   /**
    * The camera reference this renderer using for draw.
    */
-  private _camera: Camera;
+  public camera: Camera;
 
   /**
    * Canvas managing this renderer.
    */
   private _canvas: Canvas;
-
-  private _viewport: Rectangle = new Rectangle(0, 0, 256, 256);
-
-  /**
-  * Provides render stage abstraction
-  */
-  private _renderPathExecutor: RenderPathExecutor;
-
 
   /**
    * Constructor of RenderBase
@@ -67,10 +63,7 @@ class BasicRenderer extends CanvasRegion {
     super(canvas.canvasElement);
     configurator = configurator || new RendererConfigurator();
     this._canvas = canvas;
-    this._renderPathExecutor = new RenderPathExecutor(this);
-    this._viewport = viewportArea;
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    if (this._viewport) { rm.createRBO(this.ID + ".rbo.default", this._viewport.Width, this._viewport.Height); }
+    this.region = viewportArea;
     this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);
@@ -85,23 +78,15 @@ class BasicRenderer extends CanvasRegion {
   public initialize(): void {
     this.alternativeTexture = this.__initializeAlternativeTexture();
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
-  }
-
-  /**
-   * The camera reference this renderer using for draw.
-   */
-  public get Camera(): Camera {
-    return this._camera;
-  }
-  /**
-   * The camera reference this renderer using for draw.
-   */
-  public set Camera(camera: Camera) {
-    this._camera = camera;
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    this.defaultRenderBuffer = rm.createRBO(this.ID + ".rbo.default", this.region.Width, this.region.Height);
+    this.on("resize", () => {
+      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(this.region.Width, this.region.Height);
+    });
   }
 
   public render(scene: Scene): void {
-    this._renderPathExecutor.processRender(scene, this.renderPath);
+    RenderPathExecutor.processRender(this, scene);
   }
 
   /**
@@ -134,44 +119,14 @@ class BasicRenderer extends CanvasRegion {
   }
 
   /**
-   * Provides render stage abstraction
-   */
-  public get RenderPathExecutor(): RenderPathExecutor {
-    return this._renderPathExecutor;
-  }
-
-  /**
-   * Getter for viewport area. Viewport area is the area to render.
-   * @returns {Rectangle} the rectangle region to render.
-   */
-  public get region(): Rectangle {
-    return this._viewport;
-  }
-  /**
-   * Setter for viewport area. viewport area is the area to render.
-   * @param area {Rectangle} the rectangle to render.
-   */
-  public set region(area: Rectangle) {
-    if (!Rectangle.equals(area, this._viewport) && (typeof area.Width !== "undefined") && (typeof area.Height !== "undefined")) { // Check specified area is valid and modified
-      if (isNaN(area.Height + area.Width)) {
-        return;
-      }
-      this._viewport = area;
-      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(area.Width, area.Height);
-      this.emit("resize", area); // This should be moved in canvas region
-    }
-
-  }
-
-  /**
    * Apply viewport configuration
    */
   public applyDefaultBufferViewport(): void {
-    this.GL.viewport(this._viewport.Left, this._canvas.region.Height - this._viewport.Bottom, this._viewport.Width, this._viewport.Height);
+    this.GL.viewport(this.region.Left, this._canvas.region.Height - this.region.Bottom, this.region.Width, this.region.Height);
   }
 
   public applyRendererBufferViewport(): void {
-    this.GL.viewport(0, 0, this._viewport.Width, this._viewport.Height);
+    this.GL.viewport(0, 0, this.region.Width, this.region.Height);
   }
 
 

@@ -1,5 +1,5 @@
-import IApplyMaterialArgument from "../Base/IApplyMaterialArgument";
-import BasicMaterial from "../Base/BasicMaterial";
+import IApplyMaterialArgument from "../IApplyMaterialArgument";
+import BasicMaterial from "../BasicMaterial";
 /**
  * Provides shadow map rendering materials.
  * By this material, default meshes will be rendered as shadow map.

@@ -1,7 +1,7 @@
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 import PMXMaterial from "./PMXMaterial";
-import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
-import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
+import IApplyMaterialArgument from "../../../Core/Materials/IApplyMaterialArgument";
+import BasicMaterial from "../../../Core/Materials/BasicMaterial";
 class PMXPrimaryBufferMaterial extends BasicMaterial {
   private _associatedMaterial: PMXMaterial;
 

@@ -158,8 +158,8 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         // when canvas HTMLElement is not applied
         this.target.region = new Rectangle(this._left, this._top, this._width, this._height);
       }
-      if (this.target.Camera.getTypeName() === "PerspectiveCamera") {
-        (<PerspectiveCamera>this.target.Camera).Aspect = this._width / this._height;
+      if (this.target.camera.getTypeName() === "PerspectiveCamera") {
+        (<PerspectiveCamera>this.target.camera).Aspect = this._width / this._height;
       }
     }
   }
@@ -171,7 +171,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
       //
       if (cameraNode) {
         if (cameraNode.ContainedSceneNode != null) { // if there was specified camera and there is Scene
-          this.target.Camera = cameraNode.target;
+          this.target.camera = cameraNode.target;
           const scene: Scene = cameraNode.ContainedSceneNode.target;
           scene.addRenderer(this.target);
           this._updateViewportArea();

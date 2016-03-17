@@ -1,7 +1,7 @@
 import TextureBase from "../../Resources/Texture/TextureBase";
-import RSMLRenderStageBase from "./RSML/RSMLRenderStage";
+import BasicRenderStage from "./Base/BasicRenderStage";
 import SceneObject from "../../SceneObjects/SceneObject";
-import ResolvedChainInfo from "../ResolvedChainInfo";
+import BufferInput from "../BufferInput";
 import Scene from "../../Scene";
 import Q from "q";
 
@@ -11,7 +11,7 @@ interface HitTestQuery {
   deferred: Q.Deferred<SceneObject>;
 }
 
-class HitAreaRenderStage extends RSMLRenderStageBase {
+class HitAreaRenderStage extends BasicRenderStage {
   constructor(renderer) {
     super(renderer, require("./BuiltIn/HitAreaRenderingStage.html"));
     this.Renderer.on("mouse-move", (e) => {
@@ -32,18 +32,18 @@ class HitAreaRenderStage extends RSMLRenderStageBase {
 
   public hitTestQueries: HitTestQuery[] = [];
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     super.preTechnique(scene, techniqueIndex, texs);
     this.objectIndex = 1;
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
     this.indexObjectPair[this.objectIndex] = object;
     super.render(scene, object, techniqueCount, techniqueIndex, texs);
     this.objectIndex++;
   }
 
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: ResolvedChainInfo): void {
+  public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
     if (texs["OUT"]) {
       if (!(texs["OUT"] instanceof TextureBase)) {
         throw new Error("OUT argument cannnot acceptable except TextureBase");

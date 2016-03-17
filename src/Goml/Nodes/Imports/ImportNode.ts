@@ -1,5 +1,5 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
-import MaterialManager from "../../../Core/Materials/Base/MaterialManager";
+import MaterialManager from "../../../Core/Materials/MaterialManager";
 import ContextComponents from "../../../ContextComponents";
 import JThreeContext from "../../../JThreeContext";
 import GomlAttribute from "../../GomlAttribute";

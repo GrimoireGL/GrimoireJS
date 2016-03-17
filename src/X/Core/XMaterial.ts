@@ -3,7 +3,7 @@ import ResourceManager from "../../Core/ResourceManager";
 import JThreeContext from "../../JThreeContext";
 import Geometry from "../../Core/Geometries/Base/Geometry";
 import IXMaterialData from "../IXMaterialData";
-import BasicMaterial from "../../Core/Materials/Base/BasicMaterial";
+import BasicMaterial from "../../Core/Materials/BasicMaterial";
 class XMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
     super(require("../Material/Forward.html"));

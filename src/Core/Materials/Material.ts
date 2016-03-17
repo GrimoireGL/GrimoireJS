@@ -1,11 +1,11 @@
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Geometry from "../Geometries/Base/Geometry";
-import IApplyMaterialArgument from "./Base/IApplyMaterialArgument";
+import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import TextureBase from "../Resources/Texture/TextureBase";
 import Matrix from "../../Math/Matrix";
 import VectorBase from "../../Math/VectorBase";
 import ProgramWrapper from "../Resources/Program/ProgramWrapper";
-import IVariableDescription from "./Base/IVariableDescription";
+import IVariableDescription from "../ProgramTransformer/Base/IVariableDescription";
 import BasicRenderer from "../Renderers/BasicRenderer";
 /**
 * Basement class for any Materials.

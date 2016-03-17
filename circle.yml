@@ -12,10 +12,8 @@ dependencies:
     - sh ./build/shell/deploy-gp-init.sh
 test:
   override:
-    - npm run build -- --branch=$CIRCLE_BRANCH
-    - npm run doc -- --branch=$CIRCLE_BRANCH
-    - npm run lint -- --branch=$CIRCLE_BRANCH
-    - npm run cover -- --report-dir=ci/cover/$CIRCLE_BRANCH
+    - sh ./build/shell/test.sh:
+        parallel: true
   post:
     - git config --global user.email "admin@jthree.io"
     - git config --global user.name "CircleCI"

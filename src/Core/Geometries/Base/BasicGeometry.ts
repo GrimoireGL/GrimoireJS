@@ -1,4 +1,4 @@
-import IVariableDescription from "../../Materials/Base/IVariableDescription";
+import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import IndexedGeometry from "./IndexedGeometry";
 import Buffer from "../../Resources/Buffer/Buffer";

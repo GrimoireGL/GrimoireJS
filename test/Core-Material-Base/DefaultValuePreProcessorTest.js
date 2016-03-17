@@ -1,6 +1,6 @@
 import test from 'ava';
 import _ from 'lodash';
-import DefaultValuePreProcessor from '../../lib/Core/Materials/Base/DefaultValuePreProcessor';
+import DefaultValuePreProcessor from '../../lib/Core/Pass/DefaultValuePreProcessor';
 
 import Vector2 from '../../lib/Math/Vector2';
 import Vector3 from '../../lib/Math/Vector3';

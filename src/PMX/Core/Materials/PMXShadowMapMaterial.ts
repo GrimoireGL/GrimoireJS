@@ -1,5 +1,5 @@
-import BasicMaterial from "../../../Core/Materials/Base/BasicMaterial";
-import IApplyMaterialArgument from "../../../Core/Materials/Base/IApplyMaterialArgument";
+import BasicMaterial from "../../../Core/Materials/BasicMaterial";
+import IApplyMaterialArgument from "../../../Core/Materials/IApplyMaterialArgument";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 import PMXMaterial from "./PMXMaterial";
 /**

@@ -3,7 +3,7 @@ import Geometry from "../Geometries/Base/Geometry";
 import Material from "../Materials/Material";
 import Mesh from "./Mesh";
 import HitAreaTestMaterial from "../Materials/Buffering/HitAreaMaterial";
-import BasicMaterial from "../Materials/Base/BasicMaterial";
+import BasicMaterial from "../Materials/BasicMaterial";
 class BasicMeshObject extends Mesh {
   constructor(geometry: Geometry, mat: Material) {
     super(geometry, mat);

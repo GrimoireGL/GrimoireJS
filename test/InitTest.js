@@ -12,3 +12,5 @@ test('GL constants should be copied to WebGLRenderingContext',(t)=>{
   Init._copyGLConstants();
   t.ok(WebGLRenderingContext.ONE === 1);
 });
+
+export default WebGLRenderingContext;
