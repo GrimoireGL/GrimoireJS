@@ -9,7 +9,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
   protected __associatedMaterial: PMXMaterial;
 
   constructor(material: PMXMaterial) {
-    super(require("../../Materials/ShadowMap.html"));
+    super(require("../../Materials/ShadowMap.xmml"));
     this.__associatedMaterial = material;
     this.__setLoaded();
   }

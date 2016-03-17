@@ -34,8 +34,8 @@ class MaterialManager implements IContextComponent {
     // this.addUniformRegister(TextureRegister);
     this.addUniformRegister(BufferRegisterer);
     this.addUniformRegister(StageDescriptionRegisterer);
-    this.registerMaterial(require("./BuiltIn/Materials/Phong.html"));
-    this.registerMaterial(require("./BuiltIn/Materials/SolidColor.html"));
+    this.registerMaterial(require("./BuiltIn/Materials/Phong.xmml"));
+    this.registerMaterial(require("./BuiltIn/Materials/SolidColor.xmml"));
   }
 
   public getContextComponentIndex(): number {
