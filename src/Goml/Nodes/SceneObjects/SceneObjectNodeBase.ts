@@ -86,6 +86,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
 
   protected __onUnmount(): void {
     super.__onUnmount();
+    this.TargetSceneObject = null;
   }
 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
@@ -117,7 +118,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   }
 
   /**
-   * update SceneObject child. using this.sceneObject to previus object, so do not change it before call this method.
+   * update SceneObject child. using this._sceneObject to access previous object, so do not change it before call this method.
    * @param {SceneObject} obj [description]
    */
   private _updateSceneObjectChild(obj: SceneObject): void {
@@ -125,25 +126,27 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
       console.error(`${this.getTypeName() }: sceneObject is undefined. It must be null or instance.`);
       obj = null;
     }
-    // previus object is exist in child, remove child
+     console.log('USOC', obj, this.getTypeName(), this.ID);
+    // previous object is exist in child, remove child
     if (this._sceneObject !== null) {
-      if (this.ParentSceneObjectNode === null) { // this is root object of scene
+      if (this._parentSceneObjectNode === null) { // this is root object of scene
         this._containedSceneNode.target.removeObject(this._sceneObject);
       } else {
         if (this._parentSceneObjectNode.TargetSceneObject === null) {
-          return;
+          throw new Error("Something fatal occured. Parent scene object is lost.")
         }
         this._parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
       }
     }
+    // if obj is not null, insert obj. if null, do nothing.
     if (obj !== null) {
-      if (this.ParentSceneObjectNode === null) { // this is root object of scene
-        this._containedSceneNode.target.addObject(obj);
+      if (this._parentSceneObjectNode === null) { // this is root object of scene
+        this._containedSceneNode.target.addObject(obj, this.index);
       } else {
         if (this._parentSceneObjectNode.TargetSceneObject === null) {
-          return;
+          throw new Error("Something fatal occured. Parent scene object is lost.")
         }
-        this._parentSceneObjectNode.TargetSceneObject.addChild(obj);
+        this._parentSceneObjectNode.TargetSceneObject.addChild(obj, this.index);
       }
     }
   }

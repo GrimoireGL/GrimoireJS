@@ -10,6 +10,7 @@ class NodeRemoval extends J3ObjectBase {
   public remove(filter: string): J3Object;
   public remove(argu?: string): any {
     const target = Filter.filter(this.__getArray(), argu, ["selector"]);
+    console.log(target);
     NodeOperator.remove(target);
     return this;
   }

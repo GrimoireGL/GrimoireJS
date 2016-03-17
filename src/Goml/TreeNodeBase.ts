@@ -88,16 +88,18 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * @param {boolean} mounted [description]
    */
   public set Mounted(mounted: boolean) {
-    if (mounted && !this._mounted) {
+    if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
       this._mounted = mounted;
       if (this._mounted) {
         this.emit("on-mount");
+        console.log('USOC MOUNT');
         this.emit("node-mount-process-finished", this._mounted); // this will be move
         this.__children.forEach((child) => {
           child.Mounted = true;
         });
       } else {
         this.emit("on-unmount");
+        console.log('USOC UNMOUNT');
         this.emit("node-mount-process-finished", this._mounted); // this will be move
         this.__children.forEach((child) => {
           child.Mounted = false;
@@ -165,7 +167,9 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       let v = this.__children[i];
       if (v === child) {
         child.__parent = null;
+        console.log(this.__children.length);
         this.__children.splice(i, 1);
+        console.log(this.__children.length);
         if (this.Mounted) {
           child.Mounted = false;
           this.emit("child-removed", child);
@@ -182,6 +186,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    */
   public remove(): void {
     if (this.__parent) {
+      console.log("remove", this.__parent);
       this.__parent.removeChild(this);
     } else {
       throw new Error('root Node cannot be removed.');

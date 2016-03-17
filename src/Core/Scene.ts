@@ -87,8 +87,16 @@ class Scene extends jThreeObjectEEWithID {
     return this._renderers;
   }
 
-  public addObject(targetObject: SceneObject): void {
-    this.children.push(targetObject);
+  /**
+   * Add SceneObject to scene hierarchy top.
+   * @param {SceneObject} targetObject target scene object which will be inserted.
+   * @param {number}      index        insert index of location in children.
+   */
+  public addObject(targetObject: SceneObject, index?: number): void {
+    if (index == null) {
+      index = this.children.length;
+    }
+    this.children.splice(index, 0, targetObject);
     targetObject.ParentScene = this;
     this.notifySceneObjectChanged({
       owner: null,
@@ -99,6 +107,10 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
+  /**
+   * Remove SceneObject from scene hierarchy top.
+   * @param {SceneObject} removeTarget target object which will be removed.
+   */
   public removeObject(removeTarget: SceneObject): void {
     const index = this.children.indexOf(removeTarget);
     if (index >= 0) {
