@@ -2,7 +2,7 @@ import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import SomeToNodes from "./SomeToNodes";
 
 class Filter {
-  public static filter(target: GomlTreeNodeBase[], filter: any, filterType: string[]) {
+  public static filter(target: GomlTreeNodeBase[], filter: any, filterType: string[]): GomlTreeNodeBase[] {
     let filterNodes = SomeToNodes.convert(filter, filterType);
     filterNodes = filterNodes === null ? [] : filterNodes;
     return target.filter((t) => {

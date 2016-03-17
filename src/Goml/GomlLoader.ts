@@ -1,7 +1,5 @@
 import jThreeObject from "../Base/JThreeObject";
-import {InvalidArgumentException} from "../Exceptions";
 import JThreeLogger from "../Base/JThreeLogger";
-import GomlParser from "./GomlParser";
 import NodeManager from "./NodeManager";
 import JThreeContext from "../JThreeContext";
 import ResourceLoader from "../Core/ResourceLoader";

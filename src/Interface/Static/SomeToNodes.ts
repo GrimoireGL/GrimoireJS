@@ -18,7 +18,7 @@ class SomeToNode {
     let isArrayFlag = false;
     if (isArray(target)) {
       isArrayFlag = true;
-      if (filterType.map((v) => { return v.substr(-2, 2) === "[]" }).some((v) => v)) {
+      if (filterType.map((v) => { return v.substr(-2, 2) === "[]"; }).some((v) => v)) {
         targets = target;
       } else {
         return null;
@@ -27,34 +27,38 @@ class SomeToNode {
       targets = [target];
     }
     const converted_nested: GomlTreeNodeBase[][] = targets.map<GomlTreeNodeBase[]>((t) => {
+      let ret: GomlTreeNodeBase[] = null;
       switch (true) {
         case isString(t):
           let parseObj: XMLParser = null;
-          if (isArrayFlag ? filterType.indexOf('xmlstring[]') !== -1 : filterType.indexOf('xmlstring') !== -1) {
+          if (isArrayFlag ? filterType.indexOf("xmlstring[]") !== -1 : filterType.indexOf("xmlstring") !== -1) {
             parseObj = new XMLParser(<string>t);
           }
           if (parseObj && parseObj.isValid) {
             // t is parseObj
-            return parseObj.elements.map((elem, i) => {
+            ret = parseObj.elements.map((elem, i) => {
               return GomlParser.parse(elem, nodeManager.configurator);
             });
-          } else if (isArrayFlag ? filterType.indexOf('selector[]') !== -1 : filterType.indexOf('selector') !== -1) {
+          } else if (isArrayFlag ? filterType.indexOf("selector[]") !== -1 : filterType.indexOf("selector") !== -1) {
             // t is selector
-            return J3Object.find(t);
+            ret = J3Object.find(t);
           } else {
-            return null;
+            ret = null;
           }
+          break;
         case (t instanceof GomlTreeNodeBase && (isArrayFlag ? filterType.indexOf("node[]") !== -1 : filterType.indexOf("node") !== -1)):
-          return [t];
+          ret = [t];
+          break;
         case (t instanceof J3Object && (isArrayFlag ? filterType.indexOf("j3obj[]") !== -1 : filterType.indexOf("j3obj") !== -1)):
-          const ret: GomlTreeNodeBase[] = [];
+          ret = [];
           J3Object.each(<J3ObjectBase>t, (i, node) => {
             ret.push(node);
           });
-          return ret;
+          break;
         default:
-          return null;
+          ret = null;
       }
+      return ret;
     });
     const converted: GomlTreeNodeBase[] = Array.prototype.concat.apply([], converted_nested);
     if (converted.some((v) => { return v === null; })) {

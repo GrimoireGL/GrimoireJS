@@ -16,7 +16,6 @@ class NodeInsertionInside extends J3ObjectBase {
   public append(func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
   public append(func: (index: number, goml: string) => J3Object): J3Object;
   public append(...argu: any[]): any {
-    const thisNodes = this.__getArray()
     argu.forEach((argu_, i) => {
       if (i === 0 && isFunction(argu_)) {
         throw new Error("Not implemented yet");
@@ -38,7 +37,7 @@ class NodeInsertionInside extends J3ObjectBase {
   public appendTo(targets: GomlTreeNodeBase[]): J3Object;
   public appendTo(targets: J3Object[]): J3Object;
   public appendTo(argu: any): any {
-    const targets = SomeToNode.convert(argu, ["selector", "xmlstring", "node", "node[]", "j3obj", "j3obj[]"])
+    const targets = SomeToNode.convert(argu, ["selector", "xmlstring", "node", "node[]", "j3obj", "j3obj[]"]);
     const contents = this.__getArray();
     if (!targets) {
       throw new Error("Argument type is not correct");

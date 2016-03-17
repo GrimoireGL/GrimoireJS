@@ -126,14 +126,13 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
       console.error(`${this.getTypeName() }: sceneObject is undefined. It must be null or instance.`);
       obj = null;
     }
-     console.log('USOC', obj, this.getTypeName(), this.ID);
     // previous object is exist in child, remove child
     if (this._sceneObject !== null) {
       if (this._parentSceneObjectNode === null) { // this is root object of scene
         this._containedSceneNode.target.removeObject(this._sceneObject);
       } else {
         if (this._parentSceneObjectNode.TargetSceneObject === null) {
-          throw new Error("Something fatal occured. Parent scene object is lost.")
+          throw new Error("Something fatal occured. Parent scene object is lost.");
         }
         this._parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
       }
@@ -144,7 +143,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
         this._containedSceneNode.target.addObject(obj, this.index);
       } else {
         if (this._parentSceneObjectNode.TargetSceneObject === null) {
-          throw new Error("Something fatal occured. Parent scene object is lost.")
+          throw new Error("Something fatal occured. Parent scene object is lost.");
         }
         this._parentSceneObjectNode.TargetSceneObject.addChild(obj, this.index);
       }

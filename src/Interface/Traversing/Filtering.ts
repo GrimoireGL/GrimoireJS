@@ -12,7 +12,7 @@ class Filtering extends J3ObjectBase {
   public filter(nodes: GomlTreeNodeBase[]): J3Object;
   public filter(j3obj: J3Object): J3Object;
   public filter(argu: any): J3Object {
-    const thisNodes = this.__getArray()
+    const thisNodes = this.__getArray();
     let nodes = [];
     switch (true) {
       case (isString(argu)):

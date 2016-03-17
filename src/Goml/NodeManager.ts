@@ -118,7 +118,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
    * @param {GomlTreeNodeBase} parentNode parent node which is inserted.
    * @param {number}           index      index of node which target will be inserted. If index is not given, node will be inserted to the end of children.
    */
-  public insertNode(contentNode: GomlTreeNodeBase, parentNode:GomlTreeNodeBase, index?: number): void {
+  public insertNode(contentNode: GomlTreeNodeBase, parentNode: GomlTreeNodeBase, index?: number): void {
     parentNode.addChild(contentNode, index);
     const parentElement = parentNode.props.getProp<HTMLElement>("elem");
     const targetElement = contentNode.props.getProp<HTMLElement>("elem");

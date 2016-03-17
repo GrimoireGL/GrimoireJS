@@ -97,7 +97,7 @@ class J3Object extends J3ObjectBase implements
     <T>(object: { [propertyName: string]: T }, callback: (propertyName: string, valueOfProperty: T) => boolean): { [propertyName: string]: T };
     <T>(object: { [propertyName: string]: T }, callback: (propertyName: string, valueOfProperty: T) => void): { [propertyName: string]: T };
     <T>(argu0: any, callback: (argu1: any, argu2: any) => any): any;
-  }
+  };
 
   /**
    * Static/Find
@@ -225,7 +225,7 @@ class J3Object extends J3ObjectBase implements
     (func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
     (func: (index: number, goml: string) => J3Object): J3Object;
     (...argu: any[]): J3Object;
-  }
+  };
 
   public appendTo: {
     (target: string): J3Object;
@@ -234,7 +234,7 @@ class J3Object extends J3ObjectBase implements
     (targets: GomlTreeNodeBase[]): J3Object;
     (targets: J3Object[]): J3Object;
     (argu: any): any;
-  }
+  };
 
   /**
    * Manipulation/NodeRemoval
@@ -244,7 +244,7 @@ class J3Object extends J3ObjectBase implements
     (): J3Object;
     (filter: string): J3Object;
     (argu?: string): any;
-  }
+  };
 
   /**
    * Effects/Basic
@@ -263,7 +263,7 @@ class J3Object extends J3ObjectBase implements
     (duration: number, easing: string, complete: () => void): J3Object;
     (duration: string, easing: string, complete: () => void): J3Object;
     (argu0?: any, argu1?: any, argu2?: any): any;
-  }
+  };
 
   public hide: {
     (): J3Object;
@@ -278,7 +278,7 @@ class J3Object extends J3ObjectBase implements
     (duration: number, easing: string, complete: () => void): J3Object;
     (duration: string, easing: string, complete: () => void): J3Object;
     (argu0?: any, argu1?: any, argu2?: any): any;
-  }
+  };
 }
 
 export default J3Object;

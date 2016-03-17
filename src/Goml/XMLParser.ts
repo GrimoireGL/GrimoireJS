@@ -35,12 +35,12 @@ class XMLParser {
     this._xml = xml;
     this._doc = (new DOMParser()).parseFromString(xml, "text/xml");
     if (!nowrap) {
-      this.updateError();
+      this._updateError();
       if (!this._error.all) {
         this._elements = [this._doc.documentElement];
       } else if (this._error.message === "Extra content at the end of the document") {
         this._doc = (new DOMParser()).parseFromString(`<root>${xml}</root>`, "text/xml");
-        this.updateError();
+        this._updateError();
         if (this.isValid) {
           this._elements = Array.prototype.slice.call(this._doc.documentElement.childNodes);
         } else {
@@ -72,7 +72,7 @@ class XMLParser {
    */
   public get error(): XMLParserError {
     if (!this._error) {
-      this.updateError();
+      this._updateError();
     }
     if (this._error.all) {
       return this._error;
@@ -89,7 +89,7 @@ class XMLParser {
     return this._xml;
   }
 
-  private updateError(): void {
+  private _updateError(): void {
     this._error = new XMLParserError(this._doc);
   }
 }
@@ -110,7 +110,7 @@ export class XMLParserError {
   constructor(doc: Document) {
     const parsererrorElement = doc.querySelector("parsererror div");
     if (parsererrorElement) {
-      this._all = parsererrorElement.innerHTML.replace(/^\s+|\s+$/g, '');
+      this._all = parsererrorElement.innerHTML.replace(/^\s+|\s+$/g, "");
       this._message = this._all.match(/^.+?:\s?(.+)$/)[1];
     }
   }
@@ -127,7 +127,7 @@ export class XMLParserError {
    * get message part of error.
    * @return {string} error message string.
    */
-  public get message() : string {
+  public get message(): string {
     return this._message;
   }
 }

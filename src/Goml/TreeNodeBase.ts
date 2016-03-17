@@ -1,5 +1,5 @@
 import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import isNumber from 'lodash.isnumber';
+import isNumber from "lodash.isnumber";
 
 /**
  * The most base class for GOML Tree
@@ -92,14 +92,12 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       this._mounted = mounted;
       if (this._mounted) {
         this.emit("on-mount");
-        console.log('USOC MOUNT');
         this.emit("node-mount-process-finished", this._mounted); // this will be move
         this.__children.forEach((child) => {
           child.Mounted = true;
         });
       } else {
         this.emit("on-unmount");
-        console.log('USOC UNMOUNT');
         this.emit("node-mount-process-finished", this._mounted); // this will be move
         this.__children.forEach((child) => {
           child.Mounted = false;
@@ -189,7 +187,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       console.log("remove", this.__parent);
       this.__parent.removeChild(this);
     } else {
-      throw new Error('root Node cannot be removed.');
+      throw new Error("root Node cannot be removed.");
     }
   }
 

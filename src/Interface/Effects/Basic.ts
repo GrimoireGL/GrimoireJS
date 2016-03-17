@@ -3,8 +3,6 @@ import J3Object from "../J3Object";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import SceneObjectNodeBase from "../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 import SceneObject from "../../Core/SceneObjects/SceneObject";
-import Filter from "../Static/Filter";
-import NodeOperator from "../Static/NodeOperation";
 import ISpecialEasing from "./ISpecialEasing";
 import Tween from "./Tween";
 import isUndefined from "lodash.isundefined";
@@ -14,7 +12,7 @@ import isFunction from "lodash.isfunction";
 import isPlainObject from "lodash.isplainobject";
 
 class Basic extends J3ObjectBase {
-  private static effectArgumentFormatter(argu0: any, argu1: any, argu2: any): IOption {
+  private static _effectArgumentFormatter(argu0: any, argu1: any, argu2: any): IOption {
     let option: IOption = {
       duration: 400,
       easing: "swing",
@@ -25,8 +23,10 @@ class Basic extends J3ObjectBase {
         break;
       case (isPlainObject(argu0) && isUndefined(argu1)):
         option = argu0;
+        break;
       case (isFunction(argu0) && isUndefined(argu1)):
         option.complete = argu0;
+        break;
       case (isNumber(argu0) || isString(argu0)):
         option.duration = argu0;
         switch (true) {
@@ -50,16 +50,18 @@ class Basic extends J3ObjectBase {
               default:
                 throw new Error("Argument type is not correct");
             }
+            break;
           default:
             throw new Error("Argument type is not correct");
         }
+        break;
       default:
         throw new Error("Argument type is not correct");
     }
     return option;
   }
 
-  private static filterSceneObjectNode(targetNodes: GomlTreeNodeBase[]): SceneObjectNodeBase<SceneObject>[] {
+  private static _filterSceneObjectNode(targetNodes: GomlTreeNodeBase[]): SceneObjectNodeBase<SceneObject>[] {
     return (<any[]>targetNodes).filter((node) => {
       return node instanceof SceneObjectNodeBase;
     });
@@ -77,9 +79,9 @@ class Basic extends J3ObjectBase {
   public show(duration: number, easing: string, complete: () => void): J3Object;
   public show(duration: string, easing: string, complete: () => void): J3Object;
   public show(argu0?: any, argu1?: any, argu2?: any): any {
-    const option = Basic.effectArgumentFormatter(argu0, argu1, argu2);
+    const option = Basic._effectArgumentFormatter(argu0, argu1, argu2);
     if (option === null) {
-      Basic.filterSceneObjectNode(this.__getArray()).forEach((node) => {
+      Basic._filterSceneObjectNode(this.__getArray()).forEach((node) => {
         if (node.target) {
           node.target.isVisible = true;
         }
@@ -99,9 +101,9 @@ class Basic extends J3ObjectBase {
   public hide(duration: number, easing: string, complete: () => void): J3Object;
   public hide(duration: string, easing: string, complete: () => void): J3Object;
   public hide(argu0?: any, argu1?: any, argu2?: any): any {
-    const option = Basic.effectArgumentFormatter(argu0, argu1, argu2);
+    const option = Basic._effectArgumentFormatter(argu0, argu1, argu2);
     if (option === null) {
-      Basic.filterSceneObjectNode(this.__getArray()).forEach((node) => {
+      Basic._filterSceneObjectNode(this.__getArray()).forEach((node) => {
         if (node.target) {
           node.target.isVisible = false;
         }
