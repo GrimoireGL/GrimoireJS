@@ -41,8 +41,7 @@ class ImportTransformer extends ProgramTransformer {
         let importContent;
         importContent = ImportTransformer._materialManager.getShaderChunk(regexResult[1]);
         if (!importContent) {
-          console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
-          importContent = "";
+          throw new Error(`Required shader chunk '${regexResult[1]}' was not found!!`);
         }
         source = source.replace(regexResult[0], `\n${importContent}\n`);
       }
