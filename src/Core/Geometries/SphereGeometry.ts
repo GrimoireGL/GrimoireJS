@@ -6,16 +6,28 @@ import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 class SphereGeometry extends BasicGeometry {
 
-    private _divideCount: number = 10;
+    private _divX: number = 10;
 
-    public get DivideCount() {
-        return this._divideCount;
+    public get DivX() {
+        return this._divX;
     }
 
-    public set DivideCount(count: number) {
-        this._divideCount = count;
+    public set DivX(count: number) {
+        this._divX = count;
         this.__updateBuffers();
     }
+
+    private _divY: number = 10;
+
+    public get DivY() {
+        return this._divY;
+    }
+
+    public set DivY(count: number) {
+        this._divY = count;
+        this.__updateBuffers();
+    }
+
 
     constructor(name: string) {
         super();
@@ -33,12 +45,11 @@ class SphereGeometry extends BasicGeometry {
         const normal: number[] = [];
         const uv: number[] = [];
         const index: number[] = [];
-        GeometryBuilder.addSphere(pos, normal, uv, index, 8, 24, new Vector3(0, 0, 0));
-        // GeometryBuilder.addCylinder(pos,normal,uv,index,this.DivideCount,new Vector3(0,1,0),new Vector3(0,-1,0),new Vector3(0,0,-1),1);
-        this.indexBuffer.update(new Uint16Array(index), index.length);
+        GeometryBuilder.addSphere(pos, normal, uv, index, this._divY, this._divX, new Vector3(0, 0, 0));
         this.normalBuffer.update(new Float32Array(normal), normal.length);
         this.uvBuffer.update(new Float32Array(uv), uv.length);
         this.positionBuffer.update(new Float32Array(pos), pos.length);
+        this.__updateIndexBuffer(index, index.length);
     }
 }
 
