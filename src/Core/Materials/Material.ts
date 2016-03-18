@@ -1,3 +1,4 @@
+import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Geometry from "../Geometries/Base/Geometry";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
@@ -16,7 +17,7 @@ import BasicRenderer from "../Renderers/BasicRenderer";
 * Some of materials are intended to use in deferred rendering stage(G-buffer generation stage is one of example).
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
-class Material extends JThreeObjectEEWithID {
+class Material extends JThreeObjectEEWithID implements IDisposable {
   public materialVariables: { [key: string]: any } = {};
 
   /**
@@ -64,6 +65,10 @@ class Material extends JThreeObjectEEWithID {
   */
   public get MaterialGroup(): string {
     return "builtin.forward";
+  }
+
+  public dispose(): void {
+   return;
   }
   /**
   * Should return how many times required to render this material.

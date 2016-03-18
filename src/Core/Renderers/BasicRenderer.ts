@@ -85,6 +85,13 @@ class BasicRenderer extends RendererBase implements IRenderer {
     });
   }
 
+  public dispose(): void {
+   this.defaultRenderBuffer.dispose();
+   this.alternativeTexture.dispose();
+   this.alternativeCubeTexture.dispose();
+   this.bufferSet.dispose();
+  }
+
   public render(scene: Scene): void {
     RenderPathExecutor.processRender(this, scene);
   }

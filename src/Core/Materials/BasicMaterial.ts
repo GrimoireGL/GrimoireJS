@@ -21,6 +21,13 @@ class BasicMaterial extends Material {
     this._parseMaterialDocument(sourceString, name);
   }
 
+  public dispose(): void {
+    super.dispose();
+    this._passes.forEach((p) => {
+     p.dispose();
+    });
+  }
+
   /**
 * Apply configuration of program.
 * This is used for passing variables,using programs,binding index buffer.

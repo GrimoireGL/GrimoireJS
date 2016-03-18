@@ -1,9 +1,10 @@
+import IDisposable from "../../Base/IDisposable";
 import Scene from "../Scene";
 import RBO from "../Resources/RBO/RBO";
 import BufferSet from "./BufferSet";
 import RenderPath from "./RenderPath";
 import Camera from "../SceneObjects/Camera/Camera";
-interface IRenderer extends NodeJS.EventEmitter {
+interface IRenderer extends NodeJS.EventEmitter, IDisposable {
   /**
    * [The camera instance that this renderer refer to]
    * @type {Camera}
