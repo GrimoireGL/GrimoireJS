@@ -79,18 +79,18 @@ class GeometryBuilder {
       index.push(startIndex + 2, startIndex + 1, startIndex, startIndex + 3, startIndex + 2, startIndex);
     }
   }
-  public static addSphere(pos: number[], normal: number[], uv: number[], index: number[], divide1: number, divide2: number, center: Vector3): void {
+  public static addSphere(pos: number[], normal: number[], uv: number[], index: number[], divideY: number, divideX: number, center: Vector3): void {
     const vt = Vector3.add(center, new Vector3(0, 1, 0));
     const vb = Vector3.add(center, new Vector3(0, -1, 0));
     pos.push(vt.X, vt.Y, vt.Z);
     normal.push(0, 1, 0);
     uv.push(0, 1);
-    for (let i = 0; i < divide1 - 1; i++) {
-      const angle_y = (i + 1) * Math.PI / divide1;
+    for (let i = 0; i < divideY - 1; i++) {
+      const angle_y = (i + 1) * Math.PI / divideY;
       const d = Math.sin(angle_y);
       const h = Math.cos(angle_y);
-      for (let j = 0; j < divide2; j++) {
-        const angle_x = j * 2 * Math.PI / divide2;
+      for (let j = 0; j < divideX; j++) {
+        const angle_x = j * 2 * Math.PI / divideX;
         const v0 = new Vector3(d * Math.sin(angle_x), h, d * Math.cos(angle_x));
         const v0_n = v0.normalizeThis();
         const startIndex = pos.length / 3;
@@ -102,20 +102,20 @@ class GeometryBuilder {
         if (i === 0) {
           if (j !== 0) {
             index.push(0, startIndex - 1, startIndex);
-            if (j === divide2 - 1) {
+            if (j === divideX - 1) {
               index.push(0, startIndex, 1);
             }
           }
         } else {
           if (j === 0) {
-            index.push(startIndex - divide2, startIndex, startIndex - divide2 + 1);
-          } else if (j === divide2 - 1) {
-            index.push(startIndex - divide2, startIndex - 1, startIndex);
-            index.push(startIndex - divide2 + 1, startIndex - divide2 - divide2 + 1, startIndex);
-            index.push(startIndex - divide2 - divide2 + 1, startIndex - divide2, startIndex);
+            index.push(startIndex - divideX, startIndex, startIndex - divideX + 1);
+          } else if (j === divideX - 1) {
+            index.push(startIndex - divideX, startIndex - 1, startIndex);
+            index.push(startIndex - divideX + 1, startIndex - divideX - divideX + 1, startIndex);
+            index.push(startIndex - divideX - divideX + 1, startIndex - divideX, startIndex);
           } else {
-            index.push(startIndex - divide2, startIndex - 1, startIndex);
-            index.push(startIndex - divide2 + 1, startIndex - divide2, startIndex);
+            index.push(startIndex - divideX, startIndex - 1, startIndex);
+            index.push(startIndex - divideX + 1, startIndex - divideX, startIndex);
           }
         }
       }
@@ -125,10 +125,10 @@ class GeometryBuilder {
     pos.push(vb.X, vb.Y, vb.Z);
     normal.push(0, -1, 0);
     uv.push(0, 1);
-    for (let j = 0; j < divide2 - 1; j++) {
+    for (let j = 0; j < divideX - 1; j++) {
       index.push(startIndex, startIndex - 1 - j, startIndex - 2 - j);
     }
-    index.push(startIndex, startIndex - divide2, startIndex - 1);
+    index.push(startIndex, startIndex - divideX, startIndex - 1);
   }
   public static addCone(pos: number[], normal: number[], uv: number[], index: number[], divide: number): void {
     pos.push(0, -1, 0);
