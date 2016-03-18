@@ -1,3 +1,4 @@
+import IDisposable from "../../Base/IDisposable";
 import BasicRegisterer from "./Registerer/BasicRegisterer";
 import DefaultValuePreProcessor from "./DefaultValuePreProcessor";
 import IConfigureEventArgs from "../IConfigureEventArgs";
@@ -13,7 +14,7 @@ import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import ResourceManager from "../ResourceManager";
 import ProgramTranspiler from "../ProgramTransformer/ProgramTranspiler";
-class MaterialPass extends JThreeObjectWithID {
+class MaterialPass extends JThreeObjectWithID implements IDisposable {
 
   public ready: boolean = false;
 
@@ -56,6 +57,12 @@ class MaterialPass extends JThreeObjectWithID {
     }).then(() => {
       this.ready = true;
     });
+  }
+
+  public dispose(): void {
+    this.fragmentShader.dispose();
+    this.vertexShader.dispose();
+    this.program.dispose();
   }
 
   public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material): void {

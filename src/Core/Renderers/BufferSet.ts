@@ -2,10 +2,11 @@ import BasicRenderer from "./BasicRenderer";
 import GeneraterInfoChunk from "./TextureGeneraters/GeneraterInfoChunk";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
+import IDisposable from "../../Base/IDisposable";
 /**
  * The class managing all buffer textures used for rendering in a BasicRenderer.
  */
-class BufferSet {
+class BufferSet implements IDisposable {
 
   private _renderer: BasicRenderer;
   /**
@@ -15,6 +16,12 @@ class BufferSet {
 
   constructor(renderer: BasicRenderer) {
     this._renderer = renderer;
+  }
+
+  public dispose(): void {
+    Object.keys(this._colorBuffers).forEach(k => {
+      this._colorBuffers[k].dispose();
+    });
   }
 
   /**
