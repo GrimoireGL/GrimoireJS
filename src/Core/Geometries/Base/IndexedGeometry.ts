@@ -8,6 +8,7 @@ import Buffer from "../../Resources/Buffer/Buffer";
  * 描画にインデックスバッファ(ELEMENT_ARRAY_BUFFER)を用いるジオメトリの抽象クラス
  */
 abstract class IndexedGeometry extends Geometry {
+
   /**
    * Index buffer used for rendering this Geometry
    *
@@ -71,6 +72,23 @@ abstract class IndexedGeometry extends Geometry {
    */
   protected __bindIndexBuffer(canvas: Canvas): void {
     this.indexBuffer.getForContext(canvas).bindBuffer();
+  }
+
+  protected __updateIndexBuffer(indicies: number[], length: number): void {
+    let format = WebGLRenderingContext.UNSIGNED_INT;
+    let arrayConstructor: new (arr: number[]) => ArrayBufferView = Uint32Array;
+    if (length < 256) {
+      format = WebGLRenderingContext.UNSIGNED_BYTE;
+      arrayConstructor = Uint8Array;
+    } else if (length < 65535) {
+      format = WebGLRenderingContext.UNSIGNED_SHORT;
+      arrayConstructor = Uint16Array;
+    } else if (length >= 4294967296) {
+      throw new Error("Too many index of geometry!");
+    }
+
+    this.indexBuffer.update(new arrayConstructor(indicies), length);
+    this.indexBuffer.ElementType = format;
   }
 }
 

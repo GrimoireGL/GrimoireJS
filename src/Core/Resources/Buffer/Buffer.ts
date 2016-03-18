@@ -46,6 +46,10 @@ class Buffer extends ContextSafeResourceContainer<BufferWrapper> {
     return this._elementType;
   }
 
+  public set ElementType(type: number) {
+    this._elementType = type;
+  }
+
   /**
    * This elements are normalized or not.
    * It must be false in WebGL1.0.
