@@ -5,6 +5,7 @@
     <material name="sampleMaterial3" type="builtin.solid" color="blue"/>
     <material name="sampleMaterial4" type="builtin.solid" color="red"/>
     <material name="sampleMaterial5" type="builtin.solid" color="orange"/>
+    <sphere name="sphere" divx="500" divy="500"/>
   </resources>
   <canvases>
     <canvas clearColor="#11022A" frame=".canvasContainer">
