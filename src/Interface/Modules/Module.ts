@@ -5,6 +5,7 @@ import ModuleManager from "../../Module/ModuleManager";
 import ContextComponents from "../../ContextComponents";
 import isUndefined from "lodash.isundefined";
 import isPlainObject from "lodash.isplainobject";
+import isFunction from "lodash.isfunction";
 
 class Module extends J3ObjectBase {
   public module(): IModule[];
@@ -15,7 +16,7 @@ class Module extends J3ObjectBase {
         return this.__getArray().map((node) => {
           node.props.getProp<IModule>("module");
         });
-      case isPlainObject(argu):
+      case (isPlainObject(argu) || isFunction(argu)):
         const moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
         return this.__getArray().map((node) => {
           const moduleRegistry = moduleManager.addModule(argu);
