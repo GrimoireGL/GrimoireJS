@@ -165,9 +165,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
       let v = this.__children[i];
       if (v === child) {
         child.__parent = null;
-        console.log(this.__children.length);
         this.__children.splice(i, 1);
-        console.log(this.__children.length);
         if (this.Mounted) {
           child.Mounted = false;
           this.emit("child-removed", child);

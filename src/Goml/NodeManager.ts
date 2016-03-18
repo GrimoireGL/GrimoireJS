@@ -3,13 +3,12 @@ import GomlNodeDictionary from "../Goml/GomlNodeDictionary";
 import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
-import BehaviorRegistry from "./Behaviors/BehaviorRegistry";
 import GomlConfigurator from "./GomlConfigurator";
-import BehaviorRunner from "./Behaviors/BehaviorRunner";
 import JThreeContext from "../JThreeContext";
 import LoopManager from "../Core/LoopManager";
 import AttributePromiseRegistry from "./AttributePromiseRegistry";
 import GomlParser from "./GomlParser";
+import ModuleManager from "../Module/ModuleManager";
 
 class NodeManager extends JThreeObject implements IContextComponent {
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
@@ -17,8 +16,6 @@ class NodeManager extends JThreeObject implements IContextComponent {
   public gomlRoot: GomlTreeNodeBase;
   public htmlRoot: HTMLElement;
   public nodesById: {[nodeId: string]: GomlTreeNodeBase} =  {};
-  public behaviorRegistry: BehaviorRegistry = new BehaviorRegistry();
-  public behaviorRunner: BehaviorRunner = new BehaviorRunner();
   public ready: boolean = false;
 
   /**
@@ -41,7 +38,6 @@ class NodeManager extends JThreeObject implements IContextComponent {
       return;
     }
     this.gomlRoot.callRecursive((v: GomlTreeNodeBase) => v.update());
-    this.behaviorRunner.executeForAllBehaviors("updateBehavior");
   }
 
   /**
@@ -182,6 +178,8 @@ class NodeManager extends JThreeObject implements IContextComponent {
     this.gomlRoot = parsedNode;
     console.log("Goml loading was completed");
     this.ready = true;
+    const moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
+    moduleManager.ready = true;
     this.attributePromiseRegistry.async(() => {
       callbackfn(null);
     });

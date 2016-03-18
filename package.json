@@ -25,7 +25,7 @@
     "debug": "BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build:debug",
     "watch": "BABEL_ENV=development ./node_modules/.bin/gulp --require coffee-script/register watch",
     "test": "BABEL_ENV=test ./node_modules/.bin/ava",
-    "precover": "BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build:main --nosourcemap",
+    "precover": "./node_modules/.bin/gulp --require coffee-script/register build:main --nosourcemap",
     "cover": "./node_modules/.bin/nyc --all --reporter=lcov --reporter=text npm test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",

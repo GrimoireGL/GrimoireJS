@@ -16,6 +16,8 @@ import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
 import Basic, {IOption} from "./Effects/Basic";
+import Module from "./Modules/Module";
+import IModule from "../Module/IModule";
 
 /**
  * Provides jQuery like API for jThree.
@@ -28,8 +30,14 @@ class J3Object extends J3ObjectBase implements
   CollectionManipulation,
   NodeInsertionInside,
   NodeRemoval,
-  Basic {
+  Basic,
+  Module {
 
+  /**
+   * Construct J3Object from Node.
+   * @param {GomlTreeNodeBase} node [description]
+   */
+  constructor(node: GomlTreeNodeBase);
   /**
    * Construct J3Object from Nodes.
    * @param {GomlTreeNodeBase[]} nodes [description]
@@ -278,6 +286,16 @@ class J3Object extends J3ObjectBase implements
     (duration: number, easing: string, complete: () => void): J3Object;
     (duration: string, easing: string, complete: () => void): J3Object;
     (argu0?: any, argu1?: any, argu2?: any): any;
+  };
+
+  /**
+   * Modules/Module
+   */
+
+  public module: {
+    (): IModule[];
+    (module: new () => IModule): IModule[];
+    (argu?: any): any;
   };
 }
 

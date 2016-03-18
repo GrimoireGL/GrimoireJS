@@ -1,3 +1,5 @@
+import GomlTreeNodeBase from "./Goml/GomlTreeNodeBase";
+import isArray from "lodash.isarray";
 import RenderStageRegistory from "./Core/Renderers/RenderStageRegistory";
 import PrimitiveRegistory from "./Core/Geometries/Base/PrimitiveRegistory";
 import MaterialManager from "./Core/Materials/MaterialManager";
@@ -15,6 +17,7 @@ import NodeManager from "./Goml/NodeManager";
 import Debugger from "./Debug/Debugger";
 import GomlLoader from "./Goml/GomlLoader";
 import ResourceLoader from "./Core/ResourceLoader";
+import ModuleManager from "./Module/ModuleManager";
 
 import Quaternion from "./Math/Quaternion";
 import Vector2 from "./Math/Vector2";
@@ -54,7 +57,9 @@ class JThreeInit {
   public static j3(selector: string): J3Object;
   public static j3(callbackfn: () => void): void;
   public static j3(argu: any): any {
-    if (typeof argu === "string") {
+    if (typeof argu === "string"
+      || argu instanceof GomlTreeNodeBase
+      || (isArray(argu) && (<any[]>argu).every((v) => v instanceof GomlTreeNodeBase))) {
       return new J3Object(argu);
     } else if (typeof argu === "function") {
       const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
@@ -104,6 +109,7 @@ class JThreeInit {
     JThreeContext.registerContextComponent(new MaterialManager());
     JThreeContext.registerContextComponent(new PrimitiveRegistory());
     JThreeContext.registerContextComponent(new RenderStageRegistory());
+    JThreeContext.registerContextComponent(new ModuleManager());
     if (JThreeInit.selfTag.getAttribute("x-lateLoad") !== "true") {
       window.addEventListener("DOMContentLoaded", () => {
         JThreeInit._startInitialize();

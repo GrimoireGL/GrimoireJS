@@ -10,11 +10,6 @@ import Q from "q";
  * The class for loading goml.
  */
 class GomlLoader extends jThreeObject {
-  // public update() {
-  //   if (!this.ready) return;
-  //   if(this.gomlRoot)this.gomlRoot.callRecursive(v=>v.update());
-  //   this.componentRunner.executeForAllBehaviors("updateBehavior");
-  // }
 
   /**
    * Constructor. User no need to call this constructor by yourself.
