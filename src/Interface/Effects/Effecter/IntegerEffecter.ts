@@ -1,8 +1,8 @@
-import AnimagterBase from "./AnimaterBase";
+import EffecterBase from "./EffecterBase";
 
-class IntegerAnimater extends AnimagterBase {
+class IntegerEffecter extends EffecterBase {
 
-  protected __updateAnimation(progress: number): void {
+  protected __updateEffect(progress: number): void {
     const b = <number>this.__beginValue;
     const e = <number>this.__endValue;
     const ef = this.__easingFunction.ease;
@@ -13,4 +13,4 @@ class IntegerAnimater extends AnimagterBase {
   }
 }
 
-export default IntegerAnimater;
+export default IntegerEffecter;

@@ -24,4 +24,5 @@ const converterList = {
   "boolean": BooleanAttributeConverter,
   "string": StringAttributeConverter,
 };
+
 export default converterList;

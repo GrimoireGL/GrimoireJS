@@ -6,10 +6,10 @@ interface IModule {
   terminate?: (node: GomlTreeNodeBase) => void;
   update?: (node: GomlTreeNodeBase) => void;
   enabled?: boolean;
-  __init__: (registry: ModuleInstanceRegistry) => void;
-  __registry__: ModuleInstanceRegistry;
-  detach: () => void;
-  initialize: () => void;
+  __init__?: (registry: ModuleInstanceRegistry) => void;
+  __registry__?: ModuleInstanceRegistry;
+  detach?: () => void;
+  initialize?: () => void;
 }
 
 export default IModule;

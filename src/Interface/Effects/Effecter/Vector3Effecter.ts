@@ -1,8 +1,8 @@
-import AnimagterBase from "./AnimaterBase";
-import Vector3 from "../../Math/Vector3";
-class Vector3Animater extends AnimagterBase {
+import EffecterBase from "./EffecterBase";
+import Vector3 from "../../../Math/Vector3";
+class Vector3Effecter extends EffecterBase {
 
-  protected __updateAnimation(progress: number): void {
+  protected __updateEffect(progress: number): void {
     const b = <Vector3>this.__beginValue;
     const e = <Vector3>this.__endValue;
     const ef = this.__easingFunction.ease;
@@ -11,4 +11,4 @@ class Vector3Animater extends AnimagterBase {
   }
 }
 
-export default Vector3Animater;
+export default Vector3Effecter;

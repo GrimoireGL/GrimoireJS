@@ -18,7 +18,7 @@ class ModuleBuiltinMixin {
 /* tslint:enable:public-method-name */
 
 class ModuleInstanceRegistry {
-  private _module: new (node_: GomlTreeNodeBase) => IModule;
+  private _module: new (...args_: any[]) => IModule;
   private _instance: IModule;
   private _enabled: boolean = false;
   private _node: GomlTreeNodeBase;
@@ -33,7 +33,7 @@ class ModuleInstanceRegistry {
       };
       const props = [];
       Object.keys(module).forEach((k) => {
-        if (isFunction(module[k])) {
+        if (isFunction(module[k]) && k !== "initialize") {
           Module.prototype[k] = module[k];
         } else {
           props.push(k);
@@ -43,17 +43,19 @@ class ModuleInstanceRegistry {
         props.forEach((k) => {
           this[k] = module[k];
         });
+        module.initialize.apply(this, arguments);
       };
     }
     applyMixins(Module, [ModuleBuiltinMixin]);
     this._module = Module;
   }
 
-  public apply(node: GomlTreeNodeBase): IModule {
+  public apply(node: GomlTreeNodeBase, ...args: any[]): IModule {
     this.detach();
-    this._instance = new this._module(node);
+    this._instance = new this._module(node, ...args);
     this._instance.__init__(this);
     this._node = node;
+    console.log(this._instance);
     return this._instance;
   }
 
@@ -64,6 +66,13 @@ class ModuleInstanceRegistry {
           this._instance.terminate(this._node);
         }
       }
+      const modules = this._node.props.getProp<IModule[]>("module");
+      const index = modules.indexOf(this._instance);
+      if (index === -1) {
+        throw new Error("detach target module is not found.");
+      }
+      modules.splice(index, 1);
+      this._node.props.setProp("module", modules);
       this._instance = null;
       this._node = null;
       this._enabled = false;
@@ -71,6 +80,9 @@ class ModuleInstanceRegistry {
   }
 
   public update(): void {
+    if (!this._instance) {
+      return;
+    }
     try {
       if (this._instance.enabled && this._node.Mounted) {
         if (!this._enabled) {

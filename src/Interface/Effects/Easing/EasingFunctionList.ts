@@ -4,11 +4,12 @@
  * Each easing function class must extends EasingFunctionBase class.
  */
 
- import LinearEasingFunction from "./Easing/LinearEasingFunction";
- import SwingEasingFunction from "./Easing/SwingEasingFunction";
+import LinearEasingFunction from "./LinearEasingFunction";
+import SwingEasingFunction from "./SwingEasingFunction";
 
 const easingFunction = {
   "linear": LinearEasingFunction,
   "swing": SwingEasingFunction,
 };
+
 export default easingFunction;

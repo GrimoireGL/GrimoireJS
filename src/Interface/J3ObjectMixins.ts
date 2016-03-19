@@ -5,8 +5,9 @@ import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
-import Module from "./Modules/Module";
 import Basic from "./Effects/Basic";
+import Module from "./Modules/Module";
+import Custom from "./Effects/Custom";
 import Utilities from "./Static/Utilities";
 import Find from "./Static/Find";
 
@@ -20,6 +21,7 @@ function J3ObjectMixins() {
     NodeRemoval,
     Basic,
     Module,
+    Custom,
   ];
 
   const staticMixins = [

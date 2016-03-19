@@ -9,6 +9,7 @@ import isFunction from "lodash.isfunction";
 
 class Module extends J3ObjectBase {
   public module(): IModule[];
+  public module(module: IModule): IModule[];
   public module(module: new () => IModule): IModule[];
   public module(argu?: any): any {
     switch (true) {
@@ -21,7 +22,12 @@ class Module extends J3ObjectBase {
         return this.__getArray().map((node) => {
           const moduleRegistry = moduleManager.addModule(argu);
           const moduleInstance = moduleRegistry.apply(node);
-          node.props.setProp<IModule>("module", moduleInstance);
+          let modules = node.props.getProp<IModule[]>("module");
+          if (isUndefined(modules)) {
+            modules = [];
+          }
+          modules.push(moduleInstance);
+          node.props.setProp("module", modules);
           return moduleInstance;
         });
       default:

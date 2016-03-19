@@ -1,8 +1,9 @@
-import AnimagterBase from "./AnimaterBase";
-import Color3 from "../../Math/Color3";
-class Color3Animater extends AnimagterBase {
+import EffecterBase from "./EffecterBase";
+import Color3 from "../../../Math/Color3";
 
-  protected __updateAnimation(progress: number): void {
+class Color3Effecter extends EffecterBase {
+
+  protected __updateEffect(progress: number): void {
     const b = <Color3>this.__beginValue;
     const e = <Color3>this.__endValue;
     const ef = this.__easingFunction.ease;
@@ -10,4 +11,4 @@ class Color3Animater extends AnimagterBase {
   }
 }
 
-export default Color3Animater;
+export default Color3Effecter;

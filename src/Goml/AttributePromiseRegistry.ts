@@ -80,7 +80,7 @@ class AttributePromiseRegistry extends jThreeObject {
     } else {
       throw Error("registered object does not equal to callback object");
     }
-    console.log(this._asyncObjects);
+    // console.log(this._asyncObjects);
     if (this._asyncObjects.length === 0) {
       this._allOfCallbackfn();
       this.clear();

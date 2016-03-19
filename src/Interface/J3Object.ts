@@ -15,9 +15,11 @@ import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
-import Basic, {IOption} from "./Effects/Basic";
+import Basic from "./Effects/Basic";
+import IOption from "./Effects/IOption";
 import Module from "./Modules/Module";
 import IModule from "../Module/IModule";
+import Custom from "./Effects/Custom";
 
 /**
  * Provides jQuery like API for jThree.
@@ -31,7 +33,8 @@ class J3Object extends J3ObjectBase implements
   NodeInsertionInside,
   NodeRemoval,
   Basic,
-  Module {
+  Module,
+  Custom {
 
   /**
    * Construct J3Object from Node.
@@ -286,6 +289,25 @@ class J3Object extends J3ObjectBase implements
     (duration: number, easing: string, complete: () => void): J3Object;
     (duration: string, easing: string, complete: () => void): J3Object;
     (argu0?: any, argu1?: any, argu2?: any): any;
+  };
+
+  /**
+   * Effects/Custom
+   */
+
+   public animate: {
+    (properties: {[key: string]: string}): J3Object;
+    (properties: {[key: string]: string}, option: IOption): J3Object;
+    (properties: {[key: string]: string}, duration: number): J3Object;
+    (properties: {[key: string]: string}, duration: string): J3Object;
+    (properties: {[key: string]: string}, complete: () => void): J3Object;
+    (properties: {[key: string]: string}, duration: number, complete: () => void): J3Object;
+    (properties: {[key: string]: string}, duration: string, complete: () => void): J3Object;
+    (properties: {[key: string]: string}, duration: number, easing: string): J3Object;
+    (properties: {[key: string]: string}, duration: string, easing: string): J3Object;
+    (properties: {[key: string]: string}, duration: number, easing: string, complete: () => void): J3Object;
+    (properties: {[key: string]: string}, duration: string, easing: string, complete: () => void): J3Object;
+    (properties: {[key: string]: string}, argu0?: any, argu1?: any, argu2?: any): any;
   };
 
   /**
