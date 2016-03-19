@@ -24,9 +24,23 @@
     "build": "BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build",
     "debug": "BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build:debug",
     "watch": "BABEL_ENV=development ./node_modules/.bin/gulp --require coffee-script/register watch",
-    "test": "BABEL_ENV=test ./node_modules/.bin/ava",
-    "precover": "./node_modules/.bin/gulp --require coffee-script/register build:main:ts --nosourcemap && ./node_modules/.bin/gulp --require coffee-script/register build:main:others",
-    "cover": "./node_modules/.bin/nyc --all --reporter=lcov --reporter=text npm test",
+    "lib-to-lib-es6": "mv ./lib ./lib-es6",
+    "copy-others-lib-to-lib-es5": "./node_modules/.bin/gulp --require coffee-script/register copy --src=./lib-es6 --dest=./lib",
+    "copy-others-test-to-test-es5": "./node_modules/.bin/gulp --require coffee-script/register copy --src=./test --dest=./test-es5",
+    "build-lib-es6-to-lib": "BABEL_ENV=test ./node_modules/.bin/babel ./lib-es6 --out-dir ./lib --source-maps inline",
+    "build-test-to-test-es5": "BABEL_ENV=test ./node_modules/.bin/babel ./test --out-dir ./test-es5 --source-maps inline",
+    "build-lib-es5": "npm run copy-others-lib-to-lib-es5 && npm run build-lib-es6-to-lib",
+    "build-test-es5": "npm run copy-others-test-to-test-es5 && npm run build-test-to-test-es5",
+    "test-slow": "npm run precover && npm run test-es5",
+    "test-es5": "./node_modules/.bin/ava ./test-es5/**/*Test.js",
+    "test": "BABEL_ENV=test ./node_modules/.bin/ava --require babel-register ./test/**/*Test.js",
+    "build-ts": "./node_modules/.bin/gulp --require coffee-script/register build:main:ts",
+    "copy-others-src-to-lib": "./node_modules/.bin/gulp --require coffee-script/register build:main:others",
+    "precover-slow": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib && npm run lib-to-lib-es6 && npm run build-lib-es5 && npm run build-test-es5",
+    "cover-slow": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test-es5 && npm run cover-slow-lcov",
+    "cover-slow-lcov": "./node_modules/.bin/remap-istanbul -i ./coverage/coverage-final.json -o ./coverage/lcov-report -t lcovonly -b /Users/pnlybubbles/Devs/jThree",
+    "precover": "npm run build-ts -- --nosourcemap",
+    "cover": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
     "lint": "./node_modules/.bin/gulp --require coffee-script/register lint:ts"
@@ -35,13 +49,7 @@
     "test": "test"
   },
   "ava": {
-    "verbose": true,
-    "files": [
-      "./test/**/*Test.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "verbose": true
   },
   "babel": {
     "env": {
@@ -70,6 +78,7 @@
   },
   "devDependencies": {
     "ava": "^0.13.0",
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.7.2",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-rewire": "^1.0.0-rc-1",
@@ -130,6 +139,7 @@
     "react-tap-event-plugin": "^0.2.2",
     "react-tooltip": "^1.1.4",
     "react-treeview": "^0.4.3",
+    "remap-istanbul": "^0.5.1",
     "run-sequence": "^1.1.5",
     "shader-loader": "^1.1.4",
     "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",
