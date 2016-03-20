@@ -135,16 +135,16 @@ class PMXBoneTransformer extends Transformer {
 	 */
   private _updateLocalRotation(): void {
     quat.identity(this.Rotation.rawElements);
-    // if (this.IsRotationProvidingBone) {
-    //   if (this.IsLocalProvidingBone) {
-    //     // TODO Do something when this bone is local providing bone
-    //     console.error("Local providing is not implemented yet!");
-    //   }
-    //   if (this.ProvidingBoneTransformer.isIKLink) {
-    //     // Interpolate ikLink rotation with providing rate
-    //     quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer._ikLinkRotation.rawElements, this.BoneData.providingRate);
-    //   }
-    // }
+    if (this.IsRotationProvidingBone) {
+      if (this.IsLocalProvidingBone) {
+        // TODO Do something when this bone is local providing bone
+        console.error("Local providing is not implemented yet!");
+      }
+      if (this.ProvidingBoneTransformer.isIKLink) {
+        // Interpolate ikLink rotation with providing rate
+        quat.slerp(this.Rotation.rawElements, this.Rotation.rawElements, this.ProvidingBoneTransformer._ikLinkRotation.rawElements, this.BoneData.providingRate);
+      }
+    }
     // Multiply local rotations of this bone
     quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this.userRotation.rawElements);
     quat.mul(this.Rotation.rawElements, this.Rotation.rawElements, this._morphRotation.rawElements);
@@ -164,13 +164,13 @@ class PMXBoneTransformer extends Transformer {
     this.Position.rawElements[0] = 0;
     this.Position.rawElements[1] = 0;
     this.Position.rawElements[2] = 0;
-    // if (this.IsTranslationProvidingBone) {
-    //   if (this.IsLocalProvidingBone) {
-    //     // Do something when this bone is local providing bone
-    //     console.error("Local providing is not implemented yet!");
-    //   }
-    //   vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);
-    // }
+    if (this.IsTranslationProvidingBone) {
+      if (this.IsLocalProvidingBone) {
+        // Do something when this bone is local providing bone
+        console.error("Local providing is not implemented yet!");
+      }
+      vec3.lerp(this.Position.rawElements, this.Position.rawElements, this.ProvidingBone.Transformer.Position.rawElements, this.BoneData.providingRate);
+    }
     vec3.add(this.Position.rawElements, this.Position.rawElements, this.userTranslation.rawElements);
     vec3.add(this.Position.rawElements, this.Position.rawElements, this._morphTranslation.rawElements);
     if (this.IsTranslationProvidingBone) {
@@ -256,7 +256,7 @@ class PMXBoneTransformer extends Transformer {
     const xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));
     const yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));
     const zRotation = Math.max(link.limitedRotation[2], Math.min(link.limitedRotation[5], decomposed.z));
-    const nRot = this._normalizeEuler(xRotation,yRotation,zRotation);
+    const nRot = this._normalizeEuler(xRotation, yRotation, zRotation);
     return Quaternion.eulerXYZ(-nRot.x, -nRot.y, nRot.z);
   }
 
