@@ -43,7 +43,9 @@ class ModuleInstanceRegistry {
         props.forEach((k) => {
           this[k] = module[k];
         });
-        module.initialize.apply(this, arguments);
+        if (module.initialize) {
+          module.initialize.apply(this, arguments);
+        }
       };
     }
     applyMixins(Module, [ModuleBuiltinMixin]);
