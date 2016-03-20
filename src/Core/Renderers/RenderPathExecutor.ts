@@ -39,7 +39,7 @@ class RenderPathExecutor {
               targetObjects = [new Mesh(geometry, null)];
             }
           }
-          stage.stageVariables = chain.variables;
+          stage.shaderVariables = chain.variables;
           stage.preTechnique(scene, techniqueIndex, texs);
           RenderPathExecutor._renderObjects(renderer, targetObjects, stage, scene, techniqueCount, techniqueIndex, texs, chain);
           stage.postTechnique(scene, techniqueIndex, texs);

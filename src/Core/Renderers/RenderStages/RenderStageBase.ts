@@ -1,3 +1,4 @@
+import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
 import Material from "../../Materials/Material";
 import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
 import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
@@ -5,9 +6,9 @@ import BasicRenderer from "../BasicRenderer";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
-abstract class RenderStageBase extends JThreeObjectWithID {
+abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer {
 
-  public stageVariables: {} = {};
+  public shaderVariables: {} = {};
 
   private _renderer: BasicRenderer;
 

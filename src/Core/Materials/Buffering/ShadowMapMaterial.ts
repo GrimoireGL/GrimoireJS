@@ -13,7 +13,7 @@ class ShadowMapMaterial extends BasicMaterial {
 
   public apply(matArg: IApplyMaterialArgument): void {
     // const light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
-    // this.materialVariables = {
+    // this.shaderVariables = {
     //   matL: Matrix.multiply(light.matLightViewProjection, matArg.object.Transformer.LocalToGlobal)
     // };
     super.apply(matArg);

@@ -18,7 +18,7 @@ class SpotLight extends LightBase {
       const tan = Math.tan(this.outerAngle);
       this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
 
-      diffuseMaterial.materialVariables = {
+      diffuseMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         innerAngle: this.innerAngle,
         outerAngle: this.outerAngle,
@@ -35,7 +35,7 @@ class SpotLight extends LightBase {
       const tan = Math.tan(this.outerAngle);
       this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
 
-      specularMaterial.materialVariables = {
+      specularMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         angle: this.outerAngle,
         dist: this.outerDistance,

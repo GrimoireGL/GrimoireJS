@@ -17,7 +17,7 @@ class PointLight extends LightBase {
     const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/PointLight.xmml"));
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
-      diffuseMaterial.materialVariables = {
+      diffuseMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         decay: this.decay,
         dist: this.distance,
@@ -27,7 +27,7 @@ class PointLight extends LightBase {
     const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/PointLight.xmml"));
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);
-      specularMaterial.materialVariables = {
+      specularMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         decay: this.decay,
         dist: this.distance,

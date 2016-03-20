@@ -73,7 +73,6 @@ class BasicTechnique extends JThreeObjectWithID {
         this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);
         break;
       default:
-        this.defaultMaterial.materialVariables = this.__renderStage.stageVariables;
         XMLRenderConfigUtility.applyAll(this._gl, this.defaultRenderConfigure);
         this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this.defaultMaterial, this._wireFramed);
     }

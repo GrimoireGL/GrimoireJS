@@ -1,3 +1,4 @@
+import IShaderArgumentContainer from "./IShaderArgumentContainer";
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Geometry from "../Geometries/Base/Geometry";
@@ -17,8 +18,8 @@ import BasicRenderer from "../Renderers/BasicRenderer";
 * Some of materials are intended to use in deferred rendering stage(G-buffer generation stage is one of example).
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
-class Material extends JThreeObjectEEWithID implements IDisposable {
-  public materialVariables: { [key: string]: any } = {};
+class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgumentContainer {
+  public shaderVariables: { [key: string]: any } = {};
 
   /**
   * Whether this material was initialized already or not.
@@ -68,7 +69,7 @@ class Material extends JThreeObjectEEWithID implements IDisposable {
   }
 
   public dispose(): void {
-   return;
+    return;
   }
   /**
   * Should return how many times required to render this material.
@@ -91,11 +92,11 @@ class Material extends JThreeObjectEEWithID implements IDisposable {
     return;
   }
 
-  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }): void {
+  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }, mergedShaderVariables: { [name: string]: any }): void {
     for (let valName in uniforms) {
       let uniform = uniforms[valName];
       if (valName[0] === "_") { continue; }
-      const val = this.materialVariables[valName];
+      const val = mergedShaderVariables[valName];
       if (typeof val === "undefined" || val == null) {
         this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
         continue;

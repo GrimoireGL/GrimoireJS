@@ -15,7 +15,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
       return;
     }
     const skeleton = this._associatedMaterial.ParentModel.skeleton;
-    this.materialVariables = {
+    this.shaderVariables = {
       boneMatriciesTexture: skeleton.MatrixTexture,
       brightness: this._associatedMaterial.Specular.W,
       boneCount: skeleton.BoneCount

@@ -7,7 +7,7 @@ import BasicMaterial from "../../Core/Materials/BasicMaterial";
 class XMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
     super(require("../Material/Forward.xmml"));
-    this.materialVariables = {
+    this.shaderVariables = {
       faceColor: this._material.faceColor,
       power: this._material.power,
       specularColor: this._material.specularColor,
@@ -17,7 +17,7 @@ class XMaterial extends BasicMaterial {
     if (_material.texture) {
       rm.loadTexture(_material.texture).then(texture => {
         texture.MagFilter = WebGLRenderingContext.LINEAR;
-        this.materialVariables["texture"] = texture;
+        this.shaderVariables["texture"] = texture;
       });
     }
   }

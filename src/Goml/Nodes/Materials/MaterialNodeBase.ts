@@ -131,7 +131,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
           if (attr.Value) {
             this.nodeImport("jthree.resource.Texture2D", attr.Value, (node: TextureNode) => {
               if (node) {
-                this.target.materialVariables[variableName] = node.target;
+                this.target.shaderVariables[variableName] = node.target;
                 attr.done();
               } else {
                 // when texture node removed
@@ -149,7 +149,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
           if (attr.Value) {
             this.nodeImport("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
               if (node) {
-                this.target.materialVariables[variableName] = node.target;
+                this.target.shaderVariables[variableName] = node.target;
                 attr.done();
               } else {
                 // when texture node removed
@@ -167,7 +167,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
       converter: converter,
       value: initialValue,
       onchanged: (attr) => {
-        this.target.materialVariables[variableName] = attr.Value;
+        this.target.shaderVariables[variableName] = attr.Value;
         attr.done();
       }
     };

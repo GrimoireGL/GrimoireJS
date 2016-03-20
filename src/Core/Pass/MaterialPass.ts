@@ -65,7 +65,7 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
     this.program.dispose();
   }
 
-  public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material, shaderVariables: { [name: string]: any }): void {
     if (!this.ready) {
       throw new Error("initialization was not completed yet!");
     }
@@ -81,7 +81,7 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
     uniformRegisters.forEach((r) => {
       r.register(gl, pWrapper, matArg, this.programDescription.uniforms);
     });
-    material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms);
+    material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms,shaderVariables);
   }
 
   protected __preprocessUniformVariables(): void {

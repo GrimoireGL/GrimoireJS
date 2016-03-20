@@ -1,3 +1,4 @@
+import ArgumentMerger from "./ArgumentMerger";
 import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
 import Material from "./Material";
 import ContextComponents from "../../ContextComponents";
@@ -16,6 +17,8 @@ class BasicMaterial extends Material {
 
   private _passCount: number = 0;
 
+  private _mergedShaderVariables: { [name: string]: any } = {};
+
   constructor(sourceString: string, name?: string) {
     super();
     this._parseMaterialDocument(sourceString, name);
@@ -24,7 +27,7 @@ class BasicMaterial extends Material {
   public dispose(): void {
     super.dispose();
     this._passes.forEach((p) => {
-     p.dispose();
+      p.dispose();
     });
   }
 
@@ -37,8 +40,9 @@ class BasicMaterial extends Material {
       return;
     }
     super.apply(matArg);
+    this._mergedShaderVariables = ArgumentMerger.merge(matArg.renderStage, this, matArg.object); // should be optimized
     const targetPass = this._passes[matArg.passIndex];
-    targetPass.apply(matArg, this._uniformRegisters, this);
+    targetPass.apply(matArg, this._uniformRegisters, this, this._mergedShaderVariables);
   }
 
   /**

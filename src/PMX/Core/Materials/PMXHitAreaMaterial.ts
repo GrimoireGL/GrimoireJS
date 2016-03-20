@@ -33,7 +33,7 @@ class PMXHitAreaMaterial extends BasicMaterial {
     const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
     const b = 0xFF & this.__associatedMaterial.materialIndex;
     const skeleton = this.__associatedMaterial.ParentModel.skeleton;
-    this.materialVariables = {
+    this.shaderVariables = {
       boneCount: skeleton.BoneCount,
       boneMatriciesTexture: skeleton.MatrixTexture,
       indexColor: new Vector4(r / 0xFF, g / 0xFF, b / 0xFF, 1)
