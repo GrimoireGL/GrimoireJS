@@ -117,6 +117,7 @@ class VMDNode extends GomlTreeNodeBase {
           (<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
         }
       }
+      this._targetPMX.PMXModel.skeleton.updateBoneTransforms();
       for (let morphName in this._targetVMD.Morphs) {
         let morph: PMXMorph;
         if (morph = this._targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {

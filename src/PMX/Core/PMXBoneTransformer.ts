@@ -6,8 +6,6 @@ import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
 import PMXIKLink from "../PMXIKLinkData";
-import Debugger from "../../Debug/Debugger";
-import JThreeContext from "../../JThreeContext";
 /**
  * Bone transformer for pmx
  */
@@ -118,10 +116,6 @@ class PMXBoneTransformer extends Transformer {
     return (this.BoneData.boneFlag & 0x0020) > 0;
   }
 
-  public updateTransform(): void {
-    super.updateTransform();
-  }
-
   public updateTransformForPMX(): void {
     if (this._pmx == null) {
       return;
@@ -129,11 +123,9 @@ class PMXBoneTransformer extends Transformer {
     this._updateLocalTranslation();
     if (this.IsIKBone && this._pmx.skeleton) {
       this._applyCCDIK();
-      const debug = JThreeContext.getContextComponent<Debugger>(6);
-      debug.setInfo("Bone " + this.BoneData.boneName, this.Position.toString());
     } else {
       this._updateLocalRotation();
-      super.updateTransform();
+      super.updateTransform(); // reconstruct transoform matrix
     }
   }
 	/**
