@@ -158,7 +158,7 @@ class AttributeDictionary extends JThreeObject {
     });
   }
 
-  public updateValue(attrName?: string): void {
+  public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
     if (typeof attrName === "undefined") {
       Object.keys(this._attributes).forEach((k) => {
         let v = this._attributes[k];
