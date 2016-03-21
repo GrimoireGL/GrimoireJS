@@ -32,7 +32,10 @@ class BasicGeometry extends IndexedGeometry {
   }
 
   public dispose(): void {
-   // TODO implement this
+    super.dispose();
+    this.positionBuffer.dispose();
+    this.normalBuffer.dispose();
+    this.uvBuffer.dispose();
   }
 }
 

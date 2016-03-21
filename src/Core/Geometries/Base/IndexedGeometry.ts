@@ -17,6 +17,10 @@ abstract class IndexedGeometry extends Geometry {
    */
   public indexBuffer: Buffer;
 
+  public dispose(): void {
+    this.indexBuffer.dispose();
+  }
+
   /**
    * The count of verticies.(3 times count of surfaces(When the topology was "triangles"))
    *
