@@ -22,12 +22,6 @@ class Module extends J3ObjectBase {
         return this.__getArray().map((node) => {
           const moduleRegistry = moduleManager.addModule(argu);
           const moduleInstance = moduleRegistry.apply(node);
-          let modules = node.props.getProp<IModule[]>("module");
-          if (isUndefined(modules)) {
-            modules = [];
-          }
-          modules.push(moduleInstance);
-          node.props.setProp("module", modules);
           return moduleInstance;
         });
       default:

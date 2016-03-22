@@ -1,7 +1,7 @@
 import J3ObjectBase from "../J3ObjectBase";
 import J3Object from "../J3Object";
 import SceneUtilities from "../Static/SceneUtilities";
-// import EffectArgumentFormatter from "./EffectArgumentFormatter";
+// import EffectUtilities from "./EffectUtilities";
 import IOption from "./IOption";
 import isUndefined from "lodash.isundefined";
 
@@ -18,7 +18,7 @@ class Basic extends J3ObjectBase {
   public show(duration: number, easing: string, complete: () => void): J3Object;
   public show(duration: string, easing: string, complete: () => void): J3Object;
   public show(argu0?: any, argu1?: any, argu2?: any): any {
-    // const option = EffectArgumentFormatter.toOption(argu0, argu1, argu2);
+    // const option = EffectUtilities.toOption(argu0, argu1, argu2);
     if (isUndefined(argu0)) {
       SceneUtilities.filterSceneObjectNode(this.__getArray()).forEach((node) => {
         if (node.target) {
@@ -42,7 +42,7 @@ class Basic extends J3ObjectBase {
   public hide(duration: number, easing: string, complete: () => void): J3Object;
   public hide(duration: string, easing: string, complete: () => void): J3Object;
   public hide(argu0?: any, argu1?: any, argu2?: any): any {
-    // const option = EffectArgumentFormatter.toOption(argu0, argu1, argu2);
+    // const option = EffectUtilities.toOption(argu0, argu1, argu2);
     if (isUndefined(argu0)) {
       SceneUtilities.filterSceneObjectNode(this.__getArray()).forEach((node) => {
         if (node.target) {

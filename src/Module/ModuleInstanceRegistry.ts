@@ -1,7 +1,9 @@
 import IModule from "./IModule";
+import Module from "./Module";
 import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 import isPlainObject from "lodash.isplainobject";
 import isFunction from "lodash.isfunction";
+import isUndefined from "lodash.isundefined";
 
 /* tslint:disable:public-method-name private-method-name */
 class ModuleBuiltinMixin {
@@ -18,28 +20,28 @@ class ModuleBuiltinMixin {
 /* tslint:enable:public-method-name */
 
 class ModuleInstanceRegistry {
-  private _module: new (...args_: any[]) => IModule;
-  private _instance: IModule;
+  private _module: new (...args_: any[]) => Module;
+  private _instance: Module;
   private _enabled: boolean = false;
   private _node: GomlTreeNodeBase;
 
-  constructor(module: new () => IModule);
+  constructor(module: new () => Module);
   constructor(module: IModule);
   constructor(module: any) {
-    let Module: new () => IModule = module;
+    let AnonymousModule: new () => Module = module;
     if (isPlainObject(module)) {
-      Module = <any>function() {
+      AnonymousModule = <any>function() {
         this.initialize.apply(this, arguments);
       };
       const props = [];
       Object.keys(module).forEach((k) => {
         if (isFunction(module[k]) && k !== "initialize") {
-          Module.prototype[k] = module[k];
+          AnonymousModule.prototype[k] = module[k];
         } else {
           props.push(k);
         }
       });
-      Module.prototype.initialize = function () {
+      AnonymousModule.prototype.initialize = function () {
         props.forEach((k) => {
           this[k] = module[k];
         });
@@ -48,16 +50,22 @@ class ModuleInstanceRegistry {
         }
       };
     }
-    applyMixins(Module, [ModuleBuiltinMixin]);
-    this._module = Module;
+    applyMixins(AnonymousModule, [ModuleBuiltinMixin]);
+    this._module = AnonymousModule;
   }
 
-  public apply(node: GomlTreeNodeBase, ...args: any[]): IModule {
+  public apply(node: GomlTreeNodeBase, ...args: any[]): Module {
     this.detach();
     this._instance = new this._module(node, ...args);
     this._instance.__init__(this);
     this._node = node;
-    console.log(this._instance);
+    let modules = node.props.getProp<Module[]>("module");
+    if (isUndefined(modules)) {
+      modules = [];
+    }
+    modules.push(this._instance);
+    node.props.setProp("module", modules);
+    // console.log(this._instance);
     return this._instance;
   }
 
@@ -68,7 +76,7 @@ class ModuleInstanceRegistry {
           this._instance.terminate(this._node);
         }
       }
-      const modules = this._node.props.getProp<IModule[]>("module");
+      const modules = this._node.props.getProp<Module[]>("module");
       const index = modules.indexOf(this._instance);
       if (index === -1) {
         throw new Error("detach target module is not found.");

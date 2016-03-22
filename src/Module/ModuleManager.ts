@@ -4,7 +4,7 @@ import ContextComponents from "../ContextComponents";
 import JThreeContext from "../JThreeContext";
 import LoopManager from "../Core/LoopManager";
 import ModuleInstanceRegistry from "./ModuleInstanceRegistry";
-import IModule from "./IModule";
+import Module from "./Module";
 
 class ModuleManager extends JThreeObject implements IContextComponent {
   public ready: boolean = false;
@@ -29,7 +29,7 @@ class ModuleManager extends JThreeObject implements IContextComponent {
     });
   }
 
-  public addModule(module: new () => IModule): ModuleInstanceRegistry {
+  public addModule(module: new () => Module): ModuleInstanceRegistry {
     const moduleRegistry = new ModuleInstanceRegistry(module);
     this._modules.push(moduleRegistry);
     return moduleRegistry;

@@ -1,12 +1,12 @@
 import EffecterBase from "./EffecterBase";
 import Quaternion from "../../../Math/Quaternion";
-class RotationEffecter extends EffecterBase {
 
+class RotationEffecter extends EffecterBase<Quaternion> {
   protected __updateEffect(progress: number): void {
-    const b = <Quaternion>this.__beginValue;
-    const e = <Quaternion>this.__endValue;
+    const b = this.__beginValue;
+    const e = this.__endValue;
     const ef = this.__easingFunction.ease;
-    this.__targetAttribute.Value = Quaternion.slerp(b, e, ef(0, 1, progress));
+    this.Value = Quaternion.slerp(b, e, ef(0, 1, progress));
   }
 }
 

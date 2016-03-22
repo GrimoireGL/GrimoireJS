@@ -1,14 +1,13 @@
 import EffecterBase from "./EffecterBase";
 
-class IntegerEffecter extends EffecterBase {
-
+class IntegerEffecter extends EffecterBase<number> {
   protected __updateEffect(progress: number): void {
-    const b = <number>this.__beginValue;
-    const e = <number>this.__endValue;
+    const b = this.__beginValue;
+    const e = this.__endValue;
     const ef = this.__easingFunction.ease;
     const val = Math.floor(ef(b, e, progress));
-    if (this.__targetAttribute.Value !== val) {
-      this.__targetAttribute.Value = val;
+    if (this.Value !== val) {
+      this.Value = val;
     }
   }
 }
