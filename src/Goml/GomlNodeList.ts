@@ -29,8 +29,6 @@ import SceneLightNode from "./Nodes/SceneObjects/Lights/SceneLightNode";
 import PMXNode from "../PMX/Goml/PMXNode";
 import TextureNode from "./Nodes/Texture/TextureNode";
 import CubeTextureNode from "./Nodes/Texture/CubeTextureNode";
-import BehaviorsNode from "./Nodes/Behaviors/BehaviorsNode";
-import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
 import TemplateNode from "./Nodes/Templates/TemplateNode";
 import LoaderNode from "./Nodes/Loaders/LoaderNode";
 // import PMXMorphNode from "../PMX/Goml/PMXMorphNode";
@@ -92,14 +90,6 @@ const gomlList = [
     {
       "TEXTURE": TextureNode,
       "CUBETEXTURE": CubeTextureNode
-    }),
-  new GomlNodeListElement("jthree.behaviors",
-    {
-      "BEHAVIORS": BehaviorsNode,
-    }),
-  new GomlNodeListElement("jthree.behavior",
-    {
-      "BEHAVIOR": BehaviorNode
     }),
   new GomlNodeListElement("jthree.template",
     {

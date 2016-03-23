@@ -86,8 +86,8 @@ class GomlNodeDictionary extends jThreeObject {
     }
     // console.log(this.dictionary);
     const target = this._dictionary[group][name];
-    if (target.cb.length >= 10) {
-      throw new Error("registered listeners count is over 10.");
+    if (target.cb.length >= 100) {
+      // console.warn("registered listeners count is over 100.");
     } else {
       target.cb.push(callbackfn);
     }

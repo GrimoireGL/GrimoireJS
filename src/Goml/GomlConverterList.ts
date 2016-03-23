@@ -12,6 +12,7 @@ import Color4AttributeConverter from "./Converter/Color4AttributeConverter";
 import Color3AttributeConverter from "./Converter/Color3AttributeConverter";
 import BooleanAttributeConverter from "./Converter/BooleanAttributeConverter";
 import StringAttributeConverter from "./Converter/StringAttributeConverter";
+import FunctionAttributeConverter from "./Converter/FunctionAttributeConverter";
 
 const converterList = {
   "angle": AngleAttributeConverter,
@@ -23,5 +24,7 @@ const converterList = {
   "color3": Color3AttributeConverter,
   "boolean": BooleanAttributeConverter,
   "string": StringAttributeConverter,
+  "function": FunctionAttributeConverter,
 };
+
 export default converterList;

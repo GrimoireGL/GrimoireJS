@@ -1,12 +1,14 @@
 import AttributeConverterBase from "./AttributeConverterBase";
 
 class BooleanAttributeConverter extends AttributeConverterBase {
-  public toStringAttr(val: boolean): string {
+  public name: string = "boolean";
+
+  public toStringAttr(val: any): string {
     return val.toString();
   }
 
-  public toObjectAttr(attr: string): any {
-    return attr === "true";
+  public toObjectAttr(attr: any): boolean {
+    return attr === true || attr === false ? attr : attr === "true";
   }
 }
 

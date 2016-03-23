@@ -54,8 +54,6 @@ class GomlAttribute extends JThreeObjectEEWithID {
    */
   private _deferred: Q.Deferred<GomlAttribute> = null;
 
-  private _defer_type: string = "";
-
   private _initializeSequence: boolean = false;
 
   private _nodeManager: NodeManager;
@@ -76,20 +74,19 @@ class GomlAttribute extends JThreeObjectEEWithID {
       // temp時にinitializeSequenceが開始される
       // 一箇所でpromiseを集めるための処置
       this._initializeSequence = true;
-      this._defer_type = "reserved";
     } else if (!this.constant && this.listeners("changed").length !== 0) {
       // 通常時のAttributeの初期化
       // onchangeのイベントのコールバック内でdoneでdeferredが解決される
       this._initializeSequence = true;
-      this._deferred = Q.defer<GomlAttribute>();
-      this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
-      this._defer_type = "not constant, has changed";
+      if (this._nodeManager.attributePromiseRegistry.enabled) {
+        this._deferred = Q.defer<GomlAttribute>();
+        this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+      }
       this.emit("changed", this);
     } else {
       // onchangeハンドラが無い、又は定数の場合はpromiseを生成しない。
       this.initialized = true;
       // console.log("resolve attribute (inst)", this.Name);
-      this._defer_type = "constant or no changed, not reserved";
     }
   }
 
@@ -101,7 +98,9 @@ class GomlAttribute extends JThreeObjectEEWithID {
       this.initialized = true;
       this._initializeSequence = false;
       // console.log("resolve attribute (done)", this.Name);
-      this._deferred.resolve(this);
+      if (this._nodeManager.attributePromiseRegistry.enabled) {
+        this._deferred.resolve(this);
+      }
     }
   }
 

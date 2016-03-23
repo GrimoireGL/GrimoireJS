@@ -1,9 +1,7 @@
 import GomlNodeListElement from "./GomlNodeListElement";
 import JThreeObject from "../Base/JThreeObject";
-import EasingFunction from "./Easing/EasingFunctionBase";
 import AttributeConvrterBase from "./Converter/AttributeConverterBase";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
-import EasingFunctionList from "./EasingFunctionList";
 import GomlConverterList from "./GomlConverterList";
 import GomlNodeList from "./GomlNodeList";
 /**
@@ -11,10 +9,6 @@ import GomlNodeList from "./GomlNodeList";
  * These properties is intended to be used for extending by plugin feature.
  */
 class GomlConfigurator extends JThreeObject {
-  /**
-   * List of easing function to indicate how animation will be.
-   */
-  private _easingFunctions: { [key: string]: EasingFunction } = {};
   /**
    * List of converter function classes.
    */
@@ -28,10 +22,6 @@ class GomlConfigurator extends JThreeObject {
 
   public getConverter(name: string): AttributeConvrterBase {
     return this._converters[name];
-  }
-
-  public getEasingFunction(name: string): EasingFunction {
-    return this._easingFunctions[name];
   }
 
   /**
@@ -51,21 +41,10 @@ class GomlConfigurator extends JThreeObject {
    */
   constructor() {
     super();
-    this._initializeEasingFunctions();
     this._initializeConverters();
     this._initializeGomlNodes();
   }
 
-  /*
-  * Initialize associative array for easing functions that will be used for animation in goml.
-  */
-  private _initializeEasingFunctions(): void {
-    const list = EasingFunctionList;
-    for (let key in list) {
-      const type = list[key];
-      this._easingFunctions[key] = new type();
-    }
-  }
   /**
    * Initialize converters from list.
    */
@@ -74,6 +53,7 @@ class GomlConfigurator extends JThreeObject {
     for (let key in list) {
       const type = list[key];
       this._converters[key] = new type();
+      this._converters[key].name = key;
     }
   }
 

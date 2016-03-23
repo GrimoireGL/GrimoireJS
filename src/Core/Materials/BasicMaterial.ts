@@ -75,7 +75,7 @@ class BasicMaterial extends Material {
       this._passes.push(new MaterialPass(this, pass, this._materialName, i));
     }
     this._passCount = passes.length;
-    return Promise.all(this._passes.map<Promise<void>>(e => e.initialize(this._uniformRegisters)));
+    return Promise.all<void>(this._passes.map<Promise<void>>(e => e.initialize(this._uniformRegisters)));
   }
 
   private _initializeUniformRegisters(doc: Document): void {

@@ -13,6 +13,7 @@ WatchTask = require './build/task/watch'
 TestTask = require './build/task/test'
 BundleTask = require './build/task/bundle'
 CoverTask = require './build/task/cover'
+CopyTask = require './build/task/copy'
 fs = require 'fs'
 env_production = false
 
@@ -35,14 +36,14 @@ config =
     main:
       entries: './lib/jThree.js'
       name: 'j3.js'
-      extensions: ['.js', '.json', '.glsl', '.html','.xmml','.rsml']
+      extensions: ['.js', '.json', '.glsl', '.html','.xmml','.rsml','.xml']
       dest: ['./wwwroot', './bin/product']
       target: 'web'
       minify: false
       sourcemap: !args.nosourcemap
       transform: [
-        {name:'txtify',opt:{extensions:['.json','.html','.css','.glsl','.xmml','.rsml']}}
-        {name: 'babelify', opt: {presets: 'es2015',plugins:["transform-es2015-modules-commonjs","add-module-exports"]}}
+        {name:'txtify', opt: {extensions: ['.json','.html','.css','.glsl','.xmml','.rsml','.xml']}}
+        {name: 'babelify'}
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
       ]
       detectGlobals: true
@@ -60,7 +61,7 @@ config =
       ]
       detectGlobals: true
   cleaner_files : ['./src/**/*.js']
-  cleaner_files_silent : ['./lib/**/*']
+  cleaner_files_silent : ['./lib', './lib-es6', './test-es5', './coverage', './ci']
   tsEntries:['./src/**/*.ts']
   tsDest:'./lib'
   jsEntries:['./lib/**/*.js']
@@ -92,7 +93,8 @@ TaskManager.register config,[
   WatchTask,
   TestTask,
   BundleTask,
-  CoverTask
+  CoverTask,
+  CopyTask,
 ]
 
 

@@ -18,10 +18,8 @@ class JThreeContext {
    * Initialize jThreeContext to be used.
    */
   public static init(): void {
-    if (window) { // for head-less test
-      if (!window.j3.context) {
-        window.j3.context = new JThreeContext();
-      }
+    if (!window.j3.context) {
+      window.j3.context = new JThreeContext();
     }
   }
 
@@ -46,11 +44,7 @@ class JThreeContext {
   }
 
   private static get context(): JThreeContext {
-    if (window) { // for head-less test
-      return window.j3.context;
-    } else {
-      return undefined;
-    }
+    return window.j3.context;
   }
 }
 
