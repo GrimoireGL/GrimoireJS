@@ -39,7 +39,7 @@
     "precover-slow": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib && npm run lib-to-lib-es6 && npm run build-lib-es5 && npm run build-test-es5",
     "cover-slow": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test-es5 && npm run cover-slow-lcov",
     "cover-slow-lcov": "./node_modules/.bin/remap-istanbul -i ./coverage/coverage-final.json -o ./coverage/lcov-report -t lcovonly -b /Users/pnlybubbles/Devs/jThree",
-    "precover": "npm run build-ts -- --nosourcemap",
+    "precover": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib",
     "cover": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
@@ -69,9 +69,6 @@
         "presets": [
           "es2015",
           "stage-2"
-        ],
-        "plugins": [
-          "babel-plugin-rewire"
         ]
       }
     }
@@ -80,9 +77,6 @@
     "ava": "^0.13.0",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.7.2",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-rewire": "^1.0.0-rc-1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.7.0",
     "babel-polyfill": "^6.7.2",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-2": "^6.5.0",
