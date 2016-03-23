@@ -30,12 +30,13 @@ class SomeToNode {
       let ret: GomlTreeNodeBase[] = null;
       switch (true) {
         case isString(t):
-          let parseObj: XMLParser = null;
+          let isXml = false;
           if (isArrayFlag ? filterType.indexOf("xmlstring[]") !== -1 : filterType.indexOf("xmlstring") !== -1) {
-            parseObj = new XMLParser(<string>t);
+            isXml = (<string>t).charAt(0) === "<";
           }
-          if (parseObj && parseObj.isValid) {
-            // t is parseObj
+          if (isXml) {
+            // t is xml
+            const parseObj = new XMLParser(<string>t);
             ret = parseObj.elements.map((elem, i) => {
               return GomlParser.parse(elem, nodeManager.configurator);
             });

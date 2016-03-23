@@ -61,8 +61,8 @@ class J3Object extends J3ObjectBase implements
     let query: string;
     switch (true) {
       case (isString(argu)):
-        const parseObj = new XMLParser(<string>argu);
-        if (parseObj.isValid) {
+        if ((<string>argu).charAt(0) === "<") {
+          const parseObj = new XMLParser(<string>argu);
           const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
           nodes = parseObj.elements.map((elem) => {
             return GomlParser.parse(elem, nodeManager.configurator);
