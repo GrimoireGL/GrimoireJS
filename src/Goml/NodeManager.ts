@@ -168,6 +168,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
    * @param {() => void}  callbackfn callback function which will be called when all attributes are initialized.
    */
   public setNodeToRootByElement(source: HTMLElement, callbackfn: (err: Error) => void): void {
+    this.attributePromiseRegistry.enabled = true;
     this.htmlRoot = source;
     if (source === undefined || source.tagName.toUpperCase() !== "GOML") {
       callbackfn(new Error("Root node must be \"goml\""));
@@ -181,6 +182,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     const moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
     moduleManager.ready = true;
     this.attributePromiseRegistry.async(() => {
+      this.attributePromiseRegistry.enabled = false;
       callbackfn(null);
     });
   }

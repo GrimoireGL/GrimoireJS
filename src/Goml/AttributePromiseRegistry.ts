@@ -8,6 +8,12 @@ class AttributePromiseRegistry extends jThreeObject {
   }
 
   /**
+   * If true, async syncing is now available.
+   * @type {boolean}
+   */
+  public enabled: boolean = false;
+
+  /**
    * promise objects which is registed.
    */
   private _promises: Q.Promise<GomlAttribute>[] = [];
