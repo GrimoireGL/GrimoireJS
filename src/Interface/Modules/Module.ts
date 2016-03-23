@@ -22,6 +22,7 @@ class Module extends J3ObjectBase {
         return this.__getArray().map((node) => {
           const moduleRegistry = moduleManager.addModule(argu);
           const moduleInstance = moduleRegistry.apply(node);
+          moduleInstance.enabled = true;
           return moduleInstance;
         });
       default:
