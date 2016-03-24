@@ -31,7 +31,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   * The ID string for identify which canvas manager holds this resource.
   */
   public get OwnerID(): string {
-    return this._ownerCanvas.ID;
+    return this._ownerCanvas.id;
   }
 
   public get GL() {

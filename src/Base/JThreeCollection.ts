@@ -27,12 +27,12 @@ class JThreeCollection<T extends JThreeObjectWithID> {
      * @return {boolean}      Whether the item is included or not.
      */
     public isContained(item: T): boolean {
-        return !!this._collection[item.ID];
+        return !!this._collection[item.id];
     }
 
     /**
      * Insert specified object into this collection.
-     * If specified object has same ID with an object already inserted, old object will be replaced with new object.
+     * If specified object has same id with an object already inserted, old object will be replaced with new object.
      * @param  {T}       item the object to insert into
      * @return {boolean}      Whether specified object was replaced(false) or,simply inserted(true)
      */
@@ -41,7 +41,7 @@ class JThreeCollection<T extends JThreeObjectWithID> {
             return false;
         } else {
             this._length++;
-            this._collection[item.ID] = item;
+            this._collection[item.id] = item;
             return true;
         }
     }
@@ -54,7 +54,7 @@ class JThreeCollection<T extends JThreeObjectWithID> {
     public del(item: T): boolean {
         if (this.isContained(item)) {
             this._length--;
-            delete this._collection[item.ID];
+            delete this._collection[item.id];
             return true;
         } else {
             return false;

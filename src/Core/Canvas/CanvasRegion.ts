@@ -27,7 +27,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
     this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
     this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
     this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
-    this.name = this.ID;
+    this.name = this.id;
   }
 
   /**

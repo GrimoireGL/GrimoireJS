@@ -10,7 +10,7 @@ class DebuggerSceneDescriptionTitle extends React.Component
         <span style={styles.name}>{@props.object.name}</span>
         <span style={styles.typeName}>{"(" + @props.object.getTypeName() + ")"}</span>
       </p>
-      <p style={styles.id}>{"ID:" + @props.object.ID}</p>
+      <p style={styles.id}>{"ID:" + @props.object.id}</p>
     </div>
 
 styles =

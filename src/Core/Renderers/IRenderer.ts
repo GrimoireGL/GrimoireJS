@@ -4,7 +4,12 @@ import RBO from "../Resources/RBO/RBO";
 import BufferSet from "./BufferSet";
 import RenderPath from "./RenderPath";
 import Camera from "../SceneObjects/Camera/Camera";
-interface IRenderer extends NodeJS.EventEmitter, IDisposable {
+import IGLContainer from "../Canvas/GL/IGLContainer";
+/**
+ * 特定領域の描画を司るクラスのインターフェース
+ * @type {[type]}
+ */
+interface IRenderer extends NodeJS.EventEmitter, IDisposable, IGLContainer {
   /**
    * [The camera instance that this renderer refer to]
    * @type {Camera}

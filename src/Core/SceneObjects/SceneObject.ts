@@ -49,7 +49,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   constructor(transformer?: Transformer) {
     super();
     this.__transformer = transformer || new Transformer(this);
-    this.name = this.ID;
+    this.name = this.id;
   }
 
   /**
@@ -76,7 +76,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
       scene: this.ParentScene,
       isAdditionalChange: true,
       changedSceneObject: obj,
-      changedSceneObjectID: obj.ID
+      changedSceneObjectID: obj.id
     };
     this._onStructureChangedEvent.fire(this, eventArg);
     this.onChildrenChanged();
@@ -99,7 +99,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
         scene: this.ParentScene,
         isAdditionalChange: false,
         changedSceneObject: obj,
-        changedSceneObjectID: obj.ID
+        changedSceneObjectID: obj.id
       };
       this._onStructureChangedEvent.fire(this, eventArg);
       obj.onParentChanged();

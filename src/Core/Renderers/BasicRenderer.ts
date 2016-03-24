@@ -49,25 +49,18 @@ class BasicRenderer extends RendererBase implements IRenderer {
   public camera: Camera;
 
   /**
-   * Canvas managing this renderer.
-   */
-  private _canvas: Canvas;
-
-  /**
    * Constructor of RenderBase
    * @param canvas
    * @param viewportArea
    * @returns {}
    */
   constructor(canvas: Canvas, viewportArea: Rectangle, configurator?: RendererConfiguratorBase) {
-    super(canvas.canvasElement);
+    super(canvas);
     configurator = configurator || new RendererConfigurator();
-    this._canvas = canvas;
     this.region = viewportArea;
     this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);
-    this.name = this.ID;
   }
 
   /**
@@ -79,9 +72,9 @@ class BasicRenderer extends RendererBase implements IRenderer {
     this.alternativeTexture = this.__initializeAlternativeTexture();
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    this.defaultRenderBuffer = rm.createRBO(this.ID + ".rbo.default", this.region.Width, this.region.Height);
+    this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
     this.on("resize", () => {
-      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.ID + ".rbo.default").resize(this.region.Width, this.region.Height);
+      JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
     });
   }
 
@@ -96,16 +89,6 @@ class BasicRenderer extends RendererBase implements IRenderer {
     RenderPathExecutor.processRender(this, scene);
   }
 
-  /**
-   * Canvas managing this renderer.
-   */
-  public get Canvas(): Canvas {
-    return this._canvas;
-  }
-
-  public get GL(): WebGLRenderingContext {
-    return this._canvas.gl;
-  }
 
   /**
    * It will be called before processing renderer.
@@ -113,7 +96,7 @@ class BasicRenderer extends RendererBase implements IRenderer {
    */
   public beforeRender(): void {
     this.applyDefaultBufferViewport();
-    this.Canvas.beforeRender(this);
+    this.canvas.beforeRender(this);
   }
 
   /**
@@ -121,19 +104,19 @@ class BasicRenderer extends RendererBase implements IRenderer {
    * If you need to override this method, you need to call same method of super class first.
    */
   public afterRender(): void {
-    this.GL.flush();
-    this.Canvas.afterRender(this);
+    this.gl.flush();
+    this.canvas.afterRender(this);
   }
 
   /**
    * Apply viewport configuration
    */
   public applyDefaultBufferViewport(): void {
-    this.GL.viewport(this.region.Left, this._canvas.region.Height - this.region.Bottom, this.region.Width, this.region.Height);
+    this.gl.viewport(this.region.Left, this.canvas.region.Height - this.region.Bottom, this.region.Width, this.region.Height);
   }
 
   public applyRendererBufferViewport(): void {
-    this.GL.viewport(0, 0, this.region.Width, this.region.Height);
+    this.gl.viewport(0, 0, this.region.Width, this.region.Height);
   }
 
 
@@ -145,14 +128,14 @@ class BasicRenderer extends RendererBase implements IRenderer {
    */
   protected __initializeAlternativeTexture(): TextureBase {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.ID, 1, 1);
+    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.id, 1, 1);
     tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
     return tex;
   }
 
   protected __initializeAlternativeCubeTexture(): CubeTexture {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.ID, null);
+    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.id, null);
     return tex;
   }
 

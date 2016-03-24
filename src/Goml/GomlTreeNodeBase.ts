@@ -43,7 +43,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
     // after configuration, this node is going to add to NodesById
-    this.nodeManager.nodesById[this.ID] =  this;
+    this.nodeManager.nodesById[this.id] =  this;
     this.attributes = new AttributeDictionary(this);
 
     // apply attributes

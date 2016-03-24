@@ -1,3 +1,4 @@
+import ICanvasContainer from "./ICanvasContainer";
 import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "../Renderers/BasicRenderer";
@@ -14,7 +15,7 @@ import {WebGLNotSupportedException} from "../../Exceptions";
  * HTMLCanvasElementを管理するクラスs
  * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
-class Canvas extends CanvasRegion {
+class Canvas extends CanvasRegion implements ICanvasContainer {
 
   /**
    * Constructor
@@ -22,10 +23,13 @@ class Canvas extends CanvasRegion {
    */
   constructor(canvasElement: HTMLCanvasElement) {
     super(canvasElement);
+    this.canvas = this;
     this._lastWidth = canvasElement.width;
     this._lastHeight = canvasElement.height;
     this.__setGLContext(this._tryGetGLContext());
   }
+
+  public canvas: Canvas;
 
   /**
    * event cache for resize event.

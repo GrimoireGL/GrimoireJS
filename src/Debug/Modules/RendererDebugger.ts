@@ -90,10 +90,9 @@ class RendererDebugger extends DebuggerModuleBase {
     });
   }
 
-  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {
-    const canvas = renderer.Canvas;
-    const img = new Image(canvas.canvasElement.width, canvas.canvasElement.height);
-    img.src = canvas.canvasElement.toDataURL();
+  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {;
+    const img = new Image(renderer.canvasElement.width, renderer.canvasElement.height);
+    img.src = renderer.canvasElement.toDataURL();
     return img;
   }
 
@@ -111,7 +110,7 @@ class RendererDebugger extends DebuggerModuleBase {
       }
     });
     renderer.on("rendered-path", (v) => {
-      if (this._shadowMapRequest && renderer.ID === this._shadowMapRequest.rendererID) {
+      if (this._shadowMapRequest && renderer.id === this._shadowMapRequest.rendererID) {
         // this.shadowMapRequest.deffered.resolve(v.scene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapRequest.generator));
         this._shadowMapRequest = null;
       }
@@ -128,7 +127,7 @@ class RendererDebugger extends DebuggerModuleBase {
       let img;
       if (this._bufferTextureProgressRequest && v.stage.ID === this._bufferTextureProgressRequest.stageID) {
         this._bufferTextureProgressRequest.begin = true;
-        renderer.GL.flush();
+        renderer.gl.flush();
         if (v.bufferTextures[this._bufferTextureProgressRequest.bufferTextureID] == null) {
           // for default buffer
           img = this._canvasToimg(renderer);
@@ -146,7 +145,7 @@ class RendererDebugger extends DebuggerModuleBase {
       }
       if (this._shadowMapProgressRequest && v.stage.getTypeName() === "ShadowMapGenerationStage" && v.stage.Renderer.ID === this._shadowMapProgressRequest.rendererID) {
         this._shadowMapProgressRequest.begin = true;
-        renderer.GL.flush();
+        renderer.gl.flush();
         img = undefined; // v.renderedObject.ParentScene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapProgressRequest.generator);
         img.title = `object:${v.renderedObject.name} technique:${v.technique}`;
         this._shadowMapProgressRequest.deffered.notify(

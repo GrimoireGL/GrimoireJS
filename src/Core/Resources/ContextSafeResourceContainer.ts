@@ -1,3 +1,4 @@
+import ICanvasContainer from "../Canvas/ICanvasContainer";
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
 import Canvas from "../Canvas/Canvas";
@@ -42,8 +43,8 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     return array;
   }
 
-  public getForContext(canvas: Canvas): T {
-    return this.getForContextID(canvas.ID);
+  public getForContext(cContainer: ICanvasContainer): T {
+    return this.getForContextID(cContainer.canvas.id);
   }
 
   public getForContextID(id: string): T {
@@ -66,18 +67,18 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   protected __initializeForFirst(): void {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
-      this._childWrapper[v.ID] = this.__createWrapperForCanvas(v);
+      this._childWrapper[v.id] = this.__createWrapperForCanvas(v);
       this._wrapperLength++;
     });
   }
 
   private _rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
     if (arg.isAdditionalChange) {
-      this._childWrapper[arg.canvas.ID] = this.__createWrapperForCanvas(arg.canvas);
+      this._childWrapper[arg.canvas.id] = this.__createWrapperForCanvas(arg.canvas);
       this._wrapperLength++;
     } else { // TODO should be tested
-      const delTarget: T = this._childWrapper[arg.canvas.ID];
-      delete this._childWrapper[arg.canvas.ID];
+      const delTarget: T = this._childWrapper[arg.canvas.id];
+      delete this._childWrapper[arg.canvas.id];
       delTarget.dispose();
       this._wrapperLength--;
     }

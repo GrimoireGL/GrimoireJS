@@ -1,31 +1,21 @@
 ﻿import JThreeObject from "./JThreeObject";
 import JThreeID from "./JThreeID";
+import IIDObject from "./IIDObject";
 
 /**
  * JThree object with unique ID to identify object instancies.
  * @type {[type]}
  */
-class JThreeObjectWithID extends JThreeObject {
+class JThreeObjectWithID extends JThreeObject implements IIDObject {
     constructor(id?: string) {
         super();
-        this._id = id || JThreeID.getUniqueRandom(10);
+        this.id = id || JThreeID.getUniqueRandom(10);
     }
 
     /**
      * ID related to this instance to identify.
      */
-    private _id: string;
-
-    /**
-     * Provides an ID related to this instance to identify.
-     */
-    public get ID(): string {
-        return this._id;
-    }
-
-    public set ID(id: string) {
-        this._id = id;
-    }
+    public id: string;
 }
 
 export default JThreeObjectWithID;

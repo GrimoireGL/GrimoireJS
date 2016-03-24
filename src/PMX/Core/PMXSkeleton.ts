@@ -36,7 +36,7 @@ class PMXSkeleton {
     }
     this._bones.forEach((v) => v.boneDictionaryConstructed());
     this._bonesInTransformOrder.sort((a, b) => a.OrderCriteria - b.OrderCriteria);
-    this._matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.ID, 4, this._bones.length, WebGLRenderingContext.RGBA, WebGLRenderingContext.FLOAT);
+    this._matrixTexture = <TextureBuffer>JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).createTexture("jthree.pmx.bonetransform" + model.id, 4, this._bones.length, WebGLRenderingContext.RGBA, WebGLRenderingContext.FLOAT);
   }
 
   public get MatrixTexture() {

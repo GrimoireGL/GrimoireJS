@@ -103,7 +103,7 @@ class Scene extends jThreeObjectEEWithID {
       scene: this,
       isAdditionalChange: true,
       changedSceneObject: targetObject,
-      changedSceneObjectID: targetObject.ID
+      changedSceneObjectID: targetObject.id
     });
   }
 
@@ -121,7 +121,7 @@ class Scene extends jThreeObjectEEWithID {
         scene: this,
         isAdditionalChange: false,
         changedSceneObject: removeTarget,
-        changedSceneObjectID: removeTarget.ID
+        changedSceneObjectID: removeTarget.id
       });
     }
   }
@@ -130,7 +130,7 @@ class Scene extends jThreeObjectEEWithID {
    * Append the camera to this scene as managed
    */
   public addCamera(camera: Camera): void {
-    this._cameras[camera.ID] = camera;
+    this._cameras[camera.id] = camera;
   }
 
   /**
