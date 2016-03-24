@@ -1,0 +1,26 @@
+import BasicMaterial from "../../../Materials/Base/BasicMaterial";
+import JThreeContext from "../../../../JThreeContext";
+import ContextComponents from "../../../../ContextComponents";
+import LightBase from "./../LightBase";
+/**
+ * Provides area light feature.
+ * Parameters:
+ * X:TYPE ID ,XYZ:COLOR
+ */
+class SceneLight extends LightBase {
+    constructor() {
+        super();
+        this.intensity = 1.0;
+        this.Geometry = JThreeContext.getContextComponent(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
+        const material = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/SceneLight.html"));
+        material.on("apply", (matArg) => {
+            material.materialVariables = {
+                lightColor: this.Color.toVector().multiplyWith(this.intensity)
+            };
+        });
+        this.addMaterial(material);
+    }
+}
+export default SceneLight;
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkNvcmUvU2NlbmVPYmplY3RzL0xpZ2h0L0ltcGwvU2NlbmVMaWdodC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiT0FDTyxhQUFhLE1BQU0sdUNBQXVDO09BRTFELGFBQWEsTUFBTSwyQkFBMkI7T0FDOUMsaUJBQWlCLE1BQU0sK0JBQStCO09BQ3RELFNBQVMsTUFBTSxnQkFBZ0I7QUFFdEM7Ozs7R0FJRztBQUNILHlCQUF5QixTQUFTO0lBQ2hDO1FBQ0UsT0FBTyxDQUFDO1FBV0gsY0FBUyxHQUFXLEdBQUcsQ0FBQztRQVY3QixJQUFJLENBQUMsUUFBUSxHQUFHLGFBQWEsQ0FBQyxtQkFBbUIsQ0FBcUIsaUJBQWlCLENBQUMsa0JBQWtCLENBQUMsQ0FBQyxZQUFZLENBQUMsTUFBTSxDQUFDLENBQUM7UUFDakksTUFBTSxRQUFRLEdBQUcsSUFBSSxhQUFhLENBQUMsT0FBTyxDQUFDLDBEQUEwRCxDQUFDLENBQUMsQ0FBQztRQUN4RyxRQUFRLENBQUMsRUFBRSxDQUFDLE9BQU8sRUFBRSxDQUFDLE1BQThCO1lBQ2xELFFBQVEsQ0FBQyxpQkFBaUIsR0FBRztnQkFDM0IsVUFBVSxFQUFFLElBQUksQ0FBQyxLQUFLLENBQUMsUUFBUSxFQUFFLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUM7YUFDL0QsQ0FBQztRQUNKLENBQUMsQ0FBQyxDQUFDO1FBQ0gsSUFBSSxDQUFDLFdBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBQztJQUM3QixDQUFDO0FBSUgsQ0FBQztBQUVELGVBQWUsVUFBVSxDQUFDIiwiZmlsZSI6IkNvcmUvU2NlbmVPYmplY3RzL0xpZ2h0L0ltcGwvU2NlbmVMaWdodC5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBJQXBwbHlNYXRlcmlhbEFyZ3VtZW50IGZyb20gXCIuLi8uLi8uLi9NYXRlcmlhbHMvQmFzZS9JQXBwbHlNYXRlcmlhbEFyZ3VtZW50XCI7XG5pbXBvcnQgQmFzaWNNYXRlcmlhbCBmcm9tIFwiLi4vLi4vLi4vTWF0ZXJpYWxzL0Jhc2UvQmFzaWNNYXRlcmlhbFwiO1xuaW1wb3J0IFByaW1pdGl2ZVJlZ2lzdG9yeSBmcm9tIFwiLi4vLi4vLi4vR2VvbWV0cmllcy9CYXNlL1ByaW1pdGl2ZVJlZ2lzdG9yeVwiO1xuaW1wb3J0IEpUaHJlZUNvbnRleHQgZnJvbSBcIi4uLy4uLy4uLy4uL0pUaHJlZUNvbnRleHRcIjtcbmltcG9ydCBDb250ZXh0Q29tcG9uZW50cyBmcm9tIFwiLi4vLi4vLi4vLi4vQ29udGV4dENvbXBvbmVudHNcIjtcbmltcG9ydCBMaWdodEJhc2UgZnJvbSBcIi4vLi4vTGlnaHRCYXNlXCI7XG5cbi8qKlxuICogUHJvdmlkZXMgYXJlYSBsaWdodCBmZWF0dXJlLlxuICogUGFyYW1ldGVyczpcbiAqIFg6VFlQRSBJRCAsWFlaOkNPTE9SXG4gKi9cbmNsYXNzIFNjZW5lTGlnaHQgZXh0ZW5kcyBMaWdodEJhc2Uge1xuICBjb25zdHJ1Y3RvcigpIHtcbiAgICBzdXBlcigpO1xuICAgIHRoaXMuR2VvbWV0cnkgPSBKVGhyZWVDb250ZXh0LmdldENvbnRleHRDb21wb25lbnQ8UHJpbWl0aXZlUmVnaXN0b3J5PihDb250ZXh0Q29tcG9uZW50cy5QcmltaXRpdmVSZWdpc3RvcnkpLmdldFByaW1pdGl2ZShcInF1YWRcIik7XG4gICAgY29uc3QgbWF0ZXJpYWwgPSBuZXcgQmFzaWNNYXRlcmlhbChyZXF1aXJlKFwiLi4vLi4vLi4vTWF0ZXJpYWxzL0J1aWx0SW4vTGlnaHQvRGlmZnVzZS9TY2VuZUxpZ2h0Lmh0bWxcIikpO1xuICAgIG1hdGVyaWFsLm9uKFwiYXBwbHlcIiwgKG1hdEFyZzogSUFwcGx5TWF0ZXJpYWxBcmd1bWVudCkgPT4ge1xuICAgICAgbWF0ZXJpYWwubWF0ZXJpYWxWYXJpYWJsZXMgPSB7XG4gICAgICAgIGxpZ2h0Q29sb3I6IHRoaXMuQ29sb3IudG9WZWN0b3IoKS5tdWx0aXBseVdpdGgodGhpcy5pbnRlbnNpdHkpXG4gICAgICB9O1xuICAgIH0pO1xuICAgIHRoaXMuYWRkTWF0ZXJpYWwobWF0ZXJpYWwpO1xuICB9XG5cbiAgcHVibGljIGludGVuc2l0eTogbnVtYmVyID0gMS4wO1xuXG59XG5cbmV4cG9ydCBkZWZhdWx0IFNjZW5lTGlnaHQ7XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=

@@ -1,0 +1,13 @@
+import OrderedTopLevelNodeBase from "./OrderedTopLevelNodeBase";
+class ResourcesNode extends OrderedTopLevelNodeBase {
+    constructor() {
+        super();
+        this.__groupPrefix = "resource";
+    }
+    get loadPriorty() {
+        return 3000;
+    }
+}
+export default ResourcesNode;
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkdvbWwvTm9kZXMvVG9wTGV2ZWwvUmVzb3VyY2VzTm9kZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiT0FBTyx1QkFBdUIsTUFBTSwyQkFBMkI7QUFDL0QsNEJBQTRCLHVCQUF1QjtJQUdqRDtRQUNFLE9BQU8sQ0FBQztRQUhBLGtCQUFhLEdBQVcsVUFBVSxDQUFDO0lBSTdDLENBQUM7SUFFRCxJQUFXLFdBQVc7UUFDcEIsTUFBTSxDQUFDLElBQUksQ0FBQztJQUNkLENBQUM7QUFDSCxDQUFDO0FBRUQsZUFBZSxhQUFhLENBQUMiLCJmaWxlIjoiR29tbC9Ob2Rlcy9Ub3BMZXZlbC9SZXNvdXJjZXNOb2RlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IE9yZGVyZWRUb3BMZXZlbE5vZGVCYXNlIGZyb20gXCIuL09yZGVyZWRUb3BMZXZlbE5vZGVCYXNlXCI7XG5jbGFzcyBSZXNvdXJjZXNOb2RlIGV4dGVuZHMgT3JkZXJlZFRvcExldmVsTm9kZUJhc2Uge1xuICBwcm90ZWN0ZWQgX19ncm91cFByZWZpeDogc3RyaW5nID0gXCJyZXNvdXJjZVwiO1xuXG4gIGNvbnN0cnVjdG9yKCkge1xuICAgIHN1cGVyKCk7XG4gIH1cblxuICBwdWJsaWMgZ2V0IGxvYWRQcmlvcnR5KCk6IG51bWJlciB7XG4gICAgcmV0dXJuIDMwMDA7XG4gIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgUmVzb3VyY2VzTm9kZTtcbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==

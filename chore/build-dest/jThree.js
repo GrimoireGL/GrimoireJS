@@ -1,0 +1,4 @@
+import Init from "./Init";
+Init.init();
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImpUaHJlZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiT0FBTyxJQUFJLE1BQU0sUUFBUTtBQUN6QixJQUFJLENBQUMsSUFBSSxFQUFFLENBQUMiLCJmaWxlIjoialRocmVlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IEluaXQgZnJvbSBcIi4vSW5pdFwiO1xuSW5pdC5pbml0KCk7XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
