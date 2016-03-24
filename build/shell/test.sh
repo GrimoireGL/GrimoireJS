@@ -6,12 +6,5 @@ case $CIRCLE_NODE_INDEX in
     npm run doc -- --branch=$CIRCLE_BRANCH;;
   2)
     npm rebuild
-    npm run cicover
-    rc=$?;
-    if [ $rc != 0 ]; then
-      npm run cicover
-      exit $?
-    else
-      exit $rc
-    fi;;
+    npm run cover -- --branch=$CIRCLE_BRANCH;;
 esac

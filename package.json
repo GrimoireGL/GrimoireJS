@@ -41,8 +41,6 @@
     "cover-slow-lcov": "./node_modules/.bin/remap-istanbul -i ./coverage/coverage-final.json -o ./coverage/lcov-report -t lcovonly -b /Users/pnlybubbles/Devs/jThree",
     "precover": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib",
     "cover": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test",
-    "precicover": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib",
-    "cicover": "./node_modules/.bin/nyc --all npm run test && ./node_modules/.bin/nyc report --reporter=text-lcov | coveralls",
     "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
     "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
     "lint": "./node_modules/.bin/gulp --require coffee-script/register lint:ts"
