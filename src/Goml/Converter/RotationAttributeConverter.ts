@@ -1,23 +1,16 @@
 import JThreeObject from "../../Base/JThreeObject";
 import AttributeParser from "../AttributeParser";
-import RotationAnimater from "../Animater/RotationAnimater";
-import GomlAttribute from "../GomlAttribute";
-import EasingFunctionBase from "../Easing/EasingFunctionBase";
-import {Action0} from "../../Base/Delegates";
-import AnimaterBase from "../Animater/AnimaterBase";
 import Quaternion from "../../Math/Quaternion";
 
 class RotationAttributeConverter extends JThreeObject {
-  public toStringAttr(val: Quaternion): string {
+  public name: string = "rotation";
+
+  public toStringAttr(val: any): string {
     return val.toAngleAxisString();
   }
 
-  public toObjectAttr(attr: string): Quaternion {
-    return AttributeParser.parseRotation3D(attr);
-  }
-
-  public getAnimater(attr: GomlAttribute, beginVal: any, endVal: any, beginTime: number, duration: number, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
-    return new RotationAnimater(attr, beginTime, duration, beginVal, endVal, easing, onComplete);
+  public toObjectAttr(attr: any): Quaternion {
+    return attr instanceof Quaternion ? attr : AttributeParser.parseRotation3D(attr);
   }
 }
 

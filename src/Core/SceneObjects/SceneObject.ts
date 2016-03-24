@@ -59,8 +59,16 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     return this._children;
   }
 
-  public addChild(obj: SceneObject): void {
-    this._children.push(obj);
+  /**
+   * Add SceneObject to child of SceneObject.
+   * @param {SceneObject} obj   [description]
+   * @param {number}      index [description]
+   */
+  public addChild(obj: SceneObject, index?: number): void {
+    if (index == null) {
+      index = this._children.length;
+    }
+    this._children.splice(index, 0, obj);
     obj._parent = this;
     obj.Transformer.updateTransform();
     const eventArg = {
@@ -79,7 +87,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   }
 
   /**
-   * remove SceneObject from children.
+   * Remove SceneObject from children of SceneObject.
    * @param {SceneObject} obj [description]
    */
   public removeChild(obj: SceneObject): void {

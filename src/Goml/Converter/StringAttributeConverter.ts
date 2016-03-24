@@ -1,12 +1,12 @@
 import AttributeConverterBase from "./AttributeConverterBase";
 
 class StringAttributeConverter extends AttributeConverterBase {
-  public toStringAttr(val: string): string {
-    return val;
+  public toStringAttr(val: any): string {
+    return String(val);
   }
 
-  public toObjectAttr(attr: string): string {
-    return attr;
+  public toObjectAttr(attr: any): string {
+    return String(attr);
   }
 }
 
