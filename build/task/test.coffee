@@ -1,32 +1,19 @@
 gulp = require 'gulp'
-mocha = require 'gulp-mocha'
-runSequence = require 'run-sequence'
-fs = require('fs')
-istanbul = require 'gulp-istanbul'
+fs = require 'fs'
+exec = require('child_process').execSync
+
 class TestTask
+  getTaskNames: () =>
+    ['test']
 
-  requireAsString:(exts)=>
-    exts.forEach (ext) =>
-      require.extensions[ext] = (module, filename)=>
-        module.exports = fs.readFileSync filename, 'utf8'
-
-  requireAsJSON:(exts)=>
-    exts.forEach (ext) =>
-      require.extensions[ext] = (module, filename)=>
-        module.exports = JSON.parse(fs.readFileSync filename, 'utf8')
-
-
-  getTaskNames:()=>
-    ['mocha','test','watch-mocha']
-
-  dependentTask:(name,config)=>
+  dependentTask: (name, config) =>
     switch name
       when 'test'
         return ['build:main']
       else
         return []
 
-  task:(name,config)=>
+  task: (name, config) =>
     switch name
       when 'test'
         # gulp.start ['mocha']
@@ -42,4 +29,5 @@ class TestTask
         # gulp
         #   .src config.testTarget
         #   .pipe mocha()
+
 module.exports = TestTask

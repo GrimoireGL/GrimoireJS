@@ -42,6 +42,10 @@ class ContextComponents {
   public static get RenderStageRegistory(): number {
     return 10;
   }
+
+  public static get ModuleManager(): number {
+    return 11;
+  }
 }
 
 export default ContextComponents;

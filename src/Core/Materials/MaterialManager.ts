@@ -52,7 +52,7 @@ class MaterialManager implements IContextComponent {
   }
 
   public loadChunks(srcs: string[]): Promise<string[]> {
-    return Promise.all(srcs.map(src => this._loadChunk(src)));
+    return Promise.all<string>(srcs.map(src => this._loadChunk(src)));
   }
 
 

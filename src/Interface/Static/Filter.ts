@@ -1,11 +1,12 @@
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
-import J3Object from "../J3Object";
+import SomeToNodes from "./SomeToNodes";
 
 class Filter {
-  public static filter(filter: GomlTreeNodeBase[], selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[] {
-    const found_nodes = J3Object.find(selector, context);
-    return found_nodes.filter((node) => {
-      return filter.indexOf(node) !== -1;
+  public static filter(target: GomlTreeNodeBase[], filter: any, filterType: string[]): GomlTreeNodeBase[] {
+    let filterNodes = SomeToNodes.convert(filter, filterType);
+    filterNodes = filterNodes === null ? [] : filterNodes;
+    return target.filter((t) => {
+      return filterNodes.indexOf(t) === -1;
     });
   }
 }

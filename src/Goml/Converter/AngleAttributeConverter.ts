@@ -1,24 +1,16 @@
-import {InvalidArgumentException} from "../../Exceptions";
 import AttributeParser from "../AttributeParser";
 import AttributeConverterBase from "./AttributeConverterBase";
+import isNumber from "lodash.isnumber";
 
 class AngleAttributeConverter extends AttributeConverterBase {
-  public toStringAttr(val: number): string {
+  public name: string = "angle";
+
+  public toStringAttr(val: any): string {
     return val.toString();
   }
 
-  public toObjectAttr(attr: string): number {
-    return AttributeParser.parseAngle(attr);
-  }
-
-  public fromInterface(val: any): any {
-    if (typeof val === "string") {
-      return this.toObjectAttr(val);
-    } else if (typeof val === "number") {
-      return val;
-    }
-    // we should implememnt something here?
-    throw new InvalidArgumentException("val can't parse");
+  public toObjectAttr(attr: any): number {
+    return isNumber(attr) ? attr : AttributeParser.parseAngle(attr);
   }
 }
 

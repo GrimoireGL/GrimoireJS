@@ -11,7 +11,10 @@
 				"atom",
 				"scripts",
 				"bin",
-				"lib"
+				"lib",
+				"coverage",
+				"lib-es6",
+				"test-es5"
 			],
 			"path": "."
 		}

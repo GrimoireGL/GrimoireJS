@@ -5,11 +5,11 @@ case $CIRCLE_NODE_INDEX in
   1)
     npm run doc -- --branch=$CIRCLE_BRANCH;;
   2)
-    npm run cover
+    npm run cicover
     rc=$?;
     if [ $rc != 0 ]; then
       npm rebuild
-      npm run cover
+      npm run cicover
       exit $?
     else
       exit $rc
