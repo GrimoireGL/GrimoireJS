@@ -4,13 +4,17 @@ import RenderStageRegistory from "./RenderStageRegistory";
 import JThreeContext from "../../JThreeContext";
 import StageChainTemplate from "./StageChainTemplate";
 import RenderStageChain from "./RenderStageChain";
+/**
+ * レンダリングの順序を管理しているクラス
+ */
 class RenderPath {
+ /**
+  * レンダリングの順序の配列
+  * @type {RenderStageChain[]}
+  */
   public path: RenderStageChain[] = [];
 
-  private _renderer: BasicRenderer;
-
-  constructor(renderer: BasicRenderer) {
-    this._renderer = renderer;
+  constructor(private _renderer: BasicRenderer) {
   }
 
   public pushStage(stage: StageChainTemplate): void {

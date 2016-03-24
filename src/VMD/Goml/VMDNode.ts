@@ -64,7 +64,9 @@ class VMDNode extends GomlTreeNodeBase {
   protected __onMount(): void {
     super.__onMount();
     this._targetPMX = <PMXNode>this.__parent;
-    this._targetPMX.on("loaded", () => { this.attributes.updateValue(); });
+    this._targetPMX.on("loaded", () => {
+      this.attributes.getAttribute("frame").notifyValueChanged();
+    });
   }
 
   public update(): void {
@@ -95,6 +97,7 @@ class VMDNode extends GomlTreeNodeBase {
       this._lastURL = attr.Value;
       this._targetVMD = data;
       this._vmdLoadingDeferred.resolve(null);
+      this.attributes.getAttribute("frame").notifyValueChanged();
       attr.done();
     });
   }
@@ -114,6 +117,7 @@ class VMDNode extends GomlTreeNodeBase {
           (<PMXBoneTransformer>bone.Transformer).userRotation = new Quaternion(current.rotation);
         }
       }
+      this._targetPMX.PMXModel.skeleton.updateBoneTransforms();
       for (let morphName in this._targetVMD.Morphs) {
         let morph: PMXMorph;
         if (morph = this._targetPMX.PMXModel.MorphManager.getMorphByName(morphName)) {

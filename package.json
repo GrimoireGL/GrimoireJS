@@ -88,6 +88,7 @@
     "coffee-reactify": "^4.0.0",
     "coffee-script": "^1.10.0",
     "coffeeify": "^2.0.1",
+    "coveralls": "^2.11.8",
     "del": "^2.2.0",
     "difflet": "^1.0.1",
     "envify": "^3.4.0",

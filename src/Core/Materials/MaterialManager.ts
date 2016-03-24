@@ -80,6 +80,7 @@ class MaterialManager implements IContextComponent {
    * @return {string}             material tag's name attribute
    */
   public registerMaterial(matDocument: string): string {
+
     const dom = (new DOMParser()).parseFromString(matDocument, "text/xml");
     const matTag = dom.querySelector("material");
     const matName = matTag.getAttribute("name");

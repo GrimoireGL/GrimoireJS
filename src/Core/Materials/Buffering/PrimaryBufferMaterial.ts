@@ -8,11 +8,11 @@ class PrimaryBufferMaterial extends BasicMaterial {
   public apply(matArg: IApplyMaterialArgument): void {
     const fm = matArg.object.getMaterial("builtin.forward"); // brightness
     let brightness = 0;
-    const fmArgs = fm.materialVariables;
+    const fmArgs = fm.shaderVariables;
     if (fmArgs["brightness"]) {
       brightness = fmArgs["brightness"];
     }
-    this.materialVariables["brightness"] = brightness;
+    this.shaderVariables["brightness"] = brightness;
     super.apply(matArg);
   }
 }

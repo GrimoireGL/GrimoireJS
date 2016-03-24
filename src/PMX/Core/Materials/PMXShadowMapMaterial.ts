@@ -34,7 +34,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
     }
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // const skeleton = this.associatedMaterial.ParentModel.skeleton;
-    // this.materialVariables = {
+    // this.shaderVariables = {
     //    matL:light.matLightViewProjection,
     //    boneMatriciesTexture:skeleton.MatrixTexture,
     //    boneCount:skeleton.BoneCount

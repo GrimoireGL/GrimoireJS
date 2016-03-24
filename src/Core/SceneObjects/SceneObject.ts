@@ -1,3 +1,4 @@
+import IShaderArgumentContainer from "../Materials/IShaderArgumentContainer";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import IParentSceneChangedEventArgs from "../IParentSceneChangedEventArgs";
 import Material from "../Materials/Material";
@@ -12,7 +13,10 @@ import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventAr
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
  */
-class SceneObject extends JThreeObjectEEWithID {
+class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContainer {
+
+  public shaderVariables: { [name: string]: any } = {};
+
   public name: string;
 
   public isVisible: boolean = true;

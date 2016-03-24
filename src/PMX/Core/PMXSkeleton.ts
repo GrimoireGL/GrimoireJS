@@ -56,7 +56,7 @@ class PMXSkeleton {
   }
 
   public updateMatricies(): void {
-    this.updateBoneTransforms();
+    // this.updateBoneTransforms();
     for (let i = 0; i < this._bones.length; i++) {
       this._bones[i].applyMatrixToBuffer(this._matricies);
     }

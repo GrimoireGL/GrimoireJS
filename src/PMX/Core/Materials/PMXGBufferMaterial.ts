@@ -48,7 +48,7 @@ class PMXGBufferMaterial extends Material {
     const skeleton = this.__associatedMaterial.ParentModel.skeleton;
     switch (matArg.techniqueIndex) {
       case 0:
-        this.__primaryMaterial.materialVariables = {
+        this.__primaryMaterial.shaderVariables = {
           boneMatriciesTexture: skeleton.MatrixTexture,
           brightness: this.__associatedMaterial.Specular.W,
           boneCount: skeleton.BoneCount
@@ -56,7 +56,7 @@ class PMXGBufferMaterial extends Material {
         this.__primaryMaterial.apply(matArg);
         break;
       case 1:
-        this.__secoundaryMaterial.materialVariables = {
+        this.__secoundaryMaterial.shaderVariables = {
           boneMatriciesTexture: skeleton.MatrixTexture,
           boneCount: skeleton.BoneCount,
           diffuse: PMXMaterialParamContainer.calcMorphedVectorValue(this.__associatedMaterial.Diffuse.toVector(), this.__associatedMaterial.addMorphParam, this.__associatedMaterial.mulMorphParam, (t) => t.diffuse, 4),
@@ -72,7 +72,7 @@ class PMXGBufferMaterial extends Material {
         this.__secoundaryMaterial.apply(matArg);
         break;
       case 2:
-        this.__thirdMaterial.materialVariables = {
+        this.__thirdMaterial.shaderVariables = {
           boneMatriciesTexture: skeleton.MatrixTexture,
           boneCount: skeleton.BoneCount,
           specular: PMXMaterialParamContainer.calcMorphedVectorValue(this.__associatedMaterial.Specular, this.__associatedMaterial.addMorphParam, this.__associatedMaterial.mulMorphParam, (t) => t.specular, 3)
