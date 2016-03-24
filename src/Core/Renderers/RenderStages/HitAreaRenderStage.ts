@@ -14,11 +14,11 @@ interface HitTestQuery {
 class HitAreaRenderStage extends BasicRenderStage {
   constructor(renderer) {
     super(renderer, require("./BuiltIn/HitAreaRenderingStage.rsml"));
-    this.Renderer.on("mouse-move", (e) => {
-      this.queryHitTest(e.mouseX, e.mouseY).then((object) => {
-        console.log(object);
-      });
-    });
+    // this.Renderer.on("mouse-move", (e) => {
+    //   this.queryHitTest(e.mouseX, e.mouseY).then((object) => {
+    //     console.log(object);
+    //   });
+    // });
   }
 
   /**
