@@ -29,8 +29,8 @@ class PMXHitAreaMaterial extends BasicMaterial {
   }
 
   public apply(matArg: IApplyMaterialArgument): void {
-    const r = 0xFF00 & (matArg.renderStage as any).___objectIndex;
-    const g = 0x00FF & (matArg.renderStage as any).___objectIndex;
+    const r = 0xFF00 & (matArg.renderStage as any).objectIndex;
+    const g = 0x00FF & (matArg.renderStage as any).objectIndex;
     const b = 0xFF & this.__associatedMaterial.materialIndex;
     const skeleton = this.__associatedMaterial.ParentModel.skeleton;
     this.shaderVariables = {
