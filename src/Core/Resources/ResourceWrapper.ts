@@ -1,11 +1,8 @@
 import IDisposable from "../../Base/IDisposable";
-import JThreeObject from "../../Base/JThreeObject";
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import ContextManager from "../Canvas/Canvas";
-import JThreeEvent from "../../Base/JThreeEvent";
-import {Action2} from "../../Base/Delegates";
-class ResourceWrapper extends JThreeObject implements IDisposable {
+class ResourceWrapper extends JThreeObjectEE implements IDisposable {
 
-  protected __onInitializeChangedEvent: JThreeEvent<boolean> = new JThreeEvent<boolean>();
   /**
    * Whether this resource was initialized for this context or not.
    */
@@ -39,13 +36,6 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   }
 
   /**
-   * add event handler for changing initialized state changed.
-   */
-  public onInitializeChanged(handler: Action2<ResourceWrapper, boolean>): void {
-    this.__onInitializeChangedEvent.addListener(handler);
-  }
-
-  /**
   * Getter for whether this resource was initialized for this context or not.
   */
   public get Initialized(): boolean {
@@ -60,7 +50,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
     if (typeof initialized === "undefined") { initialized = true; }
     if (initialized === this._initialized) { return; }
     this._initialized = initialized;
-    this.__onInitializeChangedEvent.fire(this, initialized);
+    this.emit("initialized", initialized);
   }
 
 }

@@ -1,7 +1,5 @@
 import ContextSafeResourceContainer from "../ContextSafeResourceContainer";
 import TextureWrapperBase from "./TextureWrapperBase";
-import JThreeEvent from "../../../Base/JThreeEvent";
-import {Action2} from "../../../Base/Delegates";
 /**
  *
  */
@@ -10,7 +8,6 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
   protected __textureFormat: number = WebGLRenderingContext.RGBA;
   protected __elementFormat: number = WebGLRenderingContext.UNSIGNED_BYTE;
   private _targetTextureType: number = WebGLRenderingContext.TEXTURE_2D;
-  private _onFilterParameterChangedHandler: JThreeEvent<number> = new JThreeEvent<number>();
   private _minFilter: number = WebGLRenderingContext.NEAREST;
   private _magFilter: number = WebGLRenderingContext.NEAREST;
   private _tWrap: number = WebGLRenderingContext.CLAMP_TO_EDGE;
@@ -61,7 +58,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
       return;
     }
     this._minFilter = value;
-    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MIN_FILTER);
+    this.emit("filter-changed", WebGLRenderingContext.TEXTURE_MIN_FILTER);
   }
 
   public get MagFilter(): number {
@@ -72,7 +69,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
       return;
     }
     this._magFilter = value;
-    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_MAG_FILTER);
+    this.emit("filter-changed", WebGLRenderingContext.TEXTURE_MAG_FILTER);
   }
 
   public get SWrap(): number {
@@ -84,7 +81,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
       return;
     }
     this._sWrap = value;
-    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_S);
+    this.emit("filyer-changed", WebGLRenderingContext.TEXTURE_WRAP_S);
   }
 
   public get TWrap(): number {
@@ -96,11 +93,7 @@ class TextureBase extends ContextSafeResourceContainer<TextureWrapperBase> {
       return;
     }
     this._tWrap = value;
-    this._onFilterParameterChangedHandler.fire(this, WebGLRenderingContext.TEXTURE_WRAP_T);
-  }
-
-  public onFilterParameterChanged(handler: Action2<TextureBase, number>): void {
-    this._onFilterParameterChangedHandler.addListener(handler);
+    this.emit("filyer-changed", WebGLRenderingContext.TEXTURE_WRAP_T);
   }
 
   public generateMipmapIfNeed(): void {

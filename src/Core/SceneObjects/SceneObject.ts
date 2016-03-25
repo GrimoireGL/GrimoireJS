@@ -6,7 +6,6 @@ import {Action1, Action2} from "../../Base/Delegates";
 import Geometry from "../Geometries/Base/Geometry";
 import Scene from "../Scene";
 import Transformer from "../Transform/Transformer";
-import JThreeEvent from "../../Base/JThreeEvent";
 import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventArgs";
 /**
  * This is most base class for SceneObject.
@@ -23,8 +22,6 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   protected __geometry: Geometry;
 
   protected __transformer: Transformer;
-
-  private _onStructureChangedEvent: JThreeEvent<ISceneObjectStructureChangedEventArgs> = new JThreeEvent<ISceneObjectStructureChangedEventArgs>();
 
   private _materialChanagedHandler: Action2<Material, SceneObject>[] = [];
 
@@ -74,14 +71,14 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     this._children.splice(index, 0, obj);
     obj._parent = this;
     obj.Transformer.updateTransform();
-    const eventArg = {
+    const eventArg: ISceneObjectStructureChangedEventArgs = {
       owner: this,
       scene: this.ParentScene,
       isAdditionalChange: true,
       changedSceneObject: obj,
       changedSceneObjectID: obj.id
     };
-    this._onStructureChangedEvent.fire(this, eventArg);
+    this.emit("structure-changed", eventArg);
     this.onChildrenChanged();
     obj.onParentChanged();
     if (this.ParentScene) {
@@ -97,14 +94,14 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     const childIndex = this._children.indexOf(obj);
     if (childIndex !== -1) {
       this._children.splice(childIndex, 1);
-      const eventArg = {
+      const eventArg: ISceneObjectStructureChangedEventArgs = {
         owner: this,
         scene: this.ParentScene,
         isAdditionalChange: false,
         changedSceneObject: obj,
         changedSceneObjectID: obj.id
       };
-      this._onStructureChangedEvent.fire(this, eventArg);
+      this.emit("structure-changed", eventArg);
       obj.onParentChanged();
       if (this.ParentScene) {
         this.ParentScene.notifySceneObjectChanged(eventArg);

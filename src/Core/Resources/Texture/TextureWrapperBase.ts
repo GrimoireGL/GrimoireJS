@@ -11,7 +11,7 @@ class TextureWrapperBase extends ResourceWrapper {
   constructor(owner: Canvas, parent: TextureBase) {
     super(owner);
     this._parent = parent;
-    this._parent.onFilterParameterChanged(this._applyTextureParameter.bind(this));
+    this._parent.on("filter-changed", this._applyTextureParameter.bind(this));
   }
 
   public get Parent(): TextureBase {

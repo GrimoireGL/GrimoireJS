@@ -8,7 +8,6 @@ import ICanvasContainer from "./ICanvasContainer";
 import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "../Renderers/BasicRenderer";
-import JThreeEvent from "../../Base/JThreeEvent";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
@@ -55,11 +54,6 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
   public canvas: Canvas;
 
   /**
-   * event cache for resize event.
-   */
-  public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
-
-  /**
   * backing field for ClearColor
   */
   public clearColor: Color4 = new Color4(1, 1, 1, 1);
@@ -94,7 +88,7 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
   public beforeRenderAll(): void {
     // check size changed or not.
     if (this.canvasElement.height !== this._lastHeight || this.canvasElement.width !== this._lastWidth) {
-      this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
+      this.emit("resize", new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
       this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
     }
     this._clearCanvas();

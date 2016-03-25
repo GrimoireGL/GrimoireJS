@@ -1,9 +1,9 @@
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import LoopManager from "../LoopManager";
 import JThreeContext from "../../JThreeContext";
 import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import Canvas from "./Canvas";
-import JThreeEvent from "../../Base/JThreeEvent";
 import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
 /**
  * A context component provides the feature to manage all of canvas.
@@ -11,9 +11,11 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  *すべてのCanvasを管理する機能を提供するコンテキストコンポーネント
  * @type {[type]}
  */
-class CanvasManager implements IContextComponent {
+class CanvasManager extends JThreeObjectEE implements IContextComponent {
 
   constructor() {
+    super();
+    this.setMaxListeners(10000);
     const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
     loopManager.addAction(4000, () => this.beforeRenderAll());
     loopManager.addAction(6000, () => this.afterRenderAll());
@@ -24,12 +26,6 @@ class CanvasManager implements IContextComponent {
    * @type {Canvas[]}
    */
   public canvases: Canvas[] = [];
-
-  /**
-   * Event object notifying when canvas list is changed
-   * @type {JThreeEvent<CanvasListChangedEventArgs>}
-   */
-  public canvasListChanged: JThreeEvent<ICanvasListChangedEventArgs> = new JThreeEvent<ICanvasListChangedEventArgs>();
 
   /**
    * Implementation for IContextComponent
@@ -44,7 +40,7 @@ class CanvasManager implements IContextComponent {
   public addCanvas(canvas: Canvas): void {
     if (this.canvases.indexOf(canvas) === -1) {
       this.canvases.push(canvas);
-      this.canvasListChanged.fire(this, {
+      this.emit("canvas-list-changed", <ICanvasListChangedEventArgs> {
         isAdditionalChange: true,
         canvas: canvas
       });
@@ -62,7 +58,7 @@ class CanvasManager implements IContextComponent {
           break;
         }
       }
-      this.canvasListChanged.fire(this, {
+      this.emit("canvas-list-changed", <ICanvasListChangedEventArgs>{
         isAdditionalChange: true,
         canvas: canvas
       });
