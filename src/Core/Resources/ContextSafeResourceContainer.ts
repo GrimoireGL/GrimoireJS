@@ -1,4 +1,3 @@
-import ICanvasContainer from "../Canvas/ICanvasContainer";
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Canvas from "../Canvas/Canvas";
@@ -42,15 +41,8 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     return array;
   }
 
-  public getForContext(cContainer: ICanvasContainer): T {
-    return this.getForContextID(cContainer.canvas.id);
-  }
-
-  public getForContextID(id: string): T {
-    if (!this._childWrapper[id]) {
-      console.log("There is no matching object with the ID:" + id);
-    }
-    return this._childWrapper[id];
+  public getForGL(gl: WebGLRenderingContext): T {
+    return this._getForContextID(gl.id);
   }
 
   public each(act: (r: T) => void): void {
@@ -69,6 +61,13 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
       this._childWrapper[v.id] = this.__createWrapperForCanvas(v);
       this._wrapperLength++;
     });
+  }
+
+  private _getForContextID(id: string): T {
+    if (!this._childWrapper[id]) {
+      console.log("There is no matching object with the ID:" + id);
+    }
+    return this._childWrapper[id];
   }
 
   private _rendererChanged(arg: CanvasListChangedEventArgs): void {
