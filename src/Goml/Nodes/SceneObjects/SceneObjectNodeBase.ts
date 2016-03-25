@@ -7,12 +7,6 @@ import GomlAttribute from "../../GomlAttribute";
 
 class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> {
   /**
-   * Scene Object that will be applied to Scene.
-   * @type {SceneObject}
-   */
-  private _sceneObject: T = null;
-
-  /**
   * SceneObjectNode directly containing this node
   */
   private _parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
@@ -90,35 +84,35 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
   }
 
   private _onPositionAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this._sceneObject) {
-      this._sceneObject.Transformer.Position = <Vector3>attr.Value;
+    if (this.target) {
+      this.target.Transformer.Position = <Vector3>attr.Value;
       attr.done();
     }
   }
 
   private _onScaleAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this._sceneObject) {
-      this._sceneObject.Transformer.Scale = <Vector3>attr.Value;
+    if (this.target) {
+      this.target.Transformer.Scale = <Vector3>attr.Value;
       attr.done();
     }
   }
 
   private _onRotationAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this._sceneObject) {
-      this._sceneObject.Transformer.Rotation = <Quaternion>attr.Value;
+    if (this.target) {
+      this.target.Transformer.Rotation = <Quaternion>attr.Value;
       attr.done();
     }
   }
 
   private _onNameAttrChanged__SceneObjectNodeBase(attr: GomlAttribute): void {
-    if (this._sceneObject) {
-      this._sceneObject.name = attr.Value;
+    if (this.target) {
+      this.target.name = attr.Value;
       attr.done();
     }
   }
 
   /**
-   * update SceneObject child. using this._sceneObject to access previous object, so do not change it before call this method.
+   * update SceneObject child. using this.target to access previous object, so do not change it before call this method.
    * @param {SceneObject} obj [description]
    */
   private _updateSceneObjectChild(obj: SceneObject): void {
@@ -127,14 +121,14 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
       obj = null;
     }
     // previous object is exist in child, remove child
-    if (this._sceneObject !== null) {
+    if (this.target !== null) {
       if (this._parentSceneObjectNode === null) { // this is root object of scene
-        this._containedSceneNode.target.removeObject(this._sceneObject);
+        this._containedSceneNode.target.removeObject(this.target);
       } else {
         if (this._parentSceneObjectNode.TargetSceneObject === null) {
           throw new Error("Something fatal occured. Parent scene object is lost.");
         }
-        this._parentSceneObjectNode.TargetSceneObject.removeChild(this._sceneObject);
+        this._parentSceneObjectNode.TargetSceneObject.removeChild(this.target);
       }
     }
     // if obj is not null, insert obj. if null, do nothing.
@@ -156,8 +150,8 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    */
   protected set TargetSceneObject(obj: T) {
     this._updateSceneObjectChild(obj);
-    this._sceneObject = obj;
     this.target = obj;
+    this.target.relatedNode = this; // TODO: pnly consider GC.
     this.emit("update-scene-object", this.target);
   }
 
@@ -166,7 +160,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
    * @return {SceneObject} [description]
    */
   protected get TargetSceneObject(): T {
-    return this._sceneObject;
+    return this.target;
   }
 }
 

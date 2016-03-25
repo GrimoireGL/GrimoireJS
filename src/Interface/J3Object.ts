@@ -20,6 +20,8 @@ import IOption from "./Effects/IOption";
 import Module from "./Modules/Module";
 import IModule from "../Module/IModule";
 import Custom from "./Effects/Custom";
+import EventHandlerAttachment from "./Events/EventHandlerAttachment";
+import J3Event from "./Events/J3Event";
 
 /**
  * Provides jQuery like API for jThree.
@@ -34,7 +36,8 @@ class J3Object extends J3ObjectBase implements
   NodeRemoval,
   Basic,
   Module,
-  Custom {
+  Custom,
+  EventHandlerAttachment {
 
   /**
    * Construct J3Object from Node.
@@ -318,6 +321,38 @@ class J3Object extends J3ObjectBase implements
     (): IModule[];
     (module: new () => IModule): IModule[];
     (argu?: any): any;
+  };
+
+  /**
+   * Events/EventHandlerAttachment
+   */
+
+  public on: {
+    (event: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (event: string, selector: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (event: string, data: { [key: string]: any }, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (event: string, data: any[], handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (event: string, selector: string, data: { [key: string]: any }, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (event: string, selector: string, data: any[], handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, data: { [key: string]: any }): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, data: any[]): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string, data: { [key: string]: any }): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string, data: any[]): J3Object;
+    (event: string, handler: boolean): J3Object;
+    (event: string, selector: string, handler: boolean): J3Object;
+    (event: string, data: { [key: string]: any }, handler: boolean): J3Object;
+    (event: string, data: any[], handler: boolean): J3Object;
+    (event: string, selector: string, data: { [key: string]: any }, handler: boolean): J3Object;
+    (event: string, selector: string, data: any[], handler: boolean): J3Object;
+    (events: { [key: string]: boolean }): J3Object;
+    (events: { [key: string]: boolean }, selector: string): J3Object;
+    (events: { [key: string]: boolean }, data: { [key: string]: any }): J3Object;
+    (events: { [key: string]: boolean }, data: any[]): J3Object;
+    (events: { [key: string]: boolean }, selector: string, data: { [key: string]: any }): J3Object;
+    (events: { [key: string]: boolean }, selector: string, data: any[]): J3Object;
+    (argu0: any, argu1?: any, argu2?: any, argu3?: any): any;
   };
 }
 
