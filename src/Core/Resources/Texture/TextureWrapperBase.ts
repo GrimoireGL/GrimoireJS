@@ -1,7 +1,6 @@
 import ResourceWrapper from "../ResourceWrapper";
 import TextureBase from "./TextureBase";
 import Canvas from "../../Canvas/Canvas";
-import {Func3} from "../../../Base/Delegates";
 class TextureWrapperBase extends ResourceWrapper {
 
   protected static __altTextureBuffer: Uint8Array = new Uint8Array([255, 0, 255, 255]);
@@ -53,7 +52,7 @@ class TextureWrapperBase extends ResourceWrapper {
     }
   }
 
-  public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
+  public generateHtmlImage(encoder?: (w: number, h: number, source: ArrayBufferView) => Uint8Array): HTMLImageElement {
     return null;
   }
 
@@ -80,7 +79,7 @@ class TextureWrapperBase extends ResourceWrapper {
   }
 
 
-  protected __encodeHtmlImage(width: number, height: number, encode?: Func3<number, number, ArrayBufferView, Uint8Array>): any {
+  protected __encodeHtmlImage(width: number, height: number, encode?: (w: number, h: number, source: ArrayBufferView) => Uint8Array): any {
     const lastFBO = this.GL.getParameter(this.GL.FRAMEBUFFER_BINDING);
     // Create framebuffer to transfer texture data
     const framebuffer = this.GL.createFramebuffer();

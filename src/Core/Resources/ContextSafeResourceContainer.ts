@@ -2,7 +2,6 @@ import ICanvasContainer from "../Canvas/ICanvasContainer";
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Canvas from "../Canvas/Canvas";
-import {Action1} from "../../Base/Delegates";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
 import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
 import ResourceWrapper from "./ResourceWrapper";
@@ -54,7 +53,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     return this._childWrapper[id];
   }
 
-  public each(act: Action1<T>): void {
+  public each(act: (r: T) => void): void {
     for (let key in this._childWrapper) {
       act(this._childWrapper[key]);
     }

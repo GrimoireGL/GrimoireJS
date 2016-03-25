@@ -1,7 +1,6 @@
 import Canvas from "../../Canvas/Canvas";
 import BufferTexture from "./BufferTexture";
 import TextureWrapperBase from "./TextureWrapperBase";
-import {Func3} from "../../../Base/Delegates";
 class BufferTextureWrapper extends TextureWrapperBase {
   constructor(ownerCanvas: Canvas, parent: BufferTexture) {
     super(ownerCanvas, parent);
@@ -40,7 +39,7 @@ class BufferTextureWrapper extends TextureWrapperBase {
     this.unbind();
   }
 
-  public generateHtmlImage(encoder?: Func3<number, number, ArrayBufferView, Uint8Array>): HTMLImageElement {
+  public generateHtmlImage(encoder?: (w: number, h: number, source: ArrayBufferView) => Uint8Array): HTMLImageElement {
     const parent = <BufferTexture>this.Parent;
     return this.__encodeHtmlImage(parent.Width, parent.Height, encoder);
   }

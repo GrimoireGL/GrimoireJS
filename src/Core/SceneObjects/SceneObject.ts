@@ -2,7 +2,6 @@ import IShaderArgumentContainer from "../Materials/IShaderArgumentContainer";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import IParentSceneChangedEventArgs from "../IParentSceneChangedEventArgs";
 import Material from "../Materials/Material";
-import {Action1, Action2} from "../../Base/Delegates";
 import Geometry from "../Geometries/Base/Geometry";
 import Scene from "../Scene";
 import Transformer from "../Transform/Transformer";
@@ -23,7 +22,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
 
   protected __transformer: Transformer;
 
-  private _materialChanagedHandler: Action2<Material, SceneObject>[] = [];
+  private _materialChanagedHandler: ((m: Material, s: SceneObject) => void)[] = [];
 
   private _materials: {
     [materialGroup: string]: {
@@ -159,13 +158,13 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     });
   }
 
-  public onMaterialChanged(func: Action2<Material, SceneObject>): void {
+  public onMaterialChanged(func: (m: Material, s: SceneObject) => void): void {
     this._materialChanagedHandler.push(func);
   }
   /**
    * すべてのマテリアルに対して処理を実行します。
    */
-  public eachMaterial(func: Action1<Material>): void {
+  public eachMaterial(func: (m: Material) => void): void {
     for (let material in this._materials) {
       for (let matID in this._materials[material]) {
         func(this._materials[material][matID]);
@@ -213,7 +212,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     return this.__transformer;
   }
 
-  public callRecursive(action: Action1<SceneObject>): void {
+  public callRecursive(action: (s: SceneObject) => void): void {
     if (this._children) {
       this._children.forEach(t => t.callRecursive(action));
     }
