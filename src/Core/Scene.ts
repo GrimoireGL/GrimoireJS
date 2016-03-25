@@ -1,5 +1,4 @@
 import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import JThreeEvent from "../Base/JThreeEvent";
 import BasicRenderer from "./Renderers/BasicRenderer";
 import SceneObject from "./SceneObjects/SceneObject";
 import Camera from "./SceneObjects/Camera/Camera";
@@ -11,8 +10,6 @@ import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
  * Provides scene feature.
  */
 class Scene extends jThreeObjectEEWithID {
-
-  public sceneObjectStructureChanged: JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
 
   /**
    * Whether this scene needs update or not.
@@ -103,7 +100,7 @@ class Scene extends jThreeObjectEEWithID {
       scene: this,
       isAdditionalChange: true,
       changedSceneObject: targetObject,
-      changedSceneObjectID: targetObject.ID
+      changedSceneObjectID: targetObject.id
     });
   }
 
@@ -121,7 +118,7 @@ class Scene extends jThreeObjectEEWithID {
         scene: this,
         isAdditionalChange: false,
         changedSceneObject: removeTarget,
-        changedSceneObjectID: removeTarget.ID
+        changedSceneObjectID: removeTarget.id
       });
     }
   }
@@ -130,7 +127,7 @@ class Scene extends jThreeObjectEEWithID {
    * Append the camera to this scene as managed
    */
   public addCamera(camera: Camera): void {
-    this._cameras[camera.ID] = camera;
+    this._cameras[camera.id] = camera;
   }
 
   /**
@@ -141,7 +138,7 @@ class Scene extends jThreeObjectEEWithID {
   }
 
   public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs): void {
-    this.sceneObjectStructureChanged.fire(this, eventArg);
+    this.emit("structure-changed", eventArg);
   }
 }
 

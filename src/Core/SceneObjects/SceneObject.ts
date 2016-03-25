@@ -2,12 +2,9 @@ import IShaderArgumentContainer from "../Materials/IShaderArgumentContainer";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import IParentSceneChangedEventArgs from "../IParentSceneChangedEventArgs";
 import Material from "../Materials/Material";
-import {Action1, Action2} from "../../Base/Delegates";
 import Geometry from "../Geometries/Base/Geometry";
 import Scene from "../Scene";
-import JThreeCollection from "../../Base/JThreeCollection";
 import Transformer from "../Transform/Transformer";
-import JThreeEvent from "../../Base/JThreeEvent";
 import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventArgs";
 /**
  * This is most base class for SceneObject.
@@ -25,11 +22,13 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
 
   protected __transformer: Transformer;
 
-  private _onStructureChangedEvent: JThreeEvent<ISceneObjectStructureChangedEventArgs> = new JThreeEvent<ISceneObjectStructureChangedEventArgs>();
+  private _materialChanagedHandler: ((m: Material, s: SceneObject) => void)[] = [];
 
-  private _materialChanagedHandler: Action2<Material, SceneObject>[] = [];
-
-  private _materials: { [materialGroup: string]: JThreeCollection<Material> } = {};
+  private _materials: {
+    [materialGroup: string]: {
+      [matID: string]: Material
+    }
+  } = {};
 
   /**
    * Contains the parent scene containing this SceneObject.
@@ -49,7 +48,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   constructor(transformer?: Transformer) {
     super();
     this.__transformer = transformer || new Transformer(this);
-    this.name = this.ID;
+    this.name = this.id;
   }
 
   /**
@@ -71,14 +70,14 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     this._children.splice(index, 0, obj);
     obj._parent = this;
     obj.Transformer.updateTransform();
-    const eventArg = {
+    const eventArg: ISceneObjectStructureChangedEventArgs = {
       owner: this,
       scene: this.ParentScene,
       isAdditionalChange: true,
       changedSceneObject: obj,
-      changedSceneObjectID: obj.ID
+      changedSceneObjectID: obj.id
     };
-    this._onStructureChangedEvent.fire(this, eventArg);
+    this.emit("structure-changed", eventArg);
     this.onChildrenChanged();
     obj.onParentChanged();
     if (this.ParentScene) {
@@ -94,14 +93,14 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     const childIndex = this._children.indexOf(obj);
     if (childIndex !== -1) {
       this._children.splice(childIndex, 1);
-      const eventArg = {
+      const eventArg: ISceneObjectStructureChangedEventArgs = {
         owner: this,
         scene: this.ParentScene,
         isAdditionalChange: false,
         changedSceneObject: obj,
-        changedSceneObjectID: obj.ID
+        changedSceneObjectID: obj.id
       };
-      this._onStructureChangedEvent.fire(this, eventArg);
+      this.emit("structure-changed", eventArg);
       obj.onParentChanged();
       if (this.ParentScene) {
         this.ParentScene.notifySceneObjectChanged(eventArg);
@@ -159,41 +158,44 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     });
   }
 
-  public onMaterialChanged(func: Action2<Material, SceneObject>): void {
+  public onMaterialChanged(func: (m: Material, s: SceneObject) => void): void {
     this._materialChanagedHandler.push(func);
   }
   /**
    * すべてのマテリアルに対して処理を実行します。
    */
-  public eachMaterial(func: Action1<Material>): void {
+  public eachMaterial(func: (m: Material) => void): void {
     for (let material in this._materials) {
-      this._materials[material].each((e) => func(e));
+      for (let matID in this._materials[material]) {
+        func(this._materials[material][matID]);
+      }
     }
   }
 
   public addMaterial(mat: Material): void {
     if (!this._materials[mat.MaterialGroup]) {
-      this._materials[mat.MaterialGroup] = new JThreeCollection<Material>();
+      this._materials[mat.MaterialGroup] = {};
     }
-    this._materials[mat.MaterialGroup].insert(mat);
+    this._materials[mat.MaterialGroup][mat.id] = mat;
   }
 
   public getMaterial(matGroup: string): Material {
     if (this._materials[matGroup]) {
       const a = this._materials[matGroup];
-      let ret = null;
-      a.each((e) => {
-        ret = e;
-        return;
-      });
-      return ret;
+      for (let e in a) {
+        return a[e];
+      }
     }
     return null;
   }
 
   public getMaterials(matGroup: string): Material[] {
     if (this._materials[matGroup]) {
-      return this._materials[matGroup].asArray();
+      const ret = [];
+      for (let matID in this._materials[matGroup]) {
+        ret.push(this._materials[matGroup][matID]);
+      }
+      return ret;
     }
     return [];
   }
@@ -210,7 +212,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
     return this.__transformer;
   }
 
-  public callRecursive(action: Action1<SceneObject>): void {
+  public callRecursive(action: (s: SceneObject) => void): void {
     if (this._children) {
       this._children.forEach(t => t.callRecursive(action));
     }

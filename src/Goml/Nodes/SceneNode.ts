@@ -32,7 +32,7 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
   }
 
   private _onNameAttrChanged(attr): void {
-    this.target.ID = attr.Value;
+    this.target.id = attr.Value;
     attr.done();
   }
 

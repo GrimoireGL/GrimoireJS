@@ -1,6 +1,5 @@
 ﻿import Vector4 from "../../Math/Vector4";
 import Vector3 from "../../Math/Vector3";
-import {Func1} from "../../Base/Delegates";
 class PMXMaterialMorphParamContainer {
 
   public diffuse: number[];
@@ -34,11 +33,11 @@ class PMXMaterialMorphParamContainer {
     this.toonCoeff = [def, def, def, def];
   }
 
-  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number>): number {
+  public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: (m: PMXMaterialMorphParamContainer) => number): number {
     return base * target(mul) + target(add);
   }
 
-  public static calcMorphedVectorValue(base: Vector4|Vector3, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: Func1<PMXMaterialMorphParamContainer, number[]>, vecLength: number): Vector3|Vector4 {
+  public static calcMorphedVectorValue(base: Vector4|Vector3, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: (m: PMXMaterialMorphParamContainer) => number[], vecLength: number): Vector3|Vector4 {
     switch (vecLength) {
       case 3:
         return new Vector3(base.X * target(mul)[0] + target(add)[0],

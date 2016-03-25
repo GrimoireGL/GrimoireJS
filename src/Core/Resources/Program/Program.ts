@@ -24,7 +24,7 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
 
   public attachShader(shader: Shader): void {
     this._attachedShaders.push(shader);
-    shader.onUpdate(() => {
+    shader.on("source-updated", () => {
       this._relinkShader();
     });
 

@@ -1,7 +1,13 @@
+import ResourceManager from "../ResourceManager";
+import ContextComponents from "../../ContextComponents";
+import BufferTexture from "../Resources/Texture/BufferTexture";
+import JThreeContext from "../../JThreeContext";
+import CubeTexture from "../Resources/Texture/CubeTexture";
+import TextureBase from "../Resources/Texture/TextureBase";
+import ICanvasContainer from "./ICanvasContainer";
 import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "../Renderers/BasicRenderer";
-import JThreeEvent from "../../Base/JThreeEvent";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
@@ -14,7 +20,7 @@ import {WebGLNotSupportedException} from "../../Exceptions";
  * HTMLCanvasElementを管理するクラスs
  * リソースマネージャーが提供する機能以外のGLContextが関連する機能のほとんどを内包します。
  */
-class Canvas extends CanvasRegion {
+class Canvas extends CanvasRegion implements ICanvasContainer {
 
   /**
    * Constructor
@@ -22,15 +28,30 @@ class Canvas extends CanvasRegion {
    */
   constructor(canvasElement: HTMLCanvasElement) {
     super(canvasElement);
+    this.canvas = this;
     this._lastWidth = canvasElement.width;
     this._lastHeight = canvasElement.height;
     this.__setGLContext(this._tryGetGLContext());
   }
 
+
   /**
-   * event cache for resize event.
+   * The texture which will be used for unassigned texture sampler2D variable in GLSL.
+   * This variable is not intended to be assigned by user manually.
+   * If you want to change this alternative texture, you need to extend this class and overrride __initializeAlternativeTexture method.
+   * @type {TextureBase}
    */
-  public canvasResized: JThreeEvent<CanvasSizeChangedEventArgs> = new JThreeEvent<CanvasSizeChangedEventArgs>();
+  public alternativeTexture: TextureBase;
+
+  /**
+   * The cubeTexture which will be used for unassigned texture samplerCube variable in GLSL.
+   * This variable is not intended to be assigned by user manually.
+   * If you want to change this alternative texture, yoou need to extend this class and override __initializeAlternativeCubeTexture method.
+   * @type {CubeTexture}
+   */
+  public alternativeCubeTexture: CubeTexture;
+
+  public canvas: Canvas;
 
   /**
   * backing field for ClearColor
@@ -67,7 +88,7 @@ class Canvas extends CanvasRegion {
   public beforeRenderAll(): void {
     // check size changed or not.
     if (this.canvasElement.height !== this._lastHeight || this.canvasElement.width !== this._lastWidth) {
-      this.canvasResized.fire(this, new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
+      this.emit("resize", new CanvasSizeChangedEventArgs(this, this._lastWidth, this._lastHeight, this.canvasElement.width, this.canvasElement.height));
       this._lastHeight = this.canvasElement.height; this._lastWidth = this.canvasElement.width;
     }
     this._clearCanvas();
@@ -84,7 +105,28 @@ class Canvas extends CanvasRegion {
   protected __setGLContext(glContext: WebGLRenderingContext): void {
     this.gl = glContext;
     this.glExtensionResolver.checkExtensions(glContext);
+    this.alternativeTexture = this.__initializeAlternativeTexture();
+    this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
     return;
+  }
+
+  /**
+   * Initialize and obtain the buffer texture which will be used when any texture sampler2D variable in GLSL was not assigned.
+   * This method will be called when RendererFactory called initialize method to construct instance.
+   * Basically,this method is not intended to be called from user.
+   * @return {TextureBase} Constructed texture buffer.
+   */
+  protected __initializeAlternativeTexture(): TextureBase {
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.id, 1, 1);
+    tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
+    return tex;
+  }
+
+  protected __initializeAlternativeCubeTexture(): CubeTexture {
+    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.id, null);
+    return tex;
   }
 
   private _clearCanvas(): void {
