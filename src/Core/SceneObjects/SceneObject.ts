@@ -5,7 +5,6 @@ import Material from "../Materials/Material";
 import {Action1, Action2} from "../../Base/Delegates";
 import Geometry from "../Geometries/Base/Geometry";
 import Scene from "../Scene";
-import JThreeCollection from "../../Base/JThreeCollection";
 import Transformer from "../Transform/Transformer";
 import JThreeEvent from "../../Base/JThreeEvent";
 import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventArgs";
@@ -29,7 +28,11 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
 
   private _materialChanagedHandler: Action2<Material, SceneObject>[] = [];
 
-  private _materials: { [materialGroup: string]: JThreeCollection<Material> } = {};
+  private _materials: {
+    [materialGroup: string]: {
+      [matID: string]: Material
+    }
+  } = {};
 
   /**
    * Contains the parent scene containing this SceneObject.
@@ -167,33 +170,36 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
    */
   public eachMaterial(func: Action1<Material>): void {
     for (let material in this._materials) {
-      this._materials[material].each((e) => func(e));
+      for (let matID in this._materials[material]) {
+        func(this._materials[material][matID]);
+      }
     }
   }
 
   public addMaterial(mat: Material): void {
     if (!this._materials[mat.MaterialGroup]) {
-      this._materials[mat.MaterialGroup] = new JThreeCollection<Material>();
+      this._materials[mat.MaterialGroup] = {};
     }
-    this._materials[mat.MaterialGroup].insert(mat);
+    this._materials[mat.MaterialGroup][mat.id] = mat;
   }
 
   public getMaterial(matGroup: string): Material {
     if (this._materials[matGroup]) {
       const a = this._materials[matGroup];
-      let ret = null;
-      a.each((e) => {
-        ret = e;
-        return;
-      });
-      return ret;
+      for (let e in a) {
+        return a[e];
+      }
     }
     return null;
   }
 
   public getMaterials(matGroup: string): Material[] {
     if (this._materials[matGroup]) {
-      return this._materials[matGroup].asArray();
+      const ret = [];
+      for (let matID in this._materials[matGroup]) {
+        ret.push(this._materials[matGroup][matID]);
+      }
+      return ret;
     }
     return [];
   }
