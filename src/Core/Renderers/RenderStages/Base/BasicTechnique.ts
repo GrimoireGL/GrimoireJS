@@ -82,7 +82,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this.__fboInitialized = true;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.id);
-    const fboWrapper = this.__fbo.getForContext(this.__renderStage.Renderer);
+    const fboWrapper = this.__fbo.getForGL(this._gl);
     this._attachRBOConfigure(fboWrapper, texs);
     this._attachTextureConfigure(fboWrapper, texs);
   }
@@ -170,7 +170,7 @@ class BasicTechnique extends JThreeObjectWithID {
       if (!this.__fboInitialized) {
         this.__initializeFBO(texs);
       }
-      this.__fbo.getForContext(this.__renderStage.Renderer).bind();
+      this.__fbo.getForGL(this._gl).bind();
       this._clearBuffers();
     }
   }

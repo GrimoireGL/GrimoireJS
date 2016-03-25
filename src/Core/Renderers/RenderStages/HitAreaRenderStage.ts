@@ -48,10 +48,9 @@ class HitAreaRenderStage extends BasicRenderStage {
       if (!(texs["OUT"] instanceof TextureBase)) {
         throw new Error("OUT argument cannnot acceptable except TextureBase");
       }
-      const canvas = this.Renderer.canvas;
       for (let i = 0; i < this.hitTestQueries.length; i++) {
         const query = this.hitTestQueries[i];
-        const fetchedPixel = (texs["OUT"] as TextureBase).getForContext(canvas).getPixel(query.x, this.Renderer.region.Height - query.y);
+        const fetchedPixel = (texs["OUT"] as TextureBase).getForGL(this.GL).getPixel(query.x, this.Renderer.region.Height - query.y);
         const object = this._fetchRelatedObject(fetchedPixel);
         query.deferred.resolve(object);
       }

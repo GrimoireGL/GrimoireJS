@@ -70,7 +70,7 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
       throw new Error("initialization was not completed yet!");
     }
     const gl = matArg.renderStage.GL;
-    const pWrapper = this.program.getForContext(matArg.renderStage.Renderer);
+    const pWrapper = this.program.getForGL(gl);
     const renderConfig = this._fetchRenderConfigure(matArg);
     XMLRenderConfigUtility.applyAll(gl, renderConfig);
     // Declare using program before assigning material variables

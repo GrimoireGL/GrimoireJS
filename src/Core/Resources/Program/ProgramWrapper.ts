@@ -31,7 +31,7 @@ class ProgramWrapper extends ResourceWrapper {
     if (!this.Initialized) {
       this._targetProgram = this.GL.createProgram();
       this._parentProgram.AttachedShaders.forEach((v, i, a) => {
-        this.GL.attachShader(this._targetProgram, v.getForContextID(this.OwnerID).TargetShader);
+        this.GL.attachShader(this._targetProgram, v.getForGL(this.GL).TargetShader);
       });
       this.__setInitialized();
     }
@@ -78,7 +78,7 @@ class ProgramWrapper extends ResourceWrapper {
     this.GL.deleteProgram(this.TargetProgram);
     this._targetProgram = this.GL.createProgram();
     this._parentProgram.AttachedShaders.forEach((v, i, a) => {
-      this.GL.attachShader(this._targetProgram, v.getForContextID(this.OwnerID).TargetShader);
+      this.GL.attachShader(this._targetProgram, v.getForGL(this.GL).TargetShader);
     });
   }
 
@@ -90,7 +90,7 @@ class ProgramWrapper extends ResourceWrapper {
   public assignAttributeVariable(variableName: string, buffer: Buffer): void {
     const attribIndex = this._fetchAttributeLocation(variableName);
     if (attribIndex < 0) { return; } // When the variable was not found
-    const bufWrapper = buffer.getForContext(this.OwnerCanvas);
+    const bufWrapper = buffer.getForGL(this.GL);
     bufWrapper.bindBuffer();
     this.GL.vertexAttribPointer(attribIndex, buffer.UnitCount, buffer.ElementType, buffer.Normalized, buffer.Stride, buffer.Offset);
   }
@@ -182,7 +182,7 @@ class ProgramWrapper extends ResourceWrapper {
 
   public uniformSampler(variableName: string, tex: TextureBase, texRegister: number): number {
     const location = this._fetchUniformLocation(variableName);
-    const texWrapper = tex.getForContext(this.OwnerCanvas);
+    const texWrapper = tex.getForGL(this.GL);
     if (!location) { return -1; }
     if (texWrapper.Initialized) {
       if (texWrapper.registerTexture(texRegister)) {
