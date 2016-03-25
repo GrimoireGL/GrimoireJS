@@ -42,6 +42,7 @@
     "./src/Core/Canvas/ICanvasContainer.ts",
     "./src/Core/Canvas/ICanvasElementStructure.ts",
     "./src/Core/Canvas/ICanvasListChangedEventArgs.ts",
+    "./src/Core/Canvas/IViewport.ts",
     "./src/Core/Geometries/Base/BasicGeometry.ts",
     "./src/Core/Geometries/Base/Geometry.ts",
     "./src/Core/Geometries/Base/GeometryBuilder.ts",

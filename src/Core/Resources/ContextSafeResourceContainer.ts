@@ -76,7 +76,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     if (arg.isAdditionalChange) {
       this._childWrapper[arg.canvas.id] = this.__createWrapperForCanvas(arg.canvas);
       this._wrapperLength++;
-    } else { // TODO should be tested
+    } else {
       const delTarget: T = this._childWrapper[arg.canvas.id];
       delete this._childWrapper[arg.canvas.id];
       delTarget.dispose();

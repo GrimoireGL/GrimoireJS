@@ -205,11 +205,7 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   private _applyViewport(isDefault: boolean): void {
-    if (isDefault) {
-      this.__renderStage.Renderer.applyDefaultBufferViewport();
-    } else {
-      this.__renderStage.Renderer.applyRendererBufferViewport();
-    }
+    this.__renderStage.Renderer.applyViewport(isDefault);
   }
 }
 

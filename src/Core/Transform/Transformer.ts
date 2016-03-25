@@ -1,3 +1,4 @@
+import IRenderer from "../Renderers/IRenderer";
 import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
@@ -5,7 +6,6 @@ import SceneObject from "../SceneObjects/SceneObject";
 import JThreeObject from "../../Base/JThreeObject";
 import {Action2} from "../../Base/Delegates";
 import {mat4, vec3, vec4} from "gl-matrix";
-import BasicRenderer from "./../Renderers/BasicRenderer";
 import JThreeEvent from "./../../Base/JThreeEvent";
 import Vector4 from "../../Math/Vector4";
 /**
@@ -140,7 +140,7 @@ class Transformer extends JThreeObject {
   /**
    * Calculate Projection-View-Model matrix with renderer camera.
    */
-  public calculateMVPMatrix(renderer: BasicRenderer): Matrix {
+  public calculateMVPMatrix(renderer: IRenderer): Matrix {
     mat4.mul(this._modelViewProjectionCaluculationCache, renderer.camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
     mat4.mul(this._modelViewProjectionCaluculationCache, renderer.camera.projectionMatrix.rawElements, this._modelViewProjectionCaluculationCache);
     return new Matrix(this._modelViewProjectionCaluculationCache);
