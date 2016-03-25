@@ -3,17 +3,15 @@ import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
 import SceneObject from "../SceneObjects/SceneObject";
-import JThreeObject from "../../Base/JThreeObject";
-import {Action2} from "../../Base/Delegates";
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import {mat4, vec3, vec4} from "gl-matrix";
-import JThreeEvent from "./../../Base/JThreeEvent";
 import Vector4 from "../../Math/Vector4";
 /**
  * Position,rotation and scale of scene object.
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
  * Every Transformer can have a parent, each parent Transformer affect children's Transformer hierachically.
  */
-class Transformer extends JThreeObject {
+class Transformer extends JThreeObjectEE {
 
   public hasChanged: boolean = false;
 
@@ -68,12 +66,6 @@ class Transformer extends JThreeObject {
   private _g2lupdated: boolean = false;
 
   /**
-   * properties for storeing event handlers
-   */
-  private _onUpdateTransformHandler: JThreeEvent<SceneObject> = new JThreeEvent<SceneObject>();
-
-
-  /**
    * Constructor of Transformer
    * @param sceneObj the scene object this transformer attached to.
    */
@@ -100,14 +92,6 @@ class Transformer extends JThreeObject {
   }
 
   /**
-   * Subscribe event handlers it will be called when this transformer's transform was changed.
-   * @param action the event handler for this event.
-   */
-  public onUpdateTransform(action: Action2<Transformer, SceneObject>): void {
-    this._onUpdateTransformHandler.addListener(action);
-  }
-
-  /**
    * update all transform
    * You no need to call this method manually if you access all of properties in this transformer by accessor.
    */
@@ -122,7 +106,7 @@ class Transformer extends JThreeObject {
     }
     this._g2lupdated = false;
     // fire updated event
-    this._onUpdateTransformHandler.fire(this, this.linkedObject);
+    this.emit("transform", this);
   }
 
   public get hasParent() {

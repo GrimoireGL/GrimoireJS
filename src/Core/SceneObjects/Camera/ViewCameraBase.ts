@@ -8,33 +8,33 @@ import {mat4} from "gl-matrix";
  * @type {[type]}
  */
 abstract class ViewCameraBase extends Camera {
-    /**
-     * constructor
-     */
-    constructor() {
-        super();
-        this._generateViewMatrix();
-        this.__transformer.onUpdateTransform((t, o) => this._updateViewProjectionMatrix());
-    }
+  /**
+   * constructor
+   */
+  constructor() {
+    super();
+    this._generateViewMatrix();
+    this.__transformer.on("transform", () => this._updateViewProjectionMatrix());
+  }
 
-    /**
-     * Notify view-projection matrix was updated.
-     *
-     * ビュー・射影行列が更新されたことを通知します。
-     */
-    private _updateViewProjectionMatrix(): void {
-        this._generateViewMatrix();
-        this.__updateViewProjectionMatrix();
-    }
+  /**
+   * Notify view-projection matrix was updated.
+   *
+   * ビュー・射影行列が更新されたことを通知します。
+   */
+  private _updateViewProjectionMatrix(): void {
+    this._generateViewMatrix();
+    this.__updateViewProjectionMatrix();
+  }
 
-    /**
-     * Generate view matrix
-     *
-     * ビュー行列を生成します。
-     */
-    private _generateViewMatrix(): void {
-        mat4.lookAt(this.viewMatrix.rawElements, this.Transformer.GlobalPosition.rawElements, Vector3.add(this.Transformer.forward, this.Transformer.GlobalPosition).rawElements, this.Transformer.up.rawElements);
-    }
+  /**
+   * Generate view matrix
+   *
+   * ビュー行列を生成します。
+   */
+  private _generateViewMatrix(): void {
+    mat4.lookAt(this.viewMatrix.rawElements, this.Transformer.GlobalPosition.rawElements, Vector3.add(this.Transformer.forward, this.Transformer.GlobalPosition).rawElements, this.Transformer.up.rawElements);
+  }
 }
 
 export default ViewCameraBase;
