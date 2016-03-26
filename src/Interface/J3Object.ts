@@ -183,6 +183,11 @@ class J3Object extends J3ObjectBase implements
     (argu: any): J3Object;
   };
 
+  public children: {
+    (selector: string): J3Object;
+    (argu: any): any;
+  };
+
   /**
    * Traversing/Filtering
    */
