@@ -62,19 +62,19 @@ class BasicTechnique extends JThreeObjectWithID {
     return this._target;
   }
 
-  public preTechnique(scene: Scene, texs: BufferInput): void {
-    this._applyBufferConfiguration(scene, texs);
+  public preTechnique(scene: Scene): void {
+    this._applyBufferConfiguration(scene);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number): void {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
-        this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, texs, materialGroup, this._wireFramed);
+        this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex,  materialGroup, this._wireFramed);
         break;
       default:
         XMLRenderConfigUtility.applyAll(this._gl, this.defaultRenderConfigure);
-        this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, this.defaultMaterial, this._wireFramed);
+        this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex,  this.defaultMaterial, this._wireFramed);
     }
   }
 
@@ -83,8 +83,8 @@ class BasicTechnique extends JThreeObjectWithID {
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.__fbo = rm.createFBO("jthree.technique." + this.id);
     const fboWrapper = this.__fbo.getForGL(this._gl);
-    this._attachRBOConfigure(fboWrapper, texs);
-    this._attachTextureConfigure(fboWrapper, texs);
+    this._attachRBOConfigure(fboWrapper);
+    this._attachTextureConfigure(fboWrapper);
   }
 
   private _getMaterial(): BasicMaterial {
@@ -101,13 +101,14 @@ class BasicTechnique extends JThreeObjectWithID {
     return mm.constructMaterial(matName);
   }
 
-  private _attachTextureConfigure(fboWrapper: FBOWrapper, texs: BufferInput): void {
+  private _attachTextureConfigure(fboWrapper: FBOWrapper): void {
     // TODO support for multiple rendering buffer
     const colorConfigure = this._fboBindingInfo[0];
-    fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, texs[colorConfigure.name] as TextureBase);
+    fboWrapper.attachTexture(WebGLRenderingContext.COLOR_ATTACHMENT0, this.__renderStage.bufferTextures[colorConfigure.name] as TextureBase);
   }
 
-  private _attachRBOConfigure(fboWrapper: FBOWrapper, texs: BufferInput): void {
+  private _attachRBOConfigure(fboWrapper: FBOWrapper): void {
+   const texs = this.__renderStage.bufferTextures;
     if (!this._fboBindingInfo.rbo) {// When there was no rbo tag in fbo tag.
       fboWrapper.attachRBO(WebGLRenderingContext.DEPTH_ATTACHMENT, null); // Unbind render buffer
     } else {
@@ -154,7 +155,8 @@ class BasicTechnique extends JThreeObjectWithID {
     }
   }
 
-  private _applyBufferConfiguration(scene: Scene, texs: BufferInput): void {
+  private _applyBufferConfiguration(scene: Scene): void {
+   const texs = this.__renderStage.bufferTextures;
     if (!this._fboBindingInfo || !this._fboBindingInfo[0]) { // When fbo configuration was not specified
       // if there was no fbo configuration, use screen buffer as default
       this._applyViewport(true);
