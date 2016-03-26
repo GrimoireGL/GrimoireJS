@@ -13,11 +13,6 @@ interface HitTestQuery {
 class HitAreaRenderStage extends BasicRenderStage {
   constructor(renderer) {
     super(renderer, require("./BuiltIn/HitAreaRenderingStage.rsml"));
-    // this.Renderer.on("mouse-move", (e) => {
-    //   this.queryHitTest(e.mouseX, e.mouseY).then((object) => {
-    //     console.log(object);
-    //   });
-    // });
   }
 
   /**
@@ -49,7 +44,7 @@ class HitAreaRenderStage extends BasicRenderStage {
       }
       for (let i = 0; i < this.hitTestQueries.length; i++) {
         const query = this.hitTestQueries[i];
-        const fetchedPixel = (this.bufferTextures["OUT"] as TextureBase).getForGL(this.GL).getPixel(query.x, this.Renderer.region.Height - query.y);
+        const fetchedPixel = (this.bufferTextures["OUT"] as TextureBase).getForGL(this.gl).getPixel(query.x, this.Renderer.region.Height - query.y);
         const object = this._fetchRelatedObject(fetchedPixel);
         query.deferred.resolve(object);
       }

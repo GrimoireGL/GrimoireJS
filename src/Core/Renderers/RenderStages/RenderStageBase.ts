@@ -1,3 +1,4 @@
+import IGLContainer from "../../Canvas/GL/IGLContainer";
 import IRenderer from "../IRenderer";
 import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
 import Material from "../../Materials/Material";
@@ -6,18 +7,17 @@ import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
-abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer {
+abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer, IGLContainer {
 
   public shaderVariables: { [key: string]: any } = {};
 
   public bufferTextures: BufferInput = { defaultRenderBuffer: null };
 
-  private _renderer: IRenderer;
+  public gl: WebGLRenderingContext;
 
-
-  constructor(renderer: IRenderer) {
+  constructor(private _renderer: IRenderer) {
     super();
-    this._renderer = renderer;
+    this.gl = _renderer.gl;
   }
 
   public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
@@ -41,10 +41,6 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 	 */
   public get Renderer(): IRenderer {
     return this._renderer;
-  }
-
-  public get GL() {
-    return this.Renderer.gl;
   }
 
   public preStage(scene: Scene): void {
