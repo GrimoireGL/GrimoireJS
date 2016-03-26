@@ -1,7 +1,6 @@
 import IGLContainer from "../../Canvas/GL/IGLContainer";
 import IRenderer from "../IRenderer";
 import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
-import Material from "../../Materials/Material";
 import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
 import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
 import SceneObject from "../../SceneObjects/SceneObject";
@@ -61,40 +60,6 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
   public abstract getTechniqueCount(scene: Scene): number;
 
   public abstract getTarget(techniqueIndex: number): string;
-
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, materialGroup: string, isWireframed: boolean): void {
-    if (!object.isVisible) {
-      return;
-    }
-    const materials = object.getMaterials(materialGroup);
-    for (let i = 0; i < materials.length; i++) {
-      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, materials[i], isWireframed);
-    }
-  }
-
-  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, material: Material, isWireframed: boolean): void {
-    if (!material || !material.Initialized || !material.Enabled || !object.isVisible) { return; }
-    const passCount = material.getPassCount(techniqueIndex);
-    for (let pass = 0; pass < passCount; pass++) {
-      material.apply({
-        scene: scene,
-        renderStage: this,
-        renderer: this.renderer,
-        object: object,
-        textureResource: this.bufferTextures,
-        techniqueIndex: techniqueIndex,
-        techniqueCount: techniqueCount,
-        passIndex: pass,
-        passCount: passCount,
-        camera: this.renderer.camera
-      });
-      if (isWireframed) {
-        object.Geometry.drawWireframe(this.renderer.canvas, material);
-        return;
-      }
-      object.Geometry.drawElements(this.renderer.canvas, material);
-    }
-  }
 }
 
 export default RenderStageBase;

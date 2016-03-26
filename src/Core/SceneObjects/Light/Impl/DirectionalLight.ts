@@ -18,14 +18,14 @@ class DirectionalLight extends LightBase {
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       diffuseMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
-        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.camera.viewMatrix, this.__transformer.forward))
+        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.renderer.camera.viewMatrix, this.__transformer.forward))
       };
     });
     const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/DirectionalLight.xmml"));
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       specularMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
-        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.camera.viewMatrix, this.__transformer.forward))
+        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.renderer.camera.viewMatrix, this.__transformer.forward))
       };
     });
     this.addMaterial(diffuseMaterial);

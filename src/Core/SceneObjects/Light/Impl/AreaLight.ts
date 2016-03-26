@@ -17,7 +17,7 @@ class AreaLight extends LightBase {
     material.on("apply", (matArg: IApplyMaterialArgument) => {
       material.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
-        areaMatrix: Matrix.inverse(Matrix.multiply(matArg.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal))
+        areaMatrix: Matrix.inverse(Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal))
       };
     });
     this.addMaterial(material);

@@ -26,8 +26,8 @@ class SpotLight extends LightBase {
         outerDistance: this.outerDistance,
         angleDecay: this.angleDecay,
         distanceDecay: this.distanceDecay,
-        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position),
-        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis()
+        lightPosition: Matrix.transformPoint(matArg.renderStage.renderer.camera.viewMatrix, this.Position),
+        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis()
       };
     });
     const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/SpotLight.xmml"));
@@ -40,8 +40,8 @@ class SpotLight extends LightBase {
         angle: this.outerAngle,
         dist: this.outerDistance,
         decay: this.distanceDecay,
-        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis(),
-        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis(),
+        lightPosition: Matrix.transformPoint(matArg.renderStage.renderer.camera.viewMatrix, this.Position)
       };
     });
     this.addMaterial(diffuseMaterial);

@@ -1,3 +1,5 @@
+import MaterialDrawer from "../../../Materials/MaterialDrawer";
+import IRenderer from "../../IRenderer";
 import IGLContainer from "../../../Canvas/GL/IGLContainer";
 import RBO from "../../../Resources/RBO/RBO";
 import TextureBase from "../../../Resources/Texture/TextureBase";
@@ -27,6 +29,8 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
 
   protected __renderStage: BasicRenderStage;
 
+  protected __renderer: IRenderer;
+
   protected __fbo: FBO;
 
   protected __fboInitialized: boolean = false;
@@ -44,6 +48,7 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
   constructor(renderStage: BasicRenderStage, technique: Element, techniqueIndex: number) {
     super();
     this.__renderStage = renderStage;
+    this.__renderer = renderStage.renderer;
     this.gl = renderStage.gl;
     this._techniqueDocument = technique;
     this._techniqueIndex = techniqueIndex;
@@ -69,11 +74,11 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
     switch (this.Target) {
       case "scene":
         const materialGroup = this._techniqueDocument.getAttribute("materialGroup");
-        this.__renderStage.drawForMaterials(scene, object, techniqueCount, techniqueIndex, materialGroup, this._wireFramed);
+        MaterialDrawer.drawForMaterials(scene, this.__renderStage, object, techniqueCount, techniqueIndex, materialGroup, this._wireFramed);
         break;
       default:
         XMLRenderConfigUtility.applyAll(this.gl, this.defaultRenderConfigure);
-        this.__renderStage.drawForMaterial(scene, object, techniqueCount, techniqueIndex, this.defaultMaterial, this._wireFramed);
+        MaterialDrawer.drawForMaterial(scene, this.__renderStage, object, techniqueCount, techniqueIndex, this.defaultMaterial, this._wireFramed);
     }
   }
 
