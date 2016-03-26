@@ -6,6 +6,7 @@ import Geometry from "../Geometries/Base/Geometry";
 import Scene from "../Scene";
 import Transformer from "../Transform/Transformer";
 import ISceneObjectStructureChangedEventArgs from "../ISceneObjectChangedEventArgs";
+import SceneObjectNodeBase from "../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 /**
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
@@ -17,6 +18,8 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   public name: string;
 
   public isVisible: boolean = true;
+
+  public relatedNode: SceneObjectNodeBase<any>;
 
   protected __geometry: Geometry;
 

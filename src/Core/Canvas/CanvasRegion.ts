@@ -142,8 +142,8 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       mouseDownTracking: this.mouseDownTracking,
       trackDiffX: this.mouseX - this.lastMouseDownX,
       trackDiffY: this.mouseY - this.lastMouseDownY,
-      diffX: this.mouseX - this.lastMouseX,
-      diffY: this.mouseY - this.lastMouseY
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
     });
   }
 
@@ -160,8 +160,8 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       mouseX: this.mouseX,
       mouseY: this.mouseY,
       region: this,
-      diffX: this.mouseX - this.lastMouseX,
-      diffY: this.mouseY - this.lastMouseY
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
     });
   }
 
@@ -175,8 +175,8 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       mouseX: this.mouseX,
       mouseY: this.mouseY,
       region: this,
-      diffX: this.mouseX - this.lastMouseX,
-      diffY: this.mouseY - this.lastMouseY
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
     });
   }
 
@@ -188,14 +188,15 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       this.lastMouseDownY = this.mouseY;
     }
     this.emit("mouse-down", {
+      eventSource: e,
       enter: false,
       leave: false,
       mouseOver: this.mouseOver,
       mouseX: this.mouseX,
       mouseY: this.mouseY,
       region: this,
-      diffX: this.mouseX - this.lastMouseX,
-      diffY: this.mouseY - this.lastMouseY
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
     });
 
   }
@@ -206,6 +207,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       this.mouseDownTracking = false;
     }
     this.emit("mouse-up", {
+      eventSource: e,
       enter: false,
       leave: false,
       mouseOver: this.mouseOver,
@@ -215,8 +217,8 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
       mouseDownTracking: this.mouseDownTracking,
       trackDiffX: this.mouseX - this.lastMouseDownX,
       trackDiffY: this.mouseY - this.lastMouseDownY,
-      diffX: this.mouseX - this.lastMouseX,
-      diffY: this.mouseY - this.lastMouseY
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
     });
   }
 }
