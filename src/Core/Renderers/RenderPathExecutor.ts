@@ -7,7 +7,6 @@ import RenderStageChain from "./RenderStageChain";
 import SceneObject from "../SceneObjects/SceneObject";
 import Mesh from "../SceneObjects/Mesh";
 import Scene from "../Scene";
-import BufferInput from "./BufferInput";
 import IRenderStageCompletedEventArgs from "./IRenderStageCompletedEventArgs";
 import IRenderPathCompletedEventArgs from "./IRenderPathCompletedEventArgs";
 import IRenderObjectCompletedEventArgs from "./IRenderObjectCompletedEventArgs";
@@ -21,11 +20,10 @@ class RenderPathExecutor {
     let stageIndex = 0;
     renderer.renderPath.path.forEach(chain => {
       try {
-        const texs = RenderPathExecutor._genChainTexture(renderer, chain);
         const stage = chain.stage;
         const techniqueCount = stage.getTechniqueCount(scene);
         let targetObjects: SceneObject[];
-        stage.preStage(scene, texs);
+        stage.preStage(scene);
         for (let techniqueIndex = 0; techniqueIndex < techniqueCount; techniqueIndex++) {
           if (stage.getTarget(techniqueIndex) === "scene") {
             targetObjects = scene.children;
@@ -40,14 +38,14 @@ class RenderPathExecutor {
             }
           }
           stage.shaderVariables = chain.variables;
-          stage.preTechnique(scene, techniqueIndex, texs);
-          RenderPathExecutor._renderObjects(renderer, targetObjects, stage, scene, techniqueCount, techniqueIndex, texs, chain);
-          stage.postTechnique(scene, techniqueIndex, texs);
+          stage.preTechnique(scene, techniqueIndex);
+          RenderPathExecutor._renderObjects(renderer, targetObjects, stage, scene, techniqueCount, techniqueIndex, chain);
+          stage.postTechnique(scene, techniqueIndex);
         }
-        stage.postStage(scene, texs);
+        stage.postStage(scene);
         renderer.emit("rendered-stage", <IRenderStageCompletedEventArgs>{
           completedChain: chain,
-          bufferTextures: texs,
+          bufferTextures: stage.bufferTextures,
           index: stageIndex
         });
         stageIndex++;
@@ -61,36 +59,23 @@ class RenderPathExecutor {
     });
   }
 
-  private static _renderObjects(renderer: IRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, texs: BufferInput, chain: RenderStageChain): void {
+  private static _renderObjects(renderer: IRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
         if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
-          stage.render(scene, _v, techniqueCount, techniqueIndex, texs);
+          stage.render(scene, _v, techniqueCount, techniqueIndex);
           renderer.emit("rendered-object", <IRenderObjectCompletedEventArgs>{
             owner: this,
             renderedObject: _v,
             stage: stage,
             stageChain: chain,
-            bufferTextures: texs,
+            bufferTextures: stage.bufferTextures,
             technique: techniqueIndex
           });
         }
       });
     });
   }
-
-  private static _genChainTexture(renderer: IRenderer, chain: RenderStageChain): BufferInput {
-    const texInfo: BufferInput = {
-      defaultRenderBuffer: renderer.defaultRenderBuffer
-    };
-    for (let targetName in chain.buffers) {
-      const bufferName = chain.buffers[targetName];
-      const tex = renderer.bufferSet.getColorBuffer(bufferName);
-      texInfo[targetName] = tex;
-    }
-    return texInfo;
-  }
-
 }
 
 export default RenderPathExecutor;

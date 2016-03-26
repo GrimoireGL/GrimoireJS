@@ -143,7 +143,9 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
    */
   private _tryGetGLContext(): WebGLRenderingContext {
     try {
-      return <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
+      const gl = <WebGLRenderingContext>this.canvasElement.getContext("webgl") || this.canvasElement.getContext("experimental-webgl");
+      gl.id = this.id;
+      return gl;
     } catch (e) {
       throw new WebGLNotSupportedException();
     }

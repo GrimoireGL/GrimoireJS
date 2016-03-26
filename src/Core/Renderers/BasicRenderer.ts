@@ -42,7 +42,7 @@ class BasicRenderer extends RendererBase implements IRenderer {
     this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);
-  }
+     }
 
   /**
    * Initialize renderer to be rendererd.
@@ -55,6 +55,8 @@ class BasicRenderer extends RendererBase implements IRenderer {
     this.on("resize", () => {
       JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
     });
+    this._remapBuffers();
+    this.bufferSet.on("changed", () => this._remapBuffers());
   }
 
   public dispose(): void {
@@ -94,6 +96,18 @@ class BasicRenderer extends RendererBase implements IRenderer {
     } else {
       this.gl.viewport(0, 0, this.region.Width, this.region.Height);
     }
+  }
+
+  private _remapBuffers(): void {
+    this.renderPath.path.forEach(chain => {
+      let sampler = {};
+      chain.stage.bufferTextures.defaultRenderBuffer = this.defaultRenderBuffer;
+      for (let bufferName in chain.buffers) {
+        chain.stage.bufferTextures[bufferName] = this.bufferSet.getColorBuffer(chain.buffers[bufferName]);
+        sampler[bufferName] = chain.stage.bufferTextures[bufferName] ? chain.stage.bufferTextures[bufferName].id : "undefined";
+      }
+      console.log(sampler);
+    });
   }
 }
 

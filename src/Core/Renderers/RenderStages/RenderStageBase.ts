@@ -8,7 +8,9 @@ import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
 abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer {
 
-  public shaderVariables: {} = {};
+  public shaderVariables: { [key: string]: any } = {};
+
+  public bufferTextures: BufferInput = { defaultRenderBuffer: null };
 
   private _renderer: IRenderer;
 
@@ -45,28 +47,28 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
     return this.Renderer.gl;
   }
 
-  public preStage(scene: Scene, texs: BufferInput): void {
+  public preStage(scene: Scene): void {
     return;
   }
 
-  public postStage(scene: Scene, texs: BufferInput): void {
+  public postStage(scene: Scene): void {
     return;
   }
 
 	/**
 	 * This method will be called before process render in each pass
 	 */
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
+  public preTechnique(scene: Scene, techniqueIndex: number): void {
     return;
   }
 	/**
 	 * This method will be called after process render in each pass.
 	 */
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
+  public postTechnique(scene: Scene, techniqueIndex: number): void {
     this.Renderer.gl.flush();
   }
 
-  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void;
+  public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number): void;
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
     return false;
@@ -80,17 +82,17 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
     return "scene";
   }
 
-  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput, materialGroup: string, isWireframed: boolean): void {
+  public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, materialGroup: string, isWireframed: boolean): void {
     if (!object.isVisible) {
       return;
     }
     const materials = object.getMaterials(materialGroup);
     for (let i = 0; i < materials.length; i++) {
-      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, texs, materials[i], isWireframed);
+      this.drawForMaterial(scene, object, techniqueCount, techniqueIndex, materials[i], isWireframed);
     }
   }
 
-  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput, material: Material, isWireframed: boolean): void {
+  public drawForMaterial(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, material: Material, isWireframed: boolean): void {
     if (!material || !material.Initialized || !material.Enabled || !object.isVisible) { return; }
     const passCount = material.getPassCount(techniqueIndex);
     for (let pass = 0; pass < passCount; pass++) {
@@ -99,7 +101,7 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
         renderStage: this,
         renderer: this.Renderer,
         object: object,
-        textureResource: texs,
+        textureResource: this.bufferTextures,
         techniqueIndex: techniqueIndex,
         techniqueCount: techniqueCount,
         passIndex: pass,
