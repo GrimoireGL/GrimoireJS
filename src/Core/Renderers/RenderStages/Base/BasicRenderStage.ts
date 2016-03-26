@@ -4,7 +4,6 @@ import BasicRenderer from "../../BasicRenderer";
 import SceneObject from "../../../SceneObjects/SceneObject";
 import RenderStageBase from "../RenderStageBase";
 import Scene from "../../../Scene";
-import BufferInput from "../../BufferInput";
 class BasicRenderStage extends RenderStageBase {
   public techniques: BasicTechnique[];
 
@@ -31,12 +30,12 @@ class BasicRenderStage extends RenderStageBase {
     return super.getDefaultRendererConfigure(0);
   }
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
-    this.techniques[techniqueIndex].preTechnique(scene, texs);
+  public preTechnique(scene: Scene, techniqueIndex: number): void {
+    this.techniques[techniqueIndex].preTechnique(scene);
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
-    this.techniques[techniqueIndex].render(scene, object, techniqueCount, techniqueIndex, texs);
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number): void {
+    this.techniques[techniqueIndex].render(scene, object, techniqueCount, techniqueIndex);
   }
 
   public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
