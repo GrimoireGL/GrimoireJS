@@ -1,8 +1,8 @@
+import IRenderer from "../IRenderer";
 import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
 import Material from "../../Materials/Material";
 import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
 import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
-import BasicRenderer from "../BasicRenderer";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
@@ -10,12 +10,11 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 
   public shaderVariables: {} = {};
 
-  private _renderer: BasicRenderer;
+  private _renderer: IRenderer;
 
 
-  constructor(renderer: BasicRenderer) {
+  constructor(renderer: IRenderer) {
     super();
-
     this._renderer = renderer;
   }
 
@@ -38,12 +37,12 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 	/**
 	 * Getter for renderer having this renderstage
 	 */
-  public get Renderer(): BasicRenderer {
+  public get Renderer(): IRenderer {
     return this._renderer;
   }
 
   public get GL() {
-    return this.Renderer.GL;
+    return this.Renderer.gl;
   }
 
   public preStage(scene: Scene, texs: BufferInput): void {
@@ -64,7 +63,7 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 	 * This method will be called after process render in each pass.
 	 */
   public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
-    this.Renderer.GL.flush();
+    this.Renderer.gl.flush();
   }
 
   public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void;
@@ -108,10 +107,10 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
         camera: this.Renderer.camera
       });
       if (isWireframed) {
-        object.Geometry.drawWireframe(this.Renderer.Canvas, material);
+        object.Geometry.drawWireframe(this.Renderer.canvas, material);
         return;
       }
-      object.Geometry.drawElements(this.Renderer.Canvas, material);
+      object.Geometry.drawElements(this.Renderer.canvas, material);
     }
   }
 }

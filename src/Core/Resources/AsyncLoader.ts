@@ -2,7 +2,6 @@ import ResourceLoader from "../ResourceLoader";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import Q from "q";
-import {Func1} from "../../Base/Delegates";
 class AsyncLoader<T> {
 
   private _isLoading: { [url: string]: boolean } = {};
@@ -32,7 +31,7 @@ class AsyncLoader<T> {
     }
   }
 
-  public fetch(src: string, request: Func1<string, Q.IPromise<T>>): Q.IPromise<T> {
+  public fetch(src: string, request: (url: string) => Q.IPromise<T>): Q.IPromise<T> {
     const absPath = AsyncLoader.getAbsolutePath(src);
     if (this._isLoading[absPath] === true) {
       return this._loadingPromise[absPath];

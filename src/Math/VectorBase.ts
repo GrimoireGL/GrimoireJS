@@ -1,5 +1,4 @@
 import {GLM} from "gl-matrix";
-import {Func3} from "../Base/Delegates";
 import {InvalidStringException} from "../Exceptions";
 interface IVectorParseDescription {
   needNormalize: boolean;
@@ -62,7 +61,7 @@ class VectorBase {
     return true;
   }
 
-  protected static __fromGenerationFunction<T extends VectorBase>(v1: T, v2: T, gen: Func3<number, T, T, number>): GLM.IArray {
+  protected static __fromGenerationFunction<T extends VectorBase>(v1: T, v2: T, gen: (i: number, v1: T, v2: T) => number): GLM.IArray {
     let f = new Float32Array(v1.ElementCount);
     for (let i = 0; i < f.length; i++) {
       f[i] = gen(i, v1, v2);

@@ -2,7 +2,6 @@
 import MatrixBase from "./MatrixBase";
 import Vector3 from "./Vector3";
 import Vector4 from "./Vector4";
-import {Func2} from "../Base/Delegates";
 import Quaternion from "./Quaternion";
 import {GLM, mat4, vec3, vec4, quat} from "gl-matrix";
 class Matrix extends MatrixBase {
@@ -28,7 +27,7 @@ class Matrix extends MatrixBase {
     return new Matrix([m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33]);
   }
 
-  public static fromFunc(f: Func2<number, number, number>): Matrix {
+  public static fromFunc(f: (w: number, h: number) => number): Matrix {
     return new Matrix([f(0, 0), f(1, 0), f(2, 0), f(3, 0), f(0, 1), f(1, 1), f(2, 1), f(3, 1), f(0, 2), f(1, 2), f(2, 2), f(3, 2), f(0, 3), f(1, 3), f(2, 3), f(3, 3)]);
   }
 

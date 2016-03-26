@@ -1,3 +1,4 @@
+import IRenderer from "../Renderers/IRenderer";
 import IShaderArgumentContainer from "./IShaderArgumentContainer";
 import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
@@ -8,7 +9,6 @@ import Matrix from "../../Math/Matrix";
 import VectorBase from "../../Math/VectorBase";
 import ProgramWrapper from "../Resources/Program/ProgramWrapper";
 import IVariableDescription from "../ProgramTransformer/Base/IVariableDescription";
-import BasicRenderer from "../Renderers/BasicRenderer";
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -92,7 +92,7 @@ class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgum
     return;
   }
 
-  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }, mergedShaderVariables: { [name: string]: any }): void {
+  public registerMaterialVariables(renderer: IRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }, mergedShaderVariables: { [name: string]: any }): void {
     for (let valName in uniforms) {
       let uniform = uniforms[valName];
       if (valName[0] === "_") { continue; }
@@ -165,7 +165,7 @@ class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgum
     return geo.GeometryOffset;
   }
 
-  private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableDescription): void {
+  private _whenMaterialVariableNotFound(renderer: IRenderer, pWrapper: ProgramWrapper, uniform: IVariableDescription): void {
     if (!uniform.isArray) {
       switch (uniform.variableType) {
         case "float":
@@ -188,7 +188,7 @@ class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgum
           } else {
             register = 0;
           }
-          const texture = uniform.variableAnnotation.default ? uniform.variableAnnotation.default : renderer.alternativeTexture;
+          const texture = uniform.variableAnnotation.default ? uniform.variableAnnotation.default : renderer.canvas.alternativeTexture;
           pWrapper.uniformSampler(uniform.variableName, texture, register);
           if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
@@ -202,7 +202,7 @@ class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgum
           } else {
             registerCube = 0;
           }
-          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeCubeTexture, registerCube);
+          pWrapper.uniformSampler(uniform.variableName, renderer.canvas.alternativeCubeTexture, registerCube);
           if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }

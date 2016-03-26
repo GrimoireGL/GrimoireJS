@@ -37,7 +37,7 @@ class GomlNodeDictionary extends jThreeObject {
       this._dictionary[group][name] = { node: void 0, cb: [] };
     }
     const target = this._dictionary[group][name];
-    const group_name = this._iDDictionary[node.ID];
+    const group_name = this._iDDictionary[node.id];
     target.node = node;
     // when node is exist in other group and name
     if (group_name) {
@@ -50,7 +50,7 @@ class GomlNodeDictionary extends jThreeObject {
         }
       }
     }
-    this._iDDictionary[target.node.ID] = { group: group, name: name };
+    this._iDDictionary[target.node.id] = { group: group, name: name };
     if (target.node.Mounted) {
       // console.log("callWithNode(on-add)", target.node.getTypeName(), `cb:${target.cb.length}`);
       target.cb.forEach((fn) => { fn(target.node); });

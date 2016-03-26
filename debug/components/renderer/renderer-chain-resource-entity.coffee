@@ -20,7 +20,7 @@ class RendererChainResourceEntity extends React.Component
   onResourceAllDisplay:()=>
     container = ReactDOM.findDOMNode(this.refs.container)
     container.innerHTML = ''
-    @props.rdrDebugger.getTextureProgressHtmlImage(@props.stage.stage.ID,@props.texKey).then(->,
+    @props.rdrDebugger.getTextureProgressHtmlImage(@props.stage.stage.id,@props.texKey).then(->,
     ->,
     (notice)=>
       container.appendChild notice.image
@@ -28,13 +28,13 @@ class RendererChainResourceEntity extends React.Component
 
 
   onResourceSelected:()=>
-    @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.ID,@props.texKey).then (image)=>
+    @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.id,@props.texKey).then (image)=>
       container = ReactDOM.findDOMNode(this.refs.container)
       container.innerHTML = '';
       container.appendChild image
 
   onResourceSelectedWithoutAlpha:()=>
-    @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.ID,@props.texKey,@alphaRemove).then (image)=>
+    @props.rdrDebugger.getTextureHtmlImage(@props.stage.stage.id,@props.texKey,@alphaRemove).then (image)=>
       container = ReactDOM.findDOMNode(this.refs.container)
       container.innerHTML = '';
       container.appendChild image

@@ -1,6 +1,5 @@
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
-import {Action0} from "../Base/Delegates";
 /**
  * The set of properties for loop action which will be executed in LoopManager
  *
@@ -22,7 +21,7 @@ interface LoopAction {
    * 実行される関数
    * @type {Action0}
    */
-  action: Action0;
+  action: () => void;
 }
 
 /**
@@ -38,7 +37,7 @@ class LoopManager implements IContextComponent {
    * 次のフレームでのループ関数の呼び出しを登録する関数
    * @type {[type]}
    */
-  private _registerNextLoop: Action0;
+  private _registerNextLoop: () => void;
 
   /**
    * The list of loop actions already registered.
@@ -78,7 +77,7 @@ class LoopManager implements IContextComponent {
    * @param  {number}           order  the execution order where is criteria for priorty of loop.
    * @param  {Action0} action the function where will be executed in the loop
    */
-  public addAction(order: number, action: Action0): void {
+  public addAction(order: number, action: () => void): void {
     this._loopActions.push({
       order: order,
       action: action

@@ -105,7 +105,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   }
 
   public get Name(): string {
-    return this.ID;
+    return this.id;
   }
 
   public get Value(): any {
@@ -119,7 +119,7 @@ class GomlAttribute extends JThreeObjectEEWithID {
   public set Value(val: any) {
     // console.log("setattr", this.Name, val);
     if (this.constant && this.__value !== undefined) {
-      console.warn(`attribute "${this.ID}" is immutable`);
+      console.warn(`attribute "${this.id}" is immutable`);
       return;
     }
     if (typeof val === "string") {

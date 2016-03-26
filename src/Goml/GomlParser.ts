@@ -99,7 +99,7 @@ class GomlParser {
       })(attr);
     }
     newNode.props.setProp<HTMLElement>("elem", elem);
-    elem.setAttribute("x-j3-id", newNode.ID);
+    elem.setAttribute("x-j3-id", newNode.id);
     // console.log("END");
     return newNode;
   }

@@ -52,7 +52,7 @@ class BasicTechnique extends JThreeObjectWithID {
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
-    this._fboBindingInfo = RenderStageConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.Canvas);
+    this._fboBindingInfo = RenderStageConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.canvas);
     if (this._target !== "scene") {
       this.defaultMaterial = this._getMaterial();
     }
@@ -81,8 +81,8 @@ class BasicTechnique extends JThreeObjectWithID {
   protected __initializeFBO(texs: BufferInput): void {
     this.__fboInitialized = true;
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    this.__fbo = rm.createFBO("jthree.technique." + this.ID);
-    const fboWrapper = this.__fbo.getForContext(this.__renderStage.Renderer.Canvas);
+    this.__fbo = rm.createFBO("jthree.technique." + this.id);
+    const fboWrapper = this.__fbo.getForContext(this.__renderStage.Renderer);
     this._attachRBOConfigure(fboWrapper, texs);
     this._attachTextureConfigure(fboWrapper, texs);
   }
@@ -170,7 +170,7 @@ class BasicTechnique extends JThreeObjectWithID {
       if (!this.__fboInitialized) {
         this.__initializeFBO(texs);
       }
-      this.__fbo.getForContext(this.__renderStage.Renderer.Canvas).bind();
+      this.__fbo.getForContext(this.__renderStage.Renderer).bind();
       this._clearBuffers();
     }
   }
@@ -205,11 +205,7 @@ class BasicTechnique extends JThreeObjectWithID {
   }
 
   private _applyViewport(isDefault: boolean): void {
-    if (isDefault) {
-      this.__renderStage.Renderer.applyDefaultBufferViewport();
-    } else {
-      this.__renderStage.Renderer.applyRendererBufferViewport();
-    }
+    this.__renderStage.Renderer.applyViewport(isDefault);
   }
 }
 

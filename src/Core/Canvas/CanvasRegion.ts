@@ -1,3 +1,4 @@
+import IViewport from "./IViewport";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
@@ -11,7 +12,7 @@ import ContextComponents from "../../ContextComponents";
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
+class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewport {
   /**
    * Constructor
    * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
@@ -27,7 +28,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
     this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
     this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
     this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
-    this.name = this.ID;
+    this.name = this.id;
   }
 
   /**
@@ -128,98 +129,98 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable {
   }
 
 
-    private _mouseMoveHandler(e: MouseEvent): void {
-      this._checkMouseInside(e);
-      this.emit("mouse-move", {
-        eventSource: e,
-        enter: false,
-        leave: false,
-        mouseOver: this.mouseOver,
-        region: this,
-        mouseX: this.mouseX,
-        mouseY: this.mouseY,
-        mouseDownTracking: this.mouseDownTracking,
-        trackDiffX: this.mouseX - this.lastMouseDownX,
-        trackDiffY: this.mouseY - this.lastMouseDownY,
-        mouseDiffX: this.mouseX - this.lastMouseX,
-        mouseDiffY: this.mouseY - this.lastMouseY
-      });
-    }
+  private _mouseMoveHandler(e: MouseEvent): void {
+    this._checkMouseInside(e);
+    this.emit("mouse-move", {
+      eventSource: e,
+      enter: false,
+      leave: false,
+      mouseOver: this.mouseOver,
+      region: this,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
+      mouseDownTracking: this.mouseDownTracking,
+      trackDiffX: this.mouseX - this.lastMouseDownX,
+      trackDiffY: this.mouseY - this.lastMouseDownY,
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
+    });
+  }
 
-    private _mouseLeaveHandler(e: MouseEvent): void {
-      this._checkMouseInside(e);
-      if (this.mouseDownTracking) {
-        this.mouseDownTracking = false;
-      }
-      this.emit("mouse-leave", {
-        eventSource: e,
-        enter: false,
-        leave: true,
-        mouseOver: this.mouseOver,
-        mouseX: this.mouseX,
-        mouseY: this.mouseY,
-        region: this,
-        mouseDiffX: this.mouseX - this.lastMouseX,
-        mouseDiffY: this.mouseY - this.lastMouseY
-      });
+  private _mouseLeaveHandler(e: MouseEvent): void {
+    this._checkMouseInside(e);
+    if (this.mouseDownTracking) {
+      this.mouseDownTracking = false;
     }
+    this.emit("mouse-leave", {
+      eventSource: e,
+      enter: false,
+      leave: true,
+      mouseOver: this.mouseOver,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
+      region: this,
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
+    });
+  }
 
-    private _mouseEnterHandler(e: MouseEvent): void {
-      this._checkMouseInside(e);
-      this.emit("mouse-enter", {
-        eventSource: e,
-        enter: true,
-        leave: false,
-        mouseOver: this.mouseOver,
-        mouseX: this.mouseX,
-        mouseY: this.mouseY,
-        region: this,
-        mouseDiffX: this.mouseX - this.lastMouseX,
-        mouseDiffY: this.mouseY - this.lastMouseY
-      });
+  private _mouseEnterHandler(e: MouseEvent): void {
+    this._checkMouseInside(e);
+    this.emit("mouse-enter", {
+      eventSource: e,
+      enter: true,
+      leave: false,
+      mouseOver: this.mouseOver,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
+      region: this,
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
+    });
+  }
+
+  private _mouseDownHandler(e: MouseEvent): void {
+    this._checkMouseInside(e);
+    if (this.mouseOver) {
+      this.mouseDownTracking = true;
+      this.lastMouseDownX = this.mouseX;
+      this.lastMouseDownY = this.mouseY;
     }
+    this.emit("mouse-down", {
+      eventSource: e,
+      enter: false,
+      leave: false,
+      mouseOver: this.mouseOver,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
+      region: this,
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
+    });
 
-    private _mouseDownHandler(e: MouseEvent): void {
-      this._checkMouseInside(e);
-      if (this.mouseOver) {
-        this.mouseDownTracking = true;
-        this.lastMouseDownX = this.mouseX;
-        this.lastMouseDownY = this.mouseY;
-      }
-      this.emit("mouse-down", {
-        eventSource: e,
-        enter: false,
-        leave: false,
-        mouseOver: this.mouseOver,
-        mouseX: this.mouseX,
-        mouseY: this.mouseY,
-        region: this,
-        mouseDiffX: this.mouseX - this.lastMouseX,
-        mouseDiffY: this.mouseY - this.lastMouseY
-      });
+  }
 
+  private _mouseUpHandler(e: MouseEvent): void {
+    this._checkMouseInside(e);
+    if (this.mouseDownTracking) {
+      this.mouseDownTracking = false;
     }
-
-    private _mouseUpHandler(e: MouseEvent): void {
-      this._checkMouseInside(e);
-      if (this.mouseDownTracking) {
-        this.mouseDownTracking = false;
-      }
-      this.emit("mouse-up", {
-        eventSource: e,
-        enter: false,
-        leave: false,
-        mouseOver: this.mouseOver,
-        mouseX: this.mouseX,
-        mouseY: this.mouseY,
-        region: this,
-        mouseDownTracking: this.mouseDownTracking,
-        trackDiffX: this.mouseX - this.lastMouseDownX,
-        trackDiffY: this.mouseY - this.lastMouseDownY,
-        mouseDiffX: this.mouseX - this.lastMouseX,
-        mouseDiffY: this.mouseY - this.lastMouseY
-      });
-    }
+    this.emit("mouse-up", {
+      eventSource: e,
+      enter: false,
+      leave: false,
+      mouseOver: this.mouseOver,
+      mouseX: this.mouseX,
+      mouseY: this.mouseY,
+      region: this,
+      mouseDownTracking: this.mouseDownTracking,
+      trackDiffX: this.mouseX - this.lastMouseDownX,
+      trackDiffY: this.mouseY - this.lastMouseDownY,
+      mouseDiffX: this.mouseX - this.lastMouseX,
+      mouseDiffY: this.mouseY - this.lastMouseY
+    });
+  }
 }
 
 export default CanvasRegion;

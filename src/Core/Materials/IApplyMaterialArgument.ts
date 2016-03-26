@@ -1,4 +1,4 @@
-import BasicRenderer from "../Renderers/BasicRenderer";
+import IRenderer from "../Renderers/IRenderer";
 import Camera from "../SceneObjects/Camera/Camera";
 import RenderStageBase from "../Renderers/RenderStages/RenderStageBase";
 import BufferInput from "../Renderers/BufferInput";
@@ -7,7 +7,7 @@ import Scene from "../Scene";
 interface IApplyMaterialArgument {
   scene: Scene;
   camera: Camera;
-  renderer: BasicRenderer;
+  renderer: IRenderer;
   renderStage: RenderStageBase;
   object: SceneObject;
   textureResource: BufferInput;

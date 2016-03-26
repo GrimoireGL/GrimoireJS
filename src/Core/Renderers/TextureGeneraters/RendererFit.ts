@@ -26,7 +26,7 @@ class RendererFit extends GeneraterBase {
     texInfo["format"] = texInfo["format"] || "UBYTE";
     elementFormat = GLEnumParser.parseTextureFormat(texInfo["format"]);
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resource = rm.createTexture(this.__parentRenderer.ID + "." + texInfo.name, width, height, elementLayout, elementFormat);
+    const resource = rm.createTexture(this.__parentRenderer.id + "." + texInfo.name, width, height, elementLayout, elementFormat);
     this.__parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {
