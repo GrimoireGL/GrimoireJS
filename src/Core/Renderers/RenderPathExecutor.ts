@@ -21,7 +21,7 @@ class RenderPathExecutor {
     let stageIndex = 0;
     renderer.renderPath.path.forEach(chain => {
       try {
-        const texs = RenderPathExecutor._genChainTexture(renderer, chain);
+        const texs = chain.stage.bufferTextures;
         const stage = chain.stage;
         const techniqueCount = stage.getTechniqueCount(scene);
         let targetObjects: SceneObject[];
@@ -78,19 +78,6 @@ class RenderPathExecutor {
       });
     });
   }
-
-  private static _genChainTexture(renderer: IRenderer, chain: RenderStageChain): BufferInput {
-    const texInfo: BufferInput = {
-      defaultRenderBuffer: renderer.defaultRenderBuffer
-    };
-    for (let targetName in chain.buffers) {
-      const bufferName = chain.buffers[targetName];
-      const tex = renderer.bufferSet.getColorBuffer(bufferName);
-      texInfo[targetName] = tex;
-    }
-    return texInfo;
-  }
-
 }
 
 export default RenderPathExecutor;
