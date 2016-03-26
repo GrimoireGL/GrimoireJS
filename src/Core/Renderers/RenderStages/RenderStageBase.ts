@@ -8,7 +8,9 @@ import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
 abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer {
 
-  public shaderVariables: {} = {};
+  public shaderVariables: { [key: string]: any } = {};
+
+  public bufferTextures: BufferInput = { defaultRenderBuffer: null };
 
   private _renderer: IRenderer;
 

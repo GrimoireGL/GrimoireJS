@@ -42,6 +42,8 @@ class BasicRenderer extends RendererBase implements IRenderer {
     this.renderPath.fromPathTemplate(configurator.getStageChain(this));
     this.bufferSet = new BufferSet(this);
     this.bufferSet.appendBuffers(configurator.TextureBuffers);
+    this._remapBuffers();
+    this.bufferSet.on("changed", () => this._remapBuffers());
   }
 
   /**
@@ -94,6 +96,15 @@ class BasicRenderer extends RendererBase implements IRenderer {
     } else {
       this.gl.viewport(0, 0, this.region.Width, this.region.Height);
     }
+  }
+
+  private _remapBuffers(): void {
+    this.renderPath.path.forEach(chain => {
+      chain.stage.bufferTextures.defaultRenderBuffer = this.defaultRenderBuffer;
+      for (let bufferName in chain.buffers) {
+        chain.stage.bufferTextures[bufferName] = this.bufferSet.getColorBuffer(chain.buffers[bufferName]);
+      }
+    });
   }
 }
 
