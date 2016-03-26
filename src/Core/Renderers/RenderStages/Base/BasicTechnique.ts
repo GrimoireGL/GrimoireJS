@@ -51,7 +51,7 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }
-    this._fboBindingInfo = RenderStageConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.Renderer.canvas);
+    this._fboBindingInfo = RenderStageConfigUtility.parseFBOConfiguration(this._techniqueDocument.getElementsByTagName("fbo").item(0), renderStage.renderer.canvas);
     if (this._target !== "scene") {
       this.defaultMaterial = this._getMaterial();
     }
@@ -206,7 +206,7 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
   }
 
   private _applyViewport(isDefault: boolean): void {
-    this.__renderStage.Renderer.applyViewport(isDefault);
+    this.__renderStage.renderer.applyViewport(isDefault);
   }
 }
 

@@ -26,7 +26,7 @@ class BasicRegisterer extends RegistererBase {
       pWrapper.uniformMatrix("_matPV", matArg.camera.viewProjectionMatrix);
     }
     if (uniforms["_matPVM"]) {
-      pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.Renderer));
+      pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.renderer));
     }
     if (uniforms["_matIP"]) {
       pWrapper.uniformMatrix("_matIP", matArg.camera.invProjectionMatrix);
@@ -41,7 +41,7 @@ class BasicRegisterer extends RegistererBase {
       pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
     }
     if (uniforms["_resolution"]) {
-      const region = matArg.renderStage.Renderer.region;
+      const region = matArg.renderStage.renderer.region;
       pWrapper.uniformVector("_resolution", new Vector2(region.Width, region.Height));
     }
   }

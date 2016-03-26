@@ -62,7 +62,7 @@ class RenderPathExecutor {
   private static _renderObjects(renderer: IRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
-        if (_v.Geometry && stage.needRender(scene, _v, techniqueIndex)) {
+        if (_v.Geometry) {
           stage.render(scene, _v, techniqueCount, techniqueIndex);
           renderer.emit("rendered-object", <IRenderObjectCompletedEventArgs>{
             owner: this,

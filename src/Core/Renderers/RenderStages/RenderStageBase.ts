@@ -8,6 +8,19 @@ import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
 abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer, IGLContainer {
+  public static defaultRendererConfigure: IRenderStageRendererConfigure = {
+    cullOrientation: "BACK",
+    depthEnabled: true,
+    depthMode: "LESS",
+    depthMask: true,
+    blendEnabled: true,
+    blendSrcFactor: "SRC_ALPHA",
+    blendDstFactor: "ONE_MINUS_SRC_ALPHA",
+    redMask: true,
+    greenMask: true,
+    blueMask: true,
+    alphaMask: true
+  };
 
   public shaderVariables: { [key: string]: any } = {};
 
@@ -15,33 +28,12 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 
   public gl: WebGLRenderingContext;
 
-  constructor(private _renderer: IRenderer) {
+  constructor(public renderer: IRenderer) {
     super();
-    this.gl = _renderer.gl;
+    this.gl = renderer.gl;
   }
 
-  public getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure {
-    return {
-      cullOrientation: "BACK",
-      depthEnabled: true,
-      depthMode: "LESS",
-      depthMask: true,
-      blendEnabled: true,
-      blendSrcFactor: "SRC_ALPHA",
-      blendDstFactor: "ONE_MINUS_SRC_ALPHA",
-      redMask: true,
-      greenMask: true,
-      blueMask: true,
-      alphaMask: true
-    };
-  }
-
-	/**
-	 * Getter for renderer having this renderstage
-	 */
-  public get Renderer(): IRenderer {
-    return this._renderer;
-  }
+  public abstract getDefaultRendererConfigure(techniqueIndex: number): IRenderStageRendererConfigure;
 
   public preStage(scene: Scene): void {
     return;
@@ -61,22 +53,14 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
 	 * This method will be called after process render in each pass.
 	 */
   public postTechnique(scene: Scene, techniqueIndex: number): void {
-    this.Renderer.gl.flush();
+    return;
   }
 
   public abstract render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number): void;
 
-  public needRender(scene: Scene, object: SceneObject, techniqueIndex: number): boolean {
-    return false;
-  }
+  public abstract getTechniqueCount(scene: Scene): number;
 
-  public getTechniqueCount(scene: Scene): number {
-    return 1;
-  }
-
-  public getTarget(techniqueIndex: number): string {
-    return "scene";
-  }
+  public abstract getTarget(techniqueIndex: number): string;
 
   public drawForMaterials(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, materialGroup: string, isWireframed: boolean): void {
     if (!object.isVisible) {
@@ -95,20 +79,20 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
       material.apply({
         scene: scene,
         renderStage: this,
-        renderer: this.Renderer,
+        renderer: this.renderer,
         object: object,
         textureResource: this.bufferTextures,
         techniqueIndex: techniqueIndex,
         techniqueCount: techniqueCount,
         passIndex: pass,
         passCount: passCount,
-        camera: this.Renderer.camera
+        camera: this.renderer.camera
       });
       if (isWireframed) {
-        object.Geometry.drawWireframe(this.Renderer.canvas, material);
+        object.Geometry.drawWireframe(this.renderer.canvas, material);
         return;
       }
-      object.Geometry.drawElements(this.Renderer.canvas, material);
+      object.Geometry.drawElements(this.renderer.canvas, material);
     }
   }
 }

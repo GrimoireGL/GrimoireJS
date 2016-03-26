@@ -81,7 +81,7 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
     uniformRegisters.forEach((r) => {
       r.register(gl, pWrapper, matArg, this.programDescription.uniforms);
     });
-    material.registerMaterialVariables(matArg.renderStage.Renderer, pWrapper, this.programDescription.uniforms, shaderVariables);
+    material.registerMaterialVariables(matArg.renderStage.renderer, pWrapper, this.programDescription.uniforms, shaderVariables);
   }
 
   protected __preprocessUniformVariables(): void {
