@@ -44,15 +44,24 @@ class EventOrganizer extends EventEmitter {
     });
   }
 
-  public bubble(eventType: string, e: J3Event): boolean {
+  public bubble(eventType: string, e: J3Event): void {
     e.currentTarget = this._node;
-    const ret = this.emit(eventType, e);
+    this.emit(eventType, e);
     if (e.isPropagationStopped()) {
-      const parentEventOrganizer = (<GomlTreeNodeBase>this._node.parent).props.getProp<EventOrganizer>("event");
-      e.currentTarget = <GomlTreeNodeBase>this._node.parent;
-      parentEventOrganizer.bubble(eventType, e);
+      this._propagateTo(<GomlTreeNodeBase>this._node.parent, eventType, e);
     }
-    return ret;
+  }
+
+  private _propagateTo(node: GomlTreeNodeBase, eventType: string, e: J3Event): void {
+    const parentEventOrganizer = (node).props.getProp<EventOrganizer>("event");
+    if (parentEventOrganizer) {
+      e.currentTarget = node;
+      parentEventOrganizer.bubble(eventType, e);
+    } else {
+      if (node.parent) {
+        this._propagateTo(<GomlTreeNodeBase>node.parent, eventType, e);
+      } // else, propagate to scene root.
+    }
   }
 }
 

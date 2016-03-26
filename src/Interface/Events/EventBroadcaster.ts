@@ -3,11 +3,14 @@ import BasicRenderer from "../../Core/Renderers/BasicRenderer";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import EventOrganizer from "./EventOrgnizer";
 import J3Event from "./J3Event";
+import objectAssign from "object-assign";
 
 class EventBroadcaster {
   private _eventTap: BasicRenderer;
   private _eventListeners: {[key: string]: (() => void)} = {};
   private _hitAreaRenderStage: HitAreaRenderStage;
+  private _isMouseDown: boolean = false;
+  private _currentMouseMove: GomlTreeNodeBase;
 
   constructor() {
     this._eventListeners["mouse-move"] = this._mouseMoveEvent.bind(this);
@@ -41,31 +44,60 @@ class EventBroadcaster {
   }
 
   private _mouseMoveEvent(eObj: any): void {
-    return;
+    this._getTargetNode(eObj.mouseX, eObj.mouseY, (node) => {
+      if (this._currentMouseMove !== node) {
+        this._broadcast(node, "mouseenter", objectAssign({}, eObj, {
+          relatedTarget: this._currentMouseMove,
+        }));
+        this._broadcast(this._currentMouseMove, "mouseout", objectAssign({}, eObj, {
+          relatedTarget: node,
+        }));
+      }
+      this._broadcast(node, "mousemove", eObj);
+      this._currentMouseMove = node;
+    });
   }
 
   private _mouseLeaveEvent(eObj: any): void {
-    return;
+    this._isMouseDown = false;
+    this._currentMouseMove = null;
   }
 
   private _mouseEnterEvent(eObj: any): void {
-    return;
+    this._getTargetNode(eObj.mouseX, eObj.mouseY, (node) => {
+      this._currentMouseMove = node;
+    });
   }
 
   private _mouseDownEvent(eObj: any): void {
+    this._isMouseDown = true;
+    // mousedown
     this._getTargetNode(eObj.mouseX, eObj.mouseY, (node) => {
-      const eventOrganizer = node.props.getProp<EventOrganizer>("event");
-      if (eventOrganizer) {
-        const e = this._eventFormatter(eObj);
-        e.type = "mousedown";
-        e.target = node;
-        eventOrganizer.bubble("mousedown", e);
-      }
+      this._broadcast(node, "mousedown", eObj);
     });
   }
 
   private _mouseUpEvent(eObj: any): void {
-    return;
+    const isClick = this._isMouseDown;
+    this._getTargetNode(eObj.mouseX, eObj.mouseY, (node) => {
+      if (isClick) {
+        // click
+        this._broadcast(node, "click", eObj);
+      }
+      // mouseup
+      this._broadcast(node, "mouseup", eObj);
+    });
+    this._isMouseDown = false;
+  }
+
+  private _broadcast(node: GomlTreeNodeBase, eventType: string, eObj: any): void {
+    const eventOrganizer = node.props.getProp<EventOrganizer>("event");
+    if (eventOrganizer) {
+      const e = this._eventFormatter(eObj);
+      e.type = eventType;
+      e.target = node;
+      eventOrganizer.bubble(eventType, e);
+    }
   }
 
   private _eventFormatter(eObj: any): J3Event {
