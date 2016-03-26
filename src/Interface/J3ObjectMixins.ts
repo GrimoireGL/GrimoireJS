@@ -8,6 +8,7 @@ import NodeRemoval from "./Manipulation/NodeRemoval";
 import Basic from "./Effects/Basic";
 import Module from "./Modules/Module";
 import Custom from "./Effects/Custom";
+import EventHandlerAttachment from "./Events/EventHandlerAttachment";
 import Utilities from "./Static/Utilities";
 import Find from "./Static/Find";
 
@@ -22,6 +23,7 @@ function J3ObjectMixins() {
     Basic,
     Module,
     Custom,
+    EventHandlerAttachment,
   ];
 
   const staticMixins = [

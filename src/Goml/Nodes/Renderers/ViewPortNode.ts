@@ -10,6 +10,7 @@ import PerspectiveCamera from "../../../Core/SceneObjects/Camera/PerspectiveCame
 import CubeTextureNode from "../Texture/CubeTextureNode";
 import RendererFactory from "../../../Core/Renderers/RendererFactory";
 import GomlAttribute from "../../GomlAttribute";
+import EventBroadcaster from "../../../Interface/Events/EventBroadcaster";
 
 class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   private _left: number;
@@ -21,9 +22,11 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
 
   private _parentCanvas: CanvasNode;
 
+  private _eventBroadcaster: EventBroadcaster;
 
   constructor() {
     super();
+    this._eventBroadcaster = new EventBroadcaster();
     this.attributes.defineAttribute({
       "cam": {
         value: undefined,
@@ -102,13 +105,22 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
     super.__onMount();
   }
 
+  protected __onUnmount(): void {
+    super.__onUnmount();
+    this._eventBroadcaster.detachEvents();
+  }
+
   private _onConfigAttrChanged(attr: GomlAttribute): void {
     if (this.__parent.getTypeName() !== "CanvasNode") {
       throw Error("viewport must be the direct child of canvas");
     }
     this._parentCanvas = <CanvasNode>this.__parent;
     const defaultRect = this._parentCanvas.target.region;
+    if (this.target) {
+      this._eventBroadcaster.detachEvents();
+    }
     this.target = RendererFactory.generateRenderer(this._parentCanvas.target, defaultRect, attr.Value);
+    this._eventBroadcaster.attachEvents(this.target);
     attr.done();
   }
 
