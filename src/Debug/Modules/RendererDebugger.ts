@@ -99,7 +99,7 @@ class RendererDebugger extends DebuggerModuleBase {
   private _attachToRenderer(renderer: BasicRenderer, debug: Debugger): void {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.on("rendered-stage", (v) => {
-      if (this._bufferTextureRequest && v.completedChain.stage.ID === this._bufferTextureRequest.stageID) {
+      if (this._bufferTextureRequest && v.completedChain.stage.id === this._bufferTextureRequest.stageID) {
         if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null) {
           this._bufferTextureRequest.deffered.resolve(this._canvasToimg(renderer));
           this._bufferTextureRequest = null;
@@ -125,7 +125,7 @@ class RendererDebugger extends DebuggerModuleBase {
     });
     renderer.on("rendered-object", (v) => {
       let img;
-      if (this._bufferTextureProgressRequest && v.stage.ID === this._bufferTextureProgressRequest.stageID) {
+      if (this._bufferTextureProgressRequest && v.stage.id === this._bufferTextureProgressRequest.stageID) {
         this._bufferTextureProgressRequest.begin = true;
         renderer.gl.flush();
         if (v.bufferTextures[this._bufferTextureProgressRequest.bufferTextureID] == null) {
@@ -143,7 +143,7 @@ class RendererDebugger extends DebuggerModuleBase {
           }
           );
       }
-      if (this._shadowMapProgressRequest && v.stage.getTypeName() === "ShadowMapGenerationStage" && v.stage.Renderer.ID === this._shadowMapProgressRequest.rendererID) {
+      if (this._shadowMapProgressRequest && v.stage.getTypeName() === "ShadowMapGenerationStage" && v.stage.Renderer.id === this._shadowMapProgressRequest.rendererID) {
         this._shadowMapProgressRequest.begin = true;
         renderer.gl.flush();
         img = undefined; // v.renderedObject.ParentScene.LightRegister.shadowMapResourceManager.shadowMapTileTexture.wrappers[0].generateHtmlImage(this.shadowMapProgressRequest.generator);
