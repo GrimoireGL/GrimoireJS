@@ -54,15 +54,15 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
     // console.warn("onGeoAttrChanged", attr.Value);
     this._geo_instance = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this._geo);
     if (this._geo_instance) {
-      // console.log("primitive exist", this.geo);
+      // console.log("primitive exist", this._geo);
       this._updateTarget();
       attr.done();
     } else {
-      // console.log("primitive not exist", this.geo);
+      // console.log("primitive not exist", this._geo);
       this._geo_instance = null;
       this.nodeImport("jthree.resource.geometry", this._geo, (geo: GeometryNodeBase<Geometry>) => {
         if (geo) {
-          // console.log("geometry reseived", this.geo);
+          // console.log("geometry reseived", this._geo);
           this._geo_instance = geo.target;
         } else {
           this._geo_instance = null;
