@@ -75,7 +75,7 @@ abstract class IndexedGeometry extends Geometry {
    * @param  {Canvas} canvas the canvas this index buffer should be bound to
    */
   protected __bindIndexBuffer(canvas: Canvas): void {
-    this.indexBuffer.getForContext(canvas).bindBuffer();
+    this.indexBuffer.getForGL(canvas.gl).bindBuffer();
   }
 
   protected __updateIndexBuffer(indicies: number[], length: number): void {

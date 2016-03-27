@@ -25,6 +25,7 @@
 // }
 
 interface WebGLRenderingContext {
+  id: string;
   texImage2D(target: number, level: number, elementLayout: number, width: number, height: number, border: number, format: number, type: number, pixels?: ArrayBufferView);
 }
 

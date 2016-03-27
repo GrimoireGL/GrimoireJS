@@ -1,7 +1,6 @@
 import TextureBase from "../../Resources/Texture/TextureBase";
 import BasicRenderStage from "./Base/BasicRenderStage";
 import SceneObject from "../../SceneObjects/SceneObject";
-import BufferInput from "../BufferInput";
 import Scene from "../../Scene";
 import Q from "q";
 
@@ -32,26 +31,25 @@ class HitAreaRenderStage extends BasicRenderStage {
 
   public hitTestQueries: HitTestQuery[] = [];
 
-  public preTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
-    super.preTechnique(scene, techniqueIndex, texs);
+  public preTechnique(scene: Scene, techniqueIndex: number): void {
+    super.preTechnique(scene, techniqueIndex);
     this.objectIndex = 1;
   }
 
-  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number, texs: BufferInput): void {
+  public render(scene: Scene, object: SceneObject, techniqueCount: number, techniqueIndex: number): void {
     this.indexObjectPair[this.objectIndex] = object;
-    super.render(scene, object, techniqueCount, techniqueIndex, texs);
+    super.render(scene, object, techniqueCount, techniqueIndex);
     this.objectIndex++;
   }
 
-  public postTechnique(scene: Scene, techniqueIndex: number, texs: BufferInput): void {
-    if (texs["OUT"]) {
-      if (!(texs["OUT"] instanceof TextureBase)) {
+  public postTechnique(scene: Scene, techniqueIndex: number): void {
+    if (this.bufferTextures["OUT"]) {
+      if (!(this.bufferTextures["OUT"] instanceof TextureBase)) {
         throw new Error("OUT argument cannnot acceptable except TextureBase");
       }
-      const canvas = this.Renderer.canvas;
       for (let i = 0; i < this.hitTestQueries.length; i++) {
         const query = this.hitTestQueries[i];
-        const fetchedPixel = (texs["OUT"] as TextureBase).getForContext(canvas).getPixel(query.x, this.Renderer.region.Height - query.y);
+        const fetchedPixel = (this.bufferTextures["OUT"] as TextureBase).getForGL(this.GL).getPixel(query.x, this.Renderer.region.Height - query.y);
         const object = this._fetchRelatedObject(fetchedPixel);
         query.deferred.resolve(object);
       }
