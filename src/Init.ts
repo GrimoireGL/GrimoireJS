@@ -132,10 +132,10 @@ class JThreeInit {
   private static _startInitialize(): void {
     const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager); // This is not string but it is for conviniesnce.
     const loader = new GomlLoader(nodeManager, JThreeInit.selfTag);
-    loader.initForPage();
     JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).registerDefaultPrimitives();
     JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger).attach();
     const resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+    loader.initForPage();
     resourceLoader.promise.then(() => {
       JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager).begin();
     });
