@@ -1,13 +1,13 @@
+import IRenderer from "../IRenderer";
 import GeneraterInfoChunk from "./GeneraterInfoChunk";
-import BasicRenderer from "../BasicRenderer";
 /**
  * Provides abstraction for texture generation.
  * By overriding, it is able to manage texture buffer in your way.
  */
 abstract class GeneraterBase {
-  protected __parentRenderer: BasicRenderer;
+  protected __parentRenderer: IRenderer;
 
-  constructor(parent: BasicRenderer) {
+  constructor(parent: IRenderer) {
     this.__parentRenderer = parent;
   }
 

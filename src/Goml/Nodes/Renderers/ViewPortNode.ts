@@ -3,7 +3,6 @@ import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import StageChainTemplate from "../../../Core/Renderers/StageChainTemplate";
 import BasicRenderer from "../../../Core/Renderers/BasicRenderer";
 import Rectangle from "../../../Math/Rectangle";
-import Scene from "../../../Core/Scene";
 import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
 import CanvasNode from "../Canvases/CanvasNode";
 import PerspectiveCamera from "../../../Core/SceneObjects/Camera/PerspectiveCamera";
@@ -183,9 +182,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
       //
       if (cameraNode) {
         if (cameraNode.ContainedSceneNode != null) { // if there was specified camera and there is Scene
-          this.target.camera = cameraNode.target;
-          const scene: Scene = cameraNode.ContainedSceneNode.target;
-          scene.addRenderer(this.target);
+          this.target.setCamera(cameraNode.target);
           this._updateViewportArea();
         } else {
           console.error("cant retrieve scene!");

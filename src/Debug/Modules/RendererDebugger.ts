@@ -1,10 +1,11 @@
+import BasicRenderer from "../../Core/Renderers/BasicRenderer";
+import IRenderer from "../../Core/Renderers/IRenderer";
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
 import SceneManager from "../../Core/SceneManager";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import Scene from "../../Core/Scene";
-import BasicRenderer from "../../Core/Renderers/BasicRenderer";
 import Q from "q";
 import IRequestBufferTexture from "./Renderer/IRequestBufferTexture";
 import IRequestShadowMapTexture from "./Renderer/IRequestShadowMapTexture";
@@ -90,17 +91,18 @@ class RendererDebugger extends DebuggerModuleBase {
     });
   }
 
-  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {;
+  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {
+    ;
     const img = new Image(renderer.canvasElement.width, renderer.canvasElement.height);
     img.src = renderer.canvasElement.toDataURL();
     return img;
   }
 
-  private _attachToRenderer(renderer: BasicRenderer, debug: Debugger): void {
+  private _attachToRenderer(renderer: IRenderer, debug: Debugger): void {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.on("rendered-stage", (v) => {
       if (this._bufferTextureRequest && v.completedChain.stage.id === this._bufferTextureRequest.stageID) {
-        if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null) {
+        if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null && renderer instanceof BasicRenderer) {
           this._bufferTextureRequest.deffered.resolve(this._canvasToimg(renderer));
           this._bufferTextureRequest = null;
           return;
@@ -130,7 +132,9 @@ class RendererDebugger extends DebuggerModuleBase {
         renderer.gl.flush();
         if (v.bufferTextures[this._bufferTextureProgressRequest.bufferTextureID] == null) {
           // for default buffer
-          img = this._canvasToimg(renderer);
+          if (renderer instanceof BasicRenderer) {
+            img = this._canvasToimg(renderer);
+          }
         } else {
           img = v.bufferTextures[this._bufferTextureProgressRequest.bufferTextureID].wrappers[0].generateHtmlImage(this._bufferTextureProgressRequest.generator);
         }

@@ -2,6 +2,10 @@ import RenderStageBase from "../Renderers/RenderStages/RenderStageBase";
 import Material from "./Material";
 import SceneObject from "../SceneObjects/SceneObject";
 import Scene from "../Scene";
+/**
+ * Provides feature to use material to draw specific geometry in specified situation.
+ * This is most primitive caller for materials and geometries.
+ */
 class MaterialDrawer {
   public static drawForMaterials(scene: Scene, renderStage: RenderStageBase, object: SceneObject, techniqueCount: number, techniqueIndex: number, materialGroup: string, isWireframed: boolean): void {
     if (!object.isVisible) {
