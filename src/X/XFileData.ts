@@ -2,11 +2,11 @@ import ImageLoader from "../Core/Resources/ImageLoader";
 import Vector3 from "../Math/Vector3";
 import Vector4 from "../Math/Vector4";
 import IXMaterial from "./IXMaterialData";
-import AsyncLoader from "../Core/Resources/AsyncLoader";
+import ResourceResolver from "../Core/Resources/ResourceResolver";
 import Q from "q";
 class XFileData {
 
-  private static _loader: AsyncLoader<XFileData> = new AsyncLoader<XFileData>();
+  private static _loader: ResourceResolver<XFileData> = new ResourceResolver<XFileData>();
 
   public positions: Float32Array;
 

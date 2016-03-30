@@ -6,10 +6,10 @@
           <color name="OUT" register="0"/>
         </fbo>
         <material name="jthree.basic.fxaa" group="jthree.materials.fxaa" order="300">
-          <uniform-register>
+          <registers>
             <register name="builtin.basic" />
             <register name="builtin.buffer" />
-          </uniform-register>
+          </registers>
           <passes>
             <pass>
               <blend enabled="false" />

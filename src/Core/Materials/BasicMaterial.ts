@@ -1,5 +1,5 @@
 import ArgumentMerger from "./ArgumentMerger";
-import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
+import RegistererBase from "../Pass/Registerer/RegistererBase";
 import Material from "./Material";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
@@ -9,7 +9,7 @@ import IApplyMaterialArgument from "./IApplyMaterialArgument";
 class BasicMaterial extends Material {
   private _passes: MaterialPass[] = [];
 
-  private _uniformRegisters: BasicRegisterer[] = [];
+  private _uniformRegisters: RegistererBase[] = [];
 
   private _materialGroup: string;
 
@@ -83,7 +83,7 @@ class BasicMaterial extends Material {
   }
 
   private _initializeUniformRegisters(doc: Document): void {
-    const registersDOM = doc.querySelectorAll("material > uniform-register > register");
+    const registersDOM = doc.querySelectorAll("material > registers > register");
     for (let i = 0; i < registersDOM.length; i++) {
       const registerDOM = registersDOM.item(i);
       const registererConstructor = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);

@@ -1,4 +1,4 @@
-import AsyncLoader from "../../Core/Resources/AsyncLoader";
+import ResourceResolver from "../../Core/Resources/ResourceResolver";
 import VMDHeader from "./VMDHeader";
 import VMDMotions from "./VMDMotions";
 import VMDMorphs from "./VMDMorphs";
@@ -11,7 +11,7 @@ import Q from "q";
 
 class VMDData {
 
-  private static _asyncLoader: AsyncLoader<VMDData> = new AsyncLoader<VMDData>();
+  private static _cacheResolver: ResourceResolver<VMDData> = new ResourceResolver<VMDData>();
 
   private _reader: DataView;
 
@@ -31,7 +31,7 @@ class VMDData {
   }
 
   public static loadFromUrl(url: string): Q.IPromise<VMDData> {
-    return VMDData._asyncLoader.fetch(url, (path) => {
+    return VMDData._cacheResolver.fetch(url, (path) => {
       const d = Q.defer<VMDData>();
       const oReq = new XMLHttpRequest();
       oReq.open("GET", path, true);

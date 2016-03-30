@@ -177,9 +177,6 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
 
   private _resolveCamera(cam: string, done: () => void): void {
     this.nodeImport("jthree.scene.camera", cam, (cameraNode: CameraNodeBase<Camera>) => {
-      //
-      // remove camera here
-      //
       if (cameraNode) {
         if (cameraNode.ContainedSceneNode != null) { // if there was specified camera and there is Scene
           this.target.setCamera(cameraNode.target);

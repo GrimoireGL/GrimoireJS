@@ -84,10 +84,6 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
     material.registerMaterialVariables(matArg.renderStage.renderer, pWrapper, this.programDescription.uniforms, shaderVariables);
   }
 
-  protected __preprocessUniformVariables(): void {
-    // Preprocess default value for uniforms
-  }
-
   private _fetchRenderConfigure(matArg: IApplyMaterialArgument): IRenderStageRenderConfigure {
     const id = matArg.renderStage.id;
     let result: IRenderStageRenderConfigure;

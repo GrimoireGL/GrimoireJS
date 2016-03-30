@@ -11,7 +11,7 @@ import IVariableDescription from "../ProgramTransformer/Base/IVariableDescriptio
 import isArray from "lodash.isarray";
 import Q from "q";
 class DefaultValuePreProcessor {
-  public static preprocess(uniforms: { [name: string]: IVariableDescription }): Q.IPromise<void[]> {
+  public static preprocess(uniforms: { [name: string]: IVariableDescription }): Q.IPromise<void> {
     const tasks: Q.IPromise<void>[] = [];
     for (let variableName in uniforms) {
       const uniform = uniforms[variableName];
@@ -56,7 +56,11 @@ class DefaultValuePreProcessor {
         }
       }
     }
-    return Q.all<void>(tasks);
+    return Q.all<void>(tasks).then(() => {
+      for (let name in uniforms) {
+        uniforms[name].value = uniforms[name].variableAnnotation.default;
+      }
+    });
   }
 
   private static _syncPromise(fn: any): Q.IPromise<void> {
