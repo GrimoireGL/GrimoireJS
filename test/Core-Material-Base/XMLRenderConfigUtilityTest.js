@@ -17,7 +17,6 @@ function readDom(path) {
 function parseTest(func, path, ideal) {
   const result = {};
   func(readDom(path), result);
-  console.log(result);
   return _.isEqual(ideal, result);
 }
 
