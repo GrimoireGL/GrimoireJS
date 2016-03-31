@@ -1,3 +1,4 @@
+import IRenderer from "./IRenderer";
 import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
 import BasicRenderStage from "./RenderStages/Base/BasicRenderStage";
 import BasicRenderer from "./BasicRenderer";
@@ -5,7 +6,7 @@ import RenderStageBase from "./RenderStages/RenderStageBase";
 import ContextComponents from "../../ContextComponents";
 import IContextComponent from "../../IContextComponent";
 class RenderStageRegistory implements IContextComponent {
-  private _renderStageFactoryFunctions: { [key: string]: (r: BasicRenderer) => RenderStageBase } = {};
+  private _renderStageFactoryFunctions: { [key: string]: (r: IRenderer) => RenderStageBase } = {};
 
   constructor() {
     this.register("jthree.hitarea", (renderer) => new HitAreaRenderStage(renderer));
@@ -58,7 +59,7 @@ class RenderStageRegistory implements IContextComponent {
    * @param  {BasicRenderer}   renderer the renderer being going to hold generated render stage base
    * @return {RenderStageBase}          generated render stage base
    */
-  public construct(name: string, renderer: BasicRenderer): RenderStageBase {
+  public construct(name: string, renderer: IRenderer): RenderStageBase {
     return this._renderStageFactoryFunctions[name](renderer);
   }
 }

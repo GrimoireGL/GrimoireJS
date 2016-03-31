@@ -1,9 +1,9 @@
 import Scene from "./Scene";
-import BasicRenderer from "./Renderers/BasicRenderer";
+import IRenderer from "./Renderers/IRenderer";
 
 interface RendererListChangedEventArgs {
   owner: Scene;
-  renderer: BasicRenderer;
+  renderer: IRenderer;
   isAdditionalChange: boolean;
 }
 

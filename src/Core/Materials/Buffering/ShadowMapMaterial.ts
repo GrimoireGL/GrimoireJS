@@ -7,7 +7,7 @@ import BasicMaterial from "../BasicMaterial";
  */
 class ShadowMapMaterial extends BasicMaterial {
   constructor() {
-    super(require("../BuiltIn/ShadowMap/ShadowMap.xmml"));
+    super(require("../BuiltIn/ShadowMap/ShadowMap.xmml"), "builtin.shadowmap");
     this.__setLoaded();
   }
 

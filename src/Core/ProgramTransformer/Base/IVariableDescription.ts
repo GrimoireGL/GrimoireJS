@@ -9,5 +9,6 @@ interface IVariableDescription {
   variableAnnotation: IVariableAnnotation;
   isArray: boolean;
   arrayLength: number;
+  value?: any;
 }
 export default IVariableDescription;

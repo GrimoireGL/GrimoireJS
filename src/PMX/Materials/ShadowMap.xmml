@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <material name="jthree.pmx.shadowmap" group="jthree.materials.shadowmap" order="300">
-<uniform-register>
+<registers>
   <register name="builtin.basic"/>
-</uniform-register>
+</registers>
 <passes>
   <depth enabled="true" mode="less" mask="true"/>
   <cull mode="none"/>

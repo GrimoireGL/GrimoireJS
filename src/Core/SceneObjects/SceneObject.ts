@@ -176,10 +176,19 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   }
 
   public addMaterial(mat: Material): void {
-    if (!this._materials[mat.MaterialGroup]) {
-      this._materials[mat.MaterialGroup] = {};
+    if (mat.Initialized) {
+      if (!this._materials[mat.MaterialGroup]) {
+        this._materials[mat.MaterialGroup] = {};
+      }
+      this._materials[mat.MaterialGroup][mat.id] = mat;
+    } else {
+      mat.once("ready", () => {
+        if (!this._materials[mat.MaterialGroup]) {
+          this._materials[mat.MaterialGroup] = {};
+        }
+        this._materials[mat.MaterialGroup][mat.id] = mat;
+      });
     }
-    this._materials[mat.MaterialGroup][mat.id] = mat;
   }
 
   public getMaterial(matGroup: string): Material {
