@@ -1,27 +1,26 @@
+import IXMMLDescription from "./Parser/IXMMLDescription";
 import ArgumentMerger from "./ArgumentMerger";
-import RegistererBase from "../Pass/Registerer/RegistererBase";
 import Material from "./Material";
-import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
-import MaterialManager from "./MaterialManager";
 import MaterialPass from "../Pass/MaterialPass";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
+import XMMLParser from "./Parser/XMMLParser";
+
 class BasicMaterial extends Material {
-  private _passes: MaterialPass[] = [];
-
-  private _uniformRegisters: RegistererBase[] = [];
-
-  private _materialGroup: string;
-
-  private _materialName: string;
-
-  private _passCount: number = 0;
+  private _passes: MaterialPass[];
 
   private _mergedShaderVariables: { [name: string]: any } = {};
 
-  constructor(sourceString: string, name?: string) {
+  private _description: IXMMLDescription;
+
+  constructor(sourceString: string, name: string) {
     super();
-    this._parseMaterialDocument(sourceString, name);
+    XMMLParser.parse(name, sourceString).then((desc) => {
+      this._description = desc;
+      this._passes = desc.pass.map(pass => {
+        return new MaterialPass(this, pass);
+      });
+      this.__setLoaded();
+    });
   }
 
   public dispose(): void {
@@ -42,7 +41,7 @@ class BasicMaterial extends Material {
     super.apply(matArg);
     this._mergedShaderVariables = ArgumentMerger.merge(matArg.renderStage, this, matArg.object); // should be optimized
     const targetPass = this._passes[matArg.passIndex];
-    targetPass.apply(matArg, this._uniformRegisters, this, this._mergedShaderVariables);
+    targetPass.apply(matArg, this._description.registerers, this, this._mergedShaderVariables);
   }
 
   /**
@@ -51,49 +50,11 @@ class BasicMaterial extends Material {
   * Because it needs rendering edge first,then rendering forward shading.
   */
   public getPassCount(techniqueIndex: number): number {
-    return this._passCount;
+    return this._description.pass.length;
   }
 
   public get MaterialGroup() {
-    return this._materialGroup;
-  }
-
-  private _parseMaterialDocument(source: string, name?: string): void {
-    const xmml = (new DOMParser()).parseFromString(source, "text/xml");
-    this._materialName = xmml.querySelector("material").getAttribute("name");
-    this._materialGroup = xmml.querySelector("material").getAttribute("group");
-    if (!this._materialName && !name) {
-      console.error("Material name must be specified");
-    }
-    this._materialName = this._materialName || name;
-    this._initializeUniformRegisters(xmml);
-    this._parsePasses(xmml).then(() => {
-      this.__setLoaded();
-    });
-  }
-
-  private _parsePasses(doc: Document): Promise<void[]> {
-    const passes = doc.querySelectorAll("material > passes > pass");
-    for (let i = 0; i < passes.length; i++) {
-      const pass = passes.item(i);
-      this._passes.push(new MaterialPass(this, pass, this._materialName, i));
-    }
-    this._passCount = passes.length;
-    return Promise.all<void>(this._passes.map<Promise<void>>(e => e.initialize(this._uniformRegisters)));
-  }
-
-  private _initializeUniformRegisters(doc: Document): void {
-    const registersDOM = doc.querySelectorAll("material > registers > register");
-    for (let i = 0; i < registersDOM.length; i++) {
-      const registerDOM = registersDOM.item(i);
-      const registererConstructor = this._materialManager.getUniformRegister(registerDOM.attributes.getNamedItem("name").value);
-      if (!registererConstructor) { continue; }
-      this._uniformRegisters.push(new registererConstructor());
-    }
-  }
-
-  private get _materialManager(): MaterialManager {
-    return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    return this._description.group;
   }
 }
 

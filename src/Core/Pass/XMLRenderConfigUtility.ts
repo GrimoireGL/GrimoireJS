@@ -9,12 +9,12 @@ class XMLRenderConfigureUtility {
    * @param  {IRenderStageRenderConfigure} defConfig [description]
    * @return {IRenderStageRenderConfigure}           [description]
    */
-  public static parseRenderConfig(parent: Element, defConfig: IRenderStageRenderConfigure): IRenderStageRenderConfigure {
+  public static parseRenderConfig(parent: Element): IRenderStageRenderConfigure {
     const target = <IRenderStageRenderConfigure>{};
-    XMLRenderConfigureUtility._parseCullConfigure(parent, defConfig, target);
-    XMLRenderConfigureUtility._parseBlendConfigure(parent, defConfig, target);
-    XMLRenderConfigureUtility._parseDepthConfigure(parent, defConfig, target);
-    XMLRenderConfigureUtility._parseMaskConfigure(parent, defConfig, target);
+    XMLRenderConfigureUtility._parseCullConfigure(parent, target);
+    XMLRenderConfigureUtility._parseBlendConfigure(parent, target);
+    XMLRenderConfigureUtility._parseDepthConfigure(parent, target);
+    XMLRenderConfigureUtility._parseMaskConfigure(parent, target);
     return target;
   }
 
@@ -25,6 +25,17 @@ class XMLRenderConfigureUtility {
     XMLRenderConfigureUtility._applyMaskConfigureToGL(gl, config.redMask, config.greenMask, config.blueMask, config.alphaMask, config.depthMask);
   }
 
+  public static mergeRenderConfigure(config: IRenderStageRenderConfigure, base: IRenderStageRenderConfigure): IRenderStageRenderConfigure {
+    const result: IRenderStageRenderConfigure = <IRenderStageRenderConfigure>{};
+    for (let paramName in base) {
+      if (typeof config[paramName] === "undefined") {
+        result[paramName] = base[paramName];
+      } else {
+        result[paramName] = config[paramName];
+      }
+    }
+    return result;
+  }
 
   private static _parseBoolean(val: string, def: boolean): boolean {
     if (!val) { return def; }
@@ -32,68 +43,53 @@ class XMLRenderConfigureUtility {
     return false;
   }
 
-  private static _parseMaskConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
+  private static _parseMaskConfigure(elem: Element, target: IRenderStageRenderConfigure): void {
     const maskNode = elem.getElementsByTagName("mask").item(0);
-    if (!maskNode) {
-      target.redMask = defConfig.redMask;
-      target.greenMask = defConfig.greenMask;
-      target.blueMask = defConfig.blueMask;
-      target.alphaMask = defConfig.alphaMask;
-      target.depthMask = defConfig.depthMask;
-    } else {
+    if (maskNode) {
       const redMaskStr = maskNode.getAttribute("red");
       const greenMaskStr = maskNode.getAttribute("green");
       const blueMaskStr = maskNode.getAttribute("blue");
       const alphaMaskStr = maskNode.getAttribute("alpha");
       const depthMaskStr = maskNode.getAttribute("depth");
-      target.redMask = XMLRenderConfigureUtility._parseBoolean(redMaskStr, defConfig.redMask);
-      target.greenMask = XMLRenderConfigureUtility._parseBoolean(greenMaskStr, defConfig.greenMask);
-      target.blueMask = XMLRenderConfigureUtility._parseBoolean(blueMaskStr, defConfig.blueMask);
-      target.alphaMask = XMLRenderConfigureUtility._parseBoolean(alphaMaskStr, defConfig.alphaMask);
-      target.depthMask = XMLRenderConfigureUtility._parseBoolean(depthMaskStr, defConfig.depthMask);
+      target.redMask = XMLRenderConfigureUtility._parseBoolean(redMaskStr, undefined);
+      target.greenMask = XMLRenderConfigureUtility._parseBoolean(greenMaskStr, undefined);
+      target.blueMask = XMLRenderConfigureUtility._parseBoolean(blueMaskStr, undefined);
+      target.alphaMask = XMLRenderConfigureUtility._parseBoolean(alphaMaskStr, undefined);
+      target.depthMask = XMLRenderConfigureUtility._parseBoolean(depthMaskStr, undefined);
     }
   }
 
-  private static _parseCullConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
+  private static _parseCullConfigure(elem: Element, target: IRenderStageRenderConfigure): void {
     const cullNode = elem.getElementsByTagName("cull").item(0);
-    if (!cullNode) {
-      target.cullOrientation = defConfig.cullOrientation;
-    } else {
+    if (cullNode) {
       const mode = cullNode.getAttribute("mode");
       if (!mode) {
-        target.cullOrientation = defConfig.cullOrientation;
+        target.cullOrientation = "BACK";
       } else {
         target.cullOrientation = mode;
       }
     }
   }
 
-  private static _parseBlendConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
+  private static _parseBlendConfigure(elem: Element, target: IRenderStageRenderConfigure): void {
     const blendNode = elem.getElementsByTagName("blend").item(0);
-    if (!blendNode) {
-      target.blendEnabled = defConfig.blendEnabled;
-      target.blendSrcFactor = defConfig.blendSrcFactor;
-      target.blendDstFactor = defConfig.blendDstFactor;
-    } else {
+    if (blendNode) {
       const enabledStr = blendNode.getAttribute("enabled");
       const srcFactorStr = blendNode.getAttribute("src");
       const dstFactorStr = blendNode.getAttribute("dst");
-      target.blendEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, defConfig.blendEnabled);
-      target.blendSrcFactor = srcFactorStr || defConfig.blendSrcFactor;
-      target.blendDstFactor = dstFactorStr || defConfig.blendDstFactor;
+      target.blendEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, true);
+      target.blendSrcFactor = srcFactorStr || undefined;
+      target.blendDstFactor = dstFactorStr || undefined;
     }
   }
 
-  private static _parseDepthConfigure(elem: Element, defConfig: IRenderStageRenderConfigure, target: IRenderStageRenderConfigure): void {
+  private static _parseDepthConfigure(elem: Element, target: IRenderStageRenderConfigure): void {
     const depthNode = elem.getElementsByTagName("depth").item(0);
-    if (!depthNode) {
-      target.depthMode = defConfig.depthMode;
-      target.depthEnabled = defConfig.depthEnabled;
-    } else {
+    if (depthNode) {
       const enabledStr = depthNode.getAttribute("enabled");
       const modeStr = depthNode.getAttribute("mode");
-      target.depthEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, defConfig.depthEnabled);
-      target.depthMode = modeStr || defConfig.depthMode;
+      target.depthEnabled = XMLRenderConfigureUtility._parseBoolean(enabledStr, true);
+      target.depthMode = modeStr || undefined;
     }
   }
 

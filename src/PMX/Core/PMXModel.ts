@@ -53,7 +53,7 @@ class PMXModel extends SceneObject {
       const mat = new PMXMaterial(this, materialCount, offset);
       this.addMaterial(mat);
       this.addMaterial(new PMXPrimaryBufferMaterial(mat));
-      this.addMaterial(new PMXShadowMapMaterial(mat));
+      // this.addMaterial(new PMXShadowMapMaterial(mat));
       this.addMaterial(new PMXHitAreaMaterial(mat));
       this._pmxMaterials[materialCount] = mat;
       this._materialDictionary[currentMat.materialName] = mat;

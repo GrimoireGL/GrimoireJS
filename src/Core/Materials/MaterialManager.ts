@@ -110,7 +110,7 @@ class MaterialManager implements IContextComponent {
       // console.error(`Specified material name '${matName}' was not found!`);
       return undefined;
     } else {
-      return new BasicMaterial(matDoc);
+      return new BasicMaterial(matDoc, matName);
     }
   }
 

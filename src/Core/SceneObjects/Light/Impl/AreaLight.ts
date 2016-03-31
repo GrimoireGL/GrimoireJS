@@ -13,7 +13,7 @@ class AreaLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cube");
-    const material = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/AreaLight.xmml"));
+    const material = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/AreaLight.xmml"), "builtin.light.area");
     material.on("apply", (matArg: IApplyMaterialArgument) => {
       material.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),

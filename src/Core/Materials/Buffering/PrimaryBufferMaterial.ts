@@ -2,7 +2,7 @@ import IApplyMaterialArgument from "../IApplyMaterialArgument";
 import BasicMaterial from "../BasicMaterial";
 class PrimaryBufferMaterial extends BasicMaterial {
   constructor() {
-    super(require("../BuiltIn/GBuffer/PrimaryBuffer.xmml"));
+    super(require("../BuiltIn/GBuffer/PrimaryBuffer.xmml"), "builtin.gbuffer.1");
   }
 
   public apply(matArg: IApplyMaterialArgument): void {

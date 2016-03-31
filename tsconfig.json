@@ -71,6 +71,7 @@
     "./src/Core/Materials/MaterialDrawer.ts",
     "./src/Core/Materials/MaterialManager.ts",
     "./src/Core/Materials/Parser/IXMMLDescription.ts",
+    "./src/Core/Materials/Parser/IXMMLPassDescription.ts",
     "./src/Core/Materials/Parser/XMMLParser.ts",
     "./src/Core/Pass/DefaultValuePreProcessor.ts",
     "./src/Core/Pass/MaterialPass.ts",

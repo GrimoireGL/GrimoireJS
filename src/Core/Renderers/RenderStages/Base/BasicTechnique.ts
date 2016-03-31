@@ -52,7 +52,8 @@ class BasicTechnique extends JThreeObjectWithID implements IGLContainer {
     this.gl = renderStage.gl;
     this._techniqueDocument = technique;
     this._techniqueIndex = techniqueIndex;
-    this.defaultRenderConfigure = XMLRenderConfigUtility.parseRenderConfig(technique, this.__renderStage.getSuperRendererConfigure());
+    const rc = XMLRenderConfigUtility.parseRenderConfig(technique);
+    this.defaultRenderConfigure = XMLRenderConfigUtility.mergeRenderConfigure(rc, this.__renderStage.getSuperRendererConfigure());
     this._target = this._techniqueDocument.getAttribute("target");
     this._wireFramed = this._techniqueDocument.getAttribute("wireframe") === "true";
     if (!this._target) { this._target = "scene"; }

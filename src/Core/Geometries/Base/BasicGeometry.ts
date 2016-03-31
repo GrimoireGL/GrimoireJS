@@ -25,7 +25,7 @@ class BasicGeometry extends IndexedGeometry {
    */
   public uvBuffer: Buffer;
 
-  public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
+  protected __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
     this.__assignAttributeIfExists(pWrapper, attributes, "position", this.positionBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "normal", this.normalBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "uv", this.uvBuffer);
