@@ -4,9 +4,7 @@ class XMLRenderConfigureUtility {
 
   /**
    * Construct renderer configuration preferences from element containing render configuration tags as children.
-   * @param  {WebGLRenderingContext}       gl        [description]
    * @param  {Element}                     parent    [description]
-   * @param  {IRenderStageRenderConfigure} defConfig [description]
    * @return {IRenderStageRenderConfigure}           [description]
    */
   public static parseRenderConfig(parent: Element): IRenderStageRenderConfigure {
