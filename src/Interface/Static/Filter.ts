@@ -6,7 +6,7 @@ class Filter {
     let filterNodes = SomeToNodes.convert(filter, filterType);
     filterNodes = filterNodes === null ? [] : filterNodes;
     return target.filter((t) => {
-      return filterNodes.indexOf(t) === -1;
+      return filterNodes.indexOf(t) !== -1;
     });
   }
 }

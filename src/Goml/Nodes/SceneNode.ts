@@ -31,6 +31,12 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
     JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
   }
 
+  protected __onUnmount(): void {
+    super.__onUnmount();
+    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).removeScene(this.target);
+    // TODO: pnly GC
+  }
+
   private _onNameAttrChanged(attr): void {
     this.target.id = attr.Value;
     attr.done();

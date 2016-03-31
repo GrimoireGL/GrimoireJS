@@ -100,8 +100,8 @@ class GomlLoader extends jThreeObject {
     } else { // when src is not specified
       for (let i = 0; i + 1 <= scriptTag.childNodes.length; i++) {
         const gomlElement = scriptTag.childNodes[i];
-        if (gomlElement.nodeType === 1) {
-          this._scriptLoaded(<HTMLElement>gomlElement);
+        if (gomlElement.nodeType === 3) {
+          this._scriptLoaded((new DOMParser()).parseFromString(gomlElement.nodeValue, "text/xml").documentElement);
         }
       }
     }

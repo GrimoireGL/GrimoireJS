@@ -1,6 +1,7 @@
 import J3Object from "../J3Object";
 import J3ObjectBase from "../J3ObjectBase";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
+import Filter from "../Static/Filter";
 import isString from "lodash.isstring";
 import isArray from "lodash.isarray";
 import isFunction from "lodash.isfunction";
@@ -15,30 +16,15 @@ class Filtering extends J3ObjectBase {
     const thisNodes = this.__getArray();
     let nodes = [];
     switch (true) {
-      case (isString(argu)):
-        const foundNodes = J3Object.find(<string>argu);
-        nodes = thisNodes.filter((node) => {
-          return foundNodes.indexOf(node) !== -1;
-        });
+      case (isString(argu)
+        || (isArray(argu) && (argu.every((v) => v instanceof GomlTreeNodeBase)))
+        || (argu instanceof GomlTreeNodeBase)
+        || (argu instanceof J3Object)):
+        nodes = Filter.filter(thisNodes, argu, ["selector", "node", "node[]", "j3obj"]);
         break;
       case (isFunction(argu)):
         nodes = thisNodes.filter((node, index) => {
           return (<(index: number, node: GomlTreeNodeBase) => boolean>argu)(index, node);
-        });
-        break;
-      case (isArray(argu) && (argu.every((v) => v instanceof GomlTreeNodeBase))):
-        nodes = thisNodes.filter((node) => {
-          return (<GomlTreeNodeBase[]>argu).indexOf(node) !== -1;
-        });
-        break;
-      case (argu instanceof GomlTreeNodeBase):
-        nodes = thisNodes.filter((node) => {
-          return node === (<GomlTreeNodeBase>argu);
-        });
-        break;
-      case (argu instanceof J3Object):
-        nodes = thisNodes.filter((node) => {
-          return (<J3Object>argu).index(node) !== -1;
         });
         break;
       default:
