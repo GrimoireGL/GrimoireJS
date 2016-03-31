@@ -63,7 +63,7 @@ class XMMLParser {
 
   private static _instanciatePasses(passes: Element, materialName: string, registerers: RegistererBase[]): Promise<IXMMLPassDescription[]> {
     const pass = XMMLParser._getElements("pass", passes);
-    return Promise.all(pass.map((p, i) => {
+    return Promise.all<IXMMLPassDescription>(pass.map((p, i) => {
       return new Promise<IXMMLPassDescription>((resolve, reject) => {
         const renderconfig = XMLRenderConfigUtility.parseRenderConfig(p);
         const glsl = XMMLParser._getSingleElement("glsl", p);
