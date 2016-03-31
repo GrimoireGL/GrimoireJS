@@ -68,6 +68,10 @@ class GomlNodeMethods extends J3ObjectBase {
     }
     return index_;
   }
+
+  public toArray(): GomlTreeNodeBase[] {
+    return this.__getArray();
+  }
 }
 
 export default GomlNodeMethods;

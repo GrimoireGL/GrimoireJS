@@ -304,6 +304,7 @@
     "./src/Interface/Manipulation/CollectionManipulation.ts",
     "./src/Interface/Manipulation/GeneralAttributes.ts",
     "./src/Interface/Manipulation/NodeInsertionInside.ts",
+    "./src/Interface/Manipulation/NodeInsertionOutside.ts",
     "./src/Interface/Manipulation/NodeRemoval.ts",
     "./src/Interface/Miscellaneous/GomlNodeMethods.ts",
     "./src/Interface/Modules/Module.ts",
