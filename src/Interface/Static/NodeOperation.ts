@@ -4,15 +4,16 @@ import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 
 class NodeOperation {
-  public static insert(targets: GomlTreeNodeBase[], contents: GomlTreeNodeBase[], index?: number): void {
+  public static insert(targets: GomlTreeNodeBase[], contents: GomlTreeNodeBase[], indexFunc?: (target: GomlTreeNodeBase, index: number) => number): void {
     const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     targets.forEach((target, i) => {
       let nodeOpMethod = nodeManager.insertNode;
       if (i === targets.length) {
         nodeOpMethod = nodeManager.moveNode;
       }
+      const index = indexFunc && indexFunc(target, i);
       contents.forEach((content, j) => {
-        nodeOpMethod(content, target, typeof index === "undefined" ? void 0 : index + j);
+        nodeOpMethod.call(nodeManager, content, target, typeof index === "undefined" ? void 0 : index + j);
       });
     });
   }
