@@ -8,6 +8,7 @@ import CanvasRegion from "../Canvas/CanvasRegion";
 import Canvas from "../Canvas/Canvas";
 import RBO from "../Resources/RBO/RBO";
 import RenderPath from "./RenderPath";
+import BasicRenderer from "./BasicRenderer";
 
 abstract class RendererBase extends CanvasRegion implements ICanvasContainer, IRenderer {
 
@@ -61,10 +62,9 @@ abstract class RendererBase extends CanvasRegion implements ICanvasContainer, IR
   public setCamera(cam: Camera): void {
     if (this.camera) {
       this.camera.ParentScene.removeRenderer(this);
-    } else {
-      cam.ParentScene.addRenderer(this);
-      this.camera = cam;
     }
+    cam.ParentScene.addRenderer(this);
+    this.camera = cam;
   }
 }
 export default RendererBase;
