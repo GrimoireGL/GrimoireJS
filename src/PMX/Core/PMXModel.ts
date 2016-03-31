@@ -8,7 +8,6 @@ import PMXGeometry from "./PMXGeometry";
 import PMXMaterial from "./Materials/PMXMaterial";
 import PMXSkeleton from "./PMXSkeleton";
 import PMXMorphManager from "./PMXMorphManager";
-import PMXShadowMapMaterial from "./Materials/PMXShadowMapMaterial";
 import PMXTextureManager from "./PMXTextureManager";
 import Q from "q";
 class PMXModel extends SceneObject {

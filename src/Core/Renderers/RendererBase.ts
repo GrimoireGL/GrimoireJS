@@ -8,7 +8,6 @@ import CanvasRegion from "../Canvas/CanvasRegion";
 import Canvas from "../Canvas/Canvas";
 import RBO from "../Resources/RBO/RBO";
 import RenderPath from "./RenderPath";
-import BasicRenderer from "./BasicRenderer";
 
 abstract class RendererBase extends CanvasRegion implements ICanvasContainer, IRenderer {
 
