@@ -118,10 +118,10 @@ class NodeManager extends JThreeObject implements IContextComponent {
     parentNode.addChild(contentNode, index);
     const parentElement = parentNode.props.getProp<HTMLElement>("elem");
     const targetElement = contentNode.props.getProp<HTMLElement>("elem");
-    let referenceElement: HTMLElement = null;
+    let referenceElement: Node = null;
     if (index != null) {
       const nodeIndex = this._getNodeListIndexByElementIndex(parentElement, index);
-      referenceElement = parentElement[nodeIndex];
+      referenceElement = parentElement.childNodes[nodeIndex];
     }
     parentElement.insertBefore(targetElement, referenceElement);
   }
@@ -189,7 +189,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
 
   /**
    * Get index in NodeList object by index in Element array.
-   * @param  {HTMLElement} targetElement target element for searching index. If this argument is negative number, index will be searched from last.
+   * @param  {HTMLElement} targetElement parent element for searching index of children. If this argument is negative number, index will be searched from last.
    * @param  {number}      elementIndex  index in Element array
    * @return {number}                    index in NodeList
    */

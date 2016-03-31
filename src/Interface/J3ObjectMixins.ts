@@ -5,6 +5,7 @@ import Filtering from "./Traversing/Filtering";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
+import NodeInsertionOutside from "./Manipulation/NodeInsertionOutside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
 import Basic from "./Effects/Basic";
 import Module from "./Modules/Module";
@@ -21,6 +22,7 @@ function J3ObjectMixins() {
     GeneralAttributes,
     CollectionManipulation,
     NodeInsertionInside,
+    NodeInsertionOutside,
     NodeRemoval,
     Basic,
     Module,
