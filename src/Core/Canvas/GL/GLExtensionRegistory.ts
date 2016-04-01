@@ -4,6 +4,7 @@ import UintIndexExtensionResolver from "./ExtensionResolver/UintIndexExtensionRe
 import FloatTextureExtensionResolver from "./ExtensionResolver/FloatTextureExtensionResolver";
 import ExtensionResolverBase from "./ExtensionResolver/ExtensionResolverBase";
 import JThreeObject from "../../../Base/JThreeObject";
+
 /**
  * Provides the feature to require gl extension.
  */

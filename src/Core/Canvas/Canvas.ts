@@ -4,6 +4,9 @@ import BasicRenderer from "../Renderers/BasicRenderer";
 import JThreeEvent from "../../Base/JThreeEvent";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
+import JThreeContext from "../../JThreeContext";
+import MaterialManager from "../../Core/Materials/MaterialManager";
+import ContextComponents from "../../ContextComponents";
 import CanvasRegion from "./CanvasRegion";
 import {WebGLNotSupportedException} from "../../Exceptions";
 
@@ -39,7 +42,7 @@ class Canvas extends CanvasRegion {
 
   public gl: WebGLRenderingContext;
 
-  public glExtensionResolver: GLExtensionRegistory = new GLExtensionRegistory();
+  public glExtensionRegistory: GLExtensionRegistory = new GLExtensionRegistory();
 
   /**
    * canvas height of last time
@@ -83,7 +86,20 @@ class Canvas extends CanvasRegion {
    */
   protected __setGLContext(glContext: WebGLRenderingContext): void {
     this.gl = glContext;
-    this.glExtensionResolver.checkExtensions(glContext);
+    this.glExtensionRegistory.checkExtensions(glContext);
+    let materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    if (materialManager.conditionRegistered) {
+      let extensionList: string[] = [];
+      for (let extName in GLExtensionRegistory.requiredExtensions) {
+        if (typeof this.glExtensionRegistory.extensions[extName] === "undefined") {
+          throw new Error("glExtension " + extName + " is undefined");
+        }
+        if (this.glExtensionRegistory.extensions[extName] !== null) {
+          extensionList.push(extName);
+        }
+      }
+      materialManager.conditionRegistered = true;
+    }
     return;
   }
 
