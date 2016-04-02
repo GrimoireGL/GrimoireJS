@@ -6,10 +6,10 @@
         <color name="OUT" register="0"/>
       </fbo>
       <material order="300">
-        <uniform-register>
+        <registers>
           <register name="builtin.buffer" />
           <register name="builtin.basic" />
-        </uniform-register>
+        </registers>
         <passes>
           <pass>
             <depth enabled="false" />

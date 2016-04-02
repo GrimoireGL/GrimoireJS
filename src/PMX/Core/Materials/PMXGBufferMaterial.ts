@@ -35,9 +35,9 @@ class PMXGBufferMaterial extends Material {
   constructor(material: PMXMaterial) {
     super();
     this.__associatedMaterial = material;
-    this.__primaryMaterial = new BasicMaterial(require("../../Materials/PrimaryBuffer.xmml"));
-    this.__secoundaryMaterial = new BasicMaterial(require("../../Materials/SecoundaryBuffer.xmml"));
-    this.__thirdMaterial = new BasicMaterial(require("../../Materials/ThirdBuffer.xmml"));
+    this.__primaryMaterial = new BasicMaterial(require("../../Materials/PrimaryBuffer.xmml"), "pmx.gbuffer.1");
+    this.__secoundaryMaterial = new BasicMaterial(require("../../Materials/SecoundaryBuffer.xmml"), "pmx.gbuffer.2");
+    this.__thirdMaterial = new BasicMaterial(require("../../Materials/ThirdBuffer.xmml"), "pmx.gbuffer.3");
     this.__setLoaded();
   }
 

@@ -7,9 +7,9 @@
           <color register="0" name="OUT" clearColor="0,0,0,1"/>
         </fbo>
         <material>
-          <uniform-register>
+          <registers>
             <register name="builtin.basic" />
-          </uniform-register>
+          </registers>
           <passes>
             <pass>
               <depth enabled="false" />

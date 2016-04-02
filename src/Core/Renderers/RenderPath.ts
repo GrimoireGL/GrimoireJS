@@ -1,4 +1,4 @@
-import BasicRenderer from "./BasicRenderer";
+import IRenderer from "./IRenderer";
 import ContextComponents from "../../ContextComponents";
 import RenderStageRegistory from "./RenderStageRegistory";
 import JThreeContext from "../../JThreeContext";
@@ -14,7 +14,7 @@ class RenderPath {
   */
   public path: RenderStageChain[] = [];
 
-  constructor(private _renderer: BasicRenderer) {
+  constructor(private _renderer: IRenderer) {
   }
 
   public pushStage(stage: StageChainTemplate): void {

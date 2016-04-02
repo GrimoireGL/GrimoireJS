@@ -16,15 +16,15 @@ class BufferRegitserer extends RegistererBase {
       if (variableName[0] !== "_" || uniform.variableType !== "sampler2D") { continue; }
       if (uniform.variableAnnotation["type"] === "buffer") {
         const bufferName = uniform.variableAnnotation["name"];
-        if (!bufferName || !matArg.textureResource[bufferName]) {
+        if (!bufferName || !matArg.renderStage.bufferTextures[bufferName]) {
           continue;
         }
         let register: number = uniform.variableAnnotation["register"];
         if (!register) { register = 0; }
-        if (matArg.textureResource[bufferName] instanceof RBO) {
+        if (matArg.renderStage.bufferTextures[bufferName] instanceof RBO) {
           throw new Error("RBO can not be acceptable for shader argument");
         }
-        pWrapper.uniformSampler(variableName, matArg.textureResource[bufferName] as TextureBase, register);
+        pWrapper.uniformSampler(variableName, matArg.renderStage.bufferTextures[bufferName] as TextureBase, register);
       }
     }
   }

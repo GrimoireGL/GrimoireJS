@@ -6,7 +6,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
   private _associatedMaterial: PMXMaterial;
 
   constructor(material: PMXMaterial) {
-    super(require("../../Materials/PrimaryBuffer.xmml"));
+    super(require("../../Materials/PrimaryBuffer.xmml"), "pmx.gbuffer.0");
     this._associatedMaterial = material;
   }
 

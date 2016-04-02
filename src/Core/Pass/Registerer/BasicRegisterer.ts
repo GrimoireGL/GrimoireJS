@@ -14,34 +14,34 @@ class BasicRegisterer extends RegistererBase {
       pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
     }
     if (uniforms["_matV"]) {
-      pWrapper.uniformMatrix("_matV", matArg.camera.viewMatrix);
+      pWrapper.uniformMatrix("_matV", matArg.renderStage.renderer.camera.viewMatrix);
     }
     if (uniforms["_matP"]) {
-      pWrapper.uniformMatrix("_matP", matArg.camera.projectionMatrix);
+      pWrapper.uniformMatrix("_matP", matArg.renderStage.renderer.camera.projectionMatrix);
     }
     if (uniforms["_matVM"]) {
-      pWrapper.uniformMatrix("_matVM", Matrix.multiply(matArg.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal));
+      pWrapper.uniformMatrix("_matVM", Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal));
     }
     if (uniforms["_matPV"]) {
-      pWrapper.uniformMatrix("_matPV", matArg.camera.viewProjectionMatrix);
+      pWrapper.uniformMatrix("_matPV", matArg.renderStage.renderer.camera.viewProjectionMatrix);
     }
     if (uniforms["_matPVM"]) {
-      pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.Renderer));
+      pWrapper.uniformMatrix("_matPVM", matArg.object.Transformer.calculateMVPMatrix(matArg.renderStage.renderer));
     }
     if (uniforms["_matIP"]) {
-      pWrapper.uniformMatrix("_matIP", matArg.camera.invProjectionMatrix);
+      pWrapper.uniformMatrix("_matIP", matArg.renderStage.renderer.camera.invProjectionMatrix);
     }
     if (uniforms["_eyePosition"]) {
-      pWrapper.uniformVector("_eyePosition", matArg.camera.Transformer.GlobalPosition);
+      pWrapper.uniformVector("_eyePosition", matArg.renderStage.renderer.camera.Transformer.GlobalPosition);
     }
     if (uniforms["_farClip"]) {
-      pWrapper.uniformFloat("_farClip", matArg.camera.Far);
+      pWrapper.uniformFloat("_farClip", matArg.renderStage.renderer.camera.Far);
     }
     if (uniforms["_nearClip"]) {
-      pWrapper.uniformFloat("_nearClip", matArg.camera.Near);
+      pWrapper.uniformFloat("_nearClip", matArg.renderStage.renderer.camera.Near);
     }
     if (uniforms["_resolution"]) {
-      const region = matArg.renderStage.Renderer.region;
+      const region = matArg.renderStage.renderer.region;
       pWrapper.uniformVector("_resolution", new Vector2(region.Width, region.Height));
     }
   }

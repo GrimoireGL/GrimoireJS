@@ -75,7 +75,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
       let passVariables = {};
       for (let i = 0; i < passes.length; i++) {
         const pass = passes[i];
-        const uniforms = pass.programDescription.uniforms;
+        const uniforms = pass.passDescription.programDescription.uniforms;
         for (let variableName in uniforms) {
           if (variableName[0] === "_") {
             continue; // Ignore system variables

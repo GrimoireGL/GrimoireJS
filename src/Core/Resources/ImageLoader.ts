@@ -1,8 +1,8 @@
-import AsyncLoader from "./AsyncLoader";
+import ResourceResolver from "./ResourceResolver";
 import Q from "q";
 class ImageLoader {
 
-  private static _loader: AsyncLoader<HTMLImageElement> = new AsyncLoader<HTMLImageElement>();
+  private static _loader: ResourceResolver<HTMLImageElement> = new ResourceResolver<HTMLImageElement>();
 
   public static loadImage(src: string): Q.IPromise<HTMLImageElement> {
     return ImageLoader._loader.fetch(src, (path) => {
