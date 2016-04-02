@@ -3,7 +3,6 @@ import TreeNodeBase from "./TreeNodeBase";
 import JThreeContext from "../JThreeContext";
 import NodeManager from "./NodeManager";
 import ContextComponents from "../ContextComponents";
-import BehaviorNode from "./Nodes/Behaviors/BehaviorNode";
 import NodeProps from "./NodeProps";
 
 /**
@@ -35,11 +34,6 @@ class GomlTreeNodeBase extends TreeNodeBase {
   protected __groupPrefix: string = "";
 
   /**
-   * components that is attached to this node.
-   */
-  protected __behaviors: {[key: string]: BehaviorNode[]} = {};
-
-  /**
    * コンストラクタ内ではattributeの定義、attributeの変化時のイベント、child, parentが更新された際のイベントを設定します。
    */
   constructor() {
@@ -49,7 +43,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
     // after configuration, this node is going to add to NodesById
-    this.nodeManager.nodesById[this.ID] =  this;
+    this.nodeManager.nodesById[this.id] =  this;
     this.attributes = new AttributeDictionary(this);
 
     // apply attributes
@@ -106,20 +100,9 @@ class GomlTreeNodeBase extends TreeNodeBase {
   }
 
   /**
-   * Add component to this node.
+   * This method is called in each frame while mounted.
+   * **NOTE** This method will be removed.
    */
-  public addBehavior(behaviors: BehaviorNode): void {
-    this.nodeManager.behaviorRunner.addBehavior(behaviors, this);
-    if (!this.__behaviors[behaviors.BehaviorName]) {
-      this.__behaviors[behaviors.BehaviorName] = [];
-    }
-    this.__behaviors[behaviors.BehaviorName].push(behaviors);
-  }
-
-  public getBehaviors(behaviorName: string): BehaviorNode[] {
-    return this.__behaviors[behaviorName];
-  }
-
   public update(): void {
     return;
   }

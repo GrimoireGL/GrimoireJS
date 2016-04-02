@@ -13,12 +13,12 @@ class SpotLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cone");
-    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/SpotLight.html"));
+    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/SpotLight.xmml"), "builtin.light.spot.diffuse");
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       const tan = Math.tan(this.outerAngle);
       this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
 
-      diffuseMaterial.materialVariables = {
+      diffuseMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         innerAngle: this.innerAngle,
         outerAngle: this.outerAngle,
@@ -26,22 +26,22 @@ class SpotLight extends LightBase {
         outerDistance: this.outerDistance,
         angleDecay: this.angleDecay,
         distanceDecay: this.distanceDecay,
-        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position),
-        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis()
+        lightPosition: Matrix.transformPoint(matArg.renderStage.renderer.camera.viewMatrix, this.Position),
+        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis()
       };
     });
-    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/SpotLight.html"));
+    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/SpotLight.xmml"), "builtin.light.spot.specular");
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
       const tan = Math.tan(this.outerAngle);
       this.Transformer.Scale = new Vector3(tan * this.outerDistance, this.outerDistance / 2, tan * this.outerDistance);
 
-      specularMaterial.materialVariables = {
+      specularMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
         angle: this.outerAngle,
         dist: this.outerDistance,
         decay: this.distanceDecay,
-        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis(),
-        lightPosition: Matrix.transformPoint(matArg.camera.viewMatrix, this.Position)
+        lightDirection: Matrix.transformNormal(Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, this.Transformer.LocalToGlobal), new Vector3(0, -1, 0)).normalizeThis(),
+        lightPosition: Matrix.transformPoint(matArg.renderStage.renderer.camera.viewMatrix, this.Position)
       };
     });
     this.addMaterial(diffuseMaterial);

@@ -8,6 +8,8 @@ import Buffer from "../../Resources/Buffer/Buffer";
  * 描画にインデックスバッファ(ELEMENT_ARRAY_BUFFER)を用いるジオメトリの抽象クラス
  */
 abstract class IndexedGeometry extends Geometry {
+
+  public static lastIndexedGeometry: IndexedGeometry;
   /**
    * Index buffer used for rendering this Geometry
    *
@@ -15,6 +17,10 @@ abstract class IndexedGeometry extends Geometry {
    * @type {Buffer}
    */
   public indexBuffer: Buffer;
+
+  public dispose(): void {
+    this.indexBuffer.dispose();
+  }
 
   /**
    * The count of verticies.(3 times count of surfaces(When the topology was "triangles"))
@@ -34,7 +40,10 @@ abstract class IndexedGeometry extends Geometry {
    * @param {Material} material the material should be used for rendering this geometry.
    */
   public drawElements(canvas: Canvas, material: Material): void {
-    this.__bindIndexBuffer(canvas);
+    if (IndexedGeometry.lastIndexedGeometry !== this) {
+      this.__bindIndexBuffer(canvas);
+      IndexedGeometry.lastIndexedGeometry = this;
+    }
     canvas.gl.drawElements(this.primitiveTopology, material.getDrawGeometryLength(this), this.indexBuffer.ElementType, material.getDrawGeometryOffset(this));
   }
 
@@ -70,7 +79,24 @@ abstract class IndexedGeometry extends Geometry {
    * @param  {Canvas} canvas the canvas this index buffer should be bound to
    */
   protected __bindIndexBuffer(canvas: Canvas): void {
-    this.indexBuffer.getForContext(canvas).bindBuffer();
+    this.indexBuffer.getForGL(canvas.gl).bindBuffer();
+  }
+
+  protected __updateIndexBuffer(indicies: number[], length: number): void {
+    let format = WebGLRenderingContext.UNSIGNED_INT;
+    let arrayConstructor: new (arr: number[]) => ArrayBufferView = Uint32Array;
+    if (length < 256) {
+      format = WebGLRenderingContext.UNSIGNED_BYTE;
+      arrayConstructor = Uint8Array;
+    } else if (length < 65535) {
+      format = WebGLRenderingContext.UNSIGNED_SHORT;
+      arrayConstructor = Uint16Array;
+    } else if (length >= 4294967296) {
+      throw new Error("Too many index of geometry!");
+    }
+
+    this.indexBuffer.update(new arrayConstructor(indicies), length);
+    this.indexBuffer.ElementType = format;
   }
 }
 

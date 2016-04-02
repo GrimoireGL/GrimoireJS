@@ -1,7 +1,6 @@
 import IDisposable from "../../Base/IDisposable";
-import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
+import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Canvas from "../Canvas/Canvas";
-import {Action1} from "../../Base/Delegates";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
 import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
 import ResourceWrapper from "./ResourceWrapper";
@@ -11,7 +10,7 @@ import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.
  */
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectWithID implements IDisposable {
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectEEWithID implements IDisposable {
 
   public name: string;
 
@@ -23,7 +22,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     super();
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     // Initialize resources for the renderers already subscribed.
-    canvasManager.canvasListChanged.addListener(this._rendererChanged.bind(this));
+    canvasManager.on("canvas-list-changed", this._rendererChanged.bind(this));
   }
 
   public dispose(): void {
@@ -42,18 +41,11 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
     return array;
   }
 
-  public getForContext(canvas: Canvas): T {
-    return this.getForContextID(canvas.ID);
+  public getForGL(gl: WebGLRenderingContext): T {
+    return this._getForContextID(gl.id);
   }
 
-  public getForContextID(id: string): T {
-    if (!this._childWrapper[id]) {
-      console.log("There is no matching object with the ID:" + id);
-    }
-    return this._childWrapper[id];
-  }
-
-  public each(act: Action1<T>): void {
+  public each(act: (r: T) => void): void {
     for (let key in this._childWrapper) {
       act(this._childWrapper[key]);
     }
@@ -66,18 +58,25 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   protected __initializeForFirst(): void {
     const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
-      this._childWrapper[v.ID] = this.__createWrapperForCanvas(v);
+      this._childWrapper[v.id] = this.__createWrapperForCanvas(v);
       this._wrapperLength++;
     });
   }
 
-  private _rendererChanged(object: any, arg: CanvasListChangedEventArgs): void {
+  private _getForContextID(id: string): T {
+    if (!this._childWrapper[id]) {
+      console.log("There is no matching object with the ID:" + id);
+    }
+    return this._childWrapper[id];
+  }
+
+  private _rendererChanged(arg: CanvasListChangedEventArgs): void {
     if (arg.isAdditionalChange) {
-      this._childWrapper[arg.canvas.ID] = this.__createWrapperForCanvas(arg.canvas);
+      this._childWrapper[arg.canvas.id] = this.__createWrapperForCanvas(arg.canvas);
       this._wrapperLength++;
-    } else { // TODO should be tested
-      const delTarget: T = this._childWrapper[arg.canvas.ID];
-      delete this._childWrapper[arg.canvas.ID];
+    } else {
+      const delTarget: T = this._childWrapper[arg.canvas.id];
+      delete this._childWrapper[arg.canvas.id];
       delTarget.dispose();
       this._wrapperLength--;
     }

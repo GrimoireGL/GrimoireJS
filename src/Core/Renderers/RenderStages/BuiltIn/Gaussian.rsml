@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <rsml>
+    <stage name="jthree.basic.gaussian">
+      <technique target="quad">
+        <fbo>
+          <color name="BUF" register="0" />
+        </fbo>
+        <material name="jthree.basic.gaussian.1" order="300">
+          <registers>
+            <register name="builtin.buffer" />
+            <register name="builtin.basic" />
+          </registers>
+          <passes>
+            <pass>
+              <depth enabled="false" />
+              <glsl><![CDATA[
+            attribute vec3 position;
+            varying vec4 vPosition;
+
+            @vert{
+              uniform mat4 _matV;
+
+              void main(void)
+              {
+              	vPosition = vec4(position,1.0);
+                gl_Position = vec4(position,1.0);
+              }
+            }
+
+            @frag{
+
+              uniform vec2 _resolution;
+
+              uniform float weight[10];
+
+              @{type:"buffer",name:"INPUT",register:0}
+              uniform sampler2D _texture;
+              void main(void){
+                fc = gl_FragCoord.st;
+                destColor += texture2D(_texture, (fc + vec2(-9.0, 0.0)) * tFrag).rgb * weight[9];
+                destColor += texture2D(_texture, (fc + vec2(-8.0, 0.0)) * tFrag).rgb * weight[8];
+                destColor += texture2D(_texture, (fc + vec2(-7.0, 0.0)) * tFrag).rgb * weight[7];
+                destColor += texture2D(_texture, (fc + vec2(-6.0, 0.0)) * tFrag).rgb * weight[6];
+                destColor += texture2D(_texture, (fc + vec2(-5.0, 0.0)) * tFrag).rgb * weight[5];
+                destColor += texture2D(_texture, (fc + vec2(-4.0, 0.0)) * tFrag).rgb * weight[4];
+                destColor += texture2D(_texture, (fc + vec2(-3.0, 0.0)) * tFrag).rgb * weight[3];
+                destColor += texture2D(_texture, (fc + vec2(-2.0, 0.0)) * tFrag).rgb * weight[2];
+                destColor += texture2D(_texture, (fc + vec2(-1.0, 0.0)) * tFrag).rgb * weight[1];
+                destColor += texture2D(_texture, (fc + vec2( 0.0, 0.0)) * tFrag).rgb * weight[0];
+                destColor += texture2D(_texture, (fc + vec2( 1.0, 0.0)) * tFrag).rgb * weight[1];
+                destColor += texture2D(_texture, (fc + vec2( 2.0, 0.0)) * tFrag).rgb * weight[2];
+                destColor += texture2D(_texture, (fc + vec2( 3.0, 0.0)) * tFrag).rgb * weight[3];
+                destColor += texture2D(_texture, (fc + vec2( 4.0, 0.0)) * tFrag).rgb * weight[4];
+                destColor += texture2D(_texture, (fc + vec2( 5.0, 0.0)) * tFrag).rgb * weight[5];
+                destColor += texture2D(_texture, (fc + vec2( 6.0, 0.0)) * tFrag).rgb * weight[6];
+                destColor += texture2D(_texture, (fc + vec2( 7.0, 0.0)) * tFrag).rgb * weight[7];
+                destColor += texture2D(_texture, (fc + vec2( 8.0, 0.0)) * tFrag).rgb * weight[8];
+                destColor += texture2D(_texture, (fc + vec2( 9.0, 0.0)) * tFrag).rgb * weight[9];
+                gl_FragColor = vec4(destColor,1.0);
+              }
+            }
+            ]]>
+              </glsl>
+            </pass>
+          </passes>
+        </material>
+      </technique>
+    </stage>
+  </rsml>

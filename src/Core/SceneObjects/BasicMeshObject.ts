@@ -8,7 +8,7 @@ class BasicMeshObject extends Mesh {
   constructor(geometry: Geometry, mat: Material) {
     super(geometry, mat);
     this.addMaterial(new PrimaryBufferMaterial());
-    this.addMaterial(new BasicMaterial(require("../Materials/BuiltIn/GBuffer/Depth.html")));
+    this.addMaterial(new BasicMaterial(require("../Materials/BuiltIn/GBuffer/Depth.xmml"), "builtin.depth"));
     this.addMaterial(new HitAreaTestMaterial());
   }
 }

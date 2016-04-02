@@ -1,3 +1,4 @@
+import CanvasRegion from "../../Canvas/CanvasRegion";
 import Vector2 from "../../../Math/Vector2";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
@@ -10,7 +11,8 @@ class MouseRegisterer extends RegistererBase {
 
   public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
     if (uniforms["_mousePosition"]) {
-      pWrapper.uniformVector("_mousePosition", new Vector2(matArg.renderer.mouseX, matArg.renderer.mouseY));
+     const hittableRegion = <CanvasRegion><any>matArg.renderStage.renderer;
+      pWrapper.uniformVector("_mousePosition", new Vector2(hittableRegion.mouseX, hittableRegion.mouseY));
     }
   }
 }

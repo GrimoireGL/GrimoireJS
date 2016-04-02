@@ -1,4 +1,5 @@
 import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import isNumber from "lodash.isnumber";
 
 /**
  * The most base class for GOML Tree
@@ -87,7 +88,7 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * @param {boolean} mounted [description]
    */
   public set Mounted(mounted: boolean) {
-    if (mounted && !this._mounted) {
+    if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
       this._mounted = mounted;
       if (this._mounted) {
         this.emit("on-mount");
@@ -105,12 +106,50 @@ class TreeNodeBase extends JThreeObjectEEWithID {
     }
   }
 
-	/**
-	 * Add child to this node
-	 */
-  public addChild(child: TreeNodeBase): void {
+  /**
+   * get parent of this Node
+   * @return {TreeNodeBase} [description]
+   */
+  public get parent(): TreeNodeBase {
+    return this.__parent;
+  }
+
+  /**
+   * get children of this Node.
+   * @return {TreeNodeBase[]} [description]
+   */
+  public get children(): TreeNodeBase[] {
+    return this.__children;
+  }
+
+  /**
+   * get index of this node from parent.
+   * @return {number} [description]
+   */
+  public get index(): number {
+    return this.__parent.__children.indexOf(this);
+  }
+
+  /**
+   * return true when this Node is Root(no parent).
+   * @return {boolean} is root.
+   */
+  public get isRoot(): boolean {
+    return !this.__parent;
+  }
+
+  /**
+   * Add child to this node
+   * @param {TreeNodeBase} child Target node to be inserted
+   * @param {number}       index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
+   */
+  public addChild(child: TreeNodeBase, index?: number): void {
     child.__parent = this;
-    this.__children.push(child);
+    if (!isNumber(index) && index != null) {
+      throw new Error("insert index should be number or null or undefined.");
+    }
+    const insertIndex = index == null ? this.__children.length : index;
+    this.__children.splice(insertIndex, 0, child);
     if (this.Mounted) {
       child.Mounted = true;
       this.emit("child-added", child);
@@ -142,7 +181,12 @@ class TreeNodeBase extends JThreeObjectEEWithID {
    * remove myself
    */
   public remove(): void {
-    this.__parent.removeChild(this);
+    if (this.__parent) {
+      console.log("remove", this.__parent);
+      this.__parent.removeChild(this);
+    } else {
+      throw new Error("root Node cannot be removed.");
+    }
   }
 
   /**

@@ -4,6 +4,7 @@ import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import CoreRelatedNodeBase from "../../Goml/CoreRelatedNodeBase";
 import isNumber from "lodash.isnumber";
 import isUndefiend from "lodash.isundefined";
+import isString from "lodash.isstring";
 
 class GomlNodeMethods extends J3ObjectBase {
   public get(): GomlTreeNodeBase[];
@@ -40,7 +41,36 @@ class GomlNodeMethods extends J3ObjectBase {
   public index(node: GomlTreeNodeBase): number;
   public index(j3obj: J3Object): number;
   public index(argu?: any): number {
-    throw new Error("Not implemented yet");
+    let index_ = -1;
+    switch (true) {
+      case (isString(argu)):
+        const foundNodes = J3Object.find(<string>argu);
+        J3Object.each(<J3ObjectBase>this, (i, node) => {
+          if (foundNodes.indexOf(node) !== -1) {
+            index_ = i;
+            return false;
+          }
+        });
+        break;
+      case (argu instanceof GomlTreeNodeBase):
+        index_ = this.__getArray().indexOf(<GomlTreeNodeBase>argu);
+        break;
+      case (argu instanceof J3Object):
+        J3Object.each(<J3ObjectBase>this, (i, node) => {
+          if ((<J3Object>argu).index(node) !== -1) {
+            index_ = i;
+            return false;
+          }
+        });
+        break;
+      default:
+        throw new Error("Argument type is not correct");
+    }
+    return index_;
+  }
+
+  public toArray(): GomlTreeNodeBase[] {
+    return this.__getArray();
   }
 }
 

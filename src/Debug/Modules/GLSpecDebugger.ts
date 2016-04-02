@@ -6,7 +6,7 @@ import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 class GLSpecDebugger extends DebuggerModuleBase {
   public attach(debug: Debugger): void {
-    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).canvasListChanged.addListener(() => {
+    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).on("canvas-list-changed", () => {
       debug.setInfo("GLSPEC : Maximum combined texture unit", GLSpecResolver.MaxCombinedTextureUnits);
       debug.setInfo("GLSPEC : Maximum cubemap texture size", GLSpecResolver.MaxCubeMapTextureSize);
       debug.setInfo("GLSPEC : Maximum fragment uniform vectors", GLSpecResolver.MaxFragmentUniformVectors);

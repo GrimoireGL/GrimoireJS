@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsml>
+  <stage name="jthree.basic.fogExp2">
+    <technique target="quad">
+      <fbo primary="OUT">
+        <color name="OUT" register="0"/>
+      </fbo>
+      <material order="300">
+        <registers>
+          <register name="builtin.buffer" />
+          <register name="builtin.basic" />
+        </registers>
+        <passes>
+          <pass>
+            <depth enabled="false" />
+            <glsl>
+              <![CDATA[
+            attribute vec3 position;
+            varying vec4 vPosition;
+
+            @vert{
+              uniform mat4 _matV;
+
+              void main(void)
+              {
+                vPosition = vec4(position,1.0);
+                gl_Position = vec4(position,1.0);
+              }
+            }
+
+            @frag{
+              @import "builtin.gbuffer-reader"
+
+              @{register:0,type:"buffer",name:"PRIMARY"}
+              uniform mediump sampler2D _buffer;
+
+              @{register:1,type:"buffer",name:"MAIN"}
+              uniform sampler2D _mainBuffer;
+
+              uniform mat4 _matIP;
+
+              @{default:0.4}
+              uniform float density;
+
+              @{default:[1,1,1]}
+              uniform vec3 fogColor;
+
+              uniform float _nearClip;
+
+              uniform float _farClip;
+
+              float fogFactorExp2(const float dist) {
+                const float LOG2 = -1.442695;
+                float d = density * dist;
+                return 1.0 - clamp(exp2(d * d * LOG2), 0.0, 1.0);
+              }
+
+              void main()
+              {
+                vec4 rawBuffer = readRawBuffer(_buffer,vPosition);
+                float depth = getDepth(rawBuffer);
+                vec3 pos = getPosition(depth,vPosition,_matIP);
+                vec2 uv = vPosition.xy /2. + vec2(0.5,0.5);
+                gl_FragColor=texture2D( _mainBuffer, uv);
+                float d = -pos.z / (_farClip - _nearClip);
+                float fogFactor = fogFactorExp2(d);
+                gl_FragColor.rgb = mix(gl_FragColor.rgb,fogColor,fogFactor);
+              }
+            }
+
+            ]]>
+            </glsl>
+          </pass>
+        </passes>
+      </material>
+    </technique>
+  </stage>
+</rsml>

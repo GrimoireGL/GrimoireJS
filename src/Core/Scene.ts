@@ -1,8 +1,6 @@
+import IRenderer from "./Renderers/IRenderer";
 import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import JThreeEvent from "../Base/JThreeEvent";
-import BasicRenderer from "./Renderers/BasicRenderer";
 import SceneObject from "./SceneObjects/SceneObject";
-import Camera from "./SceneObjects/Camera/Camera";
 import Color3 from "../Math/Color3";
 import ISceneObjectChangedEventArgs from "./ISceneObjectChangedEventArgs";
 import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
@@ -11,8 +9,6 @@ import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
  * Provides scene feature.
  */
 class Scene extends jThreeObjectEEWithID {
-
-  public sceneObjectStructureChanged: JThreeEvent<ISceneObjectChangedEventArgs> = new JThreeEvent<ISceneObjectChangedEventArgs>();
 
   /**
    * Whether this scene needs update or not.
@@ -27,9 +23,7 @@ class Scene extends jThreeObjectEEWithID {
    */
   public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
 
-  private _renderers: BasicRenderer[] = [];
-
-  private _cameras: { [id: string]: Camera } = {};
+  private _renderers: IRenderer[] = [];
 
   constructor(id?: string) {
     super(id);
@@ -61,7 +55,7 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public addRenderer(renderer: BasicRenderer): void {
+  public addRenderer(renderer: IRenderer): void {
     this._renderers.push(renderer);
     this.emit("changed-renderer", <RendererListChangedEventArgs>{
       owner: this,
@@ -70,7 +64,7 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public removeRenderer(renderer: BasicRenderer): void {
+  public removeRenderer(renderer: IRenderer): void {
     const index = this._renderers.indexOf(renderer);
     if (index < 0) {
       return;
@@ -83,22 +77,34 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public get Renderers(): BasicRenderer[] {
+  public get Renderers(): IRenderer[] {
     return this._renderers;
   }
 
-  public addObject(targetObject: SceneObject): void {
-    this.children.push(targetObject);
+  /**
+   * Add SceneObject to scene hierarchy top.
+   * @param {SceneObject} targetObject target scene object which will be inserted.
+   * @param {number}      index        insert index of location in children.
+   */
+  public addObject(targetObject: SceneObject, index?: number): void {
+    if (index == null) {
+      index = this.children.length;
+    }
+    this.children.splice(index, 0, targetObject);
     targetObject.ParentScene = this;
     this.notifySceneObjectChanged({
       owner: null,
       scene: this,
       isAdditionalChange: true,
       changedSceneObject: targetObject,
-      changedSceneObjectID: targetObject.ID
+      changedSceneObjectID: targetObject.id
     });
   }
 
+  /**
+   * Remove SceneObject from scene hierarchy top.
+   * @param {SceneObject} removeTarget target object which will be removed.
+   */
   public removeObject(removeTarget: SceneObject): void {
     const index = this.children.indexOf(removeTarget);
     if (index >= 0) {
@@ -109,27 +115,13 @@ class Scene extends jThreeObjectEEWithID {
         scene: this,
         isAdditionalChange: false,
         changedSceneObject: removeTarget,
-        changedSceneObjectID: removeTarget.ID
+        changedSceneObjectID: removeTarget.id
       });
     }
   }
 
-  /**
-   * Append the camera to this scene as managed
-   */
-  public addCamera(camera: Camera): void {
-    this._cameras[camera.ID] = camera;
-  }
-
-  /**
-   * Get the camera managed in this scene.
-   */
-  public getCamera(id: string): Camera {
-    return this._cameras[id];
-  }
-
   public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs): void {
-    this.sceneObjectStructureChanged.fire(this, eventArg);
+    this.emit("structure-changed", eventArg);
   }
 }
 

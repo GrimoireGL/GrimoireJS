@@ -12,7 +12,7 @@ class RendererContent extends React.Component
     children = []
     i = 0;
     for v in @api.renderers
-      children.push <Tab.Panel title={v.name} key={v.ID}><Renderer renderer={v} rdrDebugger={@api.debuggers[i]}/></Tab.Panel>
+      children.push <Tab.Panel title={v.name} key={v.id}><Renderer renderer={v} rdrDebugger={@api.debuggers[i]}/></Tab.Panel>
       i++
     <div>
       <Tab>

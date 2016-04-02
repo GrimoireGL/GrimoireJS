@@ -6,7 +6,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
   private _associatedMaterial: PMXMaterial;
 
   constructor(material: PMXMaterial) {
-    super(require("../../Materials/PrimaryBuffer.html"));
+    super(require("../../Materials/PrimaryBuffer.xmml"), "pmx.gbuffer.0");
     this._associatedMaterial = material;
   }
 
@@ -15,7 +15,7 @@ class PMXPrimaryBufferMaterial extends BasicMaterial {
       return;
     }
     const skeleton = this._associatedMaterial.ParentModel.skeleton;
-    this.materialVariables = {
+    this.shaderVariables = {
       boneMatriciesTexture: skeleton.MatrixTexture,
       brightness: this._associatedMaterial.Specular.W,
       boneCount: skeleton.BoneCount

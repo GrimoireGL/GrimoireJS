@@ -9,7 +9,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
   protected __associatedMaterial: PMXMaterial;
 
   constructor(material: PMXMaterial) {
-    super(require("../../Materials/ShadowMap.html"));
+    super(require("../../Materials/ShadowMap.xmml"), "pmx.shadowmap");
     this.__associatedMaterial = material;
     this.__setLoaded();
   }
@@ -34,7 +34,7 @@ class PMXShadowMapMaterial extends BasicMaterial {
     }
     // var light = matArg.scene.LightRegister.shadowDroppableLights[matArg.techniqueIndex];
     // const skeleton = this.associatedMaterial.ParentModel.skeleton;
-    // this.materialVariables = {
+    // this.shaderVariables = {
     //    matL:light.matLightViewProjection,
     //    boneMatriciesTexture:skeleton.MatrixTexture,
     //    boneCount:skeleton.BoneCount

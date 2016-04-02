@@ -47,10 +47,10 @@ class FBOWrapper extends ResourceWrapper {
       this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, attachmentType, this.GL.TEXTURE_2D, null, 0);
       return;
     }
-    let wt = tex.getForContext(this.OwnerCanvas);
+    let wt = tex.getForGL(this.GL);
     wt.preTextureUpload();
     this.GL.framebufferTexture2D(this.GL.FRAMEBUFFER, attachmentType, this.GL.TEXTURE_2D, wt.TargetTexture, 0);
-    tex.getForContext(this.OwnerCanvas).bind();
+    tex.getForGL(this.GL).bind();
     tex.generateMipmapIfNeed();
     if (this._textures.indexOf(tex) !== -1) {
       this._textures.push(tex);
@@ -67,7 +67,7 @@ class FBOWrapper extends ResourceWrapper {
       this.GL.framebufferRenderbuffer(this.GL.FRAMEBUFFER, attachmentType, this.GL.RENDERBUFFER, null);
       return;
     }
-    let wrapper = rbo.getForContext(this.OwnerCanvas);
+    let wrapper = rbo.getForGL(this.GL);
     this.GL.framebufferRenderbuffer(this.GL.FRAMEBUFFER, attachmentType, this.GL.RENDERBUFFER, wrapper.Target);
   }
 

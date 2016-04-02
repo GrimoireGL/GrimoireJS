@@ -1,4 +1,4 @@
-import AsyncLoader from "../../Core/Resources/AsyncLoader";
+import ResourceResolver from "../../Core/Resources/ResourceResolver";
 import PMXPrimaryBufferMaterial from "./Materials/PMXPrimaryBufferMaterial";
 import PMXCoreInitializer from "./PMXCoreInitializer";
 import PMXHitAreaMaterial from "./Materials/PMXHitAreaMaterial";
@@ -8,12 +8,11 @@ import PMXGeometry from "./PMXGeometry";
 import PMXMaterial from "./Materials/PMXMaterial";
 import PMXSkeleton from "./PMXSkeleton";
 import PMXMorphManager from "./PMXMorphManager";
-import PMXShadowMapMaterial from "./Materials/PMXShadowMapMaterial";
 import PMXTextureManager from "./PMXTextureManager";
 import Q from "q";
 class PMXModel extends SceneObject {
 
-  private static _asyncLoader: AsyncLoader<PMXModelData> = new AsyncLoader<PMXModelData>();
+  private static _cacheResolver: ResourceResolver<PMXModelData> = new ResourceResolver<PMXModelData>();
 
   public skeleton: PMXSkeleton;
 
@@ -53,7 +52,7 @@ class PMXModel extends SceneObject {
       const mat = new PMXMaterial(this, materialCount, offset);
       this.addMaterial(mat);
       this.addMaterial(new PMXPrimaryBufferMaterial(mat));
-      this.addMaterial(new PMXShadowMapMaterial(mat));
+      // this.addMaterial(new PMXShadowMapMaterial(mat));
       this.addMaterial(new PMXHitAreaMaterial(mat));
       this._pmxMaterials[materialCount] = mat;
       this._materialDictionary[currentMat.materialName] = mat;
@@ -88,7 +87,7 @@ class PMXModel extends SceneObject {
    * @return {Q.IPromise<PMXModelData>}     the promise object for loading.
    */
   private static _loadDataFromUrl(url: string, directory: string): Q.IPromise<PMXModelData> {
-    return PMXModel._asyncLoader.fetch(url, (path) => {
+    return PMXModel._cacheResolver.fetch(url, (path) => {
       const deferred = Q.defer<PMXModelData>();
       const xhr = new XMLHttpRequest();
       xhr.open("GET", path, true);

@@ -1,3 +1,6 @@
+import IRenderer from "../Renderers/IRenderer";
+import IShaderArgumentContainer from "./IShaderArgumentContainer";
+import IDisposable from "../../Base/IDisposable";
 import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import Geometry from "../Geometries/Base/Geometry";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
@@ -6,7 +9,6 @@ import Matrix from "../../Math/Matrix";
 import VectorBase from "../../Math/VectorBase";
 import ProgramWrapper from "../Resources/Program/ProgramWrapper";
 import IVariableDescription from "../ProgramTransformer/Base/IVariableDescription";
-import BasicRenderer from "../Renderers/BasicRenderer";
 /**
 * Basement class for any Materials.
 * Material is basically meaning what shader will be used or what shader variable will passed.
@@ -16,8 +18,8 @@ import BasicRenderer from "../Renderers/BasicRenderer";
 * Some of materials are intended to use in deferred rendering stage(G-buffer generation stage is one of example).
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
-class Material extends JThreeObjectEEWithID {
-  public materialVariables: { [key: string]: any } = {};
+class Material extends JThreeObjectEEWithID implements IDisposable, IShaderArgumentContainer {
+  public shaderVariables: { [key: string]: any } = {};
 
   /**
   * Whether this material was initialized already or not.
@@ -65,6 +67,10 @@ class Material extends JThreeObjectEEWithID {
   public get MaterialGroup(): string {
     return "builtin.forward";
   }
+
+  public dispose(): void {
+    return;
+  }
   /**
   * Should return how many times required to render this material.
   * If you render some of model with edge,it can be 2 or greater.
@@ -86,11 +92,11 @@ class Material extends JThreeObjectEEWithID {
     return;
   }
 
-  public registerMaterialVariables(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }): void {
+  public registerMaterialVariables(renderer: IRenderer, pWrapper: ProgramWrapper, uniforms: { [key: string]: IVariableDescription }, mergedShaderVariables: { [name: string]: any }): void {
     for (let valName in uniforms) {
       let uniform = uniforms[valName];
       if (valName[0] === "_") { continue; }
-      const val = this.materialVariables[valName];
+      const val = mergedShaderVariables[valName];
       if (typeof val === "undefined" || val == null) {
         this._whenMaterialVariableNotFound(renderer, pWrapper, uniform);
         continue;
@@ -159,7 +165,7 @@ class Material extends JThreeObjectEEWithID {
     return geo.GeometryOffset;
   }
 
-  private _whenMaterialVariableNotFound(renderer: BasicRenderer, pWrapper: ProgramWrapper, uniform: IVariableDescription): void {
+  private _whenMaterialVariableNotFound(renderer: IRenderer, pWrapper: ProgramWrapper, uniform: IVariableDescription): void {
     if (!uniform.isArray) {
       switch (uniform.variableType) {
         case "float":
@@ -182,7 +188,7 @@ class Material extends JThreeObjectEEWithID {
           } else {
             register = 0;
           }
-          const texture = uniform.variableAnnotation.default ? uniform.variableAnnotation.default : renderer.alternativeTexture;
+          const texture = uniform.variableAnnotation.default ? uniform.variableAnnotation.default : renderer.canvas.alternativeTexture;
           pWrapper.uniformSampler(uniform.variableName, texture, register);
           if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
@@ -196,7 +202,7 @@ class Material extends JThreeObjectEEWithID {
           } else {
             registerCube = 0;
           }
-          pWrapper.uniformSampler(uniform.variableName, renderer.alternativeCubeTexture, registerCube);
+          pWrapper.uniformSampler(uniform.variableName, renderer.canvas.alternativeCubeTexture, registerCube);
           if (uniform.variableAnnotation["flag"]) {
             pWrapper.uniformInt(uniform.variableAnnotation["flag"], 0);
           }

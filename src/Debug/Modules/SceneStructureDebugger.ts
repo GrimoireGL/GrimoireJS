@@ -9,7 +9,7 @@ class SceneStructureDebugger extends DebuggerModuleBase {
     JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).on("change", (v) => {
       if (v.isAdditionalChange) {
         // If scene was added
-        v.changedScene.sceneObjectStructureChanged.addListener((o2, v2) => {
+        v.changedScene.on("structure-changed", () => {
           debug.debuggerAPI.scenes.setScene(v.changedScene.ID, v.changedScene);
         });
       } else {

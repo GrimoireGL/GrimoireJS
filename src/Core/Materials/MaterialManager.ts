@@ -8,7 +8,7 @@ import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import BufferRegisterer from "../Pass/Registerer/BufferRegisterer";
 import TimeRegisterer from "../Pass/Registerer/TimeRegisterer";
-import AsyncLoader from "../Resources/AsyncLoader";
+import BasicCacheResolver from "../Resources/BasicCacheResolver";
 import IConditionChecker from "../ProgramTransformer/Base/IConditionChecker";
 import IConditionRegister from "../ProgramTransformer/Base/IConditionRegister";
 import Q from "q";
@@ -24,7 +24,7 @@ class MaterialManager implements IContextComponent, IConditionRegister {
 
   private _materialDocuments: { [key: string]: string } = {};
 
-  private _chunkLoader: AsyncLoader<string> = new AsyncLoader<string>();
+  private _chunkLoader: BasicCacheResolver<string> = new BasicCacheResolver<string>();
 
   private _conditionCheckers: { [key: string]: IConditionChecker } = {};
 
@@ -40,8 +40,8 @@ class MaterialManager implements IContextComponent, IConditionRegister {
     // this.addUniformRegister(TextureRegister);
     this.addUniformRegister(BufferRegisterer);
     this.addUniformRegister(StageDescriptionRegisterer);
-    this.registerMaterial(require("./BuiltIn/Materials/Phong.html"));
-    this.registerMaterial(require("./BuiltIn/Materials/SolidColor.html"));
+    this.registerMaterial(require("./BuiltIn/Materials/Phong.xmml"));
+    this.registerMaterial(require("./BuiltIn/Materials/SolidColor.xmml"));
   }
 
   public getContextComponentIndex(): number {
@@ -58,7 +58,7 @@ class MaterialManager implements IContextComponent, IConditionRegister {
   }
 
   public loadChunks(srcs: string[]): Promise<string[]> {
-    return Promise.all(srcs.map(src => this._loadChunk(src)));
+    return Promise.all<string>(srcs.map(src => this._loadChunk(src)));
   }
 
 
@@ -86,6 +86,7 @@ class MaterialManager implements IContextComponent, IConditionRegister {
    * @return {string}             material tag's name attribute
    */
   public registerMaterial(matDocument: string): string {
+
     const dom = (new DOMParser()).parseFromString(matDocument, "text/xml");
     const matTag = dom.querySelector("material");
     const matName = matTag.getAttribute("name");
@@ -114,7 +115,7 @@ class MaterialManager implements IContextComponent, IConditionRegister {
       // console.error(`Specified material name '${matName}' was not found!`);
       return undefined;
     } else {
-      return new BasicMaterial(matDoc);
+      return new BasicMaterial(matDoc, matName);
     }
   }
 

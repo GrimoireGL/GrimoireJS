@@ -1,11 +1,8 @@
 import IDisposable from "../../Base/IDisposable";
-import JThreeObject from "../../Base/JThreeObject";
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import ContextManager from "../Canvas/Canvas";
-import JThreeEvent from "../../Base/JThreeEvent";
-import {Action2} from "../../Base/Delegates";
-class ResourceWrapper extends JThreeObject implements IDisposable {
+class ResourceWrapper extends JThreeObjectEE implements IDisposable {
 
-  protected __onInitializeChangedEvent: JThreeEvent<boolean> = new JThreeEvent<boolean>();
   /**
    * Whether this resource was initialized for this context or not.
    */
@@ -31,18 +28,11 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
   * The ID string for identify which canvas manager holds this resource.
   */
   public get OwnerID(): string {
-    return this._ownerCanvas.ID;
+    return this._ownerCanvas.id;
   }
 
   public get GL() {
     return this._ownerCanvas.gl;
-  }
-
-  /**
-   * add event handler for changing initialized state changed.
-   */
-  public onInitializeChanged(handler: Action2<ResourceWrapper, boolean>): void {
-    this.__onInitializeChangedEvent.addListener(handler);
   }
 
   /**
@@ -60,7 +50,7 @@ class ResourceWrapper extends JThreeObject implements IDisposable {
     if (typeof initialized === "undefined") { initialized = true; }
     if (initialized === this._initialized) { return; }
     this._initialized = initialized;
-    this.__onInitializeChangedEvent.fire(this, initialized);
+    this.emit("initialized", initialized);
   }
 
 }

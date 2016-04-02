@@ -19,11 +19,11 @@ class TextureGenerater {
   }
 
   public static getTexture(renderer: BasicRenderer, bufferName: string): TextureBase {
-    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.ID + "." + bufferName);
+    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.id + "." + bufferName);
   }
 
   private static _getGeneraters(renderer: BasicRenderer): {[key: string]: GeneraterBase} {
-    if (TextureGenerater._generaters[renderer.ID]) { return TextureGenerater._generaters[renderer.ID]; }
+    if (TextureGenerater._generaters[renderer.id]) { return TextureGenerater._generaters[renderer.id]; }
     return TextureGenerater._initializeGeneraters(renderer);
   }
 
@@ -36,7 +36,7 @@ class TextureGenerater {
         targetArray[key] = new element(renderer);
       }
     }
-    TextureGenerater._generaters[renderer.ID] = targetArray;
+    TextureGenerater._generaters[renderer.id] = targetArray;
     return targetArray;
   }
 }

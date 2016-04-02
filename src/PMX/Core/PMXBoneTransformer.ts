@@ -6,8 +6,6 @@ import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
 import PMXIKLink from "../PMXIKLinkData";
-import Debugger from "../../Debug/Debugger";
-import JThreeContext from "../../JThreeContext";
 /**
  * Bone transformer for pmx
  */
@@ -118,10 +116,6 @@ class PMXBoneTransformer extends Transformer {
     return (this.BoneData.boneFlag & 0x0020) > 0;
   }
 
-  public updateTransform(): void {
-    super.updateTransform();
-  }
-
   public updateTransformForPMX(): void {
     if (this._pmx == null) {
       return;
@@ -129,11 +123,9 @@ class PMXBoneTransformer extends Transformer {
     this._updateLocalTranslation();
     if (this.IsIKBone && this._pmx.skeleton) {
       this._applyCCDIK();
-      const debug = JThreeContext.getContextComponent<Debugger>(6);
-      debug.setInfo("Bone " + this.BoneData.boneName, this.Position.toString());
     } else {
       this._updateLocalRotation();
-      super.updateTransform();
+      super.updateTransform(); // reconstruct transoform matrix
     }
   }
 	/**
@@ -264,9 +256,46 @@ class PMXBoneTransformer extends Transformer {
     const xRotation = Math.max(link.limitedRotation[0], Math.min(link.limitedRotation[3], -decomposed.x));
     const yRotation = Math.max(link.limitedRotation[1], Math.min(link.limitedRotation[4], -decomposed.y));
     const zRotation = Math.max(link.limitedRotation[2], Math.min(link.limitedRotation[5], decomposed.z));
-    return Quaternion.eulerXYZ(-xRotation, -yRotation, zRotation);
+    const nRot = this._normalizeEuler(xRotation, yRotation, zRotation);
+    return Quaternion.eulerXYZ(-nRot.x, -nRot.y, nRot.z);
   }
 
+  private _normalizeEuler(x: number, y: number, z: number): {
+    x: number,
+    y: number,
+    z: number
+  } {
+    if (!this._between(x, - Math.PI, Math.PI)) {
+      if (x > 0) {
+        x -= Math.PI * 2;
+      } else {
+        x += Math.PI * 2;
+      }
+    }
+    if (!this._between(y, - Math.PI * 0.5, Math.PI * 0.5)) {
+      if (y > 0) {
+        y -= Math.PI * 2;
+      } else {
+        y += Math.PI * 2;
+      }
+    }
+    if (!this._between(z, - Math.PI, Math.PI)) {
+      if (z > 0) {
+        z -= Math.PI * 2;
+      } else {
+        z += Math.PI * 2;
+      }
+    }
+    return {
+      x: x,
+      y: y,
+      z: z
+    };
+  }
+
+  private _between(val: number, min: number, max: number): boolean {
+    return val <= max && val >= min;
+  }
   private _clampFloat(f: number, limit: number): number {
     return Math.max(Math.min(f, limit), -limit);
   }

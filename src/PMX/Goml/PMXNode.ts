@@ -38,6 +38,7 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
       .then((m) => {
       this._pmxModel = m;
       this.TargetSceneObject = this._pmxModel;
+      this.emit("loaded");
       this._pmxLoadingDeferred.resolve(null);
     });
   }

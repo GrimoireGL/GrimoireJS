@@ -1,11 +1,10 @@
 import JThreeObject from "../../Base/JThreeObject";
-import {Action1, Func0} from "./../../Base/Delegates";
 class ResourceArray<T> extends JThreeObject {
   private _resourceArray: { [key: string]: T } = {};
 
-  private _handlerArray: { [id: string]: Action1<T>[] } = {};
+  private _handlerArray: { [id: string]: ((t: T) => void)[] } = {};
 
-  public create(id: string, creationFunc: Func0<T>): any {
+  public create(id: string, creationFunc: () => T): any {
     let resource;
     if (this._resourceArray[id]) {
       resource = this._resourceArray[id];
@@ -29,7 +28,7 @@ class ResourceArray<T> extends JThreeObject {
     return !!this._resourceArray[id];
   }
 
-  public getHandler(id: string, handler: Action1<T>): void {
+  public getHandler(id: string, handler: (h: T) => void): void {
     if (this.has(id)) {
       handler(this.get(id));
     } else {

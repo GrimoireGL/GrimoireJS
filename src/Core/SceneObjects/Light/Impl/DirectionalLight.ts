@@ -14,18 +14,18 @@ class DirectionalLight extends LightBase {
   constructor() {
     super();
     this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
-    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.html"));
+    const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.xmml"), "builtin.light.directional.diffuse");
     diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
-      diffuseMaterial.materialVariables = {
+      diffuseMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
-        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.camera.viewMatrix, this.__transformer.forward))
+        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.renderer.camera.viewMatrix, this.__transformer.forward))
       };
     });
-    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/DirectionalLight.html"));
+    const specularMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Specular/DirectionalLight.xmml"), "builtin.light.directional.specular");
     specularMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
-      specularMaterial.materialVariables = {
+      specularMaterial.shaderVariables = {
         lightColor: this.Color.toVector().multiplyWith(this.intensity),
-        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.camera.viewMatrix, this.__transformer.forward))
+        lightDirection: Vector3.normalize(Matrix.transformNormal(matArg.renderStage.renderer.camera.viewMatrix, this.__transformer.forward))
       };
     });
     this.addMaterial(diffuseMaterial);

@@ -1,24 +1,24 @@
+import IRenderer from "./IRenderer";
 import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
 import BasicRenderStage from "./RenderStages/Base/BasicRenderStage";
 import BasicRenderer from "./BasicRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import ContextComponents from "../../ContextComponents";
 import IContextComponent from "../../IContextComponent";
-import {Func1} from "../../Base/Delegates";
 class RenderStageRegistory implements IContextComponent {
-  private _renderStageFactoryFunctions: { [key: string]: Func1<BasicRenderer, RenderStageBase> } = {};
+  private _renderStageFactoryFunctions: { [key: string]: (r: IRenderer) => RenderStageBase } = {};
 
   constructor() {
     this.register("jthree.hitarea", (renderer) => new HitAreaRenderStage(renderer));
-    this.register(require("./RenderStages/BuiltIn/GBuffer.html"));
-    this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.html"));
-    this.register(require("./RenderStages/BuiltIn/ForwardShading.html"));
-    this.register(require("./RenderStages/BuiltIn/Fog.html"));
-    this.register(require("./RenderStages/BuiltIn/FogExp2.html"));
-    this.register(require("./RenderStages/BuiltIn/Skybox.html"));
-    this.register(require("./RenderStages/BuiltIn/FXAA.html"));
-    this.register(require("./RenderStages/BuiltIn/Sobel.html"));
-    this.register(require("./RenderStages/BuiltIn/Gaussian.html"));
+    this.register(require("./RenderStages/BuiltIn/GBuffer.rsml"));
+    this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.rsml"));
+    this.register(require("./RenderStages/BuiltIn/ForwardShading.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Fog.rsml"));
+    this.register(require("./RenderStages/BuiltIn/FogExp2.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Skybox.rsml"));
+    this.register(require("./RenderStages/BuiltIn/FXAA.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Sobel.rsml"));
+    this.register(require("./RenderStages/BuiltIn/Gaussian.rsml"));
   }
 
   public getContextComponentIndex(): number {
@@ -36,8 +36,8 @@ class RenderStageRegistory implements IContextComponent {
    * @param {string}                            name              the key to be used for constructing the render stage
    * @param {Func1<BasicRenderer, RenderStageBase>} factory       factory function for constructing the render stage
    */
-  public register(name: string, factory: Func1<BasicRenderer, RenderStageBase>): void;
-  public register(nameOrsource: string, factory?: Func1<BasicRenderer, RenderStageBase>): void {
+  public register(name: string, factory: (r: BasicRenderer) => RenderStageBase): void;
+  public register(nameOrsource: string, factory?: (r: BasicRenderer) => RenderStageBase): void {
     if (factory) {
       this._renderStageFactoryFunctions[nameOrsource] = factory;
       return;
@@ -59,7 +59,7 @@ class RenderStageRegistory implements IContextComponent {
    * @param  {BasicRenderer}   renderer the renderer being going to hold generated render stage base
    * @return {RenderStageBase}          generated render stage base
    */
-  public construct(name: string, renderer: BasicRenderer): RenderStageBase {
+  public construct(name: string, renderer: IRenderer): RenderStageBase {
     return this._renderStageFactoryFunctions[name](renderer);
   }
 }

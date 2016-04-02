@@ -1,20 +1,26 @@
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import BasicRenderer from "./BasicRenderer";
 import GeneraterInfoChunk from "./TextureGeneraters/GeneraterInfoChunk";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
+import IDisposable from "../../Base/IDisposable";
 /**
  * The class managing all buffer textures used for rendering in a BasicRenderer.
  */
-class BufferSet {
-
-  private _renderer: BasicRenderer;
+class BufferSet extends JThreeObjectEE implements IDisposable {
   /**
    * The color buffers managed by this class.
    */
   private _colorBuffers: { [key: string]: TextureBase } = {};
 
-  constructor(renderer: BasicRenderer) {
-    this._renderer = renderer;
+  constructor(private _renderer: BasicRenderer) {
+    super();
+  }
+
+  public dispose(): void {
+    Object.keys(this._colorBuffers).forEach(k => {
+      this._colorBuffers[k].dispose();
+    });
   }
 
   /**
@@ -27,6 +33,7 @@ class BufferSet {
       return;
     } else {
       this._colorBuffers[argument.name] = TextureGenerater.generateTexture(this._renderer, argument);
+      this.emit("changed", {});
     }
   }
 
@@ -44,6 +51,7 @@ class BufferSet {
     if (this._colorBuffers[name]) {
       this._colorBuffers[name].dispose();
       delete this._colorBuffers[name];
+      this.emit("changed", {});
     }
   }
 

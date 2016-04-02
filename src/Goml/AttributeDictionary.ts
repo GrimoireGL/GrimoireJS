@@ -1,8 +1,5 @@
-import AnimaterBase from "./Animater/AnimaterBase";
 import JThreeObject from "../Base/JThreeObject";
 import GomlAttribute from "./GomlAttribute";
-import {Action0} from "../Base/Delegates";
-import EasingFunctionBase from "./Easing/EasingFunctionBase";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
 import AttributeDeclaration from "./AttributeDeclaration";
 import isUndefined from "lodash.isundefined";
@@ -73,15 +70,6 @@ class AttributeDictionary extends JThreeObject {
 
   public getAllAttributes(): { [key: string]: GomlAttribute } {
     return this._attributes;
-  }
-
-  public getAnimater(attrName: string, beginTime: number, duration: number, beginVal: any, endVal: any, easing: EasingFunctionBase, onComplete?: Action0): AnimaterBase {
-    const attr = this._attributes[attrName];
-    if (attr === undefined) {
-      console.warn(`attribute \"${attrName}\" is not found.`);
-    } else {
-      return attr.Converter.getAnimater(attr, beginVal, endVal, beginTime, duration, easing, onComplete);
-    }
   }
 
   /**
@@ -158,7 +146,7 @@ class AttributeDictionary extends JThreeObject {
     });
   }
 
-  public updateValue(attrName?: string): void {
+  public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
     if (typeof attrName === "undefined") {
       Object.keys(this._attributes).forEach((k) => {
         let v = this._attributes[k];

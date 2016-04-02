@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="jthree.basic.hitarea" group="jthree.materials.hitarea" order="300">
+<registers>
+  <register name="builtin.basic"/>
+</registers>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec4 position;
+
+      @vert{
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+        	gl_Position =_matPVM * position;
+        }
+      }
+
+      @frag{
+        uniform vec4 indexColor;
+
+        void main()
+        {
+        	gl_FragColor = indexColor;
+        }
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>

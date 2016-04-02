@@ -29,8 +29,8 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   * Add new scene to be managed.
   */
   public addScene(scene: Scene): void {
-    if (!this._scenes[scene.ID]) {
-      this._scenes[scene.ID] = scene;
+    if (!this._scenes[scene.id]) {
+      this._scenes[scene.id] = scene;
       this.emit("change", {
         owner: this,
         isAdditionalChange: true,
@@ -55,8 +55,8 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   * Remove exisiting scene from managed.
   */
   public removeScene(scene: Scene): void {
-    if (this._scenes[scene.ID]) {
-      delete this._scenes[scene.ID];
+    if (this._scenes[scene.id]) {
+      delete this._scenes[scene.id];
       this.emit("change", {
         owner: this,
         isAdditionalChange: false,

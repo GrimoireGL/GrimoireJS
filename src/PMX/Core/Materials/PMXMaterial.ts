@@ -78,7 +78,7 @@ class PMXMaterial extends Material {
     this._specular = new Vector4(materialData.specular);
     this._edgeSize = materialData.edgeSize;
     this._sphereMode = materialData.sphereMode;
-    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.html"));
+    this.__innerMaterial = new BasicMaterial(require("../../Materials/Forward.xmml"), "pmx.forward");
     const tm = this._parentModel.pmxTextureManager;
     tm.loadTexture(materialData.sphereTextureIndex).then((texture) => {
       this._sphere = texture;
@@ -153,14 +153,14 @@ class PMXMaterial extends Material {
   public apply(matArg: IApplyMaterialArgument): void {
     const skeleton = this._parentModel.skeleton;
     if (matArg.passIndex === 1) {
-      this.__innerMaterial.materialVariables = {
+      this.__innerMaterial.shaderVariables = {
         boneCount: skeleton.BoneCount,
         boneMatriciesTexture: skeleton.MatrixTexture,
         edgeSize: PmxMaterialMorphParamContainer.calcMorphedSingleValue(this._edgeSize, this.addMorphParam, this.mulMorphParam, (t) => t.edgeSize),
         edgeColor: PmxMaterialMorphParamContainer.calcMorphedVectorValue(this.edgeColor.toVector(), this.addMorphParam, this.mulMorphParam, (t) => t.edgeColor, 4)
       };
     } else {
-      this.__innerMaterial.materialVariables = {
+      this.__innerMaterial.shaderVariables = {
         boneCount: skeleton.BoneCount,
         boneMatriciesTexture: skeleton.MatrixTexture,
         texture: this._texture,
