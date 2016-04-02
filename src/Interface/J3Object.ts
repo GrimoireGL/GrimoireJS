@@ -16,6 +16,7 @@ import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeInsertionOutside from "./Manipulation/NodeInsertionOutside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
+import Copying from "./Manipulation/Copying";
 import Basic from "./Effects/Basic";
 import IOption from "./Effects/IOption";
 import Module from "./Modules/Module";
@@ -36,6 +37,7 @@ class J3Object extends J3ObjectBase implements
   NodeInsertionInside,
   NodeInsertionOutside,
   NodeRemoval,
+  Copying,
   Basic,
   Module,
   Custom,
@@ -406,6 +408,17 @@ class J3Object extends J3ObjectBase implements
     (): J3Object;
     (filter: string): J3Object;
     (argu?: string): any;
+  };
+
+  /**
+   * Manipulation/Copying
+   */
+
+  public clone: {
+    (): J3Object;
+    (withEvents: boolean): J3Object;
+    (withEvents: boolean, deepWithEvents: boolean): J3Object;
+    (argu0?: any, argu1?: any): J3Object;
   };
 
   /**

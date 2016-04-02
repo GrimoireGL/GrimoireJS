@@ -24,6 +24,16 @@ class NodeOperation {
       nodeManager.removeNode(target);
     });
   }
+
+  public static clone(targets: GomlTreeNodeBase[], withEvents: boolean, deepWithEvents: boolean): GomlTreeNodeBase[] {
+    if (deepWithEvents) {
+      withEvents = true;
+    }
+    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    return targets.map((target) => {
+      return nodeManager.cloneNode(target, withEvents, deepWithEvents);
+    });
+  }
 }
 
 export default NodeOperation;

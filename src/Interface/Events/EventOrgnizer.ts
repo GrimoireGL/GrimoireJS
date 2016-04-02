@@ -5,10 +5,23 @@ import isArray from "lodash.isarray";
 
 class EventOrganizer extends EventEmitter {
   private _node: GomlTreeNodeBase;
+  private _capturing: {
+    eventType: string,
+    handler: (eventObject: J3Event, ...extraParameter: any[]) => void,
+    data: any,
+    boundHandler: (e: J3Event) => void}[] = [];
 
   constructor(node: GomlTreeNodeBase) {
     super();
     this._node = node;
+  }
+
+  public clone(node: GomlTreeNodeBase): EventOrganizer {
+    const cloned = new EventOrganizer(node);
+    this._capturing.forEach((argu) => {
+      cloned.capture(argu.eventType, argu.handler, argu.data);
+    });
+    return cloned;
   }
 
   public capture(eventTypeString: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void, data: any): ((e: J3Event) => void)[] {
@@ -26,6 +39,12 @@ class EventOrganizer extends EventEmitter {
         handler.apply(this._node, boundArgu);
       };
       this.on(eventType, boundHandler);
+      this._capturing.push({
+        eventType: eventType,
+        handler: handler,
+        data: boundArgu,
+        boundHandler: boundHandler,
+      });
       return boundHandler;
     });
   }
@@ -41,6 +60,8 @@ class EventOrganizer extends EventEmitter {
       boundHandlers.forEach((bh) => {
         this.removeListener(eventType, bh);
       });
+      const index = this._capturing.map((v) => v.boundHandler).indexOf(boundHandler);
+      this._capturing.splice(index, 1);
     });
   }
 
