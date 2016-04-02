@@ -1,5 +1,6 @@
 import IConditionRegister from "./IConditionRegister";
 import JSON5 from "json5";
+import Q from "q";
 
 class ConditionBlock {
   private _type: string;
@@ -26,7 +27,7 @@ class ConditionBlock {
 
   private static _parseCondition(source: string): ConditionBlock[] {
     let ret: ConditionBlock[] = [];
-    const found = source.indexOf("@Condition(", 0);
+    const found = source.indexOf("@condition(", 0);
     if (found < 0) {
       ret.push(ConditionBlock._createPlain(source));
       return ret; // When there was no more found
@@ -100,30 +101,51 @@ class ConditionBlock {
   }
 
 
-  public resolve(conditionRegister: IConditionRegister): string {
+  public resolve(conditionRegister: IConditionRegister): Q.IPromise<string> {
 
     if (!this._isRoot) {
 
 
       if (this._isPlain) {
-        return this._content;
+        return Q.when(this._content);
       }
 
       let cc = conditionRegister.getConditionChecker(this._type);
       if (cc == null) {
-        return "";
+        return Q.when("");
       }
 
-      if (!cc.checkCondition(this._condition)) {
-        return "";
-      }
+      return cc.checkCondition(this._condition).then(flag => {
+        if (!flag) {
+          return Q.when("");
+        } else {
+          let rett: Q.IPromise<string>[] = [];
+          for (let i = 0; i < this._children.length; i++) {
+            rett.push(this._children[i].resolve(conditionRegister));
+          }
+          return Q.all(rett).then(data => {
+            let ret = "";
+            for (let i = 0; i < data.length; i++) {
+              ret += data[i];
+            }
+            return ret;
+          });
+        }
+      });
 
+    } else {
+      let rett: Q.IPromise<string>[] = [];
+      for (let i = 0; i < this._children.length; i++) {
+        rett.push(this._children[i].resolve(conditionRegister));
+      }
+      return Q.all(rett).then(data => {
+        let ret = "";
+        for (let i = 0; i < data.length; i++) {
+          ret += data[i];
+        }
+        return ret;
+      });
     }
-    let ret = "";
-    for (let i = 0; i < this._children.length; i++) {
-      ret = ret + this._children[i].resolve(conditionRegister);
-    }
-    return ret;
   }
 
 

@@ -93,6 +93,7 @@
     "./src/Core/ProgramTransformer/Base/IProgramTransformer.ts",
     "./src/Core/ProgramTransformer/Base/IVariableDescription.ts",
     "./src/Core/ProgramTransformer/GLExtensionRegistoryConditionChecker.ts",
+    "./src/Core/ProgramTransformer/GLExtensionRegistoryConditionRegister.ts",
     "./src/Core/ProgramTransformer/ProgramTranspiler.ts",
     "./src/Core/ProgramTransformer/Transformer/Base/DescriptionTransformer.ts",
     "./src/Core/ProgramTransformer/Transformer/Base/ProgramTransformer.ts",

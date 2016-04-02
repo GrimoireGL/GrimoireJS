@@ -1,3 +1,4 @@
+import GLExtensionConditionChecker from "../ProgramTransformer/GLExtensionRegistoryConditionChecker";
 import ImportTransformer from "../ProgramTransformer/Transformer/ImportTransformer";
 import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
 import RegistererBase from "../Pass/Registerer/RegistererBase";
@@ -42,6 +43,7 @@ class MaterialManager implements IContextComponent, IConditionRegister {
     this.addUniformRegister(StageDescriptionRegisterer);
     this.registerMaterial(require("./BuiltIn/Materials/Phong.xmml"));
     this.registerMaterial(require("./BuiltIn/Materials/SolidColor.xmml"));
+    this.registerCondition("gl-extension", new GLExtensionConditionChecker());
   }
 
   public getContextComponentIndex(): number {

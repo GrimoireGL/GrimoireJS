@@ -1,18 +1,26 @@
+import ContextComponents from "../../ContextComponents";
+import CanvasManager from "../Canvas/CanvasManager";
+import JThreeContext from "../../JThreeContext";
 import IConditionChecker from "./Base/IConditionChecker";
+import Q from "q";
 
 class GLExtensionConditionChecker implements IConditionChecker {
-  private _glExtensions: string[];
-  private _conditionName: string = "GLExtenstion";
-  constructor(glExtensions: string[]) {
-    this._glExtensions = glExtensions;
-  }
+  private _conditionName: string = "gl-extension";
   public checkCondition(condition: JSON): Q.IPromise<boolean> {
     if (condition["type"] === this._conditionName) {
       let extension = condition["extension"];
-      if (this._glExtensions.some((elem) => extension === elem)) {
+      let canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+      let canvas = canvasManager.canvases[0];
+      let extensions = canvas.glExtensionRegistory.extensions;
+      if (typeof extensions[extension] === "undefined") {
+        throw new Error("undefined glextension");
+      }
+      if (extensions[extension] !== null) {
+        console.log("glex true");
         return Q.when(true);
       }
     }
+      console.log("glex false");
     return Q.when(false);
   }
 
