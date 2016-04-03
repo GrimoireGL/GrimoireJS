@@ -515,6 +515,17 @@ class J3Object extends J3ObjectBase implements
     (events: { [key: string]: boolean }, selector: string, data: any[]): J3Object;
     (argu0: any, argu1?: any, argu2?: any, argu3?: any): any;
   };
+
+  public off: {
+    (events: string, selector: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, selector: string): J3Object;
+    (events: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }): J3Object;
+    (): J3Object;
+    (argu0?: any, argu1?: any, argu2?: any): any;
+  };
 }
 
 export default J3Object;
