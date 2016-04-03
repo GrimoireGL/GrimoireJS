@@ -49,20 +49,48 @@ class EventOrganizer extends EventEmitter {
     });
   }
 
-  public release(eventTypeString: string, boundHandlers: ((e: J3Event) => void)[]): void;
-  public release(eventTypeString: string, boundHandler: (e: J3Event) => void): void;
-  public release(eventTypeString: string, boundHandler: any): void {
-    let boundHandlers: ((e: J3Event) => void)[] = boundHandler;
-    if (!isArray(boundHandler)) {
-      boundHandlers = [boundHandler];
+  public release(eventTypeString: string, handler: ((eventObject: J3Event, ...extraParameter: any[]) => void)[]): void;
+  public release(eventTypeString: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): void;
+  public release(eventTypeString: string, handler: any): void {
+    let handlers: ((e: J3Event) => void)[] = handler;
+    if (!isArray(handler)) {
+      handlers = [handler];
     }
+    const capturingHandlers = this._capturing.map((v) => v.handler);
+    const boundHandlers = handlers.map((h) => {
+      const index = capturingHandlers.indexOf(h);
+      if (index !== -1) {
+        const ret = this._capturing[index].boundHandler;
+        this._capturing.splice(index, 1);
+        return ret;
+      }
+    }).filter((v) => !!v);
     eventTypeString.split(" ").forEach((eventType) => {
       boundHandlers.forEach((bh) => {
         this.removeListener(eventType, bh);
       });
-      const index = this._capturing.map((v) => v.boundHandler).indexOf(boundHandler);
-      this._capturing.splice(index, 1);
     });
+  }
+
+  public releaseAll(): void;
+  public releaseAll(eventTypeString: string): void;
+  public releaseAll(eventTypeString?: string): void {
+    if (eventTypeString) {
+      eventTypeString.split(" ").forEach((eventType) => {
+        for ( ; ; ) {
+          const index = this._capturing.map((v) => v.eventType).indexOf(eventType);
+          if (index !== -1) {
+            this._capturing.splice(index, 1);
+          } else {
+            break;
+          }
+        }
+        this.removeAllListeners(eventType);
+      });
+    } else {
+      this._capturing = [];
+      this.removeAllListeners();
+    }
   }
 
   public bubble(eventType: string, e: J3Event): void {
