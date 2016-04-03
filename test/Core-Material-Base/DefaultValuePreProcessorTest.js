@@ -34,7 +34,8 @@ test('default value of float should be 0 when default attribute was not specifie
         default: 0
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: 0
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
@@ -63,7 +64,8 @@ test('default value of float should be initialized properly', async(t) => {
         default: 2
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: 2
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
@@ -90,12 +92,16 @@ test('default value of vec2 should be (0,0) when default attribute was not speci
         default: new Vector2(0, 0)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector2(0, 0)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete ideal.testVariable.value;
+  delete arg.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -121,12 +127,16 @@ test('default value of vec2 should be initialized with array', async(t) => {
         default: new Vector2(1, 2)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector2(1, 2)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -152,12 +162,16 @@ test('default value of vec2 should be initialized with string', async(t) => {
         default: new Vector2(1, 2)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector2(1, 2)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -197,12 +211,16 @@ test('default value of vec3 should be Zero vector when default attribute was not
         default: new Vector3(0, 0, 0)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector3(0, 0, 0)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -228,12 +246,16 @@ test('default value of vec3 should be initialized with array', async(t) => {
         default: new Vector3(1, 2, 3)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector3(1, 2, 3)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -259,12 +281,16 @@ test('default value of vec3 should be initialized with string', async(t) => {
         default: new Vector3(1, 2, 3)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector3(1, 2, 3)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -304,12 +330,16 @@ test('default value of vec4 should be Zero vector when default attribute was not
         default: new Vector4(0, 0, 0, 0)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector4(0, 0, 0, 0)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -335,12 +365,16 @@ test('default value of vec4 should be initialized with array', async(t) => {
         default: new Vector4(1, 2, 3, 4)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector4(1, 2, 3, 4)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;
+  delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -366,12 +400,15 @@ test('default value of vec4 should be initialized with string', async(t) => {
         default: new Vector4(1, 2, 3, 4)
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: new Vector4(1, 2, 3, 4)
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -411,12 +448,15 @@ test('default value of mat4 should be identical matrix when default attribute wa
         default: Matrix.identity()
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value:Matrix.identity()
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -442,12 +482,15 @@ test('default value of mat4 should be initialized with array', async(t) => {
         default: Matrix.transpose(new Matrix([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]))
       },
       isArray: false,
-      arrayLength: undefined
+      arrayLength: undefined,
+      value: Matrix.transpose(new Matrix([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]))
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  t.ok(arg.testVariable.value.equalWith(ideal.testVariable.value));
+  delete arg.testVariable.value;delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -491,6 +534,7 @@ test('default value of float array should be 0 when default attribute was not sp
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -520,6 +564,7 @@ test('default value of float array should be initialized properly', async(t) => 
     }
   };
   await DefaultValuePreProcessor.preprocess(arg);
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -615,6 +660,7 @@ test('default value of vec2 array should be initialized with array', async(t) =>
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -650,6 +696,7 @@ test('default value of vec2 array should be initialized with squared array', asy
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -681,6 +728,7 @@ test('default value of vec3 array should be initialized with array', async(t) =>
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -716,6 +764,7 @@ test('default value of vec3 array should be initialized with squared array', asy
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -747,6 +796,7 @@ test('default value of vec4 array should be initialized with array', async(t) =>
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });
 
@@ -782,5 +832,6 @@ test('default value of vec4 array should be initialized with squared array', asy
   await DefaultValuePreProcessor.preprocess(arg);
   t.ok(arg.testVariable.variableAnnotation.default.equalWith(ideal.testVariable.variableAnnotation.default));
   arg.testVariable.variableAnnotation = ideal.testVariable.variableAnnotation = null;
+  delete arg.testVariable.value; delete ideal.testVariable.value;
   t.ok(_.isEqual(arg, ideal));
 });

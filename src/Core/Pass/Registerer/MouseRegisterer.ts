@@ -11,7 +11,7 @@ class MouseRegisterer extends RegistererBase {
 
   public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
     if (uniforms["_mousePosition"]) {
-     const hittableRegion = <CanvasRegion><any>matArg.renderer;
+     const hittableRegion = <CanvasRegion><any>matArg.renderStage.renderer;
       pWrapper.uniformVector("_mousePosition", new Vector2(hittableRegion.mouseX, hittableRegion.mouseY));
     }
   }

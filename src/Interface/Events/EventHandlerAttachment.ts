@@ -113,6 +113,9 @@ class EventHandlerAttachment extends J3ObjectBase {
       default:
         throw new Error("Argument type is not correct");
     }
+    if (eventData.selector) {
+      throw new Error("Not implemented yet");
+    }
     Object.keys(eventData.events).forEach((eventTypeString) => {
       this.__getArray().forEach((node) => {
         let eventOrganizer = node.props.getProp<EventOrganizer>("event");
@@ -124,6 +127,84 @@ class EventHandlerAttachment extends J3ObjectBase {
       });
     });
     return this;
+  }
+
+  public off(events: string, selector: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+  public off(events: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+  public off(events: string, selector: string): J3Object;
+  public off(events: string): J3Object;
+  public off(events: {[key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void}, selector: string): J3Object;
+  public off(events: {[key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void}): J3Object;
+  public off(): J3Object;
+  public off(argu0?: any, argu1?: any, argu2?: any): any {
+    const eventData: IEventArgu = {
+      events: {},
+      data: null,
+      selector: null,
+    };
+    let removeAll = false;
+    let isEvents = false;
+    switch (true) {
+      case isUndefined(argu0):
+        removeAll = true;
+        break;
+      case isString(argu0):
+        eventData.events[argu0] = null;
+        break;
+      case isPlainObject(argu0):
+        isEvents = true;
+        eventData.events = argu0;
+        break;
+      default:
+        throw new Error("Argument type is not correct");
+    }
+    switch (true) {
+      case (removeAll):
+      case (isUndefined(argu1) && isString(argu0)):
+      case (isUndefined(argu1) && isEvents):
+        break;
+      case (isFunction(argu1) && !isEvents):
+        eventData.events[argu0] = argu1;
+        break;
+      case isString(argu1):
+        eventData.selector = argu1;
+        switch (true) {
+          case (isUndefined(argu2) && isEvents):
+            break;
+          case (isFunction(argu2) && !isEvents):
+            eventData.events[argu0] = argu2;
+            break;
+          default:
+            throw new Error("Argument type is not correct");
+        }
+        break;
+      default:
+        throw new Error("Argument type is not correct");
+    }
+    if (eventData.selector) {
+      throw new Error("Not implemented yet");
+    }
+    if (removeAll) {
+      this.__getArray().forEach((node) => {
+        let eventOrganizer = node.props.getProp<EventOrganizer>("event");
+        if (eventOrganizer) {
+          eventOrganizer.releaseAll();
+        }
+      });
+    } else {
+      Object.keys(eventData.events).forEach((eventTypeString) => {
+        this.__getArray().forEach((node) => {
+          let eventOrganizer = node.props.getProp<EventOrganizer>("event");
+          if (eventOrganizer) {
+            if (eventData.events[eventTypeString]) {
+              eventOrganizer.release(eventTypeString, eventData.events[eventTypeString]);
+            } else {
+              eventOrganizer.releaseAll(eventTypeString);
+            }
+          }
+        });
+      });
+    }
   }
 }
 

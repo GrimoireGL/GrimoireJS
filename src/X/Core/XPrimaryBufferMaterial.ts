@@ -3,7 +3,7 @@ import IXMaterialData from "../IXMaterialData";
 import BasicMaterial from "../../Core/Materials/BasicMaterial";
 class XPrimaryMaterial extends BasicMaterial {
   constructor(private _material: IXMaterialData) {
-    super(require("../Material/Primary.xmml"));
+    super(require("../Material/Primary.xmml"), "x.gbuffer.1");
     this.shaderVariables = {
       power: _material.power
     };

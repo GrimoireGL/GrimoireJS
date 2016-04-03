@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <material name="jthree.x.basic" group="builtin.forward" order="300">
-<uniform-register>
+<registers>
   <register name="builtin.basic"/>
   <register name="builtin.buffer"/>
-</uniform-register>
+</registers>
 <passes>
   <pass>
     <glsl>

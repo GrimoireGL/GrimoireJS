@@ -1,7 +1,6 @@
+import IRenderer from "./Renderers/IRenderer";
 import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
-import BasicRenderer from "./Renderers/BasicRenderer";
 import SceneObject from "./SceneObjects/SceneObject";
-import Camera from "./SceneObjects/Camera/Camera";
 import Color3 from "../Math/Color3";
 import ISceneObjectChangedEventArgs from "./ISceneObjectChangedEventArgs";
 import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
@@ -24,9 +23,7 @@ class Scene extends jThreeObjectEEWithID {
    */
   public sceneAmbient: Color3 = new Color3(1.0, 1.0, 1.0);
 
-  private _renderers: BasicRenderer[] = [];
-
-  private _cameras: { [id: string]: Camera } = {};
+  private _renderers: IRenderer[] = [];
 
   constructor(id?: string) {
     super(id);
@@ -58,7 +55,7 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public addRenderer(renderer: BasicRenderer): void {
+  public addRenderer(renderer: IRenderer): void {
     this._renderers.push(renderer);
     this.emit("changed-renderer", <RendererListChangedEventArgs>{
       owner: this,
@@ -67,7 +64,7 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public removeRenderer(renderer: BasicRenderer): void {
+  public removeRenderer(renderer: IRenderer): void {
     const index = this._renderers.indexOf(renderer);
     if (index < 0) {
       return;
@@ -80,7 +77,7 @@ class Scene extends jThreeObjectEEWithID {
     });
   }
 
-  public get Renderers(): BasicRenderer[] {
+  public get Renderers(): IRenderer[] {
     return this._renderers;
   }
 
@@ -121,20 +118,6 @@ class Scene extends jThreeObjectEEWithID {
         changedSceneObjectID: removeTarget.id
       });
     }
-  }
-
-  /**
-   * Append the camera to this scene as managed
-   */
-  public addCamera(camera: Camera): void {
-    this._cameras[camera.id] = camera;
-  }
-
-  /**
-   * Get the camera managed in this scene.
-   */
-  public getCamera(id: string): Camera {
-    return this._cameras[id];
   }
 
   public notifySceneObjectChanged(eventArg: ISceneObjectChangedEventArgs): void {

@@ -1,11 +1,11 @@
+import IRenderer from "../Core/Renderers/IRenderer";
 import Scene from "../Core/Scene";
-import BasicRenderer from "../Core/Renderers/BasicRenderer";
 import RendererDebugger from "./Modules/RendererDebugger";
 interface DebuggerInfomationAPI {
   setInfo(key: string, data: number|string);
 }
 interface DebuggerRendererAPI {
-  addRenderer(renderer: BasicRenderer, debug: RendererDebugger);
+  addRenderer(renderer: IRenderer, debug: RendererDebugger);
 }
 
 interface DebuggerSceneStructureAPI {

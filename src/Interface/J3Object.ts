@@ -16,6 +16,7 @@ import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
 import NodeInsertionOutside from "./Manipulation/NodeInsertionOutside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
+import Copying from "./Manipulation/Copying";
 import Basic from "./Effects/Basic";
 import IOption from "./Effects/IOption";
 import Module from "./Modules/Module";
@@ -36,6 +37,7 @@ class J3Object extends J3ObjectBase implements
   NodeInsertionInside,
   NodeInsertionOutside,
   NodeRemoval,
+  Copying,
   Basic,
   Module,
   Custom,
@@ -409,6 +411,17 @@ class J3Object extends J3ObjectBase implements
   };
 
   /**
+   * Manipulation/Copying
+   */
+
+  public clone: {
+    (): J3Object;
+    (withEvents: boolean): J3Object;
+    (withEvents: boolean, deepWithEvents: boolean): J3Object;
+    (argu0?: any, argu1?: any): J3Object;
+  };
+
+  /**
    * Effects/Basic
    */
 
@@ -501,6 +514,17 @@ class J3Object extends J3ObjectBase implements
     (events: { [key: string]: boolean }, selector: string, data: { [key: string]: any }): J3Object;
     (events: { [key: string]: boolean }, selector: string, data: any[]): J3Object;
     (argu0: any, argu1?: any, argu2?: any, argu3?: any): any;
+  };
+
+  public off: {
+    (events: string, selector: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, selector: string): J3Object;
+    (events: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }): J3Object;
+    (): J3Object;
+    (argu0?: any, argu1?: any, argu2?: any): any;
   };
 }
 

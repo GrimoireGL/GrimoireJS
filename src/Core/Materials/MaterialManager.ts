@@ -8,7 +8,7 @@ import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import BufferRegisterer from "../Pass/Registerer/BufferRegisterer";
 import TimeRegisterer from "../Pass/Registerer/TimeRegisterer";
-import AsyncLoader from "../Resources/AsyncLoader";
+import BasicCacheResolver from "../Resources/BasicCacheResolver";
 import IConditionChecker from "../ProgramTransformer/Base/IConditionChecker";
 import Q from "q";
 /**
@@ -21,7 +21,7 @@ class MaterialManager implements IContextComponent {
 
   private _materialDocuments: { [key: string]: string } = {};
 
-  private _chunkLoader: AsyncLoader<string> = new AsyncLoader<string>();
+  private _chunkLoader: BasicCacheResolver<string> = new BasicCacheResolver<string>();
 
   constructor() {
     this.addShaderChunk("builtin.packing", require("./BuiltIn/Chunk/_Packing.glsl"));
@@ -110,7 +110,7 @@ class MaterialManager implements IContextComponent {
       // console.error(`Specified material name '${matName}' was not found!`);
       return undefined;
     } else {
-      return new BasicMaterial(matDoc);
+      return new BasicMaterial(matDoc, matName);
     }
   }
 

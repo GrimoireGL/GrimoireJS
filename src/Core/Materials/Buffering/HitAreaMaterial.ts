@@ -4,7 +4,7 @@ import Vector4 from "../../../Math/Vector4";
 
 class HitAreaMaterial extends BasicMaterial {
   constructor() {
-    super(require("../BuiltIn/HitAreaTest.xmml"));
+    super(require("../BuiltIn/HitAreaTest.xmml"), "builtin.hitarea");
   }
 
   public apply(matArg: IApplyMaterialArgument): void {

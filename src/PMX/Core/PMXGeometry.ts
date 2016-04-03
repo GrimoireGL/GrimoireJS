@@ -59,9 +59,8 @@ class PMXGeometry extends BasicGeometry {
     this.uvBuffer.update(this.uvBufferSource, this.uvBufferSource.length);
   }
 
-
-  public applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
-    super.applyAttributeVariables(pWrapper, attributes);
+  protected __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
+    super.__applyAttributeVariables(pWrapper, attributes);
     this.__assignAttributeIfExists(pWrapper, attributes, "edgeScaling", this.edgeSizeBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "boneIndicies", this.boneIndexBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "boneWeights", this.boneWeightBuffer);

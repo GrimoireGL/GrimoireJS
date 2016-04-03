@@ -41,10 +41,6 @@ abstract class Camera extends SceneObject {
   public update(): void {
     super.update();
   }
-
-  public onParentSceneChanged(): void {
-    this.ParentScene.addCamera(this);
-  }
 }
 
 export default Camera;

@@ -1,8 +1,5 @@
-import IRenderer from "./IRenderer";
 import RendererBase from "./RendererBase";
-import RBO from "../Resources/RBO/RBO";
 import BufferSet from "./BufferSet";
-import Camera from "./../SceneObjects/Camera/Camera";
 import RenderPathExecutor from "./RenderPathExecutor";
 import Rectangle from "../../Math/Rectangle";
 import RendererConfiguratorBase from "./RendererConfigurator/RendererConfiguratorBase";
@@ -11,23 +8,12 @@ import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import Scene from "../Scene";
-import RenderPath from "./RenderPath";
 import Canvas from "../Canvas/Canvas";
 
 /**
 * Provides base class feature for renderer classes.
 */
-class BasicRenderer extends RendererBase implements IRenderer {
-
-  public defaultRenderBuffer: RBO;
-
-  public renderPath: RenderPath = new RenderPath(this);
-
-  public bufferSet: BufferSet;
-  /**
-   * The camera reference this renderer using for draw.
-   */
-  public camera: Camera;
+class BasicRenderer extends RendererBase {
 
   /**
    * Constructor of RenderBase
@@ -100,13 +86,10 @@ class BasicRenderer extends RendererBase implements IRenderer {
 
   private _remapBuffers(): void {
     this.renderPath.path.forEach(chain => {
-      let sampler = {};
       chain.stage.bufferTextures.defaultRenderBuffer = this.defaultRenderBuffer;
       for (let bufferName in chain.buffers) {
         chain.stage.bufferTextures[bufferName] = this.bufferSet.getColorBuffer(chain.buffers[bufferName]);
-        sampler[bufferName] = chain.stage.bufferTextures[bufferName] ? chain.stage.bufferTextures[bufferName].id : "undefined";
       }
-      console.log(sampler);
     });
   }
 }

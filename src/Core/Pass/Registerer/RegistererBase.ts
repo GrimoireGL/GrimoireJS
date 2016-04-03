@@ -1,4 +1,4 @@
-import MaterialPass from "../MaterialPass";
+import IXMMLPassDescription from "../../Materials/Parser/IXMMLPassDescription";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
@@ -30,7 +30,7 @@ abstract class RegistererBase {
    * @param {ProgramWrapper}          pWrapper [description]
    * @param {IVariableDescription }}      uniforms      [description]
    */
-  public preprocess(pass: MaterialPass, uniforms: { [key: string]: IVariableDescription }): Q.IPromise<void> {
+  public preprocess(pass: IXMMLPassDescription, uniforms: { [key: string]: IVariableDescription }): Q.IPromise<void> {
     const defer = Q.defer<void>();
     process.nextTick(() => {
       defer.resolve(null);
