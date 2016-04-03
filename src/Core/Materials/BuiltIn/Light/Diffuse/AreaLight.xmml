@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <material name="jthree.basic.light.diffuse.area" group="jthree.light.diffuse" order="300">
+    <registers>
+      <register name="builtin.basic" />
+      <register name="builtin.buffer" />
+    </registers>
+    <passes>
+      <pass>
+        <glsl>
+          <![CDATA[
+      attribute vec3 position;
+      varying vec4 vLightProjectedPosition;
+      @vert{
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+          gl_Position = vLightProjectedPosition = _matPVM * vec4(position,1.0);
+        }
+      }
+
+      @frag{
+        uniform vec3 lightColor;
+        uniform mat4 _matIP;
+        uniform mat4 areaMatrix;
+        uniform vec3 basePosition;
+        @{type:"buffer",register:0,name:"PRIMARY"}
+        uniform sampler2D _gBuffer;
+
+        @import "builtin.gbuffer-reader"
+
+        void main(void)
+        {
+          vec4 rawBuffer = readRawBuffer(_gBuffer,vLightProjectedPosition);
+          float depth = getDepth(rawBuffer);
+          vec3 pos = getPosition(depth,vLightProjectedPosition,_matIP);
+          vec4 e = areaMatrix * vec4(pos,1.0);
+          e.xyz /= e.w;
+          if(e.x < 1. && e.x >-1. && e.y <1. && e.y >-1. && e.z < 1. && e.z >-1.)
+          {
+            gl_FragColor = vec4(lightColor,1);
+          }else{
+            gl_FragColor = vec4(0,0,0,1);
+          }
+        }
+      }
+      ]]>
+        </glsl>
+      </pass>
+    </passes>
+  </material>

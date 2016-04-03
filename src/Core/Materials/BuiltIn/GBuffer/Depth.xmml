@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="builtin.depth" group="builtin.depth" order="300">
+<registers>
+  <register name="builtin.basic"/>
+</registers>
+<passes>
+  <pass>
+    <glsl>
+      <![CDATA[
+      attribute vec4 position;
+      varying highp vec4 vPosition;
+
+      @vert{
+        uniform mat4 _matPVM;
+
+        void main(void)
+        {
+        	vPosition = gl_Position  = _matPVM * position;
+        }
+      }
+
+      @frag{
+        @import "builtin.packing"
+
+        void main(void)
+        {
+        	gl_FragColor.rgb = packRanged24(vPosition.z/vPosition.w,-1.,1.);
+        }
+      }
+
+      ]]>
+    </glsl>
+  </pass>
+</passes>
+</material>
