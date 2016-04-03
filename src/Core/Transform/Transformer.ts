@@ -49,8 +49,6 @@ class Transformer extends TransformerBase {
 
   private _modelViewProjectionCaluculationCache: any = mat4.create();
 
-  private _globalToLocalCache: Matrix = Matrix.identity();
-
   private _g2lupdated: boolean = false;
 
   /**
@@ -64,14 +62,6 @@ class Transformer extends TransformerBase {
     this._scale = new Vector3(1, 1, 1);
     this._localOrigin = new Vector3(0, 0, 0);
     this.updateTransform();
-  }
-
-  public get globalToLocal() {
-    if (this._g2lupdated) {
-      return this._globalToLocalCache;
-    }
-    mat4.invert(this.__localTransformMatrix.rawElements, this.__localToGlobalMatrix.rawElements);
-    this._g2lupdated = true;
   }
 
   /**
@@ -108,24 +98,13 @@ class Transformer extends TransformerBase {
    * Calculate Projection-View-Model matrix with renderer camera.
    */
   public calculateMVPMatrix(renderer: IRenderer): Matrix {
-    mat4.mul(this._modelViewProjectionCaluculationCache, renderer.camera.viewMatrix.rawElements, this.LocalToGlobal.rawElements);
+    mat4.mul(this._modelViewProjectionCaluculationCache, renderer.camera.viewMatrix.rawElements, this.localToGlobal.rawElements);
     mat4.mul(this._modelViewProjectionCaluculationCache, renderer.camera.projectionMatrix.rawElements, this._modelViewProjectionCaluculationCache);
     return new Matrix(this._modelViewProjectionCaluculationCache);
   }
 
   public get GlobalPosition() {
-    return Matrix.transformPoint(this.__localToGlobalMatrix, Vector3.Zero);
-  }
-
-  /**
-   * Get accessor for the matrix providing the transform Local space into Global space.
-   */
-  public get LocalToGlobal(): Matrix {
-    return this.__localToGlobalMatrix;
-  }
-
-  public get LocalTransform(): Matrix {
-    return this.__localTransformMatrix;
+    return Matrix.transformPoint(this.localToGlobal, Vector3.Zero);
   }
   /**
    * Get accessor for model rotation.
@@ -178,49 +157,25 @@ class Transformer extends TransformerBase {
     this.updateTransform();
   }
 
-  public transformDirection(direction: Vector3): Vector3 {
-    return Matrix.transformNormal(this.LocalToGlobal, direction);
-  }
-
-  public transformPoint(point: Vector3): Vector3 {
-    return Matrix.transformPoint(this.__localToGlobalMatrix, point);
-  }
-
-  public transformVector(vector: Vector4): Vector4 {
-    return Matrix.transform(this.__localToGlobalMatrix, vector);
-  }
-
-  public inverseTransformDirection(direction: Vector3): Vector3 {
-    return Matrix.transformNormal(this.globalToLocal, direction);
-  }
-
-  public inverseTransformPoint(point: Vector3): Vector3 {
-    return Matrix.transformPoint(this.globalToLocal, point);
-  }
-
-  public inverseTransformVector(vector: Vector4): Vector4 {
-    return Matrix.transform(this.globalToLocal, vector);
-  }
-
   /**
   * Update transform matricies
   * @return {[type]} [description]
   */
   protected __updateTransformMatricies(): void {
     // initialize localTransformCache & localToGlobalMatrix.rawElements
-    mat4.identity(this.__localTransformMatrix.rawElements);
-    mat4.identity(this.__localToGlobalMatrix.rawElements);
+    mat4.identity(this.localTransform.rawElements);
+    mat4.identity(this.localToGlobal.rawElements);
     // generate local transofrm matrix
-    mat4.fromRotationTranslationScaleOrigin(this.__localTransformMatrix.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    mat4.fromRotationTranslationScaleOrigin(this.localTransform.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
     if (this.object != null && this.object.Parent != null) {
-      // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-      mat4.copy(this.__localToGlobalMatrix.rawElements, this.object.Parent.Transformer.LocalToGlobal.rawElements);
+      // Use localToGlobal matrix of parents to multiply with localTransformCache
+      mat4.copy(this.localToGlobal.rawElements, this.object.Parent.Transformer.localToGlobal.rawElements);
     } else {
       // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-      mat4.identity(this.__localToGlobalMatrix.rawElements);
+      mat4.identity(this.localToGlobal.rawElements);
     }
     // Multiply parent transform
-    mat4.multiply(this.__localToGlobalMatrix.rawElements, this.__localToGlobalMatrix.rawElements, this.__localTransformMatrix.rawElements);
+    mat4.multiply(this.localToGlobal.rawElements, this.localToGlobal.rawElements, this.localTransform.rawElements);
     this.__updateDirections();
   }
 
@@ -235,7 +190,7 @@ class Transformer extends TransformerBase {
   }
 
   private _updateDirection(rawElements: Vector3, sourceVector4: number[]): void {
-    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.__localToGlobalMatrix.rawElements);
+    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.localToGlobal.rawElements);
     vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 }
