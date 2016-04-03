@@ -187,6 +187,7 @@
     "./src/Core/SceneObjects/SceneObject.ts",
     "./src/Core/Timer.ts",
     "./src/Core/Transform/Transformer.ts",
+    "./src/Core/Transform/TransformerBase.ts",
     "./src/Debug/Debugger.ts",
     "./src/Debug/DebuggerAPI.ts",
     "./src/Debug/Modules/DebuggerModuleBase.ts",

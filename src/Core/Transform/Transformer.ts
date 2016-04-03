@@ -1,9 +1,9 @@
+import TransformerBase from "./TransformerBase";
 import IRenderer from "../Renderers/IRenderer";
 import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
 import SceneObject from "../SceneObjects/SceneObject";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import {mat4, vec3, vec4} from "gl-matrix";
 import Vector4 from "../../Math/Vector4";
 /**
@@ -11,7 +11,7 @@ import Vector4 from "../../Math/Vector4";
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
  * Every Transformer can have a parent, each parent Transformer affect children's Transformer hierachically.
  */
-class Transformer extends JThreeObjectEE {
+class Transformer extends TransformerBase {
 
   public hasChanged: boolean = false;
 
@@ -19,11 +19,6 @@ class Transformer extends JThreeObjectEE {
    * forward direction of transform in world space
    */
   public forward: Vector3 = Vector3.ZUnit.negateThis();
-
-  /**
-   * Scene oject reference this transformer related to.
-   */
-  public linkedObject: SceneObject;
 
   /**
   * up direction of transform in world space
@@ -52,13 +47,6 @@ class Transformer extends JThreeObjectEE {
    */
   private _scale: Vector3;
 
-  /**
-   * calculation cache
-   */
-  private _localTransformMatrix: Matrix = Matrix.identity();
-
-  private _localToGlobalMatrix: Matrix = Matrix.identity();
-
   private _modelViewProjectionCaluculationCache: any = mat4.create();
 
   private _globalToLocalCache: Matrix = Matrix.identity();
@@ -70,8 +58,7 @@ class Transformer extends JThreeObjectEE {
    * @param sceneObj the scene object this transformer attached to.
    */
   constructor(sceneObj: SceneObject) {
-    super();
-    this.linkedObject = sceneObj;
+    super(sceneObj);
     this._position = Vector3.Zero;
     this._rotation = Quaternion.Identity;
     this._scale = new Vector3(1, 1, 1);
@@ -79,15 +66,11 @@ class Transformer extends JThreeObjectEE {
     this.updateTransform();
   }
 
-  public get NeedUpdateChildren(): boolean {
-    return true;
-  }
-
   public get globalToLocal() {
     if (this._g2lupdated) {
       return this._globalToLocalCache;
     }
-    mat4.invert(this._localTransformMatrix.rawElements, this._localToGlobalMatrix.rawElements);
+    mat4.invert(this.__localTransformMatrix.rawElements, this.__localToGlobalMatrix.rawElements);
     this._g2lupdated = true;
   }
 
@@ -99,8 +82,8 @@ class Transformer extends JThreeObjectEE {
     this.hasChanged = true;
     this.__updateTransformMatricies();
     // notify update to childrens
-    if (this.linkedObject.Children && this.NeedUpdateChildren) {
-      this.linkedObject.Children.forEach((v) => {
+    if (this.object.Children) {
+      this.object.Children.forEach((v) => {
         v.Transformer.updateTransform();
       });
     }
@@ -110,15 +93,15 @@ class Transformer extends JThreeObjectEE {
   }
 
   public get hasParent() {
-    return !!this.linkedObject.Parent;
+    return !!this.object.Parent;
   }
 
   public get parent() {
-    return this.hasParent ? this.linkedObject.Parent.Transformer : null;
+    return this.hasParent ? this.object.Parent.Transformer : null;
   }
 
   public get childrenCount() {
-    return this.linkedObject.Children.length;
+    return this.object.Children.length;
   }
 
   /**
@@ -131,18 +114,18 @@ class Transformer extends JThreeObjectEE {
   }
 
   public get GlobalPosition() {
-    return Matrix.transformPoint(this._localToGlobalMatrix, Vector3.Zero);
+    return Matrix.transformPoint(this.__localToGlobalMatrix, Vector3.Zero);
   }
 
   /**
    * Get accessor for the matrix providing the transform Local space into Global space.
    */
   public get LocalToGlobal(): Matrix {
-    return this._localToGlobalMatrix;
+    return this.__localToGlobalMatrix;
   }
 
   public get LocalTransform(): Matrix {
-    return this._localTransformMatrix;
+    return this.__localTransformMatrix;
   }
   /**
    * Get accessor for model rotation.
@@ -200,11 +183,11 @@ class Transformer extends JThreeObjectEE {
   }
 
   public transformPoint(point: Vector3): Vector3 {
-    return Matrix.transformPoint(this._localToGlobalMatrix, point);
+    return Matrix.transformPoint(this.__localToGlobalMatrix, point);
   }
 
   public transformVector(vector: Vector4): Vector4 {
-    return Matrix.transform(this._localToGlobalMatrix, vector);
+    return Matrix.transform(this.__localToGlobalMatrix, vector);
   }
 
   public inverseTransformDirection(direction: Vector3): Vector3 {
@@ -225,19 +208,19 @@ class Transformer extends JThreeObjectEE {
   */
   protected __updateTransformMatricies(): void {
     // initialize localTransformCache & localToGlobalMatrix.rawElements
-    mat4.identity(this._localTransformMatrix.rawElements);
-    mat4.identity(this._localToGlobalMatrix.rawElements);
+    mat4.identity(this.__localTransformMatrix.rawElements);
+    mat4.identity(this.__localToGlobalMatrix.rawElements);
     // generate local transofrm matrix
-    mat4.fromRotationTranslationScaleOrigin(this._localTransformMatrix.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
-    if (this.linkedObject != null && this.linkedObject.Parent != null) {
+    mat4.fromRotationTranslationScaleOrigin(this.__localTransformMatrix.rawElements, this._rotation.rawElements, this._position.rawElements, this._scale.rawElements, this._localOrigin.rawElements); // substitute Rotation*Translation*Scale matrix (around local origin) for localTransformMatrix.rawElements
+    if (this.object != null && this.object.Parent != null) {
       // Use LocalToGlobal matrix of parents to multiply with localTransformCache
-      mat4.copy(this._localToGlobalMatrix.rawElements, this.linkedObject.Parent.Transformer.LocalToGlobal.rawElements);
+      mat4.copy(this.__localToGlobalMatrix.rawElements, this.object.Parent.Transformer.LocalToGlobal.rawElements);
     } else {
       // If this transformer have no parent transformer,localToGlobalMatrix.rawElements,GlobalTransform will be same as localTransformCache
-      mat4.identity(this._localToGlobalMatrix.rawElements);
+      mat4.identity(this.__localToGlobalMatrix.rawElements);
     }
     // Multiply parent transform
-    mat4.multiply(this._localToGlobalMatrix.rawElements, this._localToGlobalMatrix.rawElements, this._localTransformMatrix.rawElements);
+    mat4.multiply(this.__localToGlobalMatrix.rawElements, this.__localToGlobalMatrix.rawElements, this.__localTransformMatrix.rawElements);
     this.__updateDirections();
   }
 
@@ -252,7 +235,7 @@ class Transformer extends JThreeObjectEE {
   }
 
   private _updateDirection(rawElements: Vector3, sourceVector4: number[]): void {
-    vec4.transformMat4(rawElements.rawElements, sourceVector4, this._localToGlobalMatrix.rawElements);
+    vec4.transformMat4(rawElements.rawElements, sourceVector4, this.__localToGlobalMatrix.rawElements);
     vec3.normalize(rawElements.rawElements, rawElements.rawElements);
   }
 }
