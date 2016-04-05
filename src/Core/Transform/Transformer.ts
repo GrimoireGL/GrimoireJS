@@ -4,8 +4,7 @@ import Quaternion from "../../Math/Quaternion";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
 import SceneObject from "../SceneObjects/SceneObject";
-import {mat4, vec3, vec4} from "gl-matrix";
-import Vector4 from "../../Math/Vector4";
+import {mat4, vec3, vec4, GLM} from "gl-matrix";
 /**
  * Position,rotation and scale of scene object.
  * Every scene object in a scene has Toransformer.It's used to store and manipulate the position,rotation and scale ob the object.
@@ -47,9 +46,7 @@ class Transformer extends TransformerBase {
    */
   private _scale: Vector3;
 
-  private _modelViewProjectionCaluculationCache: any = mat4.create();
-
-  private _g2lupdated: boolean = false;
+  private _modelViewProjectionCaluculationCache: GLM.IArray = mat4.create();
 
   /**
    * Constructor of Transformer
@@ -77,7 +74,6 @@ class Transformer extends TransformerBase {
         v.Transformer.updateTransform();
       });
     }
-    this._g2lupdated = false;
     // fire updated event
     this.emit("transform", this);
   }

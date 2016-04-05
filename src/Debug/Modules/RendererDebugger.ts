@@ -92,7 +92,6 @@ class RendererDebugger extends DebuggerModuleBase {
   }
 
   private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {
-    ;
     const img = new Image(renderer.canvasElement.width, renderer.canvasElement.height);
     img.src = renderer.canvasElement.toDataURL();
     return img;
