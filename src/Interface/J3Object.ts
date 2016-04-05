@@ -14,7 +14,9 @@ import Filtering from "./Traversing/Filtering";
 import GeneralAttributes from "./Manipulation/GeneralAttributes";
 import CollectionManipulation from "./Manipulation/CollectionManipulation";
 import NodeInsertionInside from "./Manipulation/NodeInsertionInside";
+import NodeInsertionOutside from "./Manipulation/NodeInsertionOutside";
 import NodeRemoval from "./Manipulation/NodeRemoval";
+import Copying from "./Manipulation/Copying";
 import Basic from "./Effects/Basic";
 import IOption from "./Effects/IOption";
 import Module from "./Modules/Module";
@@ -33,7 +35,9 @@ class J3Object extends J3ObjectBase implements
   GeneralAttributes,
   CollectionManipulation,
   NodeInsertionInside,
+  NodeInsertionOutside,
   NodeRemoval,
+  Copying,
   Basic,
   Module,
   Custom,
@@ -63,6 +67,9 @@ class J3Object extends J3ObjectBase implements
     let nodes: GomlTreeNodeBase[];
     let query: string;
     switch (true) {
+      case (argu == null):
+        nodes = [];
+        break;
       case (isString(argu)):
         if ((<string>argu).charAt(0) === "<") {
           const parseObj = new XMLParser(<string>argu);
@@ -167,6 +174,10 @@ class J3Object extends J3ObjectBase implements
     (arg?: string | GomlTreeNodeBase | J3Object): number
   };
 
+  public toArray: {
+    (): GomlTreeNodeBase[];
+  };
+
   /**
    * Traversing/TreeTraversal
    */
@@ -184,8 +195,33 @@ class J3Object extends J3ObjectBase implements
   };
 
   public children: {
+    (): J3Object;
     (selector: string): J3Object;
-    (argu: any): any;
+    (argu?: any): any;
+  };
+
+  public parent: {
+    (): J3Object;
+    (selector: string): J3Object;
+    (argu?: any): any;
+  };
+
+  public parents: {
+    (): J3Object;
+    (selector: string): J3Object;
+    (argu?: any): any;
+  };
+
+  public prev: {
+    (): J3Object;
+    (selector: string): J3Object;
+    (argu?: any): any;
+  };
+
+  public next: {
+    (): J3Object;
+    (selector: string): J3Object;
+    (argu?: any): any;
   };
 
   /**
@@ -199,6 +235,45 @@ class J3Object extends J3ObjectBase implements
     (nodes: GomlTreeNodeBase[]): J3Object;
     (nodes: J3Object): J3Object;
     (argu: any): J3Object;
+  };
+
+  public eq: {
+    (index: number): J3Object;
+  };
+
+  public first: {
+    (): J3Object;
+  };
+
+  public last: {
+    (): J3Object;
+  };
+
+  public has: {
+    (selector: string): J3Object;
+    (contained: GomlTreeNodeBase): J3Object;
+    (argu: any): J3Object;
+  };
+
+  public is: {
+    (selector: string): boolean;
+    (func: (index: number, node: GomlTreeNodeBase) => boolean): boolean;
+    (selection: J3Object): boolean;
+    (node: GomlTreeNodeBase): boolean;
+    (argu: any): boolean;
+  };
+
+  public not: {
+    (selector: string): J3Object;
+    (node: GomlTreeNodeBase): J3Object;
+    (nodes: GomlTreeNodeBase[]): J3Object;
+    (func: (index: number, node: GomlTreeNodeBase) => boolean): J3Object;
+    (selection: J3Object): J3Object;
+    (argu: any): J3Object;
+  };
+
+  public slice: {
+    (start: number, end: number): J3Object;
   };
 
   /**
@@ -230,7 +305,7 @@ class J3Object extends J3ObjectBase implements
   };
 
   /**
-   * Manipulation/NodeInsertion
+   * Manipulation/NodeInsertionInside
    */
 
   public append: {
@@ -255,6 +330,76 @@ class J3Object extends J3ObjectBase implements
     (argu: any): any;
   };
 
+  public prepend: {
+    (...contents: string[]): J3Object;
+    (...contents: GomlTreeNodeBase[]): J3Object;
+    (...contents: J3Object[]): J3Object;
+    (...contents: string[][]): J3Object;
+    (...contents: GomlTreeNodeBase[][]): J3Object;
+    (...contents: J3Object[][]): J3Object;
+    (func: (index: number, goml: string) => string): J3Object;
+    (func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
+    (func: (index: number, goml: string) => J3Object): J3Object;
+    (...argu: any[]): J3Object;
+  };
+
+  public prependTo: {
+    (target: string): J3Object;
+    (target: GomlTreeNodeBase): J3Object;
+    (target: J3Object): J3Object;
+    (targets: GomlTreeNodeBase[]): J3Object;
+    (targets: J3Object[]): J3Object;
+    (argu: any): any;
+  };
+
+  /**
+   * Manipulation/NodeInsertionOutside
+   */
+
+  public after: {
+    (...contents: string[]): J3Object;
+    (...contents: GomlTreeNodeBase[]): J3Object;
+    (...contents: J3Object[]): J3Object;
+    (...contents: string[][]): J3Object;
+    (...contents: GomlTreeNodeBase[][]): J3Object;
+    (...contents: J3Object[][]): J3Object;
+    (func: (index: number, goml: string) => string): J3Object;
+    (func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
+    (func: (index: number, goml: string) => J3Object): J3Object;
+    (...argu: any[]): J3Object;
+  };
+
+  public insertAfter: {
+    (target: string): J3Object;
+    (target: GomlTreeNodeBase): J3Object;
+    (target: J3Object): J3Object;
+    (targets: GomlTreeNodeBase[]): J3Object;
+    (targets: J3Object[]): J3Object;
+    (argu: any): any;
+  };
+
+  public before: {
+    (...contents: string[]): J3Object;
+    (...contents: GomlTreeNodeBase[]): J3Object;
+    (...contents: J3Object[]): J3Object;
+    (...contents: string[][]): J3Object;
+    (...contents: GomlTreeNodeBase[][]): J3Object;
+    (...contents: J3Object[][]): J3Object;
+    (func: (index: number, goml: string) => string): J3Object;
+    (func: (index: number, goml: string) => GomlTreeNodeBase): J3Object;
+    (func: (index: number, goml: string) => J3Object): J3Object;
+    (...argu: any[]): J3Object;
+  };
+
+  public insertBefore: {
+    (target: string): J3Object;
+    (target: GomlTreeNodeBase): J3Object;
+    (target: J3Object): J3Object;
+    (targets: GomlTreeNodeBase[]): J3Object;
+    (targets: J3Object[]): J3Object;
+    (argu: any): any;
+  };
+
   /**
    * Manipulation/NodeRemoval
    */
@@ -263,6 +408,17 @@ class J3Object extends J3ObjectBase implements
     (): J3Object;
     (filter: string): J3Object;
     (argu?: string): any;
+  };
+
+  /**
+   * Manipulation/Copying
+   */
+
+  public clone: {
+    (): J3Object;
+    (withEvents: boolean): J3Object;
+    (withEvents: boolean, deepWithEvents: boolean): J3Object;
+    (argu0?: any, argu1?: any): J3Object;
   };
 
   /**
@@ -358,6 +514,17 @@ class J3Object extends J3ObjectBase implements
     (events: { [key: string]: boolean }, selector: string, data: { [key: string]: any }): J3Object;
     (events: { [key: string]: boolean }, selector: string, data: any[]): J3Object;
     (argu0: any, argu1?: any, argu2?: any, argu3?: any): any;
+  };
+
+  public off: {
+    (events: string, selector: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, handler: (eventObject: J3Event, ...extraParameter: any[]) => void): J3Object;
+    (events: string, selector: string): J3Object;
+    (events: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }, selector: string): J3Object;
+    (events: { [key: string]: (eventObject: J3Event, ...extraParameter: any[]) => void }): J3Object;
+    (): J3Object;
+    (argu0?: any, argu1?: any, argu2?: any): any;
   };
 }
 
