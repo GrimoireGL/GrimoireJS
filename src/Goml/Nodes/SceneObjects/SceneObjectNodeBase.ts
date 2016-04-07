@@ -61,7 +61,7 @@ class SceneObjectNodeBase<T extends SceneObject> extends CoreRelatedNodeBase<T> 
     let containedSceneNode: SceneNode = null;
     let parentSceneObjectNode: SceneObjectNodeBase<SceneObject> = null;
     // This parent node is scene node.
-    if (this.__parent.getTypeName() === "SceneNode") {
+    if (this.__parent instanceof SceneNode) {
       containedSceneNode = <SceneNode>this.__parent;
       parentSceneObjectNode = null;
     } else {
