@@ -39,7 +39,7 @@ config =
       extensions: ['.js', '.json', '.glsl', '.html','.xmml','.rsml','.xml']
       dest: ['./wwwroot', './bin/product']
       target: 'web'
-      minify: env_production
+      minify: args.minify
       sourcemap: !args.nosourcemap
       transform: [
         {name:'txtify', opt: {extensions: ['.json','.html','.css','.glsl','.xmml','.rsml','.xml']}}
