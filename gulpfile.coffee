@@ -15,7 +15,7 @@ BundleTask = require './build/task/bundle'
 CoverTask = require './build/task/cover'
 CopyTask = require './build/task/copy'
 fs = require 'fs'
-env_production = false
+env_production = process.env.BABEL_ENV == 'production'
 
 
 
@@ -39,7 +39,7 @@ config =
       extensions: ['.js', '.json', '.glsl', '.html','.xmml','.rsml','.xml']
       dest: ['./wwwroot', './bin/product']
       target: 'web'
-      minify: false
+      minify: args.minify
       sourcemap: !args.nosourcemap
       transform: [
         {name:'txtify', opt: {extensions: ['.json','.html','.css','.glsl','.xmml','.rsml','.xml']}}
