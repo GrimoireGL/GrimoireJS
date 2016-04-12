@@ -10,7 +10,6 @@ import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "../Renderers/BasicRenderer";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
-import MaterialManager from "../../Core/Materials/MaterialManager";
 import CanvasRegion from "./CanvasRegion";
 import {WebGLNotSupportedException} from "../../Exceptions";
 
