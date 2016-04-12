@@ -9,6 +9,7 @@ import LoopManager from "../Core/LoopManager";
 import AttributePromiseRegistry from "./AttributePromiseRegistry";
 import GomlParser from "./GomlParser";
 import ModuleManager from "../Module/ModuleManager";
+import EventOrgnizer from "../Interface/Events/EventOrgnizer";
 
 class NodeManager extends JThreeObject implements IContextComponent {
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
@@ -150,6 +151,29 @@ class NodeManager extends JThreeObject implements IContextComponent {
       this.removeNode(contentNode);
     }
     this.insertNode(contentNode, parentNode, index);
+  }
+
+  public cloneNode(targetNode: GomlTreeNodeBase, withEvent: boolean, deepWithEvent: boolean): GomlTreeNodeBase {
+    const elem = <HTMLElement>targetNode.props.getProp<HTMLElement>("elem").cloneNode(true);
+    const cloned = GomlParser.parse(elem, this.configurator);
+    if (deepWithEvent) {
+      const dugEvents = targetNode.callRecursiveWithReturn((node) => {
+        let event: EventOrgnizer;
+        const eo = (<GomlTreeNodeBase>node).props.getProp<EventOrgnizer>("event");
+        if (eo) {
+          event = eo.clone(<GomlTreeNodeBase>node);
+        }
+        return event;
+      });
+      let cnt = 0;
+      cloned.callRecursive((node: GomlTreeNodeBase) => {
+        node.props.setProp("event", dugEvents[cnt]);
+        cnt += 1;
+      });
+    } else if (withEvent) {
+      cloned.props.setProp("event", targetNode.props.getProp<EventOrgnizer>("event"));
+    }
+    return cloned;
   }
 
   /**
