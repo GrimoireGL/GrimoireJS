@@ -194,7 +194,6 @@
     "./src/Debug/Debugger.ts",
     "./src/Debug/DebuggerAPI.ts",
     "./src/Debug/Modules/DebuggerModuleBase.ts",
-    "./src/Debug/Modules/GizmoDebugger.ts",
     "./src/Debug/Modules/GLSpecDebugger.ts",
     "./src/Debug/Modules/Renderer/INotifyTextureProgress.ts",
     "./src/Debug/Modules/Renderer/IRequestBufferTexture.ts",

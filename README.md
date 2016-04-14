@@ -5,23 +5,23 @@
 [![Dependency Status](https://david-dm.org/jThreeJS/jThree.svg)](https://david-dm.org/jThreeJS/jThree)
 [![devDependency Status](https://david-dm.org/jThreeJS/jThree/dev-status.svg)](https://david-dm.org/jThreeJS/jThree#info=devDependencies)
 
-**CI system has been moved to CircleCI from travisCI.**
+日本語版Readmeは**README_JP.md**をご覧ください。
+https://github.com/jThreeJS/jThree/blob/develop/README_JP.md
 
-**travisCI build log is available here https://travis-ci.org/jThreeJS/jThree for a while**
+## About
 
-## What is jThree?
+### Mission
 
-jThree is an innovative 3D graphics engine. It may seem to be just a javascript library.
-However, jThree will enable browser to use most of the feature as other game engines do in local environment, plugins features,hierarchies,templates,module systems.
+** Establish usage of 3DCG as assets over the web like text,image,video and so on.**
 
+This is the one and only mission we define.
 
-### Purposes
+### Our methods
 
-* Provide a good learning resource for the beginners to know how programming is awesome via this library.
-* Sharing features that will be achieved easily by this library implemented with javascript.
-* Redefine legacies of 3DCG technologies on the Internet.
-* Have Enjoyable contributions :heart:
-
+* Make every developer being able to focus in the most important task they want to do.
+* Redefine the value of 3DCG over the web.
+* Fully care about UX for contributors.
+* This is not game engine, but **Web3D service engine**
 
 ### Dependencies
 
@@ -30,12 +30,6 @@ This library depends on the following libraries. We appreciate these contributor
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
-
-
-## Contributions
-
-Thank you for your interest in contributions!   :kissing_smiling_eyes:
-
 
 ### Installation to build
 
