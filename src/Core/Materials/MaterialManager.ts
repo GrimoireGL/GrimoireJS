@@ -1,3 +1,4 @@
+import GLExtensionConditionChecker from "../ProgramTransformer/GLExtensionRegistoryConditionChecker";
 import ImportTransformer from "../ProgramTransformer/Transformer/ImportTransformer";
 import BasicRegisterer from "../Pass/Registerer/BasicRegisterer";
 import RegistererBase from "../Pass/Registerer/RegistererBase";
@@ -10,18 +11,24 @@ import BufferRegisterer from "../Pass/Registerer/BufferRegisterer";
 import TimeRegisterer from "../Pass/Registerer/TimeRegisterer";
 import BasicCacheResolver from "../Resources/BasicCacheResolver";
 import IConditionChecker from "../ProgramTransformer/Base/IConditionChecker";
+import IConditionRegister from "../ProgramTransformer/Base/IConditionRegister";
 import Q from "q";
 /**
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
  */
-class MaterialManager implements IContextComponent {
+class MaterialManager implements IContextComponent, IConditionRegister {
+
+  public conditionRegistered: boolean = false;
 
   private _uniformRegisters: { [key: string]: new () => RegistererBase } = {};
 
   private _materialDocuments: { [key: string]: string } = {};
 
   private _chunkLoader: BasicCacheResolver<string> = new BasicCacheResolver<string>();
+
+  private _conditionCheckers: { [key: string]: IConditionChecker } = {};
+
 
   constructor() {
     this.addShaderChunk("builtin.packing", require("./BuiltIn/Chunk/_Packing.glsl"));
@@ -36,6 +43,7 @@ class MaterialManager implements IContextComponent {
     this.addUniformRegister(StageDescriptionRegisterer);
     this.registerMaterial(require("./BuiltIn/Materials/Phong.xmml"));
     this.registerMaterial(require("./BuiltIn/Materials/SolidColor.xmml"));
+    this.registerCondition("gl-extension", new GLExtensionConditionChecker());
   }
 
   public getContextComponentIndex(): number {
@@ -93,11 +101,10 @@ class MaterialManager implements IContextComponent {
   }
 
   public registerCondition(type: string, checker: IConditionChecker): void {
-    // TODO:implement
+    this._conditionCheckers[type] = checker;
   }
   public getConditionChecker(type: string): IConditionChecker {
-    return null;
-    // todo:implement
+    return this._conditionCheckers[type];
   }
   /**
    * Construct BasicMaterial instance with registered xmml
