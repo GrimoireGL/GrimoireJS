@@ -2,6 +2,7 @@ import RemoveAttributeVariableTransformer from "./Transformer/RemoveAttributeVar
 import RemoveVariableAnnotationTransformer from "./Transformer/RemoveVariableAnnotationsTransformer";
 import SourceSeparateTransformer from "./Transformer/SourceSeparateTransformer";
 import PrecisionComplementTransformer from "./Transformer/PrecisionComplementTransformer";
+import ConditionBlockTransformer from "./Transformer/ConditionBlockTransformer";
 import PrecisionParser from "./Transformer/PrecisionParser";
 import VariableParser from "./Transformer/VariableParser";
 import ImportTransformer from "./Transformer/ImportTransformer";
@@ -20,6 +21,7 @@ class ProgramTranspiler {
     const transformers: IProgramTransformer[] = [];
     transformers.push(new RemoveCommentTransformer());
     transformers.push(new ImportTransformer());
+    transformers.push(new ConditionBlockTransformer());
     transformers.push(new VariableParser("uniform"));
     transformers.push(new VariableParser("attribute"));
     transformers.push(new SourceSeparateTransformer());

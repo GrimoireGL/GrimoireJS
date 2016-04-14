@@ -60,7 +60,7 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
 
   public gl: WebGLRenderingContext;
 
-  public glExtensionResolver: GLExtensionRegistory = new GLExtensionRegistory();
+  public glExtensionRegistory: GLExtensionRegistory = new GLExtensionRegistory();
 
   /**
    * canvas height of last time
@@ -104,7 +104,7 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
    */
   protected __setGLContext(glContext: WebGLRenderingContext): void {
     this.gl = glContext;
-    this.glExtensionResolver.checkExtensions(glContext);
+    this.glExtensionRegistory.checkExtensions(glContext);
     this.alternativeTexture = this.__initializeAlternativeTexture();
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
     return;
