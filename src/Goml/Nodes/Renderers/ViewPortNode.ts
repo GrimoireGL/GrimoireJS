@@ -110,7 +110,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   }
 
   private _onConfigAttrChanged(attr: GomlAttribute): void {
-    if (this.__parent.getTypeName() !== "CanvasNode") {
+    if (!(this.__parent instanceof CanvasNode)) {
       throw Error("viewport must be the direct child of canvas");
     }
     this._parentCanvas = <CanvasNode>this.__parent;
@@ -169,7 +169,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         // when canvas HTMLElement is not applied
         this.target.region = new Rectangle(this._left, this._top, this._width, this._height);
       }
-      if (this.target.camera.getTypeName() === "PerspectiveCamera") {
+      if (this.target.camera instanceof PerspectiveCamera) {
         (<PerspectiveCamera>this.target.camera).Aspect = this._width / this._height;
       }
     }
