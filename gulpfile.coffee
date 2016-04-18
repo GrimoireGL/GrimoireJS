@@ -43,7 +43,7 @@ config =
       sourcemap: !args.nosourcemap
       transform: [
         {name:'txtify', opt: {extensions: ['.json','.html','.css','.glsl','.xmml','.rsml','.xml']}}
-        {name: 'babelify'}
+        {name: 'babelify', opt:{presets: ["es2015"]}}
         {name: 'envify', opt: {NODE_ENV: (if env_production then 'production' else 'development')}}
       ]
       detectGlobals: true
