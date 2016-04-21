@@ -5,17 +5,18 @@ import BasicRendererConfigurator from "./RendererConfigurator/BasicRendererConfi
 import SpriteRendererConfigurator from "./RendererConfigurator/SpriteRendererConfigurator";
 
 class RendererFactory {
-  public static rendererConfigurations: {[key: string]: any; } = {
-    "default": BasicRendererConfigurator,
-    "sprite": SpriteRendererConfigurator
-  };
+    public static rendererConfigurations: { [key: string]: any; } = {
+        "default": BasicRendererConfigurator,
+        "sprite": SpriteRendererConfigurator
+    };
 
-  public static generateRenderer(canvas: Canvas, drawRect: Rectangle, configureName: string): BasicRenderer {
-    configureName = configureName || "default";
-    const renderer = new BasicRenderer(canvas, drawRect, new RendererFactory.rendererConfigurations[configureName]());
-    renderer.initialize();
-    return renderer;
-  }
+    public static generateRenderer(canvas: Canvas, drawRect: Rectangle, configureName: string): BasicRenderer {
+        configureName = configureName || "default";
+        const renderer = BasicRenderer.fromConfigurator(canvas, new RendererFactory.rendererConfigurations[configureName]());
+        renderer.region = drawRect;
+        renderer.initialize();
+        return renderer;
+    }
 }
 
 export default RendererFactory;
