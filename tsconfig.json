@@ -18,6 +18,7 @@
     "./src/Base/JThreeObjectEE.ts",
     "./src/Base/JThreeObjectEEWithID.ts",
     "./src/Base/JThreeObjectWithID.ts",
+    "./src/Base/XMLReader.ts",
     "./src/bundle-notdoc.ts",
     "./src/ContextComponents.ts",
     "./src/Core/Canvas/Canvas.ts",
