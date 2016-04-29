@@ -1,7 +1,7 @@
 /**
  * Provides argument definition of declaration to single generate texture.
  */
-interface GeneraterInfoChunk {
+interface BufferRecipe {
 	/**
 	 * Name that is used for texture generation.
 	 */
@@ -10,4 +10,4 @@ interface GeneraterInfoChunk {
   [others: string]: any;
 }
 
-export default GeneraterInfoChunk;
+export default BufferRecipe;

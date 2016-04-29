@@ -1,5 +1,5 @@
 import GLEnumParser from "../../Canvas/GL/GLEnumParser";
-import GeneraterInfoChunk from "./GeneraterInfoChunk";
+import BufferRecipe from "./BufferRecipe";
 import BasicRenderer from "../BasicRenderer";
 import GeneraterBase from "./GeneraterBase";
 import Rectangle from "../../../Math/Rectangle";
@@ -16,7 +16,7 @@ class RendererFit extends GeneraterBase {
     return this.__parentRenderer.region;
   }
 
-  public generate(texInfo: GeneraterInfoChunk): BufferTexture {
+  public generate(texInfo: BufferRecipe): BufferTexture {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
     let elementLayout: number;

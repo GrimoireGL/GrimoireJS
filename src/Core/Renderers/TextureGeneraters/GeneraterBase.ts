@@ -1,5 +1,5 @@
 import IRenderer from "../IRenderer";
-import GeneraterInfoChunk from "./GeneraterInfoChunk";
+import BufferRecipe from "./BufferRecipe";
 /**
  * Provides abstraction for texture generation.
  * By overriding, it is able to manage texture buffer in your way.
@@ -15,7 +15,7 @@ abstract class GeneraterBase {
 	 * Generate texture with provided arguments.
 	 * This method is intended for being overriden.
 	 */
-  public abstract generate(texInfo: GeneraterInfoChunk): void;
+  public abstract generate(texInfo: BufferRecipe): void;
 }
 
 export default GeneraterBase;

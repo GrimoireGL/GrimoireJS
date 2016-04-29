@@ -14,6 +14,10 @@ class RenderPathInitializer {
         RenderPathInitializer._parseRoot(renderer, rootElement.item(0));
     }
 
+    public static parseRender(configure: string): void {
+
+    }
+
     private static _parseRoot(renderer: BasicRenderer, rootElement: Element): void {
         const texturesElement = rootElement.getElementsByTagName("textures");
         RenderPathInitializer._parseTextures(renderer, texturesElement.item(0));
@@ -54,7 +58,7 @@ class RenderPathInitializer {
      * Parse render path elements
      */
     private static _parsePath(renderer: BasicRenderer, pathesNode: Element): void {
-     
+
     }
 }
 

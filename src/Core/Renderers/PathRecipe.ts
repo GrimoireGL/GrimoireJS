@@ -1,8 +1,8 @@
-interface StageChainTemplate {
+interface PathRecipe {
   buffers: {
     [name: string]: string
   };
   stage: string;
   variables?: {};
 }
-export default StageChainTemplate;
+export default PathRecipe;

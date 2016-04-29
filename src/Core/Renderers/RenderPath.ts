@@ -2,7 +2,7 @@ import IRenderer from "./IRenderer";
 import ContextComponents from "../../ContextComponents";
 import RenderStageRegistory from "./RenderStageRegistory";
 import JThreeContext from "../../JThreeContext";
-import StageChainTemplate from "./StageChainTemplate";
+import PathRecipe from "./PathRecipe";
 import RenderStageChain from "./RenderStageChain";
 /**
  * レンダリングの順序を管理しているクラス
@@ -17,17 +17,17 @@ class RenderPath {
   constructor(private _renderer: IRenderer) {
   }
 
-  public pushStage(stage: StageChainTemplate): void {
+  public pushStage(stage: PathRecipe): void {
     this.path.push(this._fromTemplate(stage));
   }
 
-  public fromPathTemplate(templates: StageChainTemplate[]): void {
+  public fromPathTemplate(templates: PathRecipe[]): void {
     templates.forEach((e) => {
       this.path.push(this._fromTemplate(e));
     });
   }
 
-  public insertWithIndex(index: number, stage: StageChainTemplate): void {
+  public insertWithIndex(index: number, stage: PathRecipe): void {
     if (index >= 0 && index <= this.path.length) {
       const newStageChain = new Array(this.path.length + 1);
       for (let i = 0; i < index; i++) {
@@ -58,7 +58,7 @@ class RenderPath {
     }
   }
 
-  private _fromTemplate(template: StageChainTemplate): RenderStageChain {
+  private _fromTemplate(template: PathRecipe): RenderStageChain {
     const rr = JThreeContext.getContextComponent<RenderStageRegistory>(ContextComponents.RenderStageRegistory);
     return {
       buffers: template.buffers,

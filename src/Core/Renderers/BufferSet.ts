@@ -1,6 +1,6 @@
 import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import BasicRenderer from "./BasicRenderer";
-import GeneraterInfoChunk from "./TextureGeneraters/GeneraterInfoChunk";
+import BufferRecipe from "./TextureGeneraters/BufferRecipe";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
 import IDisposable from "../../Base/IDisposable";
@@ -25,9 +25,9 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
 
   /**
    * Generate new buffer and append list.
-   * @param {GeneraterInfoChunk} argument [description]
+   * @param {BufferRecipe} argument [description]
    */
-  public appendBuffer(argument: GeneraterInfoChunk): void {
+  public appendBuffer(argument: BufferRecipe): void {
     if (this._colorBuffers[argument.name]) {
       console.error(`The color buffer ${argument.name} is already exist.`);
       return;
@@ -37,7 +37,7 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
     }
   }
 
-  public appendBuffers(args: GeneraterInfoChunk[]): void {
+  public appendBuffers(args: BufferRecipe[]): void {
     for (let i = 0; i < args.length; i++) {
       this.appendBuffer(args[i]);
     }

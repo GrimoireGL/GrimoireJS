@@ -1,13 +1,13 @@
-import GeneraterInfoChunk from "../TextureGeneraters/GeneraterInfoChunk";
-import StageChainTemplate from "../StageChainTemplate";
+import BufferRecipe from "../TextureGeneraters/BufferRecipe";
+import PathRecipe from "../PathRecipe";
 import BasicRenderer from "../BasicRenderer";
 
 class RendererConfiguratorBase {
-  public get TextureBuffers(): GeneraterInfoChunk[] {
+  public get TextureBuffers(): BufferRecipe[] {
     return null;
   }
 
-  public getStageChain(target: BasicRenderer): StageChainTemplate[] {
+  public getStageChain(target: BasicRenderer): PathRecipe[] {
     return null;
   }
 }

@@ -1,6 +1,6 @@
 import Camera from "../../../Core/SceneObjects/Camera/Camera";
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
-import StageChainTemplate from "../../../Core/Renderers/StageChainTemplate";
+import PathRecipe from "../../../Core/Renderers/PathRecipe";
 import BasicRenderer from "../../../Core/Renderers/BasicRenderer";
 import Rectangle from "../../../Math/Rectangle";
 import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
@@ -17,7 +17,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   private _width: number;
   private _height: number;
 
-  private _skyBoxStageChain: StageChainTemplate;
+  private _skyBoxStageChain: PathRecipe;
 
   private _parentCanvas: CanvasNode;
 
