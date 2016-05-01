@@ -34,18 +34,12 @@ class RecipeLoader {
             const generaterName = textureNode.nodeName; // the node name will be used as generater.(like renderer-fit)
             const textureName = XMLReader.getAttribute(textureNode, "name", true);
             // create bufferGenerationInfo
-            const bufferGenerationInfo = {
+            const textureRecipe = {
                 generater: generaterName,
-                name: textureName
+                name: textureName,
+                params: XMLReader.getAttributes(textureNode)
             };
-            for (let j = 0; j < textureNode.attributes.length; j++) {
-                const attribute = textureNode.attributes.item(j);
-                if (attribute.name === "name" || attribute.name === "generater") {
-                    continue;
-                }
-                bufferGenerationInfo[attribute.name] = attribute.value;
-            }
-            textureRecipes.push(bufferGenerationInfo);
+            textureRecipes.push(textureRecipe);
         }
     }
 }

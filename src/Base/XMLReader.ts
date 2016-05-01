@@ -1,3 +1,4 @@
+import NamedValue from "./NamedValue";
 /**
  * Provides safe xml read feature.
  */
@@ -61,6 +62,16 @@ class XMLReader {
             if (children.item(i) instanceof Element) {
                 result.push(children.item(i) as Element);
             }
+        }
+        return result;
+    }
+
+    public static getAttributes(elem: Document | Element): NamedValue<string> {
+        const result: NamedValue<string> = {};
+        const attrs = elem.attributes;
+        for (let i = 0; i < attrs.length; i++) {
+            const attr = attrs.item(i);
+            result[attr.name] = attr.value;
         }
         return result;
     }
