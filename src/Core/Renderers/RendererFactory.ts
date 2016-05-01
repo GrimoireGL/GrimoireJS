@@ -1,8 +1,8 @@
 import Canvas from "../Canvas/Canvas";
 import Rectangle from "../../Math/Rectangle";
 import BasicRenderer from "./BasicRenderer";
-import DefaultRecipe from "./Factory/DefaultRecipe";
-import SpriteRendererConfigurator from "./Factory/SpriteRendererConfigurator";
+import DefaultRecipe from "./Recipe/DefaultRecipe";
+import SpriteRendererConfigurator from "./Recipe/SpriteRendererConfigurator";
 
 class RendererFactory {
     public static rendererConfigurations: { [key: string]: any; } = {

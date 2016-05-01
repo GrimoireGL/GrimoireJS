@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipe xmlns:d="http://grimoire.gl/ns/stage/basic" xmlns:b="http://grimoire.gl/ns/recipe/buffer-prefix" xmlns:v="http://grimoire.gl/ns/recipe/variable-prefix">
+  <textures>
+    <renderer-fit name="depth" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="g-normal" layout="RGBA" format="UBYTE"/>
+    <renderer-fit name="l-diffuse" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="l-specular" layout="RGB" format="UBYTE"/>
+    <renderer-fit name="color" layout="RGBA" format="UBYTE"/>
+    <renderer-fit name="hitarea" layout="RGB" format="UBYTE"/>
+  </textures>
+  <path>
+    <d:hitarea b:OUT="hitarea"/>
+    <d:g-buffer b:PRIMARY="g-normal" b:DEPTH="depth"/>
+    <d:light b:PRIMARY="g-normal" b:DEPTH="depth" b:DLIGHT="l-diffuse" b:SLIGHT="l-specular"/>
+    <d:forward b:DLIGHT="l-diffuse" b:SLIGHT="l-specular" b:OUT="color"/>
+    <d:fxaa b:INPUT="color" b:OUTPUT="default"/>
+  </path>
+</recipe>

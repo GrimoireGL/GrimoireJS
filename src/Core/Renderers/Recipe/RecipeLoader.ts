@@ -16,7 +16,7 @@ class RecipeLoader {
     public static parseRender(configure: string): void {
         const rendererRecipe = {};
         const xmlDocument = XMLReader.parseXML(configure);
-        const rootElement = XMLReader.getSingleElement(xmlDocument, "config");
+        const rootElement = XMLReader.getSingleElement(xmlDocument, "recipe");
         const texturesElement = XMLReader.getSingleElement(rootElement, "textures", true);
         RecipeLoader._parseTextures(texturesElement);
     }
@@ -26,20 +26,17 @@ class RecipeLoader {
      * @param {Element}       texturesNode [description]
      */
     private static _parseTextures(texturesNode: Element): void {
-        const textureNodes = texturesNode.childNodes;
+        const textureNodes = XMLReader.getChildElements(texturesNode);
         const textureRecipes = [];
         for (let i = 0; i < textureNodes.length; i++) {
             // iterate for all textures
-            const textureNode = textureNodes.item(i);
+            const textureNode = textureNodes[i];
             const generaterName = textureNode.nodeName; // the node name will be used as generater.(like renderer-fit)
-            const textureName = textureNode.attributes.getNamedItem("name");
-            if (!textureName) {
-                throw new Error("Render buffer name must be specified");
-            }
+            const textureName = XMLReader.getAttribute(textureNode, "name", true);
             // create bufferGenerationInfo
             const bufferGenerationInfo = {
                 generater: generaterName,
-                name: textureName.value
+                name: textureName
             };
             for (let j = 0; j < textureNode.attributes.length; j++) {
                 const attribute = textureNode.attributes.item(j);
