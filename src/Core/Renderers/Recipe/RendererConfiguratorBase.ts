@@ -2,7 +2,7 @@ import BufferRecipe from "../TextureGeneraters/BufferRecipe";
 import PathRecipe from "../PathRecipe";
 import BasicRenderer from "../BasicRenderer";
 
-class RendererConfiguratorBase {
+class FactoryBase {
   public get TextureBuffers(): BufferRecipe[] {
     return null;
   }
@@ -12,4 +12,4 @@ class RendererConfiguratorBase {
   }
 }
 
-export default RendererConfiguratorBase;
+export default FactoryBase;

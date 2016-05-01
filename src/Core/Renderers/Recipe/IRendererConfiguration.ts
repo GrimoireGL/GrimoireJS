@@ -1,8 +1,8 @@
 import PathRecipe from "../PathRecipe";
 import BufferRecipe from "../TextureGeneraters/BufferRecipe";
-interface IRendererConfiguration {
+interface IRendererRecipe {
     buffers: BufferRecipe[];
-    path:PathRecipe[];
+    path: PathRecipe[];
 }
 
-export default IRendererConfiguration;
+export default IRendererRecipe;

@@ -53,6 +53,17 @@ class XMLReader {
         const resultStr = XMLReader.getAttribute(elem, name, mandatory);
         return parseInt(resultStr, 10);
     }
+
+    public static getChildElements(elem: Document | Element): Element[] {
+        const children = elem.childNodes;
+        const result: Element[] = [];
+        for (let i = 0; i < children.length; i++) {
+            if (children.item(i) instanceof Element) {
+                result.push(children.item(i) as Element);
+            }
+        }
+        return result;
+    }
 }
 
 export default XMLReader;
