@@ -3,15 +3,6 @@ import XMLReader from "../../../Base/XMLReader";
  * Provides initialization for renderer from xml configuration file.
  */
 class RecipeLoader {
-    // deprecated
-    // public static initializeRenderer(renderer: BasicRenderer, configure: string): void {
-    //     const xmlDocument = XMLReader.parseXML(configure);
-    //     const rootElement = xmlDocument.getElementsByName("config");
-    //     if (rootElement.length !== 1) {
-    //         throw new Error("Invalid count of renderer-path elements. The count of renderer-path element are allowed only 1.");
-    //     }
-    //     RecipeLoader._parseRoot(renderer, rootElement.item(0));
-    // }
 
     public static parseRender(configure: string): void {
         const rendererRecipe = {};
@@ -26,6 +17,7 @@ class RecipeLoader {
      * @param {Element}       texturesNode [description]
      */
     private static _parseTextures(texturesNode: Element): void {
+        debugger;
         const textureNodes = XMLReader.getChildElements(texturesNode);
         const textureRecipes = [];
         for (let i = 0; i < textureNodes.length; i++) {
@@ -34,12 +26,11 @@ class RecipeLoader {
             const generaterName = textureNode.nodeName; // the node name will be used as generater.(like renderer-fit)
             const textureName = XMLReader.getAttribute(textureNode, "name", true);
             // create bufferGenerationInfo
-            const textureRecipe = {
+            textureRecipes.push({
                 generater: generaterName,
                 name: textureName,
                 params: XMLReader.getAttributes(textureNode)
-            };
-            textureRecipes.push(textureRecipe);
+            });
         }
     }
 }
