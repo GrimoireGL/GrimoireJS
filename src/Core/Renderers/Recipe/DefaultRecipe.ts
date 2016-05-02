@@ -9,43 +9,43 @@ class DefaultRecipe extends ConfiguratorBase {
         return [
             {
                 name: "depth",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGB",
                 format: "UBYTE"
             },
             {
                 name: "gbuffer.primary",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGBA",
                 format: "UBYTE"
             },
             {
                 name: "light.diffuse",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGB",
                 format: "UBYTE"
             },
             {
                 name: "light.specular",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGB",
                 format: "UBYTE"
             },
             {
                 name: "hitarea",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGBA",
                 format: "UBYTE"
             },
             {
                 name: "main",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGBA",
                 format: "UBYTE"
             },
             {
                 name: "output",
-                generater: "rendererfit",
+                generater: "fit",
                 layout: "RGBA",
                 format: "UBYTE"
             }

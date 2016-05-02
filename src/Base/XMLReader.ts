@@ -75,6 +75,10 @@ class XMLReader {
         }
         return result;
     }
+
+    public static getElementFQN(elem: Document | Element): string {
+     return `{${elem.namespaceURI}}${elem.localName}`;
+    }
 }
 
 export default XMLReader;
