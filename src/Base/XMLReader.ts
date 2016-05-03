@@ -66,18 +66,20 @@ class XMLReader {
         return result;
     }
 
-    public static getAttributes(elem: Document | Element): NamedValue<string> {
+    public static getAttributes(elem: Document | Element, ns?: string): NamedValue<string> {
         const result: NamedValue<string> = {};
         const attrs = elem.attributes;
         for (let i = 0; i < attrs.length; i++) {
             const attr = attrs.item(i);
-            result[attr.name] = attr.value;
+            if (!ns || attr.namespaceURI === ns) {
+                result[attr.localName] = attr.value;
+            }
         }
         return result;
     }
 
     public static getElementFQN(elem: Document | Element): string {
-     return `{${elem.namespaceURI}}${elem.localName}`;
+        return `{${elem.namespaceURI}}${elem.localName}`;
     }
 }
 

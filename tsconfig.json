@@ -118,7 +118,7 @@
     "./src/Core/Renderers/IRenderStageCompletedEventArgs.ts",
     "./src/Core/Renderers/PathRecipe.ts",
     "./src/Core/Renderers/Recipe/DefaultRecipe.ts",
-    "./src/Core/Renderers/Recipe/IRendererConfiguration.ts",
+    "./src/Core/Renderers/Recipe/IRendererRecipe.ts",
     "./src/Core/Renderers/Recipe/IStageRecipe.ts",
     "./src/Core/Renderers/Recipe/ITextureRecipe.ts",
     "./src/Core/Renderers/Recipe/RecipeLoader.ts",
