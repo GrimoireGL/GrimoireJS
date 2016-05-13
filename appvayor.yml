@@ -32,8 +32,10 @@ init:
 
 branches:
 # ビルドするブランチを制限する場合に記述します
-  except:
-    - gh-pages
+#  except:
+#    - gh-pages
+  only:
+  - ci/appvayor
 
 build: off
 deploy: off
