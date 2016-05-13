@@ -31,7 +31,7 @@ test_script:
 
 environment:
   matrix:
-    - nodejs_version: "4.4.3"
+    - nodejs_version: "4.4.4"
 
 init:
 # git clone の際の改行を変換しないようにします
