@@ -7,13 +7,17 @@ install:
   - npm install -g npm
   - npm --version
 
+  # Node config
+  # Visual Studioのバージョンを指定
+  - npm config set msvs_version 2015 --global
+
   # Update node-gyp
   # 必須! node-gyp のバージョンを上げないと、ネイティブモジュールのコンパイルに失敗します
   - npm install -g node-gyp
 
   # Install dependencies & devDependencies
   # Visual Studio のバージョンを指定しないとコンパイルが通らない場合あり
-  - npm install --build-from-source --msvs_version=2013
+  - npm install
 
   # Build
   - npm run build
