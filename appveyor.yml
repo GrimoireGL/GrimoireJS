@@ -29,6 +29,11 @@ test_script:
 # テスト用のコマンドを指定します
   - cmd: npm test
 
+platform: 
+  - x64
+configuration: 
+  - Release
+
 environment:
   matrix:
     - nodejs_version: "4.4.4"
