@@ -10,6 +10,8 @@ install:
   # Node config
   # Visual Studioのバージョンを指定
   - cmd: npm config set msvs_version 2015 --global
+  # CPUアークテクチャを指定
+  - cmd: npm config set target_arch x64 --global
 
   # Update node-gyp
   # 必須! node-gyp のバージョンを上げないと、ネイティブモジュールのコンパイルに失敗します
