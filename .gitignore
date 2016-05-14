@@ -124,6 +124,7 @@ ci/
 
 ##Build Outputs##
 bin/
+product/**/*
 lib/
 src/**/*.js.map
 src/**/*.js
