@@ -95,7 +95,7 @@
     "envify": "^3.4.0",
     "espower-babel": "^4.0.1",
     "espower-typescript": "^5.0.1",
-    "gl": "stackgl/headless-gl",
+    "gl": "m2wasabi/headless-gl",
     "glob-array": "^0.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
