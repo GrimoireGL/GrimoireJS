@@ -20,19 +20,23 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "start": "gulp --require coffee-script/register server",
-    "build": "BABEL_ENV=production gulp --require coffee-script/register build",
-    "debug": "BABEL_ENV=production gulp --require coffee-script/register build:debug",
-    "watch": "BABEL_ENV=development gulp --require coffee-script/register watch",
-    "test": "BABEL_ENV=test ava --require babel-register ./test/**/*Test.js",
+    "bundle": "BABEL_ENV=production browserify -v -d ./lib/jThree.js -t [ babelify ] -o 'exorcist ./product/j3.js.map > ./product/j3.js'",
+    "bundle-watch": "BABEL_ENV=development watchify -v -d ./lib/jThree.js -t [ babelify ] -o 'exorcist ./product/j3.js.map > ./product/j3.js'",
+    "build-debug": "BABEL_ENV=production gulp build:debug",
     "build-ts": "tsc --sourcemap",
-    "copy-others-src-to-lib": "gulp --require coffee-script/register build:main:others",
-    "precover": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib",
+    "build-copy": "gulp build:main:others",
+    "test": "BABEL_ENV=test ava --require babel-register ./test/**/*Test.js",
+    "precover": "npm run build-ts -- --nosourcemap && npm run build-copy",
     "cover": "nyc --all --reporter=json --reporter=text npm run test",
     "doc": "gulp --require coffee-script/register doc",
     "clean": "gulp --require coffee-script/register clean",
     "lint": "gulp --require coffee-script/register lint:ts"
   },
+  "browserify": {
+    "transform": [
+      ["txtify", {"extensions": [".json", ".html", ".css", ".glsl", ".xmml", ".rsml", ".xml"]}]
+    ]
+  }
   "directories": {
     "test": "test"
   },
@@ -82,6 +86,7 @@
     "envify": "^3.4.0",
     "espower-babel": "^4.0.1",
     "espower-typescript": "^5.0.1",
+    "exorcist": "^0.4.0",
     "gl": "^2.1.5",
     "glob-array": "^0.1.2",
     "gulp": "^3.9.1",
