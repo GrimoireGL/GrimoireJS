@@ -1,6 +1,6 @@
 install:
   # Update Node.js
-  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version)
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) x64
   - cmd: node --version
 
   # Update NPM
