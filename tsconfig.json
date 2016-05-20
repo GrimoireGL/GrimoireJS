@@ -19,6 +19,7 @@
     "./src/Base/JThreeObjectEEWithID.ts",
     "./src/Base/JThreeObjectWithID.ts",
     "./src/Base/NamedValue.ts",
+    "./src/Base/NamespaceUtil.ts",
     "./src/Base/XMLReader.ts",
     "./src/bundle-notdoc.ts",
     "./src/ContextComponents.ts",

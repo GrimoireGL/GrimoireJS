@@ -1,4 +1,5 @@
 import NamedValue from "./NamedValue";
+import NamespaceUtil from "./NamespaceUtil";
 /**
  * Provides safe xml read feature.
  */
@@ -79,7 +80,7 @@ class XMLReader {
     }
 
     public static getElementFQN(elem: Document | Element): string {
-        return `{${elem.namespaceURI}}${elem.localName}`;
+        return NamespaceUtil.generateFQN(elem.namespaceURI, elem.localName);
     }
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<recipe xmlns="http://grimoire.gl/ns/recipe" xmlns:b="http://grimoire.gl/ns/recipe/buffer-prefix" xmlns:v="http://grimoire.gl/ns/recipe/variable-prefix">
+<recipe xmlns:d="http://grimoire.gl/ns/recipe" xmlns:b="http://grimoire.gl/ns/recipe/buffer-prefix" xmlns:v="http://grimoire.gl/ns/recipe/variable-prefix">
   <textures>
     <fit name="depth" layout="RGB" format="UBYTE"/>
     <fit name="g-normal" layout="RGBA" format="UBYTE"/>

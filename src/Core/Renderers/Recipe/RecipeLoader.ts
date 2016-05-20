@@ -19,7 +19,6 @@ class RecipeLoader {
         const pathElement = XMLReader.getSingleElement(rootElement, "path", true);
         rendererRecipe.textures = RecipeLoader._parseTextures(texturesElement);
         rendererRecipe.stages = RecipeLoader._parseStages(pathElement);
-        console.log(rendererRecipe);
         return rendererRecipe;
     }
     /**
