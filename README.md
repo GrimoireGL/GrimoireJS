@@ -12,7 +12,7 @@ https://github.com/jThreeJS/jThree/blob/develop/README_JP.md
 
 ### Mission
 
-** Establish usage of 3DCG as assets over the web like text,image,video and so on.**
+**Establish usage of 3DCG as assets over the web like text,image,video and so on.**
 
 This is the one and only mission we define.
 
