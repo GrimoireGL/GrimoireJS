@@ -4,6 +4,7 @@
 * text=auto
 .travis.yml text eol=lf
 .bat text eol=crlf
+.glsl text eol=lf
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

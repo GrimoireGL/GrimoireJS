@@ -46,10 +46,8 @@ init:
 
 branches:
 # ビルドするブランチを制限する場合に記述します
-#  except:
-#    - gh-pages
-  only:
-  - ci/appvayor
+  except:
+    - gh-pages
 
 build_script:
   - cmd: npm run build
