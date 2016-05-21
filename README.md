@@ -1,6 +1,8 @@
 # jThree
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/jThreeJS/jThree.svg?style=svg)](https://circleci.com/gh/jThreeJS/jThree)
+[![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/jThreeJS/jThree?branch=develop&svg=true)](https://ci.appveyor.com/project/LimeStreem/jthree)
+
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
 [![Dependency Status](https://david-dm.org/jThreeJS/jThree.svg)](https://david-dm.org/jThreeJS/jThree)
 [![devDependency Status](https://david-dm.org/jThreeJS/jThree/dev-status.svg)](https://david-dm.org/jThreeJS/jThree#info=devDependencies)
