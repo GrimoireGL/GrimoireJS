@@ -1,4 +1,5 @@
 cd ci
+echo "$CI_PULL_REQUEST"
 if [ -n "$CI_PULL_REQUEST" ]; then
   rm -rf jThree
   git config --global user.email "admin@jthree.io"
