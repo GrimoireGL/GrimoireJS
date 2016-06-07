@@ -1,3 +1,4 @@
+import NamespaceUtil from "../../../../Base/NamespaceUtil";
 import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
 import BasicTechnique from "./BasicTechnique";
 import BasicRenderer from "../../BasicRenderer";
@@ -55,7 +56,7 @@ class BasicRenderStage extends RenderStageBase {
             console.error("Stage tag was not found in RSML");
             return;
         }
-        this._stageName = stageTag.getAttribute("name");
+        this._stageName = NamespaceUtil.generateFQN(stageTag.getAttribute("namespace"), stageTag.getAttribute("name"));
         const techniqueTags = stageTag.querySelectorAll("technique");
         this._techniqueCount = techniqueTags.length;
         this.techniques = new Array(this._techniqueCount);

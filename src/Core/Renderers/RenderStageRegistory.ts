@@ -1,3 +1,4 @@
+import NamespaceUtil from "../../Base/NamespaceUtil";
 import XMLReader from "../../Base/XMLReader";
 import IRenderer from "./IRenderer";
 import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
@@ -10,7 +11,7 @@ class RenderStageRegistory implements IContextComponent {
     private _renderStageFactoryFunctions: { [key: string]: (r: IRenderer) => RenderStageBase } = {};
 
     constructor() {
-        this.register("jthree.hitarea", (renderer) => new HitAreaRenderStage(renderer));
+        this.register("http://grimoire.gl/ns/recipe/stages", "hitarea", (renderer) => new HitAreaRenderStage(renderer));
         this.register(require("./RenderStages/BuiltIn/GBuffer.rsml"));
         this.register(require("./RenderStages/BuiltIn/LightAccumulationStage.rsml"));
         this.register(require("./RenderStages/BuiltIn/ForwardShading.rsml"));
@@ -37,20 +38,36 @@ class RenderStageRegistory implements IContextComponent {
      * @param {string}                            name              the key to be used for constructing the render stage
      * @param {Func1<BasicRenderer, RenderStageBase>} factory       factory function for constructing the render stage
      */
+    public register(namespace: string, name: string, factory: (r: BasicRenderer) => RenderStageBase): void;
     public register(name: string, factory: (r: BasicRenderer) => RenderStageBase): void;
-    public register(nameOrsource: string, factory?: (r: BasicRenderer) => RenderStageBase): void {
-        if (factory) {
-            this._renderStageFactoryFunctions[nameOrsource] = factory;
-            return;
+    public register(arg1: string, arg2?: ((r: BasicRenderer) => RenderStageBase) | string, arg3?: (r: BasicRenderer) => RenderStageBase): void {
+        if (arg1 && !arg2 && !arg3) {
+            // Assume raw source code was passe
+            const source = arg1;
+            const rsmlRoot = XMLReader.getSingleElement(XMLReader.parseXML(source), "rsml", true);
+            const stageRoot = XMLReader.getSingleElement(rsmlRoot, "stage", true);
+            const name = NamespaceUtil.generateFQN(stageRoot.getAttribute("namespace"), stageRoot.getAttribute("name"));
+            if (!name) {
+                console.error(`The name field was not found in RSML file.\n${source}`);
+                return;
+            }
+            this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new BasicRenderStage(renderer, source);
+
+        } else {
+            let ns: string = null;
+            let factory: (r: BasicRenderer) => RenderStageBase;
+            let name: string;
+            if (arg3) {
+                // Assume namespace was specified
+                ns = arg1;
+                factory = arg3;
+                name = <string>arg2;
+            } else {
+                factory = <(r: BasicRenderer) => RenderStageBase>arg2;
+                name = arg1;
+            }
+            this._renderStageFactoryFunctions[NamespaceUtil.generateFQN(ns, name)] = factory;
         }
-        const rsmlRoot = XMLReader.getSingleElement(XMLReader.parseXML(nameOrsource), "rsml", true);
-        const stageRoot = XMLReader.getSingleElement(rsmlRoot, "stage", true);
-        const name = stageRoot.getAttribute("name");
-        if (!name) {
-            console.error(`The name field was not found in RSML file.\n${nameOrsource}`);
-            return;
-        }
-        this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new BasicRenderStage(renderer, nameOrsource);
     }
 
     /**

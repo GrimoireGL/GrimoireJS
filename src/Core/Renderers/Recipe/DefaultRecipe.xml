@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<recipe xmlns:d="http://grimoire.gl/ns/recipe" xmlns:b="http://grimoire.gl/ns/recipe/buffer-prefix" xmlns:v="http://grimoire.gl/ns/recipe/variable-prefix">
+<recipe xmlns="http://grimoire.gl/ns/recipe"
+  xmlns:ds="http://grimoire.gl/ns/recipe/stages"
+  xmlns:b="http://grimoire.gl/ns/recipe/buffer-prefix"
+  xmlns:v="http://grimoire.gl/ns/recipe/variable-prefix">
   <textures>
     <fit name="depth" layout="RGB" format="UBYTE"/>
     <fit name="g-normal" layout="RGBA" format="UBYTE"/>
@@ -9,10 +12,10 @@
     <fit name="hitarea" layout="RGB" format="UBYTE"/>
   </textures>
   <path>
-    <hitarea b:OUT="hitarea"/>
-    <g-buffer b:PRIMARY="g-normal" b:DEPTH="depth"/>
-    <light b:PRIMARY="g-normal" b:DEPTH="depth" b:DLIGHT="l-diffuse" b:SLIGHT="l-specular"/>
-    <forward b:DLIGHT="l-diffuse" b:SLIGHT="l-specular" b:OUT="color"/>
-    <fxaa b:INPUT="color" b:OUTPUT="default" v:coeff="1.32"/>
+    <ds:hitarea b:OUT="hitarea"/>
+    <ds:gbuffer b:PRIMARY="g-normal" b:DEPTH="depth"/>
+    <ds:light b:PRIMARY="g-normal" b:DEPTH="depth" b:DLIGHT="l-diffuse" b:SLIGHT="l-specular"/>
+    <ds:forward b:DLIGHT="l-diffuse" b:SLIGHT="l-specular" b:OUT="color"/>
+    <ds:fxaa b:INPUT="color" b:OUTPUT="default" v:coeff="1.32"/>
   </path>
 </recipe>

@@ -1,3 +1,5 @@
+import RBO from "../Resources/RBO/RBO";
+import RenderPath from "./RenderPath";
 import IRendererRecipe from "./Recipe/IRendererRecipe";
 import RecipeLoader from "./Recipe/RecipeLoader";
 import RendererBase from "./RendererBase";
@@ -17,11 +19,17 @@ class BasicRenderer extends RendererBase {
 
     public static fromConfigurator(canvas: Canvas, configurator: RendererConfiguratorBase): BasicRenderer {
         const renderer = new BasicRenderer(canvas);
-        const recipe = RecipeLoader.parseRender(require("./DefaultRecipe.xml"));
-        renderer.renderPath.fromPathTemplate(configurator.getStageChain(renderer));
-        renderer.bufferSet.appendBuffers(configurator.TextureBuffers);
+        const recipe = RecipeLoader.parseRender(require("./Recipe/DefaultRecipe.xml"));
+        renderer.applyRecipe(recipe);
         return renderer;
     }
+
+
+    public defaultRenderBuffer: RBO;
+
+    public renderPath: RenderPath;
+
+    public bufferSet: BufferSet;
 
     /**
      * Constructor of RenderBase
@@ -41,22 +49,20 @@ class BasicRenderer extends RendererBase {
      * This method is not intended to be called by user manually.
      */
     public initialize(): void {
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
-        this.on("resize", () => {
-            JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
-        });
-        this._remapBuffers();
-        this.bufferSet.on("changed", () => this._remapBuffers());
+        this._initializeRBO();
     }
 
     public applyRecipe(recipe: IRendererRecipe): void {
-     // TODO refactor/Renderer
+        this._resetRendererResources();
+        this.bufferSet.appendBuffers(recipe.textures);
+        this.renderPath.appendStages(recipe.stages);
+        this._remapBuffers();
     }
 
     public dispose(): void {
         this.defaultRenderBuffer.dispose();
         this.bufferSet.dispose();
+        this.renderPath.dispose();
     }
 
     public render(scene: Scene): void {
@@ -93,6 +99,18 @@ class BasicRenderer extends RendererBase {
         }
     }
 
+    private _initializeRBO(): void {
+     // Only works when the RBO was not initialized.
+        if (!this.defaultRenderBuffer) {
+            const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+            this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
+            // set event handler for the case when the viewport was resized.
+            this.on("resize", () => {
+                JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
+            });
+        }
+    }
+
     private _remapBuffers(): void {
         this.renderPath.path.forEach(chain => {
             chain.stage.bufferTextures.defaultRenderBuffer = this.defaultRenderBuffer;
@@ -100,6 +118,21 @@ class BasicRenderer extends RendererBase {
                 chain.stage.bufferTextures[bufferName] = this.bufferSet.getColorBuffer(chain.buffers[bufferName]);
             }
         });
+    }
+
+    /**
+     * Reset bufferset and renderer path.
+     */
+    private _resetRendererResources(): void {
+        if (this.renderPath) {
+            this.renderPath.dispose();
+        }
+        if (this.bufferSet) {
+            this.bufferSet.dispose();
+        }
+        this.bufferSet = new BufferSet(this);
+        this.renderPath = new RenderPath(this);
+        this.bufferSet.on("changed", () => this._remapBuffers());
     }
 }
 

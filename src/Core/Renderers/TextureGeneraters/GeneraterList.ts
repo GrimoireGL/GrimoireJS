@@ -1,5 +1,5 @@
 import RendererFit from "./RendererFit";
 
 export default {
-  "fit": RendererFit
+    "{http://grimoire.gl/ns/recipe}fit": RendererFit
 };

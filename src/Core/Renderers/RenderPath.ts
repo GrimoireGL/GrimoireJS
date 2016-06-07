@@ -1,3 +1,4 @@
+import IDisposable from "../../Base/IDisposable";
 import IRenderer from "./IRenderer";
 import ContextComponents from "../../ContextComponents";
 import RenderStageRegistory from "./RenderStageRegistory";
@@ -7,7 +8,7 @@ import RenderStageChain from "./RenderStageChain";
 /**
  * レンダリングの順序を管理しているクラス
  */
-class RenderPath {
+class RenderPath implements IDisposable {
     /**
      * レンダリングの順序の配列
      * @type {RenderStageChain[]}
@@ -17,20 +18,11 @@ class RenderPath {
     constructor(private _renderer: IRenderer) {
     }
 
-    /**
-     * Remove all contained pathes.
-     */
-    public clear(): void {
-        while (this.path.length >= 1) {
-            this.path.splice(this.path.length - 1, 1)[0]
-        }
-    }
-
-    public pushStage(stage: PathRecipe): void {
+    public appendStage(stage: PathRecipe): void {
         this.path.push(this._fromTemplate(stage));
     }
 
-    public fromPathTemplate(templates: PathRecipe[]): void {
+    public appendStages(templates: PathRecipe[]): void {
         templates.forEach((e) => {
             this.path.push(this._fromTemplate(e));
         });
@@ -67,6 +59,12 @@ class RenderPath {
         }
     }
 
+    public dispose(): void {
+        while (this.path.length >= 1) {
+            this._disposeStage(this.path.splice(this.path.length - 1, 1)[0]);
+        }
+    }
+
     private _fromTemplate(template: PathRecipe): RenderStageChain {
         const rr = JThreeContext.getContextComponent<RenderStageRegistory>(ContextComponents.RenderStageRegistory);
         return {
@@ -77,7 +75,7 @@ class RenderPath {
     }
 
     private _disposeStage(pathElement: RenderStageChain): void {
-
+        pathElement.stage.dispose();
     }
 }
 
