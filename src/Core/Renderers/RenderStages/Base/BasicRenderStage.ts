@@ -63,6 +63,10 @@ class BasicRenderStage extends RenderStageBase {
             this.techniques[techniqueIndex] = new BasicTechnique(this, techniqueTags.item(techniqueIndex), techniqueIndex);
         }
     }
+
+    public dispose(): void {
+        this.techniques.forEach((t) => t.dispose());
+    }
 }
 
 export default BasicRenderStage;

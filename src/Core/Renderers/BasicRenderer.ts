@@ -1,8 +1,9 @@
+import IRendererRecipe from "./Recipe/IRendererRecipe";
+import RecipeLoader from "./Recipe/RecipeLoader";
 import RendererBase from "./RendererBase";
 import BufferSet from "./BufferSet";
 import RenderPathExecutor from "./RenderPathExecutor";
 import RendererConfiguratorBase from "./Recipe/RendererConfiguratorBase";
-import RendererConfigurator from "./Recipe/DefaultRecipe";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
@@ -16,7 +17,7 @@ class BasicRenderer extends RendererBase {
 
     public static fromConfigurator(canvas: Canvas, configurator: RendererConfiguratorBase): BasicRenderer {
         const renderer = new BasicRenderer(canvas);
-        configurator = configurator || new RendererConfigurator();
+        const recipe = RecipeLoader.parseRender(require("./DefaultRecipe.xml"));
         renderer.renderPath.fromPathTemplate(configurator.getStageChain(renderer));
         renderer.bufferSet.appendBuffers(configurator.TextureBuffers);
         return renderer;
@@ -47,6 +48,10 @@ class BasicRenderer extends RendererBase {
         });
         this._remapBuffers();
         this.bufferSet.on("changed", () => this._remapBuffers());
+    }
+
+    public applyRecipe(recipe: IRendererRecipe): void {
+     // TODO refactor/Renderer
     }
 
     public dispose(): void {

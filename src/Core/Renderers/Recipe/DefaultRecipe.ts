@@ -1,11 +1,9 @@
-import RecipeLoader from "./RecipeLoader";
 import PathRecipe from "../PathRecipe";
 ﻿import GeneraterInfo from "../TextureGeneraters/BufferRecipe";
 import BasicRenderer from "../BasicRenderer";
 import ConfiguratorBase from "./RendererConfiguratorBase";
 class DefaultRecipe extends ConfiguratorBase {
     public get TextureBuffers(): GeneraterInfo[] {
-        RecipeLoader.parseRender(require("./DefaultRecipe.xml"));
         return [
             {
                 name: "depth",
