@@ -1,3 +1,4 @@
+import NamedValue from "../../Base/NamedValue";
 import ITextureRecipe from "./Recipe/ITextureRecipe";
 import TextureBase from "../Resources/Texture/TextureBase";
 import PathRenderer from "./PathRenderer";
@@ -9,7 +10,7 @@ import GeneraterList from "./TextureGeneraters/GeneraterList";
 
 class TextureGenerater {
 
-  private static _generaters: { [key: string]: { [id: string]: GeneraterBase } } = {};
+  private static _generaters: NamedValue<NamedValue<GeneraterBase>> = {};
 
   public static generateTexture(renderer: PathRenderer, generaterInfo: ITextureRecipe): TextureBase {
     const generaters = TextureGenerater._getGeneraters(renderer);
@@ -22,13 +23,13 @@ class TextureGenerater {
     return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.id + "." + bufferName);
   }
 
-  private static _getGeneraters(renderer: PathRenderer): {[key: string]: GeneraterBase} {
+  private static _getGeneraters(renderer: PathRenderer): NamedValue<GeneraterBase> {
     if (TextureGenerater._generaters[renderer.id]) { return TextureGenerater._generaters[renderer.id]; }
     return TextureGenerater._initializeGeneraters(renderer);
   }
 
-  private static _initializeGeneraters(renderer: PathRenderer): { [key: string]: GeneraterBase} {
-    const targetArray = <{ [key: string]: GeneraterBase }>{};
+  private static _initializeGeneraters(renderer: PathRenderer): NamedValue<GeneraterBase> {
+    const targetArray = <NamedValue<GeneraterBase>>{};
     const generaters = GeneraterList;
     for (let key in generaters) {
       if (generaters.hasOwnProperty(key)) {

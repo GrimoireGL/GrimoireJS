@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import MatrixArray from "../../../Math/MatrixArray";
 import VectorArray from "../../../Math/VectorArray";
 import TextureBase from "../Texture/TextureBase";
@@ -19,9 +20,9 @@ class ProgramWrapper extends ResourceWrapper {
 
   private _parentProgram: Program = null;
 
-  private _attributeLocations: { [key: string]: number } = {};
+  private _attributeLocations: NamedValue<number> = {};
 
-  private _uniformLocations: { [key: string]: WebGLUniformLocation } = {};
+  private _uniformLocations: NamedValue<WebGLUniformLocation> = {};
 
   public get TargetProgram(): WebGLProgram {
     return this._targetProgram;

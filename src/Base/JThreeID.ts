@@ -1,9 +1,8 @@
-import JThreeObject from "./JThreeObject";
 /**
  * Unique ID generator for jThree objects.
  * @type {[type]}
  */
-class JThreeID extends JThreeObject {
+class JThreeID {
     /**
      * Random characters being used for generating unique id.
      * @type {string}

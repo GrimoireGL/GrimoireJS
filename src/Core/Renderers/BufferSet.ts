@@ -1,3 +1,4 @@
+import NamedValue from "../../Base/NamedValue";
 import ITextureRecipe from "./Recipe/ITextureRecipe";
 import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import PathRenderer from "./PathRenderer";
@@ -11,7 +12,7 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
   /**
    * The color buffers managed by this class.
    */
-  private _colorBuffers: { [key: string]: TextureBase } = {};
+  private _colorBuffers: NamedValue<TextureBase> = {};
 
   constructor(private _renderer: PathRenderer) {
     super();

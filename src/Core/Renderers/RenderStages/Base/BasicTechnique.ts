@@ -13,14 +13,14 @@ import MaterialManager from "../../../Materials/MaterialManager";
 import BasicMaterial from "../../../Materials/BasicMaterial";
 import SceneObject from "../../../SceneObjects/SceneObject";
 import FBO from "../../../Resources/FBO/FBO";
-import JThreeObjectWithID from "../../../../Base/JThreeObjectWithID";
+import JThreeObject from "../../../../Base/JThreeObject";
 import ContextComponents from "../../../../ContextComponents";
 import ResourceManager from "../../../ResourceManager";
 import JThreeContext from "../../../../JThreeContext";
 import FBOWrapper from "../../../Resources/FBO/FBOWrapper";
 import BufferInput from "../../BufferInput";
 import Scene from "../../../Scene";
-class BasicTechnique extends JThreeObjectWithID implements IGLContainer, IDisposable {
+class BasicTechnique extends JThreeObject implements IGLContainer, IDisposable {
 
     public defaultMaterial: BasicMaterial;
 

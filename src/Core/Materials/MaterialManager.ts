@@ -1,3 +1,4 @@
+import NamedValue from "../../Base/NamedValue";
 import XMLReader from "../../Base/XMLReader";
 import GLExtensionConditionChecker from "../ProgramTransformer/GLExtensionRegistoryConditionChecker";
 import ImportTransformer from "../ProgramTransformer/Transformer/ImportTransformer";
@@ -24,11 +25,11 @@ class MaterialManager implements IContextComponent, IConditionRegister {
 
     private _uniformRegisters: { [key: string]: new () => RegistererBase } = {};
 
-    private _materialDocuments: { [key: string]: string } = {};
+    private _materialDocuments: NamedValue<string> = {};
 
     private _chunkLoader: BasicCacheResolver<string> = new BasicCacheResolver<string>();
 
-    private _conditionCheckers: { [key: string]: IConditionChecker } = {};
+    private _conditionCheckers: NamedValue<IConditionChecker> = {};
 
 
     constructor() {

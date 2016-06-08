@@ -1,5 +1,6 @@
+import NamedValue from "../../Base/NamedValue";
 interface IShaderArgumentContainer {
-  shaderVariables: { [name: string]: any; };
+  shaderVariables: NamedValue<any>;
 }
 
 export default IShaderArgumentContainer;

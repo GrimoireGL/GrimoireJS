@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import CanvasRegion from "../../Canvas/CanvasRegion";
 import Vector2 from "../../../Math/Vector2";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
@@ -9,7 +10,7 @@ class MouseRegisterer extends RegistererBase {
     return "builtin.mouse";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
     if (uniforms["_mousePosition"]) {
      const hittableRegion = <CanvasRegion><any>matArg.renderStage.renderer;
       pWrapper.uniformVector("_mousePosition", new Vector2(hittableRegion.mouseX, hittableRegion.mouseY));

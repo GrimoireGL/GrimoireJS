@@ -1,13 +1,14 @@
+import NamedValue from "../../../Base/NamedValue";
 import IDisposable from "../../../Base/IDisposable";
 import IGLContainer from "../../Canvas/GL/IGLContainer";
 import IRenderer from "../IRenderer";
 import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
 import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
-import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
+import JThreeObject from "../../../Base/JThreeObject";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
-abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgumentContainer, IGLContainer, IDisposable {
+abstract class RenderStageBase extends JThreeObject implements IShaderArgumentContainer, IGLContainer, IDisposable {
     public static defaultRendererConfigure: IRenderStageRendererConfigure = {
         cullOrientation: "BACK",
         depthEnabled: true,
@@ -22,7 +23,7 @@ abstract class RenderStageBase extends JThreeObjectWithID implements IShaderArgu
         alphaMask: true
     };
 
-    public shaderVariables: { [key: string]: any } = {};
+    public shaderVariables: NamedValue<any> = {};
 
     public bufferTextures: BufferInput = { defaultRenderBuffer: null };
 
