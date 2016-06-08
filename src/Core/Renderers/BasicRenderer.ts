@@ -1,3 +1,4 @@
+import Rectangle from "../../Math/Rectangle";
 import RBO from "../Resources/RBO/RBO";
 import RenderPath from "./RenderPath";
 import IRendererRecipe from "./Recipe/IRendererRecipe";
@@ -5,7 +6,6 @@ import RecipeLoader from "./Recipe/RecipeLoader";
 import RendererBase from "./RendererBase";
 import BufferSet from "./BufferSet";
 import RenderPathExecutor from "./RenderPathExecutor";
-import RendererConfiguratorBase from "./Recipe/RendererConfiguratorBase";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
@@ -17,9 +17,11 @@ import Canvas from "../Canvas/Canvas";
 */
 class BasicRenderer extends RendererBase {
 
-    public static fromConfigurator(canvas: Canvas, configurator: RendererConfiguratorBase): BasicRenderer {
+    public static fromRecipe(canvas: Canvas, recipeSource: string, viewPort?: Rectangle): BasicRenderer {
         const renderer = new BasicRenderer(canvas);
-        const recipe = RecipeLoader.parseRender(require("./Recipe/DefaultRecipe.xml"));
+        renderer.region = viewPort;
+        renderer.initialize();
+        const recipe = RecipeLoader.parseRender(recipeSource);
         renderer.applyRecipe(recipe);
         return renderer;
     }
@@ -100,7 +102,7 @@ class BasicRenderer extends RendererBase {
     }
 
     private _initializeRBO(): void {
-     // Only works when the RBO was not initialized.
+        // Only works when the RBO was not initialized.
         if (!this.defaultRenderBuffer) {
             const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
             this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
