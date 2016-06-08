@@ -14,7 +14,7 @@
   <path>
     <ds:hitarea b:OUT="hitarea"/>
     <ds:gbuffer b:PRIMARY="g-normal" b:DEPTH="depth"/>
-    <ds:light b:PRIMARY="g-normal" b:DEPTH="depth" b:DIFFUSE="l-diffuse" b:SPECULAR="l-specular"/>
+    <ds:light b:PRIMARY="g-normal" b:DEPTH="depth" b:DLIGHT="l-diffuse" b:SLIGHT="l-specular"/>
     <ds:forward b:DLIGHT="l-diffuse" b:SLIGHT="l-specular" b:OUT="color"/>
     <ds:fxaa b:INPUT="color" b:OUTPUT="default" v:coeff="1.32"/>
   </path>
