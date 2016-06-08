@@ -1,5 +1,5 @@
+import ITextureRecipe from "./Recipe/ITextureRecipe";
 import TextureBase from "../Resources/Texture/TextureBase";
-import BufferRecipe from "./TextureGeneraters/BufferRecipe";
 import BasicRenderer from "./BasicRenderer";
 import GeneraterBase from "./TextureGeneraters/GeneraterBase";
 import JThreeContext from "../../JThreeContext";
@@ -11,7 +11,7 @@ class TextureGenerater {
 
   private static _generaters: { [key: string]: { [id: string]: GeneraterBase } } = {};
 
-  public static generateTexture(renderer: BasicRenderer, generaterInfo: BufferRecipe): TextureBase {
+  public static generateTexture(renderer: BasicRenderer, generaterInfo: ITextureRecipe): TextureBase {
     const generaters = TextureGenerater._getGeneraters(renderer);
     const generater = generaters[generaterInfo.generater];
     generater.generate(generaterInfo);

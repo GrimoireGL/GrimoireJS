@@ -1,6 +1,5 @@
 import Camera from "../../../Core/SceneObjects/Camera/Camera";
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
-import PathRecipe from "../../../Core/Renderers/PathRecipe";
 import BasicRenderer from "../../../Core/Renderers/BasicRenderer";
 import Rectangle from "../../../Math/Rectangle";
 import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
@@ -16,8 +15,6 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   private _top: number;
   private _width: number;
   private _height: number;
-
-  private _skyBoxStageChain: PathRecipe;
 
   private _parentCanvas: CanvasNode;
 
@@ -72,10 +69,11 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         value: "color",
         converter: "string",
         onchanged: (attr) => {
-          if (attr.Value !== "skybox" && this._skyBoxStageChain) {
-            // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
-            this._skyBoxStageChain = null;
-          }
+          // TODO reconsider how  to implement skybox
+          // if (attr.Value !== "skybox" && this._skyBoxStageChain) {
+          //   // this.targetRenderer.renderPath.deleteStage(this.skyBoxStageChain); TODO fix this
+          //   this._skyBoxStageChain = null;
+          // }
           attr.done();
         },
       },
@@ -130,22 +128,23 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
   private _onSkyboxAttrChanged(attr): void {
     if (this.attributes.getValue("backgroundType") === "skybox") {
       this.nodeImport("jthree.resource.TextureCube", attr.Value, (node: CubeTextureNode) => {
-        if (node) {
-          if (!this._skyBoxStageChain) {
-            this._skyBoxStageChain = {
-              buffers: {
-                OUT: "main"
-              },
-              stage: "jthree.basic.skybox",
-              variables: {}
-            };
-            this.target.renderPath.insertWithIndex(0, this._skyBoxStageChain);
-          }
-          this._skyBoxStageChain.variables["skybox"] = node.target;
-          attr.done();
-        } else {
-          attr.done();
-        }
+        // if (node) {
+        //   if (!this._skyBoxStageChain) {
+        //     this._skyBoxStageChain = {
+        //       buffers: {
+        //         OUT: "main"
+        //       },
+        //       stage: "jthree.basic.skybox",
+        //       variables: {}
+        //     };
+        //     this.target.renderPath.insertWithIndex(0, this._skyBoxStageChain);
+        //   }
+        //   this._skyBoxStageChain.variables["skybox"] = node.target;
+        //   attr.done();
+        // } else {
+        //   attr.done();
+        // }
+        attr.done();
       });
     } else {
       attr.done();
