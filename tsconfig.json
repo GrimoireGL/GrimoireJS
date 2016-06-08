@@ -16,8 +16,6 @@
     "./src/Base/JThreeLogger.ts",
     "./src/Base/JThreeObject.ts",
     "./src/Base/JThreeObjectEE.ts",
-    "./src/Base/JThreeObjectEEWithID.ts",
-    "./src/Base/JThreeObjectWithID.ts",
     "./src/Base/NamedValue.ts",
     "./src/Base/NamespaceUtil.ts",
     "./src/Base/XMLReader.ts",
