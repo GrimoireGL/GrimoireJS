@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import IXMMLPassDescription from "../../Materials/Parser/IXMMLPassDescription";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
@@ -22,7 +23,7 @@ abstract class RegistererBase {
    * @param {IApplyMaterialArgument}  matArg   [description]
    * @param {IVariableDescription }}      uniforms      [description]
    */
-  public abstract register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void;
+  public abstract register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void;
 
   /**
    * Preprocessing for uniform variables.
@@ -30,7 +31,7 @@ abstract class RegistererBase {
    * @param {ProgramWrapper}          pWrapper [description]
    * @param {IVariableDescription }}      uniforms      [description]
    */
-  public preprocess(pass: IXMMLPassDescription, uniforms: { [key: string]: IVariableDescription }): Q.IPromise<void> {
+  public preprocess(pass: IXMMLPassDescription, uniforms: NamedValue<IVariableDescription>): Q.IPromise<void> {
     const defer = Q.defer<void>();
     process.nextTick(() => {
       defer.resolve(null);

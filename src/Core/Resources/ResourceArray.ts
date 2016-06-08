@@ -1,6 +1,7 @@
+import NamedValue from "../../Base/NamedValue";
 import JThreeObject from "../../Base/JThreeObject";
 class ResourceArray<T> extends JThreeObject {
-  private _resourceArray: { [key: string]: T } = {};
+  private _resourceArray: NamedValue<T> = {};
 
   private _handlerArray: { [id: string]: ((t: T) => void)[] } = {};
 

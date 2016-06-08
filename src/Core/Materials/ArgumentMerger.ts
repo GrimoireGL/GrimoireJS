@@ -1,7 +1,8 @@
+import NamedValue from "../../Base/NamedValue";
 import IShaderArgumentContainer from "./IShaderArgumentContainer";
 class ArgumentMerger {
 
-  private static _argumentCache: { [name: string]: any } = {};
+  private static _argumentCache: NamedValue<any> = {};
   /**
    * シェーダー引数をマージする
    * @param  {IShaderArgumentContainer} stage    [RenderStageのインスタンス]
@@ -9,7 +10,7 @@ class ArgumentMerger {
    * @param  {IShaderArgumentContainer} object   [SceneObjectのインスタンス]
    * @return {[type]}                            [description]
    */
-  public static merge(stage: IShaderArgumentContainer, material: IShaderArgumentContainer, object?: IShaderArgumentContainer): { [name: string]: any } {
+  public static merge(stage: IShaderArgumentContainer, material: IShaderArgumentContainer, object?: IShaderArgumentContainer): NamedValue<any> {
     ArgumentMerger._deleteCache();
     ArgumentMerger._mergeArgument(stage);
     ArgumentMerger._mergeArgument(material);

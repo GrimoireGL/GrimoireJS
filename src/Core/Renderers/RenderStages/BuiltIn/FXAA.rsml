@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage name="jthree.basic.fxaa">
+    <stage namespace="http://grimoire.gl/ns/recipe/stages" name="fxaa">
       <technique target="quad">
         <fbo primary="OUT">
           <color name="OUT" register="0"/>

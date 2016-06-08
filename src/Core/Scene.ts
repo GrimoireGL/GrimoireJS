@@ -1,5 +1,5 @@
 import IRenderer from "./Renderers/IRenderer";
-import jThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import JThreeObjectEE from "../Base/JThreeObjectEE";
 import SceneObject from "./SceneObjects/SceneObject";
 import Color3 from "../Math/Color3";
 import ISceneObjectChangedEventArgs from "./ISceneObjectChangedEventArgs";
@@ -8,7 +8,7 @@ import RendererListChangedEventArgs from "./RendererListChangedEventArgs";
 /**
  * Provides scene feature.
  */
-class Scene extends jThreeObjectEEWithID {
+class Scene extends JThreeObjectEE {
 
   /**
    * Whether this scene needs update or not.

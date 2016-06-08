@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import Vector2 from "../../../Math/Vector2";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
@@ -9,7 +10,7 @@ class BasicRegisterer extends RegistererBase {
     return "builtin.basic";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
     if (uniforms["_matM"]) {
       pWrapper.uniformMatrix("_matM", matArg.object.Transformer.localToGlobal);
     }

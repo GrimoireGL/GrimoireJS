@@ -1,8 +1,11 @@
+import Rectangle from "../../Math/Rectangle";
+import RBO from "../Resources/RBO/RBO";
+import RenderPath from "./RenderPath";
+import IRendererRecipe from "./Recipe/IRendererRecipe";
+import RecipeLoader from "./Recipe/RecipeLoader";
 import RendererBase from "./RendererBase";
 import BufferSet from "./BufferSet";
 import RenderPathExecutor from "./RenderPathExecutor";
-import RendererConfiguratorBase from "./RendererConfigurator/RendererConfiguratorBase";
-import RendererConfigurator from "./RendererConfigurator/BasicRendererConfigurator";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
@@ -12,13 +15,19 @@ import Canvas from "../Canvas/Canvas";
 /**
 * Provides base class feature for renderer classes.
 */
-class BasicRenderer extends RendererBase {
+class PathRenderer extends RendererBase {
+    public defaultRenderBuffer: RBO;
 
-    public static fromConfigurator(canvas: Canvas, configurator: RendererConfiguratorBase): BasicRenderer {
-        const renderer = new BasicRenderer(canvas);
-        configurator = configurator || new RendererConfigurator();
-        renderer.renderPath.fromPathTemplate(configurator.getStageChain(renderer));
-        renderer.bufferSet.appendBuffers(configurator.TextureBuffers);
+    public renderPath: RenderPath;
+
+    public bufferSet: BufferSet;
+
+    public static fromRecipe(canvas: Canvas, recipeSource: string, viewPort?: Rectangle): PathRenderer {
+        const renderer = new PathRenderer(canvas);
+        renderer.region = viewPort;
+        renderer.initialize();
+        const recipe = RecipeLoader.parseRender(recipeSource);
+        renderer.applyRecipe(recipe);
         return renderer;
     }
 
@@ -40,18 +49,20 @@ class BasicRenderer extends RendererBase {
      * This method is not intended to be called by user manually.
      */
     public initialize(): void {
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
-        this.on("resize", () => {
-            JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
-        });
+        this._initializeRBO();
+    }
+
+    public applyRecipe(recipe: IRendererRecipe): void {
+        this._resetRendererResources();
+        this.bufferSet.appendBuffers(recipe.textures);
+        this.renderPath.appendStages(recipe.stages);
         this._remapBuffers();
-        this.bufferSet.on("changed", () => this._remapBuffers());
     }
 
     public dispose(): void {
         this.defaultRenderBuffer.dispose();
         this.bufferSet.dispose();
+        this.renderPath.dispose();
     }
 
     public render(scene: Scene): void {
@@ -88,6 +99,18 @@ class BasicRenderer extends RendererBase {
         }
     }
 
+    private _initializeRBO(): void {
+        // Only works when the RBO was not initialized.
+        if (!this.defaultRenderBuffer) {
+            const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+            this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
+            // set event handler for the case when the viewport was resized.
+            this.on("resize", () => {
+                JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
+            });
+        }
+    }
+
     private _remapBuffers(): void {
         this.renderPath.path.forEach(chain => {
             chain.stage.bufferTextures.defaultRenderBuffer = this.defaultRenderBuffer;
@@ -96,7 +119,22 @@ class BasicRenderer extends RendererBase {
             }
         });
     }
+
+    /**
+     * Reset bufferset and renderer path.
+     */
+    private _resetRendererResources(): void {
+        if (this.renderPath) {
+            this.renderPath.dispose();
+        }
+        if (this.bufferSet) {
+            this.bufferSet.dispose();
+        }
+        this.bufferSet = new BufferSet(this);
+        this.renderPath = new RenderPath(this);
+        this.bufferSet.on("changed", () => this._remapBuffers());
+    }
 }
 
 
-export default BasicRenderer;
+export default PathRenderer;

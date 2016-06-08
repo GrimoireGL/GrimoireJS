@@ -1,5 +1,6 @@
+import NamedValue from "../../Base/NamedValue";
 import IDisposable from "../../Base/IDisposable";
-import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import Canvas from "../Canvas/Canvas";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
 import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
@@ -10,11 +11,11 @@ import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.
  */
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectEEWithID implements IDisposable {
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectEE implements IDisposable {
 
   public name: string;
 
-  private _childWrapper: { [key: string]: T } = {};
+  private _childWrapper: NamedValue<T> = {};
 
   private _wrapperLength: number = 0;
 
