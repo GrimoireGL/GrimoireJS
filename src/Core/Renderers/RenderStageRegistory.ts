@@ -3,7 +3,7 @@ import XMLReader from "../../Base/XMLReader";
 import IRenderer from "./IRenderer";
 import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
 import BasicRenderStage from "./RenderStages/Base/BasicRenderStage";
-import BasicRenderer from "./BasicRenderer";
+import PathRenderer from "./PathRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import ContextComponents from "../../ContextComponents";
 import IContextComponent from "../../IContextComponent";
@@ -36,11 +36,11 @@ class RenderStageRegistory implements IContextComponent {
      * Register new render stage factory from delegate function.
      * This overload mainly used for registering custum overrided class.
      * @param {string}                            name              the key to be used for constructing the render stage
-     * @param {Func1<BasicRenderer, RenderStageBase>} factory       factory function for constructing the render stage
+     * @param {Func1<PathRenderer, RenderStageBase>} factory       factory function for constructing the render stage
      */
-    public register(namespace: string, name: string, factory: (r: BasicRenderer) => RenderStageBase): void;
-    public register(name: string, factory: (r: BasicRenderer) => RenderStageBase): void;
-    public register(arg1: string, arg2?: ((r: BasicRenderer) => RenderStageBase) | string, arg3?: (r: BasicRenderer) => RenderStageBase): void {
+    public register(namespace: string, name: string, factory: (r: PathRenderer) => RenderStageBase): void;
+    public register(name: string, factory: (r: PathRenderer) => RenderStageBase): void;
+    public register(arg1: string, arg2?: ((r: PathRenderer) => RenderStageBase) | string, arg3?: (r: PathRenderer) => RenderStageBase): void {
         if (arg1 && !arg2 && !arg3) {
             // Assume raw source code was passe
             const source = arg1;
@@ -51,11 +51,11 @@ class RenderStageRegistory implements IContextComponent {
                 console.error(`The name field was not found in RSML file.\n${source}`);
                 return;
             }
-            this._renderStageFactoryFunctions[name] = (renderer: BasicRenderer) => new BasicRenderStage(renderer, source);
+            this._renderStageFactoryFunctions[name] = (renderer: PathRenderer) => new BasicRenderStage(renderer, source);
 
         } else {
             let ns: string = null;
-            let factory: (r: BasicRenderer) => RenderStageBase;
+            let factory: (r: PathRenderer) => RenderStageBase;
             let name: string;
             if (arg3) {
                 // Assume namespace was specified
@@ -63,7 +63,7 @@ class RenderStageRegistory implements IContextComponent {
                 factory = arg3;
                 name = <string>arg2;
             } else {
-                factory = <(r: BasicRenderer) => RenderStageBase>arg2;
+                factory = <(r: PathRenderer) => RenderStageBase>arg2;
                 name = arg1;
             }
             this._renderStageFactoryFunctions[NamespaceUtil.generateFQN(ns, name)] = factory;
@@ -73,7 +73,7 @@ class RenderStageRegistory implements IContextComponent {
     /**
      * Construct new render stage related to specifed key.
      * @param  {string}          name     the key to identify render stage
-     * @param  {BasicRenderer}   renderer the renderer being going to hold generated render stage base
+     * @param  {PathRenderer}   renderer the renderer being going to hold generated render stage base
      * @return {RenderStageBase}          generated render stage base
      */
     public construct(name: string, renderer: IRenderer): RenderStageBase {

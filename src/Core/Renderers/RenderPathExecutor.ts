@@ -1,4 +1,4 @@
-import BasicRenderer from "./BasicRenderer";
+import PathRenderer from "./PathRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import PrimitiveRegistory from "../Geometries/Base/PrimitiveRegistory";
 import JThreeContext from "../../JThreeContext";
@@ -16,7 +16,7 @@ import IRenderObjectCompletedEventArgs from "./IRenderObjectCompletedEventArgs";
  * @type {[type]}
  */
 class RenderPathExecutor {
-  public static processRender(renderer: BasicRenderer, scene: Scene): void {
+  public static processRender(renderer: PathRenderer, scene: Scene): void {
     let stageIndex = 0;
     renderer.renderPath.path.forEach(chain => {
       const stage = chain.stage;
@@ -55,7 +55,7 @@ class RenderPathExecutor {
     });
   }
 
-  private static _renderObjects(renderer: BasicRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
+  private static _renderObjects(renderer: PathRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
         if (_v.Geometry) {

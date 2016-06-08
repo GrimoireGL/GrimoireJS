@@ -7,7 +7,7 @@ import TextureBase from "../Resources/Texture/TextureBase";
 import ICanvasContainer from "./ICanvasContainer";
 import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
-import BasicRenderer from "../Renderers/BasicRenderer";
+import PathRenderer from "../Renderers/PathRenderer";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
@@ -75,14 +75,14 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
   /**
    * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
    */
-  public afterRender(renderer: BasicRenderer): void {
+  public afterRender(renderer: PathRenderer): void {
     return;
   }
 
   public afterRenderAll(): void {
     return;
   }
-  public beforeRender(renderer: BasicRenderer): void {
+  public beforeRender(renderer: PathRenderer): void {
     return;
   }
   public beforeRenderAll(): void {

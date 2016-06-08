@@ -1,7 +1,7 @@
 import RecipeRegistry from "../../../Core/Renderers/Recipe/RecipeRegistry";
 import Camera from "../../../Core/SceneObjects/Camera/Camera";
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
-import BasicRenderer from "../../../Core/Renderers/BasicRenderer";
+import PathRenderer from "../../../Core/Renderers/PathRenderer";
 import Rectangle from "../../../Math/Rectangle";
 import CameraNodeBase from "../SceneObjects/Cameras/CameraNodeBase";
 import CanvasNode from "../Canvases/CanvasNode";
@@ -10,7 +10,7 @@ import CubeTextureNode from "../Texture/CubeTextureNode";
 import GomlAttribute from "../../GomlAttribute";
 import EventBroadcaster from "../../../Interface/Events/EventBroadcaster";
 
-class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
+class ViewPortNode extends CoreRelatedNodeBase<PathRenderer> {
     private _left: number;
     private _top: number;
     private _width: number;
@@ -116,7 +116,7 @@ class ViewPortNode extends CoreRelatedNodeBase<BasicRenderer> {
         if (this.target) {
             this._eventBroadcaster.detachEvents();
         }
-        this.target = BasicRenderer.fromRecipe(this._parentCanvas.target, RecipeRegistry.getRecipe(attr.Value), defaultRect);
+        this.target = PathRenderer.fromRecipe(this._parentCanvas.target, RecipeRegistry.getRecipe(attr.Value), defaultRect);
         this._eventBroadcaster.attachEvents(this.target);
         attr.done();
     }

@@ -1,6 +1,6 @@
 import ITextureRecipe from "../Recipe/ITextureRecipe";
 import GLEnumParser from "../../Canvas/GL/GLEnumParser";
-import BasicRenderer from "../BasicRenderer";
+import PathRenderer from "../PathRenderer";
 import GeneraterBase from "./GeneraterBase";
 import Rectangle from "../../../Math/Rectangle";
 import BufferTexture from "../../Resources/Texture/BufferTexture";
@@ -8,7 +8,7 @@ import ContextComponents from "../../../ContextComponents";
 import ResourceManager from "../../ResourceManager";
 import JThreeContext from "../../../JThreeContext";
 class RendererFit extends GeneraterBase {
-  constructor(parent: BasicRenderer) {
+  constructor(parent: PathRenderer) {
     super(parent);
   }
 

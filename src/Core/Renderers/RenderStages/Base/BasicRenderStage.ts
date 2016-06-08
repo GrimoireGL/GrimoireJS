@@ -1,7 +1,7 @@
 import NamespaceUtil from "../../../../Base/NamespaceUtil";
 import IRenderStageRendererConfigure from "../IRenderStageRendererConfigure";
 import BasicTechnique from "./BasicTechnique";
-import BasicRenderer from "../../BasicRenderer";
+import PathRenderer from "../../PathRenderer";
 import SceneObject from "../../../SceneObjects/SceneObject";
 import RenderStageBase from "../RenderStageBase";
 import Scene from "../../../Scene";
@@ -15,7 +15,7 @@ class BasicRenderStage extends RenderStageBase {
 
     private _stageName: string;
 
-    constructor(renderer: BasicRenderer, rsmlSource: string) {
+    constructor(renderer: PathRenderer, rsmlSource: string) {
         super(renderer);
         this._parseRSML(rsmlSource);
     }

@@ -15,15 +15,15 @@ import Canvas from "../Canvas/Canvas";
 /**
 * Provides base class feature for renderer classes.
 */
-class BasicRenderer extends RendererBase {
+class PathRenderer extends RendererBase {
     public defaultRenderBuffer: RBO;
 
     public renderPath: RenderPath;
 
     public bufferSet: BufferSet;
 
-    public static fromRecipe(canvas: Canvas, recipeSource: string, viewPort?: Rectangle): BasicRenderer {
-        const renderer = new BasicRenderer(canvas);
+    public static fromRecipe(canvas: Canvas, recipeSource: string, viewPort?: Rectangle): PathRenderer {
+        const renderer = new PathRenderer(canvas);
         renderer.region = viewPort;
         renderer.initialize();
         const recipe = RecipeLoader.parseRender(recipeSource);
@@ -137,4 +137,4 @@ class BasicRenderer extends RendererBase {
 }
 
 
-export default BasicRenderer;
+export default PathRenderer;

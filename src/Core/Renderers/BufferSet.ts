@@ -1,11 +1,11 @@
 import ITextureRecipe from "./Recipe/ITextureRecipe";
 import JThreeObjectEE from "../../Base/JThreeObjectEE";
-import BasicRenderer from "./BasicRenderer";
+import PathRenderer from "./PathRenderer";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
 import IDisposable from "../../Base/IDisposable";
 /**
- * The class managing all buffer textures used for rendering in a BasicRenderer.
+ * The class managing all buffer textures used for rendering in a PathRenderer.
  */
 class BufferSet extends JThreeObjectEE implements IDisposable {
   /**
@@ -13,7 +13,7 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
    */
   private _colorBuffers: { [key: string]: TextureBase } = {};
 
-  constructor(private _renderer: BasicRenderer) {
+  constructor(private _renderer: PathRenderer) {
     super();
   }
 

@@ -23,7 +23,7 @@ class RecipeLoader {
     }
     /**
      * Parse textures elements
-     * @param {BasicRenderer} renderer     [description]
+     * @param {PathRenderer} renderer     [description]
      * @param {Element}       texturesNode [description]
      */
     private static _parseTextures(texturesNode: Element): ITextureRecipe[] {
