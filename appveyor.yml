@@ -1,0 +1,54 @@
+install:
+  # Update Node.js
+  - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) x64
+  - cmd: node --version
+
+  # Update NPM
+  - cmd: npm install -g npm
+  - cmd: npm --version
+
+  # Node config
+  # Visual Studioのバージョンを指定
+  - cmd: npm config set msvs_version 2015 --global
+  # CPUアークテクチャを指定
+  - cmd: npm config set target_arch x64 --global
+
+  # Update node-gyp
+  # 必須! node-gyp のバージョンを上げないと、ネイティブモジュールのコンパイルに失敗します
+  - cmd: npm install -g node-gyp
+
+  # Install dependencies & devDependencies
+  # Visual Studio のバージョンを指定しないとコンパイルが通らない場合あり
+  - cmd: npm install --build-from-source
+
+  # Build
+  #- cmd: npm run build
+
+  # install finished
+  - cmd: echo Install completed.
+
+test_script:
+# テスト用のコマンドを指定します
+  - cmd: npm test
+
+platform: 
+  - x64
+configuration: 
+  - Release
+
+environment:
+  matrix:
+    - nodejs_version: "4.4.4"
+
+init:
+# git clone の際の改行を変換しないようにします
+  - cmd: git config --global core.autocrlf input
+
+branches:
+# ビルドするブランチを制限する場合に記述します
+  except:
+    - gh-pages
+
+build_script:
+  - cmd: npm run build
+deploy: off
