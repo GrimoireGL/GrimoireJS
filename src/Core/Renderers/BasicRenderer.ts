@@ -16,6 +16,11 @@ import Canvas from "../Canvas/Canvas";
 * Provides base class feature for renderer classes.
 */
 class BasicRenderer extends RendererBase {
+    public defaultRenderBuffer: RBO;
+
+    public renderPath: RenderPath;
+
+    public bufferSet: BufferSet;
 
     public static fromRecipe(canvas: Canvas, recipeSource: string, viewPort?: Rectangle): BasicRenderer {
         const renderer = new BasicRenderer(canvas);
@@ -25,13 +30,6 @@ class BasicRenderer extends RendererBase {
         renderer.applyRecipe(recipe);
         return renderer;
     }
-
-
-    public defaultRenderBuffer: RBO;
-
-    public renderPath: RenderPath;
-
-    public bufferSet: BufferSet;
 
     /**
      * Constructor of RenderBase

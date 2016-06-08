@@ -48,6 +48,10 @@ class BasicRenderStage extends RenderStageBase {
         return this.techniques[techniqueIndex].Target;
     }
 
+    public dispose(): void {
+        this.techniques.forEach((t) => t.dispose());
+    }
+
     private _parseRSML(source: string): void {
         this._parsedRSML = XMLReader.parseXML(source);
         const rsmlTag = XMLReader.getSingleElement(this._parsedRSML, "rsml", true);
@@ -63,10 +67,6 @@ class BasicRenderStage extends RenderStageBase {
         for (let techniqueIndex = 0; techniqueIndex < this._techniqueCount; techniqueIndex++) {
             this.techniques[techniqueIndex] = new BasicTechnique(this, techniqueTags.item(techniqueIndex), techniqueIndex);
         }
-    }
-
-    public dispose(): void {
-        this.techniques.forEach((t) => t.dispose());
     }
 }
 
