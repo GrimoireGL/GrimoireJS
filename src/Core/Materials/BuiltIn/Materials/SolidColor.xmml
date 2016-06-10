@@ -9,7 +9,7 @@
       <![CDATA[
       attribute vec3 position;
       varying vec4 vPosition;
-
+      
       @vert {
         uniform mat4 _matPVM;
 
