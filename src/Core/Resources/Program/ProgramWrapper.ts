@@ -1,3 +1,4 @@
+import Shader from "../Shader/Shader";
 import ILinkError from "./ILinkError";
 import NamedValue from "../../../Base/NamedValue";
 import MatrixArray from "../../../Math/MatrixArray";
@@ -32,10 +33,9 @@ class ProgramWrapper extends ResourceWrapper {
     public init(): void {
         if (!this.Initialized) {
             this._targetProgram = this.GL.createProgram();
-            this._parentProgram.AttachedShaders.forEach((v, i, a) => {
-                this.GL.attachShader(this._targetProgram, v.getForGL(this.GL).TargetShader);
-            });
             this.__setInitialized();
+            this._attachShader(this._parentProgram.fragmentShader);
+            this._attachShader(this._parentProgram.vertexShader);
         }
     }
 
@@ -57,8 +57,8 @@ class ProgramWrapper extends ResourceWrapper {
                     handled: false,
                     program: this._parentProgram,
                     errorMessage: errorMessage,
-                    fragment: this._parentProgram.AttachedShaders[this._parentProgram.AttachedShaders[0].ShaderType === WebGLRenderingContext.FRAGMENT_SHADER ? 0 : 1],
-                    vertex: this._parentProgram.AttachedShaders[this._parentProgram.AttachedShaders[0].ShaderType === WebGLRenderingContext.FRAGMENT_SHADER ? 1 : 0]
+                    fragment: this._parentProgram.fragmentShader,
+                    vertex: this._parentProgram.vertexShader
                 });
             }
             this._islinked = true;
@@ -86,9 +86,8 @@ class ProgramWrapper extends ResourceWrapper {
     public relink(): void {
         this.GL.deleteProgram(this.TargetProgram);
         this._targetProgram = this.GL.createProgram();
-        this._parentProgram.AttachedShaders.forEach((v, i, a) => {
-            this.GL.attachShader(this._targetProgram, v.getForGL(this.GL).TargetShader);
-        });
+        this._attachShader(this._parentProgram.fragmentShader);
+        this._attachShader(this._parentProgram.vertexShader);
     }
 
     /**
@@ -198,6 +197,10 @@ class ProgramWrapper extends ResourceWrapper {
                 this.GL.uniform1i(location, texRegister);
             }
         }
+    }
+
+    private _attachShader(shader: Shader): void {
+        this.GL.attachShader(this._targetProgram, shader.getForGL(this.GL).TargetShader);
     }
 
     private _fetchUniformLocation(valName: string): WebGLUniformLocation {

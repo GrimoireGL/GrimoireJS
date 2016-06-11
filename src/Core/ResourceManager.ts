@@ -102,9 +102,9 @@ class ResourceManager extends jThreeObjectEE implements IContextComponent {
         return this._shaders.has(id);
     }
 
-    public createProgram(id: string, shaders: Shader[]): Program {
+    public createProgram(id: string, vert: Shader, frag: Shader): Program {
         return this._programs.create(id, () => {
-            return Program.createProgram(shaders);
+            return Program.createProgram(vert, frag);
         });
     }
 
