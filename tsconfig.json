@@ -9,7 +9,9 @@
     "./src/**/*.ts"
   ],
   "files": [
+    "./src/Base/ErrorHandler.ts",
     "./src/Base/IDisposable.ts",
+    "./src/Base/IHandlableError.ts",
     "./src/Base/IIDObject.ts",
     "./src/Base/JsHack.ts",
     "./src/Base/JThreeID.ts",
@@ -150,6 +152,7 @@
     "./src/Core/Resources/FBO/FBO.ts",
     "./src/Core/Resources/FBO/FBOWrapper.ts",
     "./src/Core/Resources/ImageLoader.ts",
+    "./src/Core/Resources/Program/ILinkError.ts",
     "./src/Core/Resources/Program/Program.ts",
     "./src/Core/Resources/Program/ProgramWrapper.ts",
     "./src/Core/Resources/RBO/RBO.ts",
@@ -157,6 +160,7 @@
     "./src/Core/Resources/ResourceArray.ts",
     "./src/Core/Resources/ResourceResolver.ts",
     "./src/Core/Resources/ResourceWrapper.ts",
+    "./src/Core/Resources/Shader/IShaderCompileError.ts",
     "./src/Core/Resources/Shader/Shader.ts",
     "./src/Core/Resources/Shader/ShaderWrapper.ts",
     "./src/Core/Resources/Texture/BufferTexture.ts",

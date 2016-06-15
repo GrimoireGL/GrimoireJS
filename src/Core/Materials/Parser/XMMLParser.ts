@@ -91,7 +91,7 @@ class XMMLParser {
         const vs = rm.createShader(idPrefix + "-vs", desc.vertex, WebGLRenderingContext.VERTEX_SHADER);
         fs.loadAll();
         vs.loadAll();
-        return rm.createProgram(idPrefix + "-program", [vs, fs]);
+        return rm.createProgram(idPrefix + "-program", vs, fs);
     }
 }
 export default XMMLParser;
