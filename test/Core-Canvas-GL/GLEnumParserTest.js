@@ -2,7 +2,7 @@ import test from 'ava';
 import util from 'util';
 import GLInitializer from '../InitTest';
 
-import GLEnumParser from '../../lib/Core/Canvas/GL/GLEnumParser';
+import GLEnumParser from '../../lib-es5/Core/Canvas/GL/GLEnumParser';
 
 test('BlendConstantParser ZERO should be WebGLRenderingContext.ZERO',(t)=>{
   t.ok(GLEnumParser.parseBlendFunc("ZERO") === WebGLRenderingContext.ZERO);

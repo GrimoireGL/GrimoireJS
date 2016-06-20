@@ -2,7 +2,7 @@ import test from 'ava';
 import jsdom from 'jsdom';
 import _ from 'lodash';
 import fs from 'fs';
-import XMLRenderConfigUtility from '../../lib/Core/Pass/XMLRenderConfigUtility';
+import XMLRenderConfigUtility from '../../lib-es5/Core/Pass/XMLRenderConfigUtility';
 
 function readText(path) {
   return fs.readFileSync(path, {

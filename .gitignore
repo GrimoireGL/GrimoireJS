@@ -140,4 +140,5 @@ lint.txt
 .nyc_output/
 
 lib-es6/
+lib-es5/
 test-es5/

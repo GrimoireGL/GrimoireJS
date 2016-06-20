@@ -1,7 +1,7 @@
 import test from 'ava';
 import fs from 'fs';
 import _ from 'lodash';
-import RemoveCommentTransformer from '../../lib/Core/ProgramTransformer/Transformer/RemoveCommentTransformer';
+import RemoveCommentTransformer from '../../lib-es5/Core/ProgramTransformer/Transformer/RemoveCommentTransformer';
 
 function readFile(src) {
   return new Promise((resolve, reject) => {
