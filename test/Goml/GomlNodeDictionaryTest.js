@@ -1,8 +1,8 @@
 import test from 'ava';
 import sinon from 'sinon';
 
-import GomlNodeDictionary from '../../lib/Goml/GomlNodeDictionary';
-import TreeNodeBase from '../../lib/Goml/TreeNodeBase';
+import GomlNodeDictionary from '../../lib-es5/Goml/GomlNodeDictionary';
+import TreeNodeBase from '../../lib-es5/Goml/TreeNodeBase';
 
 test('mount, addNode, getNode', (t) => {
   const gnd = new GomlNodeDictionary();

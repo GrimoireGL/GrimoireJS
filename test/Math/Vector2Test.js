@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import Vector2 from '../../lib/Math/Vector2';
+import Vector2 from '../../lib-es5/Math/Vector2';
 
 test('equal with is correct', (t) => {
   t.ok((new Vector2(1, 0)).equalWith(new Vector2(1, 0)));
