@@ -1,22 +1,25 @@
-import gulp from 'gulp';
-import runSequence from 'run-sequence';
-import ts from 'gulp-typescript';
-import cache from 'gulp-cached';
-import through from 'through2';
-import gutil from 'gulp-util';
-import del from 'del';
-import sourcemap from 'gulp-sourcemaps';
-import es from 'gulp-babel';
-import browserify from 'browserify';
-import watchify from 'watchify';
-import source from 'vinyl-source-stream';
-import buffer from 'vinyl-buffer';
+import _ from 'lodash';
 import args from 'yargs';
+import browserify from 'browserify';
+import buffer from 'vinyl-buffer';
+import cache from 'gulp-cached';
 import debug from 'gulp-debug';
-import ptime from 'pretty-hrtime';
-import typedoc from 'gulp-typedoc';
+import del from 'del';
+import es from 'gulp-babel';
+import fs from 'fs';
+import globArray from 'glob-array';
+import gulp from 'gulp';
+import gutil from 'gulp-util';
 import path from 'path';
+import ptime from 'pretty-hrtime';
+import runSequence from 'run-sequence';
+import source from 'vinyl-source-stream';
+import sourcemap from 'gulp-sourcemaps';
+import through from 'through2';
+import ts from 'gulp-typescript';
 import tslint from 'gulp-tslint';
+import typedoc from 'gulp-typedoc';
+import watchify from 'watchify';
 
 gulp.task('default', ['build']);
 
@@ -232,6 +235,17 @@ gulp.task('lint-ts', () => {
       rulesDirectory: './lint/rules/',
     }))
     .pipe(tslint.report('verbose'));
+});
+
+/**
+ * tsconfig
+ */
+gulp.task('tscfg', () => {
+  const entry = './tsconfig.json';
+  const json = JSON.parse(fs.readFileSync(entry));
+  const files = _(globArray.sync(json.filesGlob)).uniq(true);
+  json.files = files;
+  fs.writeFileSync(entry, JSON.stringify(json, null, 2));
 });
 
 /**
