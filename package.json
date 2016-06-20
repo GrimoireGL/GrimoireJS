@@ -20,8 +20,9 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "build": "npm run build",
-    "watch": "npm run build --watch",
+    "build": "gulp build",
+    "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
+    "watch": "gulp watch",
     "test": "ava ./test-es5/**/*Test.js",
     "cover": "nyc --all --reporter=json --reporter=text npm run test",
     "doc": "gulp doc",
@@ -69,6 +70,7 @@
     "gulp-cached": "^1.1.0",
     "gulp-changed": "^1.3.0",
     "gulp-connect": "^3.1.0",
+    "gulp-debug": "^2.1.2",
     "gulp-if": "^2.0.0",
     "gulp-istanbul": "^0.10.3",
     "gulp-jade": "^1.1.0",
