@@ -1,9 +1,9 @@
 import test from 'ava';
 import sinon from 'sinon';
 
-import Utilities from '../../lib/Interface/Static/Utilities';
+import Utilities from '../../lib-es5/Interface/Static/Utilities';
 
-import J3Object from '../../lib/Interface/J3Object';
+import J3Object from '../../lib-es5/Interface/J3Object';
 class GomlTreeNodeBaseMock {}
 J3Object.__Rewire__('GomlTreeNodeBase', GomlTreeNodeBaseMock);
 

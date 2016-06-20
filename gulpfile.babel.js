@@ -6,7 +6,17 @@ import through from 'through2';
 import gutil from 'gulp-util';
 import del from 'del';
 import sourcemap from 'gulp-sourcemaps';
-// import debug from 'gulp-debug';
+import es from 'gulp-babel';
+import browserify from 'browserify';
+import watchify from 'watchify';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import args from 'yargs';
+import debug from 'gulp-debug';
+import ptime from 'pretty-hrtime';
+import typedoc from 'gulp-typedoc';
+import path from 'path';
+import tslint from 'gulp-tslint';
 
 gulp.task('default', ['build']);
 
@@ -14,37 +24,71 @@ gulp.task('default', ['build']);
  * build gr.js
  */
 gulp.task('build', () => {
-  runSequence(['ts-es6', 'txt-es6'], 'es6-es5', 'bundle');
+  runSequence(['ts-es6'], ['copy-json', 'txt-es5', 'es6-es5'], 'bundle');
 });
 
 /**
- * build gr.js
+ * build test
  */
-gulp.task('build', () => {
-  runSequence(['ts-es6', 'txt-es6'], 'es6-es5', 'bundle');
+gulp.task('build-test', ['test-copy-txt', 'test-es6-es5']);
+
+/**
+ * watch
+ */
+gulp.task('watch', () => {
+  enableWatch();
+  runSequence('build');
 });
+
+let watching = false;
+function enableWatch() {
+  watching = true;
+  gutil.log(gutil.colors.green('Watch Mode Enabled'));
+}
+if (args.argv.watch || args.argv.w) { enableWatch(); }
 
 /**
  * Transpile ts to es6
  */
+const tsProject = ts.createProject('tsconfig.json', {noExternalResolve: true});
 gulp.task('ts-es6', () => {
+  const entry = './src/**/*.ts';
+  const dest = './lib';
+  if (watching) { gulp.watch(entry, ['ts-es6']); }
   return gulp
-    .src('./src/**/*.ts')
+    .src(entry)
     .pipe(sourcemap.init())
-    .pipe(ts())
+    .pipe(ts(tsProject))
     .js
     .pipe(cache('ts'))
-    .pipe(gulp.dest('./lib'));
+    .pipe(sourcemap.write())
+    .pipe(debug({title: 'Compiling ts'}))
+    .pipe(gulp.dest(dest));
 });
 
 /**
  * Expose text file to js modules
  */
-gulp.task('txt-es6', () => {
-  const txtEs6Extensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+gulp.task('txt-es5', () => {
+  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+  const entry = entryExtensions.map((ext) => `./src/**/*${ext}`);
+  const dest = './lib-es5';
+  if (watching) { gulp.watch(entry, ['txt-es5']); }
+  return txtToEs5(entry, dest);
+});
+
+// gulp.task('test-txt-es5', () => {
+//   const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+//   const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
+//   const dest = './test-es5';
+//   if (watching) { gulp.watch(entry, ['test-txt-es5']); }
+//   return txtToEs5(entry, dest);
+// });
+
+function txtToEs5(entry, dest) {
   return gulp
-    .src(txtEs6Extensions.map((ext) => `./src/**/*${ext}`))
-    .pipe(cache('txt-es6'))
+    .src(entry)
+    .pipe(cache('txt'))
     .pipe((() => {
       return through.obj(function(f, e, cb) {
         if (f === null) {
@@ -58,35 +102,143 @@ gulp.task('txt-es6', () => {
         const output = new gutil.File({
           cwd: f.cwd,
           base: f.base,
-          path: gutil.replaceExtension(f.path, '.js'),
-          contents: new Buffer(`export default ${JSON.stringify(f.contents.toString('utf8'))};`),
+          path: f.path + '.js',
+          contents: new Buffer(`exports.default = ${JSON.stringify(f.contents.toString('utf8'))};\n`),
         });
         this.push(output);
         return cb();
       }, function(cb) { return cb(); });
     })())
-    .pipe(gulp.dest('./lib'));
+    .pipe(debug({title: 'Compiling txt'}))
+    .pipe(gulp.dest(dest));
+}
+
+/**
+ * Copy
+ */
+gulp.task('copy-json', () => {
+  const entry = './src/**/*.json';
+  const dest = './lib-es5';
+  if (watching) { gulp.watch(entry, ['copy-json']); }
+  return copy(entry, dest);
 });
+
+gulp.task('test-copy-txt', () => {
+  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+  const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
+  const dest = './test-es5';
+  if (watching) { gulp.watch(entry, ['copy-json']); }
+  return copy(entry, dest);
+});
+
+function copy(entry, dest) {
+  return gulp
+    .src(entry)
+    .pipe(debug({title: 'Copying'}))
+    .pipe(gulp.dest(dest));
+}
 
 /**
  * Transpile es6 to es5
  */
 gulp.task('es6-es5', () => {
-
+  const entry = './lib/**/*.js';
+  const dest = './lib-es5';
+  if (watching) { gulp.watch(entry, ['es6-es5']); }
+  return es6to5(entry, dest);
 });
+
+gulp.task('test-es6-es5', () => {
+  const entry = './test/**/*.js';
+  const dest = './test-es5';
+  if (watching) { gulp.watch(entry, ['test-es6-es5']); }
+  return es6to5(entry, dest);
+});
+
+function es6to5(entry, dest) {
+  return gulp
+    .src(entry)
+    .pipe(cache('es'))
+    .pipe(sourcemap.init({loadMaps: true}))
+    .pipe(es())
+    .pipe(sourcemap.write())
+    .pipe(debug({title: 'Compiling es'}))
+    .pipe(gulp.dest(dest));
+}
 
 /**
  * bundle with browserify
  */
 gulp.task('bundle', () => {
+  const entry = './lib-es5/jThree.js';
+  const dest = './product';
+  const opt = {
+    entries: entry,
+    debug: true,
+    cache: {},
+    packageCache: {},
+  };
+  const b = browserify(opt);
+  if (watching) {
+    b.plugin(watchify, {
+      delay: 100,
+      ignoreWatch: ['**/node_modules/**'],
+    });
+  }
+  function bundle() {
+    const time = process.hrtime();
+    gutil.log('Bundling...');
+    return b
+      .bundle()
+      .pipe(source('gr.js'))
+      .pipe(buffer())
+      .pipe(sourcemap.init({loadMaps: true}))
+      .pipe(sourcemap.write('./'))
+      .pipe(gulp.dest(dest))
+      .on('end', () => {
+        gutil.log('Finished bundling ' + gutil.colors.magenta(ptime(process.hrtime(time))));
+      });
+  }
+  if (watching) { b.on('update', bundle); }
+  return bundle();
+});
 
+/**
+ * doc
+ */
+gulp.task('doc', () => {
+  const entry = './src/**/*.ts';
+  const dest = 'ci/docs';
+  const branch = args.argv.branch;
+  return gulp
+    .src(entry)
+    .pipe(typedoc({
+      target: 'es6',
+      out: path.join(dest, branch || 'unknown'),
+      name: 'Grimoire',
+      json: path.join(dest, `${branch}.json`),
+    }));
+});
+
+/**
+ * lint
+ */
+gulp.task('lint-ts', () => {
+  const entry = ['./src/**/*.ts', '!./src/refs/**/*.ts', '!./src/bundle-notdoc.ts'];
+  gulp
+    .src(entry)
+    .pipe(tslint({
+      configuration: './tslint.json',
+      rulesDirectory: './lint/rules/',
+    }))
+    .pipe(tslint.report('verbose'));
 });
 
 /**
  * clean
  */
 gulp.task('clean', () => {
-  const temp = ['./product/gr.js', './product/gr.js.map', './src/**/*.js', './lib', './coverage', './ci'];
+  const temp = ['./product/gr.js', './product/gr.js.map', './src/**/*.js', './lib', './lib-es5', './coverage', './ci'];
   del(temp).then((paths) => {
     paths.forEach((p) => gutil.log(`deleted: \"${p}\"`));
   });

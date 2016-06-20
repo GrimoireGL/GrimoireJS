@@ -1,8 +1,8 @@
 import test from 'ava';
 
-import Quaternion from '../../lib/Math/Quaternion';
-import Vector3 from '../../lib/Math/Vector3';
-import Matrix from '../../lib/Math/Matrix';
+import Quaternion from '../../lib-es5/Math/Quaternion';
+import Vector3 from '../../lib-es5/Math/Vector3';
+import Matrix from '../../lib-es5/Math/Matrix';
 
 test('equals', (t) => {
   t.ok(Quaternion.equals(Quaternion.euler(10, 20, 30), Quaternion.euler(10, 20, 30)));
