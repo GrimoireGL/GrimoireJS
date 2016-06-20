@@ -1,5 +1,5 @@
 import Canvas from "./Canvas";
 interface ICanvasContainer {
-  canvas: Canvas;
+    canvas: Canvas;
 }
 export default ICanvasContainer;

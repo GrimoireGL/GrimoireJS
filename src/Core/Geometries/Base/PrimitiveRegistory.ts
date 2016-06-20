@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import ConeGeometry from "../ConeGeometry";
 import CylinderGeometry from "../CylinderGeometry";
 import CubeGeometry from "../CubeGeometry";
@@ -10,7 +11,7 @@ class PrimitiveRegistory implements IContextComponent {
   /**
    * Registered primitives
    */
-  private _primitives: { [primitiveName: string]: Geometry } = {};
+  private _primitives: NamedValue<Geometry> = {};
 
   public getContextComponentIndex(): number {
     return ContextComponents.PrimitiveRegistory;

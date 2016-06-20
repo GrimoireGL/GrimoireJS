@@ -1,4 +1,4 @@
-import BasicRenderer from "../../Core/Renderers/BasicRenderer";
+import PathRenderer from "../../Core/Renderers/PathRenderer";
 import IRenderer from "../../Core/Renderers/IRenderer";
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
@@ -91,7 +91,7 @@ class RendererDebugger extends DebuggerModuleBase {
     });
   }
 
-  private _canvasToimg(renderer: BasicRenderer): HTMLImageElement {
+  private _canvasToimg(renderer: PathRenderer): HTMLImageElement {
     const img = new Image(renderer.canvasElement.width, renderer.canvasElement.height);
     img.src = renderer.canvasElement.toDataURL();
     return img;
@@ -101,7 +101,7 @@ class RendererDebugger extends DebuggerModuleBase {
     debug.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.on("rendered-stage", (v) => {
       if (this._bufferTextureRequest && v.completedChain.stage.id === this._bufferTextureRequest.stageID) {
-        if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null && renderer instanceof BasicRenderer) {
+        if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null && renderer instanceof PathRenderer) {
           this._bufferTextureRequest.deffered.resolve(this._canvasToimg(renderer));
           this._bufferTextureRequest = null;
           return;
@@ -131,7 +131,7 @@ class RendererDebugger extends DebuggerModuleBase {
         renderer.gl.flush();
         if (v.bufferTextures[this._bufferTextureProgressRequest.bufferTextureID] == null) {
           // for default buffer
-          if (renderer instanceof BasicRenderer) {
+          if (renderer instanceof PathRenderer) {
             img = this._canvasToimg(renderer);
           }
         } else {

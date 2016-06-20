@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage name="jthree.basic.skybox">
+    <stage namespace="http://grimoire.gl/ns/recipe/stages" name="skybox">
       <technique target="cube">
         <cull enabled="true" mode="FRONT" />
         <fbo primary="OUT">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage name="jthree.basic.sobel">
+    <stage namespace="http://grimoire.gl/ns/recipe/stages" name="sobel">
       <technique target="quad">
         <fbo primary="OUT">
           <color name="OUT" register="0" />

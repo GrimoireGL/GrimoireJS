@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import RegistererBase from "./RegistererBase";
 import Vector4 from "../../../Math/Vector4";
 import JThreeContext from "../../../JThreeContext";
@@ -13,7 +14,7 @@ class TimeRegisterer extends RegistererBase {
     return "builtin.time";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
     if (uniforms["_Time"]) {
       const timer: Timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
       if (uniforms["_Time"].variableType === "float") {
