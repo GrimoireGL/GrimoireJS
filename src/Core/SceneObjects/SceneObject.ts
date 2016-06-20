@@ -1,5 +1,6 @@
+import NamedValue from "../../Base/NamedValue";
 import IShaderArgumentContainer from "../Materials/IShaderArgumentContainer";
-import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import JThreeObjectEE from "../../Base/JThreeObjectEE";
 import IParentSceneChangedEventArgs from "../IParentSceneChangedEventArgs";
 import Material from "../Materials/Material";
 import Geometry from "../Geometries/Base/Geometry";
@@ -11,9 +12,9 @@ import SceneObjectNodeBase from "../../Goml/Nodes/SceneObjects/SceneObjectNodeBa
  * This is most base class for SceneObject.
  * SceneObject is same as GameObject in Unity.
  */
-class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContainer {
+class SceneObject extends JThreeObjectEE implements IShaderArgumentContainer {
 
-  public shaderVariables: { [name: string]: any } = {};
+  public shaderVariables: NamedValue<any> = {};
 
   public name: string;
 
@@ -28,9 +29,7 @@ class SceneObject extends JThreeObjectEEWithID implements IShaderArgumentContain
   private _materialChanagedHandler: ((m: Material, s: SceneObject) => void)[] = [];
 
   private _materials: {
-    [materialGroup: string]: {
-      [matID: string]: Material
-    }
+    [materialGroup: string]: NamedValue<Material>
   } = {};
 
   /**

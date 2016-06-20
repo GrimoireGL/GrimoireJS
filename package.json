@@ -28,11 +28,6 @@
     "clean": "gulp clean",
     "lint": "gulp lint-ts"
   },
-  "browserify": {
-    "transform": [
-      ["txtify", {"extensions": [".json", ".html", ".css", ".glsl", ".xmml", ".rsml", ".xml"]}]
-    ]
-  },
   "directories": {
     "test": "test"
   },
@@ -61,13 +56,13 @@
     "coffee-script": "^1.10.0",
     "coffeeify": "^2.0.1",
     "coveralls": "^2.11.8",
+    "cross-env": "^1.0.7",
     "del": "^2.2.0",
     "difflet": "^1.0.1",
     "envify": "^3.4.0",
     "espower-babel": "^4.0.1",
     "espower-typescript": "^5.0.1",
-    "exorcist": "^0.4.0",
-    "gl": "^2.1.5",
+    "gl": "^4.0.1",
     "glob-array": "^0.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -106,7 +101,7 @@
     "react-simpletabs": "^0.7.0",
     "react-tap-event-plugin": "^0.2.2",
     "react-tooltip": "^1.1.4",
-    "react-treeview": "^0.4.3",
+    "react-treeview": "^0.4.5",
     "remap-istanbul": "^0.5.1",
     "run-sequence": "^1.1.5",
     "shader-loader": "^1.1.4",
@@ -118,7 +113,7 @@
     "through2": "^2.0.1",
     "tsify": "^0.14.1",
     "tslint": "^3.6.0",
-    "txtify": "jThreeJS/txtify#40854f05048e072720261010297315a543593a7e",
+    "txtify": "jThreeJS/txtify#8a1eea58ce848007d9a10cce4c4d6e235fc31865",
     "typedoc": "^0.3.12",
     "typescript": "^1.8.9",
     "underscore": "^1.8.3",

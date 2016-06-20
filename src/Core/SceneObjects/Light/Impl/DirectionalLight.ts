@@ -33,7 +33,7 @@ class DirectionalLight extends LightBase {
   }
 
 
-  // public getParameters(renderer: BasicRenderer, shadowMapIndex?: number): number[] {
+  // public getParameters(renderer: PathRenderer, shadowMapIndex?: number): number[] {
   //   var dir = Vector3.normalize(Matrix.transformNormal(renderer.Camera.viewMatrix, this.transformer.forward));
 		// 		var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
 		// 		debug.setInfo("lDir", dir.toString());
@@ -68,7 +68,7 @@ class DirectionalLight extends LightBase {
   //   return m;
 		// }
   //
-		// public updateLightMatricis(renderer: BasicRenderer) {
+		// public updateLightMatricis(renderer: PathRenderer) {
   //   //cam.Transformer.forward -> viewDirection
   //   //this.Transformer.forward -> lightDirection
   //   var cam: Camera = renderer.Camera;
@@ -79,7 +79,7 @@ class DirectionalLight extends LightBase {
 		// 	 this.updateLightProjection(renderer, this.shadowMatrixCache);
 		// }
   //
-		// private LiSPSM(renderer: BasicRenderer) {
+		// private LiSPSM(renderer: PathRenderer) {
   //   var cam = renderer.Camera;
   //   var viewDirection = cam.Transformer.forward;
   //   var lightDirection = this.transformer.forward;
@@ -125,7 +125,7 @@ class DirectionalLight extends LightBase {
   //   glm.mat4.lookAt(this.shadowViewMatrixCache.rawElements, cam.Transformer.GlobalPosition.rawElements, Vector3.add(cam.Transformer.GlobalPosition, this.transformer.forward).rawElements, Vector3.YUnit.rawElements);
 		// }
   //
-		// private USM(renderer: BasicRenderer)//Uniform shadow map
+		// private USM(renderer: PathRenderer)//Uniform shadow map
 		// {
   //   var cam = renderer.Camera;
   //   //initialize light matrix cache with light view

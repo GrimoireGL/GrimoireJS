@@ -1,4 +1,4 @@
-import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import JThreeObjectEE from "../Base/JThreeObjectEE";
 import AttributeConverterBase from "./Converter/AttributeConverterBase";
 import StringAttributeConverter from "./Converter/StringAttributeConverter";
 import JThreeContext from "../JThreeContext";
@@ -9,7 +9,7 @@ import Q from "q";
 /**
  * Provides the feature to manage attribute of GOML.
  */
-class GomlAttribute extends JThreeObjectEEWithID {
+class GomlAttribute extends JThreeObjectEE {
   /**
    * If flag is true, attribute value will be recognized as contant.
    * @type {boolean}
