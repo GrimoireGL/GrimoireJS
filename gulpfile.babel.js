@@ -23,6 +23,8 @@ import watchify from 'watchify';
 
 gulp.task('default', ['build']);
 
+gulp.task('build-all', ['build', 'build-test']);
+
 /**
  * build gr.js
  */
