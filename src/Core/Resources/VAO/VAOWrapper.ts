@@ -24,7 +24,7 @@ class VAOWrapper extends ResourceWrapper {
   constructor(canvas: Canvas, parentVAO: VAO) {
     super(canvas);
     this._parent = parentVAO;
-    this._vaoInterface = canvas.glExtensionResolver.extensions["OES_vertex_array_object"];
+    this._vaoInterface = canvas.glExtensionRegistory.extensions["OES_vertex_array_object"];
   }
 
   public init(): void {

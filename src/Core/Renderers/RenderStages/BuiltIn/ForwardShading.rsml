@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rsml>
-  <stage name="jthree.basic.foward">
+  <stage namespace="http://grimoire.gl/ns/recipe/stages" name="forward">
     <technique target="scene" materialGroup="builtin.forward">
       <fbo primary="OUT">
         <color name="OUT" register="0" clearColor="default" clear="true"/>

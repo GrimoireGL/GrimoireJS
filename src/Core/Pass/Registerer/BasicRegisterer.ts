@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import Vector2 from "../../../Math/Vector2";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import IApplyMaterialArgument from "../../Materials/IApplyMaterialArgument";
@@ -9,9 +10,9 @@ class BasicRegisterer extends RegistererBase {
     return "builtin.basic";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
     if (uniforms["_matM"]) {
-      pWrapper.uniformMatrix("_matM", matArg.object.Transformer.LocalToGlobal);
+      pWrapper.uniformMatrix("_matM", matArg.object.Transformer.localToGlobal);
     }
     if (uniforms["_matV"]) {
       pWrapper.uniformMatrix("_matV", matArg.renderStage.renderer.camera.viewMatrix);
@@ -20,7 +21,7 @@ class BasicRegisterer extends RegistererBase {
       pWrapper.uniformMatrix("_matP", matArg.renderStage.renderer.camera.projectionMatrix);
     }
     if (uniforms["_matVM"]) {
-      pWrapper.uniformMatrix("_matVM", Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, matArg.object.Transformer.LocalToGlobal));
+      pWrapper.uniformMatrix("_matVM", Matrix.multiply(matArg.renderStage.renderer.camera.viewMatrix, matArg.object.Transformer.localToGlobal));
     }
     if (uniforms["_matPV"]) {
       pWrapper.uniformMatrix("_matPV", matArg.renderStage.renderer.camera.viewProjectionMatrix);

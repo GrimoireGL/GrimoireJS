@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import IVariableDescription from "../Base/IVariableDescription";
 import DescriptionTransformer from "./Base/DescriptionTransformer";
 import JSON5 from "json5";
@@ -29,7 +30,7 @@ class VariableParser extends DescriptionTransformer {
     });
   }
 
-  private static _parseVariableAttributes(attributes: string): { [key: string]: string } {
+  private static _parseVariableAttributes(attributes: string): NamedValue<string> {
     return JSON5.parse(attributes);
   }
 
@@ -37,8 +38,8 @@ class VariableParser extends DescriptionTransformer {
     return new RegExp(`(?:@(\\{.+\\}))?\\s*${variableType}\\s+(?:(lowp|mediump|highp)\\s+)?([a-z0-9A-Z]+)\\s+([a-zA-Z0-9_]+)(?:\\s*\\[\\s*(\\d+)\\s*\\]\\s*)?\\s*;`, "g");
   }
 
-  private static _parseVariables(source: string, variableType: string): { [name: string]: IVariableDescription } {
-    const result = <{ [name: string]: IVariableDescription }>{};
+  private static _parseVariables(source: string, variableType: string): NamedValue<IVariableDescription> {
+    const result = <NamedValue<IVariableDescription>>{};
     const regex = VariableParser._generateVariableFetchRegex(variableType);
     let regexResult;
     while ((regexResult = regex.exec(source))) {

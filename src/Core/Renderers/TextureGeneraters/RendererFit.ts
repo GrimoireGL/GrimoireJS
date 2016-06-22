@@ -1,6 +1,6 @@
+import ITextureRecipe from "../Recipe/ITextureRecipe";
 import GLEnumParser from "../../Canvas/GL/GLEnumParser";
-import GeneraterInfoChunk from "./GeneraterInfoChunk";
-import BasicRenderer from "../BasicRenderer";
+import PathRenderer from "../PathRenderer";
 import GeneraterBase from "./GeneraterBase";
 import Rectangle from "../../../Math/Rectangle";
 import BufferTexture from "../../Resources/Texture/BufferTexture";
@@ -8,7 +8,7 @@ import ContextComponents from "../../../ContextComponents";
 import ResourceManager from "../../ResourceManager";
 import JThreeContext from "../../../JThreeContext";
 class RendererFit extends GeneraterBase {
-  constructor(parent: BasicRenderer) {
+  constructor(parent: PathRenderer) {
     super(parent);
   }
 
@@ -16,17 +16,17 @@ class RendererFit extends GeneraterBase {
     return this.__parentRenderer.region;
   }
 
-  public generate(texInfo: GeneraterInfoChunk): BufferTexture {
+  public generate(recipe: ITextureRecipe): BufferTexture {
     const rect = this.ParentRenderRectangle;
     const width = rect.Width, height = rect.Height;
     let elementLayout: number;
-    texInfo["layout"] = texInfo["layout"] || "RGBA";
-    elementLayout = GLEnumParser.parseTextureLayout(texInfo["layout"]);
+    recipe.params["layout"] = recipe.params["layout"] || "RGBA";
+    elementLayout = GLEnumParser.parseTextureLayout(recipe.params["layout"]);
     let elementFormat: number;
-    texInfo["format"] = texInfo["format"] || "UBYTE";
-    elementFormat = GLEnumParser.parseTextureFormat(texInfo["format"]);
+    recipe.params["format"] = recipe.params["format"] || "UBYTE";
+    elementFormat = GLEnumParser.parseTextureFormat(recipe.params["format"]);
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    const resource = rm.createTexture(this.__parentRenderer.id + "." + texInfo.name, width, height, elementLayout, elementFormat);
+    const resource = rm.createTexture(this.__parentRenderer.id + "." + recipe.name, width, height, elementLayout, elementFormat);
     this.__parentRenderer.on("resize", (s: Rectangle) => {
       const bufTex = <BufferTexture>resource;
       if (s.Width !== bufTex.Width || s.Height !== bufTex.Height) {

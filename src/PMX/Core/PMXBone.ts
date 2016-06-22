@@ -81,7 +81,7 @@ class PMXBone extends SceneObject {
   public applyMatrixToBuffer(buffer: Float32Array): void {
     // if (!(<PMXBoneTransformer>this.Transformer).transformUpdated) return;
     for (let i = 0; i < 16; i++) {
-      buffer[16 * this.boneIndex + i] = this.Transformer.LocalToGlobal.rawElements[i];
+      buffer[16 * this.boneIndex + i] = this.Transformer.localToGlobal.rawElements[i];
     }
     // (<PMXBoneTransformer>this.Transformer).transformUpdated = false;
   }
