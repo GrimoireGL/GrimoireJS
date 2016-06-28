@@ -7,20 +7,20 @@ class Rectangle extends jThreeObject {
   private _width: number;
   private _height: number;
 
-  constructor(left: number, top: number, width: number, height: number) {
-    super();
-    this._left = left;
-    this._top = top;
-    this._width = width;
-    this._height = height;
-  }
-
   public static equals(r1: Rectangle, r2: Rectangle): boolean {
     return r1.Left === r2.Left && r1.Right === r2.Right && r1.Top === r2.Top && r1.Bottom === r2.Bottom;
   }
 
   public static edgeSizeEquals(r1: Rectangle, r2: Rectangle): boolean {
     return r1.Width === r2.Width && r1.Height === r2.Height;
+  }
+
+  constructor(left: number, top: number, width: number, height: number) {
+    super();
+    this._left = left;
+    this._top = top;
+    this._width = width;
+    this._height = height;
   }
 
   public get Left(): number {

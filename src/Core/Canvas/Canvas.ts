@@ -23,19 +23,6 @@ import {WebGLNotSupportedException} from "../../Exceptions";
 class Canvas extends CanvasRegion implements ICanvasContainer {
 
   /**
-   * Constructor
-   * @param  {HTMLCanvasElement} canvasElement the HTMLCanvasElement that is managed by this class.
-   */
-  constructor(canvasElement: HTMLCanvasElement) {
-    super(canvasElement);
-    this.canvas = this;
-    this._lastWidth = canvasElement.width;
-    this._lastHeight = canvasElement.height;
-    this.__setGLContext(this._tryGetGLContext());
-  }
-
-
-  /**
    * The texture which will be used for unassigned texture sampler2D variable in GLSL.
    * This variable is not intended to be assigned by user manually.
    * If you want to change this alternative texture, you need to extend this class and overrride __initializeAlternativeTexture method.
@@ -71,6 +58,18 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
    * canvas width of last time
    */
   private _lastWidth: number;
+
+  /**
+   * Constructor
+   * @param  {HTMLCanvasElement} canvasElement the HTMLCanvasElement that is managed by this class.
+   */
+  constructor(canvasElement: HTMLCanvasElement) {
+    super(canvasElement);
+    this.canvas = this;
+    this._lastWidth = canvasElement.width;
+    this._lastHeight = canvasElement.height;
+    this.__setGLContext(this._tryGetGLContext());
+  }
 
   /**
    * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.

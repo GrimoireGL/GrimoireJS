@@ -6,14 +6,6 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
   private _shaderSource: string;
 
   private _shaderType: number;
-  /**
-   * コンストラクタ
-   * (Should not be called by new,You should use CreateShader static method instead.)
-   */
-  constructor() {
-    super();
-    this.__initializeForFirst();
-  }
 
   /**
    * シェーダークラスを作成する。
@@ -23,6 +15,15 @@ class Shader extends ContextSafeContainer<ShaderWrapper> {
     shader._shaderSource = source;
     shader._shaderType = shaderType;
     return shader;
+  }
+
+  /**
+   * コンストラクタ
+   * (Should not be called by new,You should use CreateShader static method instead.)
+   */
+  constructor() {
+    super();
+    this.__initializeForFirst();
   }
 
 

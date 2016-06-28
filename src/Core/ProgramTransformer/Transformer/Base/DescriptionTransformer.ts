@@ -15,4 +15,4 @@ class DescriptionTransformer extends ProgramTransformer {
   }
 }
 
-export default DescriptionTransformer
+export default DescriptionTransformer;

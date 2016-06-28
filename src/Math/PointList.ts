@@ -6,17 +6,6 @@ import AABB from "./AABB";
 class PointList {
   public points: Vector3[];
 
-  constructor(pointList?: PointList) {
-    if (pointList) {
-      this.points = new Array(pointList.points.length);
-      for (let i = 0; i < pointList.points.length; i++) {
-        this.points[i] = Vector3.copy(pointList.points[i]);
-      }
-    } else {
-      this.points = [];
-    }
-  }
-
   public static initializeWithCube(list: PointList): PointList {
     list.clear();
     list.addPoint(new Vector3(-1.0, +1.0, -1.0));
@@ -28,6 +17,17 @@ class PointList {
     list.addPoint(new Vector3(+1.0, -1.0, +1.0));
     list.addPoint(new Vector3(+1.0, +1.0, +1.0));
     return list;
+  }
+
+  constructor(pointList?: PointList) {
+    if (pointList) {
+      this.points = new Array(pointList.points.length);
+      for (let i = 0; i < pointList.points.length; i++) {
+        this.points[i] = Vector3.copy(pointList.points[i]);
+      }
+    } else {
+      this.points = [];
+    }
   }
 
   public addPoint(point: Vector3): void {
