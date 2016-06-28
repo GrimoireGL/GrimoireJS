@@ -6,15 +6,14 @@ import JsHack from "./JsHack";
  * @type {[type]}
  */
 class JThreeObject implements IIDObject {
-
-    constructor(id?: string) {
-        this.id = id || JThreeID.getUniqueRandom(10);
-    }
-
     /**
      * ID related to this instance to identify.
      */
     public id: string;
+
+    constructor(id?: string) {
+        this.id = id || JThreeID.getUniqueRandom(10);
+    }
     /**
      * Obtain stringfied object.
      * If this method was not overridden, this method return class name.

@@ -4,6 +4,10 @@ import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import JThreeContext from "../../JThreeContext";
 class QuadGeometry extends BasicGeometry {
+
+  private _divX: number = 2;
+  private _divY: number = 2;
+
   constructor(name: string) {
     super();
     const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
@@ -13,9 +17,6 @@ class QuadGeometry extends BasicGeometry {
     this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
     this.__updateBuffers();
   }
-
-  private _divX: number = 2;
-  private _divY: number = 2;
 
   public set DivX(num: number) {
     this._divX = num;

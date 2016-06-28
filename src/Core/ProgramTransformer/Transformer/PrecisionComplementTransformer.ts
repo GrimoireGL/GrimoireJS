@@ -1,6 +1,10 @@
 import DescriptionTransformer from "./Base/DescriptionTransformer";
 import IProgramDescription from "../Base/IProgramDescription";
 class PrecisionComplementTransformer extends DescriptionTransformer {
+  private static _addPrecision(source: string, targetType: string, precision: string): string {
+    return `precision ${precision} ${targetType};\n` + source;
+  }
+
   constructor(defaultPrecision: string) {
     super((transform) => {
       let description: IProgramDescription = {
@@ -18,10 +22,6 @@ class PrecisionComplementTransformer extends DescriptionTransformer {
       }
       return description;
     });
-  }
-
-  private static _addPrecision(source: string, targetType: string, precision: string): string {
-    return `precision ${precision} ${targetType};\n` + source;
   }
 }
 

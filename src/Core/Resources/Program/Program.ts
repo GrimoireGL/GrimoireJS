@@ -4,10 +4,6 @@ import Canvas from "../../Canvas/Canvas";
 import ProgramWrapper from "./ProgramWrapper";
 
 class Program extends ContextSafeContainer<ProgramWrapper> {
-    constructor() {
-        super();
-        this.__initializeForFirst();
-    }
 
     private _fragmentShader: Shader;
 
@@ -18,6 +14,11 @@ class Program extends ContextSafeContainer<ProgramWrapper> {
         program._fragmentShader = fragment;
         program._vertexShader = vertex;
         return program;
+    }
+
+    constructor() {
+        super();
+        this.__initializeForFirst();
     }
 
     public get fragmentShader(): Shader {

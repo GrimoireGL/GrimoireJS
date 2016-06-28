@@ -4,14 +4,14 @@ import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
 class ShaderWrapper extends ResourceWrapper {
 
+    private _targetShader: WebGLShader = null;
+
+    private _parentShader: Shader;
+
     constructor(parent: Shader, canvas: Canvas) {
         super(canvas);
         this._parentShader = parent;
     }
-
-    private _targetShader: WebGLShader = null;
-
-    private _parentShader: Shader;
 
     public get TargetShader(): WebGLShader {
         if (!this.Initialized) {

@@ -13,23 +13,6 @@ import ContextComponents from "../../ContextComponents";
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
 class CanvasRegion extends JThreeObjectEE implements IDisposable, IViewport {
-  /**
-   * Constructor
-   * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
-   */
-  constructor(canvasElement: HTMLCanvasElement) {
-    super();
-    this.canvasElement = canvasElement;
-    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
-    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
-    this.name = this.id;
-  }
 
   /**
    * The name for identifying this instance.
@@ -71,6 +54,24 @@ class CanvasRegion extends JThreeObjectEE implements IDisposable, IViewport {
   public mouseLocalX: number = 0;
 
   public mouseLocalY: number = 0;
+
+  /**
+   * Constructor
+   * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
+   */
+  constructor(canvasElement: HTMLCanvasElement) {
+    super();
+    this.canvasElement = canvasElement;
+    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
+    this.name = this.id;
+  }
 
 
   /**

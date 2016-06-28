@@ -3,17 +3,6 @@ import {GLM, vec3} from "gl-matrix";
 
 class Vector3 extends VectorBase {
 
-  constructor(x: number, y: number, z: number);
-  constructor(x: GLM.IArray);
-  constructor(x: number | GLM.IArray, y?: number, z?: number) {
-    super();
-    if (typeof y === "undefined") {
-      this.rawElements = <GLM.IArray>x;
-      return;
-    }
-    this.rawElements = [<number>x, y, z];
-  }
-
   public static get XUnit(): Vector3 {
     return new Vector3(1, 0, 0);
   }
@@ -114,6 +103,17 @@ class Vector3 extends VectorBase {
       result = result.negateThis();
     }
     return result;
+  }
+
+  constructor(x: number, y: number, z: number);
+  constructor(x: GLM.IArray);
+  constructor(x: number | GLM.IArray, y?: number, z?: number) {
+    super();
+    if (typeof y === "undefined") {
+      this.rawElements = <GLM.IArray>x;
+      return;
+    }
+    this.rawElements = [<number>x, y, z];
   }
 
   public toMathematicaString(): string {

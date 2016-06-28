@@ -11,10 +11,6 @@ import Canvas from "../../Canvas/Canvas";
 import ResourceWrapper from "../ResourceWrapper";
 import Buffer from "../Buffer/Buffer";
 class ProgramWrapper extends ResourceWrapper {
-    constructor(parent: Program, canvas: Canvas) {
-        super(canvas);
-        this._parentProgram = parent;
-    }
 
     private _islinked: boolean = false;
 
@@ -25,6 +21,11 @@ class ProgramWrapper extends ResourceWrapper {
     private _attributeLocations: NamedValue<number> = {};
 
     private _uniformLocations: NamedValue<WebGLUniformLocation> = {};
+
+    constructor(parent: Program, canvas: Canvas) {
+        super(canvas);
+        this._parentProgram = parent;
+    }
 
     public get TargetProgram(): WebGLProgram {
         return this._targetProgram;

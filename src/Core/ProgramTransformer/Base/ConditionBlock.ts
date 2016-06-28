@@ -11,16 +11,6 @@ class ConditionBlock {
   private _content: string;
   private _elseContent: string; // return if condition else.
 
-  constructor(condition: JSON, children: ConditionBlock[], isPlain: boolean, content: string, elseContent: string) {
-    this._children = children;
-    this._condition = condition;
-    if (condition != null) {
-      this._type = condition["type"];
-    }
-    this._isPlain = isPlain;
-    this._content = content;
-    this._elseContent = elseContent;
-  }
   public static parseCondition(source: string): ConditionBlock {
     let ret = new ConditionBlock(null, ConditionBlock._parseCondition(source), false, null, null);
     ret._isRoot = true;
@@ -107,6 +97,17 @@ class ConditionBlock {
       }
     }
     return index;
+  }
+
+  constructor(condition: JSON, children: ConditionBlock[], isPlain: boolean, content: string, elseContent: string) {
+    this._children = children;
+    this._condition = condition;
+    if (condition != null) {
+      this._type = condition["type"];
+    }
+    this._isPlain = isPlain;
+    this._content = content;
+    this._elseContent = elseContent;
   }
 
 
