@@ -13,6 +13,12 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  */
 class CanvasManager extends JThreeObjectEE implements IContextComponent {
 
+  /**
+   * All canvas managed by jThree
+   * @type {Canvas[]}
+   */
+  public canvases: Canvas[] = [];
+
   constructor() {
     super();
     this.setMaxListeners(10000);
@@ -20,12 +26,6 @@ class CanvasManager extends JThreeObjectEE implements IContextComponent {
     loopManager.addAction(4000, () => this.beforeRenderAll());
     loopManager.addAction(6000, () => this.afterRenderAll());
   }
-
-  /**
-   * All canvas managed by jThree
-   * @type {Canvas[]}
-   */
-  public canvases: Canvas[] = [];
 
   /**
    * Implementation for IContextComponent

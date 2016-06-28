@@ -15,14 +15,6 @@ class Quaternion extends JThreeObject {
 
   public rawElements: GLM.IArray;
 
-  /**
-  * Constructor by specifing each elements.
-  */
-  constructor(rawElements: GLM.IArray) {
-    super();
-    this.rawElements = rawElements;
-  }
-
   public static equals(q1: Quaternion, q2: Quaternion): boolean {
     for (let i = 0; i < 4; i++) {
       if (q1.rawElements[i] !== q2.rawElements[i]) {
@@ -129,6 +121,14 @@ class Quaternion extends JThreeObject {
 
   public static get Identity(): Quaternion {
     return new Quaternion(quat.create());
+  }
+
+  /**
+  * Constructor by specifing each elements.
+  */
+  constructor(rawElements: GLM.IArray) {
+    super();
+    this.rawElements = rawElements;
   }
 
   public get eularAngles() {

@@ -16,4 +16,4 @@ class SourceTransformer extends ProgramTransformer {
   }
 }
 
-export default SourceTransformer
+export default SourceTransformer;
