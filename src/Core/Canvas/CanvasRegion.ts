@@ -2,9 +2,7 @@ import IViewport from "./IViewport";
 import EEObject from "../../Base/EEObject";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
-import Context from "../../Context";
 import Debugger from "../../Debug/Debugger";
-import ContextComponents from "../../ContextComponents";
 /**
  * Abstract class to provide mouse tracking feature on a part of region on canvas.
  * This class is intended to be used in Canvas and viewport renderer.
@@ -118,8 +116,7 @@ class CanvasRegion extends EEObject implements IDisposable, IViewport {
     const localPos = this.region.toLocal(this.mouseX, this.mouseY);
     this.mouseLocalX = localPos[0];
     this.mouseLocalY = localPos[1];
-    const debug = Context.getContextComponent<Debugger>(ContextComponents.Debugger);
-    debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
+    Debugger.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
       mousePositionX: this.mouseX,
       mousePositionY: this.mouseY,

@@ -1,6 +1,4 @@
-import Context from "../../Context";
 import MaterialManager from "../../Core/Materials/MaterialManager";
-import ContextComponents from "../../ContextComponents";
 /**
  * Provide initializing methods for PMX.
  * @type {[type]}
@@ -18,8 +16,7 @@ class PMXCoreInitializer {
   }
 
   private static _registerShaderChunk(): void {
-    const mm = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
-    mm.addShaderChunk("jthree.pmx.vertex", require("../ShaderChunk/_PMXVertexShader.glsl"));
+    MaterialManager.addShaderChunk("jthree.pmx.vertex", require("../ShaderChunk/_PMXVertexShader.glsl"));
   }
 }
 export default PMXCoreInitializer;

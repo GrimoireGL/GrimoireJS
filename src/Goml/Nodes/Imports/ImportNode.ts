@@ -1,11 +1,8 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import MaterialManager from "../../../Core/Materials/MaterialManager";
-import ContextComponents from "../../../ContextComponents";
-import Context from "../../../Context";
 import GomlAttribute from "../../GomlAttribute";
 
 class ImportNode extends GomlTreeNodeBase {
-  private _materialManager: MaterialManager;
 
   private _type: string = null;
 
@@ -28,7 +25,6 @@ class ImportNode extends GomlTreeNodeBase {
         onchanged: this._onSrcSelectorAttrChanged.bind(this),
       },
     });
-    this._materialManager = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
 
@@ -103,7 +99,7 @@ class ImportNode extends GomlTreeNodeBase {
     let exportName = null;
     switch (this._type) {
       case "material":
-        const matName = this._materialManager.registerMaterial(src);
+        const matName = MaterialManager.registerMaterial(src);
         exportName = `material-${matName}`;
         break;
     }

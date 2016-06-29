@@ -5,9 +5,8 @@ import HitAreaRenderStage from "./RenderStages/HitAreaRenderStage";
 import BasicRenderStage from "./RenderStages/Base/BasicRenderStage";
 import PathRenderer from "./PathRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
-import ContextComponents from "../../ContextComponents";
-import IContextComponent from "../../IContextComponent";
-class RenderStageRegistory implements IContextComponent {
+class RenderStageRegistory {
+    public static instance: RenderStageRegistory;
     private _renderStageFactoryFunctions: { [key: string]: (r: IRenderer) => RenderStageBase } = {};
 
     constructor() {
@@ -21,10 +20,6 @@ class RenderStageRegistory implements IContextComponent {
         this.register(require("./RenderStages/BuiltIn/FXAA.rsml"));
         this.register(require("./RenderStages/BuiltIn/Sobel.rsml"));
         this.register(require("./RenderStages/BuiltIn/Gaussian.rsml"));
-    }
-
-    public getContextComponentIndex(): number {
-        return ContextComponents.RenderStageRegistory;
     }
 
     /**
@@ -80,4 +75,5 @@ class RenderStageRegistory implements IContextComponent {
         return this._renderStageFactoryFunctions[name](renderer);
     }
 }
-export default RenderStageRegistory;
+RenderStageRegistory.instance = new RenderStageRegistory();
+export default RenderStageRegistory.instance;

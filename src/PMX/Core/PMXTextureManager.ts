@@ -1,7 +1,5 @@
 import TextureBase from "../../Core/Resources/Texture/TextureBase";
-import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../../Core/ResourceManager";
-import Context from "../../Context";
 import PMXModel from "./PMXModel";
 import Q from "q";
 class PMXTextureManager {
@@ -47,8 +45,7 @@ class PMXTextureManager {
       return deferred.promise;
     }
     this._model.loadingTextureCount++;
-    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    return rm.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then<TextureBase>((texture) => {
+    return ResourceManager.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then<TextureBase>((texture) => {
       process.nextTick(() => {
         this._model.loadedTextureCount++;
         if (this._model.loadingTextureCount === this._model.loadedTextureCount) {

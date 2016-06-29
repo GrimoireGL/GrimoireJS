@@ -1,7 +1,5 @@
 import NamedValue from "../../Base/NamedValue";
 import ResourceManager from "../ResourceManager";
-import Context from "../../Context";
-import ContextComponents from "../../ContextComponents";
 import MatrixArray from "../../Math/MatrixArray";
 import VectorArray from "../../Math/VectorArray";
 import Matrix from "../../Math/Matrix";
@@ -199,7 +197,7 @@ class DefaultValuePreProcessor {
   private static _forSampler2D(uniform: IVariableDescription): Q.IPromise<void> {
     const defaultValue = uniform.variableAnnotation.default;
     if (defaultValue) {
-      return DefaultValuePreProcessor._resourceManager.loadTexture(defaultValue).then((texture) => {
+      return ResourceManager.loadTexture(defaultValue).then((texture) => {
         uniform.variableAnnotation.default = texture;
       });
     } else {
@@ -207,10 +205,6 @@ class DefaultValuePreProcessor {
         uniform.variableAnnotation.default = null;
       });
     }
-  }
-
-  private static get _resourceManager(): ResourceManager {
-    return Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
   }
 }
 

@@ -1,9 +1,7 @@
 import EEObject from "../Base/EEObject";
 import AttributeConverterBase from "./Converter/AttributeConverterBase";
 import StringAttributeConverter from "./Converter/StringAttributeConverter";
-import Context from "../Context";
 import NodeManager from "./NodeManager";
-import ContextComponents from "../ContextComponents";
 import Q from "q";
 
 /**
@@ -48,11 +46,8 @@ class GomlAttribute extends EEObject {
 
     private _initializeSequence: boolean = false;
 
-    private _nodeManager: NodeManager;
-
     constructor(name: string, value: any, converter: AttributeConverterBase, reserved: boolean, constant: boolean) {
         super(name);
-        this._nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
         this.constant = constant !== undefined ? constant : false;
         this.reserved = reserved !== undefined ? reserved : false;
         this.Converter = converter;
@@ -78,9 +73,9 @@ class GomlAttribute extends EEObject {
             // 通常時のAttributeの初期化
             // onchangeのイベントのコールバック内でdoneでdeferredが解決される
             this._initializeSequence = true;
-            if (this._nodeManager.attributePromiseRegistry.enabled) {
+            if (NodeManager.attributePromiseRegistry.enabled) {
                 this._deferred = Q.defer<GomlAttribute>();
-                this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+                NodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
             }
             this.emit("changed", this);
         } else {
@@ -98,7 +93,7 @@ class GomlAttribute extends EEObject {
             this.initialized = true;
             this._initializeSequence = false;
             // console.log("resolve attribute (done)", this.Name);
-            if (this._nodeManager.attributePromiseRegistry.enabled) {
+            if (NodeManager.attributePromiseRegistry.enabled) {
                 this._deferred.resolve(this);
             }
         }
@@ -172,7 +167,7 @@ class GomlAttribute extends EEObject {
         if (this.initialized || this._initializeSequence) {
             if (this._initializeSequence) {
                 this._deferred = Q.defer<GomlAttribute>();
-                this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+                NodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
             }
             this.emit("changed", this);
         }

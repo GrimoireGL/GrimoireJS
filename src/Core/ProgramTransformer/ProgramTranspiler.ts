@@ -70,12 +70,12 @@ class ProgramTranspiler {
     return ProgramTranspiler.transform(codeString, ProgramTranspiler.transformerGenerator()).then((arg: IProgramTransform) => arg.description);
   }
 
-  public static parseInternalImport(source: string, materialManager: MaterialManager): string { // TODO must be moved
+  public static parseInternalImport(source: string): string { // TODO must be moved
     while (true) {
       const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
       if (!regexResult) { break; }
       let importContent;
-      importContent = materialManager.getShaderChunk(regexResult[1]);
+      importContent = MaterialManager.getShaderChunk(regexResult[1]);
       if (!importContent) {
         console.error(`Required shader chunk '${regexResult[1]}' was not found!!`);
         importContent = "";

@@ -22,12 +22,12 @@ class CubeTextureNode extends TextureNodeBase<CubeTexture> {
     });
   }
 
-  protected __constructTexture(name: string, rm: ResourceManager): Q.IPromise<CubeTexture> {
+  protected __constructTexture(name: string): Q.IPromise<CubeTexture> {
     const deferred = Q.defer<CubeTexture>();
     const srcsv = this.attributes.getValue("srcs");
     if (srcsv) {
       const srcs = srcsv.split(" ");
-      rm.loadCubeTexture(srcs).then((texture) => {
+      ResourceManager.loadCubeTexture(srcs).then((texture) => {
         deferred.resolve(texture);
       });
     } else {

@@ -1,8 +1,5 @@
 import EEObject from "../../Base/EEObject";
 import LoopManager from "../LoopManager";
-import Context from "../../Context";
-import IContextComponent from "../../IContextComponent";
-import ContextComponents from "../../ContextComponents";
 import Canvas from "./Canvas";
 import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
 /**
@@ -11,69 +8,65 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  *すべてのCanvasを管理する機能を提供するコンテキストコンポーネント
  * @type {[type]}
  */
-class CanvasManager extends EEObject implements IContextComponent {
+class CanvasManager extends EEObject{
 
-  /**
-   * All canvas managed by jThree
-   * @type {Canvas[]}
-   */
-  public canvases: Canvas[] = [];
+    public static instance: CanvasManager;
 
-  constructor() {
-    super();
-    this.setMaxListeners(10000);
-    const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
-    loopManager.addAction(4000, () => this.beforeRenderAll());
-    loopManager.addAction(6000, () => this.afterRenderAll());
-  }
+    /**
+     * All canvas managed by jThree
+     * @type {Canvas[]}
+     */
+    public canvases: Canvas[] = [];
 
-  /**
-   * Implementation for IContextComponent
-   */
-  public getContextComponentIndex(): number {
-    return ContextComponents.CanvasManager;
-  }
-  /**
-   * Add canvas to be managed.
-   * @param {Canvas} canvas [description]
-   */
-  public addCanvas(canvas: Canvas): void {
-    if (this.canvases.indexOf(canvas) === -1) {
-      this.canvases.push(canvas);
-      this.emit("canvas-list-changed", <ICanvasListChangedEventArgs> {
-        isAdditionalChange: true,
-        canvas: canvas
-      });
+    constructor() {
+        super();
+        this.setMaxListeners(10000);
+        LoopManager.addAction(4000, () => this.beforeRenderAll());
+        LoopManager.addAction(6000, () => this.afterRenderAll());
     }
-  }
-
-  /**
-   * Remove canvas from managed canvas list.
-   */
-  public removeCanvas(canvas: Canvas): void {
-    if (this.canvases.indexOf(canvas) !== -1) {
-      for (let i = 0; i < this.canvases.length; i++) {
-        if (this.canvases[i] === canvas) {
-          this.canvases.splice(i, 1);
-          break;
+    /**
+     * Add canvas to be managed.
+     * @param {Canvas} canvas [description]
+     */
+    public addCanvas(canvas: Canvas): void {
+        if (this.canvases.indexOf(canvas) === -1) {
+            this.canvases.push(canvas);
+            this.emit("canvas-list-changed", <ICanvasListChangedEventArgs>{
+                isAdditionalChange: true,
+                canvas: canvas
+            });
         }
-      }
-      this.emit("canvas-list-changed", <ICanvasListChangedEventArgs>{
-        isAdditionalChange: true,
-        canvas: canvas
-      });
     }
-  }
 
-  public beforeRenderAll(): void {
-    this.canvases.forEach((c) => c.beforeRenderAll());
-    return;
-  }
+    /**
+     * Remove canvas from managed canvas list.
+     */
+    public removeCanvas(canvas: Canvas): void {
+        if (this.canvases.indexOf(canvas) !== -1) {
+            for (let i = 0; i < this.canvases.length; i++) {
+                if (this.canvases[i] === canvas) {
+                    this.canvases.splice(i, 1);
+                    break;
+                }
+            }
+            this.emit("canvas-list-changed", <ICanvasListChangedEventArgs>{
+                isAdditionalChange: true,
+                canvas: canvas
+            });
+        }
+    }
 
-  public afterRenderAll(): void {
-    this.canvases.forEach((c) => c.afterRenderAll());
-    return;
-  }
+    public beforeRenderAll(): void {
+        this.canvases.forEach((c) => c.beforeRenderAll());
+        return;
+    }
+
+    public afterRenderAll(): void {
+        this.canvases.forEach((c) => c.afterRenderAll());
+        return;
+    }
 }
 
-export default CanvasManager;
+CanvasManager.instance = new CanvasManager();
+
+export default CanvasManager.instance;

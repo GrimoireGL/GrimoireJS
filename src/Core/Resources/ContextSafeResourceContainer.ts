@@ -5,9 +5,7 @@ import Canvas from "../Canvas/Canvas";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
 import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
 import ResourceWrapper from "./ResourceWrapper";
-import Context from "../../Context";
 import CanvasManager from "../Canvas/CanvasManager";
-import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.
  */
@@ -21,9 +19,8 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends EEObject i
 
   constructor() {
     super();
-    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     // Initialize resources for the renderers already subscribed.
-    canvasManager.on("canvas-list-changed", this._rendererChanged.bind(this));
+    CanvasManager.on("canvas-list-changed", this._rendererChanged.bind(this));
   }
 
   public dispose(): void {
@@ -57,8 +54,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends EEObject i
   }
 
   protected __initializeForFirst(): void {
-    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-    canvasManager.canvases.forEach((v) => {
+    CanvasManager.canvases.forEach((v) => {
       this._childWrapper[v.id] = this.__createWrapperForCanvas(v);
       this._wrapperLength++;
     });

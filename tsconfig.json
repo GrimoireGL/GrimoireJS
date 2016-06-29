@@ -276,6 +276,7 @@
     "./src/Goml/VectorColorCombinedParser.ts",
     "./src/Goml/XMLParser.ts",
     "./src/Grimoire.ts",
+    "./src/GrimoireWindow.ts",
     "./src/IContextComponent.ts",
     "./src/Init.ts",
     "./src/Interface/Effects/Basic.ts",

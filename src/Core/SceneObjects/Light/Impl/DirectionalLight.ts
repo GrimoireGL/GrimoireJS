@@ -4,8 +4,6 @@ import BasicMaterial from "../../../Materials/BasicMaterial";
 import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
 import Vector3 from "../../../../Math/Vector3";
 import Matrix from "../../../../Math/Matrix";
-import ContextComponents from "../../../../ContextComponents";
-import Context from "../../../../Context";
 
 /**
  * Provides directional light feature.
@@ -18,7 +16,7 @@ class DirectionalLight extends LightBase {
 
     constructor() {
         super();
-        this.Geometry = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
+        this.Geometry = PrimitiveRegistory.getPrimitive("quad");
         const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.xmml"), "builtin.light.directional.diffuse");
         diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
             diffuseMaterial.shaderVariables = {

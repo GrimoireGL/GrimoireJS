@@ -1,3 +1,4 @@
+import NodeManager from "./NodeManager";
 import IDObject from "../Base/IDObject";
 import GomlAttribute from "./GomlAttribute";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
@@ -88,7 +89,7 @@ class AttributeDictionary extends IDObject {
         // console.log("attributes_declaration", attributes);
         for (let key in attributes) {
             const attribute = attributes[key];
-            const converter = this._node.nodeManager.configurator.getConverter(attribute.converter);
+            const converter = NodeManager.configurator.getConverter(attribute.converter);
             if (!converter && (!attribute.reserved || !isUndefined(attribute.converter))) {
                 throw new Error(`Converter \"${attribute.converter}\" is not found`);
             }

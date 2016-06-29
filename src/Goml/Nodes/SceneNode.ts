@@ -1,8 +1,6 @@
 import CoreRelatedNodeBase from "../CoreRelatedNodeBase";
 import Scene from "../../Core/Scene";
-import Context from "../../Context";
 import SceneManager from "../../Core/SceneManager";
-import ContextComponents from "../../ContextComponents";
 
 class SceneNode extends CoreRelatedNodeBase<Scene> {
   constructor() {
@@ -28,12 +26,12 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
       sceneName = null;
     }
     this.target = new Scene(sceneName);
-    Context.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
+    SceneManager.addScene(this.target);
   }
 
   protected __onUnmount(): void {
     super.__onUnmount();
-    Context.getContextComponent<SceneManager>(ContextComponents.SceneManager).removeScene(this.target);
+    SceneManager.removeScene(this.target);
     // TODO: pnly GC
   }
 

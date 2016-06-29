@@ -3,8 +3,6 @@ import ITextureRecipe from "./Recipe/ITextureRecipe";
 import TextureBase from "../Resources/Texture/TextureBase";
 import PathRenderer from "./PathRenderer";
 import GeneraterBase from "./TextureGeneraters/GeneraterBase";
-import Context from "../../Context";
-import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import GeneraterList from "./TextureGeneraters/GeneraterList";
 
@@ -20,7 +18,7 @@ class TextureGenerater {
   }
 
   public static getTexture(renderer: PathRenderer, bufferName: string): TextureBase {
-    return Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.id + "." + bufferName);
+    return ResourceManager.getTexture(renderer.id + "." + bufferName);
   }
 
   private static _getGeneraters(renderer: PathRenderer): NamedValue<GeneraterBase> {

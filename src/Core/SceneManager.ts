@@ -1,16 +1,14 @@
 import NamedValue from "../Base/NamedValue";
 import EEObject from "../Base/EEObject";
 import Scene from "./Scene";
-import IContextComponent from "../IContextComponent";
-import ContextComponents from "../ContextComponents";
 import LoopManager from "./LoopManager";
-import Context from "../Context";
-
 
 /**
 * The class for managing entire _scenes.
 */
-class SceneManager extends EEObject implements IContextComponent {
+class SceneManager extends EEObject{
+
+    public static instance: SceneManager;
     /**
      * All scene map. Hold by Scene.ID.
      */
@@ -18,12 +16,7 @@ class SceneManager extends EEObject implements IContextComponent {
 
     constructor() {
         super();
-        const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
-        loopManager.addAction(5000, () => this.renderAll());
-    }
-
-    public getContextComponentIndex(): number {
-        return ContextComponents.SceneManager;
+        LoopManager.addAction(5000, () => this.renderAll());
     }
 
     /**
@@ -81,4 +74,6 @@ class SceneManager extends EEObject implements IContextComponent {
 
 }
 
-export default SceneManager;
+SceneManager.instance = new SceneManager();
+
+export default SceneManager.instance;

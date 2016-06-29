@@ -1,5 +1,3 @@
-import Context from "../../../Context";
-import ContextComponents from "../../../ContextComponents";
 import MaterialManager from "../../Materials/MaterialManager";
 import ProgramTransformer from "./Base/ProgramTransformer";
 class ImportTransformer extends ProgramTransformer {
@@ -22,12 +20,12 @@ class ImportTransformer extends ProgramTransformer {
    * @return {string}                          replaced codes.
    */
   public static parseImport(source: string): Promise<string> {
-    return ImportTransformer._materialManager.loadChunks(ImportTransformer.getImports(source)).then<string>(() => {
+    return MaterialManager.loadChunks(ImportTransformer.getImports(source)).then<string>(() => {
       while (true) {
         const regexResult = /\s*@import\s+"([^"]+)"/.exec(source);
         if (!regexResult) { break; }
         let importContent;
-        importContent = ImportTransformer._materialManager.getShaderChunk(regexResult[1]);
+        importContent = MaterialManager.getShaderChunk(regexResult[1]);
         if (!importContent) {
           throw new Error(`Required shader chunk '${regexResult[1]}' was not found!!`);
         }
@@ -35,10 +33,6 @@ class ImportTransformer extends ProgramTransformer {
       }
       return source;
     });
-  }
-
-  private static get _materialManager(): MaterialManager {
-   return Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
   constructor() {

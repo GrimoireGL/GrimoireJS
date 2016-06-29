@@ -6,9 +6,7 @@ import ProgramTranspiler from "../../ProgramTransformer/ProgramTranspiler";
 import XMLRenderConfigUtility from "../../Pass/XMLRenderConfigUtility";
 import IXMMLPassDescription from "./IXMMLPassDescription";
 import RegistererBase from "../../Pass/Registerer/RegistererBase";
-import ContextComponents from "../../../ContextComponents";
 import MaterialManager from "../MaterialManager";
-import Context from "../../../Context";
 import IXMMLDescription from "./IXMMLDescription";
 import BasicCacheResolver from "../../Resources/BasicCacheResolver";
 import XMLReader from "../../../Base/XMLReader";
@@ -56,9 +54,8 @@ class XMMLParser {
     }
 
     private static _initializeUniformRegisters(elem: Element): RegistererBase[] {
-        const mm = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         const registerElems = XMLReader.getElements(elem, "register");
-        return registerElems.map(r => new (mm.getUniformRegister(r.getAttribute("name")))());
+        return registerElems.map(r => new (MaterialManager.getUniformRegister(r.getAttribute("name")))());
     }
 
     private static _instanciatePasses(passes: Element, materialName: string, registerers: RegistererBase[]): Promise<IXMMLPassDescription[]> {
@@ -86,12 +83,11 @@ class XMMLParser {
 
     private static _constructProgram(name: string, index: number, desc: IProgramDescription): Program {
         const idPrefix = name + index;
-        const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        const fs = rm.createShader(idPrefix + "-fs", desc.fragment, WebGLRenderingContext.FRAGMENT_SHADER);
-        const vs = rm.createShader(idPrefix + "-vs", desc.vertex, WebGLRenderingContext.VERTEX_SHADER);
+        const fs = ResourceManager.createShader(idPrefix + "-fs", desc.fragment, WebGLRenderingContext.FRAGMENT_SHADER);
+        const vs = ResourceManager.createShader(idPrefix + "-vs", desc.vertex, WebGLRenderingContext.VERTEX_SHADER);
         fs.loadAll();
         vs.loadAll();
-        return rm.createProgram(idPrefix + "-program", vs, fs);
+        return ResourceManager.createProgram(idPrefix + "-program", vs, fs);
     }
 }
 export default XMMLParser;

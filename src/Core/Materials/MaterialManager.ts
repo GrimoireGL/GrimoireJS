@@ -7,8 +7,6 @@ import RegistererBase from "../Pass/Registerer/RegistererBase";
 import StageDescriptionRegisterer from "../Pass/Registerer/StageDescriptionRegisterer";
 import BasicMaterial from "./BasicMaterial";
 import ProgramTranspiler from "../ProgramTransformer/ProgramTranspiler";
-import IContextComponent from "../../IContextComponent";
-import ContextComponents from "../../ContextComponents";
 import BufferRegisterer from "../Pass/Registerer/BufferRegisterer";
 import TimeRegisterer from "../Pass/Registerer/TimeRegisterer";
 import BasicCacheResolver from "../Resources/BasicCacheResolver";
@@ -19,7 +17,9 @@ import Q from "q";
  * A ContextComponent provides the feature to manage materials.
  * @type {[type]}
  */
-class MaterialManager implements IContextComponent, IConditionRegister {
+class MaterialManager implements IConditionRegister {
+
+    public static instance: MaterialManager;
 
     public conditionRegistered: boolean = false;
 
@@ -48,17 +48,13 @@ class MaterialManager implements IContextComponent, IConditionRegister {
         this.registerCondition("gl-extension", new GLExtensionConditionChecker());
     }
 
-    public getContextComponentIndex(): number {
-        return ContextComponents.MaterialManager;
-    }
-
     /**
      * Add shader chunk code to be stored.
      * @param {string} key shader chunk key
      * @param {string} val shader chunk code
      */
     public addShaderChunk(key: string, val: string): void {
-        this._chunkLoader.pushLoaded(key, ProgramTranspiler.parseInternalImport(val, this));
+        this._chunkLoader.pushLoaded(key, ProgramTranspiler.parseInternalImport(val));
     }
 
     public loadChunks(srcs: string[]): Promise<string[]> {
@@ -142,5 +138,5 @@ class MaterialManager implements IContextComponent, IConditionRegister {
         });
     }
 }
-
-export default MaterialManager;
+MaterialManager.instance = new MaterialManager();
+export default MaterialManager.instance;

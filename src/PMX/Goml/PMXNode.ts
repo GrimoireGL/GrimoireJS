@@ -1,7 +1,5 @@
 import SceneObjectNodeBase from "./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 import PMXModel from "../Core/PMXModel";
-import Context from "../../Context";
-import ContextComponents from "../../ContextComponents";
 import ResourceLoader from "../../Core/ResourceLoader";
 import Q from "q";
 
@@ -17,10 +15,9 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
   }
 
   private _pmxLoadingDeferred: Q.Deferred<void>;
-
   constructor() {
     super();
-    this._pmxLoadingDeferred = Context.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
+    this._pmxLoadingDeferred = ResourceLoader.getResourceLoadingDeffered<void>();
     this.attributes.defineAttribute({
       "src": {
         converter: "string",

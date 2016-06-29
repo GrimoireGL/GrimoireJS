@@ -1,6 +1,5 @@
-import Debugger from "../Debugger";
 class DebuggerModuleBase {
-  public attach(debug: Debugger): void {
+  public attach(): void {
    return;
   }
 }

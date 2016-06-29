@@ -1,6 +1,4 @@
-import Context from "../../../Context";
 import CanvasManager from "../CanvasManager";
-import ContextComponents from "../../../ContextComponents";
 import IGLPrecisions from "./IGLPrecisions";
 class GLSpecResolver {
 
@@ -18,9 +16,8 @@ class GLSpecResolver {
   private static _allShaderPrecisionFormats: IGLPrecisions;
 
   private static get GL() {
-    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
-    if (canvasManager.canvases.length > 0) {
-      return canvasManager.canvases[0].gl;
+    if (CanvasManager.canvases.length > 0) {
+      return CanvasManager.canvases[0].gl;
     } else {
       console.error("can't obtain the gl context to check gl spec");
     }
