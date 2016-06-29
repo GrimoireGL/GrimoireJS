@@ -1,21 +1,13 @@
 import GomlTreeNodeBase from "./Goml/GomlTreeNodeBase";
 import isArray from "lodash.isarray";
-import RenderStageRegistory from "./Core/Renderers/RenderStageRegistory";
 import PrimitiveRegistory from "./Core/Geometries/Base/PrimitiveRegistory";
-import MaterialManager from "./Core/Materials/MaterialManager";
-import Timer from "./Core/Timer";
 import J3Object from "./Interface/J3Object"; // This must be the first time of import J3Object
 import J3ObjectMixins from "./Interface/J3ObjectMixins"; // Apply mixins
 J3ObjectMixins();
-import SceneManager from "./Core/SceneManager";
-import CanvasManager from "./Core/Canvas/CanvasManager";
 import LoopManager from "./Core/LoopManager";
-import ResourceManager from "./Core/ResourceManager";
-import NodeManager from "./Goml/NodeManager";
 import Debugger from "./Debug/Debugger";
 import GomlLoader from "./Goml/GomlLoader";
 import ResourceLoader from "./Core/ResourceLoader";
-import ModuleManager from "./Module/ModuleManager";
 
 import Quaternion from "./Math/Quaternion";
 import Vector2 from "./Math/Vector2";

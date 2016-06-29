@@ -6,7 +6,7 @@ import LoopManager from "./LoopManager";
 /**
 * The class for managing entire _scenes.
 */
-class SceneManager extends EEObject{
+class SceneManager extends EEObject {
 
     public static instance: SceneManager;
     /**

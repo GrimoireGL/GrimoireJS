@@ -8,7 +8,7 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  *すべてのCanvasを管理する機能を提供するコンテキストコンポーネント
  * @type {[type]}
  */
-class CanvasManager extends EEObject{
+class CanvasManager extends EEObject {
 
     public static instance: CanvasManager;
 

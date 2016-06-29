@@ -27,7 +27,7 @@ interface LoopAction {
  * JThree内のループに関する機能を提供するクラス
  * @type {[type]}
  */
-class LoopManager{
+class LoopManager {
 
     public static instance: LoopManager;
     /**
