@@ -1,6 +1,6 @@
 import SceneObjectNodeBase from "./../../Goml/Nodes/SceneObjects/SceneObjectNodeBase";
 import PMXModel from "../Core/PMXModel";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import ResourceLoader from "../../Core/ResourceLoader";
 import Q from "q";
@@ -20,7 +20,7 @@ class PMXNode extends SceneObjectNodeBase<PMXModel> {
 
   constructor() {
     super();
-    this._pmxLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
+    this._pmxLoadingDeferred = Context.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     this.attributes.defineAttribute({
       "src": {
         converter: "string",

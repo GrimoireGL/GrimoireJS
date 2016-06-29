@@ -1,6 +1,6 @@
 # Contribution guide
 We really appreciate your interest in this project.
-Third-party contribution is essential for enhancing jThree.
+Third-party contribution is essential for enhancing Grimoire.js.
 
 Now,we are following our coding rule.
 Contributors need to follow them.
@@ -23,7 +23,7 @@ We are going to use some of the features affected by 3DCG technologies(like plug
 ### Build steps
 1 . Clone this repository.
 
-2 . Run the following command to install packages in jThree folder (a root folder of this repository)
+2 . Run the following command to install packages in Root folder
 ```shell
 $ npm install
 ```
@@ -31,7 +31,7 @@ $ npm install
 ```shell
 $ npm run watch
 ```
-4 . Go to http://localhost:8080/debug/ in your browser to see the page to debug for jThree.
+4 . Go to http://localhost:8080/debug/ in your browser to see the page to debug for Grimoire.js.
 
 ### Change the build systems and the packages.
 When you need to change the build system or add some packages for your contribution. Please read the followings.

@@ -5,7 +5,7 @@ import IOptionUser from "./IOptionUser";
 import isPlainObject from "lodash.isplainobject";
 // import IModule from "../../Module/IModule";
 // import EffectModule from "./EffectModule";
-// import JThreeContext from "../../JThreeContext";
+// import Context from "../../Context";
 // import ModuleManager from "../../Module/ModuleManager";
 // import ContextComponents from "../../ContextComponents";
 import EffectExecutor from "./EffectExecutor";
@@ -25,7 +25,7 @@ class Custom extends J3ObjectBase {
   public animate(properties: {[key: string]: string}, argu0?: any, argu1?: any, argu2?: any): any {
     const option = EffectUtilities.toOption(argu0, argu1, argu2);
     if (isPlainObject(properties)) {
-      // const moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
+      // const moduleManager = Context.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
       // const Module: new () => IModule = <any>EffectModule;
       this.__getArray().forEach((node) => {
         // const moduleRegistry = moduleManager.addModule(Module);

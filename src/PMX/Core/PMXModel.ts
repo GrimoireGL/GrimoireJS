@@ -34,33 +34,6 @@ class PMXModel extends SceneObject {
 
   private _modelData: PMXModelData;
 
-
-  constructor(pmx: PMXModelData, resourceDirectory: string) {
-    super();
-    PMXCoreInitializer.init();
-    this.on("load", () => { this.loaded = true; });
-    this._modelData = pmx;
-    this.modelDirectory = resourceDirectory;
-    this.pmxTextureManager = new PMXTextureManager(this);
-    this.__geometry = new PMXGeometry(pmx);
-    this.skeleton = new PMXSkeleton(this);
-    this._pmxMaterials = new Array(pmx.Materials.length);
-    this.name = pmx.Header.modelName;
-    let offset = 0;
-    for (let materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
-      const currentMat = pmx.Materials[materialCount];
-      const mat = new PMXMaterial(this, materialCount, offset);
-      this.addMaterial(mat);
-      this.addMaterial(new PMXPrimaryBufferMaterial(mat));
-      // this.addMaterial(new PMXShadowMapMaterial(mat));
-      this.addMaterial(new PMXHitAreaMaterial(mat));
-      this._pmxMaterials[materialCount] = mat;
-      this._materialDictionary[currentMat.materialName] = mat;
-      offset += currentMat.vertexCount;
-    }
-    this._morphManager = new PMXMorphManager(this);
-  }
-
   public static loadFromUrl(url: string): Q.IPromise<PMXModel> {
     const directory = url.substr(0, url.lastIndexOf("/") + 1);
     return PMXModel._loadDataFromUrl(url, directory).then<PMXModel>((modelData) => {
@@ -103,6 +76,32 @@ class PMXModel extends SceneObject {
       xhr.send(null);
       return deferred.promise;
     });
+  }
+
+  constructor(pmx: PMXModelData, resourceDirectory: string) {
+    super();
+    PMXCoreInitializer.init();
+    this.on("load", () => { this.loaded = true; });
+    this._modelData = pmx;
+    this.modelDirectory = resourceDirectory;
+    this.pmxTextureManager = new PMXTextureManager(this);
+    this.__geometry = new PMXGeometry(pmx);
+    this.skeleton = new PMXSkeleton(this);
+    this._pmxMaterials = new Array(pmx.Materials.length);
+    this.name = pmx.Header.modelName;
+    let offset = 0;
+    for (let materialCount = 0; materialCount < pmx.Materials.length; materialCount++) {
+      const currentMat = pmx.Materials[materialCount];
+      const mat = new PMXMaterial(this, materialCount, offset);
+      this.addMaterial(mat);
+      this.addMaterial(new PMXPrimaryBufferMaterial(mat));
+      // this.addMaterial(new PMXShadowMapMaterial(mat));
+      this.addMaterial(new PMXHitAreaMaterial(mat));
+      this._pmxMaterials[materialCount] = mat;
+      this._materialDictionary[currentMat.materialName] = mat;
+      offset += currentMat.vertexCount;
+    }
+    this._morphManager = new PMXMorphManager(this);
   }
 
   public getPMXMaterialByName(name: string): PMXMaterial {

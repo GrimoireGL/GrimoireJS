@@ -6,15 +6,6 @@ import Quaternion from "./Quaternion";
 import {GLM, mat4, vec3, vec4, quat} from "gl-matrix";
 class Matrix extends MatrixBase {
 
-  constructor(arr?: GLM.IArray) {
-    super();
-    if (arr) {
-      this.rawElements = arr;
-    } else {
-      this.rawElements = mat4.create();
-    }
-  }
-
   public static zero(): Matrix {
     return new Matrix([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }
@@ -177,6 +168,15 @@ class Matrix extends MatrixBase {
     const newMat = mat4.create();
     mat4.lookAt(newMat, eye.rawElements, lookAt.rawElements, up.rawElements);
     return new Matrix(newMat);
+  }
+
+  constructor(arr?: GLM.IArray) {
+    super();
+    if (arr) {
+      this.rawElements = arr;
+    } else {
+      this.rawElements = mat4.create();
+    }
   }
 
   public getAt(row: number, colmun: number): number {

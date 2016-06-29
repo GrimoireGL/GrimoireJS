@@ -20,19 +20,6 @@ class PMXMaterialMorphParamContainer {
 
   private _calcFlag: number;
 
-  constructor(calcFlag: number) {
-    this._calcFlag = calcFlag;
-    const def = 1 - calcFlag;
-    this.diffuse = [def, def, def, def];
-    this.specular = [def, def, def, def];
-    this.ambient = [def, def, def];
-    this.edgeColor = [def, def, def, def];
-    this.edgeSize = def;
-    this.textureCoeff = [def, def, def, def];
-    this.sphereCoeff = [def, def, def, def];
-    this.toonCoeff = [def, def, def, def];
-  }
-
   public static calcMorphedSingleValue(base: number, add: PMXMaterialMorphParamContainer, mul: PMXMaterialMorphParamContainer, target: (m: PMXMaterialMorphParamContainer) => number): number {
     return base * target(mul) + target(add);
   }
@@ -50,6 +37,19 @@ class PMXMaterialMorphParamContainer {
           (<Vector4>base).W * target(mul)[3] + target(add)[3]
           );
     }
+  }
+
+  constructor(calcFlag: number) {
+    this._calcFlag = calcFlag;
+    const def = 1 - calcFlag;
+    this.diffuse = [def, def, def, def];
+    this.specular = [def, def, def, def];
+    this.ambient = [def, def, def];
+    this.edgeColor = [def, def, def, def];
+    this.edgeSize = def;
+    this.textureCoeff = [def, def, def, def];
+    this.sphereCoeff = [def, def, def, def];
+    this.toonCoeff = [def, def, def, def];
   }
 }
 

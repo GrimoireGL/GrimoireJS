@@ -1,20 +1,8 @@
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import ContextComponents from "../../../ContextComponents";
 import MaterialManager from "../../Materials/MaterialManager";
 import ProgramTransformer from "./Base/ProgramTransformer";
 class ImportTransformer extends ProgramTransformer {
-  constructor() {
-    super((transform) => {
-      return ImportTransformer.parseImport(transform.transformSource).then((transformed: string) => {
-        return {
-          initialSource: transform.initialSource,
-          transformSource: transformed,
-          description: transform.description
-        };
-      });
-    });
-  }
-
 
   public static getImports(source: string): string[] {
     let importArgs = [];
@@ -50,7 +38,19 @@ class ImportTransformer extends ProgramTransformer {
   }
 
   private static get _materialManager(): MaterialManager {
-   return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+   return Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+  }
+
+  constructor() {
+    super((transform) => {
+      return ImportTransformer.parseImport(transform.transformSource).then((transformed: string) => {
+        return {
+          initialSource: transform.initialSource,
+          transformSource: transformed,
+          description: transform.description
+        };
+      });
+    });
   }
 }
 

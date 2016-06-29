@@ -1,6 +1,6 @@
-import JThreeObject from "../../Base/JThreeObject";
+import IDObject from "../../Base/IDObject";
 
-abstract class AttributeConverterBase extends JThreeObject {
+abstract class AttributeConverterBase extends IDObject {
   public name: string = null;
 
   public abstract toStringAttr(val: any): string;

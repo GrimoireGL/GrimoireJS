@@ -6,7 +6,7 @@ import Vector3 from "../../Math/Vector3";
 import Quaternion from "../../Math/Quaternion";
 import PMXMorph from "../../PMX/Core/PMXMorph";
 import PMXBoneTransformer from "../../PMX/Core/PMXBoneTransformer";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import Timer from "../../Core/Timer";
 import Q from "q";
@@ -71,7 +71,7 @@ class VMDNode extends GomlTreeNodeBase {
 
   public update(): void {
     if (this._enabled && this._autoSpeed !== 0) {
-      const timer = JThreeContext.getContextComponent<Timer>(ContextComponents.Timer);
+      const timer = Context.getContextComponent<Timer>(ContextComponents.Timer);
       if (this._lastTime === null) {
         this._lastTime = timer.time;
         return;
@@ -92,7 +92,7 @@ class VMDNode extends GomlTreeNodeBase {
       this._vmdLoadingDeferred.resolve(null);
       attr.done();
     }
-    this._vmdLoadingDeferred = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
+    this._vmdLoadingDeferred = Context.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).getResourceLoadingDeffered<void>();
     VMDData.loadFromUrl(attr.Value).then((data) => {
       this._lastURL = attr.Value;
       this._targetVMD = data;

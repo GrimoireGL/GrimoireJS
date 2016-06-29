@@ -4,12 +4,12 @@ import DepthTextureExtensionResolver from "./ExtensionResolver/DepthTextureExten
 import UintIndexExtensionResolver from "./ExtensionResolver/UintIndexExtensionResolver";
 import FloatTextureExtensionResolver from "./ExtensionResolver/FloatTextureExtensionResolver";
 import ExtensionResolverBase from "./ExtensionResolver/ExtensionResolverBase";
-import JThreeObject from "../../../Base/JThreeObject";
+import IDObject from "../../../Base/IDObject";
 
 /**
  * Provides the feature to require gl extension.
  */
-class GLExtensionRegistory extends JThreeObject {
+class GLExtensionRegistory extends IDObject {
   public static requiredExtensions: NamedValue<ExtensionResolverBase> = {
     "OES_texture_float": new FloatTextureExtensionResolver(),
     "OES_element_index_uint": new UintIndexExtensionResolver(),

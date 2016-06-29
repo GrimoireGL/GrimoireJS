@@ -1,6 +1,6 @@
 import CoreRelatedNodeBase from "../CoreRelatedNodeBase";
 import Scene from "../../Core/Scene";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import SceneManager from "../../Core/SceneManager";
 import ContextComponents from "../../ContextComponents";
 
@@ -28,12 +28,12 @@ class SceneNode extends CoreRelatedNodeBase<Scene> {
       sceneName = null;
     }
     this.target = new Scene(sceneName);
-    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
+    Context.getContextComponent<SceneManager>(ContextComponents.SceneManager).addScene(this.target);
   }
 
   protected __onUnmount(): void {
     super.__onUnmount();
-    JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager).removeScene(this.target);
+    Context.getContextComponent<SceneManager>(ContextComponents.SceneManager).removeScene(this.target);
     // TODO: pnly GC
   }
 

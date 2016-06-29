@@ -2,7 +2,7 @@ import J3ObjectBase from "../J3ObjectBase";
 import J3Object from "../J3Object";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import XMLParser from "../../Goml/XMLParser";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 import GomlParser from "../../Goml/GomlParser";
@@ -13,7 +13,7 @@ class SomeToNode {
   public static convert(targets: any[], filterType: string[]): GomlTreeNodeBase[];
   public static convert(target: any, filterType: string[]): GomlTreeNodeBase[];
   public static convert(target: any, filterType: string[]): GomlTreeNodeBase[] {
-    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    const nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     let targets = [];
     let isArrayFlag = false;
     if (isArray(target)) {

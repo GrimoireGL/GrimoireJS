@@ -1,6 +1,6 @@
 import AttributeDictionary from "./AttributeDictionary";
 import TreeNodeBase from "./TreeNodeBase";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 import NodeManager from "./NodeManager";
 import ContextComponents from "../ContextComponents";
 import NodeProps from "./NodeProps";
@@ -40,7 +40,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
     super();
 
     // load node manager
-    this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    this.nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
 
     // after configuration, this node is going to add to NodesById
     this.nodeManager.nodesById[this.id] =  this;

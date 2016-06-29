@@ -1,18 +1,18 @@
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 import LoopManager from "../Core/LoopManager";
 import ModuleInstanceRegistry from "./ModuleInstanceRegistry";
 import Module from "./Module";
 
-class ModuleManager extends JThreeObject implements IContextComponent {
+class ModuleManager extends IDObject implements IContextComponent {
   public ready: boolean = false;
   private _modules: ModuleInstanceRegistry[] = [];
 
   constructor() {
     super();
-    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
     loopManager.addAction(2000, () => this.update());
   }
 

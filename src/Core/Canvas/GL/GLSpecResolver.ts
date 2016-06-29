@@ -1,4 +1,4 @@
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import CanvasManager from "../CanvasManager";
 import ContextComponents from "../../../ContextComponents";
 import IGLPrecisions from "./IGLPrecisions";
@@ -18,7 +18,7 @@ class GLSpecResolver {
   private static _allShaderPrecisionFormats: IGLPrecisions;
 
   private static get GL() {
-    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     if (canvasManager.canvases.length > 0) {
       return canvasManager.canvases[0].gl;
     } else {

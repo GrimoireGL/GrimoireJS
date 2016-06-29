@@ -148,7 +148,7 @@ function es6to5(entry, dest) {
  * bundle with browserify
  */
 gulp.task('bundle', () => {
-  const entry = './lib-es5/jThree.js';
+  const entry = './lib-es5/Grimoire.js';
   const dest = './product';
   const opt = {
     entries: entry,

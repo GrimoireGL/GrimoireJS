@@ -1,5 +1,17 @@
 import DescriptionTransformer from "./Base/DescriptionTransformer";
 class RemoveAttributeVariableTransformer extends DescriptionTransformer {
+  private static _removeAttributeVariables(source: string): string {
+    const regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
+    while (true) {
+      let found = regex.exec(source);
+      if (!found) {
+        break;
+      }
+      source = source.replace(found[0], "");
+    }
+    return source;
+  }
+
   constructor() {
     super((transform) => {
       return {
@@ -12,18 +24,6 @@ class RemoveAttributeVariableTransformer extends DescriptionTransformer {
         functions: transform.description.functions
       };
     });
-  }
-
-  private static _removeAttributeVariables(source: string): string {
-    const regex = /(\s*attribute\s+[a-zA-Z0-9_]+\s+[a-zA-Z0-9_]+;)/;
-    while (true) {
-      let found = regex.exec(source);
-      if (!found) {
-        break;
-      }
-      source = source.replace(found[0], "");
-    }
-    return source;
   }
 }
 

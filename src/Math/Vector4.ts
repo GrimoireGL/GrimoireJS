@@ -2,55 +2,6 @@ import VectorBase from "./VectorBase";
 import {GLM, vec4} from "gl-matrix";
 
 class Vector4 extends VectorBase {
-  /*
-   * Static properties
-   */
-  constructor(x: GLM.IArray);
-  constructor(x: number, y: number, z: number, w: number);
-  constructor(x: number | GLM.IArray, y?: number, z?: number, w?: number) {
-    super();
-    if (typeof y === "undefined") {
-      this.rawElements = <GLM.IArray>x;
-      return;
-    }
-    this.rawElements = [<number>x, y, z, w];
-  }
-
-  public get normalized() {
-    return this.multiplyWith(1 / this.magnitude);
-  }
-
-  public get X() {
-    return this.rawElements[0];
-  }
-
-  public get Y() {
-    return this.rawElements[1];
-  }
-
-  public get Z() {
-    return this.rawElements[2];
-  }
-
-  public get W() {
-    return this.rawElements[3];
-  }
-
-  public set X(x: number) {
-    this.rawElements[0] = +x;
-  }
-
-  public set Y(y: number) {
-    this.rawElements[1] = +y;
-  }
-
-  public set Z(z: number) {
-    this.rawElements[2] = +z;
-  }
-
-  public set W(w: number) {
-    this.rawElements[3] = +w;
-  }
 
   public static get XUnit(): Vector4 {
     return new Vector4(1, 0, 0, 0);
@@ -151,6 +102,56 @@ class Vector4 extends VectorBase {
       result = result.negateThis();
     }
     return result;
+  }
+
+  /*
+   * Static properties
+   */
+  constructor(x: GLM.IArray);
+  constructor(x: number, y: number, z: number, w: number);
+  constructor(x: number | GLM.IArray, y?: number, z?: number, w?: number) {
+    super();
+    if (typeof y === "undefined") {
+      this.rawElements = <GLM.IArray>x;
+      return;
+    }
+    this.rawElements = [<number>x, y, z, w];
+  }
+
+  public get normalized() {
+    return this.multiplyWith(1 / this.magnitude);
+  }
+
+  public get X() {
+    return this.rawElements[0];
+  }
+
+  public get Y() {
+    return this.rawElements[1];
+  }
+
+  public get Z() {
+    return this.rawElements[2];
+  }
+
+  public get W() {
+    return this.rawElements[3];
+  }
+
+  public set X(x: number) {
+    this.rawElements[0] = +x;
+  }
+
+  public set Y(y: number) {
+    this.rawElements[1] = +y;
+  }
+
+  public set Z(z: number) {
+    this.rawElements[2] = +z;
+  }
+
+  public set W(w: number) {
+    this.rawElements[3] = +w;
   }
 
   public normalizeThis(): Vector4 {

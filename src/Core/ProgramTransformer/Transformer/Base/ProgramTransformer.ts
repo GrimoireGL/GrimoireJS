@@ -10,4 +10,4 @@ class ProgramTransformer implements IProgramTransformer {
   }
 }
 
-export default ProgramTransformer
+export default ProgramTransformer;

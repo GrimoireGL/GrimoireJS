@@ -3,12 +3,12 @@ import IXMMLPassDescription from "../Materials/Parser/IXMMLPassDescription";
 import IDisposable from "../../Base/IDisposable";
 import BasicRegisterer from "./Registerer/BasicRegisterer";
 import IConfigureEventArgs from "../IConfigureEventArgs";
-import JThreeObject from "../../Base/JThreeObject";
+import IDObject from "../../Base/IDObject";
 import IRenderStageRenderConfigure from "../Renderers/RenderStages/IRenderStageRendererConfigure";
 import Material from "../Materials/Material";
 import IApplyMaterialArgument from "../Materials/IApplyMaterialArgument";
 import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
-class MaterialPass extends JThreeObject implements IDisposable {
+class MaterialPass extends IDObject implements IDisposable {
   public passDescription: IXMMLPassDescription;
 
   private _renderConfigureCache: NamedValue<IRenderStageRenderConfigure> = {};

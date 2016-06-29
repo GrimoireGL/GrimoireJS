@@ -46,37 +46,6 @@ class Vector2 extends VectorBase {
     return result;
   }
 
-  constructor(x: number, y: number);
-  constructor(x: GLM.IArray);
-  constructor(x: number | GLM.IArray, y?: number) {
-    super();
-    if (typeof y === "undefined") {
-      this.rawElements = <GLM.IArray>x;
-      return;
-    }
-    this.rawElements = [<number>x, y];
-  }
-
-  public get normalized() {
-    return this.multiplyWith(1 / this.magnitude);
-  }
-
-  public get X(): number {
-    return this.rawElements[0];
-  }
-
-  public get Y(): number {
-    return this.rawElements[1];
-  }
-
-  public set X(x: number) {
-    this.rawElements[0] = +x;
-  }
-
-  public set Y(y: number) {
-    this.rawElements[1] = +y;
-  }
-
   public static dot(v1: Vector2, v2: Vector2): number {
     return vec2.dot(v1.rawElements, v2.rawElements);
   }
@@ -123,6 +92,37 @@ class Vector2 extends VectorBase {
 
   public static angle(v1: Vector2, v2: Vector2): number {
     return Math.acos(Vector2.dot(v1.normalized, v2.normalized));
+  }
+
+  constructor(x: number, y: number);
+  constructor(x: GLM.IArray);
+  constructor(x: number | GLM.IArray, y?: number) {
+    super();
+    if (typeof y === "undefined") {
+      this.rawElements = <GLM.IArray>x;
+      return;
+    }
+    this.rawElements = [<number>x, y];
+  }
+
+  public get normalized() {
+    return this.multiplyWith(1 / this.magnitude);
+  }
+
+  public get X(): number {
+    return this.rawElements[0];
+  }
+
+  public get Y(): number {
+    return this.rawElements[1];
+  }
+
+  public set X(x: number) {
+    this.rawElements[0] = +x;
+  }
+
+  public set Y(y: number) {
+    this.rawElements[1] = +y;
   }
 
   public dotWith(v: Vector2): number {

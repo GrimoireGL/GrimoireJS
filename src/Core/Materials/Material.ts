@@ -2,7 +2,7 @@ import NamedValue from "../../Base/NamedValue";
 import IRenderer from "../Renderers/IRenderer";
 import IShaderArgumentContainer from "./IShaderArgumentContainer";
 import IDisposable from "../../Base/IDisposable";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import Geometry from "../Geometries/Base/Geometry";
 import IApplyMaterialArgument from "./IApplyMaterialArgument";
 import TextureBase from "../Resources/Texture/TextureBase";
@@ -19,7 +19,7 @@ import IVariableDescription from "../ProgramTransformer/Base/IVariableDescriptio
 * Some of materials are intended to use in deferred rendering stage(G-buffer generation stage is one of example).
 * This is one of significant difference between jThree and the other Web3D libraries in Material.
 */
-class Material extends JThreeObjectEE implements IDisposable, IShaderArgumentContainer {
+class Material extends EEObject implements IDisposable, IShaderArgumentContainer {
   public shaderVariables: NamedValue<any> = {};
 
   /**
