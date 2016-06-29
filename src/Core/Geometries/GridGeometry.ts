@@ -1,5 +1,5 @@
 import BasicGeometry from "./Base/BasicGeometry";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 class GridGeometry extends BasicGeometry {
@@ -9,7 +9,7 @@ class GridGeometry extends BasicGeometry {
 
   constructor(name: string) {
     super();
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.primitiveTopology = WebGLRenderingContext.LINES;
     this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_SHORT);
     this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);

@@ -1,7 +1,6 @@
 import Vector3 from "./Vector3";
 import Matrix from "./Matrix";
 import {vec3} from "gl-matrix";
-import JThreeLogger from "../Base/JThreeLogger";
 import AABB from "./AABB";
 class PointList {
   public points: Vector3[];
@@ -43,16 +42,6 @@ class PointList {
 
   public clear(): void {
     this.points.length = 0;
-    return;
-  }
-
-  public debugShow(): void {
-    let log = "";
-    for (let i = 0; i < this.points.length; i++) {
-      log += `${this.points[i]}
-`;
-    }
-    JThreeLogger.sectionLongLog("Pointlist", log);
     return;
   }
 

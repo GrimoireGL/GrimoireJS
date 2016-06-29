@@ -2,7 +2,7 @@ import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import GLEnumParser from "../../../Core/Canvas/GL/GLEnumParser";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
 import ResourceManager from "../../../Core/ResourceManager";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import ContextComponents from "../../../ContextComponents";
 /**
  * All texture resource node class inherit this class.
@@ -68,7 +68,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
 
   protected __onMount(): void {
     super.__onMount();
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
     this.__constructTexture(name, rm).then((texture) => {
       this.target = texture;

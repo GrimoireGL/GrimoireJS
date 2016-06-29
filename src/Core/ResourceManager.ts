@@ -1,6 +1,6 @@
 import ResourceResolver from "./Resources/ResourceResolver";
 import ImageLoader from "./Resources/ImageLoader";
-import jThreeObjectEE from "../Base/JThreeObjectEE";
+import EEObject from "../Base/EEObject";
 import Buffer from "./Resources/Buffer/Buffer";
 import Shader from "./Resources/Shader/Shader";
 import Program from "./Resources/Program/Program";
@@ -19,7 +19,7 @@ type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBuffe
 /**
  * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
  */
-class ResourceManager extends jThreeObjectEE implements IContextComponent {
+class ResourceManager extends EEObject implements IContextComponent {
 
     private _buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 

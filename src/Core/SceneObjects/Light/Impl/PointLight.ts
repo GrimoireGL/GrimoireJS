@@ -3,7 +3,7 @@ import IApplyMaterialArgument from "../../../Materials/IApplyMaterialArgument";
 import BasicMaterial from "../../../Materials/BasicMaterial";
 import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
 import ContextComponents from "../../../../ContextComponents";
-import JThreeContext from "../../../../JThreeContext";
+import Context from "../../../../Context";
 import LightBase from "./../LightBase";
 import Matrix from "../../../../Math/Matrix";
 
@@ -20,7 +20,7 @@ class PointLight extends LightBase {
 
     constructor() {
         super();
-        this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("sphere");
+        this.Geometry = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("sphere");
         const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/PointLight.xmml"), "builtin.light.point.diffuse");
         diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
             this.Transformer.Scale = new Vector3(this.distance, this.distance, this.distance);

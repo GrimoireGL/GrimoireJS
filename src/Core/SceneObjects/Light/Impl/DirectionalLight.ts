@@ -5,7 +5,7 @@ import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
 import Vector3 from "../../../../Math/Vector3";
 import Matrix from "../../../../Math/Matrix";
 import ContextComponents from "../../../../ContextComponents";
-import JThreeContext from "../../../../JThreeContext";
+import Context from "../../../../Context";
 
 /**
  * Provides directional light feature.
@@ -18,7 +18,7 @@ class DirectionalLight extends LightBase {
 
     constructor() {
         super();
-        this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
+        this.Geometry = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("quad");
         const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/DirectionalLight.xmml"), "builtin.light.directional.diffuse");
         diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
             diffuseMaterial.shaderVariables = {
@@ -40,7 +40,7 @@ class DirectionalLight extends LightBase {
 
     // public getParameters(renderer: PathRenderer, shadowMapIndex?: number): number[] {
     //   var dir = Vector3.normalize(Matrix.transformNormal(renderer.Camera.viewMatrix, this.transformer.forward));
-    // 		var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+    // 		var debug = Context.getContextComponent<Debugger>(ContextComponents.Debugger);
     // 		debug.setInfo("lDir", dir.toString());
     //   return [this.Color.R * this.intensity, this.Color.G * this.intensity, this.Color.B * this.intensity,
     //     dir.X, dir.Y, dir.Z, 0,
@@ -137,7 +137,7 @@ class DirectionalLight extends LightBase {
     //   var lightSpaceFrustum = (new PointList(cam.frustumPoints));
     //   lightSpaceFrustum.transform(this.shadowViewMatrixCache);
     //   var frustumAABBinLightSpace = lightSpaceFrustum.getBoundingBox();
-    //   var debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+    //   var debug = Context.getContextComponent<Debugger>(ContextComponents.Debugger);
     //   debug.setInfo("RTN", frustumAABBinLightSpace.pointRTN.toString());
     //   debug.setInfo("LBF", frustumAABBinLightSpace.pointLBF.toString());
     //   this.shadowProjectionMatrixCache = this.generateUnitCubeMatrix(frustumAABBinLightSpace);

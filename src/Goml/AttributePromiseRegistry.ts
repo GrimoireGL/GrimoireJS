@@ -1,8 +1,8 @@
-import jThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import GomlAttribute from "./GomlAttribute";
 import Q from "q";
 
-class AttributePromiseRegistry extends jThreeObject {
+class AttributePromiseRegistry extends IDObject {
     /**
      * If true, async syncing is now available.
      * @type {boolean}

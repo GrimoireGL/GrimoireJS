@@ -1,7 +1,7 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import MaterialManager from "../../../Core/Materials/MaterialManager";
 import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import GomlAttribute from "../../GomlAttribute";
 
 class ImportNode extends GomlTreeNodeBase {
@@ -28,7 +28,7 @@ class ImportNode extends GomlTreeNodeBase {
         onchanged: this._onSrcSelectorAttrChanged.bind(this),
       },
     });
-    this._materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    this._materialManager = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
 

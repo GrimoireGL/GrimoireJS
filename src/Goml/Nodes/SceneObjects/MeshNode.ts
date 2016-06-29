@@ -7,7 +7,7 @@ import Material from "../../../Core/Materials/Material";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 import ContextComponents from "../../../ContextComponents";
 import PrimitiveRegistory from "../../../Core/Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 
 class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
 
@@ -52,7 +52,7 @@ class MeshNode extends SceneObjectNodeBase<BasicMeshObject> {
         this._geo = attr.Value;
         this._geo_instance = null;
         // console.warn("onGeoAttrChanged", attr.Value);
-        this._geo_instance = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this._geo);
+        this._geo_instance = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive(this._geo);
         if (this._geo_instance) {
             // console.log("primitive exist", this._geo);
             this._updateTarget();

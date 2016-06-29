@@ -1,8 +1,8 @@
-import JThreeObject from "../../Base/JThreeObject";
+import IDObject from "../../Base/IDObject";
 import AttributeParser from "../AttributeParser";
 import Quaternion from "../../Math/Quaternion";
 
-class RotationAttributeConverter extends JThreeObject {
+class RotationAttributeConverter extends IDObject {
   public name: string = "rotation";
 
   public toStringAttr(val: any): string {

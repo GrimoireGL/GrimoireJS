@@ -1,17 +1,17 @@
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import GomlNodeDictionary from "../Goml/GomlNodeDictionary";
 import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
 import GomlConfigurator from "./GomlConfigurator";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 import LoopManager from "../Core/LoopManager";
 import AttributePromiseRegistry from "./AttributePromiseRegistry";
 import GomlParser from "./GomlParser";
 import ModuleManager from "../Module/ModuleManager";
 import EventOrgnizer from "../Interface/Events/EventOrgnizer";
 
-class NodeManager extends JThreeObject implements IContextComponent {
+class NodeManager extends IDObject implements IContextComponent {
   public nodeRegister: GomlNodeDictionary = new GomlNodeDictionary();
   public attributePromiseRegistry: AttributePromiseRegistry = new AttributePromiseRegistry();
   public gomlRoot: GomlTreeNodeBase;
@@ -26,7 +26,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
 
   constructor() {
     super();
-    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
     loopManager.addAction(3000, () => this.update());
   }
 
@@ -203,7 +203,7 @@ class NodeManager extends JThreeObject implements IContextComponent {
     this.gomlRoot = parsedNode;
     console.log("Goml loading was completed");
     this.ready = true;
-    const moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
+    const moduleManager = Context.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
     moduleManager.ready = true;
     this.attributePromiseRegistry.async(() => {
       this.attributePromiseRegistry.enabled = false;

@@ -1,8 +1,8 @@
 import IViewport from "./IViewport";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import Debugger from "../../Debug/Debugger";
 import ContextComponents from "../../ContextComponents";
 /**
@@ -12,7 +12,7 @@ import ContextComponents from "../../ContextComponents";
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectEE implements IDisposable, IViewport {
+class CanvasRegion extends EEObject implements IDisposable, IViewport {
 
   /**
    * The name for identifying this instance.
@@ -118,7 +118,7 @@ class CanvasRegion extends JThreeObjectEE implements IDisposable, IViewport {
     const localPos = this.region.toLocal(this.mouseX, this.mouseY);
     this.mouseLocalX = localPos[0];
     this.mouseLocalY = localPos[1];
-    const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+    const debug = Context.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
       mousePositionX: this.mouseX,

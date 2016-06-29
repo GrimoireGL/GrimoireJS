@@ -8,7 +8,7 @@ import IXMMLPassDescription from "./IXMMLPassDescription";
 import RegistererBase from "../../Pass/Registerer/RegistererBase";
 import ContextComponents from "../../../ContextComponents";
 import MaterialManager from "../MaterialManager";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import IXMMLDescription from "./IXMMLDescription";
 import BasicCacheResolver from "../../Resources/BasicCacheResolver";
 import XMLReader from "../../../Base/XMLReader";
@@ -56,7 +56,7 @@ class XMMLParser {
     }
 
     private static _initializeUniformRegisters(elem: Element): RegistererBase[] {
-        const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+        const mm = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         const registerElems = XMLReader.getElements(elem, "register");
         return registerElems.map(r => new (mm.getUniformRegister(r.getAttribute("name")))());
     }
@@ -86,7 +86,7 @@ class XMMLParser {
 
     private static _constructProgram(name: string, index: number, desc: IProgramDescription): Program {
         const idPrefix = name + index;
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+        const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         const fs = rm.createShader(idPrefix + "-fs", desc.fragment, WebGLRenderingContext.FRAGMENT_SHADER);
         const vs = rm.createShader(idPrefix + "-vs", desc.vertex, WebGLRenderingContext.VERTEX_SHADER);
         fs.loadAll();

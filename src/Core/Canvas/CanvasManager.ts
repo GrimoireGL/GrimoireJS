@@ -1,6 +1,6 @@
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import LoopManager from "../LoopManager";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import IContextComponent from "../../IContextComponent";
 import ContextComponents from "../../ContextComponents";
 import Canvas from "./Canvas";
@@ -11,7 +11,7 @@ import ICanvasListChangedEventArgs from "./ICanvasListChangedEventArgs";
  *すべてのCanvasを管理する機能を提供するコンテキストコンポーネント
  * @type {[type]}
  */
-class CanvasManager extends JThreeObjectEE implements IContextComponent {
+class CanvasManager extends EEObject implements IContextComponent {
 
   /**
    * All canvas managed by jThree
@@ -22,7 +22,7 @@ class CanvasManager extends JThreeObjectEE implements IContextComponent {
   constructor() {
     super();
     this.setMaxListeners(10000);
-    const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+    const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
     loopManager.addAction(4000, () => this.beforeRenderAll());
     loopManager.addAction(6000, () => this.afterRenderAll());
   }

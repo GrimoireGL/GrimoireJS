@@ -1,10 +1,10 @@
-import jThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import Quaternion from "../Math/Quaternion";
 import Vector3 from "../Math/Vector3";
 /**
  * Utility class to parse the arguments of attributes.
  */
-class AttributeParser extends jThreeObject {
+class AttributeParser extends IDObject {
   /**
    * Parse angle strings.
    * "p" means Pi. Ex) 3/4 p

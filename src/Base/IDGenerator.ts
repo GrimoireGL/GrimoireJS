@@ -1,8 +1,8 @@
 /**
- * Unique ID generator for jThree objects.
+ * Unique ID generator for Grimoire.js objects.
  * @type {[type]}
  */
-class JThreeID {
+class IDGenerator {
     /**
      * Generate random string
      * @param  {number} length length of random string
@@ -13,4 +13,4 @@ class JThreeID {
     }
 }
 
-export default JThreeID;
+export default IDGenerator;

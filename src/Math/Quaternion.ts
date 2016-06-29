@@ -1,4 +1,4 @@
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import Vector3 from "./Vector3";
 import {GLM, vec3, quat} from "gl-matrix";
 import Matrix from "./Matrix";
@@ -11,7 +11,7 @@ import Matrix from "./Matrix";
 * (w;x,y,z) means w*1+x*i+y*j+z*k
 *
 */
-class Quaternion extends JThreeObject {
+class Quaternion extends IDObject {
 
   public rawElements: GLM.IArray;
 

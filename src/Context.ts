@@ -1,6 +1,6 @@
 import IContextComponent from "./IContextComponent";
 
-interface JThreeWindow extends Window {
+interface WindowWithContext extends Window {
   j3: { context: any; };
 }
 declare var window: any;
@@ -8,18 +8,18 @@ declare var window: any;
  * Most top level api container for jThree.
  * @type {[type]}
  */
-class JThreeContext {
+class Context {
   /**
    * Registered context component references
    */
   private _contextComponents: { [index: number]: any } = {};
 
   /**
-   * Initialize jThreeContext to be used.
+   * Initialize Context to be used.
    */
   public static init(): void {
     if (!window.j3.context) {
-      window.j3.context = new JThreeContext();
+      window.j3.context = new Context();
     }
   }
 
@@ -28,10 +28,10 @@ class JThreeContext {
    * @param  {IContextComponent} contextComponent context component you want to register
    */
   public static registerContextComponent(contextComponent: IContextComponent): void {
-    if (JThreeContext.context._contextComponents[contextComponent.getContextComponentIndex()]) {
+    if (Context.context._contextComponents[contextComponent.getContextComponentIndex()]) {
       console.warn("Reregisteration of context component");
     }
-    JThreeContext.context._contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
+    Context.context._contextComponents[contextComponent.getContextComponentIndex()] = contextComponent;
   }
 
   /**
@@ -40,12 +40,12 @@ class JThreeContext {
    * @return {IContextComponent}      context component related to the argument
    */
   public static getContextComponent<T>(index: number): T {
-    return JThreeContext.context._contextComponents[index];
+    return Context.context._contextComponents[index];
   }
 
-  private static get context(): JThreeContext {
+  private static get context(): Context {
     return window.j3.context;
   }
 }
 
-export default JThreeContext;
+export default Context;
