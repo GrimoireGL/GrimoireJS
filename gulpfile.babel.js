@@ -15,9 +15,9 @@ import ptime from 'pretty-hrtime';
 import runSequence from 'run-sequence';
 import source from 'vinyl-source-stream';
 import sourcemap from 'gulp-sourcemaps';
-import through from 'through2';
 import ts from 'gulp-typescript';
 import tslint from 'gulp-tslint';
+import txtjs from 'gulp-txtjs';
 import typedoc from 'gulp-typedoc';
 import watchify from 'watchify';
 
@@ -35,7 +35,7 @@ gulp.task('build', () => {
 /**
  * build test
  */
-gulp.task('build-test', ['test-copy-txt', 'test-es6-es5']);
+gulp.task('build-test', ['test-txt-es5', 'test-es6-es5']);
 
 /**
  * watch
@@ -82,38 +82,19 @@ gulp.task('txt-es5', () => {
   return txtToEs5(entry, dest);
 });
 
-// gulp.task('test-txt-es5', () => {
-//   const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
-//   const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
-//   const dest = './test-es5';
-//   if (watching) { gulp.watch(entry, ['test-txt-es5']); }
-//   return txtToEs5(entry, dest);
-// });
+gulp.task('test-txt-es5', () => {
+  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+  const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
+  const dest = './test-es5';
+  if (watching) { gulp.watch(entry, ['test-txt-es5']); }
+  return txtToEs5(entry, dest);
+});
 
 function txtToEs5(entry, dest) {
   return gulp
     .src(entry)
     .pipe(cache('txt'))
-    .pipe((() => {
-      return through.obj(function(f, e, cb) {
-        if (f === null) {
-          this.push(f);
-          return cb();
-        }
-        if (f.isStream()) {
-          this.emit('error', new gutil.PluginError('txt-js', 'file must be buffer.'));
-          return cb();
-        }
-        const output = new gutil.File({
-          cwd: f.cwd,
-          base: f.base,
-          path: f.path + '.js',
-          contents: new Buffer(`exports.default = ${JSON.stringify(f.contents.toString('utf8'))};\n`),
-        });
-        this.push(output);
-        return cb();
-      }, function(cb) { return cb(); });
-    })())
+    .pipe(txtjs())
     .pipe(debug({title: 'Compiling txt'}))
     .pipe(gulp.dest(dest));
 }
@@ -124,14 +105,6 @@ function txtToEs5(entry, dest) {
 gulp.task('copy-json', () => {
   const entry = './src/**/*.json';
   const dest = './lib-es5';
-  if (watching) { gulp.watch(entry, ['copy-json']); }
-  return copy(entry, dest);
-});
-
-gulp.task('test-copy-txt', () => {
-  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
-  const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
-  const dest = './test-es5';
   if (watching) { gulp.watch(entry, ['copy-json']); }
   return copy(entry, dest);
 });
@@ -254,7 +227,7 @@ gulp.task('tscfg', () => {
  * clean
  */
 gulp.task('clean', () => {
-  const temp = ['./product/gr.js', './product/gr.js.map', './src/**/*.js', './lib', './lib-es5', './coverage', './ci'];
+  const temp = ['./product/gr.js', './product/gr.js.map', './src/**/*.js', './lib', './lib-es5', './test-es5', './coverage', './ci'];
   del(temp).then((paths) => {
     paths.forEach((p) => gutil.log(`deleted: \"${p}\"`));
   });

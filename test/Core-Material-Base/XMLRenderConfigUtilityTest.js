@@ -4,14 +4,8 @@ import _ from 'lodash';
 import fs from 'fs';
 import XMLRenderConfigUtility from '../../lib-es5/Core/Pass/XMLRenderConfigUtility';
 
-function readText(path) {
-  return fs.readFileSync(path, {
-    encoding: "utf-8"
-  });
-}
-
 function readDom(path) {
-  return jsdom.jsdom(readText(path));
+  return jsdom.jsdom(require(path));
 }
 
 function parseTest(func, path, ideal) {
