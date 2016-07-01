@@ -1,4 +1,4 @@
-# GrimoireJS -- A service friendly Web3D framework.
+# GrimoireJS -- A service-oriented Web3D framework.
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
 [![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/GrimoireGL/GrimoireJS?branch=develop&svg=true)](https://ci.appveyor.com/project/LimeStreem/jthree)
