@@ -7,8 +7,18 @@ class XMLReader {
 
     private static _parser: DOMParser = new DOMParser();
 
-    public static parseXML(document: string): Document {
-        return XMLReader._parser.parseFromString(document, "text/xml");
+    public static parseXML(document: string): Document;
+    public static parseXML(documentContainObject: any): Document;
+    public static parseXML(document: any): Document {
+        switch (typeof document) {
+            case "string":
+                return XMLReader._parser.parseFromString(document as string, "text/xml");
+            case "object":
+                if (document.default) {
+                    return XMLReader._parser.parseFromString(document.default as string, "text/xml");
+                }
+                throw new Error("Unexpected argument");
+        }
     }
 
     public static getElements(elem: Document | Element, name: string): Element[] {

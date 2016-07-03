@@ -76,7 +76,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
     //   if (loaderNode) defaultLoader = loaderNode.loaderHTML;
     // }
     if (!defaultLoader) {
-      defaultLoader = require("../../../static/defaultLoader.html");
+      defaultLoader = require("../../../static/defaultLoader.html").default;
     }
     this.canvasFrames.loaderContainer.innerHTML = defaultLoader;
 
