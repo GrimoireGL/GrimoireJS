@@ -1,12 +1,10 @@
-import ContextComponents from "../../ContextComponents";
-import ResourceManager from "../ResourceManager";
-import JThreeContext from "../../JThreeContext";
 import ErrorHandler from "../../Base/ErrorHandler";
 import IHandlableError from "../../Base/IHandlableError";
 import IDisposable from "../../Base/IDisposable";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import ContextManager from "../Canvas/Canvas";
-class ResourceWrapper extends JThreeObjectEE implements IDisposable {
+import ResourceManager from "./../ResourceManager";
+class ResourceWrapper extends EEObject implements IDisposable {
 
     /**
      * Whether this resource was initialized for this context or not.
@@ -64,7 +62,7 @@ class ResourceWrapper extends JThreeObjectEE implements IDisposable {
      * @param {IHandlableError} exception  exception object implementing IHandlableError
      */
     protected __handleResourceError<T extends IHandlableError>(errorEvent: string, exception: T): void {
-        ErrorHandler.handle(JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager), errorEvent, exception);
+        ErrorHandler.handle(ResourceManager, errorEvent, exception);
     }
 
 }

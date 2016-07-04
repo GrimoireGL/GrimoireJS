@@ -1,8 +1,6 @@
 import PathRenderer from "./PathRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import PrimitiveRegistory from "../Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../JThreeContext";
-import ContextComponents from "../../ContextComponents";
 import RenderStageChain from "./RenderStageChain";
 import SceneObject from "../SceneObjects/SceneObject";
 import Mesh from "../SceneObjects/Mesh";
@@ -27,8 +25,7 @@ class RenderPathExecutor {
         if (stage.getTarget(techniqueIndex) === "scene") {
           targetObjects = scene.children;
         } else {
-          const pr = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
-          const geometry = pr.getPrimitive(stage.getTarget(techniqueIndex));
+          const geometry = PrimitiveRegistory.getPrimitive(stage.getTarget(techniqueIndex));
           if (!geometry) {
             console.error(`Unknown primitive ${stage.getTarget(techniqueIndex) } was specified!`);
             continue;

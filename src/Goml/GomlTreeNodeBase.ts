@@ -1,8 +1,6 @@
 import AttributeDictionary from "./AttributeDictionary";
 import TreeNodeBase from "./TreeNodeBase";
-import JThreeContext from "../JThreeContext";
 import NodeManager from "./NodeManager";
-import ContextComponents from "../ContextComponents";
 import NodeProps from "./NodeProps";
 
 /**
@@ -13,12 +11,6 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * Attributes this node have.
    */
   public attributes: AttributeDictionary;
-
-  /**
-   * node manager
-   * @type {NodeManager}
-   */
-  public nodeManager: NodeManager;
 
   /**
    * props for Node.
@@ -38,12 +30,8 @@ class GomlTreeNodeBase extends TreeNodeBase {
    */
   constructor() {
     super();
-
-    // load node manager
-    this.nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
-
     // after configuration, this node is going to add to NodesById
-    this.nodeManager.nodesById[this.id] =  this;
+    NodeManager.nodesById[this.id] =  this;
     this.attributes = new AttributeDictionary(this);
 
     // apply attributes
@@ -83,7 +71,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
    */
   public nodeExport(name: string): void {
     const group = [].concat(["jthree"], this.GroupPrefix).join(".");
-    this.nodeManager.nodeRegister.addNode(group, name, this);
+    NodeManager.nodeRegister.addNode(group, name, this);
   }
 
   /**
@@ -96,7 +84,7 @@ class GomlTreeNodeBase extends TreeNodeBase {
    * @param {(node: GomlTreeNodeBase) => void} callbackfn callback function called with required node.
    */
   public nodeImport(group: string, name: string, callbackfn: (node: GomlTreeNodeBase) => void): void {
-    this.nodeManager.nodeRegister.getNode(group, name, callbackfn);
+    NodeManager.nodeRegister.getNode(group, name, callbackfn);
   }
 
   /**

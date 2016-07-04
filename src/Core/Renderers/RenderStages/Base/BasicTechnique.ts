@@ -13,14 +13,12 @@ import MaterialManager from "../../../Materials/MaterialManager";
 import BasicMaterial from "../../../Materials/BasicMaterial";
 import SceneObject from "../../../SceneObjects/SceneObject";
 import FBO from "../../../Resources/FBO/FBO";
-import JThreeObject from "../../../../Base/JThreeObject";
-import ContextComponents from "../../../../ContextComponents";
+import IDObject from "../../../../Base/IDObject";
 import ResourceManager from "../../../ResourceManager";
-import JThreeContext from "../../../../JThreeContext";
 import FBOWrapper from "../../../Resources/FBO/FBOWrapper";
 import BufferInput from "../../BufferInput";
 import Scene from "../../../Scene";
-class BasicTechnique extends JThreeObject implements IGLContainer, IDisposable {
+class BasicTechnique extends IDObject implements IGLContainer, IDisposable {
 
     public defaultMaterial: BasicMaterial;
 
@@ -93,8 +91,7 @@ class BasicTechnique extends JThreeObject implements IGLContainer, IDisposable {
 
     protected __initializeFBO(texs: BufferInput): void {
         this.__fboInitialized = true;
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-        this.__fbo = rm.createFBO("jthree.technique." + this.id);
+        this.__fbo = ResourceManager.createFBO("jthree.technique." + this.id);
         const fboWrapper = this.__fbo.getForGL(this.gl);
         this._attachRBOConfigure(fboWrapper);
         this._attachTextureConfigure(fboWrapper);
@@ -106,12 +103,11 @@ class BasicTechnique extends JThreeObject implements IGLContainer, IDisposable {
             const materialDocument = <HTMLElement>rawMaterials.item(0);
             return new BasicMaterial(materialDocument.outerHTML, this.__renderStage.stageName + this._techniqueIndex);
         }
-        const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
         const matName = this._techniqueDocument.getAttribute("material");
         if (!matName) {
             console.error("material name was not specified.");
         }
-        return mm.constructMaterial(matName);
+        return MaterialManager.constructMaterial(matName);
     }
 
     private _attachTextureConfigure(fboWrapper: FBOWrapper): void {

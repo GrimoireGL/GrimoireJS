@@ -1,9 +1,6 @@
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import GLEnumParser from "../../../Core/Canvas/GL/GLEnumParser";
 import TextureBase from "../../../Core/Resources/Texture/TextureBase";
-import ResourceManager from "../../../Core/ResourceManager";
-import JThreeContext from "../../../JThreeContext";
-import ContextComponents from "../../../ContextComponents";
 /**
  * All texture resource node class inherit this class.
  */
@@ -68,9 +65,8 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
 
   protected __onMount(): void {
     super.__onMount();
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const name = this.attributes.getValue("name");
-    this.__constructTexture(name, rm).then((texture) => {
+    this.__constructTexture(name).then((texture) => {
       this.target = texture;
       this.emit("update-target", this.target);
       this.nodeExport(name);
@@ -83,7 +79,7 @@ abstract class TextureNodeBase<T extends TextureBase> extends CoreRelatedNodeBas
    * @param  {ResourceManager} rm   [description]
    * @return {TextureBase}          [description]
    */
-  protected abstract __constructTexture(name: string, rm: ResourceManager): Q.IPromise<T>;
+  protected abstract __constructTexture(name: string): Q.IPromise<T>;
 
   private _onMinFilterAttrChanged(attr): void {
     if (this.target) {

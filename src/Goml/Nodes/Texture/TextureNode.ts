@@ -25,10 +25,10 @@ class TextureNode extends TextureNodeBase<Texture> {
     });
   }
 
-  protected __constructTexture(name: string, rm: ResourceManager): Q.IPromise<Texture> {
+  protected __constructTexture(name: string): Q.IPromise<Texture> {
     const deferred = Q.defer<TextureBase>();
     if (this.attributes.getValue("src")) {
-      rm.loadTexture(this.attributes.getValue("src")).then((texture) => {
+      ResourceManager.loadTexture(this.attributes.getValue("src")).then((texture) => {
         deferred.resolve(texture);
       });
     } else {

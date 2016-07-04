@@ -1,6 +1,6 @@
 import Vector2 from "./Vector2";
-import jThreeObject from "../Base/JThreeObject";
-class Rectangle extends jThreeObject {
+import IDObject from "../Base/IDObject";
+class Rectangle extends IDObject {
 
   private _left: number;
   private _top: number;

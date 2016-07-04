@@ -1,5 +1,4 @@
-import Q from "q";
 interface IConditionChecker {
-  checkCondition(condition: JSON): Q.IPromise<boolean>;
+  checkCondition(condition: JSON): Promise<boolean>;
 }
 export default IConditionChecker;

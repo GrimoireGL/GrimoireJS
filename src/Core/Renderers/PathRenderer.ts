@@ -6,8 +6,6 @@ import RecipeLoader from "./Recipe/RecipeLoader";
 import RendererBase from "./RendererBase";
 import BufferSet from "./BufferSet";
 import RenderPathExecutor from "./RenderPathExecutor";
-import JThreeContext from "../../JThreeContext";
-import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import Scene from "../Scene";
 import Canvas from "../Canvas/Canvas";
@@ -102,11 +100,10 @@ class PathRenderer extends RendererBase {
     private _initializeRBO(): void {
         // Only works when the RBO was not initialized.
         if (!this.defaultRenderBuffer) {
-            const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-            this.defaultRenderBuffer = rm.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
+            this.defaultRenderBuffer = ResourceManager.createRBO(this.id + ".rbo.default", this.region.Width, this.region.Height);
             // set event handler for the case when the viewport was resized.
             this.on("resize", () => {
-                JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
+                ResourceManager.getRBO(this.id + ".rbo.default").resize(this.region.Width, this.region.Height);
             });
         }
     }

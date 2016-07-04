@@ -1,8 +1,6 @@
 import IApplyMaterialArgument from "../../../Materials/IApplyMaterialArgument";
 import BasicMaterial from "../../../Materials/BasicMaterial";
-import ContextComponents from "../../../../ContextComponents";
 import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../../../JThreeContext";
 import LightBase from "./../LightBase";
 import Matrix from "../../../../Math/Matrix";
 
@@ -14,7 +12,7 @@ class AreaLight extends LightBase {
 
     constructor() {
         super();
-        this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cube");
+        this.Geometry = PrimitiveRegistory.getPrimitive("cube");
         const material = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/AreaLight.xmml"), "builtin.light.area");
         material.on("apply", (matArg: IApplyMaterialArgument) => {
             material.shaderVariables = {

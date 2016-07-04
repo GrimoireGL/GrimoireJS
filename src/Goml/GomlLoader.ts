@@ -1,20 +1,13 @@
-import jThreeObject from "../Base/JThreeObject";
-import JThreeLogger from "../Base/JThreeLogger";
+import IDObject from "../Base/IDObject";
+import Logger from "../Base/Logger";
 import NodeManager from "./NodeManager";
-import JThreeContext from "../JThreeContext";
 import ResourceLoader from "../Core/ResourceLoader";
-import ContextComponent from "../ContextComponents";
 import Q from "q";
 
 /**
  * The class for loading goml.
  */
-class GomlLoader extends jThreeObject {
-    /**
-     * NodeManager instance
-     * @type {NodeManager}
-     */
-    private _nodeManager: NodeManager;
+class GomlLoader extends IDObject {
 
     /**
      * The script tag that is refering this source code.
@@ -26,14 +19,12 @@ class GomlLoader extends jThreeObject {
     /**
      * Constructor. User no need to call this constructor by yourself.
      */
-    constructor(nodeManager: NodeManager, selfTag: HTMLScriptElement) {
+    constructor( selfTag: HTMLScriptElement) {
         super();
         // obtain the script tag that is refering this source code.
         this._selfTag = selfTag;
-        this._nodeManager = nodeManager;
-        const resourceLoader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponent.ResourceLoader);
-        this._gomlLoadingDeferred = resourceLoader.getResourceLoadingDeffered<void>();
-        resourceLoader.promise.then(() => {
+        this._gomlLoadingDeferred = ResourceLoader.getResourceLoadingDeffered<void>();
+        ResourceLoader.promise.then(() => {
             console.log("load finished!!");
         }, undefined,
             (v) => {
@@ -45,7 +36,7 @@ class GomlLoader extends jThreeObject {
      * Attempt to load GOMLs that placed in HTML file.
      */
     public initForPage(): void {
-        JThreeLogger.sectionLog("Goml loader", "Goml initialization was started.");
+        Logger.sectionLog("Goml loader", "Goml initialization was started.");
         // to load <script src="j3.js" x-goml="HERE"/>
         this._attemptToLoadGomlInScriptAttr();
         // to load the script that is type of text/goml
@@ -112,7 +103,7 @@ class GomlLoader extends jThreeObject {
      * @param {HTMLElement} source goml source
      */
     private _scriptLoaded(source: HTMLElement): void {
-        this._nodeManager.setNodeToRootByElement(source, (err) => {
+        NodeManager.setNodeToRootByElement(source, (err) => {
             if (err) {
                 throw err;
             }

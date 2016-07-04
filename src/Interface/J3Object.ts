@@ -4,8 +4,6 @@ import isArray from "lodash.isarray";
 import isString from "lodash.isstring";
 import XMLParser from "../Goml/XMLParser";
 import GomlParser from "../Goml/GomlParser";
-import JThreeContext from "../JThreeContext";
-import ContextComponents from "../ContextComponents";
 import NodeManager from "../Goml/NodeManager";
 // for Implements
 import GomlNodeMethods from "./Miscellaneous/GomlNodeMethods";
@@ -503,9 +501,8 @@ class J3Object extends J3ObjectBase implements
             case (isString(argu)):
                 if ((<string>argu).charAt(0) === "<") {
                     const parseObj = new XMLParser(<string>argu);
-                    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
                     nodes = parseObj.elements.map((elem) => {
-                        return GomlParser.parse(elem, nodeManager.configurator);
+                        return GomlParser.parse(elem, NodeManager.configurator);
                     });
                 } else {
                     query = argu;

@@ -1,9 +1,9 @@
 import Vector4 from "../../Math/Vector4";
 import Vector3 from "../../Math/Vector3";
 import Matrix from "../../Math/Matrix";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import SceneObject from "../SceneObjects/SceneObject";
-abstract class BaseTransformer extends JThreeObjectEE {
+abstract class BaseTransformer extends EEObject {
   public object: SceneObject;
 
   /**

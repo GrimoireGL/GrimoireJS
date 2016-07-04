@@ -1,6 +1,6 @@
 import IModule from "./IModule";
 import GomlTreeNodeBase from "../Goml/GomlTreeNodeBase";
-import ModuleInstanceRegistry from "ModuleInstanceRegistry";
+import ModuleInstanceRegistry from "./ModuleInstanceRegistry";
 
 class Module implements IModule {
   public enabled: boolean = false;

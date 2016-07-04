@@ -124,6 +124,7 @@ ci/
 
 ##Build Outputs##
 bin/
+product/**/*
 lib/
 src/**/*.js.map
 src/**/*.js
@@ -139,4 +140,5 @@ lint.txt
 .nyc_output/
 
 lib-es6/
+lib-es5/
 test-es5/

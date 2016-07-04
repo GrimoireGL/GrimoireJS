@@ -1,15 +1,13 @@
-import JThreeObjectEE from "../Base/JThreeObjectEE";
+import EEObject from "../Base/EEObject";
 import AttributeConverterBase from "./Converter/AttributeConverterBase";
 import StringAttributeConverter from "./Converter/StringAttributeConverter";
-import JThreeContext from "../JThreeContext";
 import NodeManager from "./NodeManager";
-import ContextComponents from "../ContextComponents";
 import Q from "q";
 
 /**
  * Provides the feature to manage attribute of GOML.
  */
-class GomlAttribute extends JThreeObjectEE {
+class GomlAttribute extends EEObject {
     /**
      * If flag is true, attribute value will be recognized as contant.
      * @type {boolean}
@@ -48,11 +46,8 @@ class GomlAttribute extends JThreeObjectEE {
 
     private _initializeSequence: boolean = false;
 
-    private _nodeManager: NodeManager;
-
     constructor(name: string, value: any, converter: AttributeConverterBase, reserved: boolean, constant: boolean) {
         super(name);
-        this._nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
         this.constant = constant !== undefined ? constant : false;
         this.reserved = reserved !== undefined ? reserved : false;
         this.Converter = converter;
@@ -78,9 +73,9 @@ class GomlAttribute extends JThreeObjectEE {
             // 通常時のAttributeの初期化
             // onchangeのイベントのコールバック内でdoneでdeferredが解決される
             this._initializeSequence = true;
-            if (this._nodeManager.attributePromiseRegistry.enabled) {
+            if (NodeManager.attributePromiseRegistry.enabled) {
                 this._deferred = Q.defer<GomlAttribute>();
-                this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+                NodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
             }
             this.emit("changed", this);
         } else {
@@ -98,7 +93,7 @@ class GomlAttribute extends JThreeObjectEE {
             this.initialized = true;
             this._initializeSequence = false;
             // console.log("resolve attribute (done)", this.Name);
-            if (this._nodeManager.attributePromiseRegistry.enabled) {
+            if (NodeManager.attributePromiseRegistry.enabled) {
                 this._deferred.resolve(this);
             }
         }
@@ -172,7 +167,7 @@ class GomlAttribute extends JThreeObjectEE {
         if (this.initialized || this._initializeSequence) {
             if (this._initializeSequence) {
                 this._deferred = Q.defer<GomlAttribute>();
-                this._nodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
+                NodeManager.attributePromiseRegistry.register(this._deferred.promise, this);
             }
             this.emit("changed", this);
         }

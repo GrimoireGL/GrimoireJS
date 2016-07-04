@@ -2,8 +2,6 @@ import J3ObjectBase from "../J3ObjectBase";
 import J3Object from "../J3Object";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import XMLParser from "../../Goml/XMLParser";
-import JThreeContext from "../../JThreeContext";
-import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 import GomlParser from "../../Goml/GomlParser";
 import isString from "lodash.isstring";
@@ -13,7 +11,6 @@ class SomeToNode {
   public static convert(targets: any[], filterType: string[]): GomlTreeNodeBase[];
   public static convert(target: any, filterType: string[]): GomlTreeNodeBase[];
   public static convert(target: any, filterType: string[]): GomlTreeNodeBase[] {
-    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     let targets = [];
     let isArrayFlag = false;
     if (isArray(target)) {
@@ -38,7 +35,7 @@ class SomeToNode {
             // t is xml
             const parseObj = new XMLParser(<string>t);
             ret = parseObj.elements.map((elem, i) => {
-              return GomlParser.parse(elem, nodeManager.configurator);
+              return GomlParser.parse(elem, NodeManager.configurator);
             });
           } else if (isArrayFlag ? filterType.indexOf("selector[]") !== -1 : filterType.indexOf("selector") !== -1) {
             // t is selector

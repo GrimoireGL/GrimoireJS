@@ -1,6 +1,4 @@
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
-import JThreeContext from "../../JThreeContext";
-import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 
 class Find {
@@ -11,7 +9,7 @@ class Find {
    * @return {GomlTreeNodeBase[]}          found Nodes.
    */
   public static find(selector: string, context?: GomlTreeNodeBase): GomlTreeNodeBase[] {
-    return JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager).getNodeByQuery(selector, context);
+    return NodeManager.getNodeByQuery(selector, context);
   }
 }
 

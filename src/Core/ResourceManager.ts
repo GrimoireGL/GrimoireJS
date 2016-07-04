@@ -1,6 +1,6 @@
 import ResourceResolver from "./Resources/ResourceResolver";
 import ImageLoader from "./Resources/ImageLoader";
-import jThreeObjectEE from "../Base/JThreeObjectEE";
+import EEObject from "../Base/EEObject";
 import Buffer from "./Resources/Buffer/Buffer";
 import Shader from "./Resources/Shader/Shader";
 import Program from "./Resources/Program/Program";
@@ -11,15 +11,15 @@ import FBO from "./Resources/FBO/FBO";
 import BufferTexture from "./Resources/Texture/BufferTexture";
 import TextureBase from "./Resources/Texture/TextureBase";
 import CubeTexture from "./Resources/Texture/CubeTexture";
-import IContextComponent from "../IContextComponent";
-import ContextComponents from "../ContextComponents";
 import Q from "q";
 type ImageSource = HTMLCanvasElement | HTMLImageElement | ImageData | ArrayBufferView;
 
 /**
  * コンテキストを跨いでリソースを管理するクラスをまとめているクラス
  */
-class ResourceManager extends jThreeObjectEE implements IContextComponent {
+class ResourceManager extends EEObject {
+
+    public static instance: ResourceManager;
 
     private _buffers: ResourceArray<Buffer> = new ResourceArray<Buffer>();
 
@@ -32,10 +32,6 @@ class ResourceManager extends jThreeObjectEE implements IContextComponent {
     private _rbos: ResourceArray<RBO> = new ResourceArray<RBO>();
 
     private _fbos: ResourceArray<FBO> = new ResourceArray<FBO>();
-
-    public getContextComponentIndex(): number {
-        return ContextComponents.ResourceManager;
-    }
 
     public loadTexture(src: string): Q.IPromise<TextureBase> {
         const deferred = Q.defer<TextureBase>();
@@ -165,4 +161,6 @@ class ResourceManager extends jThreeObjectEE implements IContextComponent {
         });
     }
 }
-export default ResourceManager;
+
+ResourceManager.instance = new ResourceManager();
+export default ResourceManager.instance;

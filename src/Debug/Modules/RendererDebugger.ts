@@ -3,8 +3,6 @@ import IRenderer from "../../Core/Renderers/IRenderer";
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
 import SceneManager from "../../Core/SceneManager";
-import JThreeContext from "../../JThreeContext";
-import ContextComponents from "../../ContextComponents";
 import Scene from "../../Core/Scene";
 import Q from "q";
 import IRequestBufferTexture from "./Renderer/IRequestBufferTexture";
@@ -20,14 +18,13 @@ class RendererDebugger extends DebuggerModuleBase {
 
   private _shadowMapProgressRequest: IRequestShadowMapProgress;
 
-  public attach(debug: Debugger): void {
-    const sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
-    sm.Scenes.forEach(s => {
-      this._attachToScene(s, debug);
+  public attach(): void {
+    SceneManager.Scenes.forEach(s => {
+      this._attachToScene(s);
     });
-    sm.on("change", (h) => {
+    SceneManager.on("change", (h) => {
       if (h.isAdditionalChange) {
-        this._attachToScene(h.changedScene, debug);
+        this._attachToScene(h.changedScene);
       } else {
         // TODO add code for delete
       }
@@ -78,13 +75,13 @@ class RendererDebugger extends DebuggerModuleBase {
     return d.promise;
   }
 
-  private _attachToScene(scene: Scene, debug: Debugger): void {
+  private _attachToScene(scene: Scene): void {
     scene.Renderers.forEach(r => {
-      this._attachToRenderer(r, debug);
+      this._attachToRenderer(r);
     });
     scene.on("changed-renderer", (h) => {
       if (h.isAdditionalChange) {
-        this._attachToRenderer(h.renderer, debug);
+        this._attachToRenderer(h.renderer);
       } else {
         // TODO add code for delete
       }
@@ -97,8 +94,8 @@ class RendererDebugger extends DebuggerModuleBase {
     return img;
   }
 
-  private _attachToRenderer(renderer: IRenderer, debug: Debugger): void {
-    debug.debuggerAPI.renderers.addRenderer(renderer, this);
+  private _attachToRenderer(renderer: IRenderer): void {
+    Debugger.debuggerAPI.renderers.addRenderer(renderer, this);
     renderer.on("rendered-stage", (v) => {
       if (this._bufferTextureRequest && v.completedChain.stage.id === this._bufferTextureRequest.stageID) {
         if (v.bufferTextures[this._bufferTextureRequest.bufferTextureID] == null && renderer instanceof PathRenderer) {

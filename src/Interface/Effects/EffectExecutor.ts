@@ -1,8 +1,6 @@
 import IOption from "./IOption";
 import EffectModule from "./EffectModule";
-import JThreeContext from "../../JThreeContext";
 import ModuleManager from "../../Module/ModuleManager";
-import ContextComponents from "../../ContextComponents";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 
 class EffectExecutor {
@@ -12,18 +10,16 @@ class EffectExecutor {
    * @type {EffectModule[]}
    */
   private _executing: EffectModule<any>[] = [];
-  private _moduleManager: ModuleManager;
   private _node: GomlTreeNodeBase;
 
   constructor(node: GomlTreeNodeBase) {
-    this._moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
     this._node = node;
   }
 
   public add(properties: {[key: string]: string}, option: IOption): void {
     const moduleFactories = Object.keys(properties).map((property, i) => {
       const moduleFactory = () => {
-        const moduleRegistry = this._moduleManager.addModule(<any>EffectModule);
+        const moduleRegistry = ModuleManager.addModule(<any>EffectModule);
         const moduleInstance = <EffectModule<any>>moduleRegistry.apply(this._node, property, properties[property], option);
         moduleInstance.afterDetach = () => {
           // _executingから削除

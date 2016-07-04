@@ -1,9 +1,7 @@
 import IStageRecipe from "./Recipe/IStageRecipe";
 import IDisposable from "../../Base/IDisposable";
 import IRenderer from "./IRenderer";
-import ContextComponents from "../../ContextComponents";
 import RenderStageRegistory from "./RenderStageRegistory";
-import JThreeContext from "../../JThreeContext";
 import RenderStageChain from "./RenderStageChain";
 /**
  * レンダリングの順序を管理しているクラス
@@ -66,10 +64,9 @@ class RenderPath implements IDisposable {
     }
 
     private _fromTemplate(template: IStageRecipe): RenderStageChain {
-        const rr = JThreeContext.getContextComponent<RenderStageRegistory>(ContextComponents.RenderStageRegistory);
         return {
             buffers: template.buffers,
-            stage: rr.construct(template.stage, this._renderer),
+            stage: RenderStageRegistory.construct(template.stage, this._renderer),
             variables: template.variables || {}
         };
     }

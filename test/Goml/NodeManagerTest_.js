@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import xmldom from 'xmldom';
 
-import NodeManager from '../../lib/Goml/NodeManager';
+import NodeManager from '../../lib-es5/Goml/NodeManager';
 
 global.DOMParser = xmldom.DOMParser;
 

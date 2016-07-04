@@ -1,10 +1,10 @@
-import jThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
 
 /**
  * Dictionary class to cache GOML node objects.
  */
-class GomlNodeDictionary extends jThreeObject {
+class GomlNodeDictionary extends IDObject {
 
   /**
    * Assosiative array that indexed by group and name, which assosiate GomlTreeNodeBase and callback functions.

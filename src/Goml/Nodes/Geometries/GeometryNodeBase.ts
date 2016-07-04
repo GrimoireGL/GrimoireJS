@@ -1,9 +1,7 @@
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import Geometry from "../../../Core/Geometries/Base/Geometry";
 import GomlAttribute from "../../GomlAttribute";
-import ContextComponents from "../../../ContextComponents";
 import PrimitiveRegistory from "../../../Core/Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../../JThreeContext";
 /**
 * Base class for managing geometry node.
 */
@@ -11,8 +9,6 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
   protected __groupPrefix: string = "geometry";
 
   private _name: string;
-
-  private _primitiveRegistory: PrimitiveRegistory = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
 
   constructor() {
     super();
@@ -37,13 +33,13 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
       throw Error(`${this.getTypeName()}: name attribute must be required.`);
     }
     if (this._name !== name) {
-      if (typeof this._name !== "undefined" && this._primitiveRegistory.getPrimitive(this._name)) {
-        this._primitiveRegistory.deregisterPrimitive(this._name);
+      if (typeof this._name !== "undefined" && PrimitiveRegistory.getPrimitive(this._name)) {
+        PrimitiveRegistory.deregisterPrimitive(this._name);
       }
       this._name = name;
       this.target = this.__constructGeometry(this._name);
       if (this.target) {
-        this._primitiveRegistory.registerPrimitive(this._name, this.target);
+        PrimitiveRegistory.registerPrimitive(this._name, this.target);
         console.log("registered", this._name);
         this.nodeExport(this._name);
       }

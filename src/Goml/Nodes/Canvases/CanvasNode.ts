@@ -3,8 +3,6 @@ import CanvasManager from "../../../Core/Canvas/CanvasManager";
 import ICanvasElementStructure from "../../../Core/Canvas/ICanvasElementStructure";
 import CanvasElementBuilder from "../../../Core/Canvas/CanvasElementBuilder";
 import Canvas from "../../../Core/Canvas/Canvas";
-import JThreeContext from "../../../JThreeContext";
-import ContextComponents from "../../../ContextComponents";
 import ResourceLoader from "../../../Core/ResourceLoader";
 
 class CanvasNode extends CoreRelatedNodeBase<Canvas> {
@@ -66,7 +64,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
 
     // initialize contexts
     this.target = new Canvas(this.canvasFrames.canvas);
-    JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager).addCanvas(this.target);
+    CanvasManager.addCanvas(this.target);
 
     // construct loader
     let defaultLoader;
@@ -81,7 +79,7 @@ class CanvasNode extends CoreRelatedNodeBase<Canvas> {
     this.canvasFrames.loaderContainer.innerHTML = defaultLoader;
 
     const progressLoaders = this.canvasFrames.loaderContainer.querySelectorAll(".x-j3-loader-progress");
-    JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader).promise.then(() => {
+    ResourceLoader.promise.then(() => {
       const loaders = this.canvasFrames.resizeDetecter.querySelectorAll(".x-j3-loader-container");
       for (let i = 0; i < loaders.length; i++) {
         const loader = loaders.item(i);

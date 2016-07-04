@@ -1,4 +1,5 @@
-import JThreeObject from "../Base/JThreeObject";
+import NodeManager from "./NodeManager";
+import IDObject from "../Base/IDObject";
 import GomlAttribute from "./GomlAttribute";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
 import AttributeDeclaration from "./AttributeDeclaration";
@@ -7,7 +8,7 @@ import isUndefined from "lodash.isundefined";
 /**
  * The class managing attributes of a node.
  */
-class AttributeDictionary extends JThreeObject {
+class AttributeDictionary extends IDObject {
     private _node: GomlTreeNodeBase;
 
     private _attributes: { [key: string]: GomlAttribute } = {};
@@ -88,7 +89,7 @@ class AttributeDictionary extends JThreeObject {
         // console.log("attributes_declaration", attributes);
         for (let key in attributes) {
             const attribute = attributes[key];
-            const converter = this._node.nodeManager.configurator.getConverter(attribute.converter);
+            const converter = NodeManager.configurator.getConverter(attribute.converter);
             if (!converter && (!attribute.reserved || !isUndefined(attribute.converter))) {
                 throw new Error(`Converter \"${attribute.converter}\" is not found`);
             }

@@ -1,9 +1,6 @@
 import TextureBase from "../../Core/Resources/Texture/TextureBase";
-import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../../Core/ResourceManager";
-import JThreeContext from "../../JThreeContext";
 import PMXModel from "./PMXModel";
-import JThreeLogger from "../../Base/JThreeLogger";
 import Q from "q";
 class PMXTextureManager {
   public static imgConvertedToons: HTMLImageElement[] = [];
@@ -48,11 +45,9 @@ class PMXTextureManager {
       return deferred.promise;
     }
     this._model.loadingTextureCount++;
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
-    return rm.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then<TextureBase>((texture) => {
+    return ResourceManager.loadTexture(this._model.modelDirectory + this._model.ModelData.Textures[index]).then<TextureBase>((texture) => {
       process.nextTick(() => {
         this._model.loadedTextureCount++;
-        JThreeLogger.sectionLog("pmx texture", `loaded texture ${this._model.loadedTextureCount} / ${this._model.loadingTextureCount}`);
         if (this._model.loadingTextureCount === this._model.loadedTextureCount) {
           this._model.emit("load", this._model);
         }
@@ -62,7 +57,6 @@ class PMXTextureManager {
     }, (error) => {
         process.nextTick(() => {
           this._model.loadedTextureCount++;
-          JThreeLogger.sectionError("pmx texture", `load failure texture ${this._model.loadedTextureCount} / ${this._model.loadingTextureCount}  ${error}`);
           if (this._model.loadingTextureCount === this._model.loadedTextureCount) {
             this._model.emit("load", this._model);
           }
