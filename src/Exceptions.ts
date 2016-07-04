@@ -1,10 +1,10 @@
-import JThreeObject from "./Base/JThreeObject";
+import IDObject from "./Base/IDObject";
 import Matrix from "./Math/Matrix";
 
 /**
 * This class is root class perform as exception arguments in jThree.
 */
-export class JThreeException extends JThreeObject implements Error {
+export class JThreeException extends IDObject implements Error {
 
     public name: string;
     public message: string;

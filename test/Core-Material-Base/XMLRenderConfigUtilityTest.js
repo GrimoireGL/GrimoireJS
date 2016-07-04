@@ -2,16 +2,10 @@ import test from 'ava';
 import jsdom from 'jsdom';
 import _ from 'lodash';
 import fs from 'fs';
-import XMLRenderConfigUtility from '../../lib/Core/Pass/XMLRenderConfigUtility';
-
-function readText(path) {
-  return fs.readFileSync(path, {
-    encoding: "utf-8"
-  });
-}
+import XMLRenderConfigUtility from '../../lib-es5/Core/Pass/XMLRenderConfigUtility';
 
 function readDom(path) {
-  return jsdom.jsdom(readText(path));
+  return jsdom.jsdom(require(path));
 }
 
 function parseTest(func, path, ideal) {

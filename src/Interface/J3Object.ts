@@ -4,7 +4,7 @@ import isArray from "lodash.isarray";
 import isString from "lodash.isstring";
 import XMLParser from "../Goml/XMLParser";
 import GomlParser from "../Goml/GomlParser";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 import ContextComponents from "../ContextComponents";
 import NodeManager from "../Goml/NodeManager";
 // for Implements
@@ -503,7 +503,7 @@ class J3Object extends J3ObjectBase implements
             case (isString(argu)):
                 if ((<string>argu).charAt(0) === "<") {
                     const parseObj = new XMLParser(<string>argu);
-                    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+                    const nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
                     nodes = parseObj.elements.map((elem) => {
                         return GomlParser.parse(elem, nodeManager.configurator);
                     });

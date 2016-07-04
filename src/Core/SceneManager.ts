@@ -1,16 +1,16 @@
 import NamedValue from "../Base/NamedValue";
-import jThreeObjectEE from "../Base/JThreeObjectEE";
+import EEObject from "../Base/EEObject";
 import Scene from "./Scene";
 import IContextComponent from "../IContextComponent";
 import ContextComponents from "../ContextComponents";
 import LoopManager from "./LoopManager";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 
 
 /**
 * The class for managing entire _scenes.
 */
-class SceneManager extends jThreeObjectEE implements IContextComponent {
+class SceneManager extends EEObject implements IContextComponent {
     /**
      * All scene map. Hold by Scene.ID.
      */
@@ -18,7 +18,7 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
 
     constructor() {
         super();
-        const loopManager = JThreeContext.getContextComponent<LoopManager>(ContextComponents.LoopManager);
+        const loopManager = Context.getContextComponent<LoopManager>(ContextComponents.LoopManager);
         loopManager.addAction(5000, () => this.renderAll());
     }
 

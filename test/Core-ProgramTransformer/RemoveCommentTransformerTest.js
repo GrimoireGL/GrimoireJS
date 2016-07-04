@@ -1,22 +1,10 @@
 import test from 'ava';
 import fs from 'fs';
 import _ from 'lodash';
-import RemoveCommentTransformer from '../../lib/Core/ProgramTransformer/Transformer/RemoveCommentTransformer';
-
-function readFile(src) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(src, "utf8", (err, res) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(res);
-      }
-    })
-  });
-}
+import RemoveCommentTransformer from '../../lib-es5/Core/ProgramTransformer/Transformer/RemoveCommentTransformer';
 
 test('RemoveCommentTransformer works properly', async(t) => {
-  const source = await readFile("./Resources/RemoveCommentTest.glsl");
+  const source = require("./Resources/RemoveCommentTest.glsl");
   const result = await (new RemoveCommentTransformer()).transform({
     initialSource: source,
     transformSource: source,

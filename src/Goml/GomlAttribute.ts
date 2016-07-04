@@ -1,7 +1,7 @@
-import JThreeObjectEE from "../Base/JThreeObjectEE";
+import EEObject from "../Base/EEObject";
 import AttributeConverterBase from "./Converter/AttributeConverterBase";
 import StringAttributeConverter from "./Converter/StringAttributeConverter";
-import JThreeContext from "../JThreeContext";
+import Context from "../Context";
 import NodeManager from "./NodeManager";
 import ContextComponents from "../ContextComponents";
 import Q from "q";
@@ -9,7 +9,7 @@ import Q from "q";
 /**
  * Provides the feature to manage attribute of GOML.
  */
-class GomlAttribute extends JThreeObjectEE {
+class GomlAttribute extends EEObject {
     /**
      * If flag is true, attribute value will be recognized as contant.
      * @type {boolean}
@@ -52,7 +52,7 @@ class GomlAttribute extends JThreeObjectEE {
 
     constructor(name: string, value: any, converter: AttributeConverterBase, reserved: boolean, constant: boolean) {
         super(name);
-        this._nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+        this._nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
         this.constant = constant !== undefined ? constant : false;
         this.reserved = reserved !== undefined ? reserved : false;
         this.Converter = converter;

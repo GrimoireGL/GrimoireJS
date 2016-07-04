@@ -4,7 +4,7 @@ import ProgramWrapper from "../../Core/Resources/Program/ProgramWrapper";
 import PMX from "../PMXData";
 import Buffer from "../../Core/Resources/Buffer/Buffer";
 import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ResourceManager from "../../Core/ResourceManager";
 
 
@@ -23,7 +23,7 @@ class PMXGeometry extends BasicGeometry {
   constructor(pmx: PMX) {
     super();
     const name = `${pmx.Header.modelName}(${pmx.Header.modelNameEn})`;
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     this.indexBuffer = rm.createBuffer(name + "-index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_INT);
     this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
     this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);

@@ -20,30 +20,14 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "start": "./node_modules/.bin/gulp --require coffee-script/register server",
-    "build": "./node_modules/.bin/cross-env BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build",
-    "debug": "./node_modules/.bin/cross-env BABEL_ENV=production ./node_modules/.bin/gulp --require coffee-script/register build:debug",
-    "watch": "./node_modules/.bin/cross-env BABEL_ENV=development ./node_modules/.bin/gulp --require coffee-script/register watch",
-    "lib-to-lib-es6": "mv ./lib ./lib-es6",
-    "copy-others-lib-to-lib-es5": "./node_modules/.bin/gulp --require coffee-script/register copy --src=./lib-es6 --dest=./lib",
-    "copy-others-test-to-test-es5": "./node_modules/.bin/gulp --require coffee-script/register copy --src=./test --dest=./test-es5",
-    "build-lib-es6-to-lib": "./node_modules/.bin/cross-env BABEL_ENV=test ./node_modules/.bin/babel ./lib-es6 --out-dir ./lib --source-maps inline",
-    "build-test-to-test-es5": "./node_modules/.bin/cross-env BABEL_ENV=test ./node_modules/.bin/babel ./test --out-dir ./test-es5 --source-maps inline",
-    "build-lib-es5": "npm run copy-others-lib-to-lib-es5 && npm run build-lib-es6-to-lib",
-    "build-test-es5": "npm run copy-others-test-to-test-es5 && npm run build-test-to-test-es5",
-    "test-slow": "npm run precover && npm run test-es5",
-    "test-es5": "./node_modules/.bin/ava ./test-es5/**/*Test.js",
-    "test": "./node_modules/.bin/cross-env BABEL_ENV=test ./node_modules/.bin/ava --require babel-register ./test/**/*Test.js",
-    "build-ts": "./node_modules/.bin/gulp --require coffee-script/register build:main:ts",
-    "copy-others-src-to-lib": "./node_modules/.bin/gulp --require coffee-script/register build:main:others",
-    "precover-slow": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib && npm run lib-to-lib-es6 && npm run build-lib-es5 && npm run build-test-es5",
-    "cover-slow": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test-es5 && npm run cover-slow-lcov",
-    "cover-slow-lcov": "./node_modules/.bin/remap-istanbul -i ./coverage/coverage-final.json -o ./coverage/lcov-report -t lcovonly -b /Users/pnlybubbles/Devs/jThree",
-    "precover": "npm run build-ts -- --nosourcemap && npm run copy-others-src-to-lib",
-    "cover": "./node_modules/.bin/nyc --all --reporter=json --reporter=text npm run test",
-    "doc": "./node_modules/.bin/gulp --require coffee-script/register doc",
-    "clean": "./node_modules/.bin/gulp --require coffee-script/register clean",
-    "lint": "./node_modules/.bin/gulp --require coffee-script/register lint:ts"
+    "build": "gulp build",
+    "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
+    "watch": "gulp watch",
+    "test": "gulp build-all && ava ./test-es5/**/*Test.js",
+    "cover": "nyc --all --reporter=json --reporter=text npm run test",
+    "doc": "gulp doc",
+    "clean": "gulp clean",
+    "lint": "gulp lint-ts"
   },
   "directories": {
     "test": "test"
@@ -52,26 +36,10 @@
     "verbose": true
   },
   "babel": {
-    "env": {
-      "development": {
-        "presets": [
-          "es2015",
-          "stage-3"
-        ]
-      },
-      "production": {
-        "presets": [
-          "es2015",
-          "stage-3"
-        ]
-      },
-      "test": {
-        "presets": [
-          "es2015",
-          "stage-2"
-        ]
-      }
-    }
+    "presets": [
+      "es2015",
+      "stage-2"
+    ]
   },
   "devDependencies": {
     "ava": "^0.13.0",
@@ -102,6 +70,7 @@
     "gulp-cached": "^1.1.0",
     "gulp-changed": "^1.3.0",
     "gulp-connect": "^3.1.0",
+    "gulp-debug": "^2.1.2",
     "gulp-if": "^2.0.0",
     "gulp-istanbul": "^0.10.3",
     "gulp-jade": "^1.1.0",
@@ -111,6 +80,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^4.3.3",
+    "gulp-txtjs": "0.0.4",
     "gulp-typedoc": "^1.2.1",
     "gulp-typescript": "^2.12.1",
     "gulp-uglify": "^1.5.3",

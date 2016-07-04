@@ -13,7 +13,7 @@ import PMXModel from "./../PMXModel";
 import PmxMaterialMorphParamContainer from "./../PMXMaterialMorphParamContainer";
 import ResourceManager from "../../../Core/ResourceManager";
 import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 
 /**
  * the materials for PMX.
@@ -200,7 +200,7 @@ class PMXMaterial extends Material {
     if (index < 0) {
       return null;
     }
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     const resName = "jthree.pmx.sharedtoon." + index;
     if (rm.getTexture(resName)) {
       return <Texture>rm.getTexture(resName);

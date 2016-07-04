@@ -1,18 +1,18 @@
 import IIDObject from "./IIDObject";
-import JThreeID from "./JThreeID";
+import IDGenerator from "./IDGenerator";
 import JsHack from "./JsHack";
 /**
- * Most based object for any jthree related classes.
+ * Most based object for any Grimoire.js related classes.
  * @type {[type]}
  */
-class JThreeObject implements IIDObject {
+class IDObject implements IIDObject {
     /**
      * ID related to this instance to identify.
      */
     public id: string;
 
     constructor(id?: string) {
-        this.id = id || JThreeID.getUniqueRandom(10);
+        this.id = id || IDGenerator.getUniqueRandom(10);
     }
     /**
      * Obtain stringfied object.
@@ -32,4 +32,4 @@ class JThreeObject implements IIDObject {
     }
 }
 
-export default JThreeObject;
+export default IDObject;

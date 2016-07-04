@@ -3,7 +3,7 @@ import ITextureRecipe from "./Recipe/ITextureRecipe";
 import TextureBase from "../Resources/Texture/TextureBase";
 import PathRenderer from "./PathRenderer";
 import GeneraterBase from "./TextureGeneraters/GeneraterBase";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 import GeneraterList from "./TextureGeneraters/GeneraterList";
@@ -20,7 +20,7 @@ class TextureGenerater {
   }
 
   public static getTexture(renderer: PathRenderer, bufferName: string): TextureBase {
-    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.id + "." + bufferName);
+    return Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager).getTexture(renderer.id + "." + bufferName);
   }
 
   private static _getGeneraters(renderer: PathRenderer): NamedValue<GeneraterBase> {

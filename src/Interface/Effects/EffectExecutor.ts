@@ -1,6 +1,6 @@
 import IOption from "./IOption";
 import EffectModule from "./EffectModule";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ModuleManager from "../../Module/ModuleManager";
 import ContextComponents from "../../ContextComponents";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
@@ -16,7 +16,7 @@ class EffectExecutor {
   private _node: GomlTreeNodeBase;
 
   constructor(node: GomlTreeNodeBase) {
-    this._moduleManager = JThreeContext.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
+    this._moduleManager = Context.getContextComponent<ModuleManager>(ContextComponents.ModuleManager);
     this._node = node;
   }
 

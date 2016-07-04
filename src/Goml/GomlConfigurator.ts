@@ -1,5 +1,5 @@
 import GomlNodeListElement from "./GomlNodeListElement";
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import AttributeConvrterBase from "./Converter/AttributeConverterBase";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
 import GomlConverterList from "./GomlConverterList";
@@ -8,7 +8,7 @@ import GomlNodeList from "./GomlNodeList";
  * Provides configurations that will be used when parse GOML.
  * These properties is intended to be used for extending by plugin feature.
  */
-class GomlConfigurator extends JThreeObject {
+class GomlConfigurator extends IDObject {
   /**
    * List of converter function classes.
    */

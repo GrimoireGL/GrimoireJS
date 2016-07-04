@@ -2,7 +2,7 @@ import IApplyMaterialArgument from "../../../Materials/IApplyMaterialArgument";
 import BasicMaterial from "../../../Materials/BasicMaterial";
 import PrimitiveRegistory from "../../../Geometries/Base/PrimitiveRegistory";
 import ContextComponents from "../../../../ContextComponents";
-import JThreeContext from "../../../../JThreeContext";
+import Context from "../../../../Context";
 import LightBase from "./../LightBase";
 import Matrix from "../../../../Math/Matrix";
 import Vector3 from "../../../../Math/Vector3";
@@ -21,7 +21,7 @@ class SpotLight extends LightBase {
     public distanceDecay: number = 1.0;
     constructor() {
         super();
-        this.Geometry = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cone");
+        this.Geometry = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory).getPrimitive("cone");
         const diffuseMaterial = new BasicMaterial(require("../../../Materials/BuiltIn/Light/Diffuse/SpotLight.xmml"), "builtin.light.spot.diffuse");
         diffuseMaterial.on("apply", (matArg: IApplyMaterialArgument) => {
             const tan = Math.tan(this.outerAngle);

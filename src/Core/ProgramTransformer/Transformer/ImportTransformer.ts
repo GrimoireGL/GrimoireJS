@@ -1,4 +1,4 @@
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import ContextComponents from "../../../ContextComponents";
 import MaterialManager from "../../Materials/MaterialManager";
 import ProgramTransformer from "./Base/ProgramTransformer";
@@ -38,7 +38,7 @@ class ImportTransformer extends ProgramTransformer {
   }
 
   private static get _materialManager(): MaterialManager {
-   return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+   return Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
   constructor() {

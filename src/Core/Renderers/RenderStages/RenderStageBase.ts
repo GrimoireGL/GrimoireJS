@@ -4,11 +4,11 @@ import IGLContainer from "../../Canvas/GL/IGLContainer";
 import IRenderer from "../IRenderer";
 import IShaderArgumentContainer from "../../Materials/IShaderArgumentContainer";
 import IRenderStageRendererConfigure from "./IRenderStageRendererConfigure";
-import JThreeObject from "../../../Base/JThreeObject";
+import IDObject from "../../../Base/IDObject";
 import SceneObject from "../../SceneObjects/SceneObject";
 import Scene from "../../Scene";
 import BufferInput from "../BufferInput";
-abstract class RenderStageBase extends JThreeObject implements IShaderArgumentContainer, IGLContainer, IDisposable {
+abstract class RenderStageBase extends IDObject implements IShaderArgumentContainer, IGLContainer, IDisposable {
     public static defaultRendererConfigure: IRenderStageRendererConfigure = {
         cullOrientation: "BACK",
         depthEnabled: true,

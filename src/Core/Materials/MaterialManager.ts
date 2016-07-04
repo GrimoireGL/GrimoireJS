@@ -57,8 +57,15 @@ class MaterialManager implements IContextComponent, IConditionRegister {
      * @param {string} key shader chunk key
      * @param {string} val shader chunk code
      */
-    public addShaderChunk(key: string, val: string): void {
-        this._chunkLoader.pushLoaded(key, ProgramTranspiler.parseInternalImport(val, this));
+     public addShaderChunk(key: string, val: string): void;
+     public addShaderChunk(key: string, val: any): void {
+         let shaderCode: string;
+         if (typeof val === "string") {
+             shaderCode = val;
+         } else {
+             shaderCode = val.default as string;
+         }
+         this._chunkLoader.pushLoaded(key, ProgramTranspiler.parseInternalImport(shaderCode, this));
     }
 
     public loadChunks(srcs: string[]): Promise<string[]> {

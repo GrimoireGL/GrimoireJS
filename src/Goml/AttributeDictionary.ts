@@ -1,4 +1,4 @@
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import GomlAttribute from "./GomlAttribute";
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
 import AttributeDeclaration from "./AttributeDeclaration";
@@ -7,7 +7,7 @@ import isUndefined from "lodash.isundefined";
 /**
  * The class managing attributes of a node.
  */
-class AttributeDictionary extends JThreeObject {
+class AttributeDictionary extends IDObject {
     private _node: GomlTreeNodeBase;
 
     private _attributes: { [key: string]: GomlAttribute } = {};

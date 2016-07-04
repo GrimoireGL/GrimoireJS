@@ -1,10 +1,10 @@
 import {EventEmitter} from "events";
-import JThreeObject from "./JThreeObject";
+import IDObject from "./IDObject";
 
 /**
- * EventEmitterをmixinしたJThreeObject
+ * EventEmitterをmixinしたIDObject
  */
-class JThreeObjectEE extends JThreeObject implements EventEmitter {
+class EEObject extends IDObject implements EventEmitter {
     public addListener: (event: string, listener: Function) => EventEmitter;
     public on: (event: string, listener: Function) => EventEmitter;
     public once: (event: string, listener: Function) => EventEmitter;
@@ -27,6 +27,6 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
     });
 }
 
-applyMixins(JThreeObjectEE, [EventEmitter]);
+applyMixins(EEObject, [EventEmitter]);
 
-export default JThreeObjectEE;
+export default EEObject;

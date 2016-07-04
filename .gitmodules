@@ -1,3 +1,0 @@
-[submodule "wwwroot/resource"]
-	path = wwwroot/resource
-	url = https://github.com/jThreeJS/jThree-Debug-Resources.git

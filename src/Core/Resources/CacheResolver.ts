@@ -1,7 +1,7 @@
 import NamedValue from "../../Base/NamedValue";
 import ResourceLoader from "../ResourceLoader";
 import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import Q from "q";
 abstract class CacheResolver<T> {
 
@@ -39,7 +39,7 @@ abstract class CacheResolver<T> {
     if (this._isLoading[identity] === true) {
       return this._loadingPromise[identity];
     } else {
-      const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+      const loader = Context.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
       const deferred = loader.getResourceLoadingDeffered<T>();
       if (this._isLoading[identity] === false) {
         process.nextTick(() => {

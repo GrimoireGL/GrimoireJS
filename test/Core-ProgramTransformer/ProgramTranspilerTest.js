@@ -1,7 +1,7 @@
 import test from 'ava';
 import _ from 'lodash';
-import ProgramTranspiler from '../../lib/Core/ProgramTransformer/ProgramTranspiler';
-import ProgramTransformer from '../../lib/Core/ProgramTransformer/Transformer/Base/ProgramTransformer';
+import ProgramTranspiler from '../../lib-es5/Core/ProgramTransformer/ProgramTranspiler';
+import ProgramTransformer from '../../lib-es5/Core/ProgramTransformer/Transformer/Base/ProgramTransformer';
 ProgramTranspiler.transformerGenerator = function() {
   return [
     new ProgramTransformer((t) => Promise.resolve(t)),

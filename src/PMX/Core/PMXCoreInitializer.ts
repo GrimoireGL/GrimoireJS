@@ -1,4 +1,4 @@
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import MaterialManager from "../../Core/Materials/MaterialManager";
 import ContextComponents from "../../ContextComponents";
 /**
@@ -18,7 +18,7 @@ class PMXCoreInitializer {
   }
 
   private static _registerShaderChunk(): void {
-    const mm = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    const mm = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
     mm.addShaderChunk("jthree.pmx.vertex", require("../ShaderChunk/_PMXVertexShader.glsl"));
   }
 }

@@ -1,6 +1,6 @@
 import NamedValue from "../../Base/NamedValue";
 import ITextureRecipe from "./Recipe/ITextureRecipe";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import EEObject from "../../Base/EEObject";
 import PathRenderer from "./PathRenderer";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
@@ -8,7 +8,7 @@ import IDisposable from "../../Base/IDisposable";
 /**
  * The class managing all buffer textures used for rendering in a PathRenderer.
  */
-class BufferSet extends JThreeObjectEE implements IDisposable {
+class BufferSet extends EEObject implements IDisposable {
   /**
    * The color buffers managed by this class.
    */

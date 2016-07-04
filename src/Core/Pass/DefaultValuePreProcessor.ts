@@ -1,6 +1,6 @@
 import NamedValue from "../../Base/NamedValue";
 import ResourceManager from "../ResourceManager";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import MatrixArray from "../../Math/MatrixArray";
 import VectorArray from "../../Math/VectorArray";
@@ -210,7 +210,7 @@ class DefaultValuePreProcessor {
   }
 
   private static get _resourceManager(): ResourceManager {
-    return JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    return Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
   }
 }
 

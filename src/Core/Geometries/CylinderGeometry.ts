@@ -1,7 +1,7 @@
 import GeometryBuilder from "./Base/GeometryBuilder";
 import BasicGeometry from "./Base/BasicGeometry";
 import Vector3 from "../../Math/Vector3";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import ResourceManager from "../ResourceManager";
 class CylinderGeometry extends BasicGeometry {
@@ -19,7 +19,7 @@ class CylinderGeometry extends BasicGeometry {
 
     constructor(name: string) {
         super();
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+        const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_SHORT);
         this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);

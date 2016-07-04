@@ -2,14 +2,14 @@ import NamedValue from "../../../Base/NamedValue";
 import IDisposable from "../../../Base/IDisposable";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
-import jThreeObject from "../../../Base/JThreeObject";
+import IDObject from "../../../Base/IDObject";
 import Buffer from "./../../Resources/Buffer/Buffer";
 import Canvas from "./../../Canvas/Canvas";
 import Material from "./../../Materials/Material";
 /**
  * Base abstraction for geometry.
  */
-abstract class Geometry extends jThreeObject implements IDisposable {
+abstract class Geometry extends IDObject implements IDisposable {
   public static lastGeometry: Geometry = null;
 
   public static lastProgram: ProgramWrapper = null;

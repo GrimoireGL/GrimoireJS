@@ -1,7 +1,7 @@
 import ResourceManager from "../ResourceManager";
 import ContextComponents from "../../ContextComponents";
 import BufferTexture from "../Resources/Texture/BufferTexture";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import CubeTexture from "../Resources/Texture/CubeTexture";
 import TextureBase from "../Resources/Texture/TextureBase";
 import ICanvasContainer from "./ICanvasContainer";
@@ -116,14 +116,14 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
    * @return {TextureBase} Constructed texture buffer.
    */
   protected __initializeAlternativeTexture(): TextureBase {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     let tex = <BufferTexture>rm.createTexture("jthree.alt.texture2D." + this.id, 1, 1);
     tex.updateTexture(new Uint8Array([255, 0, 255, 255])); // Use purple color as the color of default buffer texture.
     return tex;
   }
 
   protected __initializeAlternativeCubeTexture(): CubeTexture {
-    const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+    const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
     let tex = rm.createCubeTextureWithSource("jthree.alt.textureCube." + this.id, null);
     return tex;
   }

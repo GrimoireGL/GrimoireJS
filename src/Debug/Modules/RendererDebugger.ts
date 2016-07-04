@@ -3,7 +3,7 @@ import IRenderer from "../../Core/Renderers/IRenderer";
 import DebuggerModuleBase from "./DebuggerModuleBase";
 import Debugger from "../Debugger";
 import SceneManager from "../../Core/SceneManager";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import Scene from "../../Core/Scene";
 import Q from "q";
@@ -21,7 +21,7 @@ class RendererDebugger extends DebuggerModuleBase {
   private _shadowMapProgressRequest: IRequestShadowMapProgress;
 
   public attach(debug: Debugger): void {
-    const sm = JThreeContext.getContextComponent<SceneManager>(ContextComponents.SceneManager);
+    const sm = Context.getContextComponent<SceneManager>(ContextComponents.SceneManager);
     sm.Scenes.forEach(s => {
       this._attachToScene(s, debug);
     });
