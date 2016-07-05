@@ -1,4 +1,3 @@
-import NamedValue from "../Base/NamedValue";
 import jThreeObjectEE from "../Base/JThreeObjectEE";
 import Scene from "./Scene";
 import IContextComponent from "../IContextComponent";
@@ -20,7 +19,7 @@ class SceneManager extends jThreeObjectEE implements IContextComponent {
   /**
    * All scene map. Hold by Scene.ID.
    */
-  private _scenes: NamedValue<Scene> = {};
+  private _scenes: { [sceneID: string]: Scene } = {};
 
   public getContextComponentIndex(): number {
     return ContextComponents.SceneManager;

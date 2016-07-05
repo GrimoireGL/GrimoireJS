@@ -1,4 +1,3 @@
-import NamedValue from "../../../Base/NamedValue";
 import IDisposable from "../../../Base/IDisposable";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
@@ -23,9 +22,9 @@ abstract class Geometry extends jThreeObject implements IDisposable {
 
   public abstract drawWireframe(canvas: Canvas, material: Material): void;
 
-  protected abstract __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: NamedValue<IVariableDescription>): void;
+  protected abstract __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void;
 
-  public useGeometry(pWrapper: ProgramWrapper, attributes: NamedValue<IVariableDescription>): void {
+  public useGeometry(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
     if (Geometry.lastGeometry !== this || Geometry.lastProgram !== pWrapper) {
       this.__applyAttributeVariables(pWrapper, attributes);
       Geometry.lastGeometry = this;
@@ -33,7 +32,7 @@ abstract class Geometry extends jThreeObject implements IDisposable {
     }
   }
 
-  protected __assignAttributeIfExists(pWrapper: ProgramWrapper, attributes: NamedValue<IVariableDescription>, valName: string, buffer: Buffer): void {
+  protected __assignAttributeIfExists(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }, valName: string, buffer: Buffer): void {
     if (attributes[valName]) {
       pWrapper.assignAttributeVariable(valName, buffer);
     }

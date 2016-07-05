@@ -7,7 +7,7 @@ import TextureBase from "../Resources/Texture/TextureBase";
 import ICanvasContainer from "./ICanvasContainer";
 import GLExtensionRegistory from "./GL/GLExtensionRegistory";
 import Rectangle from "../../Math/Rectangle";
-import PathRenderer from "../Renderers/PathRenderer";
+import BasicRenderer from "../Renderers/BasicRenderer";
 import CanvasSizeChangedEventArgs from "./CanvasSizeChangedEventArgs";
 import Color4 from "../../Math/Color4";
 import CanvasRegion from "./CanvasRegion";
@@ -60,7 +60,7 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
 
   public gl: WebGLRenderingContext;
 
-  public glExtensionRegistory: GLExtensionRegistory = new GLExtensionRegistory();
+  public glExtensionResolver: GLExtensionRegistory = new GLExtensionRegistory();
 
   /**
    * canvas height of last time
@@ -75,14 +75,14 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
   /**
    * Called after rendering. It needs super.afterRenderer(renderer) when you need to override.
    */
-  public afterRender(renderer: PathRenderer): void {
+  public afterRender(renderer: BasicRenderer): void {
     return;
   }
 
   public afterRenderAll(): void {
     return;
   }
-  public beforeRender(renderer: PathRenderer): void {
+  public beforeRender(renderer: BasicRenderer): void {
     return;
   }
   public beforeRenderAll(): void {
@@ -104,7 +104,7 @@ class Canvas extends CanvasRegion implements ICanvasContainer {
    */
   protected __setGLContext(glContext: WebGLRenderingContext): void {
     this.gl = glContext;
-    this.glExtensionRegistory.checkExtensions(glContext);
+    this.glExtensionResolver.checkExtensions(glContext);
     this.alternativeTexture = this.__initializeAlternativeTexture();
     this.alternativeCubeTexture = this.__initializeAlternativeCubeTexture();
     return;

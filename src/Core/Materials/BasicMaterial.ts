@@ -1,4 +1,3 @@
-import NamedValue from "../../Base/NamedValue";
 import IXMMLDescription from "./Parser/IXMMLDescription";
 import ArgumentMerger from "./ArgumentMerger";
 import Material from "./Material";
@@ -9,7 +8,7 @@ import XMMLParser from "./Parser/XMMLParser";
 class BasicMaterial extends Material {
   private _passes: MaterialPass[];
 
-  private _mergedShaderVariables: NamedValue<any> = {};
+  private _mergedShaderVariables: { [name: string]: any } = {};
 
   private _description: IXMMLDescription;
 

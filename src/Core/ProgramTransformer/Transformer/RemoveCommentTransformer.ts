@@ -1,11 +1,10 @@
 import SourceTransformer from "./Base/SourceTransformer";
-import Q from "q";
 class RemoveCommentTransformer extends SourceTransformer {
 
   constructor() {
     super((source) => {
       source = RemoveCommentTransformer._removeMultiLineComment(source);
-      return Q.when(RemoveCommentTransformer._removeLineComment(source));
+      return RemoveCommentTransformer._removeLineComment(source);
     });
   }
 

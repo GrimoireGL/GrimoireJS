@@ -1,4 +1,3 @@
-import NamedValue from "../../../Base/NamedValue";
 import RegistererBase from "./RegistererBase";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
@@ -8,7 +7,7 @@ class StageDescriptionRegisterer extends RegistererBase {
     return "builtin.stageInfo";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
     if (uniforms["_techniqueIndex"]) {
       pWrapper.uniformInt("_techniqueIndex", matArg.techniqueIndex);
     }

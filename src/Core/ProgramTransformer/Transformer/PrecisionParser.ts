@@ -1,4 +1,3 @@
-import NamedValue from "../../../Base/NamedValue";
 import DescriptionTransformer from "./Base/DescriptionTransformer";
 class PrecisionParser extends DescriptionTransformer {
   constructor() {
@@ -15,9 +14,9 @@ class PrecisionParser extends DescriptionTransformer {
     });
   }
 
-  private static _obtainPrecisions(source: string): NamedValue<string> {
+  private static _obtainPrecisions(source: string): { [type: string]: string } {
     const regex = /\s*precision\s+([a-z]+)\s+([a-z0-9]+)/g;
-    let result: NamedValue<string> = {};
+    let result: { [type: string]: string } = {};
     while (true) {
       const found = regex.exec(source);
       if (!found) {

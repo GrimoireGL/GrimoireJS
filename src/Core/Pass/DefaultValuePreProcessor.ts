@@ -1,4 +1,3 @@
-import NamedValue from "../../Base/NamedValue";
 import ResourceManager from "../ResourceManager";
 import JThreeContext from "../../JThreeContext";
 import ContextComponents from "../../ContextComponents";
@@ -12,7 +11,7 @@ import IVariableDescription from "../ProgramTransformer/Base/IVariableDescriptio
 import isArray from "lodash.isarray";
 import Q from "q";
 class DefaultValuePreProcessor {
-  public static preprocess(uniforms: NamedValue<IVariableDescription>): Q.IPromise<void> {
+  public static preprocess(uniforms: { [name: string]: IVariableDescription }): Q.IPromise<void> {
     const tasks: Q.IPromise<void>[] = [];
     for (let variableName in uniforms) {
       const uniform = uniforms[variableName];

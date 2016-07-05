@@ -1,6 +1,5 @@
 import IConditionRegister from "./IConditionRegister";
 import JSON5 from "json5";
-import Q from "q";
 
 class ConditionBlock {
   private _type: string;
@@ -9,9 +8,8 @@ class ConditionBlock {
   private _isRoot: boolean;
   private _children: ConditionBlock[];
   private _content: string;
-  private _elseContent: string; // return if condition else.
 
-  constructor(condition: JSON, children: ConditionBlock[], isPlain: boolean, content: string, elseContent: string) {
+  constructor(condition: JSON, children: ConditionBlock[], isPlain: boolean, content: string) {
     this._children = children;
     this._condition = condition;
     if (condition != null) {
@@ -19,23 +17,22 @@ class ConditionBlock {
     }
     this._isPlain = isPlain;
     this._content = content;
-    this._elseContent = elseContent;
   }
   public static parseCondition(source: string): ConditionBlock {
-    let ret = new ConditionBlock(null, ConditionBlock._parseCondition(source), false, null, null);
+    let ret = new ConditionBlock(null, ConditionBlock._parseCondition(source), false, null);
     ret._isRoot = true;
     return ret;
   }
 
   private static _parseCondition(source: string): ConditionBlock[] {
     let ret: ConditionBlock[] = [];
-    const found = source.indexOf("@if(", 0);
+    const found = source.indexOf("@Condition(", 0);
     if (found < 0) {
       ret.push(ConditionBlock._createPlain(source));
       return ret; // When there was no more found
     }
 
-    let beginConditionPoint = found + 3;
+    let beginConditionPoint = found + 10;
     const endConditionPoint: number = ConditionBlock._getEndBracketIndex(source, beginConditionPoint, "(", ")");
     if (endConditionPoint < 1) {
       // error no bracket matching
@@ -59,20 +56,13 @@ class ConditionBlock {
     let jsonCondition: JSON = JSON5.parse(condition);
     let content: string = source.substring(beginContentPoint + 1, endContentPoint);
     let after: string = source.substring(endContentPoint + 1, source.length);
-    let elseContent = "";
-    if (/^ *else *{/m.test(after)) {
-      let beginElseContentPoint = after.indexOf("{");
-      const endElseContentPoint = ConditionBlock._getEndBracketIndex(after, beginElseContentPoint, "{", "}");
-      elseContent = after.substring(beginElseContentPoint + 1, endElseContentPoint);
-      after = after.substring(endElseContentPoint + 1, after.length);
-    }
     ret.push(ConditionBlock._createPlain(before));
-    ret.push(new ConditionBlock(jsonCondition, ConditionBlock._parseCondition(content), false, null, elseContent));
+    ret.push(new ConditionBlock(jsonCondition, ConditionBlock._parseCondition(content), false, null));
     ret = ret.concat(ConditionBlock._parseCondition(after));
     return ret;
   }
   private static _createPlain(content: string): ConditionBlock {
-    return new ConditionBlock(null, [], true, content, null);
+    return new ConditionBlock(null, [], true, content);
   }
   private static _getEndBracketIndex(source: string, startIndex: number, beginBracket: string, endBracket: string): number {
     // get index of matching endBracket
@@ -110,52 +100,30 @@ class ConditionBlock {
   }
 
 
-  public resolve(conditionRegister: IConditionRegister): Q.IPromise<string> {
+  public resolve(conditionRegister: IConditionRegister): string {
 
     if (!this._isRoot) {
 
 
       if (this._isPlain) {
-        return Q.when(this._content);
+        return this._content;
       }
 
       let cc = conditionRegister.getConditionChecker(this._type);
       if (cc == null) {
-        throw new Error("condition is not defined.");
-        // return Q.when("");
+        return "";
       }
 
-      return cc.checkCondition(this._condition).then(flag => {
-        if (!flag) {
-          return Q.when(this._elseContent);
-        } else {
-          let rett: Q.IPromise<string>[] = [];
-          for (let i = 0; i < this._children.length; i++) {
-            rett.push(this._children[i].resolve(conditionRegister));
-          }
-          return Q.all(rett).then(data => {
-            let ret = "";
-            for (let i = 0; i < data.length; i++) {
-              ret += data[i];
-            }
-            return ret;
-          });
-        }
-      });
-
-    } else {
-      let rett: Q.IPromise<string>[] = [];
-      for (let i = 0; i < this._children.length; i++) {
-        rett.push(this._children[i].resolve(conditionRegister));
+      if (!cc.checkCondition(this._condition)) {
+        return "";
       }
-      return Q.all(rett).then(data => {
-        let ret = "";
-        for (let i = 0; i < data.length; i++) {
-          ret += data[i];
-        }
-        return ret;
-      });
+
     }
+    let ret = "";
+    for (let i = 0; i < this._children.length; i++) {
+      ret = ret + this._children[i].resolve(conditionRegister);
+    }
+    return ret;
   }
 
 

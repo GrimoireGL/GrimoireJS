@@ -1,15 +1,14 @@
-import NamedValue from "../../Base/NamedValue";
 import ResourceLoader from "../ResourceLoader";
 import ContextComponents from "../../ContextComponents";
 import JThreeContext from "../../JThreeContext";
 import Q from "q";
 abstract class CacheResolver<T> {
 
-  private _isLoading: NamedValue<boolean> = {};
+  private _isLoading: { [name: string]: boolean } = {};
 
-  private _loadedResource: NamedValue<T> = {};
+  private _loadedResource: { [name: string]: T } = {};
 
-  private _loadingPromise: NamedValue<Q.IPromise<T>> = {};
+  private _loadingPromise: { [name: string]: Q.IPromise<T> } = {};
 
   // public static getAbsolutePath(relative: string): string {
   //   const aElem = document.createElement("a");

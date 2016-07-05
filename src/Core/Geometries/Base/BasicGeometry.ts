@@ -1,4 +1,3 @@
-import NamedValue from "../../../Base/NamedValue";
 import IVariableDescription from "../../ProgramTransformer/Base/IVariableDescription";
 import ProgramWrapper from "../../Resources/Program/ProgramWrapper";
 import IndexedGeometry from "./IndexedGeometry";
@@ -26,7 +25,7 @@ class BasicGeometry extends IndexedGeometry {
    */
   public uvBuffer: Buffer;
 
-  protected __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: NamedValue<IVariableDescription>): void {
+  protected __applyAttributeVariables(pWrapper: ProgramWrapper, attributes: { [key: string]: IVariableDescription }): void {
     this.__assignAttributeIfExists(pWrapper, attributes, "position", this.positionBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "normal", this.normalBuffer);
     this.__assignAttributeIfExists(pWrapper, attributes, "uv", this.uvBuffer);

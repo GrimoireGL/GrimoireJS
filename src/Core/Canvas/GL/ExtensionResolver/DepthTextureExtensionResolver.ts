@@ -1,8 +1,7 @@
-import NamedValue from "../../../../Base/NamedValue";
 import ExtensionResolverBase from "./ExtensionResolverBase";
 
 class DepthTextureExtensionResolver extends ExtensionResolverBase {
-  public request(gl: WebGLRenderingContext): NamedValue<any> {
+  public request(gl: WebGLRenderingContext): { [key: string]: any; } {
     return this.__requestExtensionWithWarning(gl, "WEBGL_depth_texture");
   }
 }

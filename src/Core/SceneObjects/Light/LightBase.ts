@@ -15,7 +15,7 @@ class LightBase extends SceneObject {
   }
 
   public get Position(): Vector3 {
-    return Matrix.transformPoint(this.Transformer.localToGlobal, new Vector3(0, 0, 0));
+    return Matrix.transformPoint(this.Transformer.LocalToGlobal, new Vector3(0, 0, 0));
   }
 }
 
