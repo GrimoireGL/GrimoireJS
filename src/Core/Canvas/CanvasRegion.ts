@@ -1,5 +1,5 @@
 import IViewport from "./IViewport";
-import JThreeObjectEE from "../../Base/JThreeObjectEE";
+import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
 import JThreeContext from "../../JThreeContext";
@@ -12,7 +12,7 @@ import ContextComponents from "../../ContextComponents";
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectEE implements IDisposable, IViewport {
+class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewport {
   /**
    * Constructor
    * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region

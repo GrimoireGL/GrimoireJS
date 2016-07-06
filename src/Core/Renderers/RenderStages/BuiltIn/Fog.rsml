@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage namespace="http://grimoire.gl/ns/recipe/stages" name="fog">
+    <stage name="jthree.basic.fog">
       <technique target="quad">
         <fbo primar="OUT">
           <color name="OUT" register="0" />

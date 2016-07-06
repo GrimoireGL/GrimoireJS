@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rsml>
-  <stage namespace="http://grimoire.gl/ns/recipe/stages" name="hitarea">
+  <stage name="jthree.basic.hitarea">
     <technique target="scene" materialGroup="jthree.materials.hitarea">
       <fbo>
         <rbo clearDepth="1.0" type="depth"/>

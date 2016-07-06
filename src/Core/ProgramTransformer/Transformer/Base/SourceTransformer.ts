@@ -1,17 +1,15 @@
 import IProgramTransform from "../../Base/IProgramTransform";
 import ProgramTransformer from "./ProgramTransformer";
-import Q from "q";
 
 class SourceTransformer extends ProgramTransformer {
-  constructor(sourceTransformer: (string) => Q.IPromise<string>) {
-    super(input => {
-      return sourceTransformer(input.transformSource).then<IProgramTransform>((trans) => {
-        return {
-          initialSource: input.initialSource,
-          transformSource: trans,
-          description: input.description
-        };
-      });
+  constructor(sourceTransformer: (string) => string) {
+    super((input) => {
+      let pt: IProgramTransform = {
+        initialSource: input.initialSource,
+        transformSource: sourceTransformer(input.transformSource),
+        description: input.description
+      };
+      return Promise.resolve(pt);
     });
   }
 }

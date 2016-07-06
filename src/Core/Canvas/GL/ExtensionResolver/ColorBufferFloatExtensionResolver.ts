@@ -1,10 +1,9 @@
-import NamedValue from "../../../../Base/NamedValue";
 import ExtensionResolverBase from "./ExtensionResolverBase";
 /**
 * The extension resolver for "WEBGL_color_buffer_float"
 */
 class ColorBufferFloatExtensionResolver extends ExtensionResolverBase {
-  public request(gl: WebGLRenderingContext): NamedValue<any> {
+  public request(gl: WebGLRenderingContext): { [key: string]: any; } {
     const isSupported = this._checkWebglColorBufferFloat(gl);
     if (isSupported) {
       return {};

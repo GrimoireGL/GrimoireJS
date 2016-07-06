@@ -1,20 +1,19 @@
-import NamedValue from "../../Base/NamedValue";
-import ITextureRecipe from "./Recipe/ITextureRecipe";
 import JThreeObjectEE from "../../Base/JThreeObjectEE";
-import PathRenderer from "./PathRenderer";
+import BasicRenderer from "./BasicRenderer";
+import GeneraterInfoChunk from "./TextureGeneraters/GeneraterInfoChunk";
 import TextureBase from "../Resources/Texture/TextureBase";
 import TextureGenerater from "./TextureGenerater";
 import IDisposable from "../../Base/IDisposable";
 /**
- * The class managing all buffer textures used for rendering in a PathRenderer.
+ * The class managing all buffer textures used for rendering in a BasicRenderer.
  */
 class BufferSet extends JThreeObjectEE implements IDisposable {
   /**
    * The color buffers managed by this class.
    */
-  private _colorBuffers: NamedValue<TextureBase> = {};
+  private _colorBuffers: { [key: string]: TextureBase } = {};
 
-  constructor(private _renderer: PathRenderer) {
+  constructor(private _renderer: BasicRenderer) {
     super();
   }
 
@@ -26,9 +25,9 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
 
   /**
    * Generate new buffer and append list.
-   * @param {ITextureRecipe} argument [description]
+   * @param {GeneraterInfoChunk} argument [description]
    */
-  public appendBuffer(argument: ITextureRecipe): void {
+  public appendBuffer(argument: GeneraterInfoChunk): void {
     if (this._colorBuffers[argument.name]) {
       console.error(`The color buffer ${argument.name} is already exist.`);
       return;
@@ -38,7 +37,7 @@ class BufferSet extends JThreeObjectEE implements IDisposable {
     }
   }
 
-  public appendBuffers(args: ITextureRecipe[]): void {
+  public appendBuffers(args: GeneraterInfoChunk[]): void {
     for (let i = 0; i < args.length; i++) {
       this.appendBuffer(args[i]);
     }

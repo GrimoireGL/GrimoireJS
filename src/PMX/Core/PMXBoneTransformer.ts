@@ -191,8 +191,8 @@ class PMXBoneTransformer extends Transformer {
 
   private _cCDIKOperation(it: number): void {
     const effectorTransformer = <PMXBoneTransformer> this._pmx.skeleton.getBoneByIndex(this.BoneData.ikTargetBoneIndex).Transformer;
-    const TargetGlobalPos = Matrix.transformPoint(this.localToGlobal, this.LocalOrigin);
-    // vec3.transformMat4(this._pmxCalcCacheVec, this.LocalOrigin.rawElements, this.localToGlobal.rawElements);
+    const TargetGlobalPos = Matrix.transformPoint(this.LocalToGlobal, this.LocalOrigin);
+    // vec3.transformMat4(this._pmxCalcCacheVec, this.LocalOrigin.rawElements, this.LocalToGlobal.rawElements);
     for (let i = 0; i < this.BoneData.ikLinkCount; i++) {
       const ikLinkData = this.BoneData.ikLinks[i];
       const ikLinkTransform = this._getIkLinkTransformerByIndex(i);
@@ -203,15 +203,15 @@ class PMXBoneTransformer extends Transformer {
   }
 
   private _getLink2Effector(link: PMXBoneTransformer, effector: PMXBoneTransformer): Vector3 {
-    const ToLinkLocal = Matrix.inverse(link.localToGlobal);
+    const ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
     const ep = effector.LocalOrigin;
-    const local2effectorLocal = Matrix.multiply(ToLinkLocal, effector.localToGlobal);
+    const local2effectorLocal = Matrix.multiply(ToLinkLocal, effector.LocalToGlobal);
     const effectorPos = Matrix.transformPoint(local2effectorLocal, ep);
     return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
   }
 
   private _getLink2Target(link: PMXBoneTransformer, tp: Vector3): Vector3 {
-    const ToLinkLocal = Matrix.inverse(link.localToGlobal);
+    const ToLinkLocal = Matrix.inverse(link.LocalToGlobal);
     const effectorPos = Matrix.transformPoint(ToLinkLocal, tp);
     return effectorPos.subtractWith(link.LocalOrigin).normalizeThis();
   }

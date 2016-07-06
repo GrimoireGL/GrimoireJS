@@ -1,12 +1,12 @@
 import HitAreaRenderStage from "../../Core/Renderers/RenderStages/HitAreaRenderStage";
-import PathRenderer from "../../Core/Renderers/PathRenderer";
+import BasicRenderer from "../../Core/Renderers/BasicRenderer";
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
 import EventOrganizer from "./EventOrgnizer";
 import J3Event from "./J3Event";
 import objectAssign from "object-assign";
 
 class EventBroadcaster {
-  private _eventTap: PathRenderer;
+  private _eventTap: BasicRenderer;
   private _eventListeners: {[key: string]: (() => void)} = {};
   private _hitAreaRenderStage: HitAreaRenderStage;
   private _isMouseDown: boolean = false;
@@ -20,7 +20,7 @@ class EventBroadcaster {
     this._eventListeners["mouse-up"] = this._mouseUpEvent.bind(this);
   }
 
-  public attachEvents(eventTap: PathRenderer): void {
+  public attachEvents(eventTap: BasicRenderer): void {
     this._eventTap = eventTap;
     Object.keys(this._eventListeners).forEach((k) => {
       this._eventTap.on(k, this._eventListeners[k]);
