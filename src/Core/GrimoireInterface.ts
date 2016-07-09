@@ -1,5 +1,4 @@
 import GOMLTree from "./Node/GOMLTree";
-import InterfaceMerger from "./Base/InterfaceMerger";
 import Constants from "./Base/Constants";
 import IDObject from "./Base/IDObject";
 import NamedValue from "./Base/NamedValue";
@@ -48,7 +47,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 }
 
 const GrimoireInterface = <IGrimoireInterface>function(selector: string): GOMLInterface {
-    return undefined; // TODO 
+    return undefined; // TODO
 };
 
 // merge function and baseobject

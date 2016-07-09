@@ -1,5 +1,3 @@
-import NamedValue from "./NamedValue";
-import NamespaceUtil from "./NamespaceUtil";
 /**
  * Provides safe xml read feature.
  */
@@ -77,8 +75,8 @@ class XMLReader {
         return result;
     }
 
-    public static getAttributes(elem: Document | Element, ns?: string): NamedValue<string> {
-        const result: NamedValue<string> = {};
+    public static getAttributes(elem: Document | Element, ns?: string): { [key: string]: string } {
+        const result: { [key: string]: string } = {};
         const attrs = elem.attributes;
         for (let i = 0; i < attrs.length; i++) {
             const attr = attrs.item(i);
@@ -90,7 +88,11 @@ class XMLReader {
     }
 
     public static getElementFQN(elem: Document | Element): string {
-        return NamespaceUtil.generateFQN(elem.namespaceURI, elem.localName);
+        return XMLReader.generateFQN(elem.namespaceURI, elem.localName);
+    }
+
+    public static generateFQN(ns: string, name: string): string {
+        return `{${ns}}${name}`;
     }
 }
 

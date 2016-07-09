@@ -25,8 +25,9 @@ class EEObject extends IDObject implements EventEmitter {
         }
         if (eventName !== "error") {
             this.emitException("error", error);
+        } else {
+            throw error;
         }
-        throw error;
     }
 
     constructor(id?: string) {
