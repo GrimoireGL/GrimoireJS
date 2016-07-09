@@ -1,7 +1,7 @@
 import CoreRelatedNodeBase from "../../CoreRelatedNodeBase";
 import Color4 from "../../../Math/Color4";
 import MaterialManager from "../../../Core/Materials/MaterialManager";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import BasicMaterial from "../../../Core/Materials/BasicMaterial";
 import ContextComponents from "../../../ContextComponents";
 import IVariableDescription from "../../../Core/ProgramTransformer/Base/IVariableDescription";
@@ -54,7 +54,7 @@ class MaterialNodeBase<T extends Material> extends CoreRelatedNodeBase<T> {
   }
 
   protected __getMaterialFromMatName(name: string): BasicMaterial {
-    return JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
+    return Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager).constructMaterial(name);
   }
 
   private _onNameAttrChanged(attr: GomlAttribute): void {

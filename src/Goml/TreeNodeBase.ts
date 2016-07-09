@@ -1,4 +1,4 @@
-import JThreeObjectEEWithID from "../Base/JThreeObjectEEWithID";
+import EEObject from "../Base/EEObject";
 import isNumber from "lodash.isnumber";
 
 /**
@@ -15,7 +15,7 @@ import isNumber from "lodash.isnumber";
  *
  * また`this.mount`はwillではfalse, didではtrueです。
  */
-class TreeNodeBase extends JThreeObjectEEWithID {
+class TreeNodeBase extends EEObject {
   /**
    * the parent node of this node
    */

@@ -1,8 +1,8 @@
 import IViewport from "./IViewport";
-import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import EEObject from "../../Base/EEObject";
 import IDisposable from "../../Base/IDisposable";
 import Rectangle from "../../Math/Rectangle";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import Debugger from "../../Debug/Debugger";
 import ContextComponents from "../../ContextComponents";
 /**
@@ -12,24 +12,7 @@ import ContextComponents from "../../ContextComponents";
  * キャンバス内の特定領域におけるマウスイベントを管理するためのクラス。
  * 主にキャンバス自身や、ビューポートを持つレンダラによる使用を想定されている。
  */
-class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewport {
-  /**
-   * Constructor
-   * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
-   */
-  constructor(canvasElement: HTMLCanvasElement) {
-    super();
-    this.canvasElement = canvasElement;
-    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
-    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
-    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
-    this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
-    this.name = this.id;
-  }
+class CanvasRegion extends EEObject implements IDisposable, IViewport {
 
   /**
    * The name for identifying this instance.
@@ -71,6 +54,24 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
   public mouseLocalX: number = 0;
 
   public mouseLocalY: number = 0;
+
+  /**
+   * Constructor
+   * @param  {HTMLCanvasElement} canvasElement the canvas element which contains this region
+   */
+  constructor(canvasElement: HTMLCanvasElement) {
+    super();
+    this.canvasElement = canvasElement;
+    this.canvasElement.addEventListener("mousemove", this._mouseMoveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseenter", this._mouseEnterHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseleave", this._mouseLeaveHandler.bind(this), false);
+    this.canvasElement.addEventListener("mousedown", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("mouseup", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchend", this._mouseUpHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchstart", this._mouseDownHandler.bind(this), false);
+    this.canvasElement.addEventListener("touchmove", this._mouseMoveHandler.bind(this), false);
+    this.name = this.id;
+  }
 
 
   /**
@@ -117,7 +118,7 @@ class CanvasRegion extends JThreeObjectEEWithID implements IDisposable, IViewpor
     const localPos = this.region.toLocal(this.mouseX, this.mouseY);
     this.mouseLocalX = localPos[0];
     this.mouseLocalY = localPos[1];
-    const debug = JThreeContext.getContextComponent<Debugger>(ContextComponents.Debugger);
+    const debug = Context.getContextComponent<Debugger>(ContextComponents.Debugger);
     debug.setInfo(`MouseState:${this.name}(${this.getTypeName() })`, {
       mouseOver: this.mouseOver,
       mousePositionX: this.mouseX,

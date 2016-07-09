@@ -1,26 +1,27 @@
+import NamedValue from "../../Base/NamedValue";
 import IDisposable from "../../Base/IDisposable";
-import JThreeObjectEEWithID from "../../Base/JThreeObjectEEWithID";
+import EEObject from "../../Base/EEObject";
 import Canvas from "../Canvas/Canvas";
 import {AbstractClassMethodCalledException} from "../../Exceptions";
 import CanvasListChangedEventArgs from "../Canvas/ICanvasListChangedEventArgs";
 import ResourceWrapper from "./ResourceWrapper";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import CanvasManager from "../Canvas/CanvasManager";
 import ContextComponents from "../../ContextComponents";
 /**
  * Provides context difference abstraction.
  */
-class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObjectEEWithID implements IDisposable {
+class ContextSafeResourceContainer<T extends ResourceWrapper> extends EEObject implements IDisposable {
 
   public name: string;
 
-  private _childWrapper: { [key: string]: T } = {};
+  private _childWrapper: NamedValue<T> = {};
 
   private _wrapperLength: number = 0;
 
   constructor() {
     super();
-    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     // Initialize resources for the renderers already subscribed.
     canvasManager.on("canvas-list-changed", this._rendererChanged.bind(this));
   }
@@ -56,7 +57,7 @@ class ContextSafeResourceContainer<T extends ResourceWrapper> extends JThreeObje
   }
 
   protected __initializeForFirst(): void {
-    const canvasManager = JThreeContext.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
+    const canvasManager = Context.getContextComponent<CanvasManager>(ContextComponents.CanvasManager);
     canvasManager.canvases.forEach((v) => {
       this._childWrapper[v.id] = this.__createWrapperForCanvas(v);
       this._wrapperLength++;

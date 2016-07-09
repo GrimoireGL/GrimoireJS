@@ -1,22 +1,22 @@
 import BasicGeometry from "./Base/BasicGeometry";
 import Vector3 from "../../Math/Vector3";
 import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ResourceManager from "../ResourceManager";
 class TriangleGeometry extends BasicGeometry {
+    private _first: Vector3 = new Vector3(0, 1, 0);
+    private _second: Vector3 = new Vector3(1, 0, 0);
+    private _third: Vector3 = new Vector3(-1, 0, 0);
+
     constructor(name: string) {
         super();
-        const rm = JThreeContext.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
+        const rm = Context.getContextComponent<ResourceManager>(ContextComponents.ResourceManager);
         this.indexBuffer = rm.createBuffer(name + "index", WebGLRenderingContext.ELEMENT_ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 1, WebGLRenderingContext.UNSIGNED_BYTE);
         this.positionBuffer = rm.createBuffer(name + "-pos", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.normalBuffer = rm.createBuffer(name + "-nor", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 3, WebGLRenderingContext.FLOAT);
         this.uvBuffer = rm.createBuffer(name + "-uv", WebGLRenderingContext.ARRAY_BUFFER, WebGLRenderingContext.STATIC_DRAW, 2, WebGLRenderingContext.FLOAT);
         this.__updateBuffers();
     }
-
-    private _first: Vector3 = new Vector3(0, 1, 0);
-    private _second: Vector3 = new Vector3(1, 0, 0);
-    private _third: Vector3 = new Vector3(-1, 0, 0);
 
     public set First(vec: Vector3) {
         this._first = vec;

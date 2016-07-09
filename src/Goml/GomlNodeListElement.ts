@@ -1,10 +1,10 @@
 import GomlTreeNodeBase from "./GomlTreeNodeBase";
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 
 /**
  * GomlNodeをグループとしてまとめて管理します
  */
-class GomlNodeListElement extends JThreeObject {
+class GomlNodeListElement extends IDObject {
   private _group: string;
 
   private _nodeTypes: { [key: string]: new () => GomlTreeNodeBase };

@@ -1,27 +1,26 @@
-# jThree
+# GrimoireJS -- A service-oriented Web3D framework.
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
-[![Circle CI](https://circleci.com/gh/jThreeJS/jThree.svg?style=svg)](https://circleci.com/gh/jThreeJS/jThree)
+[![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
+[![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/GrimoireGL/GrimoireJS?branch=develop&svg=true)](https://ci.appveyor.com/project/LimeStreem/jthree)
+
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
-[![Dependency Status](https://david-dm.org/jThreeJS/jThree.svg)](https://david-dm.org/jThreeJS/jThree)
-[![devDependency Status](https://david-dm.org/jThreeJS/jThree/dev-status.svg)](https://david-dm.org/jThreeJS/jThree#info=devDependencies)
+[![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
+[![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
 
-**CI system has been moved to CircleCI from travisCI.**
+## About
 
-**travisCI build log is available here https://travis-ci.org/jThreeJS/jThree for a while**
+### Mission
 
-## What is jThree?
+**Establish usage of 3DCG as assets over the web like text,image,video and so on.**
 
-jThree is an innovative 3D graphics engine. It may seem to be just a javascript library.
-However, jThree will enable browser to use most of the feature as other game engines do in local environment, plugins features,hierarchies,templates,module systems.
+This is the one and only mission we define.
 
+### Our methods
 
-### Purposes
-
-* Provide a good learning resource for the beginners to know how programming is awesome via this library.
-* Sharing features that will be achieved easily by this library implemented with javascript.
-* Redefine legacies of 3DCG technologies on the Internet.
-* Have Enjoyable contributions :heart:
-
+* Make every developer being able to focus in the most important task they want to do.
+* Redefine the value of 3DCG over the web.
+* Fully care about UX for contributors.
+* This is not game engine, but **Web3D service engine**
 
 ### Dependencies
 
@@ -30,12 +29,6 @@ This library depends on the following libraries. We appreciate these contributor
 |Name|Purpose|URL|Memo|
 |:-:|:-:|:-:|:-:|
 |gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
-
-
-## Contributions
-
-Thank you for your interest in contributions!   :kissing_smiling_eyes:
-
 
 ### Installation to build
 

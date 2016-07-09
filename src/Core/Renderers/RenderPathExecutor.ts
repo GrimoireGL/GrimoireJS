@@ -1,7 +1,7 @@
-import IRenderer from "./IRenderer";
+import PathRenderer from "./PathRenderer";
 import RenderStageBase from "./RenderStages/RenderStageBase";
 import PrimitiveRegistory from "../Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import RenderStageChain from "./RenderStageChain";
 import SceneObject from "../SceneObjects/SceneObject";
@@ -16,7 +16,7 @@ import IRenderObjectCompletedEventArgs from "./IRenderObjectCompletedEventArgs";
  * @type {[type]}
  */
 class RenderPathExecutor {
-  public static processRender(renderer: IRenderer, scene: Scene): void {
+  public static processRender(renderer: PathRenderer, scene: Scene): void {
     let stageIndex = 0;
     renderer.renderPath.path.forEach(chain => {
       const stage = chain.stage;
@@ -27,7 +27,7 @@ class RenderPathExecutor {
         if (stage.getTarget(techniqueIndex) === "scene") {
           targetObjects = scene.children;
         } else {
-          const pr = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
+          const pr = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
           const geometry = pr.getPrimitive(stage.getTarget(techniqueIndex));
           if (!geometry) {
             console.error(`Unknown primitive ${stage.getTarget(techniqueIndex) } was specified!`);
@@ -55,7 +55,7 @@ class RenderPathExecutor {
     });
   }
 
-  private static _renderObjects(renderer: IRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
+  private static _renderObjects(renderer: PathRenderer, targetObjects: SceneObject[], stage: RenderStageBase, scene: Scene, techniqueCount: number, techniqueIndex: number, chain: RenderStageChain): void {
     targetObjects.forEach(v => {
       v.callRecursive(_v => {
         if (_v.Geometry) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <rsml>
-    <stage name="jthree.basic.gaussian">
+    <stage namespace="http://grimoire.gl/ns/recipe/stages" name="gaussian">
       <technique target="quad">
         <fbo>
           <color name="BUF" register="0" />

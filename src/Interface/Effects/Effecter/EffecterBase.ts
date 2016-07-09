@@ -1,7 +1,7 @@
-import JThreeObjectWithID from "../../../Base/JThreeObjectWithID";
+import IDObject from "../../../Base/IDObject";
 import EasingFunctionBase from "../Easing/EasingFunctionBase";
 
-abstract class EffecterBase<T> extends JThreeObjectWithID {
+abstract class EffecterBase<T> extends IDObject {
   public appeared: boolean = true;
 
   protected __duration: number;

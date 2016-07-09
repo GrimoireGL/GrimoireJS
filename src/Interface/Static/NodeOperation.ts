@@ -1,11 +1,11 @@
 import GomlTreeNodeBase from "../../Goml/GomlTreeNodeBase";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import ContextComponents from "../../ContextComponents";
 import NodeManager from "../../Goml/NodeManager";
 
 class NodeOperation {
   public static insert(targets: GomlTreeNodeBase[], contents: GomlTreeNodeBase[], indexFunc?: (target: GomlTreeNodeBase, index: number) => number): void {
-    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    const nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     targets.forEach((target, i) => {
       let nodeOpMethod = nodeManager.insertNode;
       if (i === targets.length) {
@@ -19,7 +19,7 @@ class NodeOperation {
   }
 
   public static remove(targets: GomlTreeNodeBase[]): void {
-    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    const nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     targets.forEach((target, i) => {
       nodeManager.removeNode(target);
     });
@@ -29,7 +29,7 @@ class NodeOperation {
     if (deepWithEvents) {
       withEvents = true;
     }
-    const nodeManager = JThreeContext.getContextComponent<NodeManager>(ContextComponents.NodeManager);
+    const nodeManager = Context.getContextComponent<NodeManager>(ContextComponents.NodeManager);
     return targets.map((target) => {
       return nodeManager.cloneNode(target, withEvents, deepWithEvents);
     });

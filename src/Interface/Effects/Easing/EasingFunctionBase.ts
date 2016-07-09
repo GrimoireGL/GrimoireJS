@@ -1,6 +1,6 @@
-import JThreeObject from "../../../Base/JThreeObject";
+import IDObject from "../../../Base/IDObject";
 
-class EasingFunctionBase extends JThreeObject {
+class EasingFunctionBase extends IDObject {
   public ease(begin: number, end: number, progress: number): number {
     return null;
   }

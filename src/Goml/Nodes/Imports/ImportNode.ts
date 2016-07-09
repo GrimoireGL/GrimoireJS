@@ -1,7 +1,7 @@
 import GomlTreeNodeBase from "../../GomlTreeNodeBase";
 import MaterialManager from "../../../Core/Materials/MaterialManager";
 import ContextComponents from "../../../ContextComponents";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 import GomlAttribute from "../../GomlAttribute";
 
 class ImportNode extends GomlTreeNodeBase {
@@ -21,9 +21,14 @@ class ImportNode extends GomlTreeNodeBase {
         value: undefined,
         converter: "string",
         onchanged: this._onSrcAttrChanged.bind(this),
-      }
+      },
+      "src-selector": {
+        value: undefined,
+        converter: "string",
+        onchanged: this._onSrcSelectorAttrChanged.bind(this),
+      },
     });
-    this._materialManager = JThreeContext.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
+    this._materialManager = Context.getContextComponent<MaterialManager>(ContextComponents.MaterialManager);
   }
 
 
@@ -50,24 +55,30 @@ class ImportNode extends GomlTreeNodeBase {
       }
     }
     if (this._type) {
-      this._getImport(path, attr.done.bind(attr));
+      if (path) {
+        this._getImportAjax(path, attr.done.bind(attr));
+      } else if (this.attributes.getAttribute("src-selector").Value) {
+        attr.done();
+      } else {
+        throw new Error("src of import is required");
+      }
     }
   }
 
-  private _getImport(path: string, done: () => void): void {
+  private _onSrcSelectorAttrChanged(attr: GomlAttribute): void {
+    if (attr.Value) {
+      this._getImportSelector(attr.Value);
+    }
+    attr.done();
+  }
+
+  private _getImportAjax(path: string, done: () => void): void {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", path, true);
     xhr.setRequestHeader("Accept", "text");
     xhr.onload = () => {
       if (xhr.status === 200) {
-        let exportName = null;
-        switch (this._type) {
-          case "material":
-            const matName = this._materialManager.registerMaterial(xhr.responseText);
-            exportName = `material-${matName}`;
-            break;
-        }
-        this.nodeExport(exportName);
+        this._attachImport(xhr.responseText);
       }
       done();
     };
@@ -76,6 +87,27 @@ class ImportNode extends GomlTreeNodeBase {
       done();
     };
     xhr.send(null);
+  }
+
+  private _getImportSelector(selector: string): void {
+    const scriptTag = document.querySelector(selector);
+    for (let i = 0; i + 1 <= scriptTag.childNodes.length; i++) {
+      const importElement = scriptTag.childNodes[i];
+      if (importElement.nodeType === 3) {
+        this._attachImport(importElement.nodeValue);
+      }
+    }
+  }
+
+  private _attachImport(src: string): void {
+    let exportName = null;
+    switch (this._type) {
+      case "material":
+        const matName = this._materialManager.registerMaterial(src);
+        exportName = `material-${matName}`;
+        break;
+    }
+    this.nodeExport(exportName);
   }
 }
 

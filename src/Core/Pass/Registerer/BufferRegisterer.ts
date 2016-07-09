@@ -1,3 +1,4 @@
+import NamedValue from "../../../Base/NamedValue";
 import TextureBase from "../../Resources/Texture/TextureBase";
 import RBO from "../../Resources/RBO/RBO";
 import RegistererBase from "./RegistererBase";
@@ -10,7 +11,7 @@ class BufferRegitserer extends RegistererBase {
     return "builtin.buffer";
   }
 
-  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: { [key: string]: IVariableDescription }): void {
+  public register(gl: WebGLRenderingContext, pWrapper: ProgramWrapper, matArg: IApplyMaterialArgument, uniforms: NamedValue<IVariableDescription>): void {
     for (let variableName in uniforms) {
       const uniform = uniforms[variableName];
       if (variableName[0] !== "_" || uniform.variableType !== "sampler2D") { continue; }

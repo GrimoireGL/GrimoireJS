@@ -7,25 +7,24 @@ import SceneObject from "../../Core/SceneObjects/SceneObject";
 import Q from "q";
 class XModel extends SceneObject {
 
-  private _modelData: XFileData;
+    private _modelData: XFileData;
 
-  constructor(modelData: XFileData) {
-    super();
-    this._modelData = modelData;
-    this.Geometry = new XGeometry(modelData);
-    this._modelData.materials.forEach((material) => {
-      this.addMaterial(new XMaterial(material));
-      this.addMaterial(new HitAreaMaterial());
-      this.addMaterial(new XPrimaryMaterial(material));
-    });
-  }
+    public static fromUrl(src: string): Q.IPromise<XModel> {
+        return XFileData.loadFile(src).then(data => {
+            return new XModel(data);
+        });
+    }
 
-  public static fromUrl(src: string): Q.IPromise<XModel> {
-    return XFileData.loadFile(src).then(data => {
-      return new XModel(data);
-    });
-  }
-
+    constructor(modelData: XFileData) {
+        super();
+        this._modelData = modelData;
+        this.Geometry = new XGeometry(modelData);
+        this._modelData.materials.forEach((material) => {
+            this.addMaterial(new XMaterial(material));
+            this.addMaterial(new HitAreaMaterial());
+            this.addMaterial(new XPrimaryMaterial(material));
+        });
+    }
 }
 
 export default XModel;

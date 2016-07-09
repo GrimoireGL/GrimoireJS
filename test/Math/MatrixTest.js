@@ -1,9 +1,9 @@
 import test from 'ava';
 
-import Matrix from '../../lib/Math/Matrix';
-import Vector3 from '../../lib/Math/Vector3';
-import Vector4 from '../../lib/Math/Vector4';
-import Quaternion from '../../lib/Math/Quaternion';
+import Matrix from '../../lib-es5/Math/Matrix';
+import Vector3 from '../../lib-es5/Math/Vector3';
+import Vector4 from '../../lib-es5/Math/Vector4';
+import Quaternion from '../../lib-es5/Math/Quaternion';
 
 test('zero', (t) => {
   t.ok(Matrix.equals(

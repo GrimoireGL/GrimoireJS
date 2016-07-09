@@ -1,14 +1,15 @@
+import NamedValue from "../../Base/NamedValue";
 import ResourceLoader from "../ResourceLoader";
 import ContextComponents from "../../ContextComponents";
-import JThreeContext from "../../JThreeContext";
+import Context from "../../Context";
 import Q from "q";
 abstract class CacheResolver<T> {
 
-  private _isLoading: { [name: string]: boolean } = {};
+  private _isLoading: NamedValue<boolean> = {};
 
-  private _loadedResource: { [name: string]: T } = {};
+  private _loadedResource: NamedValue<T> = {};
 
-  private _loadingPromise: { [name: string]: Q.IPromise<T> } = {};
+  private _loadingPromise: NamedValue<Q.IPromise<T>> = {};
 
   // public static getAbsolutePath(relative: string): string {
   //   const aElem = document.createElement("a");
@@ -38,7 +39,7 @@ abstract class CacheResolver<T> {
     if (this._isLoading[identity] === true) {
       return this._loadingPromise[identity];
     } else {
-      const loader = JThreeContext.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
+      const loader = Context.getContextComponent<ResourceLoader>(ContextComponents.ResourceLoader);
       const deferred = loader.getResourceLoadingDeffered<T>();
       if (this._isLoading[identity] === false) {
         process.nextTick(() => {

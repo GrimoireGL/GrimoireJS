@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import Vector4 from '../../lib/Math/Vector4';
+import Vector4 from '../../lib-es5/Math/Vector4';
 
 const BLOCK = 'Vector4';
 

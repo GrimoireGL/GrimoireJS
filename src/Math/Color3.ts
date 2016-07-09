@@ -7,11 +7,6 @@ class Color3 extends VectorBase {
 
   public static colorTable: { [key: string]: string } = require("../static/color.json");
 
-  constructor(r: number, g: number, b: number) {
-    super();
-    this.rawElements = [r, g, b];
-  }
-
   public static fromColor4(col: Color4): Color3 {
     return new Color3(col.R, col.G, col.B);
   }
@@ -63,6 +58,11 @@ class Color3 extends VectorBase {
 
   public static equals(col1: Color3, col2: Color3): boolean {
     return VectorBase.__elementEquals(col1, col2);
+  }
+
+  constructor(r: number, g: number, b: number) {
+    super();
+    this.rawElements = [r, g, b];
   }
 
   public toVector(): Vector3 {

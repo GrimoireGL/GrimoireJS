@@ -1,16 +1,17 @@
+import NamedValue from "../../Base/NamedValue";
 import IXMMLPassDescription from "../Materials/Parser/IXMMLPassDescription";
 import IDisposable from "../../Base/IDisposable";
 import BasicRegisterer from "./Registerer/BasicRegisterer";
 import IConfigureEventArgs from "../IConfigureEventArgs";
-import JThreeObjectWithID from "../../Base/JThreeObjectWithID";
+import IDObject from "../../Base/IDObject";
 import IRenderStageRenderConfigure from "../Renderers/RenderStages/IRenderStageRendererConfigure";
 import Material from "../Materials/Material";
 import IApplyMaterialArgument from "../Materials/IApplyMaterialArgument";
 import XMLRenderConfigUtility from "./XMLRenderConfigUtility";
-class MaterialPass extends JThreeObjectWithID implements IDisposable {
+class MaterialPass extends IDObject implements IDisposable {
   public passDescription: IXMMLPassDescription;
 
-  private _renderConfigureCache: { [id: string]: IRenderStageRenderConfigure } = {};
+  private _renderConfigureCache: NamedValue<IRenderStageRenderConfigure> = {};
 
   private _material: Material;
 
@@ -24,7 +25,7 @@ class MaterialPass extends JThreeObjectWithID implements IDisposable {
     return;
   }
 
-  public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material, shaderVariables: { [name: string]: any }): void {
+  public apply(matArg: IApplyMaterialArgument, uniformRegisters: BasicRegisterer[], material: Material, shaderVariables: NamedValue<any>): void {
     const gl = matArg.renderStage.gl;
     const pWrapper = this.passDescription.program.getForGL(gl);
     const renderConfig = this._fetchRenderConfigure(matArg);

@@ -124,6 +124,7 @@ ci/
 
 ##Build Outputs##
 bin/
+product/**/*
 lib/
 src/**/*.js.map
 src/**/*.js
@@ -133,10 +134,11 @@ wwwroot/debug/j3-debug.js
 wwwroot/debug/j3-debug.js.map
 wwwroot/debug/debug/**/*.*
 wwwroot/debug/debug.json
-
+wwwroot/
 lint.txt
 
 .nyc_output/
 
 lib-es6/
+lib-es5/
 test-es5/

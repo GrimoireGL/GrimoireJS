@@ -3,7 +3,7 @@ import Geometry from "../../../Core/Geometries/Base/Geometry";
 import GomlAttribute from "../../GomlAttribute";
 import ContextComponents from "../../../ContextComponents";
 import PrimitiveRegistory from "../../../Core/Geometries/Base/PrimitiveRegistory";
-import JThreeContext from "../../../JThreeContext";
+import Context from "../../../Context";
 /**
 * Base class for managing geometry node.
 */
@@ -12,7 +12,7 @@ abstract class GeometryNodeBase<T extends Geometry> extends CoreRelatedNodeBase<
 
   private _name: string;
 
-  private _primitiveRegistory: PrimitiveRegistory = JThreeContext.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
+  private _primitiveRegistory: PrimitiveRegistory = Context.getContextComponent<PrimitiveRegistory>(ContextComponents.PrimitiveRegistory);
 
   constructor() {
     super();

@@ -1,4 +1,4 @@
-import JThreeObject from "../Base/JThreeObject";
+import IDObject from "../Base/IDObject";
 import Vector3 from "./Vector3";
 import {GLM, vec3, quat} from "gl-matrix";
 import Matrix from "./Matrix";
@@ -11,17 +11,9 @@ import Matrix from "./Matrix";
 * (w;x,y,z) means w*1+x*i+y*j+z*k
 *
 */
-class Quaternion extends JThreeObject {
+class Quaternion extends IDObject {
 
   public rawElements: GLM.IArray;
-
-  /**
-  * Constructor by specifing each elements.
-  */
-  constructor(rawElements: GLM.IArray) {
-    super();
-    this.rawElements = rawElements;
-  }
 
   public static equals(q1: Quaternion, q2: Quaternion): boolean {
     for (let i = 0; i < 4; i++) {
@@ -129,6 +121,14 @@ class Quaternion extends JThreeObject {
 
   public static get Identity(): Quaternion {
     return new Quaternion(quat.create());
+  }
+
+  /**
+  * Constructor by specifing each elements.
+  */
+  constructor(rawElements: GLM.IArray) {
+    super();
+    this.rawElements = rawElements;
   }
 
   public get eularAngles() {

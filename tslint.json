@@ -1,5 +1,5 @@
 {
-  "rulesDirectory":["lint/rules/"],
+  "rulesDirectory":["./lint/rules/"],
   "rules": {
     "class-name": true,
     "comment-format": [true, "check-space"],
