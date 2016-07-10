@@ -7,6 +7,11 @@ class DummyComponent extends ComponentBase {
     return [a];
   }
 
+  public get OptionalAttributes(): GomlAttribute[] {
+    let a = new GomlAttribute("optional1", 999);
+    return [a];
+  }
+
   public dummyMethod(arg: string): void {
     // this is dymmy method for testing broadcastMessage.
   }
