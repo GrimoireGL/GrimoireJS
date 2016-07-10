@@ -1,0 +1,285 @@
+import ComponentBase from "./ComponentBase";
+import GomlAttribute from "./GomlAttribute";
+import IDObject from "../Base/IDObject";
+// import {EventEmitter} from "events";
+
+class GomlNode extends IDObject {
+  public children: GomlNode[];
+  public components: ComponentBase[];
+  public attributes: { [key: string]: GomlAttribute };
+
+  private _nodeName: string;
+  private _parent: GomlNode;
+  private _mounted: boolean = false;
+
+  public get nodeName(): string {
+    return this._nodeName;
+  }
+
+  public get parent(): GomlNode {
+    return this._parent;
+  }
+
+  public get Mounted(): boolean {
+    return this._mounted;
+  }
+
+
+  constructor(name: string, components: ComponentBase[]) {
+      super();
+      this._nodeName = name;
+      this.components = components;
+  }
+
+
+  public sendMessage(message: string, ...args: any[]): void {
+    for (let component in this.components) {
+      let method = component[message];
+      if (typeof method === "function") {
+        method(args);
+      }
+    }
+  }
+  public broadcastMessage(name: string, ...args: any[]): void {
+    this.sendMessage(name, args);
+    for (let i = 0; i < this.children.length; i++) {
+      this.children[i].broadcastMessage(name, args);
+    }
+  }
+
+  /**
+* Add child to this node
+* @param {TreeNodeBase} child Target node to be inserted
+* @param {number}       index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
+*/
+  public addChild(child: GomlNode, index?: number): void {
+    child._parent = this;
+    if (index === undefined) {
+      index = null;
+    }
+    const insertIndex = index == null ? this.children.length : index;
+    this.children.splice(insertIndex, 0, child);
+    if (this.Mounted) {
+      child._setMounted(true);
+      this._onChildAdded(child);
+    }
+  }
+  /**
+  * remove child of this node
+  * @param  {TreeNodeBase} child
+  */
+public removeChild(child: GomlNode): void {
+  for (let i = 0; i < this.children.length; i++) {
+    let v = this.children[i];
+    if (v === child) {
+      child._parent = null;
+      this.children.splice(i, 1);
+      if (this.Mounted) {
+        child._setMounted(false);
+        this._onChildRemoved(child);
+      }
+      // TODO: events after-treatment
+      child = null;
+      break;
+    }
+  }
+}
+
+/**
+ * remove myself
+ */
+public remove(): void {
+  if (this.parent) {
+    this.parent.removeChild(this);
+  } else {
+    throw new Error("root Node cannot be removed.");
+  }
+}
+
+  public forEachAttr(callbackfn: (value: GomlAttribute, key: string) => void): GomlNode {
+    Object.keys(this.attributes).forEach((k) => {
+      let v = this.attributes[k];
+      callbackfn(v, k);
+    }, this);
+    return this;
+  }
+
+  public getValue(attrName: string): any {
+    const attr = this.attributes[attrName];
+    if (attr === undefined) {
+      console.warn(`attribute "${attrName}" is not found.`);
+    } else {
+      return attr.Value;
+    }
+  }
+
+  public getValueStr(attrName: string): string {
+    const attr = this.attributes[attrName];
+    if (attr === undefined) {
+      console.warn(`attribute "${attrName}" is not found.`);
+    } else {
+      return attr.ValueStr;
+    }
+  }
+
+  public setValue(attrName: string, value: any): void {
+    const attr = this.attributes[attrName];
+    if (attr === undefined) {
+      console.warn(`attribute "${attrName}" is not found.`);
+    } else {
+      if (attr.constant) {
+        console.error(`attribute: ${attrName} is constant attribute`);
+        return;
+      }
+      attr.Value = value;
+    }
+  }
+
+  public getAttribute(attrName: string): GomlAttribute {
+    return this.attributes[attrName];
+  }
+
+  /**
+   * Check the attribute passed is defined or not.
+   */
+  public isDefined(attrName: string): boolean {
+    return this.attributes[attrName] !== undefined;
+  }
+
+  /**
+   * Define attributes to the node.
+   *
+   * This method must not be called outside of Node classes.
+   * If you define already defined attribute, it will be replaced.
+   */
+  // public defineAttribute(attributes: {[key:string]:GomlAttribute}): void {
+  //     // console.log("attributes_declaration", attributes);
+  //     for (let key in attributes) {
+  //         const attribute = attributes[key];
+  //         const converter = attribute.Converter;
+  //         const existed_attribute = this.getAttribute(key);
+  //         let gomlAttribute: GomlAttribute = null;
+  //         if (existed_attribute && existed_attribute.reserved) {
+  //             // console.log("define_attribute(override)", key, attribute, this.node.getTypeName());
+  //             gomlAttribute = existed_attribute;
+  //             gomlAttribute.Converter = converter;
+  //             gomlAttribute.constant = attribute.constant;
+  //             gomlAttribute.Value = gomlAttribute.ValueStr;
+  //             gomlAttribute.reserved = false;
+  //             gomlAttribute.on("changed", attribute.onchanged.bind(this._node));
+  //         } else {
+  //             gomlAttribute = new GomlAttribute(key, attribute.value, converter, attribute.reserved, attribute.constant);
+  //             if (attribute.reserved) {
+  //                 // console.log("define_attribute(temp)", key, attribute, this.node.getTypeName());
+  //             } else {
+  //                 // console.log("define_attribute", key, attribute, this.node.getTypeName());
+  //                 if (attribute.onchanged) {
+  //                     gomlAttribute.on("changed", attribute.onchanged.bind(this._node));
+  //                 } else {
+  //                     console.warn(`attribute "${key}" does not have onchange event handler. this causes lack of attribute's consistency.`);
+  //                 }
+  //             }
+  //             this._attributes[key] = gomlAttribute;
+  //         }
+  //         if (this._node.Mounted && !gomlAttribute.reserved) {
+  //             gomlAttribute.notifyValueChanged();
+  //         }
+  //     }
+  // }
+
+  /**
+   * Reserve attribute for define.
+   *
+   * This method could be called from outside of Node classes.
+   */
+  // public reserveAttribute(name: string, value: any): GomlAttribute {
+  //     const attribute: AttributeDeclaration = { [name]: { value, reserved: true } };
+  //     this.defineAttribute(attribute);
+  //     return this.getAttribute(name);
+  // }
+
+  /**
+   * Emit change events to all attributes
+   */
+  public emitChangeAll(): void {
+    Object.keys(this.attributes).forEach((k) => {
+      let v = this.attributes[k];
+      if (typeof v.Value !== "undefined") {
+        v.notifyValueChanged();
+      }
+    });
+  }
+
+  public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
+    if (typeof attrName === "undefined") {
+      Object.keys(this.attributes).forEach((k) => {
+        let v = this.attributes[k];
+        v.notifyValueChanged();
+      });
+    } else {
+      const target = this.attributes[attrName];
+      target.notifyValueChanged();
+    }
+  }
+
+  /**
+   * This method is called when child is added
+   * This method should be overridden.
+   */
+  private _onChildAdded(child: GomlNode): void {
+    // this.emit("child-added", child); TODO:イベントエミッタ実装
+  };
+
+  /**
+   * This method is called when child is removed
+   * This method should be overridden.
+   */
+  private _onChildRemoved(child: GomlNode): void {
+    // this.emit("child-removed", child);
+  };
+
+  /**
+   * This method is called when this node is mounted to available tree.
+   * If you change attribute here, no events are fired.
+   * This method should be overridden.
+   */
+  private _onMount(): void {
+    this._mounted = true;
+    // this.emit("on-mount");
+    this.children.forEach((child) => {
+      child._onMount();
+    });
+    // this.emit("node-mount-process-finished", this._mounted); // this will be move ??
+  };
+
+  /**
+   * This method is called when this node is unmounted from available tree.
+   * You can still access parent.
+   * This method should be overridden.
+   */
+  private _onUnmount(): void {
+    // this.emit("on-unmount");
+    this.children.forEach((child) => {
+      child._onUnmount();
+    });
+    this._mounted = false;
+    // this.emit("node-unmount-process-finished", this._mounted); // this will be move
+    return;
+  };
+
+  private _setMounted(mounted: boolean): void {
+    if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
+      if (mounted) {
+        this._onMount();
+      } else {
+        this._onUnmount();
+      }
+    }
+  }
+
+
+
+}
+
+
+export default GomlNode;
