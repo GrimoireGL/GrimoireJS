@@ -21,21 +21,22 @@ class GomlAttribute extends EEObject {
     /**
      * The cache value for attribute.
      */
-    protected __value: any;
+    private __value: any;
 
     /**
      * Reference to converter class that will manage to parse,cast to string and animation.
      */
-    protected __converter: AttributeConverter;
+    private __converter: AttributeConverter;
 
     private _name: string;
+    private _defaultValue: any;
 
-    constructor(name: string, value: any, converter?: AttributeConverter, constant?: boolean) {
+    constructor(name: string, defaultValue?: any, converter?: AttributeConverter, constant?: boolean) {
         super(name);
         this._name = name;
         this.constant = constant !== undefined ? constant : false;
         this.Converter = converter;
-        this.Value = value;
+        this._defaultValue = defaultValue;
     }
     /**
      * Attributeが初期化されていることを示すinitializedのフラグを建て、attributeが更新された際のeventが有効になるようにします。
@@ -60,6 +61,10 @@ class GomlAttribute extends EEObject {
 
     public get Value(): any {
         return this.__value;
+    }
+
+    public get DefaultValue(): any {
+      return this._defaultValue;
     }
 
     public get ValueStr(): string {
