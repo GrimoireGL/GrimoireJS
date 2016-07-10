@@ -8,13 +8,13 @@ class GomlNodeRecipe extends NodeRecipe {
     return "basic"; // ??
   }
   public get RequiredComponents(): string[] {
-    return ["LoopManager"]; // ??
+    return ["DummyComponent"]; // ??
   }
   public get RequiredComponentsForChildren(): string[] {
     return ["Transform"]; // ??
   }
   public get DefaultAttributes(): {[key: string]: any} {
-    return {};
+    return {"name1": 100}; // ??
   }
 }
 
