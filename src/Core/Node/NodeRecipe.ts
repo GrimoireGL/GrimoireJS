@@ -10,7 +10,7 @@ abstract class NodeRecipe {
   public createNode(): GomlNode {
     const configurator = GomlConfigurator.Instance;
     let components = this.RequiredComponents.map((name) => configurator.getComponent(name));
-    let node = new GomlNode(this.Name, components);
+    let node = new GomlNode(this, components);
     return node;
   }
 }

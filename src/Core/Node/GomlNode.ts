@@ -1,6 +1,7 @@
 import ComponentBase from "./ComponentBase";
 import GomlAttribute from "./GomlAttribute";
 import IDObject from "../Base/IDObject";
+import NodeRecipe from "./NodeRecipe";
 // import {EventEmitter} from "events";
 
 class GomlNode extends IDObject {
@@ -11,6 +12,7 @@ class GomlNode extends IDObject {
   private _nodeName: string;
   private _parent: GomlNode;
   private _mounted: boolean = false;
+  private _nodeRecipe: NodeRecipe;
 
   public get nodeName(): string {
     return this._nodeName;
@@ -23,11 +25,15 @@ class GomlNode extends IDObject {
   public get Mounted(): boolean {
     return this._mounted;
   }
+  public get Recipe(): NodeRecipe {
+    return this._nodeRecipe;
+  }
 
 
-  constructor(name: string, components: ComponentBase[]) {
+  constructor(recipe: NodeRecipe, components: ComponentBase[]) {
       super();
-      this._nodeName = name;
+      this._nodeName = recipe.Name;
+      this._nodeRecipe = recipe;
       this.components = components;
   }
 
