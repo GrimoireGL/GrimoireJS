@@ -11,8 +11,8 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: HTMLElement): GomlNode {
-    const newNode = GomlParser._createNode(source);
+  public static parse(source: HTMLElement, inheritedRequiredConponents?: string[]): GomlNode {
+    const newNode = GomlParser._createNode(source, inheritedRequiredConponents);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
       const children = source.childNodes;
@@ -21,14 +21,23 @@ class GomlParser {
           if (children[i].nodeType !== 1) {
             continue;
           }
-          // generate instances for every children nodes
           const e = <HTMLElement>children[i];
-          // TODO: childrenの中からcomponentsを探してコンポーネントとしてパース。
+
+          // check <node.components>
           if (e.tagName === newNode.nodeName + ".components") { // TODO: 判定条件あってる？
             GomlParser._parseComponents(newNode, e);
             continue;
           }
-          const newChildNode = GomlParser.parse(e);
+
+          // parse child node.
+          let rcForChild = newNode.Recipe.RequiredComponentsForChildren;
+          if (!!inheritedRequiredConponents && inheritedRequiredConponents !== null) {
+            rcForChild = rcForChild.concat(inheritedRequiredConponents);
+
+            // remove　overLap
+            rcForChild = rcForChild.filter((x, i, self) => self.indexOf(x) === i);
+          }
+          const newChildNode = GomlParser.parse(e, rcForChild);
           if (newChildNode) {
             newNode.addChild(newChildNode);
           }
@@ -45,42 +54,32 @@ class GomlParser {
 
   /**
    * GomlNodeの生成、初期化を行います。
-   *
-   * GomlNodeの生成のライフサイクルを定義しています。
    * @param  {HTMLElement}      elem         [description]
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: HTMLElement): GomlNode {
-    // console.log("START");
+  private static _createNode(elem: HTMLElement, inheritedRequiredConponents?: string[]): GomlNode {
     const tagName = elem.tagName;
-    // console.log(`createNode: ${tagName}`);
-    const nodeType = GomlConfigurator.Instance.getGomlNode(tagName);
-    /**
-     * インスタンス生成
-     * それぞれのGomlNodeのattributeの定義、attribute更新時のイベント、child, parent更新時のイベントの定義
-     */
-    if (nodeType === undefined) {
+    const recipe = GomlConfigurator.Instance.getGomlNode(tagName);
+    if (recipe === undefined) {
       throw new Error(`Tag ${tagName} is not found.`);
-      // Process is cut off here.
-      // This will be deal by pass or create mock instance.
     }
-    const newNode = nodeType.createNode();
+    const defaultValues = recipe.DefaultAttributes;
+    const newNode = recipe.createNode(inheritedRequiredConponents);
+
     /**
      * HTMLElementのattributeとのバインディング
      *
      * Nodeの必須Attributes一覧を取得し、HTMLElementに存在しなければ追加。
-     * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。なかった場合にはreserveする。
+     * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。
      */
-    // console.log(elem.outerHTML);
     newNode.forEachAttr((attr, key) => {
-      if (!this._parseGomlAttribute(attr, elem)) {
+      if (!this._parseGomlAttribute(attr, elem, defaultValues[attr.Name])) {
         throw new Error("'${attrName}' is RequiredAttribute. but value is not assigned.");
       }
     });
     // newNode.props.setProp<HTMLElement>("elem", elem);
     elem.setAttribute("x-j3-id", newNode.id); // TODO:rename!!
-    // console.log("END");
     return newNode;
   }
   private static _parseComponents(node: GomlNode, componentsTag: HTMLElement): void {
@@ -114,20 +113,24 @@ class GomlParser {
   }
 
   /**
-   *
-   * return : 値の設定に成功したか
+   * attempt get attribute value from goml.
+   * if fail,try use attr defaultValue,and defaultValue arguments.
+   * return : 値の設定に成功したか(デフォルト値での設定も含む)
    */
-  private static _parseGomlAttribute(attr: GomlAttribute, tag: HTMLElement): boolean {
+  private static _parseGomlAttribute(attr: GomlAttribute, tag: HTMLElement, defaultValue?: any): boolean {
     let attrName = attr.Name;
     let tagAttrValue = tag.getAttribute(attrName);
     if (tagAttrValue) {
       attr.Value = tagAttrValue;
     } else {
       let attrDefaultValue = attr.DefaultValue;
-      if (attrDefaultValue === undefined) {
+      if (attrDefaultValue !== undefined) {
+        attr.Value = attrDefaultValue;
+      }else if (defaultValue !== undefined) {
+        attr.Value = defaultValue;
+      }else {
         return false;
       }
-      attr.Value = attrDefaultValue;
       tag.setAttribute(attrName, attr.ValueStr);
     }
     attr.on("changed", (ga: GomlAttribute) => {
