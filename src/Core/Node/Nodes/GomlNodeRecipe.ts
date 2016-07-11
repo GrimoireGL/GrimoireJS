@@ -1,11 +1,12 @@
 import NodeRecipe from "../NodeRecipe";
+import Constants from "../../Base/Constants";
 
 class GomlNodeRecipe extends NodeRecipe {
   public get Name(): string {
     return "GOML";
   }
   public get Namespace(): string {
-    return "basic"; // ??
+    return Constants.defaultNamespace;
   }
   public get RequiredComponents(): string[] {
     return ["DummyComponent"]; // ??
