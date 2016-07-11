@@ -19,7 +19,11 @@ abstract class NodeRecipe {
     let attributes = requiredAttrs.reduce((pre, current) => pre === undefined ? current : pre.concat(current));
     let attributesDict = {};
     attributes.forEach((attr) => {
-      attributesDict[attr.Name] = attr; // TODO:名前空間考慮せる
+      if (attributesDict[attr.Name]) {
+        attributesDict[attr.Name].push(attr);
+      }else {
+        attributesDict[attr.Name] = [attr];
+      }
     });
 
     return new GomlNode(this, components, attributesDict);

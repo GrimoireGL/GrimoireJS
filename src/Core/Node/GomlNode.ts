@@ -7,7 +7,7 @@ import NodeRecipe from "./NodeRecipe";
 class GomlNode extends IDObject {
   public children: GomlNode[];
   public components: ComponentBase[];
-  public attributes: { [key: string]: GomlAttribute };
+  public attributes: { [key: string]: GomlAttribute[] };//同一名は配列で格納。名前空間で区別
 
   private _nodeName: string;
   private _parent: GomlNode;
@@ -29,12 +29,12 @@ class GomlNode extends IDObject {
     return this._nodeRecipe;
   }
 
-  constructor(recipe: NodeRecipe, components: ComponentBase[], attributes: {[key: string]: GomlAttribute}) {
-      super();
-      this._nodeName = recipe.Name;
-      this._nodeRecipe = recipe;
-      this.components = components;
-      this.attributes = attributes;
+  constructor(recipe: NodeRecipe, components: ComponentBase[], attributes: { [key: string]: GomlAttribute[] }) {
+    super();
+    this._nodeName = recipe.Name;
+    this._nodeRecipe = recipe;
+    this.components = components;
+    this.attributes = attributes;
   }
 
 
@@ -74,62 +74,63 @@ class GomlNode extends IDObject {
   * remove child of this node
   * @param  {TreeNodeBase} child
   */
-public removeChild(child: GomlNode): void {
-  for (let i = 0; i < this.children.length; i++) {
-    let v = this.children[i];
-    if (v === child) {
-      child._parent = null;
-      this.children.splice(i, 1);
-      if (this.Mounted) {
-        child._setMounted(false);
-        this._onChildRemoved(child);
+  public removeChild(child: GomlNode): void {
+    for (let i = 0; i < this.children.length; i++) {
+      let v = this.children[i];
+      if (v === child) {
+        child._parent = null;
+        this.children.splice(i, 1);
+        if (this.Mounted) {
+          child._setMounted(false);
+          this._onChildRemoved(child);
+        }
+        // TODO: events after-treatment
+        child = null;
+        break;
       }
-      // TODO: events after-treatment
-      child = null;
-      break;
     }
   }
-}
 
-/**
- * remove myself
- */
-public remove(): void {
-  if (this.parent) {
-    this.parent.removeChild(this);
-  } else {
-    throw new Error("root Node cannot be removed.");
+  /**
+   * remove myself
+   */
+  public remove(): void {
+    if (this.parent) {
+      this.parent.removeChild(this);
+    } else {
+      throw new Error("root Node cannot be removed.");
+    }
   }
-}
 
   public forEachAttr(callbackfn: (value: GomlAttribute, key: string) => void): GomlNode {
     Object.keys(this.attributes).forEach((k) => {
       let v = this.attributes[k];
-      callbackfn(v, k);
+      v.forEach((attr) => { callbackfn(attr, k) });
     }, this);
     return this;
   }
 
   public getValue(attrName: string): any {
-    const attr = this.attributes[attrName];
+    const attr = this.getAttribute(attrName);
     if (attr === undefined) {
-      console.warn(`attribute "${attrName}" is not found.`);
+      throw new Error(`attribute "${attrName}" is not found.`);
     } else {
       return attr.Value;
     }
   }
 
   public getValueStr(attrName: string): string {
-    const attr = this.attributes[attrName];
+    const attr = this.getAttribute(attrName);
     if (attr === undefined) {
-      console.warn(`attribute "${attrName}" is not found.`);
+      throw new Error(`attribute "${attrName}" is not found.`);
     } else {
       return attr.ValueStr;
     }
   }
 
   public setValue(attrName: string, value: any): void {
-    const attr = this.attributes[attrName];
+    // TODO: 引数が名前空間を含むかどうかで分岐
+    const attr = this.getAttribute(attrName);
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
@@ -142,7 +143,23 @@ public remove(): void {
   }
 
   public getAttribute(attrName: string): GomlAttribute {
-    return this.attributes[attrName];
+    let reg = /^(\w+):(\w+)$/gm;
+    let match = attrName.match(reg);
+    const namespace = match.length === 3 ? this._getNamespace(match[1]) : undefined;
+    const name = match.length === 3 ? match[2] : attrName;
+
+    let attrList = this.attributes[name];
+    if (!attrList) {
+      throw new Error(`attribute "${attrName}" is not found.`);
+    }
+    if (attrList.length === 1) {
+      return attrList[0];
+    }
+    const ret = attrList.find((attr) => attr.Namespace === namespace);
+    if (!ret) {
+      throw new Error(`attribute "${attrName}" is not found.`);
+    }
+    return ret;
   }
 
   /**
@@ -210,9 +227,11 @@ public remove(): void {
   public emitChangeAll(): void {
     Object.keys(this.attributes).forEach((k) => {
       let v = this.attributes[k];
-      if (typeof v.Value !== "undefined") {
-        v.notifyValueChanged();
-      }
+      v.forEach((attr) => {
+        if (typeof attr.Value !== "undefined") {
+          attr.notifyValueChanged();
+        }
+      });
     });
   }
 
@@ -220,10 +239,12 @@ public remove(): void {
     if (typeof attrName === "undefined") {
       Object.keys(this.attributes).forEach((k) => {
         let v = this.attributes[k];
-        v.notifyValueChanged();
+        v.forEach((attr) => {
+          attr.notifyValueChanged();
+        });
       });
     } else {
-      const target = this.attributes[attrName];
+      const target = this.getAttribute(attrName);
       target.notifyValueChanged();
     }
   }
@@ -283,6 +304,10 @@ public remove(): void {
     }
   }
 
+  private _getNamespace(alias: string): string {
+    // TODO: implement!!!
+    return undefined;
+  }
 
 
 }
