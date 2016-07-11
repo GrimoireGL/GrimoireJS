@@ -7,7 +7,8 @@ abstract class NodeRecipe {
   public abstract get RequiredComponents(): string[];
   public abstract get RequiredComponentsForChildren(): string[];
   public abstract get DefaultAttributes(): {[key: string]: any };
-  public createNode(configurator: GomlConfigurator): GomlNode {
+  public createNode(): GomlNode {
+    const configurator = GomlConfigurator.Instance;
     let components = this.RequiredComponents.map((name) => configurator.getComponent(name));
     let node = new GomlNode(this.Name, components);
     return node;

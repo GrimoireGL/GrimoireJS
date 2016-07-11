@@ -11,8 +11,8 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: HTMLElement, configurator: GomlConfigurator): GomlNode {
-    const newNode = GomlParser._createNode(source, configurator);
+  public static parse(source: HTMLElement): GomlNode {
+    const newNode = GomlParser._createNode(source);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
       const children = source.childNodes;
@@ -28,7 +28,7 @@ class GomlParser {
             GomlParser._parseComponents(newNode, e);
             continue;
           }
-          const newChildNode = GomlParser.parse(e, configurator);
+          const newChildNode = GomlParser.parse(e);
           if (newChildNode) {
             newNode.addChild(newChildNode);
           }
@@ -51,11 +51,11 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: HTMLElement, configurator: GomlConfigurator): GomlNode {
+  private static _createNode(elem: HTMLElement): GomlNode {
     // console.log("START");
     const tagName = elem.tagName;
     // console.log(`createNode: ${tagName}`);
-    const nodeType = configurator.getGomlNode(tagName);
+    const nodeType = GomlConfigurator.Instance.getGomlNode(tagName);
     /**
      * インスタンス生成
      * それぞれのGomlNodeのattributeの定義、attribute更新時のイベント、child, parent更新時のイベントの定義
@@ -65,7 +65,7 @@ class GomlParser {
       // Process is cut off here.
       // This will be deal by pass or create mock instance.
     }
-    const newNode = nodeType.createNode(configurator);
+    const newNode = nodeType.createNode();
     /**
      * HTMLElementのattributeとのバインディング
      *
