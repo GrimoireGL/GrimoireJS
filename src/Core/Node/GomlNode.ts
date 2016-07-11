@@ -29,12 +29,12 @@ class GomlNode extends IDObject {
     return this._nodeRecipe;
   }
 
-
-  constructor(recipe: NodeRecipe, components: ComponentBase[]) {
+  constructor(recipe: NodeRecipe, components: ComponentBase[], attributes: {[key: string]: GomlAttribute}) {
       super();
       this._nodeName = recipe.Name;
       this._nodeRecipe = recipe;
       this.components = components;
+      this.attributes = attributes;
   }
 
 
