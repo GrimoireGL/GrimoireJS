@@ -29,11 +29,13 @@ class GomlAttribute extends EEObject {
     private __converter: AttributeConverter;
 
     private _name: string;
+    private _namespace: string;
     private _defaultValue: any;
 
-    constructor(name: string, defaultValue?: any, converter?: AttributeConverter, constant?: boolean) {
+    constructor(name: string, namespace: string, defaultValue?: any, converter?: AttributeConverter, constant?: boolean) {
         super(name);
         this._name = name;
+        this._namespace = namespace;
         this.constant = constant !== undefined ? constant : false;
         this.Converter = converter;
         this._defaultValue = defaultValue;
@@ -57,6 +59,10 @@ class GomlAttribute extends EEObject {
 
     public get Name(): string {
         return this._name;
+    }
+
+    public get Namespace(): string {
+      return this._namespace;
     }
 
     public get Value(): any {
