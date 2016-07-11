@@ -5,15 +5,15 @@ class XMLReader {
 
     private static _parser: DOMParser = new DOMParser();
 
-    public static parseXML(document: string): Document;
-    public static parseXML(documentContainObject: any): Document;
-    public static parseXML(document: any): Document {
-        switch (typeof document) {
+    public static parseXML(doc: string): Document;
+    public static parseXML(docContainObject: any): Document;
+    public static parseXML(doc: any): Document {
+        switch (typeof doc) {
             case "string":
-                return XMLReader._parser.parseFromString(document as string, "text/xml");
+                return XMLReader._parser.parseFromString(doc as string, "text/xml");
             case "object":
-                if (document.default) {
-                    return XMLReader._parser.parseFromString(document.default as string, "text/xml");
+                if (doc.default) {
+                    return XMLReader._parser.parseFromString(doc.default as string, "text/xml");
                 }
                 throw new Error("Unexpected argument");
         }
