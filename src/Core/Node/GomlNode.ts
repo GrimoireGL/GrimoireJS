@@ -7,7 +7,7 @@ import NodeRecipe from "./NodeRecipe";
 class GomlNode extends IDObject {
   public children: GomlNode[];
   public components: ComponentBase[];
-  public attributes: { [key: string]: GomlAttribute[] };//同一名は配列で格納。名前空間で区別
+  public attributes: { [key: string]: GomlAttribute[] }; // 同一名は配列で格納。名前空間で区別
 
   private _nodeName: string;
   private _parent: GomlNode;
@@ -105,7 +105,7 @@ class GomlNode extends IDObject {
   public forEachAttr(callbackfn: (value: GomlAttribute, key: string) => void): GomlNode {
     Object.keys(this.attributes).forEach((k) => {
       let v = this.attributes[k];
-      v.forEach((attr) => { callbackfn(attr, k) });
+      v.forEach((attr) => { callbackfn(attr, k); });
     }, this);
     return this;
   }

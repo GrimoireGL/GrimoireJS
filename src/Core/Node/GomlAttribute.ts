@@ -21,12 +21,12 @@ class GomlAttribute extends EEObject {
     /**
      * The cache value for attribute.
      */
-    private __value: any;
+    private _value: any;
 
     /**
      * Reference to converter class that will manage to parse,cast to string and animation.
      */
-    private __converter: AttributeConverter;
+    private _converter: AttributeConverter;
 
     private _name: string;
     private _namespace: string;
@@ -46,7 +46,7 @@ class GomlAttribute extends EEObject {
      * このメソッドはGomlNodeのインスタンスが生成された後に呼ばれ、GomlNodeのコンストラクタ内でset:Valueが呼ばれてもeventは発生しません。
      */
     public initialize(): void {
-        if (this.__value === undefined) {
+        if (this._value === undefined) {
             console.warn(`Attribute ${this.Name} is undefined.`);
         }
         this.initialized = true;
@@ -66,7 +66,7 @@ class GomlAttribute extends EEObject {
     }
 
     public get Value(): any {
-        return this.__value;
+        return this._value;
     }
 
     public get DefaultValue(): any {
@@ -74,24 +74,24 @@ class GomlAttribute extends EEObject {
     }
 
     public get ValueStr(): string {
-        return this.__value == null ? "" : this.Converter.toStringAttr(this.__value);
+        return this._value == null ? "" : this.Converter.toStringAttr(this._value);
     }
 
     public set Value(val: any) {
         // console.log("setattr", this.Name, val);
-        if (this.constant && this.__value !== undefined) {
+        if (this.constant && this._value !== undefined) {
             console.warn(`attribute "${this.id}" is immutable`);
             return;
         }
         if (typeof val === "string") {
-            this.__value = this.Converter.toObjectAttr(val);
+            this._value = this.Converter.toObjectAttr(val);
         } else {
             try {
                 this.Converter.toStringAttr(val);
             } catch (e) {
                 console.warn(`type of attribute: ${this.Name}(${val}) is not adapt to converter: ${this.Converter.getTypeName()}`, val);
             }
-            this.__value = val;
+            this._value = val;
         }
         // console.log("setattr_obj", this.Name, this.value);
         if (this.initialized) {
@@ -106,15 +106,15 @@ class GomlAttribute extends EEObject {
      * @return {AttributeConverterBase} converter
      */
     public get Converter(): AttributeConverter {
-        return this.__converter ? this.__converter : GomlConfigurator.Instance.getConverter("string");
+        return this._converter ? this._converter : GomlConfigurator.Instance.getConverter("string");
     }
 
     public set Converter(converter: AttributeConverter) {
-        if (this.__converter === undefined) {
-            this.__converter = converter;
+        if (this._converter === undefined) {
+            this._converter = converter;
         } else {
             const attr_value = this.Converter.toStringAttr(this.Value);
-            this.__converter = converter;
+            this._converter = converter;
             this.Value = attr_value;
         }
     }
