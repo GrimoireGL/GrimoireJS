@@ -14,6 +14,7 @@
     "./src/Core/Base/IDObject.ts",
     "./src/Core/Base/IHandlableError.ts",
     "./src/Core/Base/InterfaceMerger.ts",
+    "./src/Core/Base/NamespacedIdentity.ts",
     "./src/Core/Base/XMLHttpRequestAsync.ts",
     "./src/Core/Base/XMLReader.ts",
     "./src/Core/GrimoireInterface.ts",
@@ -41,8 +42,7 @@
     "./src/Grimoire.ts",
     "./src/typings/gl-matrix/gl-matrix.d.ts",
     "./src/typings/globals/node/index.d.ts",
-    "./src/typings/index.d.ts",
-    "./src/typings/node/node.d.ts"
+    "./src/typings/index.d.ts"
   ],
   "exclude": [],
   "atom": {

@@ -1,6 +1,6 @@
 class Constants {
     public static get defaultNamespace(): string {
-     return "http://grimoire.gl/ns/default";
+     return "HTTP://GRIMOIRE.GL/NS/DEFAULT";
     }
 }
 
