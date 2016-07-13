@@ -38,7 +38,11 @@
     "./src/Core/Node/INode.ts",
     "./src/Core/Node/INodeRecipe.ts",
     "./src/Core/Node/NodeInterface.ts",
-    "./src/Grimoire.ts"
+    "./src/Grimoire.ts",
+    "./src/typings/gl-matrix/gl-matrix.d.ts",
+    "./src/typings/globals/node/index.d.ts",
+    "./src/typings/index.d.ts",
+    "./src/typings/node/node.d.ts"
   ],
   "exclude": [],
   "atom": {

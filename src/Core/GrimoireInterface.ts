@@ -1,7 +1,6 @@
 import GOMLTree from "./Node/GOMLTree";
 import Constants from "./Base/Constants";
 import IDObject from "./Base/IDObject";
-import NamedValue from "./Base/NamedValue";
 import GOMLInterface from "./Node/GOMLInterface";
 
 const _interfaceIDAttributeName = "x-interfaceID";
@@ -27,7 +26,7 @@ interface IGrimoireInterface extends IGrimoireInterfaceBase {
 }
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
-    private _interfaces: NamedValue<GOMLInterface>;
+    private _interfaces: { [key: string]: GOMLInterface; };
 
     public treeFromTag(tag: HTMLScriptElement): GOMLInterface {
         const id = tag.getAttributeNS(Constants.defaultNamespace, _interfaceIDAttributeName);

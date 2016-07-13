@@ -1,5 +1,4 @@
 import {GLM} from "gl-matrix";
-import {InvalidStringException} from "../Exceptions";
 interface IVectorParseDescription {
   needNormalize: boolean;
   needNegate: boolean;
@@ -74,7 +73,7 @@ class VectorBase {
     const matches = checkRegex.exec(str);
     if (matches) {
       if (!matches[4]) { // When (x,x,x,x) was not specifed
-        throw new InvalidStringException(`The specified string '${str}' is not containing braced vector.`);
+        throw new Error(`The specified string '${str}' is not containing braced vector.`);
       }
       return {
         needNormalize: matches[3] === "n",

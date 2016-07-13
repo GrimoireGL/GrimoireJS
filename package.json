@@ -1,6 +1,6 @@
 {
-  "name": "jThree",
-  "description": "New version of jThree derived from m-mituhide jThreev2",
+  "name": "Grimoire.js",
+  "description": "A service-oriented Web3D library.",
   "version": "0.1.0",
   "homepage": "https://github.com/jThreeJS/jThree",
   "author": {
@@ -124,6 +124,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
+    "xhr-mock": "^1.6.0",
     "xmldom": "^0.1.22",
     "yargs": "^4.3.1"
   },
