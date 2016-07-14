@@ -35,7 +35,7 @@ class GOMLLoader {
         for (let i = 0; i < tags.length; i++) {
             pArray[i] = GOMLLoader.loadFromScriptTag(tags.item(i) as HTMLScriptElement);
         }
-        return Promise.all(pArray);
+        return Promise.all<void>(pArray);
     }
 
     /**

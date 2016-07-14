@@ -5,14 +5,16 @@ import IDObject from "./IDObject";
 /**
  * EventEmitterをmixinしたIDObject
  */
-class EEObject extends IDObject implements EventEmitter {
+class EEObject extends IDObject implements NodeJS.EventEmitter {
     public addListener: (event: string, listener: Function) => EventEmitter;
     public on: (event: string, listener: Function) => EventEmitter;
     public once: (event: string, listener: Function) => EventEmitter;
     public removeListener: (event: string, listener: Function) => EventEmitter;
     public removeAllListeners: (event?: string) => EventEmitter;
-    public setMaxListeners: (n: number) => void;
+    public setMaxListeners: (n: number) => EventEmitter;
+    public getMaxListeners: () => number;
     public listeners: (event: string) => Function[];
+    public listenerCount: (type: string) => number;
     public emit: (event: string, ...args: any[]) => boolean;
     public emitException(eventName: string, error: IHandlableError): void {
         error.handled = false;
