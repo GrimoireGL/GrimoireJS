@@ -185,7 +185,7 @@ gulp.task('bundle', () => {
  * doc
  */
 gulp.task('doc', () => {
-  const entry = './src/**/*.ts';
+  const entry = ['./src/**/*.ts','!./src/typings/**/*.ts'];
   const dest = 'ci/docs';
   const branch = args.argv.branch;
   return gulp
@@ -202,7 +202,7 @@ gulp.task('doc', () => {
  * lint
  */
 gulp.task('lint-ts', () => {
-  const entry = ['./src/**/*.ts', '!./src/refs/**/*.ts', '!./src/bundle-notdoc.ts'];
+  const entry = ['!./src/typings/**/*.ts','./src/**/*.ts', '!./src/refs/**/*.ts', '!./src/bundle-notdoc.ts'];
   gulp
     .src(entry)
     .pipe(tslint({
