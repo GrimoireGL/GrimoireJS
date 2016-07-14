@@ -17,7 +17,7 @@ xhrmock.get("http://grimoire.gl/index3.goml", (req, res) => {
 global.DOMParser = function() {}
 
 function mockXMLParse(func) {
-    return prequire('../../lib-es5/Core/Node/GomlLoader', {
+    return prequire('../../lib-es5/Core/Node/GOMLLoader', {
         "../Base/XMLReader": {
             default: {
                 parseXML: (src) => {
