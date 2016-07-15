@@ -13,7 +13,7 @@
     "./src/Core/Base/EEObject.ts",
     "./src/Core/Base/IDObject.ts",
     "./src/Core/Base/IHandlableError.ts",
-    "./src/Core/Base/InterfaceMerger.ts",
+    "./src/Core/Base/NamespacedDictionary.ts",
     "./src/Core/Base/NamespacedIdentity.ts",
     "./src/Core/Base/XMLHttpRequestAsync.ts",
     "./src/Core/Base/XMLReader.ts",

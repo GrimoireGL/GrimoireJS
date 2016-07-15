@@ -21,6 +21,12 @@ test('Not accept to get invalid name or namespace', (t) => {
     });
 });
 
+test('Transform name and ns correctly',(t)=>{
+  const i = new NamespacedIdentity("http://grimoire.gl/ns","Sample");
+  t.ok(i.name === "SAMPLE");
+  t.ok(i.ns === "HTTP://GRIMOIRE.GL/NS");
+});
+
 test('Generate fqn correctly', (t) => {
     t.ok((new NamespacedIdentity("http://ns.com","test")).fqn === "TEST|HTTP://NS.COM");
     t.ok((new NamespacedIdentity("test")).fqn === "TEST|" + Constants.defaultNamespace);
