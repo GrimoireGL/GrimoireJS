@@ -11,7 +11,7 @@ test('Not accept to get invalid name or namespace', (t) => {
         new NamespacedIdentity("Wrong|Namespace","Name");
     });
     t.throws(() => {
-        new NamespacedIdentity("Wrong|Namespace","Wrong|Name");
+        new NamespacedIdentity("Wrong.Namespace","Wrong|Name");
     });
     t.notThrows(() => {
         new NamespacedIdentity("CorrectName");

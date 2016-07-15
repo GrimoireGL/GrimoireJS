@@ -17,9 +17,12 @@ class NamespacedIdentity {
         return new NamespacedIdentity(splitted[1], splitted[0]);
     }
 
-    private static _ensureValidIdentity(name: string): string {
+    private static _ensureValidIdentity(name: string, noDot: boolean = false): string {
         if (name.indexOf("|") > -1) {
-            throw new Error("Namespace and identity cannnot contain |");
+            throw new Error("Namespace and identity cannnot contain | ");
+        }
+        if (noDot && name.indexOf(".") > -1) {
+            throw new Error("identity cannnot contain .");
         }
         if (name == null) {
             throw new Error("Specified name was null or undefined");
@@ -38,7 +41,7 @@ class NamespacedIdentity {
             this.name = ns;
         }
         // Ensure all of the characters are uppercase
-        this.name = NamespacedIdentity._ensureValidIdentity(this.name);
+        this.name = NamespacedIdentity._ensureValidIdentity(this.name, true);
         this.ns = NamespacedIdentity._ensureValidIdentity(this.ns);
         this.fqn = this.name + "|" + this.ns;
     }
