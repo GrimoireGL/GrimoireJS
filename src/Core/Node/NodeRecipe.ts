@@ -2,11 +2,11 @@ import GomlNode from "./GomlNode";
 import GomlConfigurator from "./GomlConfigurator";
 
 abstract class NodeRecipe {
-  public abstract get Name(): string;
-  public abstract get Namespace(): string;
-  public abstract get RequiredComponents(): string[];
-  public abstract get RequiredComponentsForChildren(): string[];
-  public abstract get DefaultAttributes(): {[key: string]: any };
+  public get Name(): string;
+  public get Namespace(): string;
+  public get RequiredComponents(): string[];
+  public get RequiredComponentsForChildren(): string[];
+  public get DefaultAttributes(): {[key: string]: any };
   public createNode(inheritedRequiredConponents?: string[]): GomlNode {
     const configurator = GomlConfigurator.Instance;
     let requiredComponents = this.RequiredComponents;

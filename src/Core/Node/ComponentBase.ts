@@ -1,9 +1,9 @@
 import GomlAttribute from "./GomlAttribute";
 
 abstract class ComponentBase {
-  public abstract get Namespace(): string;
-  public abstract get RequiredAttributes(): GomlAttribute[];
-  public abstract get OptionalAttributes(): GomlAttribute[];
+  public get Namespace(): string;
+  public get RequiredAttributes(): GomlAttribute[];
+  public get OptionalAttributes(): GomlAttribute[];
 }
 
 export default ComponentBase;
