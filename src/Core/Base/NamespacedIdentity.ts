@@ -17,10 +17,14 @@ class NamespacedIdentity {
         return new NamespacedIdentity(splitted[1], splitted[0]);
     }
 
-    private static _ensureValidIdentity(name: string): void {
+    private static _ensureValidIdentity(name: string): string {
         if (name.indexOf("|") > -1) {
             throw new Error("Namespace and identity cannnot contain |");
         }
+        if (name == null) {
+            throw new Error("Specified name was null or undefined");
+        }
+        return name.toUpperCase();
     }
 
     constructor(name: string);
@@ -34,10 +38,8 @@ class NamespacedIdentity {
             this.name = ns;
         }
         // Ensure all of the characters are uppercase
-        this.name = this.name.toUpperCase();
-        this.ns = this.ns.toUpperCase();
-        NamespacedIdentity._ensureValidIdentity(this.name);
-        NamespacedIdentity._ensureValidIdentity(this.ns);
+        this.name = NamespacedIdentity._ensureValidIdentity(this.name);
+        this.ns = NamespacedIdentity._ensureValidIdentity(this.ns);
         this.fqn = this.name + "|" + this.ns;
     }
 }
