@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import Vector3 from '../../lib-es5/Math/Vector3';
+import Vector3 from '../../lib-es5/Core/Math/Vector3';
 
 test('equal with is correct', (t) => {
   t.truthy((new Vector3(1, 1, 0)).equalWith(new Vector3(1, 1, 0)));

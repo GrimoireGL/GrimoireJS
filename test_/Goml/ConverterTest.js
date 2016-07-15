@@ -3,11 +3,11 @@ import PA from "power-assert";
 const assert = PA.default;
 
 import sinon from "sinon";
-import Color3 from "../../lib-es5/Math/Color3";
-import Color4 from "../../lib-es5/Math/Color4";
-import Vector3 from "../../lib-es5/Math/Vector3";
-import Vector4 from "../../lib-es5/Math/Vector4";
-import Quaternion from "../../lib-es5/Math/Quaternion";
+import Color3 from "../../lib-es5/Core/Math/Color3";
+import Color4 from "../../lib-es5/Core/Math/Color4";
+import Vector3 from "../../lib-es5/Core/Math/Vector3";
+import Vector4 from "../../lib-es5/Core/Math/Vector4";
+import Quaternion from "../../lib-es5/Core/Math/Quaternion";
 import VectorColorCombinedParser from "../../lib-es5/Goml/VectorColorCombinedParser";
 import AttributeParser from "../../lib-es5/Goml/AttributeParser"
 

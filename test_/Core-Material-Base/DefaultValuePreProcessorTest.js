@@ -2,11 +2,11 @@ import test from 'ava';
 import _ from 'lodash';
 import DefaultValuePreProcessor from '../../lib-es5/Core/Pass/DefaultValuePreProcessor';
 
-import Vector2 from '../../lib-es5/Math/Vector2';
-import Vector3 from '../../lib-es5/Math/Vector3';
-import Vector4 from '../../lib-es5/Math/Vector4';
-import Matrix from '../../lib-es5/Math/Matrix';
-import VectorArray from '../../lib-es5/Math/VectorArray';
+import Vector2 from '../../lib-es5/Core/Math/Vector2';
+import Vector3 from '../../lib-es5/Core/Math/Vector3';
+import Vector4 from '../../lib-es5/Core/Math/Vector4';
+import Matrix from '../../lib-es5/Core/Math/Matrix';
+import VectorArray from '../../lib-es5/Core/Math/VectorArray';
 
 test('should resolve when there was no uniform variable', async(t) => {
   const arg = {};

@@ -1,6 +1,6 @@
 // import test from "ava";
 
-// import MatrixArray from "../../lib-es5/Math/MatrixArray";
+// import MatrixArray from "../../lib-es5/Core/Math/MatrixArray";
 
 // const BLOCK = 'MatrixArray';
 

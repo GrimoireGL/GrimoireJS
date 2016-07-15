@@ -1,9 +1,9 @@
 import test from 'ava';
 
-import Matrix from '../../lib-es5/Math/Matrix';
-import Vector3 from '../../lib-es5/Math/Vector3';
-import Vector4 from '../../lib-es5/Math/Vector4';
-import Quaternion from '../../lib-es5/Math/Quaternion';
+import Matrix from '../../lib-es5/Core/Math/Matrix';
+import Vector3 from '../../lib-es5/Core/Math/Vector3';
+import Vector4 from '../../lib-es5/Core/Math/Vector4';
+import Quaternion from '../../lib-es5/Core/Math/Quaternion';
 
 test('zero', (t) => {
   t.truthy(Matrix.equals(
