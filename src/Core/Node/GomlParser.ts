@@ -1,5 +1,5 @@
 import GomlConfigurator from "./GomlConfigurator";
-import GomlAttribute from "./GomlAttribute";
+import GomlAttribute from "./Attribute";
 import GomlNode from "./GomlNode";
 
 /**
@@ -30,7 +30,8 @@ class GomlParser {
           }
 
           // parse child node.
-          let rcForChild = newNode.Recipe.RequiredComponentsForChildren;
+          // let rcForChild = newNode.Recipe.RequiredComponentsForChildren;
+          let rcForChild = null;
           if (!!inheritedRequiredConponents && inheritedRequiredConponents !== null) {
             rcForChild = rcForChild.concat(inheritedRequiredConponents);
 

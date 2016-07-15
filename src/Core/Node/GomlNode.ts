@@ -1,9 +1,11 @@
+
 import ComponentBase from "./ComponentBase";
 import AttributeContainer from "./AttributeContainer";
 import IDObject from "../Base/IDObject";
 import NodeRecipe from "./NodeRecipe";
 import NodeUtility from "./NodeUtility";
-import GomlAttribute from "./GomlAttribute";
+import GomlAttribute from "./Attribute";
+import NamespaceDictionary from "../Base/NamespacedDictionary";
 
 class GomlNode extends IDObject { // EEである必要はないかも？
   public element: HTMLElement;
@@ -16,6 +18,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
   private _parent: GomlNode;
   private _nodeRecipe: NodeRecipe;
   private _mounted: boolean = false; // mountされてるかはキャッシュしといたほうがいいかも？
+  // private _nameDict: NamespaceDictionary = new NamespaceDictionary<GomlAttribute>();
 
   public get nodeName(): string {
     return this._nodeName;
@@ -34,7 +37,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
 
   constructor(recipe: NodeRecipe, components: ComponentBase[], attributes: { [key: string]: GomlAttribute[] }) {
     super();
-    this._nodeName = recipe.Name;
+    // this._nodeName = recipe.Name;
     this._nodeRecipe = recipe;
     this.components = components;
     this.attributes = attributes;
@@ -174,11 +177,12 @@ class GomlNode extends IDObject { // EEである必要はないかも？
     if (attrList.length === 1) {
       return attrList[0];
     }
-    const ret = attrList.find((attr) => attr.Namespace === namespace);
-    if (!ret) {
-      throw new Error(`attribute "${attrName}" is not found.`);
-    }
-    return ret;
+    // const ret = attrList.find((attr) => attr.Namespace === namespace);
+    // if (!ret) {
+    //   throw new Error(`attribute "${attrName}" is not found.`);
+    // }
+    // return ret;
+    return null;
   }
 
   /**
@@ -190,14 +194,14 @@ class GomlNode extends IDObject { // EEである必要はないかも？
     this._attributes.set(name, value);
   }
 
-  /**
-   * Get attribute.
-   * @param  {string} name attribute name string.
-   * @return {any}         attribute value.
-   */
-  public getAttribute(name: string): any {
-    return this._attributes.get(name);
-  }
+  // /**
+  //  * Get attribute.
+  //  * @param  {string} name attribute name string.
+  //  * @return {any}         attribute value.
+  //  */
+  // public getAttribute(name: string): any {
+  //   return this._attributes.get(name);
+  // }
 
   /**
    * Get attribute.
@@ -217,7 +221,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
       let v = this.attributes[k];
       v.forEach((attr) => {
         if (typeof attr.Value !== "undefined") {
-          attr.notifyValueChanged();
+          // attr.notifyValueChanged();
         }
       });
     });
@@ -228,12 +232,12 @@ class GomlNode extends IDObject { // EEである必要はないかも？
       Object.keys(this.attributes).forEach((k) => {
         let v = this.attributes[k];
         v.forEach((attr) => {
-          attr.notifyValueChanged();
+          // attr.notifyValueChanged();
         });
       });
     } else {
       const target = this.getAttribute(attrName);
-      target.notifyValueChanged();
+      // target.notifyValueChanged();
     }
   }
   /**

@@ -17,8 +17,15 @@ class Attribute extends EEObject {
   public responsive: boolean = false;
   public constant: boolean = false;
   private _value: any;
+  private _defaultValue: any;
   private _converter: ConverterBase;
   private _namespaceIdentity: NamespacedIdentity;
+  public get Name():string{
+    return "";
+  }
+  public get DefaultValue():any{
+    return null;
+  }
 
   /**
    * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
@@ -28,12 +35,12 @@ class Attribute extends EEObject {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: NamespacedIdentity, value: any, converter: ConverterBase, constant: boolean) {
+  constructor(name: NamespacedIdentity, defaultValue: any, converter: ConverterBase, constant: boolean) {
     super();
     this._namespaceIdentity = name;
-    this._key = key;
     this._converter = converter ? converter : GomlConfigurator.Instance.getConverter("string");
-    this.setValue(value);
+    // this.setValue(value);
+    this._defaultValue = defaultValue;
     this.constant = !!constant;
   }
 
@@ -49,18 +56,10 @@ class Attribute extends EEObject {
   }
 
   /**
-   * Get a key string of this attribute.
-   * @return {string} key string.
-   */
-  public key(): string {
-    return this._key;
-  }
-
-  /**
    * Get a value with specified type.
    * @return {any} value with specified type.
    */
-  public value(): any {
+  public get Value(): any {
     if (this.responsive) {
       this.emit("get");
     }
@@ -71,7 +70,7 @@ class Attribute extends EEObject {
    * Get a value with string.
    * @return {string} value with string.
    */
-  public valueStr(): string {
+  public get ValueStr(): string {
     if (this.responsive) {
       this.emit("get");
     }
@@ -82,7 +81,7 @@ class Attribute extends EEObject {
    * Set a value with any type.
    * @param {any} val Value with string or specified type.
    */
-  public setValue(val: any): void {
+  public set Value(val: any) {
     if (this.constant && this._value !== undefined) {
       console.warn(`Attribute "${this.id}" is immutable.`);
       return;
@@ -93,7 +92,7 @@ class Attribute extends EEObject {
       if (this._converter.validate(val)) {
         this._value = this._converter.toObjectAttr(val);
       } else {
-        console.warn(`Type of attribute: ${this._key}(${val}) is not adapt to converter: ${this._converter.getTypeName()}`, val);
+        console.warn(`Type of attribute: ${this._namespaceIdentity}(${val}) is not adapt to converter: ${this._converter.getTypeName()}`, val);
         return;
       }
     }
