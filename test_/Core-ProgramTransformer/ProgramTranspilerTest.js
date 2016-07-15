@@ -23,7 +23,7 @@ ProgramTranspiler.transformerGenerator = function() {
 }
 test('should transform link completed even if the transformer was empty', async(t) => {
   const result = await ProgramTranspiler.transform("TEST SOURCE", []);
-  t.ok(_.isEqual(result, {
+  t.truthy(_.isEqual(result, {
     initialSource: "TEST SOURCE",
     transformSource: "TEST SOURCE",
     description: {
@@ -40,7 +40,7 @@ test('should transform link completed even if the transformer was empty', async(
 
 test('should transform link completed even if the transformer was specified', async(t) => {
   const result = await ProgramTranspiler.transform("TEST SOURCE", ProgramTranspiler.transformerGenerator());
-  t.ok(_.isEqual(result, {
+  t.truthy(_.isEqual(result, {
     initialSource: "TEST SOURCE",
     transformSource: "TEST2 SOURCE",
     description: {
@@ -57,7 +57,7 @@ test('should transform link completed even if the transformer was specified', as
 
 test('parseCombined should work', async(t) => {
   const result = await ProgramTranspiler.parseCombined("TEST SOURCE");
-  t.ok(_.isEqual(result, {
+  t.truthy(_.isEqual(result, {
       fragment: 0,
       vertex: 1,
       uniforms: 2,

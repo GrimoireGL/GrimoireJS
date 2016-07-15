@@ -37,7 +37,7 @@ test('Processing script[type="text/goml"] tag correctly when the text content wa
         spy(src.trim());
     });
     await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-    t.ok(spy.calledWith("TheTestString"));
+    t.truthy(spy.calledWith("TheTestString"));
 });
 
 test('Processing script[type="text/goml"] tag correctly when the src attribute was existing', async(t) => {
@@ -49,7 +49,7 @@ test('Processing script[type="text/goml"] tag correctly when the src attribute w
         spy(src.trim());
     });
     await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-    t.ok(spy.calledWith("TheTestStringFromAjax1"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax1"));
 });
 
 test('Processing goml scripts from query', async(t) => {
@@ -61,9 +61,9 @@ test('Processing goml scripts from query', async(t) => {
         spy(src.trim());
     });
     await mockedParseXML.loadFromQuery("script.call");
-    t.ok(spy.calledWith("TheTestStringFromAjax1"));
-    t.ok(!spy.calledWith("TheTestStringFromAjax2"));
-    t.ok(spy.calledWith("TheTestStringFromAjax3"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax1"));
+    t.truthy(!spy.calledWith("TheTestStringFromAjax2"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax3"));
 });
 
 test('Processing goml scripts for page', async(t) => {
@@ -75,8 +75,8 @@ test('Processing goml scripts for page', async(t) => {
         spy(src.trim());
     });
     await mockedParseXML.loadForPage();
-    t.ok(spy.calledWith("TheTestStringFromAjax1"));
-    t.ok(spy.calledWith("TheTestStringFromAjax2"));
-    t.ok(spy.calledWith("TheTestStringFromAjax3"));
-    t.ok(spy.calledWith("TheTestString"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax1"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax2"));
+    t.truthy(spy.calledWith("TheTestStringFromAjax3"));
+    t.truthy(spy.calledWith("TheTestString"));
 });

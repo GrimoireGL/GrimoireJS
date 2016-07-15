@@ -5,13 +5,13 @@
 // const BLOCK = 'MatrixArray';
 
 // test('getIdentityMatrixArray', (t) => {
-//   t.ok(true);
+//   t.truthy(true);
 // });
 
 // test('getAt', (t) => {
-//   t.ok(true);
+//   t.truthy(true);
 // });
 
 // test('setAt', (t) => {
-//   t.ok(true);
+//   t.truthy(true);
 // });

@@ -1,7 +1,7 @@
 import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GOMLInterface from "./Node/GOMLInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
-import Ensure from "./Ensure";
+import Ensure from "./Base/Ensure";
 interface IGrimoireInterfaceBase {
     ns(ns: string): (name: string) => NamespacedIdentity;
 
@@ -39,7 +39,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         defaultValues?: { [key: string]: any } | NamespacedDictionary<any>, inherits?: string | NamespacedIdentity, requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
-        defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, name.ns);
+        defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
         inherits = Ensure.ensureTobeNamespacedIdentity(inherits);
         requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
 

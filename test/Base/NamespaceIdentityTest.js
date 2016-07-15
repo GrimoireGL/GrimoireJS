@@ -23,17 +23,17 @@ test('Not accept to get invalid name or namespace', (t) => {
 
 test('Transform name and ns correctly',(t)=>{
   const i = new NamespacedIdentity("http://grimoire.gl/ns","Sample");
-  t.ok(i.name === "SAMPLE");
-  t.ok(i.ns === "HTTP://GRIMOIRE.GL/NS");
+  t.truthy(i.name === "SAMPLE");
+  t.truthy(i.ns === "HTTP://GRIMOIRE.GL/NS");
 });
 
 test('Generate fqn correctly', (t) => {
-    t.ok((new NamespacedIdentity("http://ns.com","test")).fqn === "TEST|HTTP://NS.COM");
-    t.ok((new NamespacedIdentity("test")).fqn === "TEST|" + Constants.defaultNamespace);
+    t.truthy((new NamespacedIdentity("http://ns.com","test")).fqn === "TEST|HTTP://NS.COM");
+    t.truthy((new NamespacedIdentity("test")).fqn === "TEST|" + Constants.defaultNamespace);
 });
 
 test('Parse fqn correctly', (t) => {
     const parsed = NamespacedIdentity.fromFQN("TEST|HTTP://NS.COM");
-    t.ok("TEST" === parsed.name);
-    t.ok("HTTP://NS.COM" === parsed.ns);
+    t.truthy("TEST" === parsed.name);
+    t.truthy("HTTP://NS.COM" === parsed.ns);
 });

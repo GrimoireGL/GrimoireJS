@@ -34,7 +34,7 @@ class Ensure {
         }
     }
 
-    public ensureTobeNamespacedIdentity(name: string | NamespacedIdentity): NamespacedIdentity {
+    public static ensureTobeNamespacedIdentity(name: string | NamespacedIdentity): NamespacedIdentity {
         if (!name) {
             throw new Error("undefined is not valid for converting to namespace identity");
         }
@@ -45,7 +45,7 @@ class Ensure {
         }
     }
 
-    public ensureTobeNamespacedIdentityArray(names: (string | NamespacedIdentity)[]): NamespacedIdentity[] {
+    public static ensureTobeNamespacedIdentityArray(names: (string | NamespacedIdentity)[]): NamespacedIdentity[] {
         if (!names) {
             return [];
         }
@@ -56,7 +56,7 @@ class Ensure {
         return newArr;
     }
 
-    public ensureTobeNamespacedDictionary<T>(dict: NamespacedDictionary<T> | { [key: string]: T }, defaultNamespace: string): NamespacedDictionary<T> {
+    public static ensureTobeNamespacedDictionary<T>(dict: NamespacedDictionary<T> | { [key: string]: T }, defaultNamespace: string): NamespacedDictionary<T> {
         if (!dict) {
             return new NamespacedDictionary<T>();
         }

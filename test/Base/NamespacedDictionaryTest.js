@@ -9,9 +9,9 @@ test('set element correctly', (t) => {
     const newKey = new NamespacedIdentity("test");
     const theDict = new NamespacedDictionary();
     theDict.set(newKey, "test element");
-    t.ok(theDict._nameObjectMap.get(newKey.name).size === 1);
-    t.ok(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
-    t.ok(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
+    t.truthy(theDict._nameObjectMap.get(newKey.name).size === 1);
+    t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
+    t.truthy(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
 });
 
 test('set element correctly when dupelicated name was given', (t) => {
@@ -20,11 +20,11 @@ test('set element correctly when dupelicated name was given', (t) => {
     const theDict = new NamespacedDictionary();
     theDict.set(newKey, "test element");
     theDict.set(secoundKey, "test element2");
-    t.ok(theDict._nameObjectMap.get(newKey.name).size === 2);
-    t.ok(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
-    t.ok(theDict._nameObjectMap.get(secoundKey.name).get(secoundKey.fqn) === "test element2");
-    t.ok(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
-    t.ok(theDict._fqnObjectMap.get(secoundKey.fqn) === "test element2");
+    t.truthy(theDict._nameObjectMap.get(newKey.name).size === 2);
+    t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
+    t.truthy(theDict._nameObjectMap.get(secoundKey.name).get(secoundKey.fqn) === "test element2");
+    t.truthy(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
+    t.truthy(theDict._fqnObjectMap.get(secoundKey.fqn) === "test element2");
 });
 
 test('element should be repalaced when dupelicated fqn was given', (t) => {
@@ -33,16 +33,16 @@ test('element should be repalaced when dupelicated fqn was given', (t) => {
     const theDict = new NamespacedDictionary();
     theDict.set(newKey, "test1");
     theDict.set(secoundKey, "test2");
-    t.ok(theDict.fromFQN(newKey.fqn));
-    t.ok(theDict._nameObjectMap.get(newKey.name).size === 1);
-    t.ok(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test2");
+    t.truthy(theDict.fromFQN(newKey.fqn));
+    t.truthy(theDict._nameObjectMap.get(newKey.name).size === 1);
+    t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test2");
 });
 
 test('get element correctly with fqn', (t) => {
     const newKey = new NamespacedIdentity("test");
     const theDict = new NamespacedDictionary();
     theDict.set(newKey, "test1");
-    t.ok(theDict.fromFQN(newKey.fqn) === "test1");
+    t.truthy(theDict.fromFQN(newKey.fqn) === "test1");
 });
 
 test('get element with strict name', async(t) => {
@@ -54,11 +54,11 @@ test('get element with strict name', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test");
-    t.ok(theDict.get("HTTP://GRIMOIRE.GL/NS/TEST", "TEST") === "test2");
-    t.ok(theDict.get("http://grimoire.gl/NS/test", "test") === "test2");
-    t.ok(theDict.get(idElement) === "test2");
-    t.ok(theDict.get(secoundKey) === "test2");
-    t.ok(theDict.get(newKey) === "test1");
+    t.truthy(theDict.get("HTTP://GRIMOIRE.GL/NS/TEST", "TEST") === "test2");
+    t.truthy(theDict.get("http://grimoire.gl/NS/test", "test") === "test2");
+    t.truthy(theDict.get(idElement) === "test2");
+    t.truthy(theDict.get(secoundKey) === "test2");
+    t.truthy(theDict.get(newKey) === "test1");
 });
 
 test('get element with shortened namespace prefix', async(t) => {
@@ -70,7 +70,7 @@ test('get element with shortened namespace prefix', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
-    t.ok(theDict.get(idElement) === "test2");
+    t.truthy(theDict.get(idElement) === "test2");
 });
 
 test('get element with fuzzy name', async(t) => {
@@ -80,8 +80,8 @@ test('get element with fuzzy name', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
-    t.ok(theDict.get(idElement) === "test2");
-    t.ok(theDict.get("test") === "test2");
+    t.truthy(theDict.get(idElement) === "test2");
+    t.truthy(theDict.get("test") === "test2");
 });
 
 test('get element with ambigious name should throw error', async(t) => {

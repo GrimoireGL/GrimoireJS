@@ -12,7 +12,7 @@ test('(each) itelate plain array and test call count', (t) => {
   const result = 5;
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.callCount === result);
+  t.truthy(callbackfn.callCount === result);
 });
 
 test('(each) itelate plain object and test call count', (t) => {
@@ -20,7 +20,7 @@ test('(each) itelate plain object and test call count', (t) => {
   const result = 5;
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.callCount === result);
+  t.truthy(callbackfn.callCount === result);
 });
 
 test('(each) J3Object object and test call count', (t) => {
@@ -34,29 +34,29 @@ test('(each) J3Object object and test call count', (t) => {
   const result = 5;
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.callCount === result);
+  t.truthy(callbackfn.callCount === result);
 });
 
 test('(each) itelate plain array and test the callback function argument for each times', (t) => {
   const object = [0, 1, 2, 3, 4];
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.getCall(0).args[0] === 0 && callbackfn.getCall(0).args[1] === 0);
-  t.ok(callbackfn.getCall(1).args[0] === 1 && callbackfn.getCall(1).args[1] === 1);
-  t.ok(callbackfn.getCall(2).args[0] === 2 && callbackfn.getCall(2).args[1] === 2);
-  t.ok(callbackfn.getCall(3).args[0] === 3 && callbackfn.getCall(3).args[1] === 3);
-  t.ok(callbackfn.getCall(4).args[0] === 4 && callbackfn.getCall(4).args[1] === 4);
+  t.truthy(callbackfn.getCall(0).args[0] === 0 && callbackfn.getCall(0).args[1] === 0);
+  t.truthy(callbackfn.getCall(1).args[0] === 1 && callbackfn.getCall(1).args[1] === 1);
+  t.truthy(callbackfn.getCall(2).args[0] === 2 && callbackfn.getCall(2).args[1] === 2);
+  t.truthy(callbackfn.getCall(3).args[0] === 3 && callbackfn.getCall(3).args[1] === 3);
+  t.truthy(callbackfn.getCall(4).args[0] === 4 && callbackfn.getCall(4).args[1] === 4);
 });
 
 test('(each) itelate plain object and test the callback function argument for each times', (t) => {
   const object = {a: 0, b: 1, c: 2, d: 3, e: 4};
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.getCall(0).args[0] === 'a' && callbackfn.getCall(0).args[1] === 0);
-  t.ok(callbackfn.getCall(1).args[0] === 'b' && callbackfn.getCall(1).args[1] === 1);
-  t.ok(callbackfn.getCall(2).args[0] === 'c' && callbackfn.getCall(2).args[1] === 2);
-  t.ok(callbackfn.getCall(3).args[0] === 'd' && callbackfn.getCall(3).args[1] === 3);
-  t.ok(callbackfn.getCall(4).args[0] === 'e' && callbackfn.getCall(4).args[1] === 4);
+  t.truthy(callbackfn.getCall(0).args[0] === 'a' && callbackfn.getCall(0).args[1] === 0);
+  t.truthy(callbackfn.getCall(1).args[0] === 'b' && callbackfn.getCall(1).args[1] === 1);
+  t.truthy(callbackfn.getCall(2).args[0] === 'c' && callbackfn.getCall(2).args[1] === 2);
+  t.truthy(callbackfn.getCall(3).args[0] === 'd' && callbackfn.getCall(3).args[1] === 3);
+  t.truthy(callbackfn.getCall(4).args[0] === 'e' && callbackfn.getCall(4).args[1] === 4);
 });
 
 test('(each) itelate J3Object object and test the callback function argument for each times', (t) => {
@@ -69,11 +69,11 @@ test('(each) itelate J3Object object and test the callback function argument for
   ]);
   const callbackfn = sinon.spy();
   Utilities.each(object, callbackfn);
-  t.ok(callbackfn.getCall(0).args[0] === 0 && callbackfn.getCall(0).args[1] === object[0]);
-  t.ok(callbackfn.getCall(1).args[0] === 1 && callbackfn.getCall(1).args[1] === object[1]);
-  t.ok(callbackfn.getCall(2).args[0] === 2 && callbackfn.getCall(2).args[1] === object[2]);
-  t.ok(callbackfn.getCall(3).args[0] === 3 && callbackfn.getCall(3).args[1] === object[3]);
-  t.ok(callbackfn.getCall(4).args[0] === 4 && callbackfn.getCall(4).args[1] === object[4]);
+  t.truthy(callbackfn.getCall(0).args[0] === 0 && callbackfn.getCall(0).args[1] === object[0]);
+  t.truthy(callbackfn.getCall(1).args[0] === 1 && callbackfn.getCall(1).args[1] === object[1]);
+  t.truthy(callbackfn.getCall(2).args[0] === 2 && callbackfn.getCall(2).args[1] === object[2]);
+  t.truthy(callbackfn.getCall(3).args[0] === 3 && callbackfn.getCall(3).args[1] === object[3]);
+  t.truthy(callbackfn.getCall(4).args[0] === 4 && callbackfn.getCall(4).args[1] === object[4]);
 });
 
 test('(each) itelate plain array and test break loop in callback function', (t) => {
@@ -88,8 +88,8 @@ test('(each) itelate plain array and test break loop in callback function', (t) 
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 3);
-  t.ok(spy2.callCount === 2);
+  t.truthy(spy1.callCount === 3);
+  t.truthy(spy2.callCount === 2);
 });
 
 test('(each) itelate plain object and test break loop in callback function', (t) => {
@@ -104,8 +104,8 @@ test('(each) itelate plain object and test break loop in callback function', (t)
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 3);
-  t.ok(spy2.callCount === 2);
+  t.truthy(spy1.callCount === 3);
+  t.truthy(spy2.callCount === 2);
 });
 
 test('(each) itelate J3Object object and test break loop in callback function', (t) => {
@@ -126,8 +126,8 @@ test('(each) itelate J3Object object and test break loop in callback function', 
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 3);
-  t.ok(spy2.callCount === 2);
+  t.truthy(spy1.callCount === 3);
+  t.truthy(spy2.callCount === 2);
 });
 
 test('(each) itelate plain array and test continue loop in callback function', (t) => {
@@ -142,8 +142,8 @@ test('(each) itelate plain array and test continue loop in callback function', (
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 5);
-  t.ok(spy2.callCount === 4);
+  t.truthy(spy1.callCount === 5);
+  t.truthy(spy2.callCount === 4);
 });
 
 test('(each) itelate plain object and test continue loop in callback function', (t) => {
@@ -158,8 +158,8 @@ test('(each) itelate plain object and test continue loop in callback function', 
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 5);
-  t.ok(spy2.callCount === 4);
+  t.truthy(spy1.callCount === 5);
+  t.truthy(spy2.callCount === 4);
 });
 
 test('(each) itelate J3Object object and test continue loop in callback function', (t) => {
@@ -180,8 +180,8 @@ test('(each) itelate J3Object object and test continue loop in callback function
     spy2();
   }
   Utilities.each(object, callbackfn);
-  t.ok(spy1.callCount === 5);
-  t.ok(spy2.callCount === 4);
+  t.truthy(spy1.callCount === 5);
+  t.truthy(spy2.callCount === 4);
 });
 
 const TestException = {};
@@ -194,7 +194,7 @@ test('(each) itelate plain array and test exceptions inside loop in callback fun
   try {
     spy(object, callbackfn);
   } catch (e) {}
-  t.ok(spy.threw(TestException));
+  t.truthy(spy.threw(TestException));
 });
 
 test('(each) itelate plain object and test exceptions inside loop in callback function', (t) => {
@@ -205,7 +205,7 @@ test('(each) itelate plain object and test exceptions inside loop in callback fu
   try {
     spy(object, callbackfn);
   } catch (e) {}
-  t.ok(spy.threw(TestException));
+  t.truthy(spy.threw(TestException));
 });
 
 test('(each) itelate J3Object object and test exceptions inside loop in callback function', (t) => {
@@ -222,5 +222,5 @@ test('(each) itelate J3Object object and test exceptions inside loop in callback
   try {
     spy(object, callbackfn);
   } catch (e) {}
-  t.ok(spy.threw(TestException));
+  t.truthy(spy.threw(TestException));
 });

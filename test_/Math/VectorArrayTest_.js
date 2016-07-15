@@ -9,5 +9,5 @@
 // const BLOCK = 'VectorArray';
 
 // test(`${BLOCK}: nyanyanya`, (t) => {
-//   t.ok(true);
+//   t.truthy(true);
 // });

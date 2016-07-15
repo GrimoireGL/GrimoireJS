@@ -10,7 +10,7 @@ test('RemoveCommentTransformer works properly', async(t) => {
     transformSource: source,
     description: null
   });
-  t.ok(_.isEqual(result, {
+  t.truthy(_.isEqual(result, {
     initialSource: source,
     transformSource: '\n\nuniform float power;\n\n\nuniform vec2 coef;\n\n\nuniform  vec3  comment;\n',
     description: null
