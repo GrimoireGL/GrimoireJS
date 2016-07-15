@@ -22,7 +22,7 @@ class GOMLLoader {
         } else {
             source = scriptTag.text;
         }
-        const doc = XMLReader.parseXML(source);
+        const doc = XMLReader.parseXML(source, "GOML");
     }
     /**
      * Load from the script tags which will be found with specified query.

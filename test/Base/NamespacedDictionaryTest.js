@@ -54,11 +54,13 @@ test('get element with strict name', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test");
+    const attr = idElement.getAttributeNode("d:test");
     t.truthy(theDict.get("HTTP://GRIMOIRE.GL/NS/TEST", "TEST") === "test2");
     t.truthy(theDict.get("http://grimoire.gl/NS/test", "test") === "test2");
     t.truthy(theDict.get(idElement) === "test2");
     t.truthy(theDict.get(secoundKey) === "test2");
     t.truthy(theDict.get(newKey) === "test1");
+    t.truthy(theDict.get(attr) === "test2");
 });
 
 test('get element with shortened namespace prefix', async(t) => {
@@ -70,7 +72,9 @@ test('get element with shortened namespace prefix', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
+    const attr = idElement.attributes.item(1);
     t.truthy(theDict.get(idElement) === "test2");
+    t.truthy(theDict.get(attr) === "test2");
 });
 
 test('get element with fuzzy name', async(t) => {
@@ -80,12 +84,14 @@ test('get element with fuzzy name', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
+    const attr = idElement.attributes.item(1);
     t.truthy(theDict.get(idElement) === "test2");
     t.truthy(theDict.get("test") === "test2");
+    t.truthy(theDict.get(attr) === "test2");
 });
 
 test('get element with ambigious name should throw error', async(t) => {
-    const newKey = new NamespacedIdentity("HTTP://GRIMOIRE.GL/NS/TEST","test");
+    const newKey = new NamespacedIdentity("HTTP://GRIMOIRE.GL/NS/TEST", "test");
     const secoundKey = new NamespacedIdentity("HTTP://GRIMOIRE.GL/NS/TEST2", "test");
     const theDict = new NamespacedDictionary();
     theDict.set(newKey, "test1");
@@ -93,7 +99,11 @@ test('get element with ambigious name should throw error', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
+    const attr = idElement.attributes.item(0);
     t.throws(() => {
         theDict.get(idElement);
+    });
+    t.throws(() => {
+        theDict.get(attr);
     });
 });

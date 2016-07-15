@@ -1,4 +1,4 @@
 <root xmlns="http://grimoire.gl/ns/default" xmlns:d="http://grimoire.gl/ns/test">
-    <d:test id="test"/>
-    <test id="test2"/>
+    <d:test id="test" d:test="test"/>
+    <test id="test2" test="test"/>
 </root>

@@ -33,7 +33,8 @@ class NamespacedDictionary<V> {
     public get(ns: string, name: string): V;
     public get(nsi: NamespacedIdentity): V;
     public get(element: Element): V;
-    public get(arg1: string | Element | NamespacedIdentity, name?: string): V {
+    public get(attribute: Attr): V;
+    public get(arg1: string | Element | NamespacedIdentity | Attr, name?: string): V {
         if (typeof arg1 === "string") {
             if (name) {
                 return this.get(new NamespacedIdentity(arg1 as string, name));
@@ -53,8 +54,11 @@ class NamespacedDictionary<V> {
                 if (arg1.prefix) {
                     return this.get(new NamespacedIdentity(arg1.namespaceURI, arg1.localName));
                 } else {
-                    if (this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + arg1.namespaceURI.toUpperCase())) {
+                    if (arg1.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + arg1.namespaceURI.toUpperCase())) {
                         return this.get(new NamespacedIdentity(arg1.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
+                    }
+                    if ((arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + (arg1 as Attr).ownerElement.namespaceURI.toUpperCase())) {
+                        return this.get(new NamespacedIdentity((arg1 as Attr).ownerElement.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
                     }
                     return this.get(arg1.localName);
                 }

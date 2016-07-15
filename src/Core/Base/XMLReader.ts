@@ -5,18 +5,14 @@ class XMLReader {
 
     private static _parser: DOMParser = new DOMParser();
 
-    public static parseXML(doc: string): Document;
-    public static parseXML(docContainObject: any): Document;
-    public static parseXML(doc: any): Document {
-        switch (typeof doc) {
-            case "string":
-                return XMLReader._parser.parseFromString(doc as string, "text/xml");
-            case "object":
-                if (doc.default) {
-                    return XMLReader._parser.parseFromString(doc.default as string, "text/xml");
-                }
-                throw new Error("Unexpected argument");
+    public static parseXML(doc: string, rootElementName?: string): Document {
+        const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
+        if (rootElementName) {
+            if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {
+                throw new Error("Specified document is invalid.");
+            }// TODO should throw more detail
         }
+        return parsed;
     }
 
     public static getElements(elem: Document | Element, name: string): Element[] {
@@ -85,14 +81,6 @@ class XMLReader {
             }
         }
         return result;
-    }
-
-    public static getElementFQN(elem: Document | Element): string {
-        return XMLReader.generateFQN(elem.namespaceURI, elem.localName);
-    }
-
-    public static generateFQN(ns: string, name: string): string {
-        return `{${ns}}${name}`;
     }
 }
 
