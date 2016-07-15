@@ -50,7 +50,7 @@ class AttributesContainer {
   public syncWithElement(): void {
     Object.keys(this._members).forEach((key) => {
       const attr = this._members[key];
-      this._element.setAttribute(key, attr.valueStr());
+      this._element.setAttribute(key, attr.ValueStr);
     });
   }
 
@@ -74,7 +74,7 @@ class AttributesContainer {
   public get(key: string): any {
     const attr = this._members[key];
     if (attr) {
-      return attr.value(); // emit get
+      return attr.Value; // emit get
     }
   }
 
@@ -86,7 +86,7 @@ class AttributesContainer {
   public getStr(key: string): string {
     const attr = this._members[key];
     if (attr) {
-      return attr.valueStr(); // emit get
+      return attr.ValueStr; // emit get
     }
   }
 
@@ -107,7 +107,7 @@ class AttributesContainer {
     if (isExist) {
       attr.constant = decl.constant;
     } else {
-      attr = new Attribute(key, decl.default, converter, decl.constant);
+      //attr = new Attribute(key, decl.default, converter, decl.constant);
       this._members[key] = attr;
     }
     if (decl.onchange) {
@@ -119,7 +119,7 @@ class AttributesContainer {
       attr.on("get", decl.onget);
     }
     if (isExist) {
-      attr.setConverter(converter); // emit change
+      // attr.setConverter(converter); // emit change
     }
     this._immediateSyncOrStandby(key, attr);
   }
@@ -133,9 +133,9 @@ class AttributesContainer {
   private _setOrCreateNewAttribute(key: string, value: any): Attribute {
     let attr = this._members[key];
     if (attr) {
-      attr.setValue(value); // emit change
+      attr.Value = value; // emit change
     } else {
-      attr = new Attribute(key, value, null, false);
+      // attr = new Attribute(key, value, null, false);
       this._members[key] = attr;
     }
     return attr;
@@ -150,7 +150,7 @@ class AttributesContainer {
    */
   private _immediateSyncOrStandby(key: string, attr: Attribute): void {
     if (key === "id" || key === "class") {
-      this._element.setAttribute(key, attr.valueStr());
+      this._element.setAttribute(key, attr.ValueStr);
     } else {
       this._standbyAttr.push(key);
     }

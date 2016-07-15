@@ -1,9 +1,16 @@
-import GomlAttribute from "./GomlAttribute";
+import Attribute from "./Attribute";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
 
-abstract class ComponentBase {
-  public get Namespace(): string;
-  public get RequiredAttributes(): GomlAttribute[];
-  public get OptionalAttributes(): GomlAttribute[];
+class ComponentBase {
+  public Name: NamespacedIdentity;
+  public RequiredAttributes: Attribute[];
+  public OptionalAttributes: Attribute[];
+
+  public constructor(name: NamespacedIdentity, requiredAttributes: Attribute[], optionalAttributes: Attribute[]) {
+    this.Name = name;
+    this.RequiredAttributes = requiredAttributes;
+    this.OptionalAttributes = optionalAttributes;
+  }
 }
 
 export default ComponentBase;

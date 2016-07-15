@@ -55,8 +55,7 @@
     "./src/Core/Node/NodeRecipe.ts",
     "./src/Core/Node/Nodes/GomlNodeRecipe.ts",
     "./src/Core/Node/NodeUtility.ts",
-    "./src/Grimoire.ts"
-    "./src/Core/Node/INode.ts",
+    "./src/Grimoire.ts",
     "./src/typings/gl-matrix/gl-matrix.d.ts",
     "./src/typings/globals/node/index.d.ts",
     "./src/typings/index.d.ts"

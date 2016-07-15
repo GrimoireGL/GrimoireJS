@@ -1,14 +1,14 @@
-import JThreeObjectEEWithID from "../Base/EEObject";
+import EEObject from "../Base/EEObject";
 import ConverterBase from "./AttributeConverter";
-import StringConverter from "./Converters/StringAttributeConverter";
-import isString from "lodash.isstring";
+import GomlConfigurator from "./GomlConfigurator";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
 
 /**
  * Management a single attribute with specified type. Converter will serve a value with object with any type instead of string.
  * When attribute is changed, emit a "change" event. When attribute is requested, emit a "get" event.
  * If responsive flag is not true, event will not be emitted.
  */
-class Attribute extends JThreeObjectEEWithID {
+class Attribute extends EEObject {
   /**
    * If this flag is not true, event will not be emitted.
    * Recommend you to make this property true by calling responsive method.
@@ -16,9 +16,16 @@ class Attribute extends JThreeObjectEEWithID {
    */
   public responsive: boolean = false;
   public constant: boolean = false;
-  private _key: string;
   private _value: any;
+  private _defaultValue: any;
   private _converter: ConverterBase;
+  private _namespaceIdentity: NamespacedIdentity;
+  public get Name():string{
+    return "";
+  }
+  public get DefaultValue():any{
+    return null;
+  }
 
   /**
    * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
@@ -28,11 +35,12 @@ class Attribute extends JThreeObjectEEWithID {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(key: string, value: any, converter: ConverterBase, constant: boolean) {
+  constructor(name: NamespacedIdentity, defaultValue: any, converter: ConverterBase, constant: boolean) {
     super();
-    this._key = key;
-    this._converter = converter ? converter : new StringConverter();
-    this.setValue(value);
+    this._namespaceIdentity = name;
+    this._converter = converter ? converter : GomlConfigurator.Instance.getConverter("string");
+    // this.setValue(value);
+    this._defaultValue = defaultValue;
     this.constant = !!constant;
   }
 
@@ -43,34 +51,15 @@ class Attribute extends JThreeObjectEEWithID {
   public setResponsive(flag: boolean): void {
     this.responsive = flag;
     if (this.responsive) {
-      this.emit("change");
+      // this.emit("change");
     }
-  }
-
-  /**
-   * Set converter.
-   * Convert value to string with previus converter and re-convert with new converter. Then converter will be replaced.
-   * @param {ConverterBase} converter New converter.
-   */
-  public setConverter(converter: ConverterBase): void {
-    const valueStr = this._converter.toStringAttr(this._value);
-    this._converter = converter;
-    this.setValue(valueStr);
-  }
-
-  /**
-   * Get a key string of this attribute.
-   * @return {string} key string.
-   */
-  public key(): string {
-    return this._key;
   }
 
   /**
    * Get a value with specified type.
    * @return {any} value with specified type.
    */
-  public value(): any {
+  public get Value(): any {
     if (this.responsive) {
       this.emit("get");
     }
@@ -81,7 +70,7 @@ class Attribute extends JThreeObjectEEWithID {
    * Get a value with string.
    * @return {string} value with string.
    */
-  public valueStr(): string {
+  public get ValueStr(): string {
     if (this.responsive) {
       this.emit("get");
     }
@@ -92,18 +81,18 @@ class Attribute extends JThreeObjectEEWithID {
    * Set a value with any type.
    * @param {any} val Value with string or specified type.
    */
-  public setValue(val: any): void {
+  public set Value(val: any) {
     if (this.constant && this._value !== undefined) {
       console.warn(`Attribute "${this.id}" is immutable.`);
       return;
     }
-    if (isString(val)) {
+    if (typeof(val) === "string") {
       this._value = this._converter.toObjectAttr(val);
     } else {
       if (this._converter.validate(val)) {
         this._value = this._converter.toObjectAttr(val);
       } else {
-        console.warn(`Type of attribute: ${this._key}(${val}) is not adapt to converter: ${this._converter.getTypeName()}`, val);
+        console.warn(`Type of attribute: ${this._namespaceIdentity}(${val}) is not adapt to converter: ${this._converter.getTypeName()}`, val);
         return;
       }
     }
