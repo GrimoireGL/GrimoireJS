@@ -3,7 +3,7 @@ import AttributeContainer from "./AttributeContainer";
 import IDObject from "../Base/IDObject";
 import NodeRecipe from "./NodeRecipe";
 import NodeUtility from "./NodeUtility";
-import isNumber from "lodash.isnumber";
+import GomlAttribute from "./GomlAttribute";
 
 class GomlNode extends IDObject { // EEである必要はないかも？
   public element: HTMLElement;
@@ -77,7 +77,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
    */
   public addChild(child: GomlNode, index?: number): void {
     child._parent = this;
-    if (!isNumber(index) && index != null) {
+    if (index != null) {
       throw new Error("insert index should be number or null or undefined.");
     }
     const insertIndex = index == null ? this.children.length : index;
@@ -105,7 +105,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
         this.children.splice(i, 1);
         if (this.mounted()) {
           child.setMounted(false);
-          this._onChildRemoved(child);
+          // this._onChildRemoved(child);
         }
         // html handling
         this.element.removeChild(child.element);

@@ -6,27 +6,7 @@ import GomlConfigurator from "./GomlConfigurator";
  * Provides the feature to manage attribute of GOML.
  */
 class GomlAttribute extends EEObject {
-    /**
-     * If flag is true, attribute value will be recognized as contant.
-     * @type {boolean}
-     */
-    public constant: boolean;
 
-    /**
-     * falseの時はattributeが更新された際のeventは呼ばれません。trueの時、attributeが初期化されていることを示します。
-     * @type {boolean}
-     */
-    public initialized: boolean = false;
-
-    /**
-     * The cache value for attribute.
-     */
-    private _value: any;
-
-    /**
-     * Reference to converter class that will manage to parse,cast to string and animation.
-     */
-    private _converter: AttributeConverter;
 
     private _name: string;
     private _namespace: string;
