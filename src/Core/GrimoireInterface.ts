@@ -1,6 +1,7 @@
 import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GOMLInterface from "./Node/GOMLInterface";
-
+import NamespacedDictionary from "./Base/NamespacedDictionary";
+import Ensure from "./Ensure";
 interface IGrimoireInterfaceBase {
     ns(ns: string): (name: string) => NamespacedIdentity;
 
@@ -26,21 +27,22 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         return (name: string) => new NamespacedIdentity(ns, name);
     }
 
-    public registerComponent(name: string, ctor: new () => any);
-    public registerComponent(nameObject: NamespacedIdentity, ctor: new () => any);
-    public registerComponent(name: string, obj: Object);
-    public registerComponent(nameObject: NamespacedIdentity, obj: Object);
-    public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => any)) {
-        const nsObj = this._ensureTobeNamespacedIdentity(name);
+    public registerComponent(name: string, ctor: new () => any): void;
+    public registerComponent(nameObject: NamespacedIdentity, ctor: new () => any): void;
+    public registerComponent(name: string, obj: Object): void;
+    public registerComponent(nameObject: NamespacedIdentity, obj: Object): void;
+    public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => any)): void {
+        // const nsObj = this._ensureTobeNamespacedIdentity(name);
     }
 
+    public registerObject(name: string | NamespacedIdentity, requiredComponents: (string | NamespacedIdentity)[],
+        defaultValues?: { [key: string]: any } | NamespacedDictionary<any>, inherits?: string | NamespacedIdentity, requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
+        name = Ensure.ensureTobeNamespacedIdentity(name);
+        requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
+        defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, name.ns);
+        inherits = Ensure.ensureTobeNamespacedIdentity(inherits);
+        requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
 
-    private _ensureTobeNamespacedIdentity(name: string | NamespacedIdentity): NamespacedIdentity {
-        if (typeof name === "string") {
-            return new NamespacedIdentity(name);
-        } else {
-            return name;
-        }
     }
 }
 
