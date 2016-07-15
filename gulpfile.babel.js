@@ -60,7 +60,8 @@ if (args.argv.watch || args.argv.w) {
  * Transpile ts to es6
  */
 const tsProject = ts.createProject('tsconfig.json', {
-    noExternalResolve: true
+    noExternalResolve: true,
+    target:"es6"
 });
 gulp.task('ts-es6', () => {
     const entry = './src/**/*.ts';
