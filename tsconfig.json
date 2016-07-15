@@ -30,7 +30,10 @@
     "./src/Core/Math/Vector4.ts",
     "./src/Core/Math/VectorArray.ts",
     "./src/Core/Math/VectorBase.ts",
+    "./src/Core/Node/Attribute.ts",
+    "./src/Core/Node/AttributeContainer.ts",
     "./src/Core/Node/AttributeConverter.ts",
+    "./src/Core/Node/AttributeDeclaration.ts",
     "./src/Core/Node/Component/ComponentInterface.ts",
     "./src/Core/Node/Component/ComponentList.ts",
     "./src/Core/Node/Component/DummyComponent.ts",
@@ -49,6 +52,7 @@
     "./src/Core/Node/NodeInterface.ts",
     "./src/Core/Node/NodeRecipe.ts",
     "./src/Core/Node/Nodes/GomlNodeRecipe.ts",
+    "./src/Core/Node/NodeUtility.ts",
     "./src/Grimoire.ts"
   ],
   "exclude": [],
