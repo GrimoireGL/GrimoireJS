@@ -77,6 +77,10 @@ class NamespacedDictionary<V> {
     public has(name: string): boolean {
         return this._nameObjectMap.has(name);
     }
+
+    public pushDictionary(dict: NamespacedDictionary<V>): void {
+     
+    }
 }
 
 export default NamespacedDictionary;

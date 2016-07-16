@@ -36,7 +36,7 @@ class Ensure {
 
     public static ensureTobeNamespacedIdentity(name: string | NamespacedIdentity): NamespacedIdentity {
         if (!name) {
-            throw new Error("undefined is not valid for converting to namespace identity");
+            return undefined;
         }
         if (typeof name === "string") {
             return new NamespacedIdentity(name);

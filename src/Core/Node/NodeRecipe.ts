@@ -1,28 +1,33 @@
+import NamespacedDictionary from "../Base/NamespacedDictionary";
+import NamespacedSet from "../Base/NamespacedSet";
 import GomlNode from "./GomlNode";
-import GomlConfigurator from "./GomlConfigurator";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
-
-abstract class NodeRecipe {
-    private _name: NamespacedIdentity;
-    private _requiredComponents: string[];
-    private _requiredComponentsForChildren: string[];
-    public DefaultAttributes: { [key: string]: any };
-
-    public constructor(name: NamespacedIdentity, requiredComponents: string[],
-        requiredComponentsForChildren: string[], defaultAttributes: { [key: string]: any }) {
-        this._name = name;
-        this._requiredComponents = requiredComponents;
-        this._requiredComponentsForChildren = requiredComponentsForChildren;
-        this.DefaultAttributes = defaultAttributes;
+import GrimoireInterface from "../GrimoireInterface";
+class NodeRecipe {
+    private static _resolveRequiredComponents(node: NodeRecipe): NamespacedSet {
+        let set = node.inherits ? NodeRecipe._resolveRequiredComponents(GrimoireInterface.objectNodeRecipe.get(node.inherits)) : new NamespacedSet();
+        set.pushArray(node.requiredComponents);
+        return set;
     }
-    public createNode(inheritedRequiredConponents?: string[]): GomlNode {
-        const configurator = GomlConfigurator.Instance;
-        let requiredComponents = this._requiredComponents;
-        if (inheritedRequiredConponents) {
-            requiredComponents = requiredComponents.concat(inheritedRequiredConponents);
-            requiredComponents = requiredComponents.filter((x, i, self) => self.indexOf(x) === i); // remove overLap
+
+    private static _resolveDefaultAttributes(node: NodeRecipe): NamespacedDictionary<any> {
+        let dict = node.inherits ? NodeRecipe._resolveDefaultAttributes(GrimoireInterface.objectNodeRecipe.get(node.inherits)) : new NamespacedDictionary<any>();
+        // TODO
+        return dict;
+    }
+
+    private _requiredComponentsActual: NamespacedSet;
+
+    constructor(public name: NamespacedIdentity, public requiredComponents: NamespacedIdentity[],
+        public defaultAttributes: NamespacedDictionary<any>, public inherits: NamespacedIdentity, public requiredComponentsForChildren: NamespacedIdentity[]) {
+    }
+
+    public createNode(requiredComponentsForChildren: NamespacedIdentity[]): GomlNode {
+        if (!this._requiredComponentsActual) {
+            this._requiredComponentsActual = NodeRecipe._resolveRequiredComponents(this);
         }
-        let components = requiredComponents.map((name) => configurator.getComponent(name));
+        let components = this._requiredComponentsActual.clone().pushArray(requiredComponentsForChildren);
+        //let components = requiredComponents.map((name) => configurator.getComponent(name));
         // let requiredAttrs = components.map((c) => c.RequiredAttributes);
         // let attributes = requiredAttrs.reduce((pre, current) => pre === undefined ? current : pre.concat(current));
         // let attributesDict = {};

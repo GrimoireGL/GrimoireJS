@@ -65,7 +65,7 @@ class GomlParser {
     if (recipe === undefined) {
       throw new Error(`Tag ${tagName} is not found.`);
     }
-    const defaultValues = recipe.DefaultAttributes;
+    const defaultValues = recipe.defaultAttributes;
     const newNode = recipe.createNode(inheritedRequiredConponents);
 
     /**

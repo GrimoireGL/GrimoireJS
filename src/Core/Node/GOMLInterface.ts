@@ -1,4 +1,3 @@
-import GOMLTree from "./GOMLTree";
 import NodeInterface from "./NodeInterface";
 
 interface IGOMLInterface extends IGOMLInterfaceBase {
@@ -6,10 +5,8 @@ interface IGOMLInterface extends IGOMLInterfaceBase {
 }
 
 interface IGOMLInterfaceBase {
-    trees: GOMLTree[];
 }
 class GOMLInterface implements IGOMLInterfaceBase {
-    public trees: GOMLTree[];
 }
 
 export default GOMLInterface;
