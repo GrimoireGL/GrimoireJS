@@ -7,6 +7,12 @@ class NamespacedSet {
    */
   private _fqnObjectMap: Map<string, NamespacedIdentity> = new Map<string, NamespacedIdentity>();
 
+  public static fromArray(array: NamespacedIdentity[]):NamespacedSet {
+    const nSet = new NamespacedSet();
+    nSet.pushArray(array);
+    return nSet;
+  }
+
   public push(item: NamespacedIdentity): NamespacedSet {
     this._fqnObjectMap.set(item.fqn, item);
     return this;
