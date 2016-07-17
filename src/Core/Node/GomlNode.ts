@@ -1,27 +1,23 @@
-
-import ComponentBase from "./ComponentBase";
-import AttributeContainer from "./AttributeContainer";
+import Component from "./Component";
 import IDObject from "../Base/IDObject";
 import NodeRecipe from "./NodeRecipe";
 import NodeUtility from "./NodeUtility";
-import GomlAttribute from "./Attribute";
-import NamespaceDictionary from "../Base/NamespacedDictionary";
+import Attribute from "./Attribute";
+import NamespacedDictionary from "../Base/NamespacedDictionary";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
 
-class GomlNode extends IDObject { // EEである必要はないかも？
-  public element: HTMLElement;
+class GomlNode extends IDObject { // EEである必要がある
+  public element: Element;
+  public nodeRecipe: NodeRecipe;
   public children: GomlNode[];
-  public components: ComponentBase[];
-  public attributes: { [key: string]: GomlAttribute[] }; // 同一名は配列で格納。名前空間で区別
+  public components: NamespacedDictionary<Component>;
+  public attributes: NamespacedDictionary<Attribute>;
 
-  private _attributes: AttributeContainer;
-  private _nodeName: string;
   private _parent: GomlNode;
-  private _nodeRecipe: NodeRecipe;
-  private _mounted: boolean = false; // mountされてるかはキャッシュしといたほうがいいかも？
-  // private _nameDict: NamespaceDictionary = new NamespaceDictionary<GomlAttribute>();
+  private _mounted: boolean = false;
 
-  public get nodeName(): string {
-    return this._nodeName;
+  public get nodeName(): NamespacedIdentity {
+    return this.nodeRecipe.name;
   }
 
   public get parent(): GomlNode {
@@ -31,16 +27,22 @@ class GomlNode extends IDObject { // EEである必要はないかも？
   public get Mounted(): boolean {
     return this._mounted;
   }
-  public get Recipe(): NodeRecipe {
-    return this._nodeRecipe;
-  }
 
-  constructor(recipe: NodeRecipe, components: ComponentBase[], attributes: { [key: string]: GomlAttribute[] }) {
+  constructor(recipe: NodeRecipe, element: Element, components: Component[], attributes: Attribute[]) {
     super();
-    // this._nodeName = recipe.Name;
-    this._nodeRecipe = recipe;
-    this.components = components;
-    this.attributes = attributes;
+    this.nodeRecipe = recipe;
+    this.element = element;
+
+    this.components = new NamespacedDictionary<Component>();
+    components.forEach((c) => {
+      this.components.set(c.name, c);
+    });
+
+    this.attributes = new NamespacedDictionary<Attribute>();
+    attributes.forEach((attr) => {
+      this.attributes.set(attr.name, attr);
+    });
+
   }
 
 
@@ -56,20 +58,6 @@ class GomlNode extends IDObject { // EEである必要はないかも？
     this.sendMessage(name, args);
     for (let i = 0; i < this.children.length; i++) {
       this.children[i].broadcastMessage(name, args);
-    }
-  }
-
-  /**
-   * Connect element to node.
-   * This method is expected to be called just once.
-   * @param {HTMLElement} element [description]
-   */
-  public setElement(element: HTMLElement): void { // コンストラクタへ移動したい
-    if (!this._attributes) {
-      this._attributes = new AttributeContainer(element);
-      this.element = element;
-    } else {
-      throw new Error("This method is expected to be called just once.");
     }
   }
 
@@ -128,7 +116,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
     }
   }
 
-  public forEachAttr(callbackfn: (value: GomlAttribute, key: string) => void): GomlNode {
+  public forEachAttr(callbackfn: (value: Attribute, key: string) => void): GomlNode {
     Object.keys(this.attributes).forEach((k) => {
       let v = this.attributes[k];
       v.forEach((attr) => { callbackfn(attr, k); });
@@ -164,25 +152,12 @@ class GomlNode extends IDObject { // EEである必要はないかも？
     }
   }
 
-  public getAttribute(attrName: string): GomlAttribute {
-    let reg = /^(\w+):(\w+)$/gm;
-    let match = attrName.match(reg);
-    const namespace = match.length === 3 ? this._getNamespace(match[1]) : undefined;
-    const name = match.length === 3 ? match[2] : attrName;
-
-    let attrList = this.attributes[name];
-    if (!attrList) {
+  public getAttribute(attrName: string): Attribute {
+    let attr = this.attributes.get(attrName);
+    if (!attr) {
       throw new Error(`attribute "${attrName}" is not found.`);
     }
-    if (attrList.length === 1) {
-      return attrList[0];
-    }
-    // const ret = attrList.find((attr) => attr.Namespace === namespace);
-    // if (!ret) {
-    //   throw new Error(`attribute "${attrName}" is not found.`);
-    // }
-    // return ret;
-    return null;
+    return attr;
   }
 
   /**
@@ -191,7 +166,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
    * @param {any}    value attribute value.
    */
   public setAttribute(name: string, value: any): void {
-    this._attributes.set(name, value);
+    this.attributes.get(name).Value = value;
   }
 
   // /**
@@ -209,7 +184,7 @@ class GomlNode extends IDObject { // EEである必要はないかも？
    * @return {string}      attribute value with string.
    */
   public getAttributeString(name: string): string {
-    return this._attributes.getStr(name);
+    return this.attributes.get(name).ValueStr;
   }
 
   /**
@@ -255,7 +230,9 @@ class GomlNode extends IDObject { // EEである必要はないかも？
   public setMounted(mounted: boolean): void {
     if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
       this._mounted = mounted;
-      this._attributes.setResponsive(true);
+      this.attributes.forEach((value) => {
+        value.responsively = true;
+      });
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
@@ -269,11 +246,6 @@ class GomlNode extends IDObject { // EEである必要はないかも？
    */
   public index(): number {
     return this._parent.children.indexOf(this);
-  }
-
-  private _getNamespace(alias: string): string {
-    // TODO: implement!!!
-    return undefined;
   }
 }
 

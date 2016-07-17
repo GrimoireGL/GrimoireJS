@@ -1,6 +1,6 @@
 import Attribute from "./Attribute";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
-import Component from "./Component";
+import ComponentDeclaration from "./ComponentDeclaration";
 
 class AttributeDeclaration {
   /**
@@ -20,14 +20,14 @@ class AttributeDeclaration {
   public constant: boolean;
 
   public name: NamespacedIdentity;
-  public componentDeclaration: Component;
+  public componentDeclaration: ComponentDeclaration;
 
   public constructor(name: string, defaultValue: any, converter?: string, constant?: boolean) {
     this.converter = converter;
     this.defaultValue = defaultValue;
     this.constant = !!constant;
   }
-  public setComponent(componentDeclaration: Component): void {
+  public setComponent(componentDeclaration: ComponentDeclaration): void {
     this.componentDeclaration = componentDeclaration;
     this.name = new NamespacedIdentity(componentDeclaration.name.ns, name);
   }

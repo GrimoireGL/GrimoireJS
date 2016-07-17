@@ -1,6 +1,7 @@
-import GomlConfigurator from "./GomlConfigurator";
-import GomlAttribute from "./Attribute";
+import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
+import GrimoireInterface from "../GrimoireInterface";
 
 /**
  * Parser of Goml to Node utilities.
@@ -11,7 +12,7 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: HTMLElement, inheritedRequiredConponents?: string[]): GomlNode {
+  public static parse(source: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
     const newNode = GomlParser._createNode(source, inheritedRequiredConponents);
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
@@ -21,10 +22,10 @@ class GomlParser {
           if (children[i].nodeType !== 1) {
             continue;
           }
-          const e = <HTMLElement>children[i];
+          const e = <Element>children[i];
 
           // check <node.components>
-          if (e.tagName === newNode.nodeName + ".components") { // TODO: 判定条件あってる？
+          if (e.tagName === newNode.nodeName + ".components") {
             GomlParser._parseComponents(newNode, e);
             continue;
           }
@@ -59,14 +60,14 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: HTMLElement, inheritedRequiredConponents?: string[]): GomlNode {
+  private static _createNode(elem: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
     const tagName = elem.tagName;
-    const recipe = GomlConfigurator.Instance.getGomlNode(tagName);
+    const recipe = GrimoireInterface.objectNodeRecipe.get(tagName);
     if (recipe === undefined) {
       throw new Error(`Tag ${tagName} is not found.`);
     }
     const defaultValues = recipe.defaultAttributes;
-    const newNode = recipe.createNode(inheritedRequiredConponents);
+    const newNode = recipe.createNode(elem, inheritedRequiredConponents);
 
     /**
      * HTMLElementのattributeとのバインディング
@@ -75,7 +76,7 @@ class GomlParser {
      * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。
      */
     newNode.forEachAttr((attr, key) => {
-      if (!this._parseGomlAttribute(attr, elem, defaultValues[attr.Name])) {
+      if (!this._parseAttribute(attr, elem, defaultValues.get(attr.name))) {
         throw new Error("'${attrName}' is RequiredAttribute. but value is not assigned.");
       }
     });
@@ -83,7 +84,9 @@ class GomlParser {
     elem.setAttribute("x-j3-id", newNode.id); // TODO:rename!!
     return newNode;
   }
-  private static _parseComponents(node: GomlNode, componentsTag: HTMLElement): void {
+
+
+  private static _parseComponents(node: GomlNode, componentsTag: Element): void {
     let components = componentsTag.childNodes;
     if (!components) {
       return;
@@ -92,24 +95,22 @@ class GomlParser {
       if (components[i].nodeType !== 1) {
         continue;
       }
-      const tag = <HTMLElement>components[i];
+      const tag = <Element>components[i];
       const tagName = tag.tagName;
-      const component = GomlConfigurator.Instance.getComponent(tagName);
+      const component = GrimoireInterface.components.get(tagName);
       if (!component) {
         throw new Error(`Component ${tagName} is not found.`);
       }
 
       // コンポーネントの属性がタグの属性としてあればそれを、なければデフォルトを、それもなければ必須属性はエラー
-      component.RequiredAttributes.forEach((attr) => {
-        if (!this._parseGomlAttribute(attr, tag)) {
-          throw new Error("'${attrName}' is RequiredAttribute. but value is not assigned.");
-        }
+      component.requiredAttributes.forEach((attr) => {
+        this._parseAttribute(attr.generateAttributeInstance(), tag);
       });
-      component.OptionalAttributes.forEach((attr) => {
-        this._parseGomlAttribute(attr, tag);
+      component.optionalAttributes.forEach((attr) => {
+        this._parseAttribute(attr.generateAttributeInstance(), tag);
       });
 
-      node.components.push(component);
+      node.components.set(component.name, component.generateInstance());
     }
   }
 
@@ -118,24 +119,21 @@ class GomlParser {
    * if fail,try use attr defaultValue,and defaultValue arguments.
    * return : 値の設定に成功したか(デフォルト値での設定も含む)
    */
-  private static _parseGomlAttribute(attr: GomlAttribute, tag: HTMLElement, defaultValue?: any): boolean {
-    let attrName = attr.Name;
-    let tagAttrValue = tag.getAttribute(attrName);
+  private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): boolean {
+    let attrName = attr.name;
+    let tagAttrValue = tag.getAttribute(attrName.name);
     if (tagAttrValue) {
       attr.Value = tagAttrValue;
     } else {
-      let attrDefaultValue = attr.DefaultValue;
-      if (attrDefaultValue !== undefined) {
-        attr.Value = attrDefaultValue;
-      }else if (defaultValue !== undefined) {
+      if (defaultValue !== undefined) {
         attr.Value = defaultValue;
       }else {
         return false;
       }
-      tag.setAttribute(attrName, attr.ValueStr);
+      tag.setAttribute(attrName.name, attr.ValueStr);
     }
-    attr.on("changed", (ga: GomlAttribute) => {
-      tag.setAttribute(attrName, ga.Value);
+    attr.on("changed", (ga: Attribute) => {
+      tag.setAttribute(attrName.name, ga.Value);
     });
     return true;
   }

@@ -1,6 +1,5 @@
 import EEObject from "../Base/EEObject";
 import ConverterBase from "./AttributeConverter";
-import GomlConfigurator from "./GomlConfigurator";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import AttributeDeclaration from "./AttributeDeclaration";
 import GrimoireInterface from "../GrimoireInterface";
@@ -57,7 +56,7 @@ class Attribute extends EEObject {
     this.declaration = declaration;
     this._value = declaration.defaultValue;
     const converter = GrimoireInterface.converters.get(declaration.converter);
-    this.converter = converter ? converter : GomlConfigurator.Instance.getConverter("string");
+    this.converter = converter ? converter : GrimoireInterface.converters.get("string");
     this.constant = !!declaration.constant;
   }
 
