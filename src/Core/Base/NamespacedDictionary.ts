@@ -85,6 +85,19 @@ class NamespacedDictionary<V> {
     });
     return this;
   }
+
+  public toArray(): V[] {
+    const ret: V[] = [];
+    this._fqnObjectMap.forEach((value) => {
+      ret.push(value);
+    });
+    return ret;
+  }
+  public forEach(callback: (value: V, fqn: string) => void): void {
+    this._fqnObjectMap.forEach((val, key) => {
+      callback(val, key);
+    });
+  }
 }
 
 export default NamespacedDictionary;
