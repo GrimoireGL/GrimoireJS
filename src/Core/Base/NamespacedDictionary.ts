@@ -78,11 +78,12 @@ class NamespacedDictionary<V> {
     return this._nameObjectMap.has(name);
   }
 
-  public pushDictionary(dict: NamespacedDictionary<V>): void {
+  public pushDictionary(dict: NamespacedDictionary<V>): NamespacedDictionary<V> {
     dict._fqnObjectMap.forEach((value, keyFQN) => {
       const id = NamespacedIdentity.fromFQN(keyFQN);
       this.set(id, value);
     });
+    return this;
   }
 }
 
