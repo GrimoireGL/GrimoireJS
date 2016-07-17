@@ -30,11 +30,12 @@ class NamespacedSet {
         return newSet;
     }
 
-    public merge(other): void {
+    public merge(other): NamespacedSet {
       const values = other.values();
       for (let elem of values) {
        this.push(elem);
       }
+      return this;
     }
 }
 
