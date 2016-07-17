@@ -1,31 +1,39 @@
-import AttributeContainer from "./AttributeContainer";
+import Attribute from "./Attribute";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
+import Component from "./Component";
 
-/**
- * The interface for declare attribute speciied in GOML.
- */
-interface AttributeDeclaration {
-    /**
-     * Converter name, jThree will interpret the value using this class.
-     */
-    converter?: string;
+class AttributeDeclaration {
+  /**
+   * Converter name, jThree will interpret the value using this class.
+   */
+  public converter: string;
 
-    /**
-     * default value of this attribute.
-     */
-    default?: any;
+  /**
+   * default value of this attribute.
+   */
+  public defaultValue: any;
 
-    /**
-     * Whether this attribute accept change by interface or not.
-     * default: false
-     */
-    constant?: boolean;
+  /**
+   * Whether this attribute accept change by interface or not.
+   * default: false
+   */
+  public constant: boolean;
 
-    /**
-     * apply to event listener when attribute changed
-     */
-    onchange?: (attr: AttributeContainer) => void;
+  public name: NamespacedIdentity;
+  public componentDeclaration: Component;
 
-    onget?: (attr: AttributeContainer) => void;
+  public constructor(name: string, defaultValue: any, converter?: string, constant?: boolean) {
+    this.converter = converter;
+    this.defaultValue = defaultValue;
+    this.constant = !!constant;
+  }
+  public setComponent(componentDeclaration: Component): void {
+    this.componentDeclaration = componentDeclaration;
+    this.name = new NamespacedIdentity(componentDeclaration.name.ns, name);
+  }
+  public generateAttributeInstance(): Attribute {
+    return new Attribute(this);
+  }
 }
 
 export default AttributeDeclaration;
