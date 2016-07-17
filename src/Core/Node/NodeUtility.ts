@@ -5,7 +5,7 @@ class NodeUtility {
    * @param  {number}      elementIndex  Index in element
    * @return {number}                    Index in NodeList
    */
-  public static getNodeListIndexByElementIndex(targetElement: HTMLElement, elementIndex: number): number {
+  public static getNodeListIndexByElementIndex(targetElement: Element, elementIndex: number): number {
     const nodeArray: Node[] = Array.prototype.slice.call(targetElement.childNodes);
     const elementArray = nodeArray.filter((v) => {
       return v.nodeType === 1;
