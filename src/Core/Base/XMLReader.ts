@@ -10,12 +10,12 @@ class XMLReader {
         if (rootElementName) {
             if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {
                 throw new Error("Specified document is invalid.");
-            }// TODO should throw more detail
+            }// TODO should throw more detail error
         }
         return parsed;
     }
 
-    public static getElements(elem: Document | Element, name: string): Element[] {
+    public static getElements(elem: Element, name: string): Element[] {
         const result: Element[] = [];
         const elems = elem.getElementsByTagName(name);
         for (let i = 0; i < elems.length; i++) {
@@ -24,7 +24,7 @@ class XMLReader {
         return result;
     }
 
-    public static getSingleElement(elem: Document | Element, name: string, mandatory?: boolean): Element {
+    public static getSingleElement(elem: Element, name: string, mandatory?: boolean): Element {
         const result = XMLReader.getElements(elem, name);
         if (result.length === 1) {
             return result[0];
@@ -39,7 +39,7 @@ class XMLReader {
         }
     }
 
-    public static getAttribute(elem: Document | Element, name: string, mandatory?: boolean): string {
+    public static getAttribute(elem: Element, name: string, mandatory?: boolean): string {
         const result = elem.attributes.getNamedItem(name);
         if (result) {
             return result.value;
@@ -50,17 +50,17 @@ class XMLReader {
         }
     }
 
-    public static getAttributeFloat(elem: Document | Element, name: string, mandatory?: boolean): number {
+    public static getAttributeFloat(elem: Element, name: string, mandatory?: boolean): number {
         const resultStr = XMLReader.getAttribute(elem, name, mandatory);
         return parseFloat(resultStr);
     }
 
-    public static getAttributeInt(elem: Document | Element, name: string, mandatory?: boolean): number {
+    public static getAttributeInt(elem: Element, name: string, mandatory?: boolean): number {
         const resultStr = XMLReader.getAttribute(elem, name, mandatory);
         return parseInt(resultStr, 10);
     }
 
-    public static getChildElements(elem: Document | Element): Element[] {
+    public static getChildElements(elem: Element): Element[] {
         const children = elem.childNodes;
         const result: Element[] = [];
         for (let i = 0; i < children.length; i++) {
@@ -71,7 +71,7 @@ class XMLReader {
         return result;
     }
 
-    public static getAttributes(elem: Document | Element, ns?: string): { [key: string]: string } {
+    public static getAttributes(elem: Element, ns?: string): { [key: string]: string } {
         const result: { [key: string]: string } = {};
         const attrs = elem.attributes;
         for (let i = 0; i < attrs.length; i++) {

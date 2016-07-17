@@ -1,3 +1,4 @@
+
 import NodeRecipe from "./Node/NodeRecipe";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GOMLInterface from "./Node/GOMLInterface";
@@ -34,7 +35,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     public registerComponent(name: string, obj: Object): void;
     public registerComponent(nameObject: NamespacedIdentity, obj: Object): void;
     public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => any)): void {
-        // const nsObj = this._ensureTobeNamespacedIdentity(name);
+        name = Ensure.ensureTobeNamespacedIdentity(name);
     }
 
     public registerObject(name: string | NamespacedIdentity, requiredComponents: (string | NamespacedIdentity)[],

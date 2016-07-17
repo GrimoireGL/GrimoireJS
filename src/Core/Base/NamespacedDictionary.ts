@@ -79,7 +79,9 @@ class NamespacedDictionary<V> {
     }
 
     public pushDictionary(dict: NamespacedDictionary<V>): void {
-     
+        dict._fqnObjectMap.forEach((v, fqn) => {
+            this.set(NamespacedIdentity.fromFQN(fqn), v);
+        });
     }
 }
 

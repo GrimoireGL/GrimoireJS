@@ -3,12 +3,29 @@ import Constants from "./Constants";
  * The class to identity with XML namespace feature.
  */
 class NamespacedIdentity {
+    /**
+     * Namespace of this identity
+     * @type {string}
+     */
     public ns: string;
 
+    /**
+     * Short name for this identity
+     * @type {string}
+     */
     public name: string;
 
+    /**
+     * Full qualified name of this identity
+     * @type {string}
+     */
     public fqn: string;
 
+    /**
+     * Generate an instance from Full qualified name.
+     * @param  {string}             fqn [description]
+     * @return {NamespacedIdentity}     [description]
+     */
     public static fromFQN(fqn: string): NamespacedIdentity {
         const splitted = fqn.split("|");
         if (splitted.length !== 2) {
@@ -17,7 +34,16 @@ class NamespacedIdentity {
         return new NamespacedIdentity(splitted[1], splitted[0]);
     }
 
-    private static _ensureValidIdentity(name: string, noDot: boolean = false): string {
+    /**
+     * Make sure given name is valid for using in identity.
+     * | is prohibited for using in name or namespace.
+     * . is prohibited for using in name.
+     * All lowercase alphabet will be transformed into uppercase.
+     * @param  {string} name        [A name to verify]
+     * @param  {[type]} noDot=false [Ensure not using dot or not]
+     * @return {string}             [Valid name]
+     */
+    private static _ensureValidIdentity(name: string, noDot = false): string {
         if (name.indexOf("|") > -1) {
             throw new Error("Namespace and identity cannnot contain | ");
         }
