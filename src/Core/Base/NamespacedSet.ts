@@ -29,6 +29,13 @@ class NamespacedSet {
         }
         return newSet;
     }
+
+    public merge(other): void {
+      const values = other.values();
+      for (let elem of values) {
+       this.push(elem);
+      }
+    }
 }
 
 export default NamespacedSet;
