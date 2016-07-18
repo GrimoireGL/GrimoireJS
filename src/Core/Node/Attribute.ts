@@ -1,7 +1,9 @@
 import EEObject from "../Base/EEObject";
 import ConverterBase from "./AttributeConverter";
-import GomlConfigurator from "./GomlConfigurator";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
+import AttributeDeclaration from "./AttributeDeclaration";
+import GrimoireInterface from "../GrimoireInterface";
+import Component from "./Component";
 
 /**
  * Management a single attribute with specified type. Converter will serve a value with object with any type instead of string.
@@ -9,22 +11,35 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
  * If responsive flag is not true, event will not be emitted.
  */
 class Attribute extends EEObject {
+
+  public name: NamespacedIdentity;
+  public constant: boolean = false;
+  public declaration: AttributeDeclaration;
+  public converter: ConverterBase;
+  public component: Component;
   /**
-   * If this flag is not true, event will not be emitted.
-   * Recommend you to make this property true by calling responsive method.
+   * If this flag is not true, notify value changed to DomElement.
    * @type {boolean}
    */
-  public responsive: boolean = false;
-  public constant: boolean = false;
-  private _value: any;
-  private _defaultValue: any;
-  private _converter: ConverterBase;
-  private _namespaceIdentity: NamespacedIdentity;
-  public get Name():string{
-    return "";
+  public get responsively(): boolean {
+    return this._responsively;
   }
-  public get DefaultValue():any{
-    return null;
+  public set responsively(value: boolean) {
+    this._responsively = value;
+    if (this._responsively) {
+      // this.emit("change");
+      // TODO:notify changes to element
+    }
+  }
+  private _value: any;
+  private _responsively: boolean = false;
+
+  /**
+   * Get a value with specified type.
+   * @return {any} value with specified type.
+   */
+  public get Value(): any {
+    return this._value;
   }
 
   /**
@@ -35,46 +50,24 @@ class Attribute extends EEObject {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: NamespacedIdentity, defaultValue: any, converter: ConverterBase, constant: boolean) {
+  constructor(declaration: AttributeDeclaration) {
     super();
-    this._namespaceIdentity = name;
-    this._converter = converter ? converter : GomlConfigurator.Instance.getConverter("string");
-    // this.setValue(value);
-    this._defaultValue = defaultValue;
-    this.constant = !!constant;
+    this.name = declaration.name;
+    this.declaration = declaration;
+    this._value = declaration.defaultValue;
+    const converter = GrimoireInterface.converters.get(declaration.converter);
+    this.converter = converter ? converter : GrimoireInterface.converters.get("string");
+    this.constant = !!declaration.constant;
   }
 
-  /**
-   * Emit a "change" event and obviously change responsive flag.
-   * @param {boolean} flag Whether responsive or not.
-   */
-  public setResponsive(flag: boolean): void {
-    this.responsive = flag;
-    if (this.responsive) {
-      // this.emit("change");
-    }
-  }
 
-  /**
-   * Get a value with specified type.
-   * @return {any} value with specified type.
-   */
-  public get Value(): any {
-    if (this.responsive) {
-      this.emit("get");
-    }
-    return this._value;
-  }
 
   /**
    * Get a value with string.
    * @return {string} value with string.
    */
   public get ValueStr(): string {
-    if (this.responsive) {
-      this.emit("get");
-    }
-    return this._value == null ? "" : this._converter.toStringAttr(this._value);
+    return this._value == null ? "" : this.converter.toStringAttr(this._value);
   }
 
   /**
@@ -86,20 +79,25 @@ class Attribute extends EEObject {
       console.warn(`Attribute "${this.id}" is immutable.`);
       return;
     }
-    if (typeof(val) === "string") {
-      this._value = this._converter.toObjectAttr(val);
+    if (typeof (val) === "string") {
+      this._value = this.converter.toObjectAttr(val);
     } else {
-      if (this._converter.validate(val)) {
-        this._value = this._converter.toObjectAttr(val);
+      if (this.converter.validate(val)) {
+        this._value = this.converter.toObjectAttr(val);
       } else {
-        console.warn(`Type of attribute: ${this._namespaceIdentity}(${val}) is not adapt to converter: ${this._converter.getTypeName()}`, val);
+        console.warn(`Type of attribute: ${this.name}(${val}) is not adapt to converter: ${this.converter.getTypeName() }`, val);
         return;
       }
     }
-    if (this.responsive) {
-      this.emit("change", this);
+    if (this._responsively) {
+      this._notifyChange();
     }
   }
+
+  private _notifyChange(): void {
+    // TODO:implement!!
+  }
 }
+
 
 export default Attribute;

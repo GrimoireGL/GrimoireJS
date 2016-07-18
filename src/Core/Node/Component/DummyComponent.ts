@@ -1,7 +1,8 @@
-import ComponentBase from "../ComponentBase";
-import GomlAttribute from "../Attribute";
+import ComponentDeclaration from "../ComponentDeclaration";
+import NamespacedIdentity from "../../Base/NamespacedIdentity";
+import AttributeDeclaration from "../AttributeDeclaration";
 
-class DummyComponent extends ComponentBase {
+class DummyComponent extends ComponentDeclaration {
   public get Namespace(): string {
     return "http://aaaa";
   }
@@ -17,6 +18,12 @@ class DummyComponent extends ComponentBase {
 
   public dummyMethod(arg: string): void {
     // this is dymmy method for testing broadcastMessage.
+  }
+  constructor() {
+    let id = new NamespacedIdentity("http://aaaa", "dummy");
+    let b = new AttributeDeclaration("testAttr1", 123);
+    let a: AttributeDeclaration[] = [b];
+    super(id, a, null);
   }
 }
 
