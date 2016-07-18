@@ -13,7 +13,6 @@ import Component from "./Component";
 class Attribute extends EEObject {
 
   public name: NamespacedIdentity;
-  public constant: boolean = false;
   public declaration: AttributeDeclaration;
   public converter: ConverterBase;
   public component: Component;
@@ -57,17 +56,6 @@ class Attribute extends EEObject {
     this._value = declaration.defaultValue;
     const converter = GrimoireInterface.converters.get(declaration.converter);
     this.converter = converter ? converter : GrimoireInterface.converters.get("string");
-    this.constant = !!declaration.constant;
-  }
-
-
-
-  /**
-   * Get a value with string.
-   * @return {string} value with string.
-   */
-  public get ValueStr(): string {
-    return this._value == null ? "" : this.converter.toStringAttr(this._value);
   }
 
   /**
@@ -75,19 +63,11 @@ class Attribute extends EEObject {
    * @param {any} val Value with string or specified type.
    */
   public set Value(val: any) {
-    if (this.constant && this._value !== undefined) {
-      console.warn(`Attribute "${this.id}" is immutable.`);
-      return;
-    }
     if (typeof (val) === "string") {
-      this._value = this.converter.toObjectAttr(val);
+      this._value = this.converter.convert(val);
     } else {
-      if (this.converter.validate(val)) {
-        this._value = this.converter.toObjectAttr(val);
-      } else {
-        console.warn(`Type of attribute: ${this.name}(${val}) is not adapt to converter: ${this.converter.getTypeName() }`, val);
-        return;
-      }
+     // TODO add try catch notation
+        this._value = this.converter.convert(val);
     }
     if (this._responsively) {
       this._notifyChange();

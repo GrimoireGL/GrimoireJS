@@ -1,18 +1,8 @@
-import IDObject from "../Base/IDObject";
+import NamespacedIdentity from "../Base/NamespacedIdentity";
 
-class AttributeConverter extends IDObject {
-  public name: string = null;
-
-  public toStringAttr: (any) => string;
-  public toObjectAttr: (any) => any;
-  public validate: (any) => boolean;
-
-  /**
-   * Validate the compatibility of converter type.
-   * @param  {any}     val Value for check
-   * @return {boolean}     Valid or not
-   */
-  // public abstract validate(val: any): boolean;
+interface AttributeConverter {
+    name: NamespacedIdentity;
+    convert(any): any;
 }
 
 export default AttributeConverter;

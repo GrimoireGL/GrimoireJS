@@ -40,7 +40,7 @@ class NodeDeclaration {
 
     public createNode(element: Element, requiredComponentsForChildren: NamespacedIdentity[]): GomlNode {
         let components = this.requiredComponents.clone().pushArray(requiredComponentsForChildren);
-        let componentsArray = components.toArray().map((id) => GrimoireInterface.components.get(id).generateInstance());
+        let componentsArray = components.toArray().map((id) => GrimoireInterface.componentDeclarations.get(id).generateInstance());
         let requiredAttrs = componentsArray.map((c) => c.requiredAttributes)
             .reduce((pre, current) => pre === undefined ? current : pre.concat(current));
         // let attributes = requiredAttrs.reduce((pre, current) => pre === undefined ? current : pre.concat(current));
@@ -64,7 +64,7 @@ class NodeDeclaration {
             this._requiredComponentsActualForChildren = this._requiredComponentsForChildren;
             this._defaultAttributesActual = this._defaultAttributes;
         }
-        const inherits = GrimoireInterface.objectNodeDeclaration.get(this.inherits);
+        const inherits = GrimoireInterface.nodeDeclarations.get(this.inherits);
         const inheritedRequiredComponents = inherits.requiredComponents;
         const inheritedRequiredComponentsForChildren = inherits.requiredComponentsForChildren;
         const inheritedDefaultAttribute = inherits.defaultAttributes;

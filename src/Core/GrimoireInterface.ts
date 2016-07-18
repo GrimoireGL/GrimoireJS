@@ -1,3 +1,7 @@
+import ComponentDeclaration from "./Node/ComponentDeclaration";
+import Component from "./Node/Component";
+import IAttributeDeclaration from "./Node/IAttributeDeclaration";
+import AttributeConverter from "./Node/AttributeConverter";
 import NamespacedSet from "./Base/NamespacedSet";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
@@ -8,12 +12,6 @@ import Ensure from "./Base/Ensure";
 interface IGrimoireInterfaceBase {
     ns(ns: string): (name: string) => NamespacedIdentity;
 
-    // TODO any should be replaced with Component object
-    registerComponent(name: string, ctor: new () => any);
-    registerComponent(nameObject: NamespacedIdentity, ctor: new () => any);
-    registerComponent(name: string, obj: Object);
-    registerComponent(nameObject: NamespacedIdentity, obj: Object);
-    registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => any));
 }
 
 interface IGrimoireInterface extends IGrimoireInterfaceBase {
@@ -21,7 +19,11 @@ interface IGrimoireInterface extends IGrimoireInterfaceBase {
 }
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
-    public objectNodeDeclaration: NamespacedDictionary<NodeDeclaration> = new NamespacedDictionary<NodeDeclaration>();
+    public nodeDeclarations: NamespacedDictionary<NodeDeclaration> = new NamespacedDictionary<NodeDeclaration>();
+
+    public converters: NamespacedDictionary<AttributeConverter> = new NamespacedDictionary<AttributeConverter>();
+
+    public componentDeclarations: NamespacedDictionary<ComponentDeclaration> = new NamespacedDictionary<ComponentDeclaration>();
     /**
      * Generate namespace helper function
      * @param  {string} ns namespace URI to be used
@@ -31,12 +33,10 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         return (name: string) => new NamespacedIdentity(ns, name);
     }
 
-    public registerComponent(name: string, ctor: new () => any): void;
-    public registerComponent(nameObject: NamespacedIdentity, ctor: new () => any): void;
-    public registerComponent(name: string, obj: Object): void;
-    public registerComponent(nameObject: NamespacedIdentity, obj: Object): void;
-    public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => any)): void {
+    public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
+        // TODO transform object to Component
+        this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
     }
 
     public registerObject(name: string | NamespacedIdentity, requiredComponents: (string | NamespacedIdentity)[],
@@ -46,7 +46,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
         inherits = Ensure.ensureTobeNamespacedIdentity(inherits);
         requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
-        this.objectNodeDeclaration.set(name as NamespacedIdentity,
+        this.nodeDeclarations.set(name as NamespacedIdentity,
             new NodeDeclaration(name as NamespacedIdentity,
                 NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
                 defaultValues as NamespacedDictionary<any>,
@@ -54,6 +54,11 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
                 NamespacedSet.fromArray(requiredComponentsForChildren as NamespacedIdentity[])
             )
         );
+    }
+
+    public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
+        name = Ensure.ensureTobeNamespacedIdentity(name);
+        this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
     }
 }
 

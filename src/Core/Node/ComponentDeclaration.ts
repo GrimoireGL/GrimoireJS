@@ -1,28 +1,27 @@
+import Ensure from "../Base/Ensure";
+import NamespacedDictionary from "../Base/NamespacedDictionary";
+import IAttributeDeclaration from "./IAttributeDeclaration";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import AttributeDeclaration from "./AttributeDeclaration";
 import Component from "./Component";
 
 class ComponentDeclaration {
-  public name: NamespacedIdentity;
-  public requiredAttributes: AttributeDeclaration[];
-  public optionalAttributes: AttributeDeclaration[];
-  public methods: { [key: string]: any };
 
-  public constructor(name: NamespacedIdentity, requiredAttributes: AttributeDeclaration[], optionalAttributes: AttributeDeclaration[]) {
-    this.name = name;
-    this.requiredAttributes = requiredAttributes ? requiredAttributes : [];
-    this.requiredAttributes.forEach((attr) => {
-      attr.setComponent(this);
-    });
-    this.optionalAttributes = optionalAttributes ? optionalAttributes : [];
-    this.optionalAttributes.forEach((attr) => {
-      attr.setComponent(this);
-    });
-  }
+    public attributeDeclarations: NamespacedDictionary<AttributeDeclaration> = new NamespacedDictionary<AttributeDeclaration>();
 
-  public generateInstance():Component {
-    return new Component(this);
-  }
+    public constructor(public name: NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, public ctor: new () => Component) {
+        for (let key in attributes) {
+            const val = attributes[key];
+            const identity = new NamespacedIdentity(this.name.ns, key);
+            const converter = Ensure.ensureTobeNamespacedIdentity(val.converter);
+            this.attributeDeclarations.set(identity, new AttributeDeclaration(identity, val.defaultValue, converter as NamespacedIdentity));
+        }
+    }
+
+    public generateInstance(): Component {
+        const instance = new this.ctor();
+        return instance;
+    }
 }
 
 export default ComponentDeclaration;
