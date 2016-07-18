@@ -1,5 +1,6 @@
+import NamespacedSet from "./Base/NamespacedSet";
 
-import NodeRecipe from "./Node/NodeRecipe";
+import NodeDeclaration from "./Node/NodeDeclaration";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GOMLInterface from "./Node/GOMLInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
@@ -20,7 +21,7 @@ interface IGrimoireInterface extends IGrimoireInterfaceBase {
 }
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
-    public objectNodeRecipe: NamespacedDictionary<NodeRecipe> = new NamespacedDictionary<NodeRecipe>();
+    public objectNodeDeclaration: NamespacedDictionary<NodeDeclaration> = new NamespacedDictionary<NodeDeclaration>();
     /**
      * Generate namespace helper function
      * @param  {string} ns namespace URI to be used
@@ -45,7 +46,14 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
         inherits = Ensure.ensureTobeNamespacedIdentity(inherits);
         requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
-        this.objectNodeRecipe.set(name as NamespacedIdentity, new NodeRecipe(name as NamespacedIdentity, requiredComponents as NamespacedIdentity[], defaultValues as NamespacedDictionary<any>, inherits as NamespacedIdentity, requiredComponentsForChildren as NamespacedIdentity[]));
+        this.objectNodeDeclaration.set(name as NamespacedIdentity,
+            new NodeDeclaration(name as NamespacedIdentity,
+                NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
+                defaultValues as NamespacedDictionary<any>,
+                inherits as NamespacedIdentity,
+                NamespacedSet.fromArray(requiredComponentsForChildren as NamespacedIdentity[])
+            )
+        );
     }
 }
 

@@ -1,7 +1,7 @@
-import NodeRecipe from "../NodeRecipe";
+import NodeDeclaration from "../NodeDeclaration";
 import Constants from "../../Base/Constants";
 
-class GomlNodeRecipe extends NodeRecipe {
+class GomlNodeDeclaration extends NodeDeclaration {
   public get Name(): string {
     return "GOML";
   }
@@ -20,4 +20,4 @@ class GomlNodeRecipe extends NodeRecipe {
 }
 
 
-export default GomlNodeRecipe;
+export default GomlNodeDeclaration;

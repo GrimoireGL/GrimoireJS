@@ -62,7 +62,7 @@ class GomlParser {
    */
   private static _createNode(elem: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
     const tagName = elem.tagName;
-    const recipe = GrimoireInterface.objectNodeRecipe.get(tagName);
+    const recipe = GrimoireInterface.objectNodeDeclaration.get(tagName);
     if (recipe === undefined) {
       throw new Error(`Tag ${tagName} is not found.`);
     }

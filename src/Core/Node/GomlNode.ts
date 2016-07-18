@@ -1,6 +1,6 @@
 import Component from "./Component";
 import IDObject from "../Base/IDObject";
-import NodeRecipe from "./NodeRecipe";
+import NodeDeclaration from "./NodeDeclaration";
 import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
@@ -8,7 +8,7 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
 
 class GomlNode extends IDObject { // EEである必要がある
   public element: Element;
-  public nodeRecipe: NodeRecipe;
+  public NodeDeclaration: NodeDeclaration;
   public children: GomlNode[];
   public components: NamespacedDictionary<Component>;
   public attributes: NamespacedDictionary<Attribute>;
@@ -17,7 +17,7 @@ class GomlNode extends IDObject { // EEである必要がある
   private _mounted: boolean = false;
 
   public get nodeName(): NamespacedIdentity {
-    return this.nodeRecipe.name;
+    return this.NodeDeclaration.name;
   }
 
   public get parent(): GomlNode {
@@ -28,9 +28,9 @@ class GomlNode extends IDObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeRecipe, element: Element, components: Component[], attributes: Attribute[]) {
+  constructor(recipe: NodeDeclaration, element: Element, components: Component[], attributes: Attribute[]) {
     super();
-    this.nodeRecipe = recipe;
+    this.NodeDeclaration = recipe;
     this.element = element;
 
     this.components = new NamespacedDictionary<Component>();
