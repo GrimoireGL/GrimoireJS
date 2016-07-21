@@ -7,11 +7,20 @@ class Component {
   public declaration: ComponentDeclaration;
   public name: NamespacedIdentity;
   public attributes: NamespacedDictionary<Attribute>;
-  public methods: { [key: string]: any };
+  public methods: any;
 
   public constructor(declaration: ComponentDeclaration) {
     this.declaration = declaration;
     this.attributes = declaration.attributeDeclarations.map((dec) => dec.generateAttributeInstance());
+    this.methods = new declaration.ctor();
+  }
+
+  public sendMessage(message: string, ...args: any[]): boolean {
+    if (typeof this.methods[message] === "function") {
+      this.methods[message](args);
+      return true;
+    }
+    return false;
   }
 }
 
