@@ -62,7 +62,7 @@ class GomlParser {
    */
   private static _createNode(elem: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
     const tagName = elem.tagName;
-    const recipe = GrimoireInterface.objectNodeDeclaration.get(tagName);
+    const recipe = GrimoireInterface.nodeDeclarations.get(tagName);
     if (recipe === undefined) {
       throw new Error(`Tag ${tagName} is not found.`);
     }
@@ -97,16 +97,13 @@ class GomlParser {
       }
       const tag = <Element>components[i];
       const tagName = tag.tagName;
-      const component = GrimoireInterface.components.get(tagName);
+      const component = GrimoireInterface.componentDeclarations.get(tagName);
       if (!component) {
         throw new Error(`Component ${tagName} is not found.`);
       }
 
       // コンポーネントの属性がタグの属性としてあればそれを、なければデフォルトを、それもなければ必須属性はエラー
-      component.requiredAttributes.forEach((attr) => {
-        this._parseAttribute(attr.generateAttributeInstance(), tag);
-      });
-      component.optionalAttributes.forEach((attr) => {
+      component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), tag);
       });
 
@@ -130,7 +127,6 @@ class GomlParser {
       }else {
         return false;
       }
-      tag.setAttribute(attrName.name, attr.ValueStr);
     }
     attr.on("changed", (ga: Attribute) => {
       tag.setAttribute(attrName.name, ga.Value);

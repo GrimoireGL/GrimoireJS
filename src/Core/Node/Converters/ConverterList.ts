@@ -6,7 +6,7 @@
 // import Color4AttributeConverter from "./Converter/Color4AttributeConverter";
 // import Color3AttributeConverter from "./Converter/Color3AttributeConverter";
 // import BooleanAttributeConverter from "./Converter/BooleanAttributeConverter";
-import StringAttributeConverter from "./StringAttributeConverter";
+// import StringAttributeConverter from "./StringAttributeConverter";
 // import FunctionAttributeConverter from "./Converter/FunctionAttributeConverter";
 
 const converterList = {
@@ -18,7 +18,7 @@ const converterList = {
   // "color4": Color4AttributeConverter,
   // "color3": Color3AttributeConverter,
   // "boolean": BooleanAttributeConverter,
-  "string": StringAttributeConverter,
+  // "string": StringAttributeConverter,
   // "function": FunctionAttributeConverter,
 };
 

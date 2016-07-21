@@ -93,10 +93,19 @@ class NamespacedDictionary<V> {
     });
     return ret;
   }
-  public forEach(callback: (value: V, fqn: string) => void): void {
+  public forEach(callback: (value: V, fqn: string) => void): NamespacedDictionary<V> {
     this._fqnObjectMap.forEach((val, key) => {
       callback(val, key);
     });
+    return this;
+  }
+  public map<T>(callback: ((value: V, fqn: string) => T)): NamespacedDictionary<T> {
+    const ret = new NamespacedDictionary<T>();
+    this._fqnObjectMap.forEach((val, fqn) => {
+      const id = NamespacedIdentity.fromFQN(fqn);
+      ret.set(id, callback(val, fqn));
+    });
+    return ret;
   }
 }
 

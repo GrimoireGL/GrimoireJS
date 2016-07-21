@@ -133,15 +133,6 @@ class GomlNode extends IDObject { // EEである必要がある
     }
   }
 
-  public getValueStr(attrName: string): string {
-    const attr = this.getAttribute(attrName);
-    if (attr === undefined) {
-      throw new Error(`attribute "${attrName}" is not found.`);
-    } else {
-      return attr.ValueStr;
-    }
-  }
-
   public setValue(attrName: string, value: any): void {
     // TODO: 引数が名前空間を含むかどうかで分岐
     const attr = this.getAttribute(attrName);
@@ -177,15 +168,6 @@ class GomlNode extends IDObject { // EEである必要がある
   // public getAttribute(name: string): any {
   //   return this._attributes.get(name);
   // }
-
-  /**
-   * Get attribute.
-   * @param  {string} name attribute name string.
-   * @return {string}      attribute value with string.
-   */
-  public getAttributeString(name: string): string {
-    return this.attributes.get(name).ValueStr;
-  }
 
   /**
    * Get mounted status.

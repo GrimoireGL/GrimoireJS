@@ -2,10 +2,10 @@
 // import CanvasesNode from "./Nodes/TopLevel/CanvasesNode";
 // import ResourcesNode from "./Nodes/TopLevel/ResourcesNode";
 // import ScenesNode from "./Nodes/TopLevel/ScenesNode";
-import GomlNodeDeclaration from "./Nodes/GomlNodeDeclaration";
+// import GomlNodeDeclaration from "./Nodes/GomlNodeDeclaration";
 
 const gomlNodeList = {
-  "GOML": GomlNodeDeclaration,
+  // "GOML": GomlNodeDeclaration,
   // "CANVASES": CanvasesNode,
   // "RESOURCES": ResourcesNode,
   // "SCENES": ScenesNode,

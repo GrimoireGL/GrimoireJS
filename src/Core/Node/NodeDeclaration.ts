@@ -41,7 +41,7 @@ class NodeDeclaration {
     public createNode(element: Element, requiredComponentsForChildren: NamespacedIdentity[]): GomlNode {
         let components = this.requiredComponents.clone().pushArray(requiredComponentsForChildren);
         let componentsArray = components.toArray().map((id) => GrimoireInterface.componentDeclarations.get(id).generateInstance());
-        let requiredAttrs = componentsArray.map((c) => c.requiredAttributes)
+        let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
             .reduce((pre, current) => pre === undefined ? current : pre.concat(current));
         // let attributes = requiredAttrs.reduce((pre, current) => pre === undefined ? current : pre.concat(current));
         // let attributesDict = {};
