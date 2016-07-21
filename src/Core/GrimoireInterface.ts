@@ -9,6 +9,8 @@ import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GOMLInterface from "./Node/GOMLInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
 import Ensure from "./Base/Ensure";
+import {inherits} from "util";
+
 interface IGrimoireInterfaceBase {
     ns(ns: string): (name: string) => NamespacedIdentity;
 
@@ -33,14 +35,31 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         return (name: string) => new NamespacedIdentity(ns, name);
     }
 
+// TODO test
     public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
-        // TODO transform object to Component
+        if (typeof obj === "function") {
+            if (!(obj.prototype instanceof Component)) {
+                throw new Error("Component constructor must extends Component class.");
+            }
+        } else if (typeof obj === "object") {
+            const newCtor = () => {
+                return this;
+            };
+            for (let key in obj) {
+                newCtor.prototype[key] = obj[key];
+            }
+            inherits(newCtor, Component);
+            obj = newCtor;
+        }
         this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
     }
 
-    public registerObject(name: string | NamespacedIdentity, requiredComponents: (string | NamespacedIdentity)[],
-        defaultValues?: { [key: string]: any } | NamespacedDictionary<any>, inherits?: string | NamespacedIdentity, requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
+    public registerNode(name: string | NamespacedIdentity,
+        requiredComponents: (string | NamespacedIdentity)[],
+        defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
+        inherits?: string | NamespacedIdentity,
+        requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
         defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
@@ -59,6 +78,10 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
+    }
+
+    private _mixinConstructor(): new () => Component {
+
     }
 }
 
