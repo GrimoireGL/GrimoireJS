@@ -39,7 +39,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         if (typeof obj === "function") {
-            if (!(obj.prototype instanceof Component)) {
+            if (!((obj as Function).prototype instanceof Component)) {
                 throw new Error("Component constructor must extends Component class.");
             }
         } else if (typeof obj === "object") {

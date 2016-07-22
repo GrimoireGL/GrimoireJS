@@ -17,20 +17,23 @@ class ComponentDeclaration {
     for (let key in attributes) {
       const val = attributes[key];
       const converter = Ensure.ensureTobeNamespacedIdentity(val.converter);
-      const attr =  new AttributeDeclaration(this, key, val.defaultValue, converter as NamespacedIdentity);
+      const attr = new AttributeDeclaration(this, key, val.defaultValue, converter as NamespacedIdentity);
       this.attributeDeclarations.set(attr.name, attr);
     }
   }
 
   public generateInstance(): Component {
-    return new Component(this);
+    const instance = new this.ctor();
+    instance.name = this.name;
+    instance.attributes = this.attributeDeclarations.map((attrDec) => attrDec.generateAttributeInstance());
+    return instance;
   }
 
-  public registerComponent(): void {
-    const attr: { [key: string]: IAttributeDeclaration } = {};
-    GrimoireInterface.registerComponent(this.name, attr, this.ctor);
-    // GrimoireInterface.registerComponent("name",{"attr1":{converter:"",defaultValue:""}},null)
-  }
+  // public registerComponent(): void {
+  //   const attr: { [key: string]: IAttributeDeclaration } = {};
+  //   GrimoireInterface.registerComponent(this.name, attr, this.ctor);
+  //   // GrimoireInterface.registerComponent("name",{"attr1":{converter:"",defaultValue:""}},null)
+  // }
 }
 
 export default ComponentDeclaration;
