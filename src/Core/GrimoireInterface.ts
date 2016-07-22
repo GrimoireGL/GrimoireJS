@@ -26,6 +26,8 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     public converters: NamespacedDictionary<AttributeConverter> = new NamespacedDictionary<AttributeConverter>();
 
     public componentDeclarations: NamespacedDictionary<ComponentDeclaration> = new NamespacedDictionary<ComponentDeclaration>();
+
+    public loadTasks: (() => Promise<void>)[] = [];
     /**
      * Generate namespace helper function
      * @param  {string} ns namespace URI to be used
@@ -35,41 +37,32 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         return (name: string) => new NamespacedIdentity(ns, name);
     }
 
-// TODO test
+    public register(loadTask: () => Promise<void>): void {
+        this.loadTasks.push(loadTask);
+    }
+
+    // TODO test
     public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
-        if (typeof obj === "function") {
-            if (!(obj.prototype instanceof Component)) {
-                throw new Error("Component constructor must extends Component class.");
-            }
-        } else if (typeof obj === "object") {
-            const newCtor = () => {
-                return this;
-            };
-            for (let key in obj) {
-                newCtor.prototype[key] = obj[key];
-            }
-            inherits(newCtor, Component);
-            obj = newCtor;
-        }
+        obj = this._ensureTobeComponentConstructor(obj);
         this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
     }
 
     public registerNode(name: string | NamespacedIdentity,
         requiredComponents: (string | NamespacedIdentity)[],
         defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
-        inherits?: string | NamespacedIdentity,
+        superNode?: string | NamespacedIdentity,
         requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
         defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
-        inherits = Ensure.ensureTobeNamespacedIdentity(inherits);
+        superNode = Ensure.ensureTobeNamespacedIdentity(superNode);
         requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
         this.nodeDeclarations.set(name as NamespacedIdentity,
             new NodeDeclaration(name as NamespacedIdentity,
                 NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
                 defaultValues as NamespacedDictionary<any>,
-                inherits as NamespacedIdentity,
+                superNode as NamespacedIdentity,
                 NamespacedSet.fromArray(requiredComponentsForChildren as NamespacedIdentity[])
             )
         );
@@ -80,8 +73,22 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
     }
 
-    private _mixinConstructor(): new () => Component {
-
+    private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
+        if (typeof obj === "function") {
+            if (!((obj as Function).prototype instanceof Component)) {
+                throw new Error("Component constructor must extends Component class.");
+            }
+        } else if (typeof obj === "object") {
+            const newCtor = () => {
+                return this;
+            };
+            for (let key in obj) {
+                (newCtor as Function).prototype[key] = obj[key];
+            }
+            inherits(newCtor, Component);
+            obj = newCtor;
+        }
+        return obj as (new () => Component);
     }
 }
 
