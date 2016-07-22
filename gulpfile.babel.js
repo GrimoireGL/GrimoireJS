@@ -93,7 +93,7 @@ gulp.task('txt-es5', () => {
 });
 
 gulp.task('test-txt-es5', () => {
-    const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+    const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml','.goml'];
     const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
     const dest = './test-es5';
     if (watching) {
