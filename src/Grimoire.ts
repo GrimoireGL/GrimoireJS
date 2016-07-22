@@ -1,3 +1,4 @@
+import GrimoireInterface from "./Core/GrimoireInterface";
 import GOMLLoader from "./Core/Node/GOMLLoader";
 /**
  * Provides procedures for initializing.
@@ -11,6 +12,7 @@ class GrimoireInitializer {
     public static async initialize(): Promise<void> {
         GrimoireInitializer._copyGLConstants();
         await GrimoireInitializer._waitForDOMLoading();
+        await GrimoireInitializer._resolvePlugins();
         await GOMLLoader.loadForPage();
     }
 
@@ -20,8 +22,8 @@ class GrimoireInitializer {
      */
     private static _copyGLConstants(): void {
         if (WebGLRenderingContext.ONE) {
-         // Assume the CONSTANTS are already in WebGLRenderingContext
-         // Chrome,Firefox,IE,Edge...
+            // Assume the CONSTANTS are already in WebGLRenderingContext
+            // Chrome,Firefox,IE,Edge...
             return;
         }
         // Otherwise like ""Safari""
@@ -31,6 +33,13 @@ class GrimoireInitializer {
                 WebGLRenderingContext[propName] = property;
             }
         }
+    }
+
+    private static async _resolvePlugins(): Promise<void> {
+     for (let i = 0; i < GrimoireInterface.loadTasks.length; i++) {
+         const task = GrimoireInterface.loadTasks[i];
+         await task();
+     }
     }
     /**
      * Obtain the promise object which will be resolved when DOMContentLoaded event was rised.

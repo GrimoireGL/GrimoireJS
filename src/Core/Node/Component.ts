@@ -1,7 +1,6 @@
 import GomlNode from "./GomlNode";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
-import Attribute from "./Attribute";
 import ComponentDeclaration from "./ComponentDeclaration";
 
 class Component {
