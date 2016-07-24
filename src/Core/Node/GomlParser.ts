@@ -74,9 +74,6 @@ class GomlParser {
     const defaultValues = recipe.defaultAttributes;
     const newNode = recipe.createNode(elem, inheritedRequiredConponents);
 
-
-    console.log(`"atribute binding. neNode::" ${JSON.stringify(newNode.attributes.toArray()) }`);
-
     // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
     newNode.forEachAttr((attr, key) => {
       this._parseAttribute(attr, elem, defaultValues.get(attr.name));

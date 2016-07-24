@@ -10,7 +10,7 @@ class GomlNodeDeclaration extends NodeDeclaration {
     const id = new NamespacedIdentity(Constants.defaultNamespace, "GOML");
     const req = new NamespacedSet();
     req.push(new NamespacedIdentity("Dummy"));
-    console.log("aaaaaaaa:"+JSON.stringify(req));
+    console.log("aaaaaaaa:" + JSON.stringify(req));
     const defaultValueDict = new NamespacedDictionary<any>();
     defaultValueDict.set(new NamespacedIdentity("aaa"), 100);
     const reqForChildren = new NamespacedSet();

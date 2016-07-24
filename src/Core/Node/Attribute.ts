@@ -55,10 +55,9 @@ class Attribute extends EEObject {
     this.name = declaration.name;
     this.declaration = declaration;
     this._value = declaration.defaultValue;
-    const converter = GrimoireInterface.converters.get(declaration.converter);
-    this.converter = converter ? converter : GrimoireInterface.converters.get((new StringConverter()).name);
+    this.converter = GrimoireInterface.converters.get(declaration.converter);
     if (!this.converter) {
-      throw new Error(`Attribute converter can not found`);
+      throw new Error(`Attribute converter '${declaration.converter.fqn}' can not found`);
     }
   }
 

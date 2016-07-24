@@ -39,20 +39,17 @@ class NodeDeclaration {
 
 
   public createNode(element: Element, requiredComponentsForChildren: NamespacedIdentity[]): GomlNode {
-    // console.log("createNode:"+JSON.stringify(this));
     if (!requiredComponentsForChildren) {
       requiredComponentsForChildren = [];
     }
     let components = this.requiredComponents.clone().pushArray(requiredComponentsForChildren);
-    // console.log("components:"+JSON.stringify(components.toArray()));
     let componentsArray = components.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
-        throw new Error(`'${id.fqn}' is not found.`);
+        throw new Error(`component '${id.fqn}' is not found.`);
       }
       return declaration.generateInstance();
     });
-    // console.log("componentsArray");
 
     let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre === undefined ? current : pre.concat(current));
