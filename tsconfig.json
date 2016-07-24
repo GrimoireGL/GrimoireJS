@@ -53,7 +53,7 @@
     "./src/Core/Node/IAttributeDeclaration.ts",
     "./src/Core/Node/NodeDeclaration.ts",
     "./src/Core/Node/NodeInterface.ts",
-    "./src/Core/Node/Nodes/GomlNodeRecipe.ts",
+    "./src/Core/Node/Nodes/GomlNodeDeclaration.ts",
     "./src/Core/Node/NodeUtility.ts",
     "./src/Grimoire.ts",
     "./src/typings/gl-matrix/gl-matrix.d.ts",

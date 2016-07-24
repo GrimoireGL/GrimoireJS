@@ -13,7 +13,9 @@ class GomlParser {
    * @param {HTMLElement} soruce [description]
    */
   public static parse(source: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
+    console.log("parse");
     const newNode = GomlParser._createNode(source, inheritedRequiredConponents);
+    console.log("new Node: ");
     // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
     if (newNode) {
       const children = source.childNodes;
@@ -61,26 +63,25 @@ class GomlParser {
    * @return {GomlTreeNodeBase}              [description]
    */
   private static _createNode(elem: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
+    // console.log("createNode"+elem);
     const tagName = elem.tagName;
+    console.log("tagName:" + tagName);
     const recipe = GrimoireInterface.nodeDeclarations.get(tagName);
-    if (recipe === undefined) {
-      throw new Error(`Tag ${tagName} is not found.`);
+    if (!recipe) {
+      throw new Error(`Tag "${tagName}" is not found.`);
     }
     const defaultValues = recipe.defaultAttributes;
+    // console.log("defaultValue:" + JSON.stringify(defaultValues));
     const newNode = recipe.createNode(elem, inheritedRequiredConponents);
 
-    /**
-     * HTMLElementのattributeとのバインディング
-     *
-     * Nodeの必須Attributes一覧を取得し、HTMLElementに存在しなければ追加。
-     * HTMLElementのすべてのattributesを取得し、NodeのAttributesに反映。
-     */
+
+    console.log(`"atribute binding. neNode::" ${JSON.stringify(newNode.attributes.toArray())}`);
+
+    // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
     newNode.forEachAttr((attr, key) => {
-      if (!this._parseAttribute(attr, elem, defaultValues.get(attr.name))) {
-        throw new Error("'${attrName}' is RequiredAttribute. but value is not assigned.");
-      }
+      this._parseAttribute(attr, elem, defaultValues.get(attr.name));
     });
-    // newNode.props.setProp<HTMLElement>("elem", elem);
+
     elem.setAttribute("x-j3-id", newNode.id); // TODO:rename!!
     return newNode;
   }
@@ -111,27 +112,16 @@ class GomlParser {
     }
   }
 
-  /**
-   * attempt get attribute value from goml.
-   * if fail,try use attr defaultValue,and defaultValue arguments.
-   * return : 値の設定に成功したか(デフォルト値での設定も含む)
-   */
-  private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): boolean {
+  private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): void {
     let attrName = attr.name;
     let tagAttrValue = tag.getAttribute(attrName.name);
-    if (tagAttrValue) {
+    if (!!tagAttrValue) {
+      console.log("DOMElement value is : " + tagAttrValue);
       attr.Value = tagAttrValue;
-    } else {
-      if (defaultValue !== undefined) {
-        attr.Value = defaultValue;
-      }else {
-        return false;
-      }
+    } else if (defaultValue !== undefined) {
+      console.log("use default value: " + `${defaultValue}`);
+      attr.Value = defaultValue;
     }
-    attr.on("changed", (ga: Attribute) => {
-      tag.setAttribute(attrName.name, ga.Value);
-    });
-    return true;
   }
 }
 
