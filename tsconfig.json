@@ -43,6 +43,7 @@
     "./src/Core/Node/Component/DummyComponent.ts",
     "./src/Core/Node/ComponentDeclaration.ts",
     "./src/Core/Node/Converters/ConverterList.ts",
+    "./src/Core/Node/DefaultPluginRegister.ts",
     "./src/Core/Node/GomlAttribute.ts",
     "./src/Core/Node/GOMLInterface.ts",
     "./src/Core/Node/GOMLLoader.ts",
