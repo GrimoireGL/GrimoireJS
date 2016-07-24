@@ -1,5 +1,6 @@
+import StringConverter from "./Converters/StringConverter";
 import EEObject from "../Base/EEObject";
-import ConverterBase from "./AttributeConverter";
+import AttributeConverter from "./AttributeConverter";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import AttributeDeclaration from "./AttributeDeclaration";
 import GrimoireInterface from "../GrimoireInterface";
@@ -14,7 +15,7 @@ class Attribute extends EEObject {
 
   public name: NamespacedIdentity;
   public declaration: AttributeDeclaration;
-  public converter: ConverterBase;
+  public converter: AttributeConverter;
   public component: Component;
   /**
    * If this flag is not true, notify value changed to DomElement.
@@ -55,7 +56,10 @@ class Attribute extends EEObject {
     this.declaration = declaration;
     this._value = declaration.defaultValue;
     const converter = GrimoireInterface.converters.get(declaration.converter);
-    this.converter = converter ? converter : GrimoireInterface.converters.get("string");
+    this.converter = converter ? converter : GrimoireInterface.converters.get((new StringConverter()).name);
+    if (!this.converter) {
+      throw new Error(`Attribute converter can not found`);
+    }
   }
 
   /**
@@ -66,8 +70,8 @@ class Attribute extends EEObject {
     if (typeof (val) === "string") {
       this._value = this.converter.convert(val);
     } else {
-     // TODO add try catch notation
-        this._value = this.converter.convert(val);
+      // TODO add try catch notation
+      this._value = this.converter.convert(val);
     }
     if (this._responsively) {
       this._notifyChange();

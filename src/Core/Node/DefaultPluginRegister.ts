@@ -1,3 +1,5 @@
+import StringConverter from "./Converters/StringConverter";
+import AttributeConverter from "./AttributeConverter";
 import NodeDeclaration from "./NodeDeclaration";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GrimoireInterface from "../GrimoireInterface";
@@ -11,6 +13,10 @@ const defaultNodeList: NodeDeclaration[] = [
   new GomlNodeDeclaration()
 ];
 
+const defaultConverterList: AttributeConverter[] = [
+  new StringConverter()
+];
+
 class DefaultPluginRegister {
   public static register(): void {
     console.log("register default plugins!");
@@ -19,9 +25,12 @@ class DefaultPluginRegister {
       GrimoireInterface.registerComponentDec(component);
     });
     defaultNodeList.forEach((node) => {
-      console.log(`\tnode: ${JSON.stringify(node)}`);
+      console.log(`\tnode: ${JSON.stringify(node) }`);
       GrimoireInterface.registerNodeDec(node);
     });
+    defaultConverterList.forEach((converter) => {
+      GrimoireInterface.registerConverter(converter.name, converter.convert);
+    })
   }
 }
 
