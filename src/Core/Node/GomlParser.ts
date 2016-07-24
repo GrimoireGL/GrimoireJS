@@ -111,7 +111,15 @@ class GomlParser {
 
   private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): void {
     let attrName = attr.name;
-    let tagAttrValue = tag.getAttribute(attrName.name);
+
+    const domAttrDict: { [key: string]: string } = {};
+    const domAttr = tag.attributes;
+    for (let i = 0; i < domAttr.length; i++) {
+      const name = domAttr[i].name.toUpperCase();
+      domAttrDict[name] = domAttr[i].value;
+    }
+
+    let tagAttrValue = domAttrDict[attrName.name];
     if (!!tagAttrValue) {
       console.log("DOMElement value is : " + tagAttrValue);
       attr.Value = tagAttrValue;

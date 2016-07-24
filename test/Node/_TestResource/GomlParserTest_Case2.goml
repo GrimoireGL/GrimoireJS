@@ -1,4 +1,6 @@
-<goml>
-  <test>
-  </test>
+<goml testAttr = "node default Value">
+  <goml>
+  </goml>
+  <goml>
+  </goml>
 </goml>

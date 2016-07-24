@@ -47,12 +47,12 @@ class GomlNode extends IDObject { // EEである必要がある
 
 
   public sendMessage(message: string, ...args: any[]): void {
-    for (let component in this.components) {
+    this.components.forEach((component) => {
       let method = component[message];
       if (typeof method === "function") {
-        method(args);
+        method.bind(component)(args);
       }
-    }
+    });
   }
   public broadcastMessage(name: string, ...args: any[]): void {
     this.sendMessage(name, args);

@@ -30,6 +30,7 @@ test('test parse for goml parser2',(t)=>{
   const element = obtainElementTag("GOMLParserTest_Case2.goml");
   const node = GomlParser.parse(element);
   t.truthy(node.parent === undefined);
+  node.broadcastMessage("dummyMethod","testArgument");
 });
 test('test parse for goml parser2',(t)=>{
   const element = obtainElementTag("GOMLParserTest_Case2.goml");
