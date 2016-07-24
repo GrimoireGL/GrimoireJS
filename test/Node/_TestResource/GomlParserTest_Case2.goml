@@ -1,5 +1,5 @@
 <goml testAttr = "node default Value">
-  <goml>
+  <goml testAttr = "hogehoge">
   </goml>
   <goml>
   </goml>
