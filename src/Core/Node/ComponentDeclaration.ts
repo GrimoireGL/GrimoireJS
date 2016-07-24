@@ -4,7 +4,6 @@ import IAttributeDeclaration from "./IAttributeDeclaration";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import AttributeDeclaration from "./AttributeDeclaration";
 import Component from "./Component";
-import GrimoireInterface from "../GrimoireInterface";
 
 class ComponentDeclaration {
 
@@ -28,12 +27,6 @@ class ComponentDeclaration {
     instance.attributes = this.attributeDeclarations.map((attrDec) => attrDec.generateAttributeInstance());
     return instance;
   }
-
-  // public registerComponent(): void {
-  //   const attr: { [key: string]: IAttributeDeclaration } = {};
-  //   GrimoireInterface.registerComponent(this.name, attr, this.ctor);
-  //   // GrimoireInterface.registerComponent("name",{"attr1":{converter:"",defaultValue:""}},null)
-  // }
 }
 
 export default ComponentDeclaration;

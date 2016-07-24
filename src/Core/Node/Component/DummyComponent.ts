@@ -1,9 +1,23 @@
+import IAttributeDeclaration from "../IAttributeDeclaration";
+import DefaultComponentBase from "./DefaultComponentBase";
 import Attribute from "../Attribute";
 import NamespacedDictionary from "../../Base/NamespacedDictionary";
 import Component from "../Component";
 import ComponentDeclaration from "../ComponentDeclaration";
 import NamespacedIdentity from "../../Base/NamespacedIdentity";
 import AttributeDeclaration from "../AttributeDeclaration";
+
+class DummyComponentDeclaration extends ComponentDeclaration {
+  constructor() {
+    // const namespace = "http://aaaa";
+    let id = new NamespacedIdentity("dummy");
+    const bb = { converter: "string", defaultValue: 123 };
+    const n: { [key: string]: IAttributeDeclaration } = {};
+    n["testAttr"] = bb;
+
+    super(id, n, DummyComponent);
+  }
+}
 
 class DummyComponent extends Component {
 
@@ -23,4 +37,4 @@ class DummyComponent extends Component {
   // }
 }
 
-export default DummyComponent;
+export default DummyComponentDeclaration;

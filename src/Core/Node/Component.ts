@@ -5,14 +5,13 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
 import ComponentDeclaration from "./ComponentDeclaration";
 
 class Component {
-  // public declaration: ComponentDeclaration;//いらない？
-  // public name: NamespacedIdentity;
-  // public attributes: NamespacedDictionary<Attribute>;
-  // public node: GomlNode;
+  public name: NamespacedIdentity;
+  public attributes: NamespacedDictionary<Attribute>;
+  public node: GomlNode;
 
-  constructor(public name: NamespacedIdentity, public attributes: NamespacedDictionary<Attribute>, public node: GomlNode) {
-
-  }
+  // constructor(public name: NamespacedIdentity, public attributes: NamespacedDictionary<Attribute>) {
+  //
+  // }
 }
 
 export default Component;
