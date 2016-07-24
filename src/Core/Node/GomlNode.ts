@@ -116,11 +116,8 @@ class GomlNode extends IDObject { // EEである必要がある
     }
   }
 
-  public forEachAttr(callbackfn: (value: Attribute, key: string) => void): GomlNode {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
-      v.forEach((attr) => { callbackfn(attr, k); });
-    }, this);
+  public forEachAttr(callbackfn: (value: Attribute, fqn: string) => void): GomlNode {
+    this.attributes.forEach(callbackfn);
     return this;
   }
 
