@@ -40,6 +40,9 @@ class NamespacedDictionary<V> {
         return this.get(new NamespacedIdentity(arg1 as string, name));
       } else {
         const namedMap = this._nameObjectMap.get((arg1 as string).toUpperCase());
+        if (!namedMap) {
+          return null;
+        }
         if (namedMap.size === 1) {
           const itr = namedMap.values();
           return itr.next().value;
