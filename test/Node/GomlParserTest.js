@@ -15,8 +15,23 @@ function obtainElementTag(path){
 
 DefaultPluginRegister.register();
 
-test('test parse for goml parser',(t)=>{
+test('test for parsing node hierarchy.',(t)=>{
   const element = obtainElementTag("GOMLParserTest_Case1.goml");
-  GomlParser.parse(element);
-  console.log(element);
+  const node = GomlParser.parse(element);
+  t.truthy(node.parent === undefined);
+  t.truthy(node.children.length === 1);
+  const c = node.children[0];
+  t.truthy(c.parent === node);
+  t.truthy(c.children.length === 1);
+  t.truthy(c.children[0].children.length === 0);
+});
+
+test('test parse for goml parser2',(t)=>{
+  const element = obtainElementTag("GOMLParserTest_Case2.goml");
+  const node = GomlParser.parse(element);
+  t.truthy(node.parent === undefined);
+});
+test('test parse for goml parser2',(t)=>{
+  const element = obtainElementTag("GOMLParserTest_Case2.goml");
+  const node = GomlParser.parse(element);
 });
