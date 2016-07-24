@@ -9,7 +9,7 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
 class GomlNode extends IDObject { // EEである必要がある
   public element: Element;
   public NodeDeclaration: NodeDeclaration;
-  public children: GomlNode[];
+  public children: GomlNode[] = [];
   public components: NamespacedDictionary<Component>;
   public attributes: NamespacedDictionary<Attribute>;
 
@@ -66,22 +66,27 @@ class GomlNode extends IDObject { // EEである必要がある
    * @param {GomlNode} Target node to be inserted.
    * @param {number}   index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
    */
-  public addChild(child: GomlNode, index?: number): void {
+  public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
-    if (index != null) {
+    if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
+
+    // handling html
+    if (elementSync) {
+      let referenceElement: HTMLElement = null;
+      if (index != null) {
+        referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, index)];
+      }
+      this.element.insertBefore(child.element, referenceElement);
+    }
+
+    // mounting
     if (this.mounted()) {
       child.setMounted(true);
     }
-    // handling html
-    let referenceElement: HTMLElement = null;
-    if (index != null) {
-      referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, index)];
-    }
-    this.element.insertBefore(child.element, referenceElement);
   }
 
   /**

@@ -15,45 +15,46 @@ class GomlParser {
   public static parse(source: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
     console.log("parse");
     const newNode = GomlParser._createNode(source, inheritedRequiredConponents);
-    console.log("new Node: ");
-    // タグ名が無効、又はattibuteが無効だった場合にはパースはキャンセルされる。HTMLElement側のattrにparseされていないことを記述
-    if (newNode) {
-      const children = source.childNodes;
-      if (children && children.length !== 0) {
-        for (let i = 0; i < children.length; i++) {
-          if (children[i].nodeType !== 1) {
-            continue;
-          }
-          const e = <Element>children[i];
-
-          // check <node.components>
-          if (e.tagName === newNode.nodeName + ".components") {
-            GomlParser._parseComponents(newNode, e);
-            continue;
-          }
-
-          // parse child node.
-          // let rcForChild = newNode.Recipe.RequiredComponentsForChildren;
-          let rcForChild = null;
-          if (!!inheritedRequiredConponents && inheritedRequiredConponents !== null) {
-            rcForChild = rcForChild.concat(inheritedRequiredConponents);
-
-            // remove　overLap
-            rcForChild = rcForChild.filter((x, i, self) => self.indexOf(x) === i);
-          }
-          const newChildNode = GomlParser.parse(e, rcForChild);
-          if (newChildNode) {
-            newNode.addChild(newChildNode);
-          }
-        }
-      }
-      // console.log("parseChild finish:", newNode);
-      return newNode;
-    } else {
+    if (!newNode) {
       // when specified node could not be found
       console.warn(`"${source.tagName}" was not parsed.`);
       return null;
     }
+
+    console.log("node parsing success!");
+    const children = source.childNodes;
+    if (children && children.length !== 0) {
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].nodeType !== 1) {
+          continue;
+        }
+        console.log("children exist!!!");
+        const e = <Element>children[i];
+
+        // check <node.components>
+        if (e.tagName === newNode.nodeName + ".components") {
+          console.log("found .components tag.");
+          GomlParser._parseComponents(newNode, e);
+          continue;
+        }
+
+        // parse child node.
+        // let rcForChild = newNode.Recipe.RequiredComponentsForChildren;
+        let rcForChild = null;
+        if (!!inheritedRequiredConponents && inheritedRequiredConponents !== null) {
+          rcForChild = rcForChild.concat(inheritedRequiredConponents);
+
+          // remove　overLap
+          rcForChild = rcForChild.filter((x, i, self) => self.indexOf(x) === i);
+        }
+        const newChildNode = GomlParser.parse(e, rcForChild);
+        if (newChildNode) {
+          newNode.addChild(newChildNode, null, false);
+        }
+      }
+      console.log("children parse finish!");
+    }
+    return newNode;
   }
 
   /**
@@ -71,11 +72,10 @@ class GomlParser {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
     const defaultValues = recipe.defaultAttributes;
-    // console.log("defaultValue:" + JSON.stringify(defaultValues));
     const newNode = recipe.createNode(elem, inheritedRequiredConponents);
 
 
-    console.log(`"atribute binding. neNode::" ${JSON.stringify(newNode.attributes.toArray())}`);
+    console.log(`"atribute binding. neNode::" ${JSON.stringify(newNode.attributes.toArray()) }`);
 
     // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
     newNode.forEachAttr((attr, key) => {
