@@ -1,4 +1,4 @@
-import ComponentInterface from "./Component/ComponentInterface";
+import ComponentInterface from "./ComponentInterface";
 interface NodeInterface {
     (query: string): ComponentInterface;
 }

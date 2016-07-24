@@ -46,7 +46,7 @@ class GomlNode extends IDObject { // EEである必要がある
   }
 
 
-  public sendMessage(message: string, ...args: any[]): void {
+  public sendMessage(message: string, args: any): void {
     this.components.forEach((component) => {
       let method = component[message];
       if (typeof method === "function") {
@@ -54,7 +54,7 @@ class GomlNode extends IDObject { // EEである必要がある
       }
     });
   }
-  public broadcastMessage(name: string, ...args: any[]): void {
+  public broadcastMessage(name: string, args: any): void {
     this.sendMessage(name, args);
     for (let i = 0; i < this.children.length; i++) {
       this.children[i].broadcastMessage(name, args);

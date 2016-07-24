@@ -13,7 +13,6 @@ class GomlParser {
    * @param {HTMLElement} soruce [description]
    */
   public static parse(source: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
-    console.log("parse");
     const newNode = GomlParser._createNode(source, inheritedRequiredConponents);
     if (!newNode) {
       // when specified node could not be found
@@ -21,19 +20,17 @@ class GomlParser {
       return null;
     }
 
-    console.log("node parsing success!");
     const children = source.childNodes;
     if (children && children.length !== 0) {
       for (let i = 0; i < children.length; i++) {
         if (children[i].nodeType !== 1) {
           continue;
         }
-        console.log("children exist!!!");
         const e = <Element>children[i];
 
         // check <node.components>
-        if (e.tagName === newNode.nodeName + ".components") {
-          console.log("found .components tag.");
+        const componentsTagName = newNode.nodeName.name.toUpperCase() + ".COMPONENTS";
+        if (e.tagName.toUpperCase() === componentsTagName) {
           GomlParser._parseComponents(newNode, e);
           continue;
         }
@@ -52,7 +49,6 @@ class GomlParser {
           newNode.addChild(newChildNode, null, false);
         }
       }
-      console.log("children parse finish!");
     }
     return newNode;
   }
@@ -64,10 +60,9 @@ class GomlParser {
    * @return {GomlTreeNodeBase}              [description]
    */
   private static _createNode(elem: Element, inheritedRequiredConponents?: NamespacedIdentity[]): GomlNode {
-    // console.log("createNode"+elem);
-    const tagName = elem.tagName;
-    console.log("tagName:" + tagName);
-    const recipe = GrimoireInterface.nodeDeclarations.get(tagName);
+    // console.log("createNode" + elem);
+    const tagName = elem.localName;
+    const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
@@ -94,10 +89,9 @@ class GomlParser {
         continue;
       }
       const tag = <Element>components[i];
-      const tagName = tag.tagName;
-      const component = GrimoireInterface.componentDeclarations.get(tagName);
+      const component = GrimoireInterface.componentDeclarations.get(tag);
       if (!component) {
-        throw new Error(`Component ${tagName} is not found.`);
+        throw new Error(`Component ${tag.tagName} is not found.`);
       }
 
       // コンポーネントの属性がタグの属性としてあればそれを、なければデフォルトを、それもなければ必須属性はエラー
@@ -121,10 +115,8 @@ class GomlParser {
 
     let tagAttrValue = domAttrDict[attrName.name];
     if (!!tagAttrValue) {
-      console.log("DOMElement value is : " + tagAttrValue);
       attr.Value = tagAttrValue;
     } else if (defaultValue !== undefined) {
-      console.log("use default value: " + `${defaultValue}`);
       attr.Value = defaultValue;
     }
   }

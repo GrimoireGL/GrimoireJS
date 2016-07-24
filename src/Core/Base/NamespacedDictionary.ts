@@ -60,7 +60,7 @@ class NamespacedDictionary<V> {
           if (arg1.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + arg1.namespaceURI.toUpperCase())) {
             return this.get(new NamespacedIdentity(arg1.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
           }
-          if ((arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + (arg1 as Attr).ownerElement.namespaceURI.toUpperCase())) {
+          if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + (arg1 as Attr).ownerElement.namespaceURI.toUpperCase())) {
             return this.get(new NamespacedIdentity((arg1 as Attr).ownerElement.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
           }
           return this.get(arg1.localName);

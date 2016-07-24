@@ -52,7 +52,7 @@ class NodeDeclaration {
     });
 
     let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre === undefined ? current : pre.concat(current));
+      .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
     return new GomlNode(this, element, componentsArray, requiredAttrs);
   }
 
