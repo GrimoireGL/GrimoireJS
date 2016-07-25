@@ -4,6 +4,8 @@ import test from 'ava';
 import sinon from 'sinon';
 import "babel-polyfill";
 import xhrmock from "xhr-mock";
+import rr from "regenerator-runtime";
+global.regeneratorRuntime = rr;
 
 xhrmock.setup();
 xhrmock.get("http://grimoire.gl/index.goml", (req, res) => {
