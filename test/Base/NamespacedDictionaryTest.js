@@ -99,7 +99,7 @@ test('get element with ambigious name should throw error', async(t) => {
     const domParser = new DOMParser();
     const parsed = domParser.parseFromString(require("./_TestResource/NamespacedDictionary_QueryDOM.xml"), "text/xml");
     const idElement = parsed.getElementById("test2");
-    const attr = idElement.attributes.item(0);
+    const attr = idElement.attributes.item(1);
     t.throws(() => {
         theDict.get(idElement);
     });

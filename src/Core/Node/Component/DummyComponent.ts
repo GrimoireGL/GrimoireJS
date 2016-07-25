@@ -18,10 +18,8 @@ class DummyComponentDeclaration extends ComponentDeclaration {
 class DummyComponent extends Component {
 
   public dummyMethod(arg: string): void {
-    // this is dymmy method for testing broadcastMessage.
-    console.log("dummy!! : " + arg);
+
     const value = this.attributes.get("testAttr").Value;
-    console.log("\ttestAttr: " + value);
   }
 }
 
