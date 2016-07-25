@@ -2,8 +2,9 @@ import prequire from "proxyquire";
 import jsdomAsync from "../JsDOMAsync";
 import test from 'ava';
 import sinon from 'sinon';
-import polyfill from "babel-polyfill";
+import "babel-polyfill";
 import xhrmock from "xhr-mock";
+
 xhrmock.setup();
 xhrmock.get("http://grimoire.gl/index.goml", (req, res) => {
     return res.status(200).body("TheTestStringFromAjax1");
