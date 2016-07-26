@@ -39,6 +39,7 @@
     "./src/Core/Node/AttributeConverter.ts",
     "./src/Core/Node/AttributeDeclaration.ts",
     "./src/Core/Node/Component.ts",
+    "./src/Core/Node/Component/DefaultComponentBase.ts",
     "./src/Core/Node/Component/DummyComponent.ts",
     "./src/Core/Node/ComponentDeclaration.ts",
     "./src/Core/Node/ComponentInterface.ts",

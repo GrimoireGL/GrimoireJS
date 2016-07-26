@@ -1,26 +1,23 @@
+import GrimoireInterface from "../../GrimoireInterface";
+import DefaultComponentBase from "./DefaultComponentBase";
 import IAttributeDeclaration from "../IAttributeDeclaration";
 import Component from "../Component";
-import ComponentDeclaration from "../ComponentDeclaration";
 import NamespacedIdentity from "../../Base/NamespacedIdentity";
 
-class DummyComponentDeclaration extends ComponentDeclaration {
-  constructor() {
-    // const namespace = "http://aaaa";
-    let id = new NamespacedIdentity("dummy");
-    const bb: IAttributeDeclaration = { converter: "stringconverter", defaultValue: "hoge" };
-    const n: { [key: string]: IAttributeDeclaration } = {};
-    n["testAttr"] = bb;
-
-    super(id, n, DummyComponent);
-  }
-}
-
-class DummyComponent extends Component {
+class DummyComponent extends Component implements DefaultComponentBase {
 
   public dummyMethod(arg: string): void {
 
     const value = this.attributes.get("testAttr").Value;
   }
+
+  public register(): void {
+    let id = new NamespacedIdentity("dummy");
+    const bb: IAttributeDeclaration = { converter: "stringconverter", defaultValue: "hoge" };
+    const n: { [key: string]: IAttributeDeclaration } = {};
+    n["testAttr"] = bb;
+    GrimoireInterface.registerComponent(id, n, DummyComponent);
+  }
 }
 
-export default DummyComponentDeclaration;
+export default DummyComponent;
