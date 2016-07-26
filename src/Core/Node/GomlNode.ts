@@ -8,7 +8,7 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
 
 class GomlNode extends IDObject { // EEである必要がある
   public element: Element;
-  public NodeDeclaration: NodeDeclaration;
+  public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public components: NamespacedDictionary<Component>;
   public attributes: NamespacedDictionary<Attribute>;
@@ -17,7 +17,7 @@ class GomlNode extends IDObject { // EEである必要がある
   private _mounted: boolean = false;
 
   public get nodeName(): NamespacedIdentity {
-    return this.NodeDeclaration.name;
+    return this.nodeDeclaration.name;
   }
 
   public get parent(): GomlNode {
@@ -30,7 +30,7 @@ class GomlNode extends IDObject { // EEである必要がある
 
   constructor(recipe: NodeDeclaration, element: Element, components: Component[], attributes: Attribute[]) {
     super();
-    this.NodeDeclaration = recipe;
+    this.nodeDeclaration = recipe;
     this.element = element;
 
     this.components = new NamespacedDictionary<Component>();
@@ -54,12 +54,41 @@ class GomlNode extends IDObject { // EEである必要がある
       }
     });
   }
-  public broadcastMessage(name: string, args: any): void {
-    this.sendMessage(name, args);
-    for (let i = 0; i < this.children.length; i++) {
-      this.children[i].broadcastMessage(name, args);
+
+  /**
+   * [broadcastMessage description]
+   * @param {number} range 0でそのノードのみ、1で子要素,2で孫...
+   * @param {string} name  [description]
+   * @param {any}    args  [description]
+   */
+  public broadcastMessage(range: number, name: string, args?: any): void;
+  public broadcastMessage(name: string, args?: any): void;
+  public broadcastMessage(arg1: number|string, arg2?: any, arg3?: any): void {
+    if (typeof arg1 === "number") {
+      const range = <number>arg1;
+      const message = <string>arg2;
+      const args = arg3;
+      this.sendMessage(message, args);
+      if (range > 0) {
+        for (let i = 0; i < this.children.length; i++) {
+          this.children[i].broadcastMessage(range - 1, message, args);
+        }
+      }
+    }else {
+      const message = arg1;
+      const args = arg2;
+      this.sendMessage(message, args);
+      for (let i = 0; i < this.children.length; i++) {
+        this.children[i].broadcastMessage(message, args);
+      }
     }
   }
+  // public broadcastMessage(name: string, args: any): void {
+  //   this.sendMessage(name, args);
+    // for (let i = 0; i < this.children.length; i++) {
+    //   this.children[i].broadcastMessage(name, args);
+    // }
+  // }
 
   /**
    * Add child.
@@ -195,7 +224,7 @@ class GomlNode extends IDObject { // EEである必要がある
         });
       });
     } else {
-      const target = this.getAttribute(attrName);
+      // const target = this.getAttribute(attrName);
       // target.notifyValueChanged();
     }
   }
