@@ -17,8 +17,8 @@ class IDObject {
         return Math.random().toString(36).slice(-length);
     }
 
-    constructor(id?: string) {
-        this.id = id || IDObject.getUniqueRandom(10);
+    constructor() {
+        this.id = IDObject.getUniqueRandom(10);
     }
     /**
      * Obtain stringfied object.

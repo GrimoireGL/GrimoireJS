@@ -9,6 +9,7 @@
     "./src/**/*.ts"
   ],
   "files": [
+    "./src/Basic3D/Components/Root/CanvasInitiator.ts",
     "./src/Core/Base/Constants.ts",
     "./src/Core/Base/EEObject.ts",
     "./src/Core/Base/Ensure.ts",
@@ -50,6 +51,7 @@
     "./src/Core/Node/GomlNodeList.ts",
     "./src/Core/Node/GomlParser.ts",
     "./src/Core/Node/IAttributeDeclaration.ts",
+    "./src/Core/Node/ITreeInitializedInfo.ts",
     "./src/Core/Node/NodeDeclaration.ts",
     "./src/Core/Node/NodeInterface.ts",
     "./src/Core/Node/Nodes/GomlNodeDeclaration.ts",

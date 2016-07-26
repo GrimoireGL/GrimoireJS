@@ -32,8 +32,8 @@ class EEObject extends IDObject implements NodeJS.EventEmitter {
         }
     }
 
-    constructor(id?: string) {
-        super(id);
+    constructor() {
+        super();
     }
 }
 

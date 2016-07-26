@@ -19,18 +19,15 @@ const defaultConverterList: AttributeConverter[] = [
 
 class DefaultPluginRegister {
   public static register(): void {
-    console.log("register default plugins!");
     defaultComponentList.forEach((component) => {
-      console.log(`\tcomponent: ${component.name}`);
       GrimoireInterface.registerComponentDec(component);
     });
     defaultNodeList.forEach((node) => {
-      console.log(`\tnode: ${JSON.stringify(node) }`);
       GrimoireInterface.registerNodeDec(node);
     });
     defaultConverterList.forEach((converter) => {
       GrimoireInterface.registerConverter(converter.name, converter.convert);
-    })
+    });
   }
 }
 

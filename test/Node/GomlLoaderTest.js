@@ -4,7 +4,10 @@ import test from 'ava';
 import sinon from 'sinon';
 import "babel-polyfill";
 import xhrmock from "xhr-mock";
+import xmldom from "../XMLDomInit";
 import rr from "regenerator-runtime";
+
+import XMLReader from "../../lib-es5/Core/Base/XMLReader";
 global.regeneratorRuntime = rr;
 
 xhrmock.setup();
@@ -17,14 +20,27 @@ xhrmock.get("http://grimoire.gl/index2.goml", (req, res) => {
 xhrmock.get("http://grimoire.gl/index3.goml", (req, res) => {
     return res.status(200).body("TheTestStringFromAjax3");
 });
-global.DOMParser = function() {}
 
-function mockXMLParse(func) {
+function mockXMLParse(func,spy) {
     return prequire('../../lib-es5/Core/Node/GOMLLoader', {
         "../Base/XMLReader": {
             default: {
                 parseXML: (src) => {
                     func(src);
+                    return XMLReader.parseXML(src);
+                }
+            }
+        },
+        "./GomlParser": {
+            default: {
+                parse: () => {
+                  return {
+                    broadcastMessage:(message,args)=>{
+                      if(spy){
+                        spy(message,args.ownerScriptTag);
+                      }
+                    }
+                  };
                 }
             }
         }
@@ -41,6 +57,20 @@ test('Processing script[type="text/goml"] tag correctly when the text content wa
     });
     await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
     t.truthy(spy.calledWith("TheTestString"));
+});
+
+test('Processing script[type="text/goml"] and call parse related methods in correct order', async(t) => {
+    const src = require("./_TestResource/GomlLoaderTest_Case1.html");
+    const window = await jsdomAsync(src, []);
+    const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');
+    const spy = sinon.spy();
+    const broadcastSpy = sinon.spy();
+    const mockedParseXML = mockXMLParse((src) => {
+        spy(src.trim());
+    },broadcastSpy);
+    await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
+    t.truthy(spy.calledWith("TheTestString"));
+    t.truthy(broadcastSpy.calledWith("treeInitialized",scriptTags.item(0)));
 });
 
 test('Processing script[type="text/goml"] tag correctly when the src attribute was existing', async(t) => {

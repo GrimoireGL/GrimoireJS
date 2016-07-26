@@ -1,6 +1,8 @@
+import ITreeInitializedInfo from "./ITreeInitializedInfo";
+import GrimoireInterface from "../GrimoireInterface";
+import GOMLParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
 import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
-
 /**
  * Provides the features to fetch GOML source.
  */
@@ -23,6 +25,12 @@ class GOMLLoader {
             source = scriptTag.text;
         }
         const doc = XMLReader.parseXML(source, "GOML");
+        const rootNode = GOMLParser.parse(doc.documentElement);
+        const nodeId = GrimoireInterface.addScriptNode(scriptTag, rootNode);
+        rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
+            ownerScriptTag: scriptTag,
+            id: nodeId
+        });
     }
     /**
      * Load from the script tags which will be found with specified query.

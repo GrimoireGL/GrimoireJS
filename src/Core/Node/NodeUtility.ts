@@ -1,4 +1,4 @@
-class NodeUtility {
+class NodeUtility { // TODO merge with Base/XMLReader
   /**
    * Get index of NodeList converted from index in Element
    * @param  {HTMLElement} targetElement Parent element of search target elements
