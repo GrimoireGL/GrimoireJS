@@ -1,15 +1,14 @@
-import DefaultComponentBase from "./Component/DefaultComponentBase";
+import DefaultPluginDeclarationBase from "./DefaultPluginDeclarationBase";
 import StringConverter from "./Converters/StringConverter";
 import AttributeConverter from "./AttributeConverter";
-import NodeDeclaration from "./NodeDeclaration";
 import GrimoireInterface from "../GrimoireInterface";
 import DummyComponent from "./Component/DummyComponent";
 import GomlNodeDeclaration from "./Nodes/GomlNodeDeclaration";
 
-const defaultComponentList: DefaultComponentBase[] = [
+const defaultComponentList: DefaultPluginDeclarationBase[] = [
   new DummyComponent()];
 
-const defaultNodeList: NodeDeclaration[] = [
+const defaultNodeList: DefaultPluginDeclarationBase[] = [
   new GomlNodeDeclaration()
 ];
 
@@ -23,7 +22,7 @@ class DefaultPluginRegister {
       component.register();
     });
     defaultNodeList.forEach((node) => {
-      GrimoireInterface.registerNodeDec(node);
+      node.register();
     });
     defaultConverterList.forEach((converter) => {
       GrimoireInterface.registerConverter(converter.name, converter.convert);

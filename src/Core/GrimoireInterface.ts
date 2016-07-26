@@ -52,9 +52,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         obj = this._ensureTobeComponentConstructor(obj);
         this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
     }
-    public registerComponentDec(declaration: ComponentDeclaration): void {
-        this.componentDeclarations.set(declaration.name, declaration);
-    }
 
     public registerNode(name: string | NamespacedIdentity,
         requiredComponents: (string | NamespacedIdentity)[],
@@ -74,10 +71,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
                 NamespacedSet.fromArray(requiredComponentsForChildren as NamespacedIdentity[])
             )
         );
-    }
-
-    public registerNodeDec(declaration: NodeDeclaration): void {
-        this.nodeDeclarations.set(declaration.name, declaration);
     }
 
     public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {

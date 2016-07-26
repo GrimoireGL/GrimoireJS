@@ -1,10 +1,10 @@
+import DefaultPluginDeclarationBase from "../DefaultPluginDeclarationBase";
 import GrimoireInterface from "../../GrimoireInterface";
-import DefaultComponentBase from "./DefaultComponentBase";
 import IAttributeDeclaration from "../IAttributeDeclaration";
 import Component from "../Component";
 import NamespacedIdentity from "../../Base/NamespacedIdentity";
 
-class DummyComponent extends Component implements DefaultComponentBase {
+class DummyComponent extends Component implements DefaultPluginDeclarationBase {
 
   public dummyMethod(arg: string): void {
 
