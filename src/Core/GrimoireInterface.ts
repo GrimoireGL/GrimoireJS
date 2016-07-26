@@ -85,24 +85,46 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
     }
 
-    public addScriptNode(tag: HTMLScriptElement, node: GomlNode): string {
+    public addRootNode(tag: HTMLScriptElement, node: GomlNode): string {
         const id = IDOBject.getUniqueRandom(10);
         tag.setAttributeNS(Constants.defaultNamespace, "rootNodeId", id);
         this.rootNodes[id] = node;
         return id;
     }
 
+    public getRootNode(scriptTag: Element): GomlNode {
+        const id = scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId");
+        return this.rootNodes[id];
+    }
+
+    public queryRootNodes(query: string): GomlNode[] {
+        const scriptTags = document.querySelectorAll(query);
+        const nodes: GomlNode[] = [];
+        for (let i = 0; i < scriptTags.length; i++) {
+            const node = this.getRootNode(scriptTags.item(i));
+            if (node) {
+                nodes.push(node);
+            }
+        }
+        return nodes;
+    }
+
+    /**
+     * Ensure the given object or constructor to be an constructor inherits Component;
+     * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
+     * @return {[type]}      [The constructor inherits Component]
+     */
     private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
         if (typeof obj === "function") {
             if (!((obj as Function).prototype instanceof Component)) {
                 throw new Error("Component constructor must extends Component class.");
             }
         } else if (typeof obj === "object") {
-            const newCtor = () => { return void 0; };
+            const newCtor = () => { return; };
+            inherits(newCtor, Component);
             for (let key in obj) {
                 (newCtor as Function).prototype[key] = obj[key];
             }
-            inherits(newCtor, Component);
             obj = newCtor;
         } else if (!obj) {
             obj = Component;

@@ -26,7 +26,7 @@ class GomlLoader {
         }
         const doc = XMLReader.parseXML(source, "GOML");
         const rootNode = GomlParser.parse(doc.documentElement);
-        const nodeId = GrimoireInterface.addScriptNode(scriptTag, rootNode);
+        const nodeId = GrimoireInterface.addRootNode(scriptTag, rootNode);
         rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
             ownerScriptTag: scriptTag,
             id: nodeId

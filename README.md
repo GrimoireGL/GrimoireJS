@@ -1,4 +1,6 @@
-# GrimoireJS -- A service-oriented Web3D framework.
+# Grimoire.js
+**A service-oriented Web3D framework.**
+
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
 [![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/GrimoireGL/GrimoireJS?branch=develop&svg=true)](https://ci.appveyor.com/project/LimeStreem/jthree)
@@ -7,56 +9,39 @@
 [![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
 [![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
 
-## About
+## Overview
 
-### Mission
+**Web3D is not only for games, but also for web services.**
 
-**Establish usage of 3DCG as assets over the web like text,image,video and so on.**
+After WebGL feature being implemented with modern browsers, many impressive Web3D libraries are appeared. However, most of them are just imported from 3D development culture that was grown in the environments very apart from web development culture.
 
-This is the one and only mission we define.
+---
 
-### Our methods
+This library has 3 of main concepts that is considered to take advantage of using Web3D in Web services.
 
-* Make every developer being able to focus in the most important task they want to do.
-* Redefine the value of 3DCG over the web.
-* Fully care about UX for contributors.
-* This is not game engine, but **Web3D service engine**
+* **Workflow**・・・No longer consider environments for 3D engineers cope with.
+* **Interface**・・・Create 3D scenes with xml syntax and handle them with event oriented interfaces that web engineers used to.
+* **Extensive**・・・Choose what you actually need, no more coding out of your specialized area.
 
-### Dependencies
+## News
 
-This library depends on the following libraries. We appreciate these contributors below :heart:
+**Wait for using this library.**
 
-|Name|Purpose|URL|Memo|
-|:-:|:-:|:-:|:-:|
-|gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
+From the last release of this library, our team decided to refactor a lot of interfaces. Most of API in the last release would not work in next version(Maybe 100% of API will be affected.).
 
-### Installation to build
+This is not only just editing property names or refactoring class relationships. This version would change the behaviours how all users would do with this library. 
 
-You need the applications below.
-* node.js
-* npm
+## Useful Links
 
-You need **not** to install any packages in global.
+* **Official Site**・・・http://grimoire.gl
+* **Playground**・・・http://studio.grimoire.gl
 
-You need to run the command below to install npm packages,bower packages,and so on in local environment.
+**Note:Most part of documentation are not completed yet. **
 
-```shell
-npm install
-```
+**And all of these documentation are targeted to next release.**
 
-**That is all you need to do for preparation!**
+## LICENSE
 
-Then, run the command below to build "j3.js"
+**MIT License**
 
-```shell
-npm run build
-```
-
-|command|description|
-|:-:|:-:|
-|npm run build|build "j3.js"|
-|npm run test|run test|
-|npm run watch|watch files for build and run simple web server(under wwwroot)|
-|npm start|only run simple web server(under wwwroot)|
-
-(simple web server supported LiveReload)
+(See the LICENSE file for more detail.)
