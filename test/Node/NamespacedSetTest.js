@@ -18,7 +18,7 @@ import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
 // DefaultPluginRegister.register();
 
 test('test parse for goml parser',(t)=>{
-  // const element = obtainElementTag("GOMLParserTest_Case1.goml");
+  // const element = obtainElementTag("GomlParserTest_Case1.goml");
   // GomlParser.parse(element);
   // console.log(element);
   const name = new NamespacedIdentity("namespace1","name1");

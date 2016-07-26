@@ -84,7 +84,7 @@ DefaultPluginRegister.register();
 registerUserPlugin();
 
 test('test for parsing node hierarchy.', (t) => {
-  const element = obtainElementTag("GOMLParserTest_Case1.goml");
+  const element = obtainElementTag("GomlParserTest_Case1.goml");
   const node = GomlParser.parse(element);
   t.truthy(node.parent === undefined);
   t.truthy(node.children.length === 1);
@@ -98,19 +98,19 @@ test('test for parsing node hierarchy.', (t) => {
 });
 
 test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
-  const element = obtainElementTag("GOMLParserTest_Case2.goml");
+  const element = obtainElementTag("GomlParserTest_Case2.goml");
   const node = GomlParser.parse(element);
   t.truthy(node.parent === undefined);
   node.broadcastMessage("dummyMethod", "testArgument");
 });
 
 test('test for parse user-define component.', (t) => {
-  const element = obtainElementTag("GOMLParserTest_Case3.goml");
+  const element = obtainElementTag("GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
 });
 
 test('test for namespace parsing.', (t) => {
-  const element = obtainElementTag("GOMLParserTest_Case4.goml");
+  const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   var obj = {
     value: "change to 'aaa'"

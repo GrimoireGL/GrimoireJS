@@ -3,7 +3,7 @@
 // import GomlConfigurator from "./GomlConfigurator";
 //
 // /**
-//  * Provides the feature to manage attribute of GOML.
+//  * Provides the feature to manage attribute of Goml.
 //  */
 // class GomlAttribute extends EEObject {
 //

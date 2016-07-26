@@ -8,7 +8,7 @@ import Constants from "./Base/Constants";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
-import GOMLInterface from "./Node/GOMLInterface";
+import GomlInterface from "./Node/GomlInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
 import Ensure from "./Base/Ensure";
 import IDOBject from "./Base/IDObject";
@@ -20,7 +20,7 @@ interface IGrimoireInterfaceBase {
 }
 
 interface IGrimoireInterface extends IGrimoireInterfaceBase {
-    (query: string): GOMLInterface;
+    (query: string): GomlInterface;
 }
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {

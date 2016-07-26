@@ -7,7 +7,7 @@ import Constants from "../../Base/Constants";
 class GomlNodeDeclaration extends NodeDeclaration {
 
   constructor() {
-    const id = new NamespacedIdentity(Constants.defaultNamespace, "GOML");
+    const id = new NamespacedIdentity(Constants.defaultNamespace, "Goml");
     const req = new NamespacedSet();
     req.push(new NamespacedIdentity("Dummy"));
     const defaultValueDict = new NamespacedDictionary<any>();

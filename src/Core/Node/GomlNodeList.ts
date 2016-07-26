@@ -5,14 +5,14 @@
 // import GomlNodeDeclaration from "./Nodes/GomlNodeDeclaration";
 
 const gomlNodeList = {
-  // "GOML": GomlNodeDeclaration,
+  // "Goml": GomlNodeDeclaration,
   // "CANVASES": CanvasesNode,
   // "RESOURCES": ResourcesNode,
   // "SCENES": ScenesNode,
   // "TEMPLATES": TemplatesNode,
   // "LOADERS": LoadersNode,
   // "IMPORTS": ImportsNode,
-  // "GOML": GomlNode,
+  // "Goml": GomlNode,
   //
   // "TRI": TriangleGeometryNode,
   // "GRID": GridGeometryNode,

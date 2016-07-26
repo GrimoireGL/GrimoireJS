@@ -1,14 +1,14 @@
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import GrimoireInterface from "../GrimoireInterface";
-import GOMLParser from "./GomlParser";
+import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
 import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
 /**
- * Provides the features to fetch GOML source.
+ * Provides the features to fetch Goml source.
  */
-class GOMLLoader {
+class GomlLoader {
     /**
-     * Obtain the GOML source from specified tag.
+     * Obtain the Goml source from specified tag.
      * @param  {HTMLScriptElement} scriptTag [the script tag to load]
      * @return {Promise<void>}               [the promise to wait for loading]
      */
@@ -25,7 +25,7 @@ class GOMLLoader {
             source = scriptTag.text;
         }
         const doc = XMLReader.parseXML(source, "GOML");
-        const rootNode = GOMLParser.parse(doc.documentElement);
+        const rootNode = GomlParser.parse(doc.documentElement);
         const nodeId = GrimoireInterface.addScriptNode(scriptTag, rootNode);
         rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
             ownerScriptTag: scriptTag,
@@ -41,18 +41,18 @@ class GOMLLoader {
         const tags = document.querySelectorAll(query);
         const pArray: Promise<void>[] = [];
         for (let i = 0; i < tags.length; i++) {
-            pArray[i] = GOMLLoader.loadFromScriptTag(tags.item(i) as HTMLScriptElement);
+            pArray[i] = GomlLoader.loadFromScriptTag(tags.item(i) as HTMLScriptElement);
         }
         return Promise.all<void>(pArray);
     }
 
     /**
-     * Load all GOML sources contained in HTML.
+     * Load all Goml sources contained in HTML.
      * @return {Promise<void>} [the promise to wait for all goml loading]
      */
     public static async loadForPage(): Promise<void> {
-        await GOMLLoader.loadFromQuery('script[type="text/goml"]');
+        await GomlLoader.loadFromQuery('script[type="text/goml"]');
     }
 }
 
-export default GOMLLoader;
+export default GomlLoader;

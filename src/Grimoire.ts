@@ -1,6 +1,6 @@
 import DefaultPluginRegister from "./Core/Node/DefaultPluginRegister";
 import GrimoireInterface from "./Core/GrimoireInterface";
-import GOMLLoader from "./Core/Node/GOMLLoader";
+import GomlLoader from "./Core/Node/GomlLoader";
 /**
  * Provides procedures for initializing.
  */
@@ -8,13 +8,13 @@ class GrimoireInitializer {
 
     /**
      * Start initializing
-     * @return {Promise<void>} The promise which will be resolved when all of the GOML script was loaded.
+     * @return {Promise<void>} The promise which will be resolved when all of the Goml script was loaded.
      */
     public static async initialize(): Promise<void> {
         GrimoireInitializer._copyGLConstants();
         await GrimoireInitializer._waitForDOMLoading();
         await GrimoireInitializer._resolvePlugins();
-        await GOMLLoader.loadForPage();
+        await GomlLoader.loadForPage();
     }
 
     /**
