@@ -59,20 +59,16 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     public registerNode(name: string | NamespacedIdentity,
         requiredComponents: (string | NamespacedIdentity)[],
         defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
-        superNode?: string | NamespacedIdentity,
-        requiredComponentsForChildren?: (string | NamespacedIdentity)[]): void {
+        superNode?: string | NamespacedIdentity): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
         defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
         superNode = Ensure.ensureTobeNamespacedIdentity(superNode);
-        requiredComponentsForChildren = Ensure.ensureTobeNamespacedIdentityArray(requiredComponentsForChildren);
         this.nodeDeclarations.set(name as NamespacedIdentity,
             new NodeDeclaration(name as NamespacedIdentity,
                 NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
                 defaultValues as NamespacedDictionary<any>,
-                superNode as NamespacedIdentity,
-                NamespacedSet.fromArray(requiredComponentsForChildren as NamespacedIdentity[])
-            )
+                superNode as NamespacedIdentity)
         );
     }
 
@@ -116,7 +112,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
      */
     private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
         if (typeof obj === "function") {
-            if (!((obj as Function).prototype instanceof Component)) {
+            if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
                 throw new Error("Component constructor must extends Component class.");
             }
         } else if (typeof obj === "object") {

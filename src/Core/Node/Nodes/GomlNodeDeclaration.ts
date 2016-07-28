@@ -14,7 +14,7 @@ class GomlNodeDeclaration extends NodeDeclaration {
     defaultValueDict.set(new NamespacedIdentity("testAttr"), "gomlNodeDefaultValue");
     const reqForChildren = new NamespacedSet();
     reqForChildren.push(new NamespacedIdentity("Dummy"));
-    super(id, req, defaultValueDict, null, reqForChildren);
+    super(id, req, defaultValueDict, null);
   }
 }
 

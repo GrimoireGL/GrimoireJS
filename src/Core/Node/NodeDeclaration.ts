@@ -5,76 +5,63 @@ import NamespacedIdentity from "../Base/NamespacedIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 
 class NodeDeclaration {
-  private _requiredComponentsActual: NamespacedSet;
-  private _requiredComponentsActualForChildren: NamespacedSet;
-  private _defaultAttributesActual: NamespacedDictionary<any>;
+    private _requiredComponentsActual: NamespacedSet;
+    private _defaultAttributesActual: NamespacedDictionary<any>;
 
-  public get requiredComponents(): NamespacedSet {
-    if (!this._requiredComponentsActual) {
-      this._resolveInherites();
+    public get requiredComponents(): NamespacedSet {
+        if (!this._requiredComponentsActual) {
+            this._resolveInherites();
+        }
+        return this._requiredComponentsActual;
     }
-    return this._requiredComponentsActual;
-  }
-  public get requiredComponentsForChildren(): NamespacedSet {
-    if (!this._requiredComponentsActualForChildren) {
-      this._resolveInherites();
+
+    public get defaultAttributes(): NamespacedDictionary<any> {
+        if (!this._defaultAttributesActual) {
+            this._resolveInherites();
+        }
+        return this._defaultAttributesActual;
     }
-    return this._requiredComponentsActualForChildren;
-  }
-  public get defaultAttributes(): NamespacedDictionary<any> {
-    if (!this._defaultAttributesActual) {
-      this._resolveInherites();
+
+    constructor(
+        public name: NamespacedIdentity,
+        private _requiredComponents: NamespacedSet,
+        private _defaultAttributes: NamespacedDictionary<any>,
+        public inherits: NamespacedIdentity) {
+
     }
-    return this._defaultAttributesActual;
-  }
-
-  constructor(
-    public name: NamespacedIdentity,
-    private _requiredComponents: NamespacedSet,
-    private _defaultAttributes: NamespacedDictionary<any>,
-    public inherits: NamespacedIdentity,
-    private _requiredComponentsForChildren: NamespacedSet) {
-
-  }
 
 
-  public createNode(element: Element, requiredComponentsForChildren: NamespacedIdentity[]): GomlNode {
-    if (!requiredComponentsForChildren) {
-      requiredComponentsForChildren = [];
+    public createNode(element: Element): GomlNode {
+        let components = this.requiredComponents;
+        let componentsArray = components.toArray().map((id) => {
+            const declaration = GrimoireInterface.componentDeclarations.get(id);
+            if (!declaration) {
+                throw new Error(`component '${id.fqn}' is not found.`);
+            }
+            return declaration.generateInstance();
+        });
+
+        let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
+            .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
+        return new GomlNode(this, element, componentsArray, requiredAttrs);
     }
-    let components = this.requiredComponents.clone().pushArray(requiredComponentsForChildren);
-    let componentsArray = components.toArray().map((id) => {
-      const declaration = GrimoireInterface.componentDeclarations.get(id);
-      if (!declaration) {
-        throw new Error(`component '${id.fqn}' is not found.`);
-      }
-      return declaration.generateInstance();
-    });
-
-    let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
-    return new GomlNode(this, element, componentsArray, requiredAttrs);
-  }
 
 
 
-  private _resolveInherites(): void {
-    // console.log("resolveInherits");
-    if (!this.inherits) {
-      // console.log("\tnothing inherits");
-      this._requiredComponentsActual = this._requiredComponents;
-      this._requiredComponentsActualForChildren = this._requiredComponentsForChildren;
-      this._defaultAttributesActual = this._defaultAttributes;
-      return;
+    private _resolveInherites(): void {
+        // console.log("resolveInherits");
+        if (!this.inherits) {
+            // console.log("\tnothing inherits");
+            this._requiredComponentsActual = this._requiredComponents;
+            this._defaultAttributesActual = this._defaultAttributes;
+            return;
+        }
+        const inherits = GrimoireInterface.nodeDeclarations.get(this.inherits);
+        const inheritedRequiredComponents = inherits.requiredComponents;
+        const inheritedDefaultAttribute = inherits.defaultAttributes;
+        this._requiredComponentsActual = this._requiredComponents.clone().merge(inheritedRequiredComponents);
+        this._defaultAttributesActual = this._defaultAttributes.pushDictionary(inheritedDefaultAttribute);
     }
-    const inherits = GrimoireInterface.nodeDeclarations.get(this.inherits);
-    const inheritedRequiredComponents = inherits.requiredComponents;
-    const inheritedRequiredComponentsForChildren = inherits.requiredComponentsForChildren;
-    const inheritedDefaultAttribute = inherits.defaultAttributes;
-    this._requiredComponentsActual = this._requiredComponents.clone().merge(inheritedRequiredComponents);
-    this._requiredComponentsForChildren = this._requiredComponentsForChildren.clone().merge(inheritedRequiredComponentsForChildren);
-    this._defaultAttributesActual = this._defaultAttributes.pushDictionary(inheritedDefaultAttribute);
-  }
 
 }
 
