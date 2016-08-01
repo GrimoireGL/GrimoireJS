@@ -69,6 +69,7 @@ class GomlParser {
     }
 
 
+
     private static _parseComponents(node: GomlNode, componentsTag: Element): void {
         let componentNodes = componentsTag.childNodes;
         if (!componentNodes) {
@@ -106,7 +107,7 @@ class GomlParser {
         let tagAttrValue = attrDictionary[attrName.name];
         if (!!tagAttrValue) {
             attr.Value = tagAttrValue;
-        } else if (defaultValue !== undefined) {
+        } else if (defaultValue !== void 0) {
             attr.Value = defaultValue;
         }
     }

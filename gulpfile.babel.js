@@ -22,6 +22,8 @@ import typedoc from 'gulp-typedoc';
 import watchify from 'watchify';
 import exec from 'gulp-exec';
 
+let buildAllFinished = ()=>{};
+
 gulp.task('default', ['build']);
 
 gulp.task('build-all', ['build', 'build-test']);
@@ -45,6 +47,14 @@ gulp.task('watch', () => {
     enableWatch();
     runSequence('build');
 });
+
+gulp.task('test',()=>{
+  if(watching){
+    gulp.watch("./src/**/*.ts", ['ts-es6','test']);
+  }
+  gulp.src('./').pipe(exec("ava ./test-es5/**/*Test.js"));
+});
+
 
 let watching = false;
 

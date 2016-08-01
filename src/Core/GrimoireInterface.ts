@@ -1,3 +1,4 @@
+import IGomlInterface from "./Interface/IGomlInterface";
 import GomlNode from "./Node/GomlNode";
 import ComponentDeclaration from "./Node/ComponentDeclaration";
 import Component from "./Node/Component";
@@ -8,19 +9,30 @@ import Constants from "./Base/Constants";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
-import GomlInterface from "./Node/GomlInterface";
+import GomlInterface from "./Interface/GomlInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
 import Ensure from "./Base/Ensure";
 import IDOBject from "./Base/IDObject";
 import {inherits} from "util";
 
 interface IGrimoireInterfaceBase {
+    nodeDeclarations: NamespacedDictionary<NodeDeclaration>;
+    converters: NamespacedDictionary<AttributeConverter>;
+    loadTasks: (() => Promise<void>)[];
+    componentDeclarations: NamespacedDictionary<ComponentDeclaration>;
     ns(ns: string): (name: string) => NamespacedIdentity;
+    // DEPRECATED
+    registerNodeDec(declaration: NodeDeclaration): void;
+    // DEPRECATED
+    registerComponentDec(declaration: ComponentDeclaration): void;
+
+    addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
+    registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void;
 
 }
 
 interface IGrimoireInterface extends IGrimoireInterfaceBase {
-    (query: string): GomlInterface;
+    (query: string): IGomlInterface;
 }
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
@@ -129,5 +141,16 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     }
 }
 
+const obtainGomlInterface = function(query: string): IGomlInterface {
+    const context = new GomlInterface(this.queryRootNodes(query));
+    const queryFunc = (query: string) => {
+     console.log(this.rootNodes);
+    };
+    queryFunc.prototype = context;
+    return (queryFunc.bind(context)) as IGomlInterface;
+};
+const context = new GrimoireInterfaceImpl();
+const bindedFunction = obtainGomlInterface.bind(context);
+Object.setPrototypeOf(bindedFunction, context);
 // TODO export as IGrimoireInterface
-export default new GrimoireInterfaceImpl();
+export default bindedFunction as IGrimoireInterface;
