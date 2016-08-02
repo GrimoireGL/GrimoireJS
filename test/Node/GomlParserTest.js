@@ -19,6 +19,10 @@ function obtainElementTag(path) {
     return parser.parseFromString(loadFromTestResource(path), "text/xml").documentElement;
 }
 
+test.beforeEach(()=>{
+  GrimoireInterface.rootNodes.clear();
+});
+
 
 function registerUserPlugin() {
     GrimoireInterface.registerNode("testNode1", ["testComponent1"], null, null, null);

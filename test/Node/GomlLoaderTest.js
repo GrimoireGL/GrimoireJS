@@ -98,7 +98,6 @@ test('Processing goml scripts from query', async(t) => {
     t.truthy(spy.calledWith("TheTestStringFromAjax1"));
     t.truthy(!spy.calledWith("TheTestStringFromAjax2"));
     t.truthy(spy.calledWith("TheTestStringFromAjax3"));
-    console.log(GrimoireInterface("script")());
 });
 
 test('Processing goml scripts for page', async(t) => {

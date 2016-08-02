@@ -22,22 +22,21 @@ class GomlParser {
         // Parse children recursively
         const children = source.childNodes;
         if (children && children.length !== 0) { // When there is children
-            const regexToFindComponent = /\.COMPONENTS$/mi;
+            const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
             for (let i = 0; i < children.length; i++) {
-                const child = children.item(i) as Element;
-                if (child.nodeType !== Node.ELEMENT_NODE) {
-                    continue; // Skip if the node was not Element.
-                }
-                // parse as components
-                if (regexToFindComponent.test(child.nodeName)) {
-                    GomlParser._parseComponents(newNode, child);
-                    source.removeChild(child);
-                    continue;
-                }
-                // parse as child node.
-                const newChildNode = GomlParser.parse(child);
-                if (newChildNode) {
-                    newNode.addChild(newChildNode, null, false);
+                const child = children.item(i);
+                if (GomlParser._isElement(child)) {
+                    // parse as components
+                    if (regexToFindComponent.test(child.nodeName)) {
+                        GomlParser._parseComponents(newNode, child);
+                        source.removeChild(child);
+                        continue;
+                    }
+                    // parse as child node.
+                    const newChildNode = GomlParser.parse(child);
+                    if (newChildNode) {
+                        newNode.addChild(newChildNode, null, false);
+                    }
                 }
             }
         }
@@ -92,6 +91,10 @@ class GomlParser {
 
             node.components.set(component.name, component.generateInstance());
         }
+    }
+
+    private static _isElement(node: Node): node is Element {
+        return node.nodeType === Node.ELEMENT_NODE;
     }
 
     private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): void {

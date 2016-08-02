@@ -23,12 +23,14 @@ interface IGrimoireInterfaceBase {
     ns(ns: string): (name: string) => NamespacedIdentity;
     // DEPRECATED
     registerNodeDec(declaration: NodeDeclaration): void;
-    // DEPRECATED
-    registerComponentDec(declaration: ComponentDeclaration): void;
 
     addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
     registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void;
-
+    registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void;
+    registerNode(name: string | NamespacedIdentity,
+        requiredComponents: (string | NamespacedIdentity)[],
+        defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
+        superNode?: string | NamespacedIdentity): void;
 }
 
 interface IGrimoireInterface extends IGrimoireInterfaceBase {
@@ -54,18 +56,27 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         return (name: string) => new NamespacedIdentity(ns, name);
     }
 
+    /**
+     * Register plugins
+     * @param  {(}      loadTask [description]
+     * @return {[type]}          [description]
+     */
     public register(loadTask: () => Promise<void>): void {
         this.loadTasks.push(loadTask);
     }
 
     // TODO test
+    /**
+     * register custom component
+     * @param  {string                |   NamespacedIdentity} name          [description]
+     * @param  {IAttributeDeclaration }} attributes           [description]
+     * @param  {Object                |   (new                 (}           obj           [description]
+     * @return {[type]}                       [description]
+     */
     public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         obj = this._ensureTobeComponentConstructor(obj);
         this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
-    }
-    public registerComponentDec(declaration: ComponentDeclaration): void {
-        this.componentDeclarations.set(declaration.name, declaration);
     }
 
     public registerNode(name: string | NamespacedIdentity,
@@ -144,9 +155,8 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 const obtainGomlInterface = function(query: string): IGomlInterface {
     const context = new GomlInterface(this.queryRootNodes(query));
     const queryFunc = (query: string) => {
-     console.log(this.rootNodes);
     };
-    queryFunc.prototype = context;
+    Object.setPrototypeOf(queryFunc, context);
     return (queryFunc.bind(context)) as IGomlInterface;
 };
 const context = new GrimoireInterfaceImpl();
