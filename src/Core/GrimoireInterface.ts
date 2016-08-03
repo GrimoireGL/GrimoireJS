@@ -95,10 +95,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         );
     }
 
-    public registerNodeDec(declaration: NodeDeclaration): void {
-        this.nodeDeclarations.set(declaration.name, declaration);
-    }
-
     public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
         name = Ensure.ensureTobeNamespacedIdentity(name);
         this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
