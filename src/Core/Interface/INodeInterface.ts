@@ -1,7 +1,9 @@
+import IComponentInterface from "./IComponentInterface";
+import INodeInterfaceBase from "./INodeInterfaceBase";
 
 
-interface INodeInterface {
-
+interface INodeInterface extends INodeInterfaceBase {
+  (query: string): IComponentInterface;
 }
 
 
