@@ -21,9 +21,8 @@ interface IGrimoireInterfaceBase {
     loadTasks: (() => Promise<void>)[];
     componentDeclarations: NamespacedDictionary<ComponentDeclaration>;
     ns(ns: string): (name: string) => NamespacedIdentity;
-    // DEPRECATED
-    registerNodeDec(declaration: NodeDeclaration): void;
-
+    register(loadTask: () => Promise<void>): void;
+    resolvePlugins(): Promise<void>;
     addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
     registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void;
     registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void;
@@ -63,6 +62,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
      */
     public register(loadTask: () => Promise<void>): void {
         this.loadTasks.push(loadTask);
+    }
+
+    public async resolvePlugins(): Promise<void> {
+        for (let i = 0; i < this.loadTasks.length; i++) {
+            await this.loadTasks[i]();
+        }
     }
 
     // TODO test
@@ -122,6 +127,20 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
             }
         }
         return nodes;
+    }
+
+    /**
+     * This method is not for users.
+     * Just for unit testing.
+     *
+     * Clear all configuration that GrimoireInterface contain.
+     */
+    public clear(): void {
+        this.nodeDeclarations = new NamespacedDictionary<NodeDeclaration>();
+        this.componentDeclarations = new NamespacedDictionary<ComponentDeclaration>();
+        this.converters = new NamespacedDictionary<AttributeConverter>();
+        this.rootNodes = {};
+        this.loadTasks = [];
     }
 
     /**

@@ -1,15 +1,13 @@
+import "../RRSupport";
 import prequire from "proxyquire";
 import jsdomAsync from "../JsDOMAsync";
 import test from 'ava';
 import sinon from 'sinon';
-import "babel-polyfill";
 import xhrmock from "xhr-mock";
 import xmldom from "../XMLDomInit";
-import rr from "regenerator-runtime";
 
 import XMLReader from "../../lib-es5/Core/Base/XMLReader";
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface";
-global.regeneratorRuntime = rr;
 
 xhrmock.setup();
 xhrmock.get("http://grimoire.gl/index.goml", (req, res) => {
