@@ -1,17 +1,18 @@
+import EEObject from "../Base/EEObject";
 import Component from "./Component";
-import IDObject from "../Base/IDObject";
 import NodeDeclaration from "./NodeDeclaration";
 import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 
-class GomlNode extends IDObject { // EEである必要がある
+class GomlNode extends EEObject { // EEである必要がある
   public element: Element;
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public components: NamespacedDictionary<Component>;
   public attributes: NamespacedDictionary<Attribute>;
+  public enable: boolean; // TODO: use this property!
 
   private _parent: GomlNode;
   private _mounted: boolean = false;
