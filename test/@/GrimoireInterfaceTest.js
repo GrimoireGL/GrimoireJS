@@ -1,9 +1,14 @@
+import '../RRSupport';
 import test from 'ava';
 import sinon from 'sinon';
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface";
 import Constants from "../../lib-es5/Core/Base/Constants";
 import Component from "../../lib-es5/Core/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
+
+test.beforeEach(() => {
+    GrimoireInterface.clear();
+});
 
 test('ns method should generate namespace generating function correctly', (t) => {
     const g = GrimoireInterface.ns('http://grimoire.gl/ns/2');
@@ -29,8 +34,8 @@ test('_ensureTobeComponentConstructor works correctly', (t) => {
     const rawConstructor = () => {
         return;
     };
-    t.throws(()=>{
-      GrimoireInterface._ensureTobeComponentConstructor(rawConstructor);
+    t.throws(() => {
+        GrimoireInterface._ensureTobeComponentConstructor(rawConstructor);
     });
     // passing a constructor extending Component should return the variable same as argument
     t.truthy(Component === GrimoireInterface._ensureTobeComponentConstructor(Component));
@@ -48,4 +53,23 @@ test('addRootNode/getRootNode/queryRootNodes works correctly', async(t) => {
     const queriedNode = GrimoireInterface.queryRootNodes("script");
     t.truthy(queriedNode.length === 1);
     t.truthy(queriedNode[0] === dummyRootNode);
+});
+
+test('register and resolvePlugins works preperly', async(t) => {
+    const spy1 = sinon.spy();
+    const spy2 = sinon.spy();
+    const wrapPromise = function(spy) {
+        return () => {
+            return new Promise((resolve) => {
+                spy();
+                resolve();
+            });
+        }
+    };
+    const spyp = wrapPromise(spy1);
+    const spyp2 = wrapPromise(spy2);
+    GrimoireInterface.register(spyp);
+    GrimoireInterface.register(spyp2);
+    await GrimoireInterface.resolvePlugins();
+    sinon.assert.callOrder(spy1, spy2);
 });
