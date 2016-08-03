@@ -1,4 +1,3 @@
-import DefaultPluginRegister from "./Core/Node/DefaultPluginRegister";
 import GrimoireInterface from "./Core/GrimoireInterface";
 import GomlLoader from "./Core/Node/GomlLoader";
 /**
@@ -59,4 +58,3 @@ class GrimoireInitializer {
  * Just start the process.
  */
 GrimoireInitializer.initialize();
-DefaultPluginRegister.register();

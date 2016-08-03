@@ -7,6 +7,10 @@ class GomlInterface implements IGomlInterfaceBase {
     constructor(public rootNodes: GomlNode[]) {
 
     }
+
+    queryFunc(query: string): void {
+
+    }
 }
 
 export default GomlInterface;

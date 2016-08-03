@@ -1,6 +1,8 @@
+import INodeInterface from "./INodeInterface";
 import IGomlInterfaceBase from "./IGomlInterfaceBase";
+
 interface IGomlInterface extends IGomlInterfaceBase {
-    (query: string): any; // TODO return value should not be any
+    (query: string): INodeInterface;
 }
 
 export default IGomlInterface;

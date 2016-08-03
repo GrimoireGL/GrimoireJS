@@ -21,8 +21,6 @@ interface IGrimoireInterfaceBase {
     loadTasks: (() => Promise<void>)[];
     componentDeclarations: NamespacedDictionary<ComponentDeclaration>;
     ns(ns: string): (name: string) => NamespacedIdentity;
-    // DEPRECATED
-    registerNodeDec(declaration: NodeDeclaration): void;
 
     addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
     registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void;
@@ -150,8 +148,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
 const obtainGomlInterface = function(query: string): IGomlInterface {
     const context = new GomlInterface(this.queryRootNodes(query));
-    const queryFunc = (query: string) => {
-    };
+    const queryFunc = context.queryFunc;
     Object.setPrototypeOf(queryFunc, context);
     return (queryFunc.bind(context)) as IGomlInterface;
 };
