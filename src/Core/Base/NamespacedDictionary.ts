@@ -110,6 +110,10 @@ class NamespacedDictionary<V> {
         });
         return ret;
     }
+    public clear(): void {
+      this._nameObjectMap.clear();
+      this._fqnObjectMap.clear();
+    }
 }
 
 export default NamespacedDictionary;
