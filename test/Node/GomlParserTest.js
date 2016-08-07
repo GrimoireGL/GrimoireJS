@@ -148,3 +148,12 @@ test('test for namespace parsing.', (t) => {
   sinon.assert.calledWith(conflictComponent1Spy,"aaa");
   sinon.assert.calledWith(conflictComponent2Spy,"bbb");
 });
+
+test('test for sharedObject', (t) => {
+  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const node = GomlParser.parse(element);
+  const components = node.children[0].getComponents();
+  const compo1 = components.get("http://testNamespace/test1","conflictComponent");
+  const compo2 = components.get("http://testNamespace/test2","conflictComponent");
+  t.truthy(compo1.sharedObject === compo2.sharedObject);
+});
