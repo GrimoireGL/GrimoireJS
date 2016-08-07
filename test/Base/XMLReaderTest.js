@@ -6,6 +6,6 @@ import XMLReader from '../../lib-es5/Core/Base/XMLReader';
 
 test('parseXML behaves correctly', (t) => {
     const parsedDocument = XMLReader.parseXML(require("./_TestResource/XMLReader_Case1.xml"),"Goml");
-    t.truthy(parsedDocument.documentElement.localName === "goml");
+    t.truthy(parsedDocument[0].localName === "goml");
     t.throws(() => XMLReader.parseXML(">","Goml"));
 });

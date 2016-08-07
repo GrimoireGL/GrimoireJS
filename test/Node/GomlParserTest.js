@@ -1,3 +1,4 @@
+import '../XMLDomInit'
 import test from 'ava';
 import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";

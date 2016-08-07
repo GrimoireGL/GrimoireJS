@@ -1,3 +1,4 @@
+import '../XMLDomInit'
 import test from 'ava';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';

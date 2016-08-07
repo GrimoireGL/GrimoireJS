@@ -1,3 +1,4 @@
+import '../XMLDomInit'
 import test from 'ava';
 
 import Ensure from '../../lib-es5/Core/Base/Ensure';
