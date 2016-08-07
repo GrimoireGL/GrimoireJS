@@ -1,3 +1,4 @@
+import GrimoireInterface from "../GrimoireInterface";
 import INodeInterface from "./INodeInterface";
 import NodeInterface from "./NodeInterface";
 import GomlNode from "../Node/GomlNode";
@@ -12,13 +13,27 @@ class GomlInterface implements IGomlInterfaceBase {
 
   public queryFunc(query: string): INodeInterface {
     const context = new NodeInterface(this.queryNodes(query));
-    const queryFunc = context.queryFunc;
+    const queryFunc = context.queryFunc.bind(context);
     Object.setPrototypeOf(queryFunc, context);
-    return (queryFunc.bind(context)) as INodeInterface;
+    return queryFunc as INodeInterface;
   }
 
   public queryNodes(query: string): GomlNode[][] {
-    return null; // TODO: implement!
+    console.log("gomlit:query");
+    console.log("root count: " + this.rootNodes.length);
+    return this.rootNodes.map((root) => {
+      console.log(root.element.querySelectorAll);
+      const nodelist = root.element.querySelectorAll(query);
+      console.log("queryresult: " + nodelist.length);
+      const nodes: GomlNode[] = [];
+      for (let i = 0; i < nodelist.length; i++) {
+          const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute("x-gr-id")];
+          if (node) {
+              nodes.push(node);
+          }
+      }
+      return nodes;
+    });
   }
 }
 

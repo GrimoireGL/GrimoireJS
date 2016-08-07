@@ -51,7 +51,7 @@ class NodeInterface implements INodeInterfaceBase {
   public off(eventName: string, listener: Function): void {
     this.forEach((node) => {
       node.removeListener(eventName, listener);
-    })
+    });
   }
   public append(tag: string): void {
     this.forEach((node) => {
@@ -60,7 +60,7 @@ class NodeInterface implements INodeInterfaceBase {
       nodes.forEach((child) => {
         node.addChild(child);
       });
-    })
+    });
   }
   public remove(child: GomlNode): void {
     this.forEach((node) => {
