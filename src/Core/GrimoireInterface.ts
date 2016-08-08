@@ -70,107 +70,108 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   }
 
   public async resolvePlugins(): Promise<void> {
-  for(let i = 0; i < this.loadTasks.length; i++) {
-    await this.loadTasks[i]();
+    for (let i = 0; i < this.loadTasks.length; i++) {
+      await this.loadTasks[i]();
+    }
   }
-}
 
-    // TODO test
-    /**
-     * register custom component
-     * @param  {string                |   NamespacedIdentity} name          [description]
-     * @param  {IAttributeDeclaration }} attributes           [description]
-     * @param  {Object                |   (new                 (}           obj           [description]
-     * @return {[type]}                       [description]
-     */
-    public registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void {
-  name = Ensure.ensureTobeNamespacedIdentity(name);
-  obj = this._ensureTobeComponentConstructor(obj);
-  this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attributes, obj as (new () => Component)));
-}
+  // TODO test
+  /**
+   * register custom component
+   * @param  {string                |   NamespacedIdentity} name          [description]
+   * @param  {IAttributeDeclaration }} attributes           [description]
+   * @param  {Object                |   (new                 (}           obj           [description]
+   * @return {[type]}                       [description]
+   */
+  public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => Component)): void {
+    name = Ensure.ensureTobeNamespacedIdentity(name);
+    const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration };
+    obj = this._ensureTobeComponentConstructor(obj);
+    this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attrs, obj as (new () => Component)));
+  }
 
-    public registerNode(name: string | NamespacedIdentity,
-  requiredComponents: (string | NamespacedIdentity)[],
-  defaultValues ?: { [key: string]: any } | NamespacedDictionary < any >,
-  superNode ?: string | NamespacedIdentity): void {
-  name = Ensure.ensureTobeNamespacedIdentity(name);
-  requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
-  defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
-  superNode = Ensure.ensureTobeNamespacedIdentity(superNode);
-  this.nodeDeclarations.set(name as NamespacedIdentity,
-    new NodeDeclaration(name as NamespacedIdentity,
-      NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
-      defaultValues as NamespacedDictionary< any >,
-      superNode as NamespacedIdentity)
+  public registerNode(name: string | NamespacedIdentity,
+    requiredComponents: (string | NamespacedIdentity)[],
+    defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
+    superNode?: string | NamespacedIdentity): void {
+    name = Ensure.ensureTobeNamespacedIdentity(name);
+    requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
+    defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
+    superNode = Ensure.ensureTobeNamespacedIdentity(superNode);
+    this.nodeDeclarations.set(name as NamespacedIdentity,
+      new NodeDeclaration(name as NamespacedIdentity,
+        NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
+        defaultValues as NamespacedDictionary<any>,
+        superNode as NamespacedIdentity)
     );
-}
-
-    public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
-  name = Ensure.ensureTobeNamespacedIdentity(name);
-  this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
-}
-
-    public addRootNode(tag: HTMLScriptElement, node: GomlNode): string {
-  tag.setAttribute("x-rootNodeId", node.id);
-  this.rootNodes[node.id] = node;
-  return node.id;
-}
-
-    public getRootNode(scriptTag: Element): GomlNode {
-  const id = scriptTag.getAttribute("x-rootNodeId");
-  return this.rootNodes[id];
-}
-
-    public queryRootNodes(query: string): GomlNode[] {
-  const scriptTags = document.querySelectorAll(query);
-  const nodes: GomlNode[] = [];
-  for (let i = 0; i < scriptTags.length; i++) {
-    const node = this.getRootNode(scriptTags.item(i));
-    if (node) {
-      nodes.push(node);
-    }
   }
-  return nodes;
-}
 
-    /**
-     * This method is not for users.
-     * Just for unit testing.
-     *
-     * Clear all configuration that GrimoireInterface contain.
-     */
-    public clear(): void {
-  this.nodeDeclarations.clear();
-  this.componentDeclarations.clear();
-  this.converters.clear();
-  for (let key in this.rootNodes) {
-    delete this.rootNodes[key];
+  public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
+    name = Ensure.ensureTobeNamespacedIdentity(name);
+    this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
   }
-  this.loadTasks.splice(0, this.loadTasks.length);
-}
 
-    /**
-     * Ensure the given object or constructor to be an constructor inherits Component;
-     * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
-     * @return {[type]}      [The constructor inherits Component]
-     */
-    private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
-  if (typeof obj === "function") {
-    if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
-      throw new Error("Component constructor must extends Component class.");
-    }
-  } else if (typeof obj === "object") {
-    const newCtor = () => { return; };
-    inherits(newCtor, Component);
-    for (let key in obj) {
-      (newCtor as Function).prototype[key] = obj[key];
-    }
-    obj = newCtor;
-  } else if (!obj) {
-    obj = Component;
+  public addRootNode(tag: HTMLScriptElement, node: GomlNode): string {
+    tag.setAttribute("x-rootNodeId", node.id);
+    this.rootNodes[node.id] = node;
+    return node.id;
   }
-  return obj as (new () => Component);
-}
+
+  public getRootNode(scriptTag: Element): GomlNode {
+    const id = scriptTag.getAttribute("x-rootNodeId");
+    return this.rootNodes[id];
+  }
+
+  public queryRootNodes(query: string): GomlNode[] {
+    const scriptTags = document.querySelectorAll(query);
+    const nodes: GomlNode[] = [];
+    for (let i = 0; i < scriptTags.length; i++) {
+      const node = this.getRootNode(scriptTags.item(i));
+      if (node) {
+        nodes.push(node);
+      }
+    }
+    return nodes;
+  }
+
+  /**
+   * This method is not for users.
+   * Just for unit testing.
+   *
+   * Clear all configuration that GrimoireInterface contain.
+   */
+  public clear(): void {
+    this.nodeDeclarations.clear();
+    this.componentDeclarations.clear();
+    this.converters.clear();
+    for (let key in this.rootNodes) {
+      delete this.rootNodes[key];
+    }
+    this.loadTasks.splice(0, this.loadTasks.length);
+  }
+
+  /**
+   * Ensure the given object or constructor to be an constructor inherits Component;
+   * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
+   * @return {[type]}      [The constructor inherits Component]
+   */
+  private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
+    if (typeof obj === "function") {
+      if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
+        throw new Error("Component constructor must extends Component class.");
+      }
+    } else if (typeof obj === "object") {
+      const newCtor = () => { return; };
+      inherits(newCtor, Component);
+      for (let key in obj) {
+        (newCtor as Function).prototype[key] = obj[key];
+      }
+      obj = newCtor;
+    } else if (!obj) {
+      obj = Component;
+    }
+    return obj as (new () => Component);
+  }
 }
 const context = new GrimoireInterfaceImpl();
 const obtainGomlInterface = function(query: string): IGomlInterface {
