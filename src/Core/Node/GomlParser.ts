@@ -62,7 +62,8 @@ class GomlParser {
     newNode.forEachAttr((attr, key) => {
       this._parseAttribute(attr, elem, defaultValues.get(attr.name));
     });
-    elem.setAttribute("x-gr-id", newNode.id); // TODO:rename!!
+    elem.setAttribute("x-gr-id", newNode.id);
+    GrimoireInterface.nodeDictionary[newNode.id] = newNode;
     return newNode;
   }
 
@@ -87,8 +88,7 @@ class GomlParser {
       component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       });
-
-      node.components.set(component.name, component.generateInstance());
+      node.addComponent(component.generateInstance());
     }
   }
 

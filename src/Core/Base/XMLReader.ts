@@ -5,14 +5,15 @@ class XMLReader {
 
     private static _parser: DOMParser = new DOMParser();
 
-    public static parseXML(doc: string, rootElementName?: string): Document {
+    public static parseXML(doc: string, rootElementName?: string): Element[] {
         const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
         if (rootElementName) {
             if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {
                 throw new Error("Specified document is invalid.");
             }// TODO should throw more detail error
         }
-        return parsed;
+
+        return [parsed.documentElement];//TODO: implenent!
     }
 
     public static getElements(elem: Element, name: string): Element[] {
