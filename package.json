@@ -23,7 +23,7 @@
     "build": "gulp build",
     "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
     "watch": "gulp watch",
-    "test": "gulp build-all && ava ./test-es5/**/*Test.js  --serial",
+    "test": "gulp build-all && ava ./test-es5/**/*Test.js  --serial --debug",
     "cover": "nyc --all --reporter=json --reporter=text npm run test",
     "doc": "gulp doc",
     "clean": "gulp clean",
