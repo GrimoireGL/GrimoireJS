@@ -1,7 +1,7 @@
 {
   "name": "Grimoire.js",
   "description": "A service-oriented Web3D library.",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/jThreeJS/jThree",
   "author": {
     "name": "LimeStreem",
@@ -21,7 +21,6 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "prepublish": "tsc --d --lib es2016 --outDir ./dist --t es6 --module es6 ./src/**/*.ts ",
     "build": "gulp build",
     "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
     "watch": "gulp watch",

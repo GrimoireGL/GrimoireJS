@@ -4,8 +4,7 @@
     "module": "es6",
     "noImplicitAny": false,
     "outDir": "./lib",
-    "declaration": true,
-    "declarationDir": "./decl"
+    "declaration": true
   },
   "filesGlob": [
     "./src/**/*.ts"
