@@ -21,6 +21,7 @@ import txtjs from 'gulp-txtjs';
 import typedoc from 'gulp-typedoc';
 import watchify from 'watchify';
 import exec from 'gulp-exec';
+import merge from 'merge2';
 
 let buildAllFinished = () => {};
 
@@ -76,17 +77,20 @@ gulp.task('ts-es6', () => {
   if (watching) {
     gulp.watch(entry, ['ts-es6']);
   }
-  return gulp
+  const tsResult = gulp
     .src(entry)
     .pipe(sourcemap.init())
-    .pipe(ts(tsProject))
-    .js
-    .pipe(cache('ts'))
-    .pipe(sourcemap.write())
-    .pipe(debug({
-      title: 'Compiling ts'
-    }))
-    .pipe(gulp.dest(dest));
+    .pipe(ts(tsProject));
+    return merge([
+      tsResult.js
+      .pipe(cache('ts'))
+      .pipe(sourcemap.write())
+      .pipe(debug({
+        title: 'Compiling ts'
+      }))
+      .pipe(gulp.dest(dest)),
+      tsResult.dts.pipe(cache('dts')).pipe(gulp.dest(dest))
+    ]);
 });
 
 /**

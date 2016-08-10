@@ -3,13 +3,14 @@
     "target": "es6",
     "module": "es6",
     "noImplicitAny": false,
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./decl"
   },
   "filesGlob": [
     "./src/**/*.ts"
   ],
   "files": [
-    "./src/Basic3D/Components/Root/CanvasInitiator.ts",
     "./src/Core/Base/Constants.ts",
     "./src/Core/Base/EEObject.ts",
     "./src/Core/Base/Ensure.ts",
@@ -21,6 +22,8 @@
     "./src/Core/Base/XMLHttpRequestAsync.ts",
     "./src/Core/Base/XMLReader.ts",
     "./src/Core/GrimoireInterface.ts",
+    "./src/Core/IGrimoireInterface.ts",
+    "./src/Core/IGrimoireInterfaceBase.ts",
     "./src/Core/Interface/ComponentInterface.ts",
     "./src/Core/Interface/GomlInterface.ts",
     "./src/Core/Interface/IComponentInterface.ts",
@@ -32,6 +35,7 @@
     "./src/Core/Math/AABB.ts",
     "./src/Core/Math/Color3.ts",
     "./src/Core/Math/Color4.ts",
+    "./src/Core/Math/IVectorParseDescription.ts",
     "./src/Core/Math/Matrix.ts",
     "./src/Core/Math/MatrixArray.ts",
     "./src/Core/Math/MatrixBase.ts",

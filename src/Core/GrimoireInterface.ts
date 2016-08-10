@@ -1,4 +1,4 @@
-import INodeInterface from "./Interface/INodeInterface";
+import IGrimoireInterfaceBase from "./IGrimoireInterfaceBase";
 import IGomlInterface from "./Interface/IGomlInterface";
 import GomlNode from "./Node/GomlNode";
 import ComponentDeclaration from "./Node/ComponentDeclaration";
@@ -6,37 +6,14 @@ import Component from "./Node/Component";
 import IAttributeDeclaration from "./Node/IAttributeDeclaration";
 import AttributeConverter from "./Node/AttributeConverter";
 import NamespacedSet from "./Base/NamespacedSet";
-import Constants from "./Base/Constants";
+import IGrimoireInterface from "./IGrimoireInterface";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
 import GomlInterface from "./Interface/GomlInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
 import Ensure from "./Base/Ensure";
-import IDOBject from "./Base/IDObject";
 import {inherits} from "util";
-
-interface IGrimoireInterfaceBase {
-  nodeDeclarations: NamespacedDictionary<NodeDeclaration>;
-  converters: NamespacedDictionary<AttributeConverter>;
-  loadTasks: (() => Promise<void>)[];
-  nodeDictionary: { [nodeId: string]: GomlNode };
-  componentDeclarations: NamespacedDictionary<ComponentDeclaration>;
-  ns(ns: string): (name: string) => NamespacedIdentity;
-  register(loadTask: () => Promise<void>): void;
-  resolvePlugins(): Promise<void>;
-  addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
-  registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void;
-  registerComponent(name: string | NamespacedIdentity, attributes: { [name: string]: IAttributeDeclaration }, obj: Object | (new () => Component)): void;
-  registerNode(name: string | NamespacedIdentity,
-    requiredComponents: (string | NamespacedIdentity)[],
-    defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
-    superNode?: string | NamespacedIdentity): void;
-}
-
-interface IGrimoireInterface extends IGrimoireInterfaceBase {
-  (query: string): IGomlInterface;
-}
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 

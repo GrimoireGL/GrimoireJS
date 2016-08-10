@@ -1,11 +1,5 @@
 import {GLM} from "gl-matrix";
-interface IVectorParseDescription {
-  needNormalize: boolean;
-  needNegate: boolean;
-  coefficient: number;
-  elements: number[];
-}
-
+import IVectorParseDescription from "./IVectorParseDescription";
 class VectorBase {
 
   public rawElements: GLM.IArray;

@@ -52,3 +52,5 @@ class GrimoireInitializer {
  * Just start the process.
  */
 GrimoireInitializer.initialize();
+
+export default GrimoireInterface;

@@ -15,11 +15,13 @@
   "bugs": {
     "url": "https://github.com/jThreeJS/jThree/issues"
   },
-  "main": "lib/jThree",
+  "main": "./lib/Grimoire.js",
+  "typings": "./lib/Grimoire.d.ts",
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
+    "prepublish": "tsc --d --lib es2016 --outDir ./dist --t es6 --module es6 ./src/**/*.ts ",
     "build": "gulp build",
     "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
     "watch": "gulp watch",
@@ -63,6 +65,7 @@
     "envify": "^3.4.0",
     "espower-babel": "^4.0.1",
     "espower-typescript": "^5.0.1",
+    "eventemitter3": "^1.2.0",
     "gl": "^4.0.1",
     "glob-array": "^0.1.2",
     "gulp": "^3.9.1",
@@ -92,6 +95,7 @@
     "jsdom": "^9.4.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.6.1",
+    "merge2": "^1.0.2",
     "mkdirp": "^0.5.1",
     "mocha": "^2.4.5",
     "node-notifier": "^4.5.0",
@@ -115,11 +119,12 @@
     "superagent": "^2.1.0",
     "ternary-stream": "^2.0.0",
     "through2": "^2.0.1",
+    "tsc": "^1.20150623.0",
     "tsify": "^1.0.1",
     "tslint": "^3.6.0",
     "txtify": "jThreeJS/txtify#8a1eea58ce848007d9a10cce4c4d6e235fc31865",
     "typedoc": "^0.4.4",
-    "typescript": "^1.8.9",
+    "typescript": "^2.0.0",
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.4",
     "vinyl-buffer": "^1.0.0",
