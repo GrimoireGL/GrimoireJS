@@ -1,7 +1,7 @@
 {
   "name": "grimoirejs",
   "description": "A service-oriented Web3D library.",
-  "version": "0.1.5",
+  "version": "0.1.8",
   "homepage": "https://github.com/jThreeJS/jThree",
   "author": {
     "name": "LimeStreem",
@@ -21,6 +21,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
+    "prepublish":"gulp build",
     "build": "gulp build",
     "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
     "watch": "gulp watch",
