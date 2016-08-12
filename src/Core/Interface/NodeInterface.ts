@@ -10,7 +10,9 @@ import IComponentInterface from "./IComponentInterface";
 import GomlNode from "../Node/GomlNode";
 
 
-
+/**
+ * 複数のノードを対象とした操作を提供するインタフェース
+ */
 class NodeInterface implements INodeInterfaceBase {
   constructor(public nodes: GomlNode[][]) {
 
@@ -57,16 +59,34 @@ class NodeInterface implements INodeInterfaceBase {
       });
     }
   }
+
+  /**
+   * 対象ノードにイベントリスナを追加します。
+   * @param {string}   eventName [description]
+   * @param {Function} listener  [description]
+   */
   public on(eventName: string, listener: Function): void {
     this.forEach((node) => {
       node.on(eventName, listener);
     });
   }
+
+  /**
+   * 対象ノードに指定したイベントリスナが登録されていれば削除します
+   * @param {string}   eventName [description]
+   * @param {Function} listener  [description]
+   */
   public off(eventName: string, listener: Function): void {
     this.forEach((node) => {
       node.removeListener(eventName, listener);
     });
   }
+
+  /**
+   * このノードインタフェースが対象とするノードそれぞれに、
+   * タグで指定したノードを子要素として追加します。
+   * @param {string} tag [description]
+   */
   public append(tag: string): void {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
@@ -76,11 +96,23 @@ class NodeInterface implements INodeInterfaceBase {
       });
     });
   }
+
+  /**
+   * このノードインタフェースが対象とするノードの子に、
+   * 指定されたノードが存在すれば削除します。
+   * @param {GomlNode} child [description]
+   */
   public remove(child: GomlNode): void {
     this.forEach((node) => {
       node.removeChild(child);
     });
   }
+
+  /**
+   * このノードインタフェースが対象とするノードに対して反復処理を行います
+   * @param  {GomlNode} callback [description]
+   * @return {[type]}            [description]
+   */
   public forEach(callback: ((node: GomlNode) => void)): void {
     this.nodes.forEach((array) => {
       array.forEach((node) => {
@@ -88,10 +120,58 @@ class NodeInterface implements INodeInterfaceBase {
       });
     });
   }
+
+  /**
+   * このノードインタフェースが対象とするノードを有効、または無効にします。
+   * @param {boolean} enable [description]
+   */
   public setEnable(enable: boolean): void {
     this.forEach((node) => {
       node.enable = !!enable;
     });
+  }
+
+  /**
+   * このノードインタフェースにアタッチされたコンポーネントをセレクタで検索します。
+   * @pram  {string}      query [description]
+   * @return {Component[]}       [description]
+   */
+  public find(query: string): Component[] {
+    const allComponents: Component[] = [];
+    this.queryComponents(query).forEach((gomlComps) => {
+      gomlComps.forEach((nodeComps) => {
+        nodeComps.forEach((comp) => {
+          allComponents.push(comp);
+        });
+      });
+    });
+    return allComponents;
+  }
+
+  /**
+   * このノードインタフェースが対象とするノードのそれぞれの子ノードを対象とする、
+   * 新しいノードインタフェースを取得します。
+   * @return {NodeInterface} [description]
+   */
+  public children(): NodeInterface {
+    const children = this.nodes.map((nodes) => {
+      return nodes.map((node) => {
+        return node.children;
+      }).reduce((pre, cur) => {
+        return pre.concat(cur);
+      });
+    });
+    return new NodeInterface(children);
+  }
+
+  /**
+   * 対象ノードにコンポーネントをアタッチします。
+   * @param {Component} component [description]
+   */
+  public addCompnent(componentId: NamespacedIdentity): void {
+    //TODO:implemennt!!
+    return null;
+
   }
 }
 
