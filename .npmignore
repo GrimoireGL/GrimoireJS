@@ -10,3 +10,8 @@ test
 test_
 test-es5
 .DS_Store
+tsdoc.json
+tslint.json
+appveyor.yml
+.jsbeautifyrc
+circle.yml
