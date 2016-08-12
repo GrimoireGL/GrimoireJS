@@ -232,12 +232,12 @@ declare namespace NodeJS {
     }
 
     export interface EventEmitter {
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -1817,7 +1817,7 @@ declare module "tls" {
 
     var CLIENT_RENEG_LIMIT: number;
     var CLIENT_RENEG_WINDOW: number;
-
+    
     export interface Certificate {
         /**
          * Country code.
@@ -1859,7 +1859,7 @@ declare module "tls" {
     export class TLSSocket extends stream.Duplex {
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system.
+         * the operating system. 
          * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
          */
         address(): { port: number; family: string; address: string };
@@ -1936,7 +1936,7 @@ declare module "tls" {
         remotePort: number;
         /**
          * Initiate TLS renegotiation process.
-         *
+         *  
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
          * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
@@ -1957,7 +1957,7 @@ declare module "tls" {
          */
         setMaxSendFragment(size: number): boolean;
     }
-
+    
     export interface TlsOptions {
         host?: string;
         port?: number;
