@@ -1,3 +1,4 @@
+import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
 import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
@@ -19,12 +20,25 @@ class NodeInterface implements INodeInterfaceBase {
   }
 
   public queryComponents(query: string): Component[][][] {
-    return null; // TODO: implement!
+    return this.nodes.map((nodes) => {
+      return nodes.map((node) => {
+        const componentElements = node.element.querySelectorAll(query);
+        const components: Component[] = [];
+        for (let i = 0; i < componentElements.length; i++) {
+          const elem = componentElements[i];
+          const component = GrimoireInterface.componentDictionary[elem.getAttribute("x-gr-id")];
+          if (component) {
+            components.push(component);
+          }
+        }
+        return components;
+      });
+    });
   }
 
-  public attr(attrName: string|NamespacedIdentity): Attribute;
-  public attr(attrName: string|NamespacedIdentity, value: any): void;
-  public attr(attrName: string|NamespacedIdentity, value?: any): Attribute|void {
+  public attr(attrName: string | NamespacedIdentity): Attribute;
+  public attr(attrName: string | NamespacedIdentity, value: any): void;
+  public attr(attrName: string | NamespacedIdentity, value?: any): Attribute | void {
     if (value === void 0) {
       // return Attribute.
       this.forEach((node) => {

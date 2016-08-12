@@ -8,6 +8,7 @@ class Component {
   public attributes: NamespacedDictionary<Attribute>;
   public node: GomlNode;
   public sharedObject: {[key: string]: any};
+  public element: Element;
 }
 
 export default Component;

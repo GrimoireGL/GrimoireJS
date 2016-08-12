@@ -88,7 +88,7 @@ class GomlParser {
       component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       });
-      node.addComponent(component.generateInstance());
+      node.addComponent(component.generateInstance(componentNode));
     }
   }
 

@@ -21,9 +21,10 @@ class ComponentDeclaration {
     }
   }
 
-  public generateInstance(): Component {
+  public generateInstance(element: Element): Component {
     const instance = new this.ctor();
     instance.name = this.name;
+    instance.element = element;
     instance.attributes = this.attributeDeclarations.map((attrDec) => attrDec.generateAttributeInstance());
     return instance;
   }

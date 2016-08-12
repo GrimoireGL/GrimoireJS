@@ -38,7 +38,7 @@ class NodeDeclaration {
             if (!declaration) {
                 throw new Error(`component '${id.fqn}' is not found.`);
             }
-            return declaration.generateInstance();
+            return declaration.generateInstance(null);
         });
 
         let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())

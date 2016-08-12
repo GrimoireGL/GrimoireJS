@@ -21,7 +21,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "prepublish":"gulp build",
+    "prepublish": "gulp build",
     "build": "gulp build",
     "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
     "watch": "gulp watch",

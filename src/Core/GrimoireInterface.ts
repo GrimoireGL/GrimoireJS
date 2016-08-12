@@ -28,6 +28,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public loadTasks: (() => Promise<void>)[] = [];
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
+  public componentDictionary: {[componentId: string]: Component} = {};
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
