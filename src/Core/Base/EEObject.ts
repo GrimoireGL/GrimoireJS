@@ -6,12 +6,12 @@ import IDObject from "./IDObject";
  * EventEmitterをmixinしたIDObject
  */
 class EEObject extends IDObject implements NodeJS.EventEmitter {
-  public addListener: (event: string, listener: Function) => EventEmitter;
-  public on: (event: string, listener: Function) => EventEmitter;
-  public once: (event: string, listener: Function) => EventEmitter;
-  public removeListener: (event: string, listener: Function) => EventEmitter;
-  public removeAllListeners: (event?: string) => EventEmitter;
-  public setMaxListeners: (n: number) => EventEmitter;
+  public addListener: (event: string, listener: Function) => this;
+  public on: (event: string, listener: Function) => this;
+  public once: (event: string, listener: Function) => this;
+  public removeListener: (event: string, listener: Function) => this;
+  public removeAllListeners: (event?: string) => this;
+  public setMaxListeners: (n: number) => this;
   public getMaxListeners: () => number;
   public listeners: (event: string) => Function[];
   public listenerCount: (type: string) => number;

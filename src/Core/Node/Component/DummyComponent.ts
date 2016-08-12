@@ -16,7 +16,8 @@ class DummyComponent extends Component implements DefaultPluginDeclarationBase {
     const bb: IAttributeDeclaration = { converter: "stringconverter", defaultValue: "hoge" };
     const n: { [key: string]: IAttributeDeclaration } = {};
     n["testAttr"] = bb;
-    GrimoireInterface.registerComponent(id, n, DummyComponent);
+    DummyComponent["attributes"] = n;
+    GrimoireInterface.registerComponent(id, DummyComponent);
   }
 }
 
