@@ -13,6 +13,7 @@ class GomlNode extends EEObject { // EEである必要がある
   public attributes: NamespacedDictionary<Attribute>;
   public enable: boolean; // TODO: use this property!
   public sharedObject: { [key: string]: any } = {};
+  public componentsElement: Element;
 
   private _parent: GomlNode;
   private _mounted: boolean = false;
@@ -30,10 +31,15 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: Component[], attributes: Attribute[]) {
+  constructor(recipe: NodeDeclaration,
+    element: Element,
+    components: Component[],
+    attributes: Attribute[]) {
+
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
+    this.componentsElement = document.createElement("COMPONENTS");
 
     this._components = new NamespacedDictionary<Component>();
     components.forEach((c) => {
@@ -65,7 +71,7 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
-  public broadcastMessage(arg1: number|string, arg2?: any, arg3?: any): void {
+  public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
     if (typeof arg1 === "number") {
       const range = <number>arg1;
       const message = <string>arg2;
@@ -132,7 +138,7 @@ class GomlNode extends EEObject { // EEである必要がある
       if (v === child) {
         child._parent = null;
         child.sharedObject = {};
-        child._components.forEach((compo) => {compo.sharedObject = child.sharedObject; });
+        child._components.forEach((compo) => { compo.sharedObject = child.sharedObject; });
         this.children.splice(i, 1);
         if (this.mounted()) {
           child.setMounted(false);
@@ -269,6 +275,7 @@ class GomlNode extends EEObject { // EEである必要がある
 
   public addComponent(component: Component): void {
     component.sharedObject = this.sharedObject;
+    this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
   }
   public getComponents(): NamespacedDictionary<Component> {

@@ -65,10 +65,11 @@ class NodeInterface implements INodeInterfaceBase {
    * @param {string}   eventName [description]
    * @param {Function} listener  [description]
    */
-  public on(eventName: string, listener: Function): void {
+  public on(eventName: string, listener: Function): NodeInterface {
     this.forEach((node) => {
       node.on(eventName, listener);
     });
+    return this;
   }
 
   /**
@@ -76,10 +77,11 @@ class NodeInterface implements INodeInterfaceBase {
    * @param {string}   eventName [description]
    * @param {Function} listener  [description]
    */
-  public off(eventName: string, listener: Function): void {
+  public off(eventName: string, listener: Function): NodeInterface {
     this.forEach((node) => {
       node.removeListener(eventName, listener);
     });
+    return this;
   }
 
   /**
@@ -87,7 +89,7 @@ class NodeInterface implements INodeInterfaceBase {
    * タグで指定したノードを子要素として追加します。
    * @param {string} tag [description]
    */
-  public append(tag: string): void {
+  public append(tag: string): NodeInterface {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
       const nodes = elems.map((elem) => GomlParser.parse(elem));
@@ -95,6 +97,7 @@ class NodeInterface implements INodeInterfaceBase {
         node.addChild(child);
       });
     });
+    return this;
   }
 
   /**
@@ -102,10 +105,11 @@ class NodeInterface implements INodeInterfaceBase {
    * 指定されたノードが存在すれば削除します。
    * @param {GomlNode} child [description]
    */
-  public remove(child: GomlNode): void {
+  public remove(child: GomlNode): NodeInterface {
     this.forEach((node) => {
       node.removeChild(child);
     });
+    return this;
   }
 
   /**
@@ -113,22 +117,24 @@ class NodeInterface implements INodeInterfaceBase {
    * @param  {GomlNode} callback [description]
    * @return {[type]}            [description]
    */
-  public forEach(callback: ((node: GomlNode) => void)): void {
+  public forEach(callback: ((node: GomlNode) => void)): NodeInterface {
     this.nodes.forEach((array) => {
       array.forEach((node) => {
         callback(node);
       });
     });
+    return this;
   }
 
   /**
    * このノードインタフェースが対象とするノードを有効、または無効にします。
    * @param {boolean} enable [description]
    */
-  public setEnable(enable: boolean): void {
+  public setEnable(enable: boolean): NodeInterface {
     this.forEach((node) => {
       node.enable = !!enable;
     });
+    return this;
   }
 
   /**
@@ -168,10 +174,14 @@ class NodeInterface implements INodeInterfaceBase {
    * 対象ノードにコンポーネントをアタッチします。
    * @param {Component} component [description]
    */
-  public addCompnent(componentId: NamespacedIdentity): void {
-    //TODO:implemennt!!
-    return null;
-
+  public addCompnent(componentId: NamespacedIdentity): NodeInterface {
+    this.forEach((node) => {
+      const elem = document.createElement(componentId.name);
+      const componentDec = GrimoireInterface.componentDeclarations.get(componentId);
+      const comp = componentDec.generateInstance(elem);
+      node.addComponent(comp);
+    });
+    return this;
   }
 }
 

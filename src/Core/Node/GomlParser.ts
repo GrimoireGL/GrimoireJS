@@ -49,7 +49,6 @@ class GomlParser {
    * @return {GomlTreeNodeBase}              [description]
    */
   private static _createNode(elem: Element): GomlNode {
-    // console.log("createNode" + elem);
     const tagName = elem.localName;
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
@@ -70,13 +69,14 @@ class GomlParser {
 
 
   private static _parseComponents(node: GomlNode, componentsTag: Element): void {
+    node.componentsElement = componentsTag;
     let componentNodes = componentsTag.childNodes;
     if (!componentNodes) {
       return;
     }
     for (let i = 0; i < componentNodes.length; i++) {
       const componentNode = componentNodes.item(i) as Element;
-      if (componentNode.nodeType !== Node.ELEMENT_NODE) {
+      if (!GomlParser._isElement(componentNode)) {
         continue; // Skip if the node was not element
       }
       const component = GrimoireInterface.componentDeclarations.get(componentNode);
