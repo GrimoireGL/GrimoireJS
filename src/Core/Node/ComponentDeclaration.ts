@@ -27,6 +27,9 @@ class ComponentDeclaration {
     instance.name = this.name;
     instance.attributes = this.attributeDeclarations.map((attrDec) => attrDec.generateAttributeInstance());
     instance.node = node;
+    if (typeof instance["awake"] === "function") {
+      instance["awake"]();
+    }
     return instance;
   }
 }
