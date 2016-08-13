@@ -32,18 +32,7 @@ class NodeDeclaration {
 
 
     public createNode(element: Element): GomlNode {
-        let components = this.requiredComponents;
-        let componentsArray = components.toArray().map((id) => {
-            const declaration = GrimoireInterface.componentDeclarations.get(id);
-            if (!declaration) {
-                throw new Error(`component '${id.fqn}' is not found.`);
-            }
-            return declaration.generateInstance();
-        });
-
-        let requiredAttrs = componentsArray.map((c) => c.attributes.toArray())
-            .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
-        return new GomlNode(this, element, componentsArray, requiredAttrs);
+        return new GomlNode(this, element, this.requiredComponents);
     }
 
 

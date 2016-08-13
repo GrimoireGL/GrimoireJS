@@ -1,3 +1,4 @@
+import NamespacedDictionary from "../Base/NamespacedDictionary";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../GrimoireInterface";
@@ -11,12 +12,17 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: Element): GomlNode {
+  public static parse(source: Element, isRoot: boolean): GomlNode {
     const newNode = GomlParser._createNode(source);
     if (!newNode) {
       // when specified node could not be found
       console.warn(`"${source.tagName}" was not parsed.`);
       return null;
+    }
+    if (isRoot) {
+     // generate first shared object for root node.
+     // Root node must be bounded with script tag
+     newNode.sharedObject = new NamespacedDictionary<any>();
     }
     // Parse children recursively
     const children = source.childNodes;
@@ -32,7 +38,7 @@ class GomlParser {
             continue;
           }
           // parse as child node.
-          const newChildNode = GomlParser.parse(child);
+          const newChildNode = GomlParser.parse(child, false);
           if (newChildNode) {
             newNode.addChild(newChildNode, null, false);
           }
@@ -88,7 +94,7 @@ class GomlParser {
       component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       });
-      node.addComponent(component.generateInstance());
+      node.addComponent(component.generateInstance(node));
     }
   }
 

@@ -22,9 +22,9 @@ class NodeInterface implements INodeInterfaceBase {
     return null; // TODO: implement!
   }
 
-  public attr(attrName: string|NamespacedIdentity): Attribute;
-  public attr(attrName: string|NamespacedIdentity, value: any): void;
-  public attr(attrName: string|NamespacedIdentity, value?: any): Attribute|void {
+  public attr(attrName: string | NamespacedIdentity): Attribute;
+  public attr(attrName: string | NamespacedIdentity, value: any): void;
+  public attr(attrName: string | NamespacedIdentity, value?: any): Attribute | void {
     if (value === void 0) {
       // return Attribute.
       this.forEach((node) => {
@@ -56,7 +56,7 @@ class NodeInterface implements INodeInterfaceBase {
   public append(tag: string): void {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
-      const nodes = elems.map((elem) => GomlParser.parse(elem));
+      const nodes = elems.map((elem) => GomlParser.parse(elem, false));
       nodes.forEach((child) => {
         node.addChild(child);
       });
