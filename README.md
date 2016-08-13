@@ -29,7 +29,7 @@ This library has 3 of main concepts that is considered to take advantage of usin
 
 From the last release of this library, our team decided to refactor a lot of interfaces. Most of API in the last release would not work in next version(Maybe 100% of API will be affected.).
 
-This is not only just editing property names or refactoring class relationships. This version would change the behaviours how all users would do with this library. 
+This is not only just editing property names or refactoring class relationships. This version would change the behaviours how all users would do with this library.
 
 ## Useful Links
 
@@ -43,3 +43,5 @@ This is not only just editing property names or refactoring class relationships.
 ## LICENSE
 
 **MIT License**
+
+(See the LICENSE file for more detail.)

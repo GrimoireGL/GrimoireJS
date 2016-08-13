@@ -20,6 +20,10 @@ import tslint from 'gulp-tslint';
 import txtjs from 'gulp-txtjs';
 import typedoc from 'gulp-typedoc';
 import watchify from 'watchify';
+import exec from 'gulp-exec';
+import merge from 'merge2';
+
+let buildAllFinished = () => {};
 
 gulp.task('default', ['build']);
 
@@ -45,30 +49,48 @@ gulp.task('watch', () => {
   runSequence('build');
 });
 
+gulp.task('test', () => {
+  if (watching) {
+    gulp.watch("./src/**/*.ts", ['ts-es6', 'test']);
+  }
+  gulp.src('./').pipe(exec("ava ./test-es5/**/*Test.js"));
+});
+
+
 let watching = false;
+
 function enableWatch() {
   watching = true;
   gutil.log(gutil.colors.green('Watch Mode Enabled'));
 }
-if (args.argv.watch || args.argv.w) { enableWatch(); }
+if (args.argv.watch || args.argv.w) {
+  enableWatch();
+}
 
 /**
  * Transpile ts to es6
  */
-const tsProject = ts.createProject('tsconfig.json', {noExternalResolve: true});
+const tsProject = ts.createProject('tsconfig.json');
 gulp.task('ts-es6', () => {
   const entry = './src/**/*.ts';
   const dest = './lib';
-  if (watching) { gulp.watch(entry, ['ts-es6']); }
-  return gulp
+  if (watching) {
+    gulp.watch(entry, ['ts-es6']);
+  }
+  const tsResult = gulp
     .src(entry)
     .pipe(sourcemap.init())
-    .pipe(ts(tsProject))
-    .js
-    .pipe(cache('ts'))
-    .pipe(sourcemap.write())
-    .pipe(debug({title: 'Compiling ts'}))
-    .pipe(gulp.dest(dest));
+    .pipe(ts(tsProject));
+    return merge([
+      tsResult.js
+      .pipe(cache('ts'))
+      .pipe(sourcemap.write())
+      .pipe(debug({
+        title: 'Compiling ts'
+      }))
+      .pipe(gulp.dest(dest)),
+      tsResult.dts.pipe(cache('dts')).pipe(gulp.dest(dest))
+    ]);
 });
 
 /**
@@ -78,15 +100,19 @@ gulp.task('txt-es5', () => {
   const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
   const entry = entryExtensions.map((ext) => `./src/**/*${ext}`);
   const dest = './lib-es5';
-  if (watching) { gulp.watch(entry, ['txt-es5']); }
+  if (watching) {
+    gulp.watch(entry, ['txt-es5']);
+  }
   return txtToEs5(entry, dest);
 });
 
 gulp.task('test-txt-es5', () => {
-  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml'];
+  const entryExtensions = ['.html', '.css', '.glsl', '.xmml', '.rsml', '.xml', '.goml'];
   const entry = entryExtensions.map((ext) => `./test/**/*${ext}`);
   const dest = './test-es5';
-  if (watching) { gulp.watch(entry, ['test-txt-es5']); }
+  if (watching) {
+    gulp.watch(entry, ['test-txt-es5']);
+  }
   return txtToEs5(entry, dest);
 });
 
@@ -95,7 +121,9 @@ function txtToEs5(entry, dest) {
     .src(entry)
     .pipe(cache('txt'))
     .pipe(txtjs())
-    .pipe(debug({title: 'Compiling txt'}))
+    .pipe(debug({
+      title: 'Compiling txt'
+    }))
     .pipe(gulp.dest(dest));
 }
 
@@ -105,14 +133,18 @@ function txtToEs5(entry, dest) {
 gulp.task('copy-json', () => {
   const entry = './src/**/*.json';
   const dest = './lib-es5';
-  if (watching) { gulp.watch(entry, ['copy-json']); }
+  if (watching) {
+    gulp.watch(entry, ['copy-json']);
+  }
   return copy(entry, dest);
 });
 
 function copy(entry, dest) {
   return gulp
     .src(entry)
-    .pipe(debug({title: 'Copying'}))
+    .pipe(debug({
+      title: 'Copying'
+    }))
     .pipe(gulp.dest(dest));
 }
 
@@ -122,14 +154,18 @@ function copy(entry, dest) {
 gulp.task('es6-es5', () => {
   const entry = './lib/**/*.js';
   const dest = './lib-es5';
-  if (watching) { gulp.watch(entry, ['es6-es5']); }
+  if (watching) {
+    gulp.watch(entry, ['es6-es5']);
+  }
   return es6to5(entry, dest);
 });
 
 gulp.task('test-es6-es5', () => {
   const entry = './test/**/*.js';
   const dest = './test-es5';
-  if (watching) { gulp.watch(entry, ['test-es6-es5']); }
+  if (watching) {
+    gulp.watch(entry, ['test-es6-es5']);
+  }
   return es6to5(entry, dest);
 });
 
@@ -137,10 +173,14 @@ function es6to5(entry, dest) {
   return gulp
     .src(entry)
     .pipe(cache('es'))
-    .pipe(sourcemap.init({loadMaps: true}))
+    .pipe(sourcemap.init({
+      loadMaps: true
+    }))
     .pipe(es())
     .pipe(sourcemap.write())
-    .pipe(debug({title: 'Compiling es'}))
+    .pipe(debug({
+      title: 'Compiling es'
+    }))
     .pipe(gulp.dest(dest));
 }
 
@@ -163,6 +203,7 @@ gulp.task('bundle', () => {
       ignoreWatch: ['**/node_modules/**'],
     });
   }
+
   function bundle() {
     const time = process.hrtime();
     gutil.log('Bundling...');
@@ -170,14 +211,18 @@ gulp.task('bundle', () => {
       .bundle()
       .pipe(source('gr.js'))
       .pipe(buffer())
-      .pipe(sourcemap.init({loadMaps: true}))
+      .pipe(sourcemap.init({
+        loadMaps: true
+      }))
       .pipe(sourcemap.write('./'))
       .pipe(gulp.dest(dest))
       .on('end', () => {
         gutil.log('Finished bundling ' + gutil.colors.magenta(ptime(process.hrtime(time))));
       });
   }
-  if (watching) { b.on('update', bundle); }
+  if (watching) {
+    b.on('update', bundle);
+  }
   return bundle();
 });
 
@@ -188,21 +233,17 @@ gulp.task('doc', () => {
   const entry = './src/**/*.ts';
   const dest = 'ci/docs';
   const branch = args.argv.branch;
-  return gulp
-    .src(entry)
-    .pipe(typedoc({
-      target: 'es6',
-      out: path.join(dest, branch || 'unknown'),
-      name: 'Grimoire',
-      json: path.join(dest, `${branch}.json`),
-    }));
+  const outPath = path.join(dest, branch || 'unknown');
+  const jsonPath = path.join(dest, `${branch}.json`);
+  return gulp.src('./')
+    .pipe(exec(`typedoc --out ${outPath} --json ${jsonPath} --name Grimoire --target es6 ${entry}`));
 });
 
 /**
  * lint
  */
 gulp.task('lint-ts', () => {
-  const entry = ['./src/**/*.ts', '!./src/refs/**/*.ts', '!./src/bundle-notdoc.ts'];
+  const entry = ['!./src/typings/**/*.ts', './src/**/*.ts', '!./src/refs/**/*.ts', '!./src/bundle-notdoc.ts'];
   gulp
     .src(entry)
     .pipe(tslint({

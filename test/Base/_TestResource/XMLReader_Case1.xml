@@ -1,0 +1,10 @@
+<goml xmlns="http://grimoire.gl/ns/default">
+  <viewports>
+    <viewport cam=".camera"/>
+  </viewports>
+  <scenes>
+    <scene>
+      <mesh geo="cube"/>
+    </scene>
+  </scenes>
+</goml>
