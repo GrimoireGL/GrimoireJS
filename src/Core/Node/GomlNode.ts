@@ -15,6 +15,7 @@ class GomlNode extends EEObject { // EEである必要がある
   public attributes: NamespacedDictionary<Attribute>;
   public enable: boolean; // TODO: use this property!
   public sharedObject: NamespacedDictionary<any>;
+  public componentsElement: Element;
 
   private _parent: GomlNode;
   private _mounted: boolean = false;
@@ -36,6 +37,7 @@ class GomlNode extends EEObject { // EEである必要がある
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
+    this.componentsElement = document.createElement("COMPONENTS");
 
     // instanciate default components
     let componentsArray = components.toArray().map((id) => {
@@ -278,6 +280,7 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public addComponent(component: Component): void {
+    this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
   }
   public getComponents(): NamespacedDictionary<Component> {
