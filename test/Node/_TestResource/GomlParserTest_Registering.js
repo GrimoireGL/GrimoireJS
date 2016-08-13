@@ -37,7 +37,6 @@ export function testComponent2() {
 
 export function testComponentBase() {
   const testComponentBaseSpy = sinon.spy();
-<<<<<<< HEAD
   GrimoireInterface.registerComponent("testComponentBase",{
   attributes: {
     inheritAttr: {
@@ -45,15 +44,6 @@ export function testComponentBase() {
       defaultValue: "base"
     }
   },
-=======
-  GrimoireInterface.registerComponent("testComponentBase", {
-    attributes: {
-      inheritAttr: {
-        converter: "string",
-        defaultValue: "base"
-      }
-    },
->>>>>>> d3ca44f629e9df1f2b2aa9d13f9092981152abbc
     onTest: function(arg) {
       testComponentBaseSpy(arg);
     }
@@ -64,11 +54,7 @@ export function testComponentBase() {
 export function testComponentOptional() {
   const testComponentOptionalSpy = sinon.spy();
   GrimoireInterface.registerComponent("testComponentOptional", {
-<<<<<<< HEAD
     attributes:{
-=======
-    attributes: {
->>>>>>> d3ca44f629e9df1f2b2aa9d13f9092981152abbc
       value: {
         converter: "string",
         defaultValue: "optional"
@@ -86,17 +72,14 @@ export function conflictComponent1() {
   const ns = GrimoireInterface.ns("http://testNamespace/test1");
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
     attributes:{
-<<<<<<< HEAD
         value: {
           converter: "string",
           defaultValue: "aaa"
         }
-=======
       value: {
         converter: "string",
         defaultValue: "aaa"
       }
->>>>>>> d3ca44f629e9df1f2b2aa9d13f9092981152abbc
     },
     onTest: function() {
       spy(this.attributes.get("value").Value);
@@ -108,11 +91,7 @@ export function conflictComponent1() {
 export function conflictComponent2() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("http://testNamespace/test2");
-<<<<<<< HEAD
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
-=======
-  GrimoireInterface.registerComponent(ns("conflictComponent"),  {
->>>>>>> d3ca44f629e9df1f2b2aa9d13f9092981152abbc
     attributes:{
       value: {
         converter: "string",
