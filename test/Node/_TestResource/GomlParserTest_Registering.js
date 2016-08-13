@@ -76,10 +76,6 @@ export function conflictComponent1() {
           converter: "string",
           defaultValue: "aaa"
         }
-      value: {
-        converter: "string",
-        defaultValue: "aaa"
-      }
     },
     onTest: function() {
       spy(this.attributes.get("value").Value);
