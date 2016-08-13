@@ -1,0 +1,9 @@
+<goml xmlns:a="http://testNamespace/test1" xmlns:b="http://testNamespace/test2">
+  <a:conflictNode>
+    <conflictNode.components>
+      <a:conflictComponent/>
+      <b:conflictComponent/>
+    </conflictNode.components>
+  </a:conflictNode>
+  <b:conflictNode/>
+</goml>
