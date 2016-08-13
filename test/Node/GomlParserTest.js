@@ -3,7 +3,6 @@ import test from 'ava';
 import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';
-import DefaultPluginRegister from "../../lib-es5/Core/Node/DefaultPluginRegister"
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
 import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
 import {
@@ -100,7 +99,6 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
-DefaultPluginRegister.register();
 registerUserPlugin();
 
 test('test for parsing node hierarchy.', (t) => {

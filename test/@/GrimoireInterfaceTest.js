@@ -101,13 +101,14 @@ test('function interface works correctly', async(t) => {
     return ""
   };
   await GomlLoader.loadFromScriptTag(scriptTag);
-  
+
   const gi = GrimoireInterface("#test");
   const nodeInterface = gi("#testId1");
   nodeInterface.forEach((node) => { console.log("foreach"); })
-    // t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
+  t.truthy(nodeInterface.length === 1);
+  //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
     // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
-    // t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+    //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
     // global.document = window.document;
     // const queriedNode = GrimoireInterface.queryRootNodes("script");
     // t.truthy(queriedNode.length === 1);

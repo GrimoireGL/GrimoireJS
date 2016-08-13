@@ -2,7 +2,6 @@ import '../XMLDomInit'
 import test from 'ava';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';
-import DefaultPluginRegister from "../../lib-es5/Core/Node/DefaultPluginRegister"
 import NamespacedSet from "../../lib-es5/Core/Base/NamespacedSet"
 import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
 
