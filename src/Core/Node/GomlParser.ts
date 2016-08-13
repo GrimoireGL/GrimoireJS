@@ -20,9 +20,9 @@ class GomlParser {
       return null;
     }
     if (isRoot) {
-     // generate first shared object for root node.
-     // Root node must be bounded with script tag
-     newNode.sharedObject = new NamespacedDictionary<any>();
+      // generate first shared object for root node.
+      // Root node must be bounded with script tag
+      newNode.sharedObject = new NamespacedDictionary<any>();
     }
     // Parse children recursively
     const children = source.childNodes;
@@ -94,7 +94,7 @@ class GomlParser {
       component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       });
-      node.addComponent(component.generateInstance(componentNode,node));
+      node.addComponent(component.generateInstance(componentNode, node));
     }
   }
 

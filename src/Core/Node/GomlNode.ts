@@ -45,7 +45,8 @@ class GomlNode extends EEObject { // EEである必要がある
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      return declaration.generateInstance(this);
+      const element = document.createElementNS(declaration.name.ns, declaration.name.name);
+      return declaration.generateInstance(element, this);
     });
     const attributes = componentsArray.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
