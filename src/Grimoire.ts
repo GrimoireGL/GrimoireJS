@@ -52,5 +52,6 @@ class GrimoireInitializer {
  * Just start the process.
  */
 GrimoireInitializer.initialize();
+window["gr"] = GrimoireInterface;
 
 export default GrimoireInterface;

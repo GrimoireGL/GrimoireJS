@@ -53,7 +53,7 @@ class NodeInterface implements INodeInterfaceBase {
       // set value.
       this.forEach((node) => {
         const attr = node.attributes.get(attrName as string);
-        if (!attr) {
+        if (attr) {
           attr.Value = value;
         }
       });

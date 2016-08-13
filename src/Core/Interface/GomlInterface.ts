@@ -22,8 +22,7 @@ class GomlInterface implements IGomlInterfaceBase {
     console.log("gomlit:query");
     console.log("root count: " + this.rootNodes.length);
     return this.rootNodes.map((root) => {
-      console.log(root.element.querySelectorAll);
-      const nodelist = root.element.querySelectorAll(query);
+      const nodelist = root.element.ownerDocument.querySelectorAll(query);
       console.log("queryresult: " + nodelist.length);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {

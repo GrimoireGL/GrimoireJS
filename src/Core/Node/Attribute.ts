@@ -1,4 +1,3 @@
-import EEObject from "../Base/EEObject";
 import AttributeConverter from "./AttributeConverter";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import AttributeDeclaration from "./AttributeDeclaration";
@@ -10,7 +9,7 @@ import Component from "./Component";
  * When attribute is changed, emit a "change" event. When attribute is requested, emit a "get" event.
  * If responsive flag is not true, event will not be emitted.
  */
-class Attribute extends EEObject {
+class Attribute {
 
   public name: NamespacedIdentity;
   public declaration: AttributeDeclaration;
@@ -32,6 +31,7 @@ class Attribute extends EEObject {
   }
   private _value: any;
   private _responsively: boolean = false;
+  private _handlers: ((attr: Attribute) => void)[] = [];
 
   /**
    * Get a value with specified type.
@@ -50,7 +50,6 @@ class Attribute extends EEObject {
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
   constructor(declaration: AttributeDeclaration) {
-    super();
     this.name = declaration.name;
     this.declaration = declaration;
     this._value = declaration.defaultValue;
@@ -65,19 +64,40 @@ class Attribute extends EEObject {
    * @param {any} val Value with string or specified type.
    */
   public set Value(val: any) {
-    if (typeof (val) === "string") {
+    try {
       this._value = this.converter.convert(val);
-    } else {
-      // TODO add try catch notation
-      this._value = this.converter.convert(val);
+    } catch (e) {
+      console.error(e); // TODO should be more convenient error handling
     }
-    if (this._responsively) {
-      this._notifyChange();
+    this._notifyChange();
+  }
+
+  public addObserver(handler: (attr: Attribute) => void): void {
+    this._handlers.push(handler);
+  }
+
+  public removeObserver(handler: (attr: Attribute) => void): void {
+    let index = -1;
+    for (let i = 0; i < this._handlers.length; i++) {
+      if (handler === this._handlers[i]) {
+        index = i;
+        break;
+      }
     }
+    if (index < 0) {
+      return;
+    }
+    this._handlers.splice(index, 1);
   }
 
   private _notifyChange(): void {
-    // TODO:implement!!
+    for (let i = 0; i < this._handlers.length; i++) {
+      this._handlers[i](this);
+    }
+  }
+
+  private _applyToElement() {
+    this.component.node.element.setAttribute(this.name.name, this.Value);
   }
 }
 
