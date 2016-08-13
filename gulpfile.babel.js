@@ -1,27 +1,29 @@
-import _ from 'lodash';
-import args from 'yargs';
-import browserify from 'browserify';
-import buffer from 'vinyl-buffer';
+import gulp from 'gulp';
 import cache from 'gulp-cached';
 import debug from 'gulp-debug';
-import del from 'del';
 import es from 'gulp-babel';
-import fs from 'fs';
-import globArray from 'glob-array';
-import gulp from 'gulp';
 import gutil from 'gulp-util';
-import path from 'path';
-import ptime from 'pretty-hrtime';
-import runSequence from 'run-sequence';
-import source from 'vinyl-source-stream';
 import sourcemap from 'gulp-sourcemaps';
 import ts from 'gulp-typescript';
 import tslint from 'gulp-tslint';
 import txtjs from 'gulp-txtjs';
 import typedoc from 'gulp-typedoc';
-import watchify from 'watchify';
 import exec from 'gulp-exec';
+
 import merge from 'merge2';
+import _ from 'lodash';
+import runSequence from 'run-sequence';
+import source from 'vinyl-source-stream';
+
+import browserify from 'browserify';
+import watchify from 'watchify';
+import buffer from 'vinyl-buffer';
+import globArray from 'glob-array';
+import del from 'del';
+import fs from 'fs';
+import path from 'path';
+import ptime from 'pretty-hrtime';
+import args from 'yargs';
 
 let buildAllFinished = () => {};
 
@@ -249,8 +251,9 @@ gulp.task('lint-ts', () => {
     .pipe(tslint({
       configuration: './tslint.json',
       rulesDirectory: './lint/rules/',
+      formatter:"verbose"
     }))
-    .pipe(tslint.report('verbose'));
+    .pipe(tslint.report());
 });
 
 /**
