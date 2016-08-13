@@ -91,9 +91,9 @@ class GomlParser {
       }
 
       // コンポーネントの属性がタグの属性としてあればそれを、なければデフォルトを、それもなければ必須属性はエラー
-      component.attributeDeclarations.forEach((attr) => {
-        this._parseAttribute(attr.generateAttributeInstance(), componentNode);
-      });
+      // component.attributes.forEach((attr) => {
+      //   this._parseAttribute(attr.generateAttributeInstance(), componentNode);
+      // }); // ???
       node.addComponent(component.generateInstance(componentNode, node));
     }
   }
