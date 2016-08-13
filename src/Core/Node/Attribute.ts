@@ -25,8 +25,7 @@ class Attribute {
   public set responsively(value: boolean) {
     this._responsively = value;
     if (this._responsively) {
-      // this.emit("change");
-      // TODO:notify changes to element
+      this._applyToElement();
     }
   }
   private _value: any;
@@ -69,6 +68,9 @@ class Attribute {
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
     }
+    if (this._responsively) {
+      this._applyToElement();
+    }
     this._notifyChange();
   }
 
@@ -96,7 +98,7 @@ class Attribute {
     }
   }
 
-  private _applyToElement() {
+  private _applyToElement(): void {
     this.component.node.element.setAttribute(this.name.name, this.Value);
   }
 }
