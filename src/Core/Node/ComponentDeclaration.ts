@@ -1,3 +1,4 @@
+import GomlNode from "./GomlNode";
 import Ensure from "../Base/Ensure";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
 import IAttributeDeclaration from "./IAttributeDeclaration";
@@ -21,10 +22,15 @@ class ComponentDeclaration {
     }
   }
 
-  public generateInstance(): Component {
+  public generateInstance(element: Element, node: GomlNode): Component {
     const instance = new this.ctor();
     instance.name = this.name;
+    instance.element = element;
     instance.attributes = this.attributeDeclarations.map((attrDec) => attrDec.generateAttributeInstance());
+    instance.node = node;
+    if (typeof instance["awake"] === "function") {
+      instance["awake"]();
+    }
     return instance;
   }
 }

@@ -1,4 +1,3 @@
-import StringConverter from "./Converters/StringConverter";
 import EEObject from "../Base/EEObject";
 import AttributeConverter from "./AttributeConverter";
 import NamespacedIdentity from "../Base/NamespacedIdentity";

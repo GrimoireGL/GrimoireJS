@@ -1,3 +1,5 @@
+import NamespacedSet from "../Base/NamespacedSet";
+import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
 import NodeDeclaration from "./NodeDeclaration";
@@ -12,7 +14,8 @@ class GomlNode extends EEObject { // EEである必要がある
   public children: GomlNode[] = [];
   public attributes: NamespacedDictionary<Attribute>;
   public enable: boolean; // TODO: use this property!
-  public sharedObject: { [key: string]: any } = {};
+  public sharedObject: NamespacedDictionary<any>;
+  public componentsElement: Element;
 
   private _parent: GomlNode;
   private _mounted: boolean = false;
@@ -30,13 +33,25 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: Component[], attributes: Attribute[]) {
+  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet) {
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
+    this.componentsElement = document.createElement("COMPONENTS");
 
+    // instanciate default components
+    let componentsArray = components.toArray().map((id) => {
+      const declaration = GrimoireInterface.componentDeclarations.get(id);
+      if (!declaration) {
+        throw new Error(`component '${id.fqn}' is not found.`);
+      }
+      const element = document.createElementNS(declaration.name.ns, declaration.name.name);
+      return declaration.generateInstance(element, this);
+    });
+    const attributes = componentsArray.map((c) => c.attributes.toArray())
+      .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
     this._components = new NamespacedDictionary<Component>();
-    components.forEach((c) => {
+    componentsArray.forEach((c) => {
       this._components.set(c.name, c);
     });
 
@@ -65,7 +80,7 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
-  public broadcastMessage(arg1: number|string, arg2?: any, arg3?: any): void {
+  public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
     if (typeof arg1 === "number") {
       const range = <number>arg1;
       const message = <string>arg2;
@@ -100,7 +115,6 @@ class GomlNode extends EEObject { // EEである必要がある
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
     child.sharedObject = this.sharedObject;
-    child._components.forEach((compo) => { compo.sharedObject = this.sharedObject; });
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
@@ -131,8 +145,7 @@ class GomlNode extends EEObject { // EEである必要がある
       let v = this.children[i];
       if (v === child) {
         child._parent = null;
-        child.sharedObject = {};
-        child._components.forEach((compo) => {compo.sharedObject = child.sharedObject; });
+        child.sharedObject = null;
         this.children.splice(i, 1);
         if (this.mounted()) {
           child.setMounted(false);
@@ -268,7 +281,7 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public addComponent(component: Component): void {
-    component.sharedObject = this.sharedObject;
+    this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
   }
   public getComponents(): NamespacedDictionary<Component> {

@@ -5,6 +5,7 @@ import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
 import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+import jsdomAsync from "../JsDOMAsync";
 import {
   goml,
   stringConverter,
@@ -47,7 +48,8 @@ let stringConverterSpy,
   conflictComponent1Spy,
   conflictComponent2Spy;
 
-test.beforeEach(() => {
+test.beforeEach(async () => {
+  global.document = (await jsdomAsync("<html></html>",[])).document;
   goml();
   testNode1();
   testNode2();
@@ -130,8 +132,13 @@ test('test for parse user-define component.', (t) => {
   sinon.assert.calledWith(testComponent1Spy, "testArg");
   sinon.assert.calledWith(testComponent2Spy, "testArg");
   sinon.assert.calledWith(testComponentOptionalSpy, "testArg");
+<<<<<<< HEAD
   //sinon.assert.calledWith(testComponentBaseSpy, "testArg");
   sinon.assert.callOrder(testComponent1Spy, /*testComponentBaseSpy,*/ testComponent2Spy, testComponentOptionalSpy);
+=======
+  // TODO uncomment this. sinon.assert.calledWith(testComponentBaseSpy, "testArg");
+  sinon.assert.callOrder(testComponent1Spy, /*TODO uncomment this also testComponentBaseSpy,*/ testComponent2Spy, testComponentOptionalSpy);
+>>>>>>> d3ca44f629e9df1f2b2aa9d13f9092981152abbc
   sinon.assert.calledWith(stringConverterSpy, "hugahuga");
   sinon.assert.calledWith(stringConverterSpy, "123");
   //sinon.assert.calledWith(stringConverterSpy, "hogehoge");

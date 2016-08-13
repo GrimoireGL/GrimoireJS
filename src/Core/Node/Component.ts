@@ -7,7 +7,10 @@ class Component {
   public name: NamespacedIdentity;
   public attributes: NamespacedDictionary<Attribute>;
   public node: GomlNode;
-  public sharedObject: {[key: string]: any};
+  public element: Element;
+  public get sharedObject(): NamespacedDictionary<any> {
+    return this.node ? this.node.sharedObject : null;
+  }
 }
 
 export default Component;
