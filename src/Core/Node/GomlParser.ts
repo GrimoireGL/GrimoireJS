@@ -12,7 +12,7 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: Element, isRoot: boolean): GomlNode {
+  public static parse(source: Element, isRoot: boolean, scriptTag?: HTMLScriptElement): GomlNode {
     const newNode = GomlParser._createNode(source, isRoot);
     if (!newNode) {
       // when specified node could not be found
@@ -23,6 +23,9 @@ class GomlParser {
       // generate first shared object for root node.
       // Root node must be bounded with script tag
       newNode.sharedObject = new NamespacedDictionary<any>();
+      if (scriptTag) {
+        newNode.sendMessage("treeInitializing", scriptTag);
+      }
     }
     // Parse children recursively
     const children = source.childNodes;

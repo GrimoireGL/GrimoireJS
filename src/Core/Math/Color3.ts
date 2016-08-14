@@ -2,10 +2,9 @@ import VectorBase from "../Math/VectorBase";
 import Vector3 from "./Vector3";
 import Color4 from "./Color4";
 import Vector4 from "./Vector4";
+import Colors from "./Colors";
 
 class Color3 extends VectorBase {
-
-  public static colorTable: { [key: string]: string } = require("../static/color.json");
 
   public static fromColor4(col: Color4): Color3 {
     return new Color3(col.R, col.G, col.B);
@@ -17,8 +16,8 @@ class Color3 extends VectorBase {
 
   /// Color parser for css like syntax
   public static internalParse(color: string, isFirst: boolean, tryParse?: boolean): Color3 {
-    if (isFirst && Color4.colorTable[color]) {
-      const col = Color4.internalParse(Color4.colorTable[color], false, tryParse);
+    if (isFirst && Colors[color]) {
+      const col = Color4.internalParse(Colors[color], false, tryParse);
       return Color3.fromColor4(col);
     }
     let m;
@@ -31,7 +30,7 @@ class Color3 extends VectorBase {
           parseInt(s.charAt(0), 16) / 0xf,
           parseInt(s.charAt(1), 16) / 0xf,
           parseInt(s.charAt(2), 16) / 0xf
-          );
+        );
       }
     }
 
@@ -43,7 +42,7 @@ class Color3 extends VectorBase {
         parseInt(s.substr(0, 2), 16) / 0xff,
         parseInt(s.substr(2, 2), 16) / 0xff,
         parseInt(s.substr(4, 2), 16) / 0xff
-        );
+      );
     }
 
     const n = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
@@ -97,7 +96,7 @@ class Color3 extends VectorBase {
   }
 
   public toString(): string {
-    return `rgb(${Math.round(this.R * 255) }, ${Math.round(this.G * 255) }, ${Math.round(this.B * 255) })`;
+    return `rgb(${Math.round(this.R * 255)}, ${Math.round(this.G * 255)}, ${Math.round(this.B * 255)})`;
   }
 
   public toDisplayString(): string {
