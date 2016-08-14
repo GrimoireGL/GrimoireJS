@@ -31,8 +31,8 @@ class ComponentDeclaration {
     }
     component.node = node;
     component.node.componentsElement.appendChild(componentElement);
-    if (typeof component["awake"] === "function") {
-      component["awake"]();
+    if (typeof component["$awake"] === "function") {
+      component["$awake"]();
     }
     return component;
   }
