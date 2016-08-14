@@ -1,3 +1,4 @@
+import GrimoireInterface from "../GrimoireInterface";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
@@ -16,21 +17,24 @@ class ComponentDeclaration {
     this.attributes = attributes;
   }
 
-  public generateInstance(element: Element, node: GomlNode): Component {
-    const instance = new this.ctor();
-    instance.name = this.name;
-    instance.element = element;
-    instance.attributes = new NamespacedDictionary<Attribute>();
-    instance.tree = node.treeInterface;
+  public generateInstance(node: GomlNode): Component {
+    const componentElement = document.createElementNS(this.name.ns, this.name.name);
+    const component = new this.ctor();
+    componentElement.setAttribute("x-gr-id", component.id);
+    GrimoireInterface.componentDictionary[component.id] = component;
+    component.name = this.name;
+    component.element = componentElement;
+    component.attributes = new NamespacedDictionary<Attribute>();
     for (let key in this.attributes) {
-      const attr = new Attribute(key, this.attributes[key], instance);
-      instance.attributes.set(attr.name, attr);
+      const attr = new Attribute(key, this.attributes[key], component);
+      component.attributes.set(attr.name, attr);
     }
-    instance.node = node;
-    if (typeof instance["awake"] === "function") {
-      instance["awake"]();
+    component.node = node;
+    component.node.componentsElement.appendChild(componentElement);
+    if (typeof component["awake"] === "function") {
+      component["awake"]();
     }
-    return instance;
+    return component;
   }
 }
 

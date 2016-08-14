@@ -24,7 +24,7 @@ class NodeInterface implements INodeInterfaceBase {
   public queryComponents(query: string): Component[][][] {
     return this.nodes.map((nodes) => {
       return nodes.map((node) => {
-        const componentElements = node.element.querySelectorAll(query);
+        const componentElements = node.componentsElement.querySelectorAll(query);
         const components: Component[] = [];
         for (let i = 0; i < componentElements.length; i++) {
           const elem = componentElements[i];

@@ -42,18 +42,13 @@ class GomlNode extends EEObject { // EEである必要がある
     this.nodeDeclaration = recipe;
     this.element = element;
     this.componentsElement = document.createElement("COMPONENTS");
-    if (isRoot) {
-      this._root = this;
-      this.treeInterface = GomlInterfaceGenerator([this._root]);
-    }
     // instanciate default components
     let componentsArray = components.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      const componentElement = document.createElementNS(declaration.name.ns, declaration.name.name);
-      return declaration.generateInstance(componentElement, this);
+      return declaration.generateInstance(this);
     });
     const attributes = componentsArray.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
@@ -66,7 +61,11 @@ class GomlNode extends EEObject { // EEである必要がある
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
-
+    if (isRoot) {
+      this._root = this;
+      this.treeInterface = GomlInterfaceGenerator([this._root]);
+      this.setMounted(true);
+    }
   }
 
 
@@ -273,8 +272,11 @@ class GomlNode extends EEObject { // EEである必要がある
   public setMounted(mounted: boolean): void {
     if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
       this._mounted = mounted;
+      this.sendMessage(this._mounted ? "mount" : "unmount", this);
       this.attributes.forEach((value) => {
-        value.responsively = true;
+        if (value.responsively) {
+          value.notifyMounted();
+        }
       });
       this.children.forEach((child) => {
         child.setMounted(mounted);

@@ -26,7 +26,7 @@ class Attribute {
   public set responsively(value: boolean) {
     this._responsively = value;
     if (this._responsively) {
-      this._applyToElement();
+      this.notifyMounted();
     }
   }
   private _value: any;
@@ -92,6 +92,12 @@ class Attribute {
       return;
     }
     this._handlers.splice(index, 1);
+  }
+
+  public notifyMounted() {
+    if (this.component.node.Mounted) {
+      this._applyToElement();
+    }
   }
 
   private _notifyChange(): void {

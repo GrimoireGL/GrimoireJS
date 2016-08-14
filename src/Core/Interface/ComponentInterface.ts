@@ -2,8 +2,8 @@ import IComponentInterface from "./IComponentInterface";
 import Component from "../Node/Component";
 
 class ComponentInterface implements IComponentInterface {
-  constructor(components: Component[][][]) {
-    // TODO: imlplememnt!
+  constructor(public components: Component[][][]) {
+
   }
 }
 
