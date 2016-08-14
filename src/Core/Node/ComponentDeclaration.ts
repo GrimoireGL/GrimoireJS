@@ -17,8 +17,8 @@ class ComponentDeclaration {
     this.attributes = attributes;
   }
 
-  public generateInstance(node: GomlNode): Component {
-    const componentElement = document.createElementNS(this.name.ns, this.name.name);
+  public generateInstance(node: GomlNode, componentElement?: Element): Component {
+    componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute("x-gr-id", component.id);
     GrimoireInterface.componentDictionary[component.id] = component;

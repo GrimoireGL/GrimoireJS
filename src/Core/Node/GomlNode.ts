@@ -70,8 +70,9 @@ class GomlNode extends EEObject { // EEである必要がある
 
 
   public sendMessage(message: string, args: any): void {
+    const funcName = "$" + message;
     this._components.forEach((component) => {
-      let method = component[message];
+      let method = component[funcName];
       if (typeof method === "function") {
         method.bind(component)(args);
       }

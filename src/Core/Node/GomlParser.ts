@@ -85,8 +85,8 @@ class GomlParser {
       if (!GomlParser._isElement(componentNode)) {
         continue; // Skip if the node was not element
       }
-      const component = GrimoireInterface.componentDeclarations.get(componentNode);
-      if (!component) { // Verify specified component is actual existing.
+      const componentDecl = GrimoireInterface.componentDeclarations.get(componentNode);
+      if (!componentDecl) { // Verify specified component is actual existing.
         throw new Error(`Component ${componentNode.tagName} is not found.`);
       }
 
@@ -94,7 +94,11 @@ class GomlParser {
       // component.attributes.forEach((attr) => {
       //   this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       // }); // ???
-      node.addComponent(component.generateInstance(componentNode, node));
+      const component = componentDecl.generateInstance(node, componentNode);
+      node.addComponent(component);
+      for (let key in componentDecl.attributes) {
+        this._parseAttribute(new Attribute(key, componentDecl.attributes[key], component), componentNode);
+      }
     }
   }
 
