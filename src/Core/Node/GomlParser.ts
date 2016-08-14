@@ -13,7 +13,7 @@ class GomlParser {
    * @param {HTMLElement} soruce [description]
    */
   public static parse(source: Element, isRoot: boolean): GomlNode {
-    const newNode = GomlParser._createNode(source);
+    const newNode = GomlParser._createNode(source, isRoot);
     if (!newNode) {
       // when specified node could not be found
       console.warn(`"${source.tagName}" was not parsed.`);
@@ -54,14 +54,14 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: Element): GomlNode {
+  private static _createNode(elem: Element, isRoot: boolean): GomlNode {
     const tagName = elem.localName;
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
     const defaultValues = recipe.defaultAttributes;
-    const newNode = recipe.createNode(elem);
+    const newNode = recipe.createNode(elem, isRoot);
 
     // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
     newNode.forEachAttr((attr, key) => {

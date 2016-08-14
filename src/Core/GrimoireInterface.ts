@@ -10,8 +10,8 @@ import IGrimoireInterface from "./IGrimoireInterface";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NamespacedIdentity from "./Base/NamespacedIdentity";
-import GomlInterface from "./Interface/GomlInterface";
 import NamespacedDictionary from "./Base/NamespacedDictionary";
+import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
 import {inherits} from "util";
 
@@ -28,7 +28,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public loadTasks: (() => Promise<void>)[] = [];
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
-  public componentDictionary: {[componentId: string]: Component} = {};
+  public componentDictionary: { [componentId: string]: Component } = {};
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
@@ -153,10 +153,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 }
 const context = new GrimoireInterfaceImpl();
 const obtainGomlInterface = function(query: string): IGomlInterface {
-  const gomlContext = new GomlInterface(context.queryRootNodes(query));
-  const queryFunc = gomlContext.queryFunc.bind(gomlContext);
-  Object.setPrototypeOf(queryFunc, gomlContext);
-  return queryFunc as IGomlInterface;
+  return GomlInterfaceGenerator(context.queryRootNodes(query));
 };
 // const bindedFunction = obtainGomlInterface.bind(context);
 Object.setPrototypeOf(obtainGomlInterface, context);

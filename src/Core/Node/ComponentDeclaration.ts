@@ -21,6 +21,7 @@ class ComponentDeclaration {
     instance.name = this.name;
     instance.element = element;
     instance.attributes = new NamespacedDictionary<Attribute>();
+    instance.tree = node.treeInterface;
     for (let key in this.attributes) {
       const attr = new Attribute(key, this.attributes[key], instance);
       instance.attributes.set(attr.name, attr);

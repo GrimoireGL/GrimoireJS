@@ -106,7 +106,7 @@ registerUserPlugin();
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case1.goml");
   const node = GomlParser.parse(element);
-  t.truthy(node.parent === void 0);
+  t.truthy(node.parent === null);
   t.truthy(node.children.length === 1);
   const c = node.children[0];
   t.truthy(c.parent === node);
@@ -120,7 +120,7 @@ test('test for parsing node hierarchy.', (t) => {
 test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case2.goml");
   const node = GomlParser.parse(element);
-  t.truthy(node.parent === void 0);
+  t.truthy(node.parent === null);
   sinon.assert.notCalled(stringConverterSpy);
 });
 

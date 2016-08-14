@@ -7,6 +7,8 @@ import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
+import IGomlInterface from "../Interface/IGomlInterface";
+import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 
 class GomlNode extends EEObject { // EEである必要がある
   public element: Element;
@@ -14,10 +16,12 @@ class GomlNode extends EEObject { // EEである必要がある
   public children: GomlNode[] = [];
   public attributes: NamespacedDictionary<Attribute>;
   public enable: boolean; // TODO: use this property!
-  public sharedObject: NamespacedDictionary<any>;
+  public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
+  public treeInterface: IGomlInterface;
 
-  private _parent: GomlNode;
+  private _parent: GomlNode = null;
+  private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
 
@@ -33,12 +37,15 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet) {
+  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet, isRoot: boolean) {
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
     this.componentsElement = document.createElement("COMPONENTS");
-
+    if (isRoot) {
+      this._root = this;
+      this.treeInterface = GomlInterfaceGenerator([this._root]);
+    }
     // instanciate default components
     let componentsArray = components.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
@@ -114,6 +121,8 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
+    child._root = this._root;
+    child.treeInterface = this.treeInterface;
     child.sharedObject = this.sharedObject;
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
@@ -145,6 +154,8 @@ class GomlNode extends EEObject { // EEである必要がある
       let v = this.children[i];
       if (v === child) {
         child._parent = null;
+        child._root = null;
+        child.treeInterface = GomlInterfaceGenerator([]);
         child.sharedObject = null;
         this.children.splice(i, 1);
         if (this.mounted()) {
