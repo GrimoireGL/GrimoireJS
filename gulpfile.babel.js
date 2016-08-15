@@ -24,6 +24,7 @@ import fs from 'fs';
 import path from 'path';
 import ptime from 'pretty-hrtime';
 import args from 'yargs';
+import typescript from 'typescript';
 
 let buildAllFinished = () => {};
 
@@ -72,7 +73,9 @@ if (args.argv.watch || args.argv.w) {
 /**
  * Transpile ts to es6
  */
-const tsProject = ts.createProject('tsconfig.json');
+const tsProject = ts.createProject('tsconfig.json', {
+  typescript: require("typescript")
+});
 gulp.task('ts-es6', () => {
   const entry = './src/**/*.ts';
   const dest = './lib';
@@ -83,16 +86,16 @@ gulp.task('ts-es6', () => {
     .src(entry)
     .pipe(sourcemap.init())
     .pipe(ts(tsProject));
-    return merge([
-      tsResult.js
-      .pipe(cache('ts'))
-      .pipe(sourcemap.write())
-      .pipe(debug({
-        title: 'Compiling ts'
-      }))
-      .pipe(gulp.dest(dest)),
-      tsResult.dts.pipe(cache('dts')).pipe(gulp.dest(dest))
-    ]);
+  return merge([
+    tsResult.js
+    .pipe(cache('ts'))
+    .pipe(sourcemap.write())
+    .pipe(debug({
+      title: 'Compiling ts'
+    }))
+    .pipe(gulp.dest(dest)),
+    tsResult.dts.pipe(cache('dts')).pipe(gulp.dest(dest))
+  ]);
 });
 
 /**
@@ -251,7 +254,7 @@ gulp.task('lint-ts', () => {
     .pipe(tslint({
       configuration: './tslint.json',
       rulesDirectory: './lint/rules/',
-      formatter:"verbose"
+      formatter: "verbose"
     }))
     .pipe(tslint.report());
 });

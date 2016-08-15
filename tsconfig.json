@@ -35,6 +35,7 @@
     "./src/Core/Math/AABB.ts",
     "./src/Core/Math/Color3.ts",
     "./src/Core/Math/Color4.ts",
+    "./src/Core/Math/Colors.ts",
     "./src/Core/Math/IVectorParseDescription.ts",
     "./src/Core/Math/Matrix.ts",
     "./src/Core/Math/MatrixArray.ts",
@@ -59,10 +60,7 @@
     "./src/Core/Node/ITreeInitializedInfo.ts",
     "./src/Core/Node/NodeDeclaration.ts",
     "./src/Core/Node/NodeUtility.ts",
-    "./src/Grimoire.ts",
-    "./src/typings/gl-matrix/gl-matrix.d.ts",
-    "./src/typings/globals/node/index.d.ts",
-    "./src/typings/index.d.ts"
+    "./src/Grimoire.ts"
   ],
   "exclude": [],
   "atom": {
