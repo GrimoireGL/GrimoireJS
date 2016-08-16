@@ -45,10 +45,11 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   constructor(recipe: NodeDeclaration, element: Element) {
     super();
-    // TODO: recipe null なら例外
-    // TODO: element null ならどうする？
+    if (!recipe) {
+      throw new Error("recipe must not be null");
+    }
     this.nodeDeclaration = recipe;
-    this.element = element;
+    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
     this.treeInterface = GomlInterfaceGenerator([this._root]);
@@ -125,11 +126,6 @@ class GomlNode extends EEObject { // EEである必要がある
 
   /**
    * Add child.
-   * @param {GomlNode} Target node to be inserted.
-   * @param {number}   index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
-   */
-  /**
-   * Add child.
    * @param {GomlNode} child            追加する子ノード
    * @param {number}   index            追加位置。なければ末尾に追加
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
@@ -198,7 +194,7 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public getValue(attrName: string): any {
-    const attr = this.getAttribute(attrName);
+    const attr = this.attributes.get(attrName);
     if (attr === undefined) {
       throw new Error(`attribute "${attrName}" is not found.`);
     } else {
@@ -207,21 +203,12 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public setValue(attrName: string, value: any): void {
-    // TODO: 引数が名前空間を含むかどうかで分岐
-    const attr = this.getAttribute(attrName);
+    const attr = this.attributes.get(attrName);
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
       throw new Error("root Node cannot be removed.");
     }
-  }
-
-  public getAttribute(attrName: string): Attribute {
-    let attr = this.attributes.get(attrName);
-    if (!attr) {
-      throw new Error(`attribute "${attrName}" is not found.`);
-    }
-    return attr;
   }
 
   /**
@@ -232,15 +219,6 @@ class GomlNode extends EEObject { // EEである必要がある
   public setAttribute(name: string, value: any): void {
     this.attributes.get(name).Value = value;
   }
-
-  // /**
-  //  * Get attribute.
-  //  * @param  {string} name attribute name string.
-  //  * @return {any}         attribute value.
-  //  */
-  // public getAttribute(name: string): any {
-  //   return this._attributes.get(name);
-  // }
 
   /**
    * Get mounted status.
