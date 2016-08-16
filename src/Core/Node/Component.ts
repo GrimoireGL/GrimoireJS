@@ -10,6 +10,7 @@ class Component extends IDObject {
   public attributes: NamespacedDictionary<Attribute>;
   public node: GomlNode;
   public element: Element;
+  public enable: boolean = true;
   public get sharedObject(): NamespacedDictionary<any> {
     return this.node ? this.node.sharedObject : null;
   }

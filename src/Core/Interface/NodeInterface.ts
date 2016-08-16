@@ -95,10 +95,7 @@ class NodeInterface implements INodeInterfaceBase {
   public append(tag: string): NodeInterface {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
-      const nodes = elems.map((elem) => GomlParser.parse(elem, false));
-      nodes.forEach((child) => {
-        node.addChild(child);
-      });
+      elems.forEach((elem) => GomlParser.parse(elem, node));
     });
     return this;
   }
@@ -180,7 +177,7 @@ class NodeInterface implements INodeInterfaceBase {
   public addCompnent(componentId: NamespacedIdentity): NodeInterface {
     this.forEach((node) => {
       const componentDec = GrimoireInterface.componentDeclarations.get(componentId);
-      const comp = componentDec.generateInstance(node);
+      const comp = componentDec.generateInstance();
       node.addComponent(comp);
     });
     return this;

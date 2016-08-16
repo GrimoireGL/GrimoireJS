@@ -16,7 +16,7 @@ const test = async() => {
   if (argv.c) {
     await execAsync("npm run babel-ci-test .S ./test/${}")
   }
-  const result = await execAsync(`npm run ava --　- S ./lib-test/${argv.f?argv.f:""}`);
+  const result = await execAsync(`npm run ava --　- S ./lib-test/${argv.f?argv.f:"**/*Test.js"}`);
   console.log(result.stdout);
   console.log(result.stderr);
   if (result.err) {
@@ -39,7 +39,7 @@ const main = async() => {
   if (config.grimoire.txt2js) {
     const exts = config.grimoire.txt2js;
     for (var i = 0; i < exts.length; i++) {
-      await txt2js("./test/**/" + exts[i], 'lib-test', 'test', true);
+      await txt2js("./test/**/" + exts[i], 'lib-test', 'test', true,true);
     }
   }
   await copyDirAsync('test', 'lib-test', true, (c)=>{

@@ -1,4 +1,3 @@
-import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import AttributeConverter from "./AttributeConverter";
@@ -14,26 +13,11 @@ import Component from "./Component";
 class Attribute {
 
   public name: NamespacedIdentity;
+  public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
+  public component: Component;
 
-  public get tree(): IGomlInterface {
-    return this.component.tree;
-  }
-  /**
-   * If this flag is not true, notify value changed to DomElement.
-   * @type {boolean}
-   */
-  public get responsively(): boolean {
-    return this._responsively;
-  }
-  public set responsively(value: boolean) {
-    this._responsively = value;
-    if (this._responsively) {
-      this.notifyMounted();
-    }
-  }
   private _value: any;
-  private _responsively: boolean = false;
   private _handlers: ((attr: Attribute) => void)[] = [];
 
   /**
@@ -52,18 +36,15 @@ class Attribute {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: string, public declaration: IAttributeDeclaration, public component: Component) {
+  constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
     this.name = new NamespacedIdentity(component.name.ns, name);
+    this.declaration = declaration;
     const converterName = Ensure.ensureTobeNamespacedIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
-    this.converter.convert = this.converter.convert.bind(this);
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
-  }
-
-  public applyDefault(): void {
-    this._value = this.converter.convert(this.declaration.defaultValue);
+    this.Value = declaration.defaultValue;
   }
 
   /**
@@ -75,9 +56,6 @@ class Attribute {
       this._value = this.converter.convert(val);
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
-    }
-    if (this._responsively) {
-      this._applyToElement();
     }
     this._notifyChange();
   }
@@ -100,20 +78,10 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
-  public notifyMounted() {
-    if (this.component.node.Mounted) {
-      this._applyToElement();
-    }
-  }
-
   private _notifyChange(): void {
-    for (let i = 0; i < this._handlers.length; i++) {
-      this._handlers[i](this);
-    }
-  }
-
-  private _applyToElement(): void {
-    this.component.node.element.setAttribute(this.name.name, this.Value);
+    this._handlers.forEach((handler) => {
+      handler(this);
+    });
   }
 }
 

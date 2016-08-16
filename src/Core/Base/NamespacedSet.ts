@@ -47,7 +47,7 @@ class NamespacedSet {
         return newSet;
     }
 
-    public merge(other): NamespacedSet {
+    public merge(other: NamespacedSet): NamespacedSet {
         const values = other.values();
         for (let elem of values) {
             this.push(elem);

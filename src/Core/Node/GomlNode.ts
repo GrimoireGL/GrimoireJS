@@ -1,4 +1,3 @@
-import NamespacedSet from "../Base/NamespacedSet";
 import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
@@ -11,11 +10,11 @@ import IGomlInterface from "../Interface/IGomlInterface";
 import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 
 class GomlNode extends EEObject { // EEである必要がある
-  public element: Element;
+  public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public attributes: NamespacedDictionary<Attribute>;
-  public enable: boolean; // TODO: use this property!
+  public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
+  public enable: boolean = true;
   public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
   public treeInterface: IGomlInterface;
@@ -24,7 +23,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
-  private _awaken: boolean = false;
+  private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
 
   public get nodeName(): NamespacedIdentity {
     return this.nodeDeclaration.name;
@@ -38,49 +37,57 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet, isRoot: boolean, parent?: GomlNode) {
+  /**
+   * 新しいインスタンスの作成
+   * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
+   * @param  {Element}         element 対応するDomElement
+   * @return {[type]}                  [description]
+   */
+  constructor(recipe: NodeDeclaration, element: Element) {
     super();
+    if (!recipe) {
+      throw new Error("recipe must not be null");
+    }
     this.nodeDeclaration = recipe;
-    this.element = element;
+    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
+    this._root = this;
+    this.treeInterface = GomlInterfaceGenerator([this._root]);
+    this.sharedObject = new NamespacedDictionary<any>();
+
+    this.element.setAttribute("x-gr-id", this.id);
+    const defaultComponentNames = recipe.defaultComponents;
+
     // instanciate default components
-    let componentsArray = components.toArray().map((id) => {
+    let defaultComponents = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      return declaration.generateInstance(this);
-    });
-    const attributes = componentsArray.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
-    this._components = new NamespacedDictionary<Component>();
-    componentsArray.forEach((c) => {
-      this._components.set(c.name, c);
+      return declaration.generateInstance();
     });
 
+    this._components = new NamespacedDictionary<Component>();
+    defaultComponents.forEach((c) => {
+      this.addComponent(c);
+    });
+
+    const attributes = defaultComponents.map((c) => c.attributes.toArray())
+      .reduce((pre, current) => pre.concat(current), []); // map to attributes array.
     this.attributes = new NamespacedDictionary<Attribute>();
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
-    if (isRoot) {
-      this._root = this;
-      this.treeInterface = GomlInterfaceGenerator([this._root]);
-      this.setMounted(true);
-    }
-    if (parent) {
-      parent.addChild(this);
-    }
   }
 
-
-  public sendMessage(message: string, args: any): void {
-    const funcName = "$" + message;
+  public sendMessage(message: string, args?: any): boolean {
+    if (!this.enable) {
+      return false;
+    }
     this._components.forEach((component) => {
-      let method = component[funcName];
-      if (typeof method === "function") {
-        method.bind(component)(args);
-      }
+      this._sendMessageToComponent(component, message, args);
     });
+    return true;
   }
 
   /**
@@ -92,6 +99,9 @@ class GomlNode extends EEObject { // EEである必要がある
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
   public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
+    if (!this.enable) {
+      return;
+    }
     if (typeof arg1 === "number") {
       const range = <number>arg1;
       const message = <string>arg2;
@@ -111,17 +121,12 @@ class GomlNode extends EEObject { // EEである必要がある
       }
     }
   }
-  // public broadcastMessage(name: string, args: any): void {
-  //   this.sendMessage(name, args);
-  // for (let i = 0; i < this.children.length; i++) {
-  //   this.children[i].broadcastMessage(name, args);
-  // }
-  // }
 
   /**
    * Add child.
-   * @param {GomlNode} Target node to be inserted.
-   * @param {number}   index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
+   * @param {GomlNode} child            追加する子ノード
+   * @param {number}   index            追加位置。なければ末尾に追加
+   * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
@@ -136,15 +141,12 @@ class GomlNode extends EEObject { // EEである必要がある
 
     // handling html
     if (elementSync) {
-      let referenceElement: HTMLElement = null;
-      if (index != null) {
-        referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, index)];
-      }
+      let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
 
     // mounting
-    if (this.mounted()) {
+    if (this.mounted) {
       child.setMounted(true);
     }
   }
@@ -162,9 +164,8 @@ class GomlNode extends EEObject { // EEである必要がある
         child.treeInterface = GomlInterfaceGenerator([]);
         child.sharedObject = null;
         this.children.splice(i, 1);
-        if (this.mounted()) {
+        if (this.mounted) {
           child.setMounted(false);
-          // this._onChildRemoved(child);
         }
         // html handling
         this.element.removeChild(child.element);
@@ -184,13 +185,8 @@ class GomlNode extends EEObject { // EEである必要がある
     }
   }
 
-  public forEachAttr(callbackfn: (value: Attribute, fqn: string) => void): GomlNode {
-    this.attributes.forEach(callbackfn);
-    return this;
-  }
-
   public getValue(attrName: string): any {
-    const attr = this.getAttribute(attrName);
+    const attr = this.attributes.get(attrName);
     if (attr === undefined) {
       throw new Error(`attribute "${attrName}" is not found.`);
     } else {
@@ -199,21 +195,12 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public setValue(attrName: string, value: any): void {
-    // TODO: 引数が名前空間を含むかどうかで分岐
-    const attr = this.getAttribute(attrName);
+    const attr = this.attributes.get(attrName);
     if (attr === undefined) {
       console.warn(`attribute "${attrName}" is not found.`);
     } else {
       throw new Error("root Node cannot be removed.");
     }
-  }
-
-  public getAttribute(attrName: string): Attribute {
-    let attr = this.attributes.get(attrName);
-    if (!attr) {
-      throw new Error(`attribute "${attrName}" is not found.`);
-    }
-    return attr;
   }
 
   /**
@@ -225,43 +212,6 @@ class GomlNode extends EEObject { // EEである必要がある
     this.attributes.get(name).Value = value;
   }
 
-  // /**
-  //  * Get attribute.
-  //  * @param  {string} name attribute name string.
-  //  * @return {any}         attribute value.
-  //  */
-  // public getAttribute(name: string): any {
-  //   return this._attributes.get(name);
-  // }
-
-  /**
-   * Get mounted status.
-   * @return {boolean} Whether this node is mounted or not.
-   */
-  public emitChangeAll(): void {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
-      v.forEach((attr) => {
-        if (typeof attr.Value !== "undefined") {
-          // attr.notifyValueChanged();
-        }
-      });
-    });
-  }
-
-  public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
-    if (typeof attrName === "undefined") {
-      Object.keys(this.attributes).forEach((k) => {
-        let v = this.attributes[k];
-        v.forEach((attr) => {
-          // attr.notifyValueChanged();
-        });
-      });
-    } else {
-      // const target = this.getAttribute(attrName);
-      // target.notifyValueChanged();
-    }
-  }
   /**
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
@@ -275,19 +225,12 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {boolean} mounted Mounted status.
    */
   public setMounted(mounted: boolean): void {
-    if (mounted && !this._awaken) {
-      // this is first time to mount
-      this.sendMessage("awake", null);
-      this._awaken = true;
-    }
-    if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
-      this._mounted = mounted;
+    if (this._mounted === !mounted) {
+      this._mounted = !!mounted;
+      if (this._mounted) {
+        this._attemptAwakeComponents();
+      }
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
-      this.attributes.forEach((value) => {
-        if (value.responsively) {
-          value.notifyMounted();
-        }
-      });
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
@@ -303,23 +246,90 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._parent.children.indexOf(this);
   }
 
+  /**
+   * このノードにコンポーネントをアタッチする。
+   * @param {Component} component [description]
+   */
   public addComponent(component: Component): void {
+    if (component.node) {
+      throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
+    }
     this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
-  }
+    component.node = this;
 
-  public getComponents(): NamespacedDictionary<Component>;
-  public getComponents(name: string): Component[];
-  public getComponents(name?: string): NamespacedDictionary<Component> | Component[] {
-    if (name) {
-      return [this._components.get(name)];
+    if (this._mounted) {
+      this._sendMessageToComponent(component, "awake");
     } else {
-      return this._components;
+      this._unAwakedComponent.push(component);
     }
   }
+  public getComponents(): NamespacedDictionary<Component> {
+    return this._components;
+  }
 
-  private _applyDefaultValues(): void {
+  /**
+   * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
+   */
+  public resolveAttributesValue(): void {
+    // 優先度：Dom > Node > Attribute
 
+    // Dom属性の辞書作成
+    const attrDictionary: { [key: string]: string } = {};
+    const domAttr = this.element.attributes;
+    for (let i = 0; i < domAttr.length; i++) {
+      const attrNode = domAttr.item(i);
+      const name = attrNode.name.toUpperCase();
+      attrDictionary[name] = attrNode.value;
+    }
+
+    this._components.forEach((component) => {
+      component.attributes.forEach((attr) => {
+        let tagAttrValue = attrDictionary[attr.name.name];
+        if (!!tagAttrValue) {
+          attr.Value = tagAttrValue; // Dom指定値で解決
+          return;
+        }
+        const nodeDefaultValue = this.nodeDeclaration.defaultAttributes.get(attr.name);
+        if (nodeDefaultValue !== void 0) {
+          attr.Value = nodeDefaultValue; // Node指定値で解決
+        }
+      });
+    });
+  }
+
+  /**
+   * コンポーネントにメッセージを送る。ただしenableでなければ何もしない。
+   * @param  {Component} targetComponent [description]
+   * @param  {string}    message         [description]
+   * @param  {any}       args            [description]
+   * @return {boolean}                   コンポーネントがenableでなければfalse
+   */
+  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
+    if (!targetComponent.enable) {
+      return false;
+    }
+    if (!message.startsWith("$")) {
+      message = "$" + message;
+    }
+    let method = targetComponent[message];
+    if (typeof method === "function") {
+      method.bind(targetComponent)(args);
+    }
+    return true;
+  }
+
+  /**
+   * コンポーネントをawakeして、成功したらunawakedリストから削除
+   */
+  private _attemptAwakeComponents(): void {
+    const nextUnAwaked: Component[] = [];
+    this._unAwakedComponent.forEach((component) => {
+      if (!this._sendMessageToComponent(component, "awake")) {
+        nextUnAwaked.push(component);
+      }
+    });
+    this._unAwakedComponent = nextUnAwaked;
   }
 }
 
