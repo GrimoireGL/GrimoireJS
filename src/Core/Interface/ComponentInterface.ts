@@ -41,7 +41,7 @@ class ComponentInterface implements IComponentInterface {
     }
   }
 
-  public forEach(f: (v: Component, compIndex: number, nodeIndex: number, treeIndex: number) => void) {
+  public forEach(f: (v: Component, compIndex: number, nodeIndex: number, treeIndex: number) => void): ComponentInterface {
     this.components.forEach((tree, ti) => {
       tree.forEach((nodes, ni) => {
         nodes.forEach((comp, ci) => {
@@ -49,6 +49,7 @@ class ComponentInterface implements IComponentInterface {
         });
       });
     });
+    return this;
   }
 }
 
