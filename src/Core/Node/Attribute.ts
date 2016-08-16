@@ -1,3 +1,4 @@
+import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import AttributeConverter from "./AttributeConverter";
@@ -13,9 +14,11 @@ import Component from "./Component";
 class Attribute {
 
   public name: NamespacedIdentity;
-  public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
-  public component: Component;
+
+  public get tree(): IGomlInterface {
+    return this.component.tree;
+  }
   /**
    * If this flag is not true, notify value changed to DomElement.
    * @type {boolean}
@@ -49,15 +52,18 @@ class Attribute {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
+  constructor(name: string, public declaration: IAttributeDeclaration, public component: Component) {
     this.name = new NamespacedIdentity(component.name.ns, name);
-    this.declaration = declaration;
-    this._value = declaration.defaultValue;
     const converterName = Ensure.ensureTobeNamespacedIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
+    this.converter.convert = this.converter.convert.bind(this);
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
+  }
+
+  public applyDefault(): void {
+    this._value = this.converter.convert(this.declaration.defaultValue);
   }
 
   /**

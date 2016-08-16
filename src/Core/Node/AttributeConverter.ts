@@ -1,8 +1,8 @@
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 
 interface AttributeConverter {
-    name: NamespacedIdentity;
-    convert(any): any;
+  name: NamespacedIdentity;
+  convert(value: any): any;
 }
 
 export default AttributeConverter;

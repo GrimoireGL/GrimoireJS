@@ -24,6 +24,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
+  private _awaken: boolean = false;
 
   public get nodeName(): NamespacedIdentity {
     return this.nodeDeclaration.name;
@@ -37,7 +38,7 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet, isRoot: boolean) {
+  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet, isRoot: boolean, parent?: GomlNode) {
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
@@ -65,6 +66,9 @@ class GomlNode extends EEObject { // EEである必要がある
       this._root = this;
       this.treeInterface = GomlInterfaceGenerator([this._root]);
       this.setMounted(true);
+    }
+    if (parent) {
+      parent.addChild(this);
     }
   }
 
@@ -271,6 +275,11 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {boolean} mounted Mounted status.
    */
   public setMounted(mounted: boolean): void {
+    if (mounted && !this._awaken) {
+      // this is first time to mount
+      this.sendMessage("awake", null);
+      this._awaken = true;
+    }
     if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
       this._mounted = mounted;
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
@@ -298,8 +307,19 @@ class GomlNode extends EEObject { // EEである必要がある
     this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
   }
-  public getComponents(): NamespacedDictionary<Component> {
-    return this._components;
+
+  public getComponents(): NamespacedDictionary<Component>;
+  public getComponents(name: string): Component[];
+  public getComponents(name?: string): NamespacedDictionary<Component> | Component[] {
+    if (name) {
+      return [this._components.get(name)];
+    } else {
+      return this._components;
+    }
+  }
+
+  private _applyDefaultValues(): void {
+
   }
 }
 

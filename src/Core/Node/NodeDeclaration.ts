@@ -31,8 +31,8 @@ class NodeDeclaration {
   }
 
 
-  public createNode(element: Element, isRoot: boolean): GomlNode {
-    return new GomlNode(this, element, this.requiredComponents, isRoot);
+  public createNode(element: Element, isRoot: boolean, parent?: GomlNode): GomlNode {
+    return new GomlNode(this, element, this.requiredComponents, isRoot, parent);
   }
 
 

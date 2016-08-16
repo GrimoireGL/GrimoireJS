@@ -12,8 +12,8 @@ class GomlParser {
    * Parse Goml to Node
    * @param {HTMLElement} soruce [description]
    */
-  public static parse(source: Element, isRoot: boolean, scriptTag?: HTMLScriptElement): GomlNode {
-    const newNode = GomlParser._createNode(source, isRoot);
+  public static parse(source: Element, isRoot: boolean, parent?: GomlNode, scriptTag?: HTMLScriptElement): GomlNode {
+    const newNode = GomlParser._createNode(source, isRoot, parent);
     if (!newNode) {
       // when specified node could not be found
       console.warn(`"${source.tagName}" was not parsed.`);
@@ -41,10 +41,7 @@ class GomlParser {
             continue;
           }
           // parse as child node.
-          const newChildNode = GomlParser.parse(child, false);
-          if (newChildNode) {
-            newNode.addChild(newChildNode, null, false);
-          }
+          const newChildNode = GomlParser.parse(child, false, newNode);
         }
       }
     }
@@ -57,14 +54,14 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: Element, isRoot: boolean): GomlNode {
+  private static _createNode(elem: Element, isRoot: boolean, parent?: GomlNode): GomlNode {
     const tagName = elem.localName;
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
     const defaultValues = recipe.defaultAttributes;
-    const newNode = recipe.createNode(elem, isRoot);
+    const newNode = recipe.createNode(elem, isRoot, parent);
 
     // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
     newNode.forEachAttr((attr, key) => {
