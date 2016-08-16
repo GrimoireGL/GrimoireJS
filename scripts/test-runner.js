@@ -39,7 +39,7 @@ const main = async() => {
   if (config.grimoire.txt2js) {
     const exts = config.grimoire.txt2js;
     for (var i = 0; i < exts.length; i++) {
-      await txt2js("./test/**/" + exts[i], 'lib-test', 'test', true);
+      await txt2js("./test/**/" + exts[i], 'lib-test', 'test', true,true);
     }
   }
   await copyDirAsync('test', 'lib-test', true, (c)=>{
