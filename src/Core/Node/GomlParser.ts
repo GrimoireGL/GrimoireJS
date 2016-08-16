@@ -19,11 +19,6 @@ class GomlParser {
       console.warn(`"${source.tagName}" was not parsed.`);
       return null;
     }
-    if (parent) {
-      parent.addChild(newNode, null, false);
-    } else {
-      newNode.setMounted(true); // root node mounting.
-    }
 
     // Parse children recursively
     const children = source.childNodes;
@@ -45,7 +40,15 @@ class GomlParser {
         }
       }
 
+      // resoleve attribute default value.
       newNode.resolveAttributesValue();
+
+      // mounting.
+      if (parent) {
+        parent.addChild(newNode, null, false);
+      } else {
+        newNode.setMounted(true); // root node mounting.
+      }
 
       childNodeElements.forEach((child) => {
         GomlParser.parse(child, newNode);
@@ -68,7 +71,6 @@ class GomlParser {
     }
     const newNode = new GomlNode(recipe, elem);
 
-    elem.setAttribute("x-gr-id", newNode.id);
     GrimoireInterface.nodeDictionary[newNode.id] = newNode;
     return newNode;
   }

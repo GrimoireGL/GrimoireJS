@@ -1,4 +1,3 @@
-import NamespacedSet from "../Base/NamespacedSet";
 import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
@@ -55,6 +54,8 @@ class GomlNode extends EEObject { // EEである必要がある
     this._root = this;
     this.treeInterface = GomlInterfaceGenerator([this._root]);
     this.sharedObject = new NamespacedDictionary<any>();
+
+    this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
@@ -79,11 +80,14 @@ class GomlNode extends EEObject { // EEである必要がある
     });
   }
 
-
-  public sendMessage(message: string, args?: any): void {
+  public sendMessage(message: string, args?: any): boolean {
+    if (!this.enable) {
+      return false;
+    }
     this._components.forEach((component) => {
       this._sendMessageToComponent(component, message, args);
     });
+    return true;
   }
 
   /**
@@ -95,6 +99,9 @@ class GomlNode extends EEObject { // EEである必要がある
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
   public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
+    if (!this.enable) {
+      return;
+    }
     if (typeof arg1 === "number") {
       const range = <number>arg1;
       const message = <string>arg2;
@@ -159,7 +166,6 @@ class GomlNode extends EEObject { // EEである必要がある
         this.children.splice(i, 1);
         if (this.mounted) {
           child.setMounted(false);
-          // this._onChildRemoved(child);
         }
         // html handling
         this.element.removeChild(child.element);
@@ -177,11 +183,6 @@ class GomlNode extends EEObject { // EEである必要がある
     } else {
       throw new Error("root Node cannot be removed.");
     }
-  }
-
-  public forEachAttr(callbackfn: (value: Attribute, fqn: string) => void): GomlNode {
-    this.attributes.forEach(callbackfn);
-    return this;
   }
 
   public getValue(attrName: string): any {
@@ -227,10 +228,7 @@ class GomlNode extends EEObject { // EEである必要がある
     if (this._mounted === !mounted) {
       this._mounted = !!mounted;
       if (this._mounted) {
-        this._unAwakedComponent.forEach((component) => {
-          this._sendMessageToComponent(component, "awake");
-        });
-        this._unAwakedComponent = [];
+        this._attemptAwakeComponents();
       }
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
       this.children.forEach((child) => {
@@ -301,12 +299,16 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   /**
-   * コンポーネントにメッセージを送る。
-   * @param {Component} targetComponent [description]
-   * @param {string}    message         [description]
-   * @param {any}       args            [description]
+   * コンポーネントにメッセージを送る。ただしenableでなければ何もしない。
+   * @param  {Component} targetComponent [description]
+   * @param  {string}    message         [description]
+   * @param  {any}       args            [description]
+   * @return {boolean}                   コンポーネントがenableでなければfalse
    */
-  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): void {
+  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
+    if (!targetComponent.enable) {
+      return false;
+    }
     if (!message.startsWith("$")) {
       message = "$" + message;
     }
@@ -314,6 +316,20 @@ class GomlNode extends EEObject { // EEである必要がある
     if (typeof method === "function") {
       method.bind(targetComponent)(args);
     }
+    return true;
+  }
+
+  /**
+   * コンポーネントをawakeして、成功したらunawakedリストから削除
+   */
+  private _attemptAwakeComponents(): void {
+    const nextUnAwaked: Component[] = [];
+    this._unAwakedComponent.forEach((component) => {
+      if (!this._sendMessageToComponent(component, "awake")) {
+        nextUnAwaked.push(component);
+      }
+    });
+    this._unAwakedComponent = nextUnAwaked;
   }
 }
 
