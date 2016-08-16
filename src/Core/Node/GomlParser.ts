@@ -1,5 +1,3 @@
-import NamespacedDictionary from "../Base/NamespacedDictionary";
-import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../GrimoireInterface";
 
@@ -12,10 +10,9 @@ class GomlParser {
    * Parse Goml to Node
    * @param  {Element}           source    [description]
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
-   * @param  {HTMLScriptElement} scriptTag [description]
    * @return {GomlNode}                    [description]
    */
-  public static parse(source: Element, parent: GomlNode, scriptTag?: HTMLScriptElement): GomlNode {
+  public static parse(source: Element, parent: GomlNode): GomlNode {
     const newNode = GomlParser._createNode(source);
     if (!newNode) {
       // when specified node could not be found

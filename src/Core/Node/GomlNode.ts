@@ -11,11 +11,11 @@ import IGomlInterface from "../Interface/IGomlInterface";
 import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 
 class GomlNode extends EEObject { // EEである必要がある
-  public element: Element;
+  public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
-  public enable: boolean; // TODO: use this property!
+  public enable: boolean = true;
   public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
   public treeInterface: IGomlInterface;
@@ -215,34 +215,6 @@ class GomlNode extends EEObject { // EEである必要がある
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
    */
-  // public emitChangeAll(): void {
-  //   Object.keys(this.attributes).forEach((k) => {
-  //     let v = this.attributes[k];
-  //     v.forEach((attr) => {
-  //       if (typeof attr.Value !== "undefined") {
-  //         // attr.notifyValueChanged();
-  //       }
-  //     });
-  //   });
-  // }
-
-  // public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
-  //   if (typeof attrName === "undefined") {
-  //     Object.keys(this.attributes).forEach((k) => {
-  //       let v = this.attributes[k];
-  //       v.forEach((attr) => {
-  //         // attr.notifyValueChanged();
-  //       });
-  //     });
-  //   } else {
-  //     // const target = this.getAttribute(attrName);
-  //     // target.notifyValueChanged();
-  //   }
-  // }
-  /**
-   * Get mounted status.
-   * @return {boolean} Whether this node is mounted or not.
-   */
   public mounted(): boolean {
     return this._mounted;
   }
@@ -261,11 +233,6 @@ class GomlNode extends EEObject { // EEである必要がある
         this._unAwakedComponent = [];
       }
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
-      this.attributes.forEach((value) => {
-        if (value.responsively) {
-          value.notifyMounted();
-        }
-      });
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
