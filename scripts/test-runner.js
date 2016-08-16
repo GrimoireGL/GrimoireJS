@@ -16,7 +16,7 @@ const test = async() => {
   if (argv.c) {
     await execAsync("npm run babel-ci-test .S ./test/${}")
   }
-  const result = await execAsync(`npm run ava --　- S ./lib-test/${argv.f?argv.f:""}`);
+  const result = await execAsync(`npm run ava --　- S ./lib-test/${argv.f?argv.f:"**/*Test.js"}`);
   console.log(result.stdout);
   console.log(result.stderr);
   if (result.err) {
