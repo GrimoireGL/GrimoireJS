@@ -29,9 +29,6 @@ class ComponentDeclaration {
       const attr = new Attribute(key, this.attributes[key], component);
       component.attributes.set(attr.name, attr);
     }
-    // if (typeof component["$awake"] === "function") {
-    //   component["$awake"]();
-    // }
     return component;
   }
 }

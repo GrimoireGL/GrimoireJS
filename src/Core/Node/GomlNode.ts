@@ -24,6 +24,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
+  private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
 
   public get nodeName(): NamespacedIdentity {
     return this.nodeDeclaration.name;
@@ -79,13 +80,9 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
 
-  public sendMessage(message: string, args: any): void {
-    const funcName = "$" + message;
+  public sendMessage(message: string, args?: any): void {
     this._components.forEach((component) => {
-      let method = component[funcName];
-      if (typeof method === "function") {
-        method.bind(component)(args);
-      }
+      this._sendMessageToComponent(component, message, args);
     });
   }
 
@@ -117,12 +114,6 @@ class GomlNode extends EEObject { // EEである必要がある
       }
     }
   }
-  // public broadcastMessage(name: string, args: any): void {
-  //   this.sendMessage(name, args);
-  // for (let i = 0; i < this.children.length; i++) {
-  //   this.children[i].broadcastMessage(name, args);
-  // }
-  // }
 
   /**
    * Add child.
@@ -148,7 +139,7 @@ class GomlNode extends EEObject { // EEである必要がある
     }
 
     // mounting
-    if (this.mounted()) {
+    if (this.mounted) {
       child.setMounted(true);
     }
   }
@@ -166,7 +157,7 @@ class GomlNode extends EEObject { // EEである必要がある
         child.treeInterface = GomlInterfaceGenerator([]);
         child.sharedObject = null;
         this.children.splice(i, 1);
-        if (this.mounted()) {
+        if (this.mounted) {
           child.setMounted(false);
           // this._onChildRemoved(child);
         }
@@ -263,6 +254,12 @@ class GomlNode extends EEObject { // EEである必要がある
   public setMounted(mounted: boolean): void {
     if (this._mounted === !mounted) {
       this._mounted = !!mounted;
+      if (this._mounted) {
+        this._unAwakedComponent.forEach((component) => {
+          this._sendMessageToComponent(component, "awake");
+        });
+        this._unAwakedComponent = [];
+      }
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
       this.attributes.forEach((value) => {
         if (value.responsively) {
@@ -284,6 +281,10 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._parent.children.indexOf(this);
   }
 
+  /**
+   * このノードにコンポーネントをアタッチする。
+   * @param {Component} component [description]
+   */
   public addComponent(component: Component): void {
     if (component.node) {
       throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
@@ -291,6 +292,12 @@ class GomlNode extends EEObject { // EEである必要がある
     this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
     component.node = this;
+
+    if (this._mounted) {
+      this._sendMessageToComponent(component, "awake");
+    } else {
+      this._unAwakedComponent.push(component);
+    }
   }
   public getComponents(): NamespacedDictionary<Component> {
     return this._components;
@@ -324,6 +331,22 @@ class GomlNode extends EEObject { // EEである必要がある
         }
       });
     });
+  }
+
+  /**
+   * コンポーネントにメッセージを送る。
+   * @param {Component} targetComponent [description]
+   * @param {string}    message         [description]
+   * @param {any}       args            [description]
+   */
+  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): void {
+    if (!message.startsWith("$")) {
+      message = "$" + message;
+    }
+    let method = targetComponent[message];
+    if (typeof method === "function") {
+      method.bind(targetComponent)(args);
+    }
   }
 }
 
