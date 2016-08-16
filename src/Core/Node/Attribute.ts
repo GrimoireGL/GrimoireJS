@@ -94,7 +94,7 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
-  public notifyMounted() {
+  public notifyMounted(): void {
     if (this.component.node.Mounted) {
       this._applyToElement();
     }
