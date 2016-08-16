@@ -14,7 +14,7 @@ class GomlNode extends EEObject { // EEである必要がある
   public element: Element;
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public attributes: NamespacedDictionary<Attribute>;
+  public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
   public enable: boolean; // TODO: use this property!
   public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
@@ -37,35 +37,44 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._mounted;
   }
 
-  constructor(recipe: NodeDeclaration, element: Element, components: NamespacedSet, isRoot: boolean) {
+  /**
+   * 新しいインスタンスの作成
+   * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
+   * @param  {Element}         element 対応するDomElement
+   * @return {[type]}                  [description]
+   */
+  constructor(recipe: NodeDeclaration, element: Element) {
     super();
+    // TODO: recipe null なら例外
+    // TODO: element null ならどうする？
     this.nodeDeclaration = recipe;
     this.element = element;
     this.componentsElement = document.createElement("COMPONENTS");
+    this._root = this;
+    this.treeInterface = GomlInterfaceGenerator([this._root]);
+    this.sharedObject = new NamespacedDictionary<any>();
+    const defaultComponentNames = recipe.defaultComponents;
+
     // instanciate default components
-    let componentsArray = components.toArray().map((id) => {
+    let defaultComponents = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      return declaration.generateInstance(this);
-    });
-    const attributes = componentsArray.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
-    this._components = new NamespacedDictionary<Component>();
-    componentsArray.forEach((c) => {
-      this._components.set(c.name, c);
+      return declaration.generateInstance();
     });
 
+    this._components = new NamespacedDictionary<Component>();
+    defaultComponents.forEach((c) => {
+      this.addComponent(c);
+    });
+
+    const attributes = defaultComponents.map((c) => c.attributes.toArray())
+      .reduce((pre, current) => pre.concat(current), []); // map to attributes array.
     this.attributes = new NamespacedDictionary<Attribute>();
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
-    if (isRoot) {
-      this._root = this;
-      this.treeInterface = GomlInterfaceGenerator([this._root]);
-      this.setMounted(true);
-    }
   }
 
 
@@ -119,6 +128,12 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {GomlNode} Target node to be inserted.
    * @param {number}   index Index of insert location in children. If this argument is null or undefined, target will be inserted in last. If this argument is negative number, target will be inserted in index from last.
    */
+  /**
+   * Add child.
+   * @param {GomlNode} child            追加する子ノード
+   * @param {number}   index            追加位置。なければ末尾に追加
+   * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
+   */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
     child._root = this._root;
@@ -132,10 +147,7 @@ class GomlNode extends EEObject { // EEである必要がある
 
     // handling html
     if (elementSync) {
-      let referenceElement: HTMLElement = null;
-      if (index != null) {
-        referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, index)];
-      }
+      let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
 
@@ -234,30 +246,30 @@ class GomlNode extends EEObject { // EEである必要がある
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
    */
-  public emitChangeAll(): void {
-    Object.keys(this.attributes).forEach((k) => {
-      let v = this.attributes[k];
-      v.forEach((attr) => {
-        if (typeof attr.Value !== "undefined") {
-          // attr.notifyValueChanged();
-        }
-      });
-    });
-  }
+  // public emitChangeAll(): void {
+  //   Object.keys(this.attributes).forEach((k) => {
+  //     let v = this.attributes[k];
+  //     v.forEach((attr) => {
+  //       if (typeof attr.Value !== "undefined") {
+  //         // attr.notifyValueChanged();
+  //       }
+  //     });
+  //   });
+  // }
 
-  public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
-    if (typeof attrName === "undefined") {
-      Object.keys(this.attributes).forEach((k) => {
-        let v = this.attributes[k];
-        v.forEach((attr) => {
-          // attr.notifyValueChanged();
-        });
-      });
-    } else {
-      // const target = this.getAttribute(attrName);
-      // target.notifyValueChanged();
-    }
-  }
+  // public updateValue(attrName?: string): void { // ? すべてはemitChangeAllなのに,一つの場合はupdateValue?
+  //   if (typeof attrName === "undefined") {
+  //     Object.keys(this.attributes).forEach((k) => {
+  //       let v = this.attributes[k];
+  //       v.forEach((attr) => {
+  //         // attr.notifyValueChanged();
+  //       });
+  //     });
+  //   } else {
+  //     // const target = this.getAttribute(attrName);
+  //     // target.notifyValueChanged();
+  //   }
+  // }
   /**
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
@@ -271,8 +283,8 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {boolean} mounted Mounted status.
    */
   public setMounted(mounted: boolean): void {
-    if ((mounted && !this._mounted) || (!mounted && this._mounted)) {
-      this._mounted = mounted;
+    if (this._mounted === !mounted) {
+      this._mounted = !!mounted;
       this.sendMessage(this._mounted ? "mount" : "unmount", this);
       this.attributes.forEach((value) => {
         if (value.responsively) {
@@ -295,11 +307,45 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public addComponent(component: Component): void {
+    if (component.node) {
+      throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
+    }
     this.componentsElement.appendChild(component.element);
     this._components.set(component.name, component);
+    component.node = this;
   }
   public getComponents(): NamespacedDictionary<Component> {
     return this._components;
+  }
+
+  /**
+   * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
+   */
+  public resolveAttributesValue(): void {
+    // 優先度：Dom > Node > Attribute
+
+    // Dom属性の辞書作成
+    const attrDictionary: { [key: string]: string } = {};
+    const domAttr = this.element.attributes;
+    for (let i = 0; i < domAttr.length; i++) {
+      const attrNode = domAttr.item(i);
+      const name = attrNode.name.toUpperCase();
+      attrDictionary[name] = attrNode.value;
+    }
+
+    this._components.forEach((component) => {
+      component.attributes.forEach((attr) => {
+        let tagAttrValue = attrDictionary[attr.name.name];
+        if (!!tagAttrValue) {
+          attr.Value = tagAttrValue; // Dom指定値で解決
+          return;
+        }
+        const nodeDefaultValue = this.nodeDeclaration.defaultAttributes.get(attr.name);
+        if (nodeDefaultValue !== void 0) {
+          attr.Value = nodeDefaultValue; // Node指定値で解決
+        }
+      });
+    });
   }
 }
 

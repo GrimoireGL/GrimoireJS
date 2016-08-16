@@ -52,12 +52,12 @@ class Attribute {
   constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
     this.name = new NamespacedIdentity(component.name.ns, name);
     this.declaration = declaration;
-    this._value = declaration.defaultValue;
     const converterName = Ensure.ensureTobeNamespacedIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
+    this.Value = declaration.defaultValue;
   }
 
   /**

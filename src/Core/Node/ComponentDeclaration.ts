@@ -17,7 +17,7 @@ class ComponentDeclaration {
     this.attributes = attributes;
   }
 
-  public generateInstance(node: GomlNode, componentElement?: Element): Component {
+  public generateInstance(componentElement?: Element): Component {
     componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute("x-gr-id", component.id);
@@ -29,11 +29,9 @@ class ComponentDeclaration {
       const attr = new Attribute(key, this.attributes[key], component);
       component.attributes.set(attr.name, attr);
     }
-    component.node = node;
-    component.node.componentsElement.appendChild(componentElement);
-    if (typeof component["$awake"] === "function") {
-      component["$awake"]();
-    }
+    // if (typeof component["$awake"] === "function") {
+    //   component["$awake"]();
+    // }
     return component;
   }
 }

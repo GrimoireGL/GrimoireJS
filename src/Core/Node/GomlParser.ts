@@ -10,43 +10,49 @@ import GrimoireInterface from "../GrimoireInterface";
 class GomlParser {
   /**
    * Parse Goml to Node
-   * @param {HTMLElement} soruce [description]
+   * @param  {Element}           source    [description]
+   * @param  {GomlNode}          parent    あればこのノードにaddChildされる
+   * @param  {HTMLScriptElement} scriptTag [description]
+   * @return {GomlNode}                    [description]
    */
-  public static parse(source: Element, isRoot: boolean, scriptTag?: HTMLScriptElement): GomlNode {
-    const newNode = GomlParser._createNode(source, isRoot);
+  public static parse(source: Element, parent: GomlNode, scriptTag?: HTMLScriptElement): GomlNode {
+    const newNode = GomlParser._createNode(source);
     if (!newNode) {
       // when specified node could not be found
       console.warn(`"${source.tagName}" was not parsed.`);
       return null;
     }
-    if (isRoot) {
-      // generate first shared object for root node.
-      // Root node must be bounded with script tag
-      newNode.sharedObject = new NamespacedDictionary<any>();
-      if (scriptTag) {
-        newNode.sendMessage("treeInitializing", scriptTag);
-      }
+    if (parent) {
+      parent.addChild(newNode, null, false);
+    } else {
+      newNode.setMounted(true); // root node mounting.
     }
+
     // Parse children recursively
     const children = source.childNodes;
     if (children && children.length !== 0) { // When there is children
       const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
+      const childNodeElements: Element[] = []; // for parse after .Components has resolved.
       for (let i = 0; i < children.length; i++) {
         const child = children.item(i);
-        if (GomlParser._isElement(child)) {
+        if (!GomlParser._isElement(child)) {
+          continue;
+        }
+        if (regexToFindComponent.test(child.nodeName)) {
           // parse as components
-          if (regexToFindComponent.test(child.nodeName)) {
-            GomlParser._parseComponents(newNode, child);
-            source.removeChild(child);
-            continue;
-          }
+          GomlParser._parseComponents(newNode, child);
+          source.removeChild(child);
+        } else {
           // parse as child node.
-          const newChildNode = GomlParser.parse(child, false);
-          if (newChildNode) {
-            newNode.addChild(newChildNode, null, false);
-          }
+          childNodeElements.push(child);
         }
       }
+
+      newNode.resolveAttributesValue();
+
+      childNodeElements.forEach((child) => {
+        GomlParser.parse(child, newNode);
+      });
     }
     return newNode;
   }
@@ -57,26 +63,24 @@ class GomlParser {
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
    */
-  private static _createNode(elem: Element, isRoot: boolean): GomlNode {
+  private static _createNode(elem: Element): GomlNode {
     const tagName = elem.localName;
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
-    const defaultValues = recipe.defaultAttributes;
-    const newNode = recipe.createNode(elem, isRoot);
+    const newNode = new GomlNode(recipe, elem);
 
-    // AtributeをDOMから設定、できなければノードのデフォルト値で設定、それもできなければATTRのデフォルト値
-    newNode.forEachAttr((attr, key) => {
-      this._parseAttribute(attr, elem, defaultValues.get(attr.name));
-    });
     elem.setAttribute("x-gr-id", newNode.id);
     GrimoireInterface.nodeDictionary[newNode.id] = newNode;
     return newNode;
   }
 
-
-
+  /**
+   * .COMPONENTSのパース。
+   * @param {GomlNode} node          アタッチされるコンポーネント
+   * @param {Element}  componentsTag .COMPONENTSタグ
+   */
   private static _parseComponents(node: GomlNode, componentsTag: Element): void {
     node.componentsElement = componentsTag;
     let componentNodes = componentsTag.childNodes;
@@ -93,15 +97,8 @@ class GomlParser {
         throw new Error(`Component ${componentNode.tagName} is not found.`);
       }
 
-      // コンポーネントの属性がタグの属性としてあればそれを、なければデフォルトを、それもなければ必須属性はエラー
-      // component.attributes.forEach((attr) => {
-      //   this._parseAttribute(attr.generateAttributeInstance(), componentNode);
-      // }); // ???
-      const component = componentDecl.generateInstance(node, componentNode);
+      const component = componentDecl.generateInstance(componentNode);
       node.addComponent(component);
-      for (let key in componentDecl.attributes) {
-        this._parseAttribute(new Attribute(key, componentDecl.attributes[key], component), componentNode);
-      }
     }
   }
 
@@ -109,23 +106,6 @@ class GomlParser {
     return node.nodeType === Node.ELEMENT_NODE;
   }
 
-  private static _parseAttribute(attr: Attribute, tag: Element, defaultValue?: any): void {
-    let attrName = attr.name;
-    const attrDictionary: { [key: string]: string } = {};
-    const domAttr = tag.attributes;
-    for (let i = 0; i < domAttr.length; i++) {
-      const attrNode = domAttr.item(i);
-      const name = attrNode.name.toUpperCase();
-      attrDictionary[name] = attrNode.value;
-    }
-
-    let tagAttrValue = attrDictionary[attrName.name];
-    if (!!tagAttrValue) {
-      attr.Value = tagAttrValue;
-    } else if (defaultValue !== void 0) {
-      attr.Value = defaultValue;
-    }
-  }
 }
 
 export default GomlParser;
