@@ -12,7 +12,7 @@ class GomlParser {
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
    * @return {GomlNode}                    [description]
    */
-  public static parse(source: Element, parent: GomlNode): GomlNode {
+  public static parse(source: Element, parent: GomlNode, scriptTag: HTMLScriptElement): GomlNode {
     const newNode = GomlParser._createNode(source);
     if (!newNode) {
       // when specified node could not be found
@@ -40,6 +40,9 @@ class GomlParser {
         }
       }
 
+      if (!parent && scriptTag) {
+        newNode.sendMessage("treeInitializing", scriptTag);
+      }
       // resoleve attribute default value.
       newNode.resolveAttributesValue();
 
@@ -51,7 +54,7 @@ class GomlParser {
       }
 
       childNodeElements.forEach((child) => {
-        GomlParser.parse(child, newNode);
+        GomlParser.parse(child, newNode, null);
       });
     }
     return newNode;

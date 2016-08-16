@@ -1,3 +1,4 @@
+import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import AttributeConverter from "./AttributeConverter";
@@ -20,6 +21,10 @@ class Attribute {
   private _value: any;
   private _handlers: ((attr: Attribute) => void)[] = [];
 
+  public get tree(): IGomlInterface {
+    return this.component.tree;
+  }
+
   /**
    * Get a value with specified type.
    * @return {any} value with specified type.
@@ -38,13 +43,14 @@ class Attribute {
    */
   constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
     this.name = new NamespacedIdentity(component.name.ns, name);
+    this.component = component;
     this.declaration = declaration;
     const converterName = Ensure.ensureTobeNamespacedIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
+    this.converter.convert = this.converter.convert.bind(this);
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
-    this.Value = declaration.defaultValue;
   }
 
   /**
