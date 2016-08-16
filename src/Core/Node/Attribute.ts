@@ -16,21 +16,8 @@ class Attribute {
   public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
   public component: Component;
-  /**
-   * If this flag is not true, notify value changed to DomElement.
-   * @type {boolean}
-   */
-  public get responsively(): boolean {
-    return this._responsively;
-  }
-  public set responsively(value: boolean) {
-    this._responsively = value;
-    if (this._responsively) {
-      this.notifyMounted();
-    }
-  }
+
   private _value: any;
-  private _responsively: boolean = false;
   private _handlers: ((attr: Attribute) => void)[] = [];
 
   /**
@@ -70,9 +57,6 @@ class Attribute {
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
     }
-    if (this._responsively) {
-      this._applyToElement();
-    }
     this._notifyChange();
   }
 
@@ -94,20 +78,10 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
-  public notifyMounted(): void {
-    if (this.component.node.Mounted) {
-      this._applyToElement();
-    }
-  }
-
   private _notifyChange(): void {
-    for (let i = 0; i < this._handlers.length; i++) {
-      this._handlers[i](this);
-    }
-  }
-
-  private _applyToElement(): void {
-    this.component.node.element.setAttribute(this.name.name, this.Value);
+    this._handlers.forEach((handler) => {
+      handler(this);
+    });
   }
 }
 
