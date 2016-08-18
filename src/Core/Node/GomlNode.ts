@@ -15,7 +15,6 @@ class GomlNode extends EEObject { // EEである必要がある
   public children: GomlNode[] = [];
   public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
   public enable: boolean = true;
-  public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
 
   private _parent: GomlNode = null;
@@ -23,9 +22,13 @@ class GomlNode extends EEObject { // EEである必要がある
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
-  // このノードの属するツリーのGomlInterface。unmountedならnull。
   private _treeInterface: IGomlInterface = null;
+  private _sharedObject: NamespacedDictionary<any> = null;
 
+  /**
+   * このノードの属するツリーのGomlInterface。unmountedならnull。
+   * @return {IGomlInterface} [description]
+   */
   public get treeInterface(): IGomlInterface {
     if (this._treeInterface) {
       return this._treeInterface;
@@ -34,6 +37,31 @@ class GomlNode extends EEObject { // EEである必要がある
       return this.parent.treeInterface;
     }
     return null;
+  }
+
+  /**
+   * ツリーで共有されるオブジェクト。マウントされていない状態ではnull。
+   * @return {NamespacedDictionary<any>} [description]
+   */
+  public get sharedObject(): NamespacedDictionary<any> {
+    if (this._sharedObject) {
+      return this._sharedObject;
+    }
+    if (this.parent) {
+      return this.parent._sharedObject;
+    }
+    return null;
+  }
+
+  /**
+   * 属するツリーのルート。マウント状態は関係ない
+   * @return {IGomlInterface} [description]
+   */
+  public get rootNode(): IGomlInterface {
+    if (this._treeInterface) {
+      return this._treeInterface;
+    }
+    return this.parent.treeInterface;
   }
 
   public get nodeName(): NamespacedIdentity {
@@ -63,8 +91,6 @@ class GomlNode extends EEObject { // EEである必要がある
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this.sharedObject = new NamespacedDictionary<any>();
-    this._treeInterface = GomlInterfaceGenerator([this]);
 
     this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
@@ -149,9 +175,6 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
     child._parent = this;
-    child._root = this._root;
-    child.treeInterface = this.treeInterface;
-    child.sharedObject = this.sharedObject;
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
