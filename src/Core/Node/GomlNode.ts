@@ -24,6 +24,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
   private _treeInterface: IGomlInterface = null;
   private _sharedObject: NamespacedDictionary<any> = null;
+  private _deleted: boolean = false;
 
   /**
    * このノードの属するツリーのGomlInterface。unmountedならnull。
@@ -134,6 +135,7 @@ class GomlNode extends EEObject { // EEである必要がある
         this.element.parentNode.removeChild(this.element);
       }
     }
+    this._deleted = true;
   }
 
   public sendMessage(message: string, args?: any): boolean {
@@ -185,6 +187,9 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
+    if (child._deleted) {
+      throw new Error("deleted node never use.");
+    }
     child._parent = this;
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
