@@ -268,6 +268,10 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._components;
   }
 
+  public getComponent(name: string): Component {
+    return this._components.get(name);
+  }
+
   /**
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
