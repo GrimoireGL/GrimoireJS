@@ -17,13 +17,24 @@ class GomlNode extends EEObject { // EEである必要がある
   public enable: boolean = true;
   public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
-  public treeInterface: IGomlInterface;
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
+  // このノードの属するツリーのGomlInterface。unmountedならnull。
+  private _treeInterface: IGomlInterface = null;
+
+  public get treeInterface(): IGomlInterface {
+    if (this._treeInterface) {
+      return this._treeInterface;
+    }
+    if (this.parent) {
+      return this.parent.treeInterface;
+    }
+    return null;
+  }
 
   public get nodeName(): NamespacedIdentity {
     return this.nodeDeclaration.name;
@@ -52,8 +63,8 @@ class GomlNode extends EEObject { // EEである必要がある
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this.treeInterface = GomlInterfaceGenerator([this._root]);
     this.sharedObject = new NamespacedDictionary<any>();
+    this._treeInterface = GomlInterfaceGenerator([this]);
 
     this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
