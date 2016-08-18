@@ -7,10 +7,10 @@ import GrimoireInterface from "../GrimoireInterface";
  */
 class GomlParser {
   /**
-   * Parse Goml to Node
+   * Domをパースする
    * @param  {Element}           source    [description]
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
-   * @return {GomlNode}                    [description]
+   * @return {GomlNode}                    ルートノード
    */
   public static parse(source: Element, parent: GomlNode, scriptTag: HTMLScriptElement): GomlNode {
     const newNode = GomlParser._createNode(source);
@@ -24,16 +24,15 @@ class GomlParser {
     const children = source.childNodes;
     const childNodeElements: Element[] = []; // for parse after .Components has resolved.
     if (children && children.length !== 0) { // When there is children
-      const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
       for (let i = 0; i < children.length; i++) {
         const child = children.item(i);
         if (!GomlParser._isElement(child)) {
           continue;
         }
-        if (regexToFindComponent.test(child.nodeName)) {
+        if (this._isComponentsTag(child)) {
           // parse as components
           GomlParser._parseComponents(newNode, child);
-          source.removeChild(child);
+          source.removeChild(child); // TODO:ループ途中で内容変更して大丈夫なのか？
         } else {
           // parse as child node.
           childNodeElements.push(child);
@@ -42,16 +41,12 @@ class GomlParser {
     }
 
     if (!parent && scriptTag) {
-      newNode.sendMessage("treeInitializing", scriptTag);
+      newNode.sendMessage("treeInitializing", scriptTag); // TODO: なにこれ
     }
-    // resoleve attribute default value.
-    newNode.resolveAttributesValue();
 
-    // mounting.
+    // generate tree
     if (parent) {
       parent.addChild(newNode, null, false);
-    } else {
-      newNode.setMounted(true); // root node mounting.
     }
 
     childNodeElements.forEach((child) => {
@@ -61,7 +56,7 @@ class GomlParser {
   }
 
   /**
-   * GomlNodeの生成、初期化を行います。
+   * GomlNodeのインスタンス化。GrimoireInterfaceへの登録
    * @param  {HTMLElement}      elem         [description]
    * @param  {GomlConfigurator} configurator [description]
    * @return {GomlTreeNodeBase}              [description]
@@ -72,10 +67,7 @@ class GomlParser {
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
-    const newNode = new GomlNode(recipe, elem);
-
-    GrimoireInterface.nodeDictionary[newNode.id] = newNode;
-    return newNode;
+    return new GomlNode(recipe, elem);
   }
 
   /**
@@ -106,6 +98,11 @@ class GomlParser {
 
   private static _isElement(node: Node): node is Element {
     return node.nodeType === Node.ELEMENT_NODE;
+  }
+
+  private static _isComponentsTag(element: Element): boolean {
+    const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
+    return regexToFindComponent.test(element.nodeName);
   }
 
 }

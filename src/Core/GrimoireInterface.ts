@@ -84,15 +84,20 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     );
   }
 
-  public registerConverter(name: string | NamespacedIdentity, converter: (any) => any): void {
+  public registerConverter(name: string | NamespacedIdentity, converter: (val: any) => any): void {
     name = Ensure.ensureTobeNamespacedIdentity(name);
     this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
   }
 
-  public addRootNode(tag: HTMLScriptElement, node: GomlNode): string {
-    tag.setAttribute("x-rootNodeId", node.id);
-    this.rootNodes[node.id] = node;
-    return node.id;
+  public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
+    if (!rootNode) {
+      throw new Error("can not register null to rootNodes.");
+    }
+    this.rootNodes[rootNode.id] = rootNode;
+    rootNode.resolveAttributesValue();
+    rootNode.setMounted(true);
+    tag.setAttribute("x-rootNodeId", rootNode.id); // TODO: なにこれ
+    return rootNode.id;
   }
 
   public getRootNode(scriptTag: Element): GomlNode {

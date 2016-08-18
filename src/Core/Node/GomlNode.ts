@@ -221,7 +221,7 @@ class GomlNode extends EEObject { // EEである必要がある
    * @return {GomlNode}       [description]
    */
   public detachChild(target: GomlNode): GomlNode {
-    //search child.
+    // search child.
     const index = this.children.indexOf(target);
     if (index === -1) {
       return null;
