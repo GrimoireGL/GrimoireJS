@@ -72,12 +72,20 @@ class GomlNode extends EEObject { // EEである必要がある
       this.addComponent(c);
     });
 
+    // デフォルトコンポーネント群の属性リスト作成
     const attributes = defaultComponents.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre.concat(current), []); // map to attributes array.
+      .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
     this.attributes = new NamespacedDictionary<Attribute>();
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
+
+    // register to GrimoireInterface.
+    GrimoireInterface.nodeDictionary[this.id] = this;
+  }
+
+  public delete(): void {
+    GrimoireInterface.nodeDictionary[this.id] = null;
   }
 
   public sendMessage(message: string, args?: any): boolean {
