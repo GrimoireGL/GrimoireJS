@@ -12,7 +12,7 @@ class GomlParser {
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
    * @return {GomlNode}                    [description]
    */
-  public static parse(source: Element, parent: GomlNode): GomlNode {
+  public static parse(source: Element, parent: GomlNode, scriptTag: HTMLScriptElement): GomlNode {
     const newNode = GomlParser._createNode(source);
     if (!newNode) {
       // when specified node could not be found
@@ -22,9 +22,9 @@ class GomlParser {
 
     // Parse children recursively
     const children = source.childNodes;
+    const childNodeElements: Element[] = []; // for parse after .Components has resolved.
     if (children && children.length !== 0) { // When there is children
       const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
-      const childNodeElements: Element[] = []; // for parse after .Components has resolved.
       for (let i = 0; i < children.length; i++) {
         const child = children.item(i);
         if (!GomlParser._isElement(child)) {
@@ -39,21 +39,24 @@ class GomlParser {
           childNodeElements.push(child);
         }
       }
-
-      // resoleve attribute default value.
-      newNode.resolveAttributesValue();
-
-      // mounting.
-      if (parent) {
-        parent.addChild(newNode, null, false);
-      } else {
-        newNode.setMounted(true); // root node mounting.
-      }
-
-      childNodeElements.forEach((child) => {
-        GomlParser.parse(child, newNode);
-      });
     }
+
+    if (!parent && scriptTag) {
+      newNode.sendMessage("treeInitializing", scriptTag);
+    }
+    // resoleve attribute default value.
+    newNode.resolveAttributesValue();
+
+    // mounting.
+    if (parent) {
+      parent.addChild(newNode, null, false);
+    } else {
+      newNode.setMounted(true); // root node mounting.
+    }
+
+    childNodeElements.forEach((child) => {
+      GomlParser.parse(child, newNode, null);
+    });
     return newNode;
   }
 

@@ -287,13 +287,17 @@ class GomlNode extends EEObject { // EEである必要がある
       component.attributes.forEach((attr) => {
         let tagAttrValue = attrDictionary[attr.name.name];
         if (!!tagAttrValue) {
-          attr.Value = tagAttrValue; // Dom指定値で解決
+          attr.Value = attr.converter.convert(tagAttrValue); // Dom指定値で解決
           return;
         }
         const nodeDefaultValue = this.nodeDeclaration.defaultAttributes.get(attr.name);
         if (nodeDefaultValue !== void 0) {
-          attr.Value = nodeDefaultValue; // Node指定値で解決
+          attr.Value = attr.converter.convert(nodeDefaultValue); // Node指定値で解決
+          return;
         }
+
+        const attrDefaultValue = attr.declaration.defaultValue;
+        attr.Value = attr.converter.convert(attrDefaultValue);
       });
     });
   }

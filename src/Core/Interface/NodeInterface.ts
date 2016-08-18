@@ -95,7 +95,7 @@ class NodeInterface implements INodeInterfaceBase {
   public append(tag: string): NodeInterface {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
-      elems.forEach((elem) => GomlParser.parse(elem, node));
+      elems.forEach((elem) => GomlParser.parse(elem, node, null));
     });
     return this;
   }
