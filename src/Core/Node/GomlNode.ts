@@ -15,15 +15,55 @@ class GomlNode extends EEObject { // EEである必要がある
   public children: GomlNode[] = [];
   public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
   public enable: boolean = true;
-  public sharedObject: NamespacedDictionary<any> = null;
   public componentsElement: Element;
-  public treeInterface: IGomlInterface;
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: NamespacedDictionary<Component>;
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
+  private _treeInterface: IGomlInterface = null;
+  private _sharedObject: NamespacedDictionary<any> = null;
+  private _deleted: boolean = false;
+
+  /**
+   * このノードの属するツリーのGomlInterface。unmountedならnull。
+   * @return {IGomlInterface} [description]
+   */
+  public get treeInterface(): IGomlInterface {
+    if (this._treeInterface) {
+      return this._treeInterface;
+    }
+    if (this.parent) {
+      return this.parent.treeInterface;
+    }
+    return null;
+  }
+
+  /**
+   * ツリーで共有されるオブジェクト。マウントされていない状態ではnull。
+   * @return {NamespacedDictionary<any>} [description]
+   */
+  public get sharedObject(): NamespacedDictionary<any> {
+    if (this._sharedObject) {
+      return this._sharedObject;
+    }
+    if (this.parent) {
+      return this.parent._sharedObject;
+    }
+    return null;
+  }
+
+  /**
+   * 属するツリーのルート。マウント状態は関係ない
+   * @return {IGomlInterface} [description]
+   */
+  public get rootNode(): IGomlInterface {
+    if (this._treeInterface) {
+      return this._treeInterface;
+    }
+    return this.parent.treeInterface;
+  }
 
   public get nodeName(): NamespacedIdentity {
     return this.nodeDeclaration.name;
@@ -52,8 +92,6 @@ class GomlNode extends EEObject { // EEである必要がある
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this.treeInterface = GomlInterfaceGenerator([this._root]);
-    this.sharedObject = new NamespacedDictionary<any>();
 
     this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
@@ -72,12 +110,32 @@ class GomlNode extends EEObject { // EEである必要がある
       this.addComponent(c);
     });
 
+    // デフォルトコンポーネント群の属性リスト作成
     const attributes = defaultComponents.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre.concat(current), []); // map to attributes array.
+      .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
     this.attributes = new NamespacedDictionary<Attribute>();
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
+
+    // register to GrimoireInterface.
+    GrimoireInterface.nodeDictionary[this.id] = this;
+  }
+
+  /**
+   * ノードを削除する。使わなくなったら呼ぶ。子要素も再帰的に削除する。
+   */
+  public delete(): void {
+    GrimoireInterface.nodeDictionary[this.id] = null;
+    if (this._parent) {
+      this._parent.detachChild(this);
+    } else {
+      this.setMounted(false);
+      if (this.element.parentNode) {// Dom sync TODO:必要？
+        this.element.parentNode.removeChild(this.element);
+      }
+    }
+    this._deleted = true;
   }
 
   public sendMessage(message: string, args?: any): boolean {
@@ -129,10 +187,10 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
+    if (child._deleted) {
+      throw new Error("deleted node never use.");
+    }
     child._parent = this;
-    child._root = this._root;
-    child.treeInterface = this.treeInterface;
-    child.sharedObject = this.sharedObject;
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
@@ -152,36 +210,44 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   /**
-   * Remove child.
+   * デタッチしてdeleteする。
    * @param {GomlNode} child Target node to be inserted.
    */
   public removeChild(child: GomlNode): void {
-    for (let i = 0; i < this.children.length; i++) {
-      let v = this.children[i];
-      if (v === child) {
-        child._parent = null;
-        child._root = null;
-        child.treeInterface = GomlInterfaceGenerator([]);
-        child.sharedObject = null;
-        this.children.splice(i, 1);
-        if (this.mounted) {
-          child.setMounted(false);
-        }
-        // html handling
-        this.element.removeChild(child.element);
-        break;
-      }
+    const node = this.detachChild(child);
+    if (node) {
+      node.delete();
     }
   }
 
   /**
-   * remove myself
+   * 指定したノードが子要素なら子要素から外す。
+   * @param  {GomlNode} child [description]
+   * @return {GomlNode}       [description]
    */
-  public remove(): void {
+  public detachChild(target: GomlNode): GomlNode {
+    // search child.
+    const index = this.children.indexOf(target);
+    if (index === -1) {
+      return null;
+    }
+
+    target._parent = null;
+    this.children.splice(index, 1);
+    target.setMounted(false);
+
+    // html sync
+    this.element.removeChild(target.element);
+  }
+
+  /**
+   * detach myself
+   */
+  public detach(): void {
     if (this.parent) {
-      this.parent.removeChild(this);
+      this.parent.detachChild(this);
     } else {
-      throw new Error("root Node cannot be removed.");
+      throw new Error("root Node cannot be detached.");
     }
   }
 
@@ -225,16 +291,27 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {boolean} mounted Mounted status.
    */
   public setMounted(mounted: boolean): void {
-    if (this._mounted === !mounted) {
-      this._mounted = !!mounted;
-      if (this._mounted) {
-        this._attemptAwakeComponents();
-      }
-      this.sendMessage(this._mounted ? "mount" : "unmount", this);
-      this.children.forEach((child) => {
-        child.setMounted(mounted);
-      });
+    mounted = !!mounted;
+    if (this._mounted === mounted) {
+      return;
     }
+    this._mounted = mounted;
+    if (this._mounted) {
+      if (!this._parent) {
+        this._treeInterface = GomlInterfaceGenerator([this]);
+        this._sharedObject = new NamespacedDictionary<any>();
+      }
+      this._attemptAwakeComponents();
+      this.sendMessage("mount", this);
+    } else {
+      this._treeInterface = null;
+      this._sharedObject = null;
+      this.sendMessage("unmount", this);
+    }
+    this.children.forEach((child) => {
+      child.setMounted(mounted);
+    });
+
   }
 
 
@@ -291,17 +368,17 @@ class GomlNode extends EEObject { // EEである必要がある
       component.attributes.forEach((attr) => {
         let tagAttrValue = attrDictionary[attr.name.name];
         if (!!tagAttrValue) {
-          attr.Value = attr.converter.convert(tagAttrValue); // Dom指定値で解決
+          attr.Value = tagAttrValue; // Dom指定値で解決
           return;
         }
         const nodeDefaultValue = this.nodeDeclaration.defaultAttributes.get(attr.name);
         if (nodeDefaultValue !== void 0) {
-          attr.Value = attr.converter.convert(nodeDefaultValue); // Node指定値で解決
+          attr.Value = nodeDefaultValue; // Node指定値で解決
           return;
         }
 
         const attrDefaultValue = attr.declaration.defaultValue;
-        attr.Value = attr.converter.convert(attrDefaultValue);
+        attr.Value = attrDefaultValue;
       });
     });
   }

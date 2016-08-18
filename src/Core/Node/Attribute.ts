@@ -17,6 +17,9 @@ class Attribute {
   public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
   public component: Component;
+  public responsively: boolean = false; // sync value with DomElement.
+  // TODO: stringじゃない属性はDomに反映できない
+
 
   private _value: any;
   private _handlers: ((attr: Attribute) => void)[] = [];
@@ -31,6 +34,22 @@ class Attribute {
    */
   public get Value(): any {
     return this._value;
+  }
+
+  /**
+   * Set a value with any type.
+   * @param {any} val Value with string or specified type.
+   */
+  public set Value(val: any) {
+    try {
+      this._value = this.converter.convert(val);
+    } catch (e) {
+      console.error(e); // TODO should be more convenient error handling
+    }
+    if (this.responsively) {
+      this.component.node.element.setAttribute(this.name.name, this.Value);
+    }
+    this._notifyChange();
   }
 
   /**
@@ -51,19 +70,6 @@ class Attribute {
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
-  }
-
-  /**
-   * Set a value with any type.
-   * @param {any} val Value with string or specified type.
-   */
-  public set Value(val: any) {
-    try {
-      this._value = this.converter.convert(val);
-    } catch (e) {
-      console.error(e); // TODO should be more convenient error handling
-    }
-    this._notifyChange();
   }
 
   public addObserver(handler: (attr: Attribute) => void): void {
