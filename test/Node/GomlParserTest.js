@@ -155,7 +155,7 @@ test('test for sharedObject', (t) => {
   const components = node.children[0].getComponents();
   const ns1 = new NamespacedIdentity("http://testNamespace/test1","conflictComponent");
   const ns2 = new NamespacedIdentity("http://testNamespace/test2","conflictComponent");
-  const compo1 = component.find((comp)=>ns1.fqn === comp.name.fqn);
-  const compo2 = component.find((comp)=>ns2.fqn === comp.name.fqn);
+  const compo1 = components.find((comp)=>ns1.fqn === comp.name.fqn);
+  const compo2 = components.find((comp)=>ns2.fqn === comp.name.fqn);
   t.truthy(compo1.sharedObject === compo2.sharedObject);
 });
