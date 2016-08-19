@@ -20,7 +20,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
-  private _components: NamespacedDictionary<Component>;
+  private _components: Component[];
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
   private _treeInterface: IGomlInterface = null;
   private _sharedObject: NamespacedDictionary<any> = null;
@@ -97,7 +97,7 @@ class GomlNode extends EEObject { // EEである必要がある
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    let defaultComponents = defaultComponentNames.toArray().map((id) => {
+    this._components = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
@@ -105,13 +105,8 @@ class GomlNode extends EEObject { // EEである必要がある
       return declaration.generateInstance();
     });
 
-    this._components = new NamespacedDictionary<Component>();
-    defaultComponents.forEach((c) => {
-      this.addComponent(c);
-    });
-
     // デフォルトコンポーネント群の属性リスト作成
-    const attributes = defaultComponents.map((c) => c.attributes.toArray())
+    const attributes = this._components.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
     this.attributes = new NamespacedDictionary<Attribute>();
     attributes.forEach((attr) => {
@@ -332,7 +327,7 @@ class GomlNode extends EEObject { // EEである必要がある
       throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
     }
     this.componentsElement.appendChild(component.element);
-    this._components.set(component.name, component);
+    this._components.push(component);
     component.node = this;
 
     if (this._mounted) {
@@ -341,7 +336,7 @@ class GomlNode extends EEObject { // EEである必要がある
       this._unAwakedComponent.push(component);
     }
   }
-  public getComponents(): NamespacedDictionary<Component> {
+  public getComponents(): Component[] {
     return this._components;
   }
 
