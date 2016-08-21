@@ -96,15 +96,15 @@ class GomlNode extends EEObject { // EEである必要がある
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    this._unAwakedComponent = this._components = defaultComponentNames.toArray().map((id) => {
+    this._components = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      const component = declaration.generateInstance();
-      this.componentsElement.appendChild(component.element);
-      component.node = this;
-      return component;
+      return declaration.generateInstance();
+    });
+    this._components.forEach((compo) => {
+      this.addComponent(compo);
     });
 
     // デフォルトコンポーネント群の属性リスト作成
