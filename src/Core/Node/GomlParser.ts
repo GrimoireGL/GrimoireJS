@@ -1,5 +1,3 @@
-import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
-import NamespacedDictionary from "../Base/NamespacedDictionary";
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../GrimoireInterface";
 
@@ -40,13 +38,6 @@ class GomlParser {
           childNodeElements.push(child);
         }
       }
-    }
-
-    if (!parent && scriptTag) {
-      // TODO should be fixed
-      newNode._treeInterface = GomlInterfaceGenerator([newNode]);
-      newNode._sharedObject = new NamespacedDictionary<any>();
-      newNode.sendMessage("treeInitializing", scriptTag); // TODO: なにこれ
     }
 
     // generate tree
