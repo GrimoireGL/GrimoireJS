@@ -7,7 +7,6 @@ import Attribute from "./Attribute";
 import NamespacedDictionary from "../Base/NamespacedDictionary";
 import NamespacedIdentity from "../Base/NamespacedIdentity";
 import IGomlInterface from "../Interface/IGomlInterface";
-import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 
 class GomlNode extends EEObject { // EEである必要がある
   public element: Element; // Dom Element
@@ -22,8 +21,8 @@ class GomlNode extends EEObject { // EEである必要がある
   private _mounted: boolean = false;
   private _components: Component[];
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
-  private _treeInterface: IGomlInterface = null;
-  private _sharedObject: NamespacedDictionary<any> = null;
+  public _treeInterface: IGomlInterface = null; // TODO should be private
+  public _sharedObject: NamespacedDictionary<any> = null; // TODO should be private
   private _deleted: boolean = false;
 
   /**
@@ -35,7 +34,7 @@ class GomlNode extends EEObject { // EEである必要がある
       return this._treeInterface;
     }
     if (this.parent) {
-      return this.parent.treeInterface;
+      return this._treeInterface = this.parent.treeInterface;
     }
     return null;
   }
@@ -49,7 +48,7 @@ class GomlNode extends EEObject { // EEである必要がある
       return this._sharedObject;
     }
     if (this.parent) {
-      return this.parent._sharedObject;
+      return this._sharedObject = this.parent.sharedObject;
     }
     return null;
   }
@@ -97,12 +96,15 @@ class GomlNode extends EEObject { // EEである必要がある
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    this._components = defaultComponentNames.toArray().map((id) => {
+    this._unAwakedComponent = this._components = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      return declaration.generateInstance();
+      const component = declaration.generateInstance();
+      this.componentsElement.appendChild(component.element);
+      component.node = this;
+      return component;
     });
 
     // デフォルトコンポーネント群の属性リスト作成
@@ -204,6 +206,11 @@ class GomlNode extends EEObject { // EEである必要がある
     }
   }
 
+  public callRecursively(func: (g: GomlNode) => void): void {
+    func(this);
+    this.children.forEach(c => c.callRecursively(func));
+  }
+
   /**
    * デタッチしてdeleteする。
    * @param {GomlNode} child Target node to be inserted.
@@ -277,7 +284,7 @@ class GomlNode extends EEObject { // EEである必要がある
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
    */
-  public mounted(): boolean {
+  public get mounted(): boolean {
     return this._mounted;
   }
 
@@ -286,22 +293,17 @@ class GomlNode extends EEObject { // EEである必要がある
    * @param {boolean} mounted Mounted status.
    */
   public setMounted(mounted: boolean): void {
-    mounted = !!mounted;
     if (this._mounted === mounted) {
       return;
     }
     this._mounted = mounted;
     if (this._mounted) {
-      if (!this._parent) {
-        this._treeInterface = GomlInterfaceGenerator([this]);
-        this._sharedObject = new NamespacedDictionary<any>();
-      }
       this._attemptAwakeComponents();
       this.sendMessage("mount", this);
     } else {
+      this.sendMessage("unmount", this);
       this._treeInterface = null;
       this._sharedObject = null;
-      this.sendMessage("unmount", this);
     }
     this.children.forEach((child) => {
       child.setMounted(mounted);
@@ -341,7 +343,11 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public getComponent(name: string): Component {
-    return this._components.get(name);
+    for (let i = 0; i < this._components.length; i++) {
+      if (this._components[i].name.name === name.toUpperCase()) {
+        return this._components[i];
+      }
+    }
   }
 
   /**

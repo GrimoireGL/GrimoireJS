@@ -26,11 +26,7 @@ class GomlLoader {
     }
     const doc = XMLReader.parseXML(source, "GOML");
     const rootNode = GomlParser.parse(doc[0], null, scriptTag);
-    const nodeId = GrimoireInterface.addRootNode(scriptTag, rootNode);
-    rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
-      ownerScriptTag: scriptTag,
-      id: nodeId
-    });
+    GrimoireInterface.addRootNode(scriptTag, rootNode);
   }
   /**
    * Load from the script tags which will be found with specified query.
