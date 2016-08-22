@@ -31,9 +31,6 @@ class GomlNode extends EEObject { // EEである必要がある
    * @return {IGomlInterface} [description]
    */
   public get treeInterface(): IGomlInterface {
-    if (!this.mounted) {
-      return null;
-    }
     return this._treeInterface;
   }
 
@@ -42,9 +39,6 @@ class GomlNode extends EEObject { // EEである必要がある
    * @return {NamespacedDictionary<any>} [description]
    */
   public get sharedObject(): NamespacedDictionary<any> {
-    if (!this.mounted) {
-      return null;
-    }
     return this._sharedObject;
   }
 
@@ -102,7 +96,6 @@ class GomlNode extends EEObject { // EEである必要がある
     this._components.forEach((compo) => {
       this.addComponent(compo);
     });
-    this._unAwakedComponent = this._components.map(p => p);
 
     // デフォルトコンポーネント群の属性リスト作成
     const attributes = this._components.map((c) => c.attributes.toArray())
@@ -196,7 +189,8 @@ class GomlNode extends EEObject { // EEである必要がある
       let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
-
+    child._treeInterface = this.treeInterface;
+    child._sharedObject = this.sharedObject;
     // mounting
     if (this.mounted) {
       child.setMounted(true);
@@ -231,10 +225,9 @@ class GomlNode extends EEObject { // EEである必要がある
       return null;
     }
 
+    target.setMounted(false);
     target._parent = null;
     this.children.splice(index, 1);
-    target.setMounted(false);
-
     // html sync
     this.element.removeChild(target.element);
   }
@@ -295,10 +288,6 @@ class GomlNode extends EEObject { // EEである必要がある
     }
     this._mounted = mounted;
     if (this._mounted) {
-      if (this._parent) {
-        this._treeInterface = this._parent.treeInterface;
-        this._sharedObject = this.parent.sharedObject;
-      }
       this._attemptAwakeComponents();
       this.sendMessage("mount", this);
     } else {

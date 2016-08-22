@@ -1,3 +1,4 @@
+import Constants from "./Base/Constants";
 import ITreeInitializedInfo from "./Node/ITreeInitializedInfo";
 import IGrimoireInterfaceBase from "./IGrimoireInterfaceBase";
 import IGomlInterface from "./Interface/IGomlInterface";
@@ -95,6 +96,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
       throw new Error("can not register null to rootNodes.");
     }
     this.rootNodes[rootNode.id] = rootNode;
+    rootNode.sharedObject.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
     rootNode.callRecursively(n => n.resolveAttributesValue());
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
