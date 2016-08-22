@@ -96,7 +96,7 @@ class GomlNode extends EEObject { // EEである必要がある
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    this._unAwakedComponent = this._components = defaultComponentNames.toArray().map((id) => {
+    this._components = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
@@ -106,6 +106,7 @@ class GomlNode extends EEObject { // EEである必要がある
       component.node = this;
       return component;
     });
+    this._unAwakedComponent = this._components.map(p => p);
 
     // デフォルトコンポーネント群の属性リスト作成
     const attributes = this._components.map((c) => c.attributes.toArray())
