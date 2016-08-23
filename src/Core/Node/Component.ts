@@ -1,3 +1,4 @@
+import IAttributeDeclaration from "./IAttributeDeclaration";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
@@ -16,6 +17,13 @@ class Component extends IDObject {
   }
   public get tree(): IGomlInterface {
     return this.node ? this.node.treeInterface : null;
+  }
+  protected __addAtribute(name: string, attribute: IAttributeDeclaration): void {
+    if (!attribute) {
+      throw new Error("can not add attribute null or undefined.");
+    }
+    const attr = new Attribute(name, attribute, this);
+    this.attributes.set(attr.name, attr); // TODO: NodeのAttributesにも追加するか？
   }
 }
 
