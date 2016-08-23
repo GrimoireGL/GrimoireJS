@@ -24,24 +24,26 @@ class GomlParser {
     const children = source.childNodes;
     const childNodeElements: Element[] = []; // for parse after .Components has resolved.
     if (children && children.length !== 0) { // When there is children
+      const removeTarget: Node[] = [];
       for (let i = 0; i < children.length; i++) {
         const child = children.item(i);
         if (!GomlParser._isElement(child)) {
+          removeTarget.push(child);
           continue;
         }
         if (this._isComponentsTag(child)) {
           // parse as components
           GomlParser._parseComponents(newNode, child);
-          source.removeChild(child); // TODO:ループ途中で内容変更して大丈夫なのか？
+          removeTarget.push(child);
         } else {
           // parse as child node.
           childNodeElements.push(child);
         }
       }
-    }
-
-    if (!parent && scriptTag) {
-      newNode.sendMessage("treeInitializing", scriptTag); // TODO: なにこれ
+      // remove unused elements
+      for (let i = 0; i < removeTarget.length; i++) {
+        source.removeChild(removeTarget[i]);
+      }
     }
 
     // generate tree
@@ -77,7 +79,6 @@ class GomlParser {
    * @param {Element}  componentsTag .COMPONENTSタグ
    */
   private static _parseComponents(node: GomlNode, componentsTag: Element): void {
-    node.componentsElement = componentsTag;
     let componentNodes = componentsTag.childNodes;
     if (!componentNodes) {
       return;

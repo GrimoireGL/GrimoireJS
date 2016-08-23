@@ -1,3 +1,4 @@
+import NamespacedDictionary from "../Base/NamespacedDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
@@ -26,6 +27,10 @@ class Attribute {
 
   public get tree(): IGomlInterface {
     return this.component.tree;
+  }
+
+  public get sharedObject(): NamespacedDictionary<any> {
+    return this.component.sharedObject;
   }
 
   /**
