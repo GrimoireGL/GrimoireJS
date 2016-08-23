@@ -104,7 +104,7 @@ test('function interface works correctly', async(t) => {
 
   const gi = GrimoireInterface("#test");
   const nodeInterface = gi("#testId1");
-  nodeInterface.forEach((node) => { console.log("foreach"); })
+  //nodeInterface.forEach((node) => { console.log("foreach"); })
   t.truthy(nodeInterface.length === 1);
   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
     // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));

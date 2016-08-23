@@ -65,7 +65,7 @@
     "serve": "hs ./",
     "babel-test": "babel ./lib  --out-dir ./lib-es5",
     "babel-ci-test": "babel ./test  --out-dir ./lib-test-es5",
-    "ava": "ava --verbose",
+    "ava": "ava --verbose --serial",
     "test": "babel-node ./scripts/test-runner.js --presets es2015,stage-2 --plugins transform-runtime"
   },
   "ava": {

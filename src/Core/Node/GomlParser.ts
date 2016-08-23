@@ -63,6 +63,7 @@ class GomlParser {
    */
   private static _createNode(elem: Element): GomlNode {
     const tagName = elem.localName;
+    console.log(GrimoireInterface.nodeDeclarations);
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
