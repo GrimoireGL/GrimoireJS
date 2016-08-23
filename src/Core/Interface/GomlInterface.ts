@@ -19,11 +19,8 @@ class GomlInterface implements IGomlInterfaceBase {
   }
 
   public queryNodes(query: string): GomlNode[][] {
-    console.log("gomlit:query");
-    console.log("root count: " + this.rootNodes.length);
-    return this.rootNodes.map((root) => {
+      return this.rootNodes.map((root) => {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
-      console.log("queryresult: " + nodelist.length);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {
           const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute("x-gr-id")];
