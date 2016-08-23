@@ -318,7 +318,10 @@ class GomlNode extends EEObject { // EEである必要がある
     if (component.node) {
       throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
     }
-    this.componentsElement.appendChild(component.element);
+    const insertIndex = this._components.length;
+    let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, insertIndex)];
+    this.element.insertBefore(component.element, referenceElement);
+
     this._components.push(component);
     component.node = this;
 
