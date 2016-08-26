@@ -1,12 +1,12 @@
 {
   "name": "grimoirejs",
-  "version": "0.0.0",
-  "description": "Awesome addon ever!",
+  "version": "0.2.0",
+  "description": "A web service oriented Web3D framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
   "files": [
-    "./lib",
-    "./samples"
+    "lib",
+    "samples"
   ],
   "keywords": [
     "grimoire.js"
