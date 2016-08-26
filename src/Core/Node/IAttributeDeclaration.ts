@@ -1,6 +1,6 @@
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 interface IAttributeDeclaration {
-  converter: string | NamespacedIdentity;
+  converter: string | NSIdentity;
   defaultValue: any;
   readonly?: boolean;
   [parameters: string]: any;

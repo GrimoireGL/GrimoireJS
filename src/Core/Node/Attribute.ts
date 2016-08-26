@@ -1,9 +1,9 @@
-import NamespacedDictionary from "../Base/NamespacedDictionary";
+import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import AttributeConverter from "./AttributeConverter";
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 import Component from "./Component";
 
@@ -14,7 +14,7 @@ import Component from "./Component";
  */
 class Attribute {
 
-  public name: NamespacedIdentity;
+  public name: NSIdentity;
   public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
   public component: Component;
@@ -29,8 +29,8 @@ class Attribute {
     return this.component.tree;
   }
 
-  public get sharedObject(): NamespacedDictionary<any> {
-    return this.component.sharedObject;
+  public get companion(): NSDictionary<any> {
+    return this.component.companion;
   }
 
   /**
@@ -66,10 +66,10 @@ class Attribute {
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
   constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
-    this.name = new NamespacedIdentity(component.name.ns, name);
+    this.name = new NSIdentity(component.name.ns, name);
     this.component = component;
     this.declaration = declaration;
-    const converterName = Ensure.ensureTobeNamespacedIdentity(declaration.converter);
+    const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
     this.converter.convert = this.converter.convert.bind(this);
     if (!this.converter) {

@@ -1,5 +1,5 @@
-import NamespacedIdentity from "./NamespacedIdentity";
-import NamespacedDictionary from "./NamespacedDictionary";
+import NSIdentity from "./NSIdentity";
+import NSDictionary from "./NSDictionary";
 /**
  * Provides static methods to ensure arguments are valid type.
  */
@@ -34,38 +34,38 @@ class Ensure {
     }
   }
 
-  public static ensureTobeNamespacedIdentity(name: string | NamespacedIdentity): NamespacedIdentity {
+  public static ensureTobeNSIdentity(name: string | NSIdentity): NSIdentity {
     if (!name) {
       return undefined;
     }
     if (typeof name === "string") {
-      return new NamespacedIdentity(name);
+      return new NSIdentity(name);
     } else {
       return name;
     }
   }
 
-  public static ensureTobeNamespacedIdentityArray(names: (string | NamespacedIdentity)[]): NamespacedIdentity[] {
+  public static ensureTobeNSIdentityArray(names: (string | NSIdentity)[]): NSIdentity[] {
     if (!names) {
       return [];
     }
-    const newArr: NamespacedIdentity[] = [];
+    const newArr: NSIdentity[] = [];
     for (let i = 0; i < names.length; i++) {
-      newArr.push(this.ensureTobeNamespacedIdentity(names[i]));
+      newArr.push(this.ensureTobeNSIdentity(names[i]));
     }
     return newArr;
   }
 
-  public static ensureTobeNamespacedDictionary<T>(dict: NamespacedDictionary<T> | { [key: string]: T }, defaultNamespace: string): NamespacedDictionary<T> {
+  public static ensureTobeNSDictionary<T>(dict: NSDictionary<T> | { [key: string]: T }, defaultNamespace: string): NSDictionary<T> {
     if (!dict) {
-      return new NamespacedDictionary<T>();
+      return new NSDictionary<T>();
     }
-    if (dict instanceof NamespacedDictionary) {
+    if (dict instanceof NSDictionary) {
       return dict;
     } else {
-      const newDict = new NamespacedDictionary<T>();
+      const newDict = new NSDictionary<T>();
       for (let key in dict) {
-        newDict.set(new NamespacedIdentity(defaultNamespace, key), dict[key]);
+        newDict.set(new NSIdentity(defaultNamespace, key), dict[key]);
       }
       return newDict;
     }

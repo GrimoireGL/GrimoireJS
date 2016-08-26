@@ -7,23 +7,23 @@ import ComponentDeclaration from "./Node/ComponentDeclaration";
 import Component from "./Node/Component";
 import IAttributeDeclaration from "./Node/IAttributeDeclaration";
 import AttributeConverter from "./Node/AttributeConverter";
-import NamespacedSet from "./Base/NamespacedSet";
+import NSSet from "./Base/NSSet";
 import IGrimoireInterface from "./IGrimoireInterface";
 
 import NodeDeclaration from "./Node/NodeDeclaration";
-import NamespacedIdentity from "./Base/NamespacedIdentity";
-import NamespacedDictionary from "./Base/NamespacedDictionary";
+import NSIdentity from "./Base/NSIdentity";
+import NSDictionary from "./Base/NSDictionary";
 import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
 import {inherits} from "util";
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
-  public nodeDeclarations: NamespacedDictionary<NodeDeclaration> = new NamespacedDictionary<NodeDeclaration>();
+  public nodeDeclarations: NSDictionary<NodeDeclaration> = new NSDictionary<NodeDeclaration>();
 
-  public converters: NamespacedDictionary<AttributeConverter> = new NamespacedDictionary<AttributeConverter>();
+  public converters: NSDictionary<AttributeConverter> = new NSDictionary<AttributeConverter>();
 
-  public componentDeclarations: NamespacedDictionary<ComponentDeclaration> = new NamespacedDictionary<ComponentDeclaration>();
+  public componentDeclarations: NSDictionary<ComponentDeclaration> = new NSDictionary<ComponentDeclaration>();
 
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
@@ -36,8 +36,8 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * @param  {string} ns namespace URI to be used
    * @return {[type]}    the namespaced identity
    */
-  public ns(ns: string): (name: string) => NamespacedIdentity {
-    return (name: string) => new NamespacedIdentity(ns, name);
+  public ns(ns: string): (name: string) => NSIdentity {
+    return (name: string) => new NSIdentity(ns, name);
   }
 
   /**
@@ -58,37 +58,37 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   // TODO test
   /**
    * register custom component
-   * @param  {string                |   NamespacedIdentity} name          [description]
+   * @param  {string                |   NSIdentity} name          [description]
    * @param  {IAttributeDeclaration }} attributes           [description]
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: string | NamespacedIdentity, obj: Object | (new () => Component)): void {
-    name = Ensure.ensureTobeNamespacedIdentity(name);
+  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void {
+    name = Ensure.ensureTobeNSIdentity(name);
     const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration };
     obj = this._ensureTobeComponentConstructor(obj);
-    this.componentDeclarations.set(name as NamespacedIdentity, new ComponentDeclaration(name as NamespacedIdentity, attrs, obj as (new () => Component)));
+    this.componentDeclarations.set(name as NSIdentity, new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component)));
   }
 
-  public registerNode(name: string | NamespacedIdentity,
-    requiredComponents: (string | NamespacedIdentity)[],
-    defaultValues?: { [key: string]: any } | NamespacedDictionary<any>,
-    superNode?: string | NamespacedIdentity): void {
-    name = Ensure.ensureTobeNamespacedIdentity(name);
-    requiredComponents = Ensure.ensureTobeNamespacedIdentityArray(requiredComponents);
-    defaultValues = Ensure.ensureTobeNamespacedDictionary<any>(defaultValues, (name as NamespacedIdentity).ns);
-    superNode = Ensure.ensureTobeNamespacedIdentity(superNode);
-    this.nodeDeclarations.set(name as NamespacedIdentity,
-      new NodeDeclaration(name as NamespacedIdentity,
-        NamespacedSet.fromArray(requiredComponents as NamespacedIdentity[]),
-        defaultValues as NamespacedDictionary<any>,
-        superNode as NamespacedIdentity)
+  public registerNode(name: string | NSIdentity,
+    requiredComponents: (string | NSIdentity)[],
+    defaultValues?: { [key: string]: any } | NSDictionary<any>,
+    superNode?: string | NSIdentity): void {
+    name = Ensure.ensureTobeNSIdentity(name);
+    requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
+    defaultValues = Ensure.ensureTobeNSDictionary<any>(defaultValues, (name as NSIdentity).ns);
+    superNode = Ensure.ensureTobeNSIdentity(superNode);
+    this.nodeDeclarations.set(name as NSIdentity,
+      new NodeDeclaration(name as NSIdentity,
+        NSSet.fromArray(requiredComponents as NSIdentity[]),
+        defaultValues as NSDictionary<any>,
+        superNode as NSIdentity)
     );
   }
 
-  public registerConverter(name: string | NamespacedIdentity, converter: (val: any) => any): void {
-    name = Ensure.ensureTobeNamespacedIdentity(name);
-    this.converters.set(name as NamespacedIdentity, { name: name as NamespacedIdentity, convert: converter });
+  public registerConverter(name: string | NSIdentity, converter: (val: any) => any): void {
+    name = Ensure.ensureTobeNSIdentity(name);
+    this.converters.set(name as NSIdentity, { name: name as NSIdentity, convert: converter });
   }
 
   public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
@@ -96,7 +96,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
       throw new Error("can not register null to rootNodes.");
     }
     this.rootNodes[rootNode.id] = rootNode;
-    rootNode.sharedObject.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+    rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
     rootNode.callRecursively(n => n.resolveAttributesValue());
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{

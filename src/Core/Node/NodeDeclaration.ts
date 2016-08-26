@@ -1,21 +1,21 @@
-import NamespacedDictionary from "../Base/NamespacedDictionary";
-import NamespacedSet from "../Base/NamespacedSet";
+import NSDictionary from "../Base/NSDictionary";
+import NSSet from "../Base/NSSet";
 import GomlNode from "./GomlNode";
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 
 class NodeDeclaration {
-  private _defaultComponentsActual: NamespacedSet;
-  private _defaultAttributesActual: NamespacedDictionary<any>;
+  private _defaultComponentsActual: NSSet;
+  private _defaultAttributesActual: NSDictionary<any>;
 
-  public get defaultComponents(): NamespacedSet {
+  public get defaultComponents(): NSSet {
     if (!this._defaultComponentsActual) {
       this._resolveInherites();
     }
     return this._defaultComponentsActual;
   }
 
-  public get defaultAttributes(): NamespacedDictionary<any> {
+  public get defaultAttributes(): NSDictionary<any> {
     if (!this._defaultAttributesActual) {
       this._resolveInherites();
     }
@@ -23,10 +23,10 @@ class NodeDeclaration {
   }
 
   constructor(
-    public name: NamespacedIdentity,
-    private _defaultComponents: NamespacedSet,
-    private _defaultAttributes: NamespacedDictionary<any>,
-    public inherits: NamespacedIdentity) {
+    public name: NSIdentity,
+    private _defaultComponents: NSSet,
+    private _defaultAttributes: NSDictionary<any>,
+    public inherits: NSIdentity) {
 
   }
 

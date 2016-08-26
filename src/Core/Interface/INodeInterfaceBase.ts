@@ -1,11 +1,11 @@
 import GomlNode from "../Node/GomlNode";
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 import Attribute from "../Node/Attribute";
 
 
 interface INodeInterfaceBase {
-  attr(attrName: string|NamespacedIdentity): Attribute;
-  attr(attrName: string|NamespacedIdentity, setValue: any): void;
+  attr(attrName: string|NSIdentity): Attribute;
+  attr(attrName: string|NSIdentity, setValue: any): void;
   on(eventName: string, listener: Function): void;
   off(eventName: string, listener: Function): void;
   append(tag: string): void;

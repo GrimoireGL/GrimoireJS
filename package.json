@@ -1,5 +1,5 @@
 {
-  "name": "grimoire",
+  "name": "grimoirejs",
   "version": "0.0.0",
   "description": "Awesome addon ever!",
   "main": "./lib/Grimoire.js",
