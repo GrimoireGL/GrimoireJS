@@ -1,4 +1,3 @@
-///<reference path="./gl-matrix.d.ts"/>
 import GrimoireInterface from "./Core/GrimoireInterface";
 import GomlLoader from "./Core/Node/GomlLoader";
 /**
