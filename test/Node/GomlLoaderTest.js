@@ -68,14 +68,12 @@ test('Processing script[type="text/goml"] and call parse related methods in corr
     global.document = window.document;
     const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');
     const spy = sinon.spy();
-    const broadcastSpy = sinon.spy();
     const mockedParseXML = mockXMLParse((src) => {
         spy(src.replace(/[\n\s]/g,""));
-    },broadcastSpy);
+    });
     await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-    broadcastSpy(GrimoireInterface.registerNode("goml",[],{}))
+    GrimoireInterface.registerNode("goml",[],{})
     t.truthy(spy.calledWith(`<goml><goml><goml></goml><goml/></goml></goml>`));
-    t.truthy(broadcastSpy.calledWith("treeInitialized"));
 });
 
 test('Processing script[type="text/goml"] tag correctly when the src attribute was existing', async(t) => {

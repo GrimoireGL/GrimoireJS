@@ -63,6 +63,7 @@ test.beforeEach(async () => {
   testComponentOptionalSpy = testComponentOptional();
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
+  registerUserPlugin();
 });
 
 
@@ -101,7 +102,7 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
-registerUserPlugin();
+
 
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case1.goml");
