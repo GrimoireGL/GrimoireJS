@@ -81,19 +81,20 @@ class GomlNode extends EEObject { // EEである必要がある
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
     this._treeInterface = GomlInterfaceGenerator([this]);
+    this._components = [];
 
     this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    this._components = defaultComponentNames.toArray().map((id) => {
+    const components = defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
       return declaration.generateInstance();
     });
-    this._components.forEach((compo) => {
+    components.forEach((compo) => {
       this.addComponent(compo);
     });
 
@@ -320,7 +321,7 @@ class GomlNode extends EEObject { // EEである必要がある
     }
     const insertIndex = this._components.length;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, insertIndex)];
-    this.element.insertBefore(component.element, referenceElement);
+    this.componentsElement.insertBefore(component.element, referenceElement);
 
     this._components.push(component);
     component.node = this;
