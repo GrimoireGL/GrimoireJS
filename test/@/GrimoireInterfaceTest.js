@@ -9,6 +9,7 @@ import Component from "../../lib-es5/Core/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import GomlLoader from "../../lib-es5/Core/Node/GomlLoader";
+import GomlNode from "../../lib-es5/Core/Node/GomlNode";
 import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
 
 global.Node = {
@@ -53,19 +54,18 @@ test('_ensureTobeComponentConstructor works correctly', (t) => {
 
 test('addRootNode/getRootNode/queryRootNodes works correctly', async(t) => {
   const window = await jsdomAsync(require("./_TestResource/GrimoireInterfaceTest_Case1.html"));
+  global.document = window.document;
+  GrimoireInterface.registerNode("goml",[],{})
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const scriptTag = window.document.getElementById("test");
-  const dummyRootNode = {
-    id: "TEST"
-  };
-
-  const id = GrimoireInterface.addRootNode(scriptTag, dummyRootNode);
-  t.truthy(GrimoireInterface.rootNodes[id] === dummyRootNode);
+  const id = GrimoireInterface.addRootNode(scriptTag, node);
+  t.truthy(GrimoireInterface.rootNodes[id] === node);
   t.truthy(id === scriptTag.getAttribute("x-rootNodeId"));
-  t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+  t.truthy(node === GrimoireInterface.getRootNode(scriptTag));
   global.document = window.document;
   const queriedNode = GrimoireInterface.queryRootNodes("script");
   t.truthy(queriedNode.length === 1);
-  t.truthy(queriedNode[0] === dummyRootNode);
+  t.truthy(queriedNode[0] === node);
 });
 
 test('register and resolvePlugins works preperly', async(t) => {
