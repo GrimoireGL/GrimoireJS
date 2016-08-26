@@ -43,7 +43,6 @@
     "./src/Core/Node/ITreeInitializedInfo.ts",
     "./src/Core/Node/NodeDeclaration.ts",
     "./src/Core/Node/NodeUtility.ts",
-    "./src/gl-matrix.d.ts",
     "./src/Grimoire.ts"
   ],
   "exclude": [],
