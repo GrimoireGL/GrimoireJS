@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
-import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+import NSIdentity from "../../lib-es5/Core/Base/NSIdentity"
 import jsdomAsync from "../JsDOMAsync";
 import {
   goml,
@@ -69,10 +69,10 @@ test.beforeEach(async () => {
 function registerUserPlugin() {
   const ns1 = "http://testNamespace/test1";
   const ns2 = "http://testNamespace/test2";
-  const id_a = new NamespacedIdentity(ns1, "conflictNode");
-  const id_b = new NamespacedIdentity(ns2, "conflictNode");
-  const id_a_c = new NamespacedIdentity(ns1, "conflictComponent");
-  const id_b_c = new NamespacedIdentity(ns2, "conflictComponent");
+  const id_a = new NSIdentity(ns1, "conflictNode");
+  const id_b = new NSIdentity(ns2, "conflictNode");
+  const id_a_c = new NSIdentity(ns1, "conflictComponent");
+  const id_b_c = new NSIdentity(ns2, "conflictComponent");
   GrimoireInterface.registerNode(id_a, ["testComponent2"], {
     attr1: "nodeA"
   }, null, null);
@@ -149,13 +149,13 @@ test('test for namespace parsing.', (t) => {
   sinon.assert.neverCalledWith(conflictComponent2Spy,"bbb");
 });
 
-test('test for sharedObject', (t) => {
+test('test for companion', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const components = node.children[0].getComponents();
-  const ns1 = new NamespacedIdentity("http://testNamespace/test1","conflictComponent");
-  const ns2 = new NamespacedIdentity("http://testNamespace/test2","conflictComponent");
+  const ns1 = new NSIdentity("http://testNamespace/test1","conflictComponent");
+  const ns2 = new NSIdentity("http://testNamespace/test2","conflictComponent");
   const compo1 = components.find((comp)=>ns1.fqn === comp.name.fqn);
   const compo2 = components.find((comp)=>ns2.fqn === comp.name.fqn);
-  t.truthy(compo1.sharedObject === compo2.sharedObject);
+  t.truthy(compo1.companion === compo2.companion);
 });

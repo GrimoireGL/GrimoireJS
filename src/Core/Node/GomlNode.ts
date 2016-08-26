@@ -5,15 +5,15 @@ import Component from "./Component";
 import NodeDeclaration from "./NodeDeclaration";
 import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
-import NamespacedDictionary from "../Base/NamespacedDictionary";
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSDictionary from "../Base/NSDictionary";
+import NSIdentity from "../Base/NSIdentity";
 import IGomlInterface from "../Interface/IGomlInterface";
 
 class GomlNode extends EEObject { // EEである必要がある
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public attributes: NamespacedDictionary<Attribute>; // デフォルトコンポーネントの属性
+  public attributes: NSDictionary<Attribute>; // デフォルトコンポーネントの属性
   public enable: boolean = true;
   public componentsElement: Element;
 
@@ -23,7 +23,7 @@ class GomlNode extends EEObject { // EEである必要がある
   private _components: Component[];
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
   private _treeInterface: IGomlInterface = null;
-  private _sharedObject: NamespacedDictionary<any> = new NamespacedDictionary<any>();
+  private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
 
   /**
@@ -36,10 +36,10 @@ class GomlNode extends EEObject { // EEである必要がある
 
   /**
    * ツリーで共有されるオブジェクト。マウントされていない状態ではnull。
-   * @return {NamespacedDictionary<any>} [description]
+   * @return {NSDictionary<any>} [description]
    */
-  public get sharedObject(): NamespacedDictionary<any> {
-    return this._sharedObject;
+  public get companion(): NSDictionary<any> {
+    return this._companion;
   }
 
   /**
@@ -53,7 +53,7 @@ class GomlNode extends EEObject { // EEである必要がある
     return this.parent.treeInterface;
   }
 
-  public get nodeName(): NamespacedIdentity {
+  public get nodeName(): NSIdentity {
     return this.nodeDeclaration.name;
   }
 
@@ -101,7 +101,7 @@ class GomlNode extends EEObject { // EEである必要がある
     // デフォルトコンポーネント群の属性リスト作成
     const attributes = this._components.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
-    this.attributes = new NamespacedDictionary<Attribute>();
+    this.attributes = new NSDictionary<Attribute>();
     attributes.forEach((attr) => {
       this.attributes.set(attr.name, attr);
     });
@@ -191,7 +191,7 @@ class GomlNode extends EEObject { // EEである必要がある
       this.element.insertBefore(child.element, referenceElement);
     }
     child._treeInterface = this.treeInterface;
-    child._sharedObject = this.sharedObject;
+    child._companion = this.companion;
     // mounting
     if (this.mounted) {
       child.setMounted(true);
@@ -294,7 +294,7 @@ class GomlNode extends EEObject { // EEである必要がある
     } else {
       this.sendMessage("unmount", this);
       this._treeInterface = null;
-      this._sharedObject = null;
+      this._companion = null;
     }
     this.children.forEach((child) => {
       child.setMounted(mounted);

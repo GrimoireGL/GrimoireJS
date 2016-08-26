@@ -1,9 +1,9 @@
 import GrimoireInterface from "../GrimoireInterface";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
-import NamespacedDictionary from "../Base/NamespacedDictionary";
+import NSDictionary from "../Base/NSDictionary";
 import IAttributeDeclaration from "./IAttributeDeclaration";
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 import Component from "./Component";
 
 class ComponentDeclaration {
@@ -11,7 +11,7 @@ class ComponentDeclaration {
   public attributes: { [key: string]: IAttributeDeclaration };
 
   public constructor(
-    public name: NamespacedIdentity,
+    public name: NSIdentity,
     attributes: { [name: string]: IAttributeDeclaration },
     public ctor: new () => Component) {
     this.attributes = attributes;
@@ -24,7 +24,7 @@ class ComponentDeclaration {
     GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
     component.element = componentElement;
-    component.attributes = new NamespacedDictionary<Attribute>();
+    component.attributes = new NSDictionary<Attribute>();
     for (let key in this.attributes) {
       const attr = new Attribute(key, this.attributes[key], component);
       component.attributes.set(attr.name, attr);

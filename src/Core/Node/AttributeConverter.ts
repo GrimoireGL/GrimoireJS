@@ -1,7 +1,7 @@
-import NamespacedIdentity from "../Base/NamespacedIdentity";
+import NSIdentity from "../Base/NSIdentity";
 
 interface AttributeConverter {
-  name: NamespacedIdentity;
+  name: NSIdentity;
   convert(value: any): any;
 }
 

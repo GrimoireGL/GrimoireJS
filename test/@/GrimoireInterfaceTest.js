@@ -9,7 +9,7 @@ import Component from "../../lib-es5/Core/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import GomlLoader from "../../lib-es5/Core/Node/GomlLoader";
-import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+import NSIdentity from "../../lib-es5/Core/Base/NSIdentity"
 
 global.Node = {
   ELEMENT_NODE: 1
