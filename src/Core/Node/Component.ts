@@ -5,19 +5,79 @@ import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IDObject from "../Base/IDObject";
-
+/**
+ * Base class for any components
+ */
 class Component extends IDObject {
+  /**
+   * Name of this component
+   * @type {NSIdentity}
+   */
   public name: NSIdentity;
+  /**
+   * Attributes managed by this component
+   * @type {NSDictionary<Attribute>}
+   */
   public attributes: NSDictionary<Attribute>;
+  /**
+   * Node this component is attached
+   * @type {GomlNode}
+   */
   public node: GomlNode;
+  /**
+   * XMLElement of this component
+   * @type {Element}
+   */
   public element: Element;
+  /**
+   * Flag that this component is activated or not.
+   * @type {boolean}
+   */
   public enable: boolean = true;
+  /**
+   * The dictionary which is shared in entire tree.
+   * @return {NSDictionary<any>} [description]
+   */
   public get companion(): NSDictionary<any> {
     return this.node ? this.node.companion : null;
   }
+  /**
+   * Tree interface for the tree this node is attached.
+   * @return {IGomlInterface} [description]
+   */
   public get tree(): IGomlInterface {
     return this.node ? this.node.treeInterface : null;
   }
+
+  /**
+   * Obtain value of attribute. When the attribute is not existing, this method would return undefined.
+   * @param  {string} name [description]
+   * @return {any}         [description]
+   */
+  public getValue(name: string): any {
+    const attr = this.attributes.get(name);
+    if (attr) {
+      return attr.Value;
+    } else {
+      return undefined;
+    }
+  }
+  /**
+   * Set value of attribute
+   * @param {string} name  [description]
+   * @param {any}    value [description]
+   */
+  public setValue(name: string, value: any): void {
+    const attr = this.attributes.get(name);
+    if (attr) {
+      attr.Value = value;
+    }
+  }
+  /**
+   * Add attribute
+   * @param {string}                name      [description]
+   * @param {IAttributeDeclaration} attribute [description]
+   */
   protected __addAtribute(name: string, attribute: IAttributeDeclaration): void {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");

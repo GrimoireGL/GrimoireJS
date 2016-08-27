@@ -61,10 +61,6 @@ class GomlNode extends EEObject { // EEである必要がある
     return this._parent;
   }
 
-  public get Mounted(): boolean {
-    return this._mounted;
-  }
-
   /**
    * 新しいインスタンスの作成
    * @param  {NodeDeclaration} recipe  作成するノードのDeclaration

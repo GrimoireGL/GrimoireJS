@@ -43,6 +43,7 @@
     "rollup-plugin-sourcemaps": "^0.3.6",
     "rollup-plugin-typescript": "^0.7.7",
     "sinon": "^1.17.5",
+    "source-map": "^0.5.6",
     "typescript": "^2.0.0",
     "typings": "^1.3.2",
     "uglify": "^0.1.5",
@@ -55,7 +56,7 @@
   "scripts": {
     "scafold": "babel-node ./scripts/scafold.js --presets es2015,stage-2 --plugins transform-runtime",
     "minify": "uglify -s ./product/index.js -o ./product/index.min.js",
-    "compile": "tsc @./lib-ts/entry_files --declaration --outDir ./lib -m es6 -t es6 --moduleResolution node --sourcemap",
+    "compile": "tsc @./lib-ts/entry_files --declaration --outDir ./lib -m es6 -t es6 --moduleResolution node --sourcemap --noEmitHelpers",
     "build": "babel-node rollup.config.js --presets es2015,stage-2 --plugins transform-runtime",
     "postinstall": "typings install",
     "babel": "babel ./product/index.es2016.js --out-file ./product/index.js --inputSourceMap ./product/index.es2016.js.map --sourceMaps true -sourceMapTarget ./index.js.map",
