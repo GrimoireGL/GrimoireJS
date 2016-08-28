@@ -10,10 +10,14 @@ class GrimoireInitializer {
    * @return {Promise<void>} The promise which will be resolved when all of the Goml script was loaded.
    */
   public static async initialize(): Promise<void> {
-    GrimoireInitializer._copyGLConstants();
-    await GrimoireInitializer._waitForDOMLoading();
-    await GrimoireInterface.resolvePlugins();
-    await GomlLoader.loadForPage();
+    try {
+      GrimoireInitializer._copyGLConstants();
+      await GrimoireInitializer._waitForDOMLoading();
+      await GrimoireInterface.resolvePlugins();
+      await GomlLoader.loadForPage();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**

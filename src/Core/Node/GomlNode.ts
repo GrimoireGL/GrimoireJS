@@ -9,7 +9,7 @@ import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IGomlInterface from "../Interface/IGomlInterface";
 
-class GomlNode extends EEObject { // EEである必要がある
+class GomlNode extends EEObject {
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
@@ -40,17 +40,6 @@ class GomlNode extends EEObject { // EEである必要がある
    */
   public get companion(): NSDictionary<any> {
     return this._companion;
-  }
-
-  /**
-   * 属するツリーのルート。マウント状態は関係ない
-   * @return {IGomlInterface} [description]
-   */
-  public get rootNode(): IGomlInterface {
-    if (this._treeInterface) {
-      return this._treeInterface;
-    }
-    return this.parent.treeInterface;
   }
 
   public get nodeName(): NSIdentity {
