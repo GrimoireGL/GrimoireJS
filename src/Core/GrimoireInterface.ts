@@ -151,11 +151,13 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         throw new Error("Component constructor must extends Component class.");
       }
     } else if (typeof obj === "object") {
-      const newCtor = () => { return; };
+      const newCtor = function() {
+        Component.call(this);
+        for (let key in obj) {
+          this[key] = obj[key];
+        }
+      };
       inherits(newCtor, Component);
-      for (let key in obj) {
-        (newCtor as Function).prototype[key] = obj[key];
-      }
       obj = newCtor;
     } else if (!obj) {
       obj = Component;
