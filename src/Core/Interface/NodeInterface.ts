@@ -182,6 +182,38 @@ class NodeInterface implements INodeInterfaceBase {
     });
     return this;
   }
+
+  /**
+   * 最初の対象ノードを取得する
+   * @return {GomlNode} [description]
+   */
+  public first(): GomlNode {
+    return this.nodes[0][0];
+  }
+
+  /**
+   * 対象となる唯一のノードを取得する。
+   * 対象が存在しない、あるいは複数存在するときは例外を投げる。
+   * @return {GomlNode} [description]
+   */
+  public single(): GomlNode {
+    if (this.count() !== 1) {
+      throw new Error("this nodeInterface is not single.");
+    }
+    return this.first();
+  }
+
+  /**
+   * 対象となるノードの個数を取得する
+   * @return {number} [description]
+   */
+  public count(): number {
+    if (this.nodes.length === 0) {
+      return 0;
+    }
+    const counts = this.nodes.map(nodes => nodes.length);
+    return counts.reduce((total, current) => total + current, 0);
+  }
 }
 
 
