@@ -35,6 +35,7 @@ class Component extends IDObject {
    */
   private _enable: boolean = true;
   private _handlers: ((component: Component) => void)[] = [];
+  private _additionalAttributesNames: NSIdentity[] = [];
 
   public get enable(): boolean {
     return this._enable;
@@ -115,6 +116,22 @@ class Component extends IDObject {
     }
     const attr = new Attribute(name, attribute, this);
     this.attributes.set(attr.name, attr); // TODO: NodeのAttributesにも追加するか？
+    this._additionalAttributesNames.push(attr.name);
+  }
+  protected __removeAttributes(name?: string): void {
+    if (name) {
+      const index = this._additionalAttributesNames.findIndex(id => id.name === name);
+      if (index < 0) {
+        throw new Error("can not remove attributes :" + name);
+      }
+      this.attributes.delete(this._additionalAttributesNames[index]);
+      this._additionalAttributesNames.splice(index, 1);
+    } else {
+      this._additionalAttributesNames.forEach(id => {
+        this.attributes.delete(id);
+      });
+      this._additionalAttributesNames = [];
+    }
   }
 }
 
