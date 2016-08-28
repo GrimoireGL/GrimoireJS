@@ -107,7 +107,6 @@ function registerUserPlugin() {
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case1.goml");
   const node = GomlParser.parse(element);
-  //console.log("c",node);
   t.truthy(node.parent === null);
   t.truthy(node.children.length === 1);
   const c = node.children[0];

@@ -163,12 +163,21 @@ class GomlNode extends EEObject {
     if (child._deleted) {
       throw new Error("deleted node never use.");
     }
-    child._parent = this;
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
+    child._parent = this;
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
+
+    const checkChildConstraints = child.checkTreeConstraints();
+    const checkAncestorConstraint = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
+      .reduce((list, current) => list.concat(current));
+    const errors = checkChildConstraints.concat(checkAncestorConstraint).filter(m => m);
+    if (errors.length !== 0) {
+      const message = errors.reduce((m, current) => m + "\n" + current);
+      throw new Error("tree constraint is not satisfied.\n" + message);
+    }
 
     // handling html
     if (elementSync) {
@@ -183,9 +192,8 @@ class GomlNode extends EEObject {
     }
   }
 
-  public callRecursively(func: (g: GomlNode) => void): void {
-    func(this);
-    this.children.forEach(c => c.callRecursively(func));
+  public callRecursively<T>(func: (g: GomlNode) => T): T[] {
+    return this._callRecursively(func, (n) => n.children);
   }
 
   /**
@@ -216,6 +224,14 @@ class GomlNode extends EEObject {
     this.children.splice(index, 1);
     // html sync
     this.element.removeChild(target.element);
+    const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
+      .reduce((list, current) => list.concat(current))
+      .filter(m => m);
+    if (errors.length !== 0) {
+      const message = errors.reduce((m, current) => m + "\n" + current);
+      throw new Error("tree constraint is not satisfied.\n" + message);
+    }
+    return target;
   }
 
   /**
@@ -377,6 +393,24 @@ class GomlNode extends EEObject {
   }
 
   /**
+   * このノードのtreeConstrainが満たされるか調べる
+   * @return {string[]} [description]
+   */
+  public checkTreeConstraints(): string[] {
+    const constraints = this.nodeDeclaration.treeConstraints;
+    if (!constraints) {
+      return [];
+    }
+    const errorMesasges = constraints.map(constraint => {
+      return constraint(this);
+    }).filter(message => message !== null);
+    if (errorMesasges.length === 0) {
+      return null;
+    }
+    return errorMesasges;
+  }
+
+  /**
    * コンポーネントにメッセージを送る。ただしenableでなければ何もしない。
    * @param  {Component} targetComponent [description]
    * @param  {string}    message         [description]
@@ -408,6 +442,14 @@ class GomlNode extends EEObject {
       }
     });
     this._unAwakedComponent = nextUnAwaked;
+  }
+  private _callRecursively<T>(func: (g: GomlNode) => T, nextGenerator: (n: GomlNode) => GomlNode[]): T[] {
+    const val = func(this);
+    const nexts = nextGenerator(this);
+    const nextVals = nexts.map(c => c.callRecursively(func));
+    const list = nextVals.reduce((clist, current) => clist.concat(current), []);
+    list.unshift(val);
+    return list;
   }
 }
 

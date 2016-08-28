@@ -88,7 +88,6 @@ class Component extends IDObject {
     }
   }
   public addEnabledObserver(handler: (component: Component) => void): void {
-    console.log(this._handlers);
     this._handlers.push(handler);
   }
 
