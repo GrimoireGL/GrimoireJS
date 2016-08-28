@@ -310,6 +310,19 @@ class GomlNode extends EEObject {
 
     this._components.push(component);
     component.node = this;
+    component.addEnabledObserver((c) => {
+      const enable = c.enable;
+      if (enable) {
+        const index = this._unAwakedComponent.indexOf(c);
+        if (index !== -1) {
+          this._unAwakedComponent.splice(index, 1);
+          this._sendMessageToComponent(c, "awake");
+        }
+        this._sendMessageToComponent(c, "mount");
+      } else {
+        this._sendMessageToComponent(c, "unmount");
+      }
+    });
 
     if (this._mounted) {
       this._sendMessageToComponent(component, "awake");
