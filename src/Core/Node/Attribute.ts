@@ -38,7 +38,11 @@ class Attribute {
    * @return {any} value with specified type.
    */
   public get Value(): any {
-    return this._value;
+    try {
+      return  this.converter.convert(this._value);
+    } catch (e) {
+      console.error(e); // TODO should be more convenient error handling
+    }
   }
 
   /**
@@ -46,11 +50,7 @@ class Attribute {
    * @param {any} val Value with string or specified type.
    */
   public set Value(val: any) {
-    try {
-      this._value = this.converter.convert(val);
-    } catch (e) {
-      console.error(e); // TODO should be more convenient error handling
-    }
+    this._value = val;
     if (this.responsively) {
       this.component.node.element.setAttribute(this.name.name, this.Value);
     }
