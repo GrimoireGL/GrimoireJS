@@ -72,6 +72,11 @@ class Attribute {
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
     this.converter.convert = this.converter.convert.bind(this);
+    if (typeof declaration.boundTo === "string") {
+      this.addObserver((v) => {
+        this.component[this.declaration.boundTo] = v.Value;
+      });
+    }
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
