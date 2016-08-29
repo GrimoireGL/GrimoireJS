@@ -49,7 +49,9 @@ let stringConverterSpy,
   conflictComponent2Spy;
 
 test.beforeEach(async () => {
-  global.document = (await jsdomAsync("<html></html>",[])).document;
+  const parser = new DOMParser();
+  const htmlDoc = parser.parseFromString("<html></html>","text/html");
+  global.document = htmlDoc;
   goml();
   testNode1();
   testNode2();

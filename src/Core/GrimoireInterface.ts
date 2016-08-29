@@ -15,7 +15,6 @@ import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
 import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
-import {inherits} from "util";
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
@@ -160,11 +159,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     } else if (typeof obj === "object") {
       const newCtor = function() {
         Component.call(this);
-        for (let key in obj) {
-          this[key] = obj[key];
-        }
       };
-      inherits(newCtor, Component);
+      const properties = {};
+      for (let key in obj) {
+        properties[key] = { value: obj[key] };
+      }
+      newCtor.prototype = Object.create(Component.prototype, properties);
       obj = newCtor;
     } else if (!obj) {
       obj = Component;
