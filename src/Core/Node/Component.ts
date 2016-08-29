@@ -33,7 +33,22 @@ class Component extends IDObject {
    * Flag that this component is activated or not.
    * @type {boolean}
    */
-  public enable: boolean = true;
+  private _enable: boolean = true;
+  private _handlers: ((component: Component) => void)[] = [];
+  private _additionalAttributesNames: NSIdentity[] = [];
+
+  public get enable(): boolean {
+    return this._enable;
+  }
+  public set enable(val) {
+    if (this._enable === val) {
+      return;
+    }
+    this._enable = val;
+    this._handlers.forEach((handler) => {
+      handler(this);
+    });
+  }
   /**
    * The dictionary which is shared in entire tree.
    * @return {NSDictionary<any>} [description]
@@ -73,6 +88,23 @@ class Component extends IDObject {
       attr.Value = value;
     }
   }
+  public addEnabledObserver(handler: (component: Component) => void): void {
+    this._handlers.push(handler);
+  }
+
+  public removeEnabledObserver(handler: (component: Component) => void): void {
+    let index = -1;
+    for (let i = 0; i < this._handlers.length; i++) {
+      if (handler === this._handlers[i]) {
+        index = i;
+        break;
+      }
+    }
+    if (index < 0) {
+      return;
+    }
+    this._handlers.splice(index, 1);
+  }
   /**
    * Add attribute
    * @param {string}                name      [description]
@@ -84,6 +116,22 @@ class Component extends IDObject {
     }
     const attr = new Attribute(name, attribute, this);
     this.attributes.set(attr.name, attr); // TODO: NodeのAttributesにも追加するか？
+    this._additionalAttributesNames.push(attr.name);
+  }
+  protected __removeAttributes(name?: string): void {
+    if (name) {
+      const index = this._additionalAttributesNames.findIndex(id => id.name === name);
+      if (index < 0) {
+        throw new Error("can not remove attributes :" + name);
+      }
+      this.attributes.delete(this._additionalAttributesNames[index]);
+      this._additionalAttributesNames.splice(index, 1);
+    } else {
+      this._additionalAttributesNames.forEach(id => {
+        this.attributes.delete(id);
+      });
+      this._additionalAttributesNames = [];
+    }
   }
 }
 

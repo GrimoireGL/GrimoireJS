@@ -31,6 +31,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
+  public companion: NSDictionary<any> = new NSDictionary<any>();
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
@@ -97,6 +98,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     }
     this.rootNodes[rootNode.id] = rootNode;
     rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+    const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
+      .reduce((list, current) => list.concat(current)).filter(error => error);
+    if (errorMessages.length !== 0) {
+      const message = errorMessages.reduce((m, current) => m + "\n" + current);
+      throw new Error("tree constraint is not satisfied.\n" + message);
+    }
     rootNode.callRecursively(n => n.resolveAttributesValue());
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
@@ -151,11 +158,13 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
         throw new Error("Component constructor must extends Component class.");
       }
     } else if (typeof obj === "object") {
-      const newCtor = () => { return; };
+      const newCtor = function() {
+        Component.call(this);
+        for (let key in obj) {
+          this[key] = obj[key];
+        }
+      };
       inherits(newCtor, Component);
-      for (let key in obj) {
-        (newCtor as Function).prototype[key] = obj[key];
-      }
       obj = newCtor;
     } else if (!obj) {
       obj = Component;

@@ -21,12 +21,16 @@ class NodeDeclaration {
     }
     return this._defaultAttributesActual;
   }
+  public get treeConstraints(): ((node: GomlNode) => string)[] {
+    return this._treeConstraints;
+  }
 
   constructor(
     public name: NSIdentity,
     private _defaultComponents: NSSet,
     private _defaultAttributes: NSDictionary<any>,
-    public inherits: NSIdentity) {
+    public inherits: NSIdentity,
+    private _treeConstraints?: ((node: GomlNode) => string)[]) {
 
   }
 
