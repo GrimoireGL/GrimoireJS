@@ -160,3 +160,12 @@ test('test for companion', (t) => {
   const compo2 = components.find((comp)=>ns2.fqn === comp.name.fqn);
   t.truthy(compo1.companion === compo2.companion);
 });
+
+test('treeInterface must be same if the node is included in same tree', (t) => {
+  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const node = GomlParser.parse(element);
+  const original = node._treeInterface;
+  node.callRecursively(v=>{
+    t.truthy(original === v._treeInterface);
+  });
+});

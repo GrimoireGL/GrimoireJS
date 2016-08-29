@@ -1,4 +1,4 @@
-import '../RRSupport';
+import '../AsyncSupport';
 import '../XMLDomInit';
 import xmldom from 'xmldom';
 import test from 'ava';
