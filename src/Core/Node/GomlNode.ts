@@ -62,7 +62,7 @@ class GomlNode extends EEObject {
       throw new Error("recipe must not be null");
     }
     this.nodeDeclaration = recipe;
-    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
+    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
     this._treeInterface = GomlInterfaceGenerator([this]);
@@ -72,24 +72,22 @@ class GomlNode extends EEObject {
     const defaultComponentNames = recipe.defaultComponents;
 
     // instanciate default components
-    const components = defaultComponentNames.toArray().map((id) => {
+    defaultComponentNames.toArray().map((id) => {
       const declaration = GrimoireInterface.componentDeclarations.get(id);
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      return declaration.generateInstance();
-    });
-    components.forEach((compo) => {
-      this.addComponent(compo);
+      const component = declaration.generateInstance();
+      component.isDefaultComponent = true;
+      this.addComponent(component);
     });
 
     // デフォルトコンポーネント群の属性リスト作成
-    const attributes = this._components.map((c) => c.attributes.toArray())
+    const attributes: Attribute[] = this._components.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
     this.attributes = new NSDictionary<Attribute>();
-    attributes.forEach((attr) => {
-      this.attributes.set(attr.name, attr);
-    });
+    // register attributes as node attributes
+    attributes.forEach(attr => this.addAttribute(attr));
 
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
@@ -313,6 +311,17 @@ class GomlNode extends EEObject {
   }
 
   /**
+   *  Add new attribute. In most of case, users no need to call this method.
+   *  Use __addAttribute in Component should be used instead.
+   */
+  public addAttribute(attr: Attribute): void {
+    this.attributes.set(attr.name, attr);
+  }
+
+  public removeAttribute(attr: Attribute): void {
+    this.attributes.delete(attr.name);
+  }
+  /**
    * このノードにコンポーネントをアタッチする。
    * @param {Component} component [description]
    */
@@ -362,33 +371,8 @@ class GomlNode extends EEObject {
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
   public resolveAttributesValue(): void {
-    // 優先度：Dom > Node > Attribute
-
-    // Dom属性の辞書作成
-    const attrDictionary: { [key: string]: string } = {};
-    const domAttr = this.element.attributes;
-    for (let i = 0; i < domAttr.length; i++) {
-      const attrNode = domAttr.item(i);
-      const name = attrNode.name.toUpperCase();
-      attrDictionary[name] = attrNode.value;
-    }
-
     this._components.forEach((component) => {
-      component.attributes.forEach((attr) => {
-        let tagAttrValue = attrDictionary[attr.name.name];
-        if (!!tagAttrValue) {
-          attr.Value = tagAttrValue; // Dom指定値で解決
-          return;
-        }
-        const nodeDefaultValue = this.nodeDeclaration.defaultAttributes.get(attr.name);
-        if (nodeDefaultValue !== void 0) {
-          attr.Value = nodeDefaultValue; // Node指定値で解決
-          return;
-        }
-
-        const attrDefaultValue = attr.declaration.defaultValue;
-        attr.Value = attrDefaultValue;
-      });
+      component.resolveDefaultAttributes(NodeUtility.getAttributes(this.element));
     });
   }
 

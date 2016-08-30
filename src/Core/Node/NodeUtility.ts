@@ -14,6 +14,17 @@ class NodeUtility { // TODO merge with Base/XMLReader
     const index = nodeArray.indexOf(elementArray[elementIndex]);
     return index === -1 ? null : index;
   }
+
+  public static getAttributes(element: Element): { [key: string]: string } {
+    const attributes: { [key: string]: string } = {};
+    const domAttr = element.attributes;
+    for (let i = 0; i < domAttr.length; i++) {
+      const attrNode = domAttr.item(i);
+      const name = attrNode.name.toUpperCase();
+      attributes[name] = attrNode.value;
+    }
+    return attributes;
+  }
 }
 
 export default NodeUtility;

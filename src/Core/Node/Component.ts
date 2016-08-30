@@ -1,3 +1,4 @@
+import NodeUtility from "./NodeUtility";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Attribute from "./Attribute";
@@ -29,6 +30,12 @@ class Component extends IDObject {
    * @type {Element}
    */
   public element: Element;
+
+  /**
+   * Whether this component was created by nodeDeclaration
+   * @type {boolean}
+   */
+  public isDefaultComponent: boolean = false;
   /**
    * Flag that this component is activated or not.
    * @type {boolean}
@@ -105,6 +112,16 @@ class Component extends IDObject {
     }
     this._handlers.splice(index, 1);
   }
+
+  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; }): any {
+    if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
+      this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttributes));
+    } else { // If not,the default value of attributes should be retrived from this element.
+      const attrs = NodeUtility.getAttributes(this.element);
+      this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
+    }
+  }
+
   /**
    * Add attribute
    * @param {string}                name      [description]
@@ -115,7 +132,16 @@ class Component extends IDObject {
       throw new Error("can not add attribute null or undefined.");
     }
     const attr = new Attribute(name, attribute, this);
-    this.attributes.set(attr.name, attr); // TODO: NodeのAttributesにも追加するか？
+    this.attributes.set(attr.name, attr);
+    if (this.isDefaultComponent) {
+      this.node.addAttribute(attr);
+    }
+    if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
+      attr.resolveDefaultValue(NodeUtility.getAttributes(this.node.element));
+    } else { // If not,the default value of attributes should be retrived from this element.
+      const attrs = NodeUtility.getAttributes(this.element);
+      attr.resolveDefaultValue(attrs);
+    }
     this._additionalAttributesNames.push(attr.name);
   }
   protected __removeAttributes(name?: string): void {
@@ -124,13 +150,16 @@ class Component extends IDObject {
       if (index < 0) {
         throw new Error("can not remove attributes :" + name);
       }
-      this.attributes.delete(this._additionalAttributesNames[index]);
+      const attrId = this._additionalAttributesNames[index];
+      if (this.isDefaultComponent) {
+        this.node.removeAttribute(this.attributes.get(attrId));
+      }
+      this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {
       this._additionalAttributesNames.forEach(id => {
-        this.attributes.delete(id);
+        this.__removeAttributes(id.name);
       });
-      this._additionalAttributesNames = [];
     }
   }
 }

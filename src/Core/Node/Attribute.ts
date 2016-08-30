@@ -39,7 +39,7 @@ class Attribute {
    */
   public get Value(): any {
     try {
-      return  this.converter.convert(this._value);
+      return this.converter.convert(this._value);
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
     }
@@ -98,6 +98,22 @@ class Attribute {
       return;
     }
     this._handlers.splice(index, 1);
+  }
+
+  public resolveDefaultValue(domValues: { [key: string]: string }): void {
+    let tagAttrValue = domValues[this.name.name];
+    if (!!tagAttrValue) {
+      this.Value = tagAttrValue; // Dom指定値で解決
+      return;
+    }
+    const nodeDefaultValue = this.component.node.nodeDeclaration.defaultAttributes.get(this.name);
+    if (nodeDefaultValue !== void 0) {
+      this.Value = nodeDefaultValue; // Node指定値で解決
+      return;
+    }
+
+    const attrDefaultValue = this.declaration.defaultValue;
+    this.Value = attrDefaultValue;
   }
 
   private _notifyChange(): void {
