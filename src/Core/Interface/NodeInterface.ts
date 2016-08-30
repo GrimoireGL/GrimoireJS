@@ -43,12 +43,7 @@ class NodeInterface implements INodeInterfaceBase {
   public attr(attrName: string | NSIdentity, value?: any): Attribute | void {
     if (value === void 0) {
       // return Attribute.
-      this.forEach((node) => {
-        const attr = node.attributes.get(attrName as string);
-        if (!attr) {
-          return attr;
-        }
-      });
+      return this.nodes[0][0].attributes.get(attrName as string).Value;
     } else {
       // set value.
       this.forEach((node) => {
