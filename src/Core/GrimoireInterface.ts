@@ -162,9 +162,15 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
       };
       const properties = {};
       for (let key in obj) {
+        if (key === "attributes") {
+          continue;
+        }
         properties[key] = { value: obj[key] };
       }
       newCtor.prototype = Object.create(Component.prototype, properties);
+      Object.defineProperty(newCtor, "attributes", {
+        value: obj["attributes"]
+      });
       obj = newCtor;
     } else if (!obj) {
       obj = Component;

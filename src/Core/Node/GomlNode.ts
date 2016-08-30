@@ -110,7 +110,7 @@ class GomlNode extends EEObject {
   }
 
   public sendMessage(message: string, args?: any): boolean {
-    if (!this.enable) {
+    if (!this.enable || !this.mounted) {
       return false;
     }
     this._components.forEach((component) => {
@@ -128,7 +128,7 @@ class GomlNode extends EEObject {
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
   public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
-    if (!this.enable) {
+    if (!this.enable || !this.mounted) {
       return;
     }
     if (typeof arg1 === "number") {
