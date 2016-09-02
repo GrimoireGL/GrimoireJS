@@ -1,4 +1,3 @@
-import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import GrimoireInterface from "../GrimoireInterface";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";

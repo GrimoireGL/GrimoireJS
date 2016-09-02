@@ -1,3 +1,5 @@
+import Attribute from "../Node/Attribute";
+import NSIdentity from "../Base/NSIdentity";
 import IComponentInterface from "./IComponentInterface";
 import Component from "../Node/Component";
 
@@ -50,6 +52,27 @@ class ComponentInterface implements IComponentInterface {
       });
     });
     return this;
+  }
+
+  public attr(attrName: string): Attribute;
+  public attr(attrName: string, value: any): void;
+  public attr(attrName: string, value?: any): Attribute | void {
+    if (value === void 0) {
+      // return Attribute.
+      return this.components[0][0][0].getValue(attrName).Value;
+    } else {
+      // set value.
+      this.forEach((component) => {
+        component.setValue(attrName, value);
+      });
+    }
+  }
+
+  public on(){
+    
+  }
+  public off(){
+
   }
 }
 
