@@ -77,7 +77,7 @@ class GomlNode extends EEObject {
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      const component = declaration.generateInstance();
+      const component = declaration.generateInstance(element);
       component.isDefaultComponent = true;
       this.addComponent(component);
     });
@@ -97,6 +97,9 @@ class GomlNode extends EEObject {
    * ノードを削除する。使わなくなったら呼ぶ。子要素も再帰的に削除する。
    */
   public delete(): void {
+    this.children.forEach((c) => {
+      c.delete();
+    });
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
       this._parent.detachChild(this);
@@ -222,6 +225,8 @@ class GomlNode extends EEObject {
     this.children.splice(index, 1);
     // html sync
     this.element.removeChild(target.element);
+
+    // check ancestor constraint.
     const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
       .reduce((list, current) => list.concat(current))
       .filter(m => m);
@@ -359,10 +364,18 @@ class GomlNode extends EEObject {
     return this._components;
   }
 
-  public getComponent(name: string): Component {
-    for (let i = 0; i < this._components.length; i++) {
-      if (this._components[i].name.name === name.toUpperCase()) {
-        return this._components[i];
+  public getComponent(name: string | NSIdentity): Component {
+    if (typeof name === "string") {
+      for (let i = 0; i < this._components.length; i++) {
+        if (this._components[i].name.name === name.toUpperCase()) {
+          return this._components[i];
+        }
+      }
+    } else {
+      for (let i = 0; i < this._components.length; i++) {
+        if (this._components[i].name.fqn === name.fqn) {
+          return this._components[i];
+        }
       }
     }
   }
