@@ -81,7 +81,7 @@ class GomlNode extends EEObject {
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      const component = declaration.generateInstance();
+      const component = declaration.generateInstance(element);
       component.isDefaultComponent = true;
       this.addComponent(component);
     });
@@ -101,6 +101,9 @@ class GomlNode extends EEObject {
    * ノードを削除する。使わなくなったら呼ぶ。子要素も再帰的に削除する。
    */
   public delete(): void {
+    this.children.forEach((c) => {
+      c.delete();
+    });
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
       this._parent.detachChild(this);
@@ -226,6 +229,8 @@ class GomlNode extends EEObject {
     this.children.splice(index, 1);
     // html sync
     this.element.removeChild(target.element);
+
+    // check ancestor constraint.
     const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
       .reduce((list, current) => list.concat(current))
       .filter(m => m);
@@ -247,31 +252,30 @@ class GomlNode extends EEObject {
     }
   }
 
-  public getValue(attrName: string): any {
-    const attr = this.attributes.get(attrName);
-    if (attr === undefined) {
-      throw new Error(`attribute "${attrName}" is not found.`);
+  public attr(attrName: string | NSIdentity): any;
+  public attr(attrName: string | NSIdentity, value: any): void;
+  public attr(attrName: string | NSIdentity, value?: any): any | void {
+    const attr = (typeof attrName === "string")
+      ? this.attributes.get(attrName) : this.attributes.get(attrName);
+    if (!attr) {
+      console.warn(`attribute "${attrName}" is not found.`);
+      return;
+    }
+    if (value !== void 0) {
+      // setValue.
+      attr.Value = value;
     } else {
+      // getValue.
       return attr.Value;
     }
   }
 
-  public setValue(attrName: string, value: any): void {
-    const attr = this.attributes.get(attrName);
-    if (attr === undefined) {
-      console.warn(`attribute "${attrName}" is not found.`);
-    } else {
-      throw new Error("root Node cannot be removed.");
-    }
-  }
-
   /**
-   * Set attribute
-   * @param {string} name  attribute name string.
-   * @param {any}    value attribute value.
+   *  Add new attribute. In most of case, users no need to call this method.
+   *  Use __addAttribute in Component should be used instead.
    */
-  public setAttribute(name: string, value: any): void {
-    this.attributes.get(name).Value = value;
+  public addAttribute(attr: Attribute): void {
+    this.attributes.set(attr.name, attr);
   }
 
   /**
@@ -312,14 +316,6 @@ class GomlNode extends EEObject {
    */
   public index(): number {
     return this._parent.children.indexOf(this);
-  }
-
-  /**
-   *  Add new attribute. In most of case, users no need to call this method.
-   *  Use __addAttribute in Component should be used instead.
-   */
-  public addAttribute(attr: Attribute): void {
-    this.attributes.set(attr.name, attr);
   }
 
   public removeAttribute(attr: Attribute): void {
@@ -363,12 +359,21 @@ class GomlNode extends EEObject {
     return this._components;
   }
 
-  public getComponent(name: string): Component {
-    for (let i = 0; i < this._components.length; i++) {
-      if (this._components[i].name.name === name.toUpperCase()) {
-        return this._components[i];
+  public getComponent(name: string | NSIdentity): Component {
+    if (typeof name === "string") {
+      for (let i = 0; i < this._components.length; i++) {
+        if (this._components[i].name.name === name.toUpperCase()) {
+          return this._components[i];
+        }
+      }
+    } else {
+      for (let i = 0; i < this._components.length; i++) {
+        if (this._components[i].name.fqn === name.fqn) {
+          return this._components[i];
+        }
       }
     }
+    return null;
   }
 
   /**

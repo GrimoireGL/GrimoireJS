@@ -1,6 +1,5 @@
 import GrimoireInterface from "../GrimoireInterface";
 import Attribute from "./Attribute";
-import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
