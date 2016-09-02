@@ -378,6 +378,7 @@ class GomlNode extends EEObject {
         }
       }
     }
+    return null;
   }
 
   /**
