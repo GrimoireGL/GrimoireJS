@@ -71,7 +71,10 @@ class Attribute {
     this.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
-    this.converter.convert = this.converter.convert.bind(this);
+    this.converter = {
+      convert: this.converter.convert.bind(this),
+      name: this.converter.name
+    };
     if (typeof declaration.boundTo === "string") {
       this.addObserver((v) => {
         this.component[this.declaration.boundTo] = v.Value;
