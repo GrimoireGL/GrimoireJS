@@ -38,6 +38,34 @@ class NodeInterface implements INodeInterfaceBase {
     });
   }
 
+  public get<T extends GomlNode>(): T;
+  public get<T extends GomlNode>(nodeIndex: number): T;
+  public get<T extends GomlNode>(treeIndex: number, nodeIndex: number): T;
+  public get<T extends GomlNode>(i1?: number, i2?: number): T {
+    const c = this.nodes;
+    if (i1 === void 0) {
+      if (c.length === 0 || c[0].length === 0) {
+        return null;
+      } else if (c.length === 1 && c[0].length === 1) {
+        return c[0][0] as T;
+      }
+      throw new Error("There are too many candidate");
+    } else if (i2 === void 0) {
+      if (c.length === 0 || c[0].length <= i1) {
+        return null;
+      } else if (c.length === 1 && c[0].length > i1) {
+        return c[0][i1] as T;
+      }
+      throw new Error("There are too many candidate");
+    } else {
+      if (c.length <= i1 || c[i1].length <= i2 ) {
+        return null;
+      } else {
+        return c[i1][i2] as T;
+      }
+    }
+  }
+
   public attr(attrName: string | NSIdentity): Attribute;
   public attr(attrName: string | NSIdentity, value: any): void;
   public attr(attrName: string | NSIdentity, value?: any): Attribute | void {
@@ -183,6 +211,9 @@ class NodeInterface implements INodeInterfaceBase {
    * @return {GomlNode} [description]
    */
   public first(): GomlNode {
+    if (this.count() === 0) {
+      return null;
+    }
     return this.nodes[0][0];
   }
 
