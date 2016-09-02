@@ -50,6 +50,10 @@ class GomlNode extends EEObject {
     return this._parent;
   }
 
+  public get deleted(): boolean {
+    return this._deleted;
+  }
+
   /**
    * 新しいインスタンスの作成
    * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
