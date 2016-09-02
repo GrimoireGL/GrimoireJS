@@ -248,31 +248,30 @@ class GomlNode extends EEObject {
     }
   }
 
-  public getValue(attrName: string): any {
-    const attr = this.attributes.get(attrName);
-    if (attr === undefined) {
-      throw new Error(`attribute "${attrName}" is not found.`);
+  public attr(attrName: string | NSIdentity): any;
+  public attr(attrName: string | NSIdentity, value: any): void;
+  public attr(attrName: string | NSIdentity, value?: any): any | void {
+    const attr = (typeof attrName === "string")
+      ? this.attributes.get(attrName) : this.attributes.get(attrName);
+    if (!attr) {
+      console.warn(`attribute "${attrName}" is not found.`);
+      return;
+    }
+    if (value !== void 0) {
+      // setValue.
+      attr.Value = value;
     } else {
+      // getValue.
       return attr.Value;
     }
   }
 
-  public setValue(attrName: string, value: any): void {
-    const attr = this.attributes.get(attrName);
-    if (attr === undefined) {
-      console.warn(`attribute "${attrName}" is not found.`);
-    } else {
-      throw new Error("root Node cannot be removed.");
-    }
-  }
-
   /**
-   * Set attribute
-   * @param {string} name  attribute name string.
-   * @param {any}    value attribute value.
+   *  Add new attribute. In most of case, users no need to call this method.
+   *  Use __addAttribute in Component should be used instead.
    */
-  public setAttribute(name: string, value: any): void {
-    this.attributes.get(name).Value = value;
+  public addAttribute(attr: Attribute): void {
+    this.attributes.set(attr.name, attr);
   }
 
   /**
@@ -313,14 +312,6 @@ class GomlNode extends EEObject {
    */
   public index(): number {
     return this._parent.children.indexOf(this);
-  }
-
-  /**
-   *  Add new attribute. In most of case, users no need to call this method.
-   *  Use __addAttribute in Component should be used instead.
-   */
-  public addAttribute(attr: Attribute): void {
-    this.attributes.set(attr.name, attr);
   }
 
   public removeAttribute(attr: Attribute): void {
