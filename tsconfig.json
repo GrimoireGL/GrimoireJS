@@ -37,7 +37,6 @@
     "./src/Core/Node/ComponentDeclaration.ts",
     "./src/Core/Node/GomlLoader.ts",
     "./src/Core/Node/GomlNode.ts",
-    "./src/Core/Node/GomlNodeList.ts",
     "./src/Core/Node/GomlParser.ts",
     "./src/Core/Node/IAttributeDeclaration.ts",
     "./src/Core/Node/ITreeInitializedInfo.ts",

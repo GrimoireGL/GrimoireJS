@@ -90,7 +90,7 @@ class Component extends IDObject {
    * @param {any}    value [description]
    */
   public setValue(name: string, value: any): void {
-    const attr = this.attributes.get(name);
+    const attr = this.attributes.get(name); // TODO:check readonly?
     if (attr) {
       attr.Value = value;
     }
