@@ -63,7 +63,7 @@ class GomlNode extends EEObject {
     }
     this.nodeDeclaration = recipe;
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
-    this.componentsElement = document.createElement("COMPONENTS");
+    this.componentsElement = element.ownerDocument.createElement("COMPONENTS");
     this._root = this;
     this._treeInterface = GomlInterfaceGenerator([this]);
     this._components = [];
@@ -77,7 +77,7 @@ class GomlNode extends EEObject {
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
-      const component = declaration.generateInstance(element);
+      const component = declaration.generateInstance();
       component.isDefaultComponent = true;
       this.addComponent(component);
     });
