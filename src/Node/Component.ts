@@ -95,6 +95,11 @@ class Component extends IDObject {
       attr.Value = value;
     }
   }
+
+  public getAttribute(name: string): Attribute {
+    return this.attributes.get(name);
+  }
+
   public addEnabledObserver(handler: (component: Component) => void): void {
     this._handlers.push(handler);
   }

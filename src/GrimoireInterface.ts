@@ -1,3 +1,4 @@
+import Attribute from "./Node/Attribute";
 import Constants from "./Base/Constants";
 import ITreeInitializedInfo from "./Node/ITreeInitializedInfo";
 import IGrimoireInterfaceBase from "./IGrimoireInterfaceBase";
@@ -86,49 +87,49 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     );
   }
 
-  public registerConverter(name: string | NSIdentity, converter: (val: any) => any): void {
+  public registerConverter(name: string | NSIdentity, converter: (this: Attribute, val: any) => any): void {
     name = Ensure.ensureTobeNSIdentity(name);
     this.converters.set(name as NSIdentity, { name: name as NSIdentity, convert: converter });
   }
 
   public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
-    if (!rootNode) {
-      throw new Error("can not register null to rootNodes.");
-    }
-    this.rootNodes[rootNode.id] = rootNode;
-    rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
-    const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
-      .reduce((list, current) => list.concat(current)).filter(error => error);
-    if (errorMessages.length !== 0) {
-      const message = errorMessages.reduce((m, current) => m + "\n" + current);
-      throw new Error("tree constraint is not satisfied.\n" + message);
-    }
-    rootNode.callRecursively(n => n.resolveAttributesValue());
-    rootNode.setMounted(true);
-    rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
-      ownerScriptTag: tag,
-      id: rootNode.id
-    });
-    tag.setAttribute("x-rootNodeId", rootNode.id);
-    return rootNode.id;
+  if (!rootNode) {
+    throw new Error("can not register null to rootNodes.");
   }
+  this.rootNodes[rootNode.id] = rootNode;
+  rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+  const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
+    .reduce((list, current) => list.concat(current)).filter(error => error);
+  if (errorMessages.length !== 0) {
+    const message = errorMessages.reduce((m, current) => m + "\n" + current);
+    throw new Error("tree constraint is not satisfied.\n" + message);
+  }
+  rootNode.callRecursively(n => n.resolveAttributesValue());
+  rootNode.setMounted(true);
+  rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
+    ownerScriptTag: tag,
+    id: rootNode.id
+  });
+  tag.setAttribute("x-rootNodeId", rootNode.id);
+  return rootNode.id;
+}
 
   public getRootNode(scriptTag: Element): GomlNode {
-    const id = scriptTag.getAttribute("x-rootNodeId");
-    return this.rootNodes[id];
-  }
+  const id = scriptTag.getAttribute("x-rootNodeId");
+  return this.rootNodes[id];
+}
 
   public queryRootNodes(query: string): GomlNode[] {
-    const scriptTags = document.querySelectorAll(query);
-    const nodes: GomlNode[] = [];
-    for (let i = 0; i < scriptTags.length; i++) {
-      const node = this.getRootNode(scriptTags.item(i));
-      if (node) {
-        nodes.push(node);
-      }
+  const scriptTags = document.querySelectorAll(query);
+  const nodes: GomlNode[] = [];
+  for (let i = 0; i < scriptTags.length; i++) {
+    const node = this.getRootNode(scriptTags.item(i));
+    if (node) {
+      nodes.push(node);
     }
-    return nodes;
   }
+  return nodes;
+}
 
   /**
    * This method is not for users.
@@ -137,14 +138,14 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * Clear all configuration that GrimoireInterface contain.
    */
   public clear(): void {
-    this.nodeDeclarations.clear();
-    this.componentDeclarations.clear();
-    this.converters.clear();
-    for (let key in this.rootNodes) {
-      delete this.rootNodes[key];
-    }
-    this.loadTasks.splice(0, this.loadTasks.length);
+  this.nodeDeclarations.clear();
+  this.componentDeclarations.clear();
+  this.converters.clear();
+  for(let key in this.rootNodes) {
+    delete this.rootNodes[key];
   }
+    this.loadTasks.splice(0, this.loadTasks.length);
+}
 
   /**
    * Ensure the given object or constructor to be an constructor inherits Component;
@@ -152,31 +153,31 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * @return {[type]}      [The constructor inherits Component]
    */
   private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
-    if (typeof obj === "function") {
-      if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
-        throw new Error("Component constructor must extends Component class.");
-      }
-    } else if (typeof obj === "object") {
-      const newCtor = function() {
-        Component.call(this);
-      };
-      const properties = {};
-      for (let key in obj) {
-        if (key === "attributes") {
-          continue;
-        }
-        properties[key] = { value: obj[key] };
-      }
-      newCtor.prototype = Object.create(Component.prototype, properties);
-      Object.defineProperty(newCtor, "attributes", {
-        value: obj["attributes"]
-      });
-      obj = newCtor;
-    } else if (!obj) {
-      obj = Component;
+  if (typeof obj === "function") {
+    if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
+      throw new Error("Component constructor must extends Component class.");
     }
-    return obj as (new () => Component);
+  } else if (typeof obj === "object") {
+    const newCtor = function() {
+      Component.call(this);
+    };
+    const properties = {};
+    for (let key in obj) {
+      if (key === "attributes") {
+        continue;
+      }
+      properties[key] = { value: obj[key] };
+    }
+    newCtor.prototype = Object.create(Component.prototype, properties);
+    Object.defineProperty(newCtor, "attributes", {
+      value: obj["attributes"]
+    });
+    obj = newCtor;
+  } else if (!obj) {
+    obj = Component;
   }
+  return obj as (new () => Component);
+}
 }
 const context = new GrimoireInterfaceImpl();
 const obtainGomlInterface = function(query: string): IGomlInterface {

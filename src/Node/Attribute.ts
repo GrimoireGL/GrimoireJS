@@ -39,7 +39,7 @@ class Attribute {
    */
   public get Value(): any {
     try {
-      return this.converter.convert(this._value);
+      return (this.converter as any).convert(this._value);
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
     }
@@ -75,11 +75,6 @@ class Attribute {
       convert: this.converter.convert.bind(this),
       name: this.converter.name
     };
-    if (typeof declaration.boundTo === "string") {
-      this.addObserver((v) => {
-        this.component[this.declaration.boundTo] = v.Value;
-      });
-    }
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
@@ -101,6 +96,13 @@ class Attribute {
       return;
     }
     this._handlers.splice(index, 1);
+  }
+
+  public boundTo(variableName: string): void {
+    this.addObserver((v) => {
+      this.component[variableName] = v.Value;
+    });
+    this.component[variableName] = this.Value;
   }
 
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
