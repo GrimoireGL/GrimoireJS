@@ -1,5 +1,6 @@
 case $CIRCLE_NODE_INDEX in
   0)
+    npm run compiler-version
     npm run build -- --branch=$CIRCLE_BRANCH
     npm run lint -- --branch=$CIRCLE_BRANCH;;
   1)
