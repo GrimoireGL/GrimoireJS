@@ -1,4 +1,4 @@
-import GrimoireInterface from "../../../lib-es5/Core/GrimoireInterface";
+import GrimoireInterface from "../../../lib-es5/GrimoireInterface";
 import sinon from "sinon";
 
 // Components

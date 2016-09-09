@@ -1,10 +1,10 @@
 import '../XMLDomInit'
 import test from 'ava';
 import sinon from 'sinon';
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
+import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
-import NSIdentity from "../../lib-es5/Core/Base/NSIdentity"
+import GrimoireInterface from "../../lib-es5/GrimoireInterface"
+import NSIdentity from "../../lib-es5/Base/NSIdentity"
 import jsdomAsync from "../JsDOMAsync";
 import {
   goml,

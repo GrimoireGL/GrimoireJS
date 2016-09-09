@@ -1,6 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
-import EEObject from '../../lib-es5/Core/Base/EEObject';
+import EEObject from '../../lib-es5/Base/EEObject';
 
 test('emitException should throws exception when the events was not handled', (t) => {
     const anEventEmittor = new EEObject();

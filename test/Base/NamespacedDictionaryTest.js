@@ -2,8 +2,8 @@ import test from 'ava';
 import jsdomAsync from '../JsDOMAsync';
 import xmldom from 'xmldom';
 const DOMParser = xmldom.DOMParser;
-import NSDictionary from '../../lib-es5/Core/Base/NSDictionary';
-import NSIdentity from '../../lib-es5/Core/Base/NSIdentity';
+import NSDictionary from '../../lib-es5/Base/NSDictionary';
+import NSIdentity from '../../lib-es5/Base/NSIdentity';
 
 test('set element correctly', (t) => {
     const newKey = new NSIdentity("test");

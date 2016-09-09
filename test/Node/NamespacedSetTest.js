@@ -1,9 +1,9 @@
 import '../XMLDomInit'
 import test from 'ava';
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
+import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import NSSet from "../../lib-es5/Core/Base/NSSet"
-import NSIdentity from "../../lib-es5/Core/Base/NSIdentity"
+import NSSet from "../../lib-es5/Base/NSSet"
+import NSIdentity from "../../lib-es5/Base/NSIdentity"
 
 // function loadFromTestResource(path){
 //   return require("./_TestResource/"+path);

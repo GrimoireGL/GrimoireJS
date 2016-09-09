@@ -3,14 +3,14 @@ import '../XMLDomInit';
 import xmldom from 'xmldom';
 import test from 'ava';
 import sinon from 'sinon';
-import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface";
-import Constants from "../../lib-es5/Core/Base/Constants";
-import Component from "../../lib-es5/Core/Node/Component";
+import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import Constants from "../../lib-es5/Base/Constants";
+import Component from "../../lib-es5/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
-import GomlLoader from "../../lib-es5/Core/Node/GomlLoader";
-import NSIdentity from "../../lib-es5/Core/Base/NSIdentity";
-import GomlNode from "../../lib-es5/Core/Node/GomlNode";
+import GomlParser from "../../lib-es5/Node/GomlParser";
+import GomlLoader from "../../lib-es5/Node/GomlLoader";
+import NSIdentity from "../../lib-es5/Base/NSIdentity";
+import GomlNode from "../../lib-es5/Node/GomlNode";
 global.Node = {
   ELEMENT_NODE: 1
 };

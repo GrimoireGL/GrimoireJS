@@ -6,9 +6,9 @@ import sinon from 'sinon';
 import xhrmock from "xhr-mock";
 import xmldom from "../XMLDomInit";
 
-import XMLReader from "../../lib-es5/Core/Base/XMLReader";
-import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface";
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
+import XMLReader from "../../lib-es5/Base/XMLReader";
+import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GomlParser from "../../lib-es5/Node/GomlParser";
 import {
   goml,
   testNode1,
@@ -26,7 +26,7 @@ xhrmock.get("http://grimoire.gl/index3.goml", (req, res) => {
 });
 
 function mockXMLParse(func,spy) {
-    return prequire('../../lib-es5/Core/Node/GomlLoader', {
+    return prequire('../../lib-es5/Node/GomlLoader', {
         "../Base/XMLReader": {
             default: {
                 parseXML: (src) => {
