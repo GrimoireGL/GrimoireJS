@@ -8,7 +8,6 @@ machine:
       version: 4.3.1
 dependencies:
   pre:
-    - sudo apt-get install -y build-essential libxi-dev libglu1-mesa-dev libglew-dev
     - sh ./build/shell/deploy-gp-init.sh
 test:
   override:
