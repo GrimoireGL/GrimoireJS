@@ -91,7 +91,7 @@ test("detach method works correctly", t => {
   t.truthy(node3.deleted === false);
 });
 
-test("setValue method works correctly", t => {
+test("attr method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   t.truthy(false);
 });
@@ -135,4 +135,10 @@ test("setMounted method works correctly", t => {
   t.truthy(node.mounted === true);
   t.truthy(node2.mounted === true);
   t.truthy(node3.mounted === true);
+});
+test("index method works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  node.addChild(node2, null, null);
+  t.truthy(node2.index() === 0);
 });
