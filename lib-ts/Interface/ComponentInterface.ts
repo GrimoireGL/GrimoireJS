@@ -1,5 +1,4 @@
 import Attribute from "../Node/Attribute";
-import NSIdentity from "../Base/NSIdentity";
 import IComponentInterface from "./IComponentInterface";
 import Component from "../Node/Component";
 
@@ -68,11 +67,13 @@ class ComponentInterface implements IComponentInterface {
     }
   }
 
-  public on(){
-    
+  public on(): any {
+    // TODO implement
+    return;
   }
-  public off(){
-
+  public off(): any {
+    // TODO implement
+    return;
   }
 }
 

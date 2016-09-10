@@ -15,6 +15,7 @@ const main = async() => {
   config.grimoire = config.grimoire ? config.grimoire : {};
   await generate(config);
   await execAsync("npm run compile");
+  await execAsync("npm run babel-test");
 };
 
 main();

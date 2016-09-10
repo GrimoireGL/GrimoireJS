@@ -2,8 +2,6 @@ import '../XMLDomInit'
 import test from 'ava';
 import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import NamespacedSet from "../../lib-es5/Core/Base/NamespacedSet"
-import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
 import NSSet from "../../lib-es5/Base/NSSet"
 import NSIdentity from "../../lib-es5/Base/NSIdentity"
 
