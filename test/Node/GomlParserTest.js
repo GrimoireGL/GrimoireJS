@@ -3,9 +3,15 @@ import test from 'ava';
 import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Core/Node/GomlParser";
 import xmldom from 'xmldom';
+<<<<<<< HEAD
 import DefaultPluginRegister from "../../lib-es5/Core/Node/DefaultPluginRegister"
 import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
 import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+=======
+import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
+import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+import jsdomAsync from "../JsDOMAsync";
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 import {
   goml,
   stringConverter,
@@ -48,7 +54,12 @@ let stringConverterSpy,
   conflictComponent1Spy,
   conflictComponent2Spy;
 
+<<<<<<< HEAD
 test.beforeEach(() => {
+=======
+test.beforeEach(async () => {
+  global.document = (await jsdomAsync("<html></html>",[])).document;
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
   goml();
   testNode1();
   testNode2();
@@ -100,7 +111,10 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
+<<<<<<< HEAD
 DefaultPluginRegister.register();
+=======
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 registerUserPlugin();
 
 test('test for parsing node hierarchy.', (t) => {
@@ -132,11 +146,19 @@ test('test for parse user-define component.', (t) => {
   sinon.assert.calledWith(testComponent1Spy, "testArg");
   sinon.assert.calledWith(testComponent2Spy, "testArg");
   sinon.assert.calledWith(testComponentOptionalSpy, "testArg");
+<<<<<<< HEAD
   sinon.assert.calledWith(testComponentBaseSpy, "testArg");
   sinon.assert.callOrder(testComponent1Spy, testComponentBaseSpy, testComponent2Spy, testComponentOptionalSpy);
   sinon.assert.calledWith(stringConverterSpy, "hugahuga");
   sinon.assert.calledWith(stringConverterSpy, "123");
   sinon.assert.calledWith(stringConverterSpy, "hogehoge");
+=======
+  // TODO uncomment this. sinon.assert.calledWith(testComponentBaseSpy, "testArg");
+  sinon.assert.callOrder(testComponent1Spy, /*TODO uncomment this also testComponentBaseSpy,*/ testComponent2Spy, testComponentOptionalSpy);
+  sinon.assert.calledWith(stringConverterSpy, "hugahuga");
+  sinon.assert.calledWith(stringConverterSpy, "123");
+  //sinon.assert.calledWith(stringConverterSpy, "hogehoge");
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
   sinon.assert.calledWith(stringConverterSpy, "999");
 });
 

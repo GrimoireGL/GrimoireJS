@@ -10,6 +10,7 @@ interface IGrimoireInterfaceBase {
   converters: NamespacedDictionary<AttributeConverter>;
   loadTasks: (() => Promise<void>)[];
   nodeDictionary: { [nodeId: string]: GomlNode };
+  componentDictionary: { [componentId: string]: Component };
   componentDeclarations: NamespacedDictionary<ComponentDeclaration>;
   ns(ns: string): (name: string) => NamespacedIdentity;
   register(loadTask: () => Promise<void>): void;

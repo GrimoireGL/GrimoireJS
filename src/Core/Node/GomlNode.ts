@@ -15,6 +15,10 @@ class GomlNode extends EEObject { // EEである必要がある
   public attributes: NamespacedDictionary<Attribute>;
   public enable: boolean; // TODO: use this property!
   public sharedObject: NamespacedDictionary<any>;
+<<<<<<< HEAD
+=======
+  public componentsElement: Element;
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 
   private _parent: GomlNode;
   private _mounted: boolean = false;
@@ -36,6 +40,10 @@ class GomlNode extends EEObject { // EEである必要がある
     super();
     this.nodeDeclaration = recipe;
     this.element = element;
+<<<<<<< HEAD
+=======
+    this.componentsElement = document.createElement("COMPONENTS");
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 
     // instanciate default components
     let componentsArray = components.toArray().map((id) => {
@@ -43,7 +51,12 @@ class GomlNode extends EEObject { // EEである必要がある
       if (!declaration) {
         throw new Error(`component '${id.fqn}' is not found.`);
       }
+<<<<<<< HEAD
       return declaration.generateInstance(this);
+=======
+      const componentElement = document.createElementNS(declaration.name.ns, declaration.name.name);
+      return declaration.generateInstance(componentElement, this);
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     });
     const attributes = componentsArray.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre === undefined ? current : pre.concat(current), []);
@@ -278,6 +291,10 @@ class GomlNode extends EEObject { // EEである必要がある
   }
 
   public addComponent(component: Component): void {
+<<<<<<< HEAD
+=======
+    this.componentsElement.appendChild(component.element);
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     this._components.set(component.name, component);
   }
   public getComponents(): NamespacedDictionary<Component> {

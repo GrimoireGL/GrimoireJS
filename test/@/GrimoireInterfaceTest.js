@@ -101,6 +101,7 @@ test('function interface works correctly', async(t) => {
     return ""
   };
   await GomlLoader.loadFromScriptTag(scriptTag);
+<<<<<<< HEAD
   
   const gi = GrimoireInterface("#test");
   const nodeInterface = gi("#testId1");
@@ -108,6 +109,16 @@ test('function interface works correctly', async(t) => {
     // t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
     // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
     // t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+=======
+
+  const gi = GrimoireInterface("#test");
+  const nodeInterface = gi("#testId1");
+  nodeInterface.forEach((node) => { console.log("foreach"); })
+  t.truthy(nodeInterface.length === 1);
+  //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
+    // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
+    //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     // global.document = window.document;
     // const queriedNode = GrimoireInterface.queryRootNodes("script");
     // t.truthy(queriedNode.length === 1);

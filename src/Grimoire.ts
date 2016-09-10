@@ -39,7 +39,11 @@ class GrimoireInitializer {
    * Obtain the promise object which will be resolved when DOMContentLoaded event was rised.
    * @return {Promise<void>} the promise
    */
+<<<<<<< HEAD
   private static async _waitForDOMLoading(): Promise<void> {
+=======
+  private static _waitForDOMLoading(): Promise<void> {
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     return new Promise<void>((resolve) => {
       window.addEventListener("DOMContentLoaded", () => {
         resolve();
@@ -52,5 +56,9 @@ class GrimoireInitializer {
  * Just start the process.
  */
 GrimoireInitializer.initialize();
+<<<<<<< HEAD
+=======
+window["gr"] = GrimoireInterface;
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 
 export default GrimoireInterface;

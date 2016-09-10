@@ -1,5 +1,5 @@
 
-interface IComponentInterface{
+interface IComponentInterface {
 
 }
 

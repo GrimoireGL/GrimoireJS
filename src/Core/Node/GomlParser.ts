@@ -20,9 +20,15 @@ class GomlParser {
       return null;
     }
     if (isRoot) {
+<<<<<<< HEAD
      // generate first shared object for root node.
      // Root node must be bounded with script tag
      newNode.sharedObject = new NamespacedDictionary<any>();
+=======
+      // generate first shared object for root node.
+      // Root node must be bounded with script tag
+      newNode.sharedObject = new NamespacedDictionary<any>();
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     }
     // Parse children recursively
     const children = source.childNodes;
@@ -55,7 +61,10 @@ class GomlParser {
    * @return {GomlTreeNodeBase}              [description]
    */
   private static _createNode(elem: Element): GomlNode {
+<<<<<<< HEAD
     // console.log("createNode" + elem);
+=======
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     const tagName = elem.localName;
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
@@ -76,13 +85,21 @@ class GomlParser {
 
 
   private static _parseComponents(node: GomlNode, componentsTag: Element): void {
+<<<<<<< HEAD
+=======
+    node.componentsElement = componentsTag;
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     let componentNodes = componentsTag.childNodes;
     if (!componentNodes) {
       return;
     }
     for (let i = 0; i < componentNodes.length; i++) {
       const componentNode = componentNodes.item(i) as Element;
+<<<<<<< HEAD
       if (componentNode.nodeType !== Node.ELEMENT_NODE) {
+=======
+      if (!GomlParser._isElement(componentNode)) {
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
         continue; // Skip if the node was not element
       }
       const component = GrimoireInterface.componentDeclarations.get(componentNode);
@@ -94,7 +111,11 @@ class GomlParser {
       component.attributeDeclarations.forEach((attr) => {
         this._parseAttribute(attr.generateAttributeInstance(), componentNode);
       });
+<<<<<<< HEAD
       node.addComponent(component.generateInstance(node));
+=======
+      node.addComponent(component.generateInstance(componentNode, node));
+>>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     }
   }
 
