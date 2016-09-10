@@ -1,4 +1,4 @@
-import GrimoireInterface from "../../../lib-es5/Core/GrimoireInterface";
+import GrimoireInterface from "../../../lib-es5/GrimoireInterface";
 import sinon from "sinon";
 
 // Components
@@ -6,13 +6,18 @@ import sinon from "sinon";
 export function testComponent1() {
   const testComponent1Spy = sinon.spy();
   GrimoireInterface.registerComponent("testComponent1", {
+    testAttr1: {
+      converter: "string",
+      defaultValue: null
+    }
+  }, {
     attributes:{
       testAttr1: {
         converter: "string",
         defaultValue: null
       }
     },
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponent1Spy(arg);
     }
   });
@@ -28,7 +33,7 @@ export function testComponent2() {
         defaultValue: "tc2default"
       }
     },
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponent2Spy(arg);
     }
   });
@@ -44,7 +49,7 @@ export function testComponentBase() {
       defaultValue: "base"
     }
   },
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponentBaseSpy(arg);
     }
   });
@@ -60,7 +65,7 @@ export function testComponentOptional() {
         defaultValue: "optional"
       }
     },
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponentOptionalSpy(arg);
     }
   });
@@ -77,7 +82,7 @@ export function conflictComponent1() {
           defaultValue: "aaa"
         }
     },
-    onTest: function() {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -94,7 +99,7 @@ export function conflictComponent2() {
         defaultValue: "bbb"
       }
     },
-    onTest: function() {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });

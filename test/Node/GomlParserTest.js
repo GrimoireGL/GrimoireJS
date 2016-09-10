@@ -1,10 +1,10 @@
 import '../XMLDomInit'
 import test from 'ava';
 import sinon from 'sinon';
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
+import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface"
-import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
+import GrimoireInterface from "../../lib-es5/GrimoireInterface"
+import NSIdentity from "../../lib-es5/Base/NSIdentity"
 import jsdomAsync from "../JsDOMAsync";
 import {
   goml,
@@ -49,7 +49,9 @@ let stringConverterSpy,
   conflictComponent2Spy;
 
 test.beforeEach(async () => {
-  global.document = (await jsdomAsync("<html></html>",[])).document;
+  const parser = new DOMParser();
+  const htmlDoc = parser.parseFromString("<html></html>","text/html");
+  global.document = htmlDoc;
   goml();
   testNode1();
   testNode2();
@@ -63,16 +65,17 @@ test.beforeEach(async () => {
   testComponentOptionalSpy = testComponentOptional();
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
+  registerUserPlugin();
 });
 
 
 function registerUserPlugin() {
   const ns1 = "http://testNamespace/test1";
   const ns2 = "http://testNamespace/test2";
-  const id_a = new NamespacedIdentity(ns1, "conflictNode");
-  const id_b = new NamespacedIdentity(ns2, "conflictNode");
-  const id_a_c = new NamespacedIdentity(ns1, "conflictComponent");
-  const id_b_c = new NamespacedIdentity(ns2, "conflictComponent");
+  const id_a = new NSIdentity(ns1, "conflictNode");
+  const id_b = new NSIdentity(ns2, "conflictNode");
+  const id_a_c = new NSIdentity(ns1, "conflictComponent");
+  const id_b_c = new NSIdentity(ns2, "conflictComponent");
   GrimoireInterface.registerNode(id_a, ["testComponent2"], {
     attr1: "nodeA"
   }, null, null);
@@ -88,7 +91,7 @@ function registerUserPlugin() {
     conf1: function(obj) {
       const v = this.attributes.get("value").Value;
       obj.value = v;
-      console.log("component conf1 ::" + v);
+    //  console.log("component conf1 ::" + v);
     }
   });
   GrimoireInterface.registerComponent(id_b_c, {
@@ -101,12 +104,11 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
-registerUserPlugin();
 
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case1.goml");
   const node = GomlParser.parse(element);
-  t.truthy(node.parent === void 0);
+  t.truthy(node.parent === null);
   t.truthy(node.children.length === 1);
   const c = node.children[0];
   t.truthy(c.parent === node);
@@ -120,40 +122,50 @@ test('test for parsing node hierarchy.', (t) => {
 test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case2.goml");
   const node = GomlParser.parse(element);
-  t.truthy(node.parent === void 0);
+  t.truthy(node.parent === null);
   sinon.assert.notCalled(stringConverterSpy);
 });
 
 test('test for parse user-define component.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
-  sinon.assert.called(stringConverterSpy);
+  sinon.assert.notCalled(stringConverterSpy);
   node.broadcastMessage("onTest", "testArg");
-  sinon.assert.calledWith(testComponent1Spy, "testArg");
-  sinon.assert.calledWith(testComponent2Spy, "testArg");
-  sinon.assert.calledWith(testComponentOptionalSpy, "testArg");
+  sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
+  sinon.assert.neverCalledWith(testComponent2Spy, "testArg");
+  sinon.assert.neverCalledWith(testComponentOptionalSpy, "testArg");
   // TODO uncomment this. sinon.assert.calledWith(testComponentBaseSpy, "testArg");
-  sinon.assert.callOrder(testComponent1Spy, /*TODO uncomment this also testComponentBaseSpy,*/ testComponent2Spy, testComponentOptionalSpy);
-  sinon.assert.calledWith(stringConverterSpy, "hugahuga");
-  sinon.assert.calledWith(stringConverterSpy, "123");
+  sinon.assert.neverCalledWith(stringConverterSpy, "hugahuga");
+  sinon.assert.neverCalledWith(stringConverterSpy, "123");
   //sinon.assert.calledWith(stringConverterSpy, "hogehoge");
-  sinon.assert.calledWith(stringConverterSpy, "999");
+  sinon.assert.neverCalledWith(stringConverterSpy, "999");
 });
 
 test('test for namespace parsing.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   node.broadcastMessage("onTest","testArg");
-  sinon.assert.called(conflictComponent1Spy);
-  sinon.assert.calledWith(conflictComponent1Spy,"aaa");
-  sinon.assert.calledWith(conflictComponent2Spy,"bbb");
+  sinon.assert.notCalled(conflictComponent1Spy);
+  sinon.assert.neverCalledWith(conflictComponent1Spy,"aaa");
+  sinon.assert.neverCalledWith(conflictComponent2Spy,"bbb");
 });
 
-test('test for sharedObject', (t) => {
+test('test for companion', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const components = node.children[0].getComponents();
-  const compo1 = components.get("http://testNamespace/test1","conflictComponent");
-  const compo2 = components.get("http://testNamespace/test2","conflictComponent");
-  t.truthy(compo1.sharedObject === compo2.sharedObject);
+  const ns1 = new NSIdentity("http://testNamespace/test1","conflictComponent");
+  const ns2 = new NSIdentity("http://testNamespace/test2","conflictComponent");
+  const compo1 = components.find((comp)=>ns1.fqn === comp.name.fqn);
+  const compo2 = components.find((comp)=>ns2.fqn === comp.name.fqn);
+  t.truthy(compo1.companion === compo2.companion);
+});
+
+test('treeInterface must be same if the node is included in same tree', (t) => {
+  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const node = GomlParser.parse(element);
+  const original = node._treeInterface;
+  node.callRecursively(v=>{
+    t.truthy(original === v._treeInterface);
+  });
 });

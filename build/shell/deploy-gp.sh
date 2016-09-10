@@ -1,8 +1,8 @@
 cd ci
 echo "$CI_PULL_REQUEST"
 if [ -z "$CI_PULL_REQUEST" ]; then
-  rm -rf jThree
-  git config --global user.email "admin@jthree.io"
+  rm -rf GrimoireJS
+  git config --global user.email "admin@grimoire.gl"
   git config --global user.name "CircleCI"
   git add -A
   git commit -m "auto deploy by CircleCI [ci skip]"
