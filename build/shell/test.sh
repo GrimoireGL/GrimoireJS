@@ -1,3 +1,4 @@
+npm install typescript@beta
 case $CIRCLE_NODE_INDEX in
   0)
     npm run compiler-version
