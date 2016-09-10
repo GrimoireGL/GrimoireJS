@@ -1,5 +1,5 @@
-import GrimoireInterface from "./Core/GrimoireInterface";
-import GomlLoader from "./Core/Node/GomlLoader";
+import GrimoireInterface from "./GrimoireInterface";
+import GomlLoader from "./Node/GomlLoader";
 /**
  * Provides procedures for initializing.
  */
@@ -10,10 +10,14 @@ class GrimoireInitializer {
    * @return {Promise<void>} The promise which will be resolved when all of the Goml script was loaded.
    */
   public static async initialize(): Promise<void> {
-    GrimoireInitializer._copyGLConstants();
-    await GrimoireInitializer._waitForDOMLoading();
-    await GrimoireInterface.resolvePlugins();
-    await GomlLoader.loadForPage();
+    try {
+      GrimoireInitializer._copyGLConstants();
+      await GrimoireInitializer._waitForDOMLoading();
+      await GrimoireInterface.resolvePlugins();
+      await GomlLoader.loadForPage();
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**
@@ -39,11 +43,7 @@ class GrimoireInitializer {
    * Obtain the promise object which will be resolved when DOMContentLoaded event was rised.
    * @return {Promise<void>} the promise
    */
-<<<<<<< HEAD
-  private static async _waitForDOMLoading(): Promise<void> {
-=======
   private static _waitForDOMLoading(): Promise<void> {
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     return new Promise<void>((resolve) => {
       window.addEventListener("DOMContentLoaded", () => {
         resolve();
@@ -56,9 +56,6 @@ class GrimoireInitializer {
  * Just start the process.
  */
 GrimoireInitializer.initialize();
-<<<<<<< HEAD
-=======
 window["gr"] = GrimoireInterface;
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
 
 export default GrimoireInterface;

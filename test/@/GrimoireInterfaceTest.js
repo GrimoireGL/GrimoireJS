@@ -1,16 +1,16 @@
-import '../RRSupport';
+import '../AsyncSupport';
 import '../XMLDomInit';
 import xmldom from 'xmldom';
 import test from 'ava';
 import sinon from 'sinon';
-import GrimoireInterface from "../../lib-es5/Core/GrimoireInterface";
-import Constants from "../../lib-es5/Core/Base/Constants";
-import Component from "../../lib-es5/Core/Node/Component";
+import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import Constants from "../../lib-es5/Base/Constants";
+import Component from "../../lib-es5/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
-import GomlParser from "../../lib-es5/Core/Node/GomlParser";
-import GomlLoader from "../../lib-es5/Core/Node/GomlLoader";
-import NamespacedIdentity from "../../lib-es5/Core/Base/NamespacedIdentity"
-
+import GomlParser from "../../lib-es5/Node/GomlParser";
+import GomlLoader from "../../lib-es5/Node/GomlLoader";
+import NSIdentity from "../../lib-es5/Base/NSIdentity";
+import GomlNode from "../../lib-es5/Node/GomlNode";
 global.Node = {
   ELEMENT_NODE: 1
 };
@@ -53,19 +53,18 @@ test('_ensureTobeComponentConstructor works correctly', (t) => {
 
 test('addRootNode/getRootNode/queryRootNodes works correctly', async(t) => {
   const window = await jsdomAsync(require("./_TestResource/GrimoireInterfaceTest_Case1.html"));
+  global.document = window.document;
+  GrimoireInterface.registerNode("goml",[],{})
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const scriptTag = window.document.getElementById("test");
-  const dummyRootNode = {
-    id: "TEST"
-  };
-
-  const id = GrimoireInterface.addRootNode(scriptTag, dummyRootNode);
-  t.truthy(GrimoireInterface.rootNodes[id] === dummyRootNode);
+  const id = GrimoireInterface.addRootNode(scriptTag, node);
+  t.truthy(GrimoireInterface.rootNodes[id] === node);
   t.truthy(id === scriptTag.getAttribute("x-rootNodeId"));
-  t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+  t.truthy(node === GrimoireInterface.getRootNode(scriptTag));
   global.document = window.document;
   const queriedNode = GrimoireInterface.queryRootNodes("script");
   t.truthy(queriedNode.length === 1);
-  t.truthy(queriedNode[0] === dummyRootNode);
+  t.truthy(queriedNode[0] === node);
 });
 
 test('register and resolvePlugins works preperly', async(t) => {
@@ -101,15 +100,13 @@ test('function interface works correctly', async(t) => {
     return ""
   };
   await GomlLoader.loadFromScriptTag(scriptTag);
-<<<<<<< HEAD
-  
+
   const gi = GrimoireInterface("#test");
   const nodeInterface = gi("#testId1");
-  nodeInterface.forEach((node) => { console.log("foreach"); })
-    // t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
+  //nodeInterface.forEach((node) => { console.log("foreach"); })
+  t.truthy(nodeInterface.length === 1);
+  //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
     // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
-    // t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
-=======
 
   const gi = GrimoireInterface("#test");
   const nodeInterface = gi("#testId1");
@@ -118,7 +115,6 @@ test('function interface works correctly', async(t) => {
   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
     // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
     //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     // global.document = window.document;
     // const queriedNode = GrimoireInterface.queryRootNodes("script");
     // t.truthy(queriedNode.length === 1);

@@ -1,4 +1,4 @@
-import GrimoireInterface from "../../../lib-es5/Core/GrimoireInterface";
+import GrimoireInterface from "../../../lib-es5/GrimoireInterface";
 import sinon from "sinon";
 
 // Components
@@ -6,21 +6,18 @@ import sinon from "sinon";
 export function testComponent1() {
   const testComponent1Spy = sinon.spy();
   GrimoireInterface.registerComponent("testComponent1", {
-<<<<<<< HEAD
     testAttr1: {
       converter: "string",
       defaultValue: null
     }
   }, {
-=======
     attributes:{
       testAttr1: {
         converter: "string",
         defaultValue: null
       }
     },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponent1Spy(arg);
     }
   });
@@ -30,21 +27,13 @@ export function testComponent1() {
 export function testComponent2() {
   const testComponent2Spy = sinon.spy();
   GrimoireInterface.registerComponent("testComponent2", {
-<<<<<<< HEAD
-    testAttr2: {
-      converter: "string",
-      defaultValue: "tc2default"
-    }
-  }, {
-=======
     attributes:{
       testAttr2: {
         converter: "string",
         defaultValue: "tc2default"
       }
     },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponent2Spy(arg);
     }
   });
@@ -53,22 +42,14 @@ export function testComponent2() {
 
 export function testComponentBase() {
   const testComponentBaseSpy = sinon.spy();
-<<<<<<< HEAD
-  GrimoireInterface.registerComponent("testComponentBase", {
-=======
   GrimoireInterface.registerComponent("testComponentBase",{
   attributes: {
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
     inheritAttr: {
       converter: "string",
       defaultValue: "base"
     }
-<<<<<<< HEAD
-  }, {
-=======
   },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponentBaseSpy(arg);
     }
   });
@@ -78,21 +59,13 @@ export function testComponentBase() {
 export function testComponentOptional() {
   const testComponentOptionalSpy = sinon.spy();
   GrimoireInterface.registerComponent("testComponentOptional", {
-<<<<<<< HEAD
-    value: {
-      converter: "string",
-      defaultValue: "optional"
-    }
-  }, {
-=======
     attributes:{
       value: {
         converter: "string",
         defaultValue: "optional"
       }
     },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function(arg) {
+    $onTest: function(arg) {
       testComponentOptionalSpy(arg);
     }
   });
@@ -103,21 +76,13 @@ export function conflictComponent1() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("http://testNamespace/test1");
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
-<<<<<<< HEAD
-    value: {
-      converter: "string",
-      defaultValue: "aaa"
-    }
-  }, {
-=======
     attributes:{
         value: {
           converter: "string",
           defaultValue: "aaa"
         }
     },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function() {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -128,21 +93,13 @@ export function conflictComponent2() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("http://testNamespace/test2");
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
-<<<<<<< HEAD
-    value: {
-      converter: "string",
-      defaultValue: "bbb"
-    }
-  }, {
-=======
     attributes:{
       value: {
         converter: "string",
         defaultValue: "bbb"
       }
     },
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
-    onTest: function() {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });

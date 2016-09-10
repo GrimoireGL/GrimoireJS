@@ -1,14 +1,8 @@
 <goml>
   <testNode1 testAttr1 = "hugahuga">
-<<<<<<< HEAD
-    <testNode2 attr1 = "123" inheritAttr = "hogehoge">
-      <testNode2.components>
-        <testComponentOptional value = "999"/>
-=======
     <testNode2 testAttr2 = "123" inheritAttr = "hogehoge">
       <testNode2.components>
         <testComponentOptional value="999"/>
->>>>>>> 90271576a775407b50eb0c66374f15427d64640b
       </testNode2.components>
     </testNode2>
   </testNode1>

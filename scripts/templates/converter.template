@@ -1,0 +1,5 @@
+function {{name}}Converter(val: any): any {
+    return SOMETHING(val); // Do something convert here.
+}
+
+export default {{name}}Converter;
