@@ -201,3 +201,15 @@ test('id attribute can be obatined as default',(t)=>{
   const testNode3 = rootNode.children[0];
   t.truthy(testNode3.attr("id") === "test");
 });
+
+test('id attribute should sync with element',(t)=>{
+  const testNode3 = rootNode.children[0];
+  testNode3.attr("id","test2");
+  t.truthy(testNode3.element.id === "test2");
+});
+
+test('class attribute should sync with element',(t)=>{
+  const testNode3 = rootNode.children[0];
+  testNode3.attr("class","test");
+  t.truthy(testNode3.element.className === "test");
+});
