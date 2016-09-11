@@ -68,7 +68,7 @@ class Component extends IDObject {
    * @return {IGomlInterface} [description]
    */
   public get tree(): IGomlInterface {
-    return this.node ? this.node.treeInterface : null;
+    return this.node ? this.node.tree : null;
   }
 
   /**

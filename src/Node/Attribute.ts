@@ -98,13 +98,23 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
-  public boundTo(variableName: string): void {
+  /**
+   * Bind converted value to specified field.
+   * When target object was not specified, field of owner component would be assigned.
+   * @param {string} variableName [description]
+   * @param {any} targetObject [description]
+   */
+  public boundTo(variableName: string, targetObject: any = this.component): void {
     this.addObserver((v) => {
-      this.component[variableName] = v.Value;
+      targetObject[variableName] = v.Value;
     });
-    this.component[variableName] = this.Value;
+    targetObject[variableName] = this.Value;
   }
 
+  /**
+   * Apply default value to attribute from DOM values.
+   * @param {string }} domValues [description]
+   */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
     let tagAttrValue = domValues[this.name.name];
     if (!!tagAttrValue) {

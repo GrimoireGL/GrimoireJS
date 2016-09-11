@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A web service oriented Web3D framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
@@ -32,6 +32,7 @@
     "handlebars": "^4.0.5",
     "http-server": "^0.9.0",
     "jsdom": "^9.4.2",
+    "lodash": "^4.15.0",
     "progress": "^1.1.8",
     "proxyquire": "^1.7.10",
     "rollup": "^0.34.8",
@@ -68,8 +69,8 @@
     "babel-ci-test": "babel ./test  --out-dir ./lib-test-es5",
     "ava": "ava --verbose --serial",
     "test": "babel-node ./scripts/test-runner.js --presets es2015,stage-2 --plugins transform-runtime",
-    "compiler-version":"tsc -v",
-    "lint":"tslint -c ./tslint.json ./src/**/*.ts"
+    "compiler-version": "tsc -v",
+    "lint": "tslint -c ./tslint.json ./src/**/*.ts"
   },
   "ava": {
     "babel": {
