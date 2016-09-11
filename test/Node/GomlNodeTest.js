@@ -79,7 +79,6 @@ test.beforeEach(async () => {
   conflictComponent2Spy = conflictComponent2();
   await GomlLoader.loadForPage();
   global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
-  console.log("beforeEach" + _.values(GrimoireInterface.rootNodes).length);
 });
 
 test('Root node must not have parent',(t)=>{
@@ -145,7 +144,6 @@ test('SendMessage should call correct order',(t)=>{
 });
 
 test('Detach node should invoke unmount before detaching',(t)=>{
-  console.log("detach");
   resetSpies();
   const testNode3 = rootNode.children[0];
   testNode3.detach();
@@ -157,7 +155,6 @@ test('Detach node should invoke unmount before detaching',(t)=>{
 });
 
 test('Delete should invoke unmount before deleting',(t)=>{
-  console.log("delete");
   resetSpies();
   const testNode3 = rootNode.children[0];
   testNode3.delete();
@@ -166,4 +163,41 @@ test('Delete should invoke unmount before deleting',(t)=>{
   called.forEach((v)=>{
     t.truthy(v.getCall(0).args[0] === "unmount");
   });
+});
+
+test('Get component return value correctly',(t)=>{
+  const testNode2 = rootNode.children[0].children[0];
+  t.truthy(!testNode2.getComponent("testComponent1"));
+  t.truthy(testNode2.getComponent("testComponent2")); // Must check actually the instance being same.
+});
+
+test('broadcastMessage should not invoke message if the component is not enabled',(t)=>{
+  resetSpies();
+  const optionalComponent = rootNode.children[0].children[0].getComponent("testComponentOptional");
+  optionalComponent.enabled = false;
+  rootNode.broadcastMessage("onTest");
+  const called = [testComponent3Spy,testComponent2Spy,testComponent1Spy];
+  sinon.assert.callOrder.apply(sinon.assert,called);
+  sinon.assert.notCalled(testComponentOptionalSpy);
+});
+
+test('broadcastMessage should not invoke message if the node is not enabled',(t)=>{
+  resetSpies();
+  const testNode2 = rootNode.children[0].children[0];
+  testNode2.enabled = false;
+  rootNode.broadcastMessage("onTest");
+  const called = [testComponent3Spy,testComponent1Spy];
+  sinon.assert.callOrder.apply(sinon.assert,called);
+  sinon.assert.notCalled(testComponentOptionalSpy);
+  sinon.assert.notCalled(testComponent2Spy);
+});
+
+test('class attribute can be obatined as default',(t)=>{
+  const testNode3 = rootNode.children[0];
+  t.truthy(testNode3.attr("class") === "classTest");
+});
+
+test('id attribute can be obatined as default',(t)=>{
+  const testNode3 = rootNode.children[0];
+  t.truthy(testNode3.attr("id") === "test");
 });
