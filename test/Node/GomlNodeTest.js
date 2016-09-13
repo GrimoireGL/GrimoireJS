@@ -86,6 +86,14 @@ test('Root node must not have parent',(t)=>{
   t.truthy(_.isNull(rootNode.parent));
 });
 
+test('Children of parent must be this',(t)=>{
+  rootNode.callRecursively((n)=>{
+    if(n.parent){
+      t.truthy(n.parent.children.indexOf(n) >= 0);
+    }
+  });
+});
+
 test('Nodes must have companion',(t)=>{
   const companion = rootNode.companion;
   t.truthy(companion);
@@ -212,4 +220,10 @@ test('class attribute should sync with element',(t)=>{
   const testNode3 = rootNode.children[0];
   testNode3.attr("class","test");
   t.truthy(testNode3.element.className === "test");
+});
+
+test('addComponent should work correctly',(t)=>{
+  const testNode3 = rootNode.children[0];
+  testNode3.addComponent("testComponentOptional");
+  t.truthy(testNode3.getComponent("testComponentOptional"));
 });

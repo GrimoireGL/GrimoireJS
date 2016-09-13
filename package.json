@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A web service oriented Web3D framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
