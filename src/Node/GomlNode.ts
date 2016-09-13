@@ -155,6 +155,27 @@ class GomlNode extends EEObject {
   }
 
   /**
+   * 指定したノード名と属性で生成されたノードの新しいインスタンスを、このノードの子要素として追加
+   * @param {string |   NSIdentity} nodeName      [description]
+   * @param {any    }} attributes   [description]
+   */
+  public addNode(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+    if (typeof nodeName === "string") {
+      this.addNode(new NSIdentity(nodeName), attributes);
+    } else {
+      const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
+      const node = new GomlNode(nodeDec, null);
+      if (attributes) {
+        for (let key in attributes) {
+          const id = key.indexOf("|") !== -1 ? NSIdentity.fromFQN(key) : new NSIdentity(key);
+          node.attr(id, attributes[key]);
+        }
+      }
+      this.addChild(node);
+    }
+  }
+
+  /**
    * Add child.
    * @param {GomlNode} child            追加する子ノード
    * @param {number}   index            追加位置。なければ末尾に追加
