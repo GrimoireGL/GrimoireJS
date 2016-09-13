@@ -70,7 +70,7 @@ test('_ensureTobeComponentConstructor works correctly', (t) => {
 test('register and resolvePlugins works preperly', async(t) => {
   const spy1 = sinon.spy();
   const spy2 = sinon.spy();
-  const wrapPromise = function(spy) {
+  const wrapPromise = function (spy) {
     return () => {
       return new Promise((resolve) => {
         spy();
@@ -92,8 +92,8 @@ test('function interface works correctly', async(t) => {
   global.document = window.document;
   global.window = window;
   const scriptTag = window.document.getElementById("test");
-  window.document.__proto__.querySelectorAll = (query)=>{
-    if("#test"){
+  window.document.__proto__.querySelectorAll = (query) => {
+    if ("#test") {
       return ""
     }
     return ""
@@ -105,13 +105,13 @@ test('function interface works correctly', async(t) => {
   //nodeInterface.forEach((node) => { console.log("foreach"); })
   t.truthy(nodeInterface.length === 1);
   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
-    // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
+  // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
 
   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
-    // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
-    //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
-    // global.document = window.document;
-    // const queriedNode = GrimoireInterface.queryRootNodes("script");
-    // t.truthy(queriedNode.length === 1);
-    // t.truthy(queriedNode[0] === dummyRootNode);
+  // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
+  //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
+  // global.document = window.document;
+  // const queriedNode = GrimoireInterface.queryRootNodes("script");
+  // t.truthy(queriedNode.length === 1);
+  // t.truthy(queriedNode[0] === dummyRootNode);
 })
