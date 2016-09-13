@@ -25,7 +25,9 @@ class GomlNode extends EEObject {
   private _tree: IGomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
-
+  public get name(): NSIdentity {
+    return this.nodeDeclaration.name;
+  }
   /**
    * このノードの属するツリーのGomlInterface。unmountedならnull。
    * @return {IGomlInterface} [description]
