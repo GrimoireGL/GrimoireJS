@@ -18,7 +18,7 @@ export function testComponent1() {
     $mount:function(arg){
       spy("mount",arg)
     },
-    $unmounted:function(arg){
+    $unmount:function(arg){
       spy("unmount",arg);
     },
     $awake:function(arg){
@@ -43,7 +43,7 @@ export function testComponent2() {
     $mount:function(arg){
       spy("mount",arg)
     },
-    $unmounted:function(arg){
+    $unmount:function(arg){
       spy("unmount",arg);
     },
     $awake:function(arg){
@@ -68,7 +68,7 @@ export function testComponent3(){
     $mount:function(arg){
       spy("mount",arg)
     },
-    $unmounted:function(arg){
+    $unmount:function(arg){
       spy("unmount",arg);
     },
     $awake:function(arg){
@@ -93,7 +93,7 @@ export function testComponentBase() {
     $mount:function(arg){
       spy("mount",arg)
     },
-    $unmounted:function(arg){
+    $unmount:function(arg){
       spy("unmount",arg);
     },
     $awake:function(arg){
@@ -118,7 +118,7 @@ export function testComponentOptional() {
     $mount:function(arg){
       spy("mount",arg)
     },
-    $unmounted:function(arg){
+    $unmount:function(arg){
       spy("unmount",arg);
     },
     $awake:function(arg){

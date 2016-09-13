@@ -202,6 +202,11 @@ test('id attribute can be obatined as default',(t)=>{
   t.truthy(testNode3.attr("id") === "test");
 });
 
+test('enabled attribute can be obatined as default',(t)=>{
+  const testNode3 = rootNode.children[0];
+  t.truthy(testNode3.attr("enabled") === false);
+});
+
 test('id attribute should sync with element',(t)=>{
   const testNode3 = rootNode.children[0];
   testNode3.attr("id","test2");
@@ -219,3 +224,12 @@ test('addComponent should work correctly',(t)=>{
   testNode3.addComponent("testComponentOptional");
   t.truthy(testNode3.getComponent("testComponentOptional"));
 });
+
+test('addNode works correctly',(t)=>{
+  const testNode2 = rootNode.children[0].children[0];
+  testNode2.addNode("testNode2",{
+    testAttr2:"ADDEDNODE"
+  });
+  t.truthy(testNode2.children[0].name.name === "TESTNODE2");
+  t.truthy(testNode2.children[0].attr("testAttr2") === "ADDEDNODE");
+})

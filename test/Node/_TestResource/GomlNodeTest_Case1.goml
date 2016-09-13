@@ -1,5 +1,5 @@
 <goml>
-  <testNode3 id="test" class="classTest">
+  <testNode3 id="test" class="classTest" enabled="false">
     <testNode2 testAttr2="123" inheritAttr="hogehoge">
       <testNode2.components>
         <testComponentOptional value="999"/>

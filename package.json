@@ -27,7 +27,6 @@
     "babel-runtime": "^6.11.6",
     "chalk": "^1.1.3",
     "fs-extra": "^0.30.0",
-    "grimoirejs": "^0.1.10",
     "grimoirejs-build-env-base": "^1.0.4",
     "handlebars": "^4.0.5",
     "http-server": "^0.9.0",
