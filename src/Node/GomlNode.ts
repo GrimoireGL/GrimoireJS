@@ -34,6 +34,10 @@ class GomlNode extends EEObject {
     return this._tree;
   }
 
+  public get deleted(): boolean {
+    return this._deleted;
+  }
+
   /**
    * ツリーで共有されるオブジェクト。マウントされていない状態ではnull。
    * @return {NSDictionary<any>} [description]

@@ -108,7 +108,7 @@ test("getComponents method works correctly", t => {
   GrimoireInterface.registerNode("testNode", ["testComponent"]);
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("testNode"), null);
   const components = node.getComponents();
-  t.truthy(components.length === 1);
+  t.truthy(components.length === 2);
   t.truthy(node._components[0].id === components[0].id);
 });
 test("getComponent method works correctly", t => {
