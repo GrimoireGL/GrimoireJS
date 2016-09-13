@@ -12,6 +12,7 @@ class GrimoireInitializer {
   public static async initialize(): Promise<void> {
     try {
       GrimoireInitializer._copyGLConstants();
+      GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();

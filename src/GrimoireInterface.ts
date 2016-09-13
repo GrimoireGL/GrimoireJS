@@ -1,3 +1,6 @@
+import GrimoireComponent from "./Components/GrimoireComponent";
+import StringArrayConverter from "./Converters/StringArrayConverter";
+import StringConverter from "./Converters/StringConverter";
 import Attribute from "./Node/Attribute";
 import Constants from "./Base/Constants";
 import ITreeInitializedInfo from "./Node/ITreeInitializedInfo";
@@ -39,6 +42,13 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    */
   public ns(ns: string): (name: string) => NSIdentity {
     return (name: string) => new NSIdentity(ns, name);
+  }
+
+  public initialize(): void {
+    this.registerConverter("String", StringConverter);
+    this.registerConverter("StringArray", StringArrayConverter);
+    this.registerComponent("GrimoireComponent", GrimoireComponent);
+    this.registerNode("GrimoireNodeBase", ["GrimoireComponent"]);
   }
 
   /**
@@ -141,10 +151,11 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   this.nodeDeclarations.clear();
   this.componentDeclarations.clear();
   this.converters.clear();
-  for(let key in this.rootNodes) {
+  for (let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
     this.loadTasks.splice(0, this.loadTasks.length);
+    this.initialize();
 }
 
   /**

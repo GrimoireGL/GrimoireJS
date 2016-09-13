@@ -3,6 +3,7 @@ interface IAttributeDeclaration {
   converter: string | NSIdentity;
   defaultValue: any;
   readonly?: boolean;
+  responsively?:boolean;
   [parameters: string]: any;
 }
 

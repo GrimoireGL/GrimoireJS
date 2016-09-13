@@ -69,6 +69,7 @@ class Attribute {
     this.name = new NSIdentity(component.name.ns, name);
     this.component = component;
     this.declaration = declaration;
+    this.responsively = !!declaration.responsively;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
     this.converter = {
