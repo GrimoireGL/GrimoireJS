@@ -67,6 +67,7 @@ class GomlNode extends EEObject {
     this._root = this;
     this._tree = GomlInterfaceGenerator([this]);
     this._components = [];
+    this.attributes = new NSDictionary<Attribute>();
 
     this.element.setAttribute("x-gr-id", this.id);
     const defaultComponentNames = recipe.defaultComponents;
@@ -85,7 +86,6 @@ class GomlNode extends EEObject {
     // デフォルトコンポーネント群の属性リスト作成
     const attributes: Attribute[] = this._components.map((c) => c.attributes.toArray())
       .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
-    this.attributes = new NSDictionary<Attribute>();
     // register attributes as node attributes
     attributes.forEach(attr => this.addAttribute(attr));
 
@@ -311,19 +311,22 @@ class GomlNode extends EEObject {
     if (this._mounted === mounted) {
       return;
     }
-    this._mounted = mounted;
-    if (this._mounted) {
+    if (mounted) {
+      this._mounted = mounted;
       this._attemptAwakeComponents();
       this.sendMessage("mount", this);
+      this.children.forEach((child) => {
+        child.setMounted(mounted);
+      });
     } else {
+      this.children.forEach((child) => {
+        child.setMounted(mounted);
+      });
       this.sendMessage("unmount", this);
       this._tree = null;
       this._companion = null;
+      this._mounted = mounted;
     }
-    this.children.forEach((child) => {
-      child.setMounted(mounted);
-    });
-
   }
 
 
