@@ -58,7 +58,7 @@ class NodeInterface implements INodeInterfaceBase {
       }
       throw new Error("There are too many candidate");
     } else {
-      if (c.length <= i1 || c[i1].length <= i2 ) {
+      if (c.length <= i1 || c[i1].length <= i2) {
         return null;
       } else {
         return c[i1][i2] as T;
@@ -155,7 +155,7 @@ class NodeInterface implements INodeInterfaceBase {
    */
   public setEnable(enable: boolean): NodeInterface {
     this.forEach((node) => {
-      node.enable = !!enable;
+      node.enabled = !!enable;
     });
     return this;
   }

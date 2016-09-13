@@ -39,7 +39,7 @@ class Attribute {
    */
   public get Value(): any {
     try {
-      return this.converter.convert(this._value);
+      return (this.converter as any).convert(this._value);
     } catch (e) {
       console.error(e); // TODO should be more convenient error handling
     }
@@ -75,11 +75,6 @@ class Attribute {
       convert: this.converter.convert.bind(this),
       name: this.converter.name
     };
-    if (typeof declaration.boundTo === "string") {
-      this.addObserver((v) => {
-        this.component[this.declaration.boundTo] = v.Value;
-      });
-    }
     if (!this.converter) {
       throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
     }
@@ -103,6 +98,23 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
+  /**
+   * Bind converted value to specified field.
+   * When target object was not specified, field of owner component would be assigned.
+   * @param {string} variableName [description]
+   * @param {any} targetObject [description]
+   */
+  public boundTo(variableName: string, targetObject: any = this.component): void {
+    this.addObserver((v) => {
+      targetObject[variableName] = v.Value;
+    });
+    targetObject[variableName] = this.Value;
+  }
+
+  /**
+   * Apply default value to attribute from DOM values.
+   * @param {string }} domValues [description]
+   */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
     let tagAttrValue = domValues[this.name.name];
     if (!!tagAttrValue) {

@@ -1,7 +1,7 @@
 import test from 'ava';
 
-import NSIdentity from '../../lib-es5/Core/Base/NSIdentity';
-import Constants from '../../lib-es5/Core/Base/Constants';
+import NSIdentity from '../../lib-es5/Base/NSIdentity';
+import Constants from '../../lib-es5/Base/Constants';
 
 test('Not accept to get invalid name or namespace', (t) => {
     t.throws(() => {

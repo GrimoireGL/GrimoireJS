@@ -1,5 +1,5 @@
-import GrimoireInterface from "./Core/GrimoireInterface";
-import GomlLoader from "./Core/Node/GomlLoader";
+import GrimoireInterface from "./GrimoireInterface";
+import GomlLoader from "./Node/GomlLoader";
 /**
  * Provides procedures for initializing.
  */
@@ -16,7 +16,7 @@ class GrimoireInitializer {
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 

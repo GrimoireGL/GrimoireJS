@@ -1,0 +1,1 @@
+module.exports = "<goml>\n  <testNode3 id=\"test\" class=\"classTest\">\n    <testNode2 testAttr2=\"123\" inheritAttr=\"hogehoge\">\n      <testNode2.components>\n        <testComponentOptional value=\"999\"/>\n      </testNode2.components>\n    </testNode2>\n    <testNode1 testAttr1=\"hugahuga\"></testNode1>\n  </testNode3>\n</goml>\n";

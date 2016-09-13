@@ -14,7 +14,7 @@ class GomlNode extends EEObject {
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public attributes: NSDictionary<Attribute>; // デフォルトコンポーネントの属性
-  public enable: boolean = true;
+  public enabled: boolean = true;
   public componentsElement: Element;
 
   private _parent: GomlNode = null;
@@ -22,7 +22,7 @@ class GomlNode extends EEObject {
   private _mounted: boolean = false;
   private _components: Component[];
   private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
-  private _treeInterface: IGomlInterface = null;
+  private _tree: IGomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
 
@@ -30,8 +30,8 @@ class GomlNode extends EEObject {
    * このノードの属するツリーのGomlInterface。unmountedならnull。
    * @return {IGomlInterface} [description]
    */
-  public get treeInterface(): IGomlInterface {
-    return this._treeInterface;
+  public get tree(): IGomlInterface {
+    return this._tree;
   }
 
   /**
@@ -50,10 +50,6 @@ class GomlNode extends EEObject {
     return this._parent;
   }
 
-  public get deleted(): boolean {
-    return this._deleted;
-  }
-
   /**
    * 新しいインスタンスの作成
    * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
@@ -67,9 +63,9 @@ class GomlNode extends EEObject {
     }
     this.nodeDeclaration = recipe;
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
-    this.componentsElement = element.ownerDocument.createElement("COMPONENTS");
+    this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this._treeInterface = GomlInterfaceGenerator([this]);
+    this._tree = GomlInterfaceGenerator([this]);
     this._components = [];
 
     this.element.setAttribute("x-gr-id", this.id);
@@ -117,7 +113,7 @@ class GomlNode extends EEObject {
   }
 
   public sendMessage(message: string, args?: any): boolean {
-    if (!this.enable || !this.mounted) {
+    if (!this.enabled || !this.mounted) {
       return false;
     }
     this._components.forEach((component) => {
@@ -135,7 +131,7 @@ class GomlNode extends EEObject {
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
   public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
-    if (!this.enable || !this.mounted) {
+    if (!this.enabled || !this.mounted) {
       return;
     }
     if (typeof arg1 === "number") {
@@ -189,7 +185,7 @@ class GomlNode extends EEObject {
       let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
-    child._treeInterface = this.treeInterface;
+    child._tree = this.tree;
     child._companion = this.companion;
     // mounting
     if (this.mounted) {
@@ -300,7 +296,7 @@ class GomlNode extends EEObject {
       this.sendMessage("mount", this);
     } else {
       this.sendMessage("unmount", this);
-      this._treeInterface = null;
+      this._tree = null;
       this._companion = null;
     }
     this.children.forEach((child) => {
@@ -336,7 +332,7 @@ class GomlNode extends EEObject {
     this._components.push(component);
     component.node = this;
     component.addEnabledObserver((c) => {
-      const enable = c.enable;
+      const enable = c.enabled;
       if (enable) {
         const index = this._unAwakedComponent.indexOf(c);
         if (index !== -1) {
@@ -411,7 +407,7 @@ class GomlNode extends EEObject {
    * @return {boolean}                   コンポーネントがenableでなければfalse
    */
   private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
-    if (!targetComponent.enable) {
+    if (!targetComponent.enabled) {
       return false;
     }
     if (!message.startsWith("$")) {

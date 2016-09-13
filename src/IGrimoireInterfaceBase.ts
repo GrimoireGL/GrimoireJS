@@ -1,3 +1,4 @@
+import Attribute from "./Node/Attribute";
 import Component from "./Node/Component";
 import NSIdentity from "./Base/NSIdentity";
 import ComponentDeclaration from "./Node/ComponentDeclaration";
@@ -16,12 +17,12 @@ interface IGrimoireInterfaceBase {
   register(loadTask: () => Promise<void>): void;
   resolvePlugins(): Promise<void>;
   addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
-  registerConverter(name: string | NSIdentity, converter: (any) => any): void;
-  registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void;
-  registerNode(name: string | NSIdentity,
-    requiredComponents: (string | NSIdentity)[],
-    defaultValues?: { [key: string]: any } | NSDictionary<any>,
-    superNode?: string | NSIdentity): void;
+  registerConverter(name: string | NSIdentity, converter: (this:Attribute, value: any) => any): void;
+registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void;
+registerNode(name: string | NSIdentity,
+  requiredComponents: (string | NSIdentity)[],
+  defaultValues ?: { [key: string]: any } | NSDictionary < any >,
+  superNode ?: string | NSIdentity): void;
 }
 
 export default IGrimoireInterfaceBase;

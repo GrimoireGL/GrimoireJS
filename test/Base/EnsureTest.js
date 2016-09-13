@@ -1,9 +1,9 @@
 import '../XMLDomInit'
 import test from 'ava';
 
-import Ensure from '../../lib-es5/Core/Base/Ensure';
-import GrimoireInterface from '../../lib-es5/Core/GrimoireInterface';
-import NSDictionary from '../../lib-es5/Core/Base/NSDictionary';
+import Ensure from '../../lib-es5/Base/Ensure';
+import GrimoireInterface from '../../lib-es5/GrimoireInterface';
+import NSDictionary from '../../lib-es5/Base/NSDictionary';
 
 test('Ensure passed argument should be transformed as NSIdentity', (t) => {
     t.truthy(Ensure.ensureTobeNSIdentity("HELLO").fqn === "HELLO|HTTP://GRIMOIRE.GL/NS/DEFAULT");
