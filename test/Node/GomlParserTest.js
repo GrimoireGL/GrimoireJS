@@ -36,10 +36,6 @@ function obtainElementTag(path) {
   return parser.parseFromString(loadFromTestResource(path), "text/xml").documentElement;
 }
 
-test.afterEach(() => {
-  GrimoireInterface.clear();
-});
-
 let stringConverterSpy,
   testComponent1Spy,
   testComponent2Spy,
@@ -48,9 +44,10 @@ let stringConverterSpy,
   conflictComponent1Spy,
   conflictComponent2Spy;
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
+  GrimoireInterface.clear();
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString("<html></html>","text/html");
+  const htmlDoc = parser.parseFromString("<html></html>", "text/html");
   global.document = htmlDoc;
   goml();
   testNode1();
@@ -88,10 +85,10 @@ function registerUserPlugin() {
       defaultValue: "aaa"
     }
   }, {
-    conf1: function(obj) {
+    conf1: function (obj) {
       const v = this.attributes.get("value").Value;
       obj.value = v;
-    //  console.log("component conf1 ::" + v);
+      //  console.log("component conf1 ::" + v);
     }
   });
   GrimoireInterface.registerComponent(id_b_c, {
@@ -144,20 +141,20 @@ test('test for parse user-define component.', (t) => {
 test('test for namespace parsing.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
-  node.broadcastMessage("onTest","testArg");
+  node.broadcastMessage("onTest", "testArg");
   sinon.assert.notCalled(conflictComponent1Spy);
-  sinon.assert.neverCalledWith(conflictComponent1Spy,"aaa");
-  sinon.assert.neverCalledWith(conflictComponent2Spy,"bbb");
+  sinon.assert.neverCalledWith(conflictComponent1Spy, "aaa");
+  sinon.assert.neverCalledWith(conflictComponent2Spy, "bbb");
 });
 
 test('test for companion', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const components = node.children[0].getComponents();
-  const ns1 = new NSIdentity("http://testNamespace/test1","conflictComponent");
-  const ns2 = new NSIdentity("http://testNamespace/test2","conflictComponent");
-  const compo1 = components.find((comp)=>ns1.fqn === comp.name.fqn);
-  const compo2 = components.find((comp)=>ns2.fqn === comp.name.fqn);
+  const ns1 = new NSIdentity("http://testNamespace/test1", "conflictComponent");
+  const ns2 = new NSIdentity("http://testNamespace/test2", "conflictComponent");
+  const compo1 = components.find((comp) => ns1.fqn === comp.name.fqn);
+  const compo2 = components.find((comp) => ns2.fqn === comp.name.fqn);
   t.truthy(compo1.companion === compo2.companion);
 });
 
@@ -165,7 +162,7 @@ test('treeInterface must be same if the node is included in same tree', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const original = node._treeInterface;
-  node.callRecursively(v=>{
+  node.callRecursively(v => {
     t.truthy(original === v._treeInterface);
   });
 });
