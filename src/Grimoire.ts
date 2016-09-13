@@ -16,7 +16,7 @@ class GrimoireInitializer {
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 

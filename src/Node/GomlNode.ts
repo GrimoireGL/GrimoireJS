@@ -63,7 +63,7 @@ class GomlNode extends EEObject {
     }
     this.nodeDeclaration = recipe;
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
-    this.componentsElement = element.ownerDocument.createElement("COMPONENTS");
+    this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
     this._tree = GomlInterfaceGenerator([this]);
     this._components = [];

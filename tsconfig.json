@@ -19,6 +19,7 @@
     "./src/Base/NSSet.ts",
     "./src/Base/XMLHttpRequestAsync.ts",
     "./src/Base/XMLReader.ts",
+    "./src/Core/Interface/NodeInterface.ts",
     "./src/Grimoire.ts",
     "./src/GrimoireInterface.ts",
     "./src/IGrimoireInterface.ts",
