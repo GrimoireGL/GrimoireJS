@@ -39,7 +39,7 @@ class NSDictionary<V> {
       if (name) {
         return this.get(new NSIdentity(arg1 as string, name));
       } else {
-        const namedMap = this._nameObjectMap.get((arg1 as string).toUpperCase());
+        const namedMap = this._nameObjectMap.get((arg1 as string));
         if (!namedMap) {
           return null;
         }
@@ -57,11 +57,11 @@ class NSDictionary<V> {
         if (arg1.prefix) {
           return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
         } else {
-          if (arg1.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + arg1.namespaceURI.toUpperCase())) {
-            return this.get(new NSIdentity(arg1.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
+          if (arg1.namespaceURI && this._fqnObjectMap.has(arg1.localName + "|" + arg1.namespaceURI)) {
+            return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
           }
-          if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap.has(arg1.localName.toUpperCase() + "|" + (arg1 as Attr).ownerElement.namespaceURI.toUpperCase())) {
-            return this.get(new NSIdentity((arg1 as Attr).ownerElement.namespaceURI.toUpperCase(), arg1.localName.toUpperCase()));
+          if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap.has(arg1.localName + "|" + (arg1 as Attr).ownerElement.namespaceURI)) {
+            return this.get(new NSIdentity((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
           }
           return this.get(arg1.localName);
         }
@@ -74,7 +74,7 @@ class NSDictionary<V> {
   }
 
   public isAmbigious(name: string): boolean {
-    return this._nameObjectMap.get(name.toUpperCase()).size > 1;
+    return this._nameObjectMap.get(name).size > 1;
   }
 
   public has(name: string): boolean {

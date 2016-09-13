@@ -12,17 +12,17 @@ export function testComponent1() {
         defaultValue: null
       }
     },
-    $onTest: function(arg) {
-      spy("onTest",arg);
+    $onTest: function (arg) {
+      spy("onTest", arg);
     },
-    $mount:function(arg){
-      spy("mount",arg)
+    $mount: function (arg) {
+      spy("mount", arg);
     },
-    $unmounted:function(arg){
-      spy("unmount",arg);
+    $unmount: function (arg) {
+      spy("unmount", arg);
     },
-    $awake:function(arg){
-      spy("awake",arg);
+    $awake: function (arg) {
+      spy("awake", arg);
     }
   });
   return spy;
@@ -37,42 +37,42 @@ export function testComponent2() {
         defaultValue: "tc2default"
       }
     },
-    $onTest: function(arg) {
-      spy("onTest",arg);
+    $onTest: function (arg) {
+      spy("onTest", arg);
     },
-    $mount:function(arg){
-      spy("mount",arg)
+    $mount: function (arg) {
+      spy("mount", arg);
     },
-    $unmounted:function(arg){
-      spy("unmount",arg);
+    $unmount: function (arg) {
+      spy("unmount", arg);
     },
-    $awake:function(arg){
-      spy("awake",arg);
+    $awake: function (arg) {
+      spy("awake", arg);
     }
   });
   return spy;
 }
 
-export function testComponent3(){
+export function testComponent3() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponent3",{
-    attributes:{
-      testAttr3:{
-        converter:"string",
-        defaultValue:"tc2default"
+  GrimoireInterface.registerComponent("testComponent3", {
+    attributes: {
+      testAttr3: {
+        converter: "string",
+        defaultValue: "tc2default"
       }
     },
-    $onTest:function(arg){
-      spy("onTest",arg);
+    $onTest: function (arg) {
+      spy("onTest", arg);
     },
-    $mount:function(arg){
-      spy("mount",arg)
+    $mount: function (arg) {
+      spy("mount", arg);
     },
-    $unmounted:function(arg){
-      spy("unmount",arg);
+    $unmount: function (arg) {
+      spy("unmount", arg);
     },
-    $awake:function(arg){
-      spy("awake",arg);
+    $awake: function (arg) {
+      spy("awake", arg);
     }
   });
   return spy;
@@ -87,17 +87,17 @@ export function testComponentBase() {
         defaultValue: "base"
       }
     },
-    $onTest: function(arg) {
-      spy("onTest",arg);
+    $onTest: function (arg) {
+      spy("onTest", arg);
     },
-    $mount:function(arg){
-      spy("mount",arg)
+    $mount: function (arg) {
+      spy("mount", arg);
     },
-    $unmounted:function(arg){
-      spy("unmount",arg);
+    $unmount: function (arg) {
+      spy("unmount", arg);
     },
-    $awake:function(arg){
-      spy("awake",arg);
+    $awake: function (arg) {
+      spy("awake", arg);
     }
   });
   return spy;
@@ -112,17 +112,17 @@ export function testComponentOptional() {
         defaultValue: "optional"
       }
     },
-    $onTest: function(arg) {
-      spy("onTest",arg);
+    $onTest: function (arg) {
+      spy("onTest", arg);
     },
-    $mount:function(arg){
-      spy("mount",arg)
+    $mount: function (arg) {
+      spy("mount", arg);
     },
-    $unmounted:function(arg){
-      spy("unmount",arg);
+    $unmount: function (arg) {
+      spy("unmount", arg);
     },
-    $awake:function(arg){
-      spy("awake",arg);
+    $awake: function (arg) {
+      spy("awake", arg);
     }
   });
   return spy;
@@ -138,7 +138,7 @@ export function conflictComponent1() {
         defaultValue: "aaa"
       }
     },
-    $onTest: function() {
+    $onTest: function () {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -155,7 +155,7 @@ export function conflictComponent2() {
         defaultValue: "bbb"
       }
     },
-    $onTest: function() {
+    $onTest: function () {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -177,8 +177,8 @@ export function testNode2() {
   GrimoireInterface.registerNode("testNode2", ["testComponent2"], null, null, "testNodeBase");
 };
 
-export function testNode3(){
-  GrimoireInterface.registerNode("testNode3",["testComponent3"],{});
+export function testNode3() {
+  GrimoireInterface.registerNode("testNode3", ["testComponent3"], {});
 }
 
 export function testNodeBase() {
@@ -205,10 +205,10 @@ export function stringConverter() {
   const spy = sinon.spy();
   GrimoireInterface.registerConverter("string", (arg) => {
     spy(arg);
-    if (typeof arg === "string") {
+    if (typeof arg === "string" || !arg) {
       return arg;
     }
-    throw new Error("Not Implemented");
+    throw new Error("Not Implemented:" + arg);
   });
   return spy;
 };

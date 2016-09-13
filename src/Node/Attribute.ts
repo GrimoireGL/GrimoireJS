@@ -18,8 +18,6 @@ class Attribute {
   public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
   public component: Component;
-  public responsively: boolean = false; // sync value with DomElement.
-  // TODO: stringじゃない属性はDomに反映できない
 
 
   private _value: any;
@@ -51,9 +49,6 @@ class Attribute {
    */
   public set Value(val: any) {
     this._value = val;
-    if (this.responsively) {
-      this.component.node.element.setAttribute(this.name.name, this.Value);
-    }
     this._notifyChange();
   }
 
@@ -69,7 +64,6 @@ class Attribute {
     this.name = new NSIdentity(component.name.ns, name);
     this.component = component;
     this.declaration = declaration;
-    this.responsively = !!declaration.responsively;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
     this.converter = GrimoireInterface.converters.get(converterName);
     this.converter = {

@@ -345,7 +345,14 @@ class GomlNode extends EEObject {
    * このノードにコンポーネントをアタッチする。
    * @param {Component} component [description]
    */
-  public addComponent(component: Component): void {
+  public addComponent(component: Component): void;
+  public addComponent(component: string): void;
+  public addComponent(component: Component | string): void {
+    if (typeof component === "string") {
+      const declaration = GrimoireInterface.componentDeclarations.get(component);
+      this.addComponent(declaration.generateInstance());
+      return;
+    }
     if (component.node) {
       throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
     }
@@ -382,7 +389,7 @@ class GomlNode extends EEObject {
   public getComponent(name: string | NSIdentity): Component {
     if (typeof name === "string") {
       for (let i = 0; i < this._components.length; i++) {
-        if (this._components[i].name.name === name.toUpperCase()) {
+        if (this._components[i].name.name === name) {
           return this._components[i];
         }
       }

@@ -6,19 +6,23 @@ class GrimoireComponent extends Component {
     id: {
       converter: "String",
       defaultValue: null,
-      readonly: false,
-      responsively: true
+      readonly: false
     },
     class: {
       converter: "StringArray", // TODO:atringArray
       defaultValue: null,
-      readonly: false,
-      responsively: true
+      readonly: false
     }
   };
 
   public $awake(): void {
     // this.node.resolveAttributesValue();
+    this.getAttribute("id").addObserver((attr) => {
+      this.node.element.id = attr.Value;
+    });
+    this.getAttribute("class").addObserver((attr) => {
+      this.node.element.className = attr.Value.join(" ");
+    });
   }
 }
 

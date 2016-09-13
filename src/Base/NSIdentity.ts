@@ -53,7 +53,7 @@ class NSIdentity {
         if (name == null) {
             throw new Error("Specified name was null or undefined");
         }
-        return name.toUpperCase();
+        return name;
     }
 
     constructor(name: string);

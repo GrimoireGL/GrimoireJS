@@ -28,7 +28,7 @@ import GrimoireInterface from "../../lib-es5/GrimoireInterface";
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-    return res.status(200).body(require("./_TestResource/GomlNodeTest_Case1.goml"));
+  return res.status(200).body(require("./_TestResource/GomlNodeTest_Case1.goml"));
 });
 
 let stringConverterSpy,
@@ -40,23 +40,23 @@ let stringConverterSpy,
   conflictComponent1Spy,
   conflictComponent2Spy;
 
-  function resetSpies(){
-    stringConverterSpy.reset();
-    testComponent1Spy.reset();
-    testComponent2Spy.reset();
-    testComponent3Spy.reset();
-    testComponentBaseSpy.reset();
-    testComponentOptionalSpy.reset();
-    conflictComponent1Spy.reset();
-    conflictComponent2Spy.reset();
-  }
+function resetSpies() {
+  stringConverterSpy.reset();
+  testComponent1Spy.reset();
+  testComponent2Spy.reset();
+  testComponent3Spy.reset();
+  testComponentBaseSpy.reset();
+  testComponentOptionalSpy.reset();
+  conflictComponent1Spy.reset();
+  conflictComponent2Spy.reset();
+}
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(require("./_TestResource/GomlNodeTest_Case1.html"),"text/html");
+  const htmlDoc = parser.parseFromString(require("./_TestResource/GomlNodeTest_Case1.html"), "text/html");
   global.document = htmlDoc;
-  global.document.querySelectorAll = function(selector){
+  global.document.querySelectorAll = function (selector) {
     return global.document.getElementsByTagName("script");
   };
   global.Node = {
@@ -81,140 +81,143 @@ test.beforeEach(async () => {
   global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
 });
 
-test('Root node must not have parent',(t)=>{
+test('Root node must not have parent', (t) => {
   t.truthy(_.isNull(rootNode._parent));
   t.truthy(_.isNull(rootNode.parent));
 });
 
-test('Nodes must have companion',(t)=>{
+test('Nodes must have companion', (t) => {
   const companion = rootNode.companion;
   t.truthy(companion);
-  rootNode.callRecursively((n)=>{
+  rootNode.callRecursively((n) => {
     t.truthy(companion === n.companion);
   });
 });
 
-test('Nodes must have tree',(t)=>{
+test('Nodes must have tree', (t) => {
   const tree = rootNode.tree;
   t.truthy(tree);
-  rootNode.callRecursively((n)=>{
+  rootNode.callRecursively((n) => {
     t.truthy(tree === n.tree);
   })
 });
 
-test('mount should be called in ideal timing',(t)=>{
-  const order = [testComponent3Spy,testComponent2Spy,testComponentOptionalSpy,testComponent1Spy];
-  order.forEach(v=>{
+test('mount should be called in ideal timing', (t) => {
+  const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
+  order.forEach(v => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
 });
 
-test('awake should be called in ideal timing',(t)=>{
-  const order = [testComponent3Spy,testComponent2Spy,testComponentOptionalSpy,testComponent1Spy];
-  order.forEach(v=>{
+test('awake should be called in ideal timing', (t) => {
+  const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
+  order.forEach(v => {
     t.truthy(v.getCall(0).args[0] === "awake");
   });
 });
 
-test('Nodes should be mounted after loading',(t)=>{
+test('Nodes should be mounted after loading', (t) => {
   t.truthy(rootNode.mounted);
-  rootNode.callRecursively((n)=>{
+  rootNode.callRecursively((n) => {
     t.truthy(n.mounted);
   });
 });
 
-test('Broadcast message should call correct order',(t)=>{
+test('Broadcast message should call correct order', (t) => {
   rootNode.broadcastMessage("onTest");
-  sinon.assert.callOrder(testComponent3Spy,testComponent2Spy,testComponentOptionalSpy,testComponent1Spy);
+  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
 });
 
-test('Broadcast message with range should work correctly',(t)=>{
+test('Broadcast message with range should work correctly', (t) => {
   resetSpies();
-  rootNode.broadcastMessage(1,"onTest");
+  rootNode.broadcastMessage(1, "onTest");
   sinon.assert.called(testComponent3Spy);
   sinon.assert.notCalled(testComponent2Spy);
   sinon.assert.notCalled(testComponentOptionalSpy);
   sinon.assert.notCalled(testComponent1Spy);
 });
 
-test('SendMessage should call correct order',(t)=>{
+test('SendMessage should call correct order', (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.sendMessage("onTest");
-  sinon.assert.callOrder(testComponent2Spy,testComponentOptionalSpy);
+  sinon.assert.callOrder(testComponent2Spy, testComponentOptionalSpy);
 });
 
-test('Detach node should invoke unmount before detaching',(t)=>{
+test('Detach node should invoke unmount before detaching', (t) => {
   resetSpies();
   const testNode3 = rootNode.children[0];
   testNode3.detach();
-  const called = [testComponent3Spy,testComponent2Spy,testComponentOptionalSpy,testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert,called);
-  called.forEach((v)=>{
+  const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
+  sinon.assert.callOrder.apply(sinon.assert, called);
+  called.forEach((v) => {
     t.truthy(v.getCall(0).args[0] === "unmount");
   });
 });
 
-test('Delete should invoke unmount before deleting',(t)=>{
+test('Delete should invoke unmount before deleting', (t) => {
   resetSpies();
   const testNode3 = rootNode.children[0];
   testNode3.delete();
-  const called = [testComponent3Spy,testComponent2Spy,testComponentOptionalSpy,testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert,called);
-  called.forEach((v)=>{
+  const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
+  sinon.assert.callOrder.apply(sinon.assert, called);
+  called.forEach((v) => {
     t.truthy(v.getCall(0).args[0] === "unmount");
   });
 });
 
-test('Get component return value correctly',(t)=>{
+test('Get component return value correctly', (t) => {
   const testNode2 = rootNode.children[0].children[0];
   t.truthy(!testNode2.getComponent("testComponent1"));
   t.truthy(testNode2.getComponent("testComponent2")); // Must check actually the instance being same.
 });
 
-test('broadcastMessage should not invoke message if the component is not enabled',(t)=>{
+test('broadcastMessage should not invoke message if the component is not enabled', (t) => {
   resetSpies();
   const optionalComponent = rootNode.children[0].children[0].getComponent("testComponentOptional");
   optionalComponent.enabled = false;
   rootNode.broadcastMessage("onTest");
-  const called = [testComponent3Spy,testComponent2Spy,testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert,called);
+  const called = [testComponent3Spy, testComponent2Spy, testComponent1Spy];
+  sinon.assert.callOrder.apply(sinon.assert, called);
   sinon.assert.notCalled(testComponentOptionalSpy);
 });
 
-test('broadcastMessage should not invoke message if the node is not enabled',(t)=>{
+test('broadcastMessage should not invoke message if the node is not enabled', (t) => {
   resetSpies();
   const testNode2 = rootNode.children[0].children[0];
   testNode2.enabled = false;
   rootNode.broadcastMessage("onTest");
-  const called = [testComponent3Spy,testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert,called);
+  const called = [testComponent3Spy, testComponent1Spy];
+  sinon.assert.callOrder.apply(sinon.assert, called);
   sinon.assert.notCalled(testComponentOptionalSpy);
   sinon.assert.notCalled(testComponent2Spy);
 });
 
-test('class attribute can be obatined as default',(t)=>{
+test('class attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  t.truthy(testNode3.attr("class") === "classTest");
+  var classes = testNode3.attr("class");
+  t.truthy(classes.length === 1);
+  t.truthy(classes[0] === "classTest");
 });
 
-test('id attribute can be obatined as default',(t)=>{
+test('id attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
   t.truthy(testNode3.attr("id") === "test");
 });
 
-test('id attribute should sync with element',(t)=>{
+test('id attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.attr("id","test2");
+  const id = testNode3.attributes.get("id");
+  testNode3.attr("id", "test2");
   t.truthy(testNode3.element.id === "test2");
 });
 
-test('class attribute should sync with element',(t)=>{
+test('class attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.attr("class","test");
+  testNode3.attr("class", "test");
   t.truthy(testNode3.element.className === "test");
 });
 
-test('addComponent should work correctly',(t)=>{
+test('addComponent should work correctly', (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.addComponent("testComponentOptional");
   t.truthy(testNode3.getComponent("testComponentOptional"));
