@@ -112,7 +112,7 @@ class Attribute {
    */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
     let tagAttrValue = domValues[this.name.name];
-    if (!!tagAttrValue) {
+    if (tagAttrValue !== void 0) {
       this.Value = tagAttrValue; // Dom指定値で解決
       return;
     }
