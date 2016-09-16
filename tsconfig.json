@@ -20,6 +20,7 @@
     "./src/Base/XMLHttpRequestAsync.ts",
     "./src/Base/XMLReader.ts",
     "./src/Components/GrimoireComponent.ts",
+    "./src/Converters/BooleanConverter.ts",
     "./src/Converters/StringArrayConverter.ts",
     "./src/Converters/StringConverter.ts",
     "./src/Grimoire.ts",
