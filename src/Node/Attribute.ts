@@ -68,7 +68,7 @@ class Attribute {
     this.converter = GrimoireInterface.converters.get(converterName);
     if (this.converter === void 0) {
       // When the specified converter was not found
-      throw new Error(`Specified converter ${converterName} was not found from registered converters.\n Component: ${this.component.name.fqn}\n Attribute: ${this.name.name}`);
+      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${this.component.name.fqn}\n Attribute: ${this.name.name}`);
     }
     this.converter = {
       convert: this.converter.convert.bind(this),
