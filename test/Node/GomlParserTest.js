@@ -126,6 +126,7 @@ test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
 test('test for parse user-define component.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
+  node.setMounted(true)
   sinon.assert.notCalled(stringConverterSpy);
   node.broadcastMessage("onTest", "testArg");
   sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
@@ -141,6 +142,7 @@ test('test for parse user-define component.', (t) => {
 test('test for namespace parsing.', (t) => {
   const element = obtainElementTag("GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
+  node.setMounted(true)
   node.broadcastMessage("onTest", "testArg");
   sinon.assert.notCalled(conflictComponent1Spy);
   sinon.assert.neverCalledWith(conflictComponent1Spy, "aaa");

@@ -103,7 +103,10 @@ test('Nodes must have tree', (t) => {
 });
 
 test('mount should be called in ideal timing', (t) => {
+  const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
+  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy)
   order.forEach(v => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
@@ -129,6 +132,8 @@ test('Broadcast message should call correct order', (t) => {
 });
 
 test('Broadcast message with range should work correctly', (t) => {
+  const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
   resetSpies();
   rootNode.broadcastMessage(1, "onTest");
   sinon.assert.called(testComponent3Spy);
@@ -144,8 +149,9 @@ test('SendMessage should call correct order', (t) => {
 });
 
 test('Detach node should invoke unmount before detaching', (t) => {
-  resetSpies();
   const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
+  resetSpies();
   testNode3.detach();
   const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
   sinon.assert.callOrder.apply(sinon.assert, called);
@@ -155,8 +161,9 @@ test('Detach node should invoke unmount before detaching', (t) => {
 });
 
 test('Delete should invoke unmount before deleting', (t) => {
-  resetSpies();
   const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
+  resetSpies();
   testNode3.delete();
   const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
   sinon.assert.callOrder.apply(sinon.assert, called);
@@ -172,6 +179,8 @@ test('Get component return value correctly', (t) => {
 });
 
 test('broadcastMessage should not invoke message if the component is not enabled', (t) => {
+  const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
   resetSpies();
   const optionalComponent = rootNode.children[0].children[0].getComponent("testComponentOptional");
   optionalComponent.enabled = false;
@@ -182,6 +191,8 @@ test('broadcastMessage should not invoke message if the component is not enabled
 });
 
 test('broadcastMessage should not invoke message if the node is not enabled', (t) => {
+  const testNode3 = rootNode.children[0];
+  testNode3.enabled = true;
   resetSpies();
   const testNode2 = rootNode.children[0].children[0];
   testNode2.enabled = false;
@@ -232,6 +243,6 @@ test('addNode works correctly', (t) => {
   testNode2.addNode("testNode2", {
     testAttr2: "ADDEDNODE"
   });
-  t.truthy(testNode2.children[0].name.name === "TESTNODE2");
+  t.truthy(testNode2.children[0].name.name === "testNode2");
   t.truthy(testNode2.children[0].attr("testAttr2") === "ADDEDNODE");
 });
