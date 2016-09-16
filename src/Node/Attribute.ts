@@ -111,6 +111,9 @@ class Attribute {
    * @param {string }} domValues [description]
    */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
+    if (this._value !== void 0) {// value is already exist.
+      return;
+    }
     let tagAttrValue = domValues[this.name.name];
     if (tagAttrValue !== void 0) {
       this.Value = tagAttrValue; // Dom指定値で解決

@@ -8,23 +8,25 @@ import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IGomlInterface from "../Interface/IGomlInterface";
+import Ensure from "../Base/Ensure";
 
 class GomlNode extends EEObject {
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public attributes: NSDictionary<Attribute>; // デフォルトコンポーネントの属性
-  public enabled: boolean = true;
   public componentsElement: Element;
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
   private _components: Component[];
-  private _unAwakedComponent: Component[] = []; // awakeされてないコンポーネント群
+  private _messageBuffer: { message: string, target: Component }[] = [];
   private _tree: IGomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
+  private _attrBuffer: { [fqn: string]: any } = {};
+
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
   }
@@ -38,6 +40,19 @@ class GomlNode extends EEObject {
 
   public get deleted(): boolean {
     return this._deleted;
+  }
+  public get isActive(): boolean {
+    if (this._parent) {
+      return this._parent.isActive && this.enabled;
+    } else {
+      return this.enabled;
+    }
+  }
+  public get enabled(): boolean {
+    return this.attr("enabled");
+  }
+  public set enabled(value) {
+    this.attr("enabled", value);
   }
 
   /**
@@ -54,6 +69,14 @@ class GomlNode extends EEObject {
 
   public get parent(): GomlNode {
     return this._parent;
+  }
+
+  /**
+   * Get mounted status.
+   * @return {boolean} Whether this node is mounted or not.
+   */
+  public get mounted(): boolean {
+    return this._mounted;
   }
 
   /**
@@ -123,7 +146,7 @@ class GomlNode extends EEObject {
       return false;
     }
     this._components.forEach((component) => {
-      this._sendMessageToComponent(component, message, args);
+      this._sendMessageToComponent(component, message, false, false, args);
     });
     return true;
   }
@@ -278,18 +301,29 @@ class GomlNode extends EEObject {
   public attr(attrName: string | NSIdentity): any;
   public attr(attrName: string | NSIdentity, value: any): void;
   public attr(attrName: string | NSIdentity, value?: any): any | void {
-    const attr = (typeof attrName === "string")
-      ? this.attributes.get(attrName) : this.attributes.get(attrName);
-    if (!attr) {
-      console.warn(`attribute "${attrName}" is not found.`);
-      return;
-    }
+    attrName = Ensure.ensureTobeNSIdentity(attrName);
+    const attr = this.attributes.get(attrName);
     if (value !== void 0) {
       // setValue.
-      attr.Value = value;
+      if (!attr) {
+        console.warn(`attribute "${attrName.name}" is not found.`);
+        this._attrBuffer[attrName.fqn] = value;
+      } else {
+        attr.Value = value;
+      }
     } else {
       // getValue.
-      return attr.Value;
+      if (!attr) {
+        const attrBuf = this._attrBuffer[attrName.fqn];
+        if (attrBuf !== void 0) {
+          console.log("get attrBuf!")
+          return attrBuf;
+        }
+        console.warn(`attribute "${attrName.name}" is not found.`);
+        return;
+      } else {
+        return attr.Value;
+      }
     }
   }
 
@@ -299,14 +333,13 @@ class GomlNode extends EEObject {
    */
   public addAttribute(attr: Attribute): void {
     this.attributes.set(attr.name, attr);
-  }
 
-  /**
-   * Get mounted status.
-   * @return {boolean} Whether this node is mounted or not.
-   */
-  public get mounted(): boolean {
-    return this._mounted;
+    // check buffer value.
+    const attrBuf = this._attrBuffer[attr.name.fqn];
+    if (attrBuf !== void 0) {
+      attr.Value = attrBuf;
+      delete this._attrBuffer[attr.name.fqn];
+    }
   }
 
   /**
@@ -319,16 +352,19 @@ class GomlNode extends EEObject {
     }
     if (mounted) {
       this._mounted = mounted;
-      this._attemptAwakeComponents();
-      this.sendMessage("mount", this);
+      this._clearMessageBuffer("unmount");
+      this._sendMessage("awake", true, false);
+      this._sendMessage("mount", false, true);
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
     } else {
+      this._clearMessageBuffer("mount");
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
-      this.sendMessage("unmount", this);
+      this._sendMessage("unmount", false, true);
+      this._sendMessage("dispose", true, false);
       this._tree = null;
       this._companion = null;
       this._mounted = mounted;
@@ -369,23 +405,15 @@ class GomlNode extends EEObject {
     this._components.push(component);
     component.node = this;
     component.addEnabledObserver((c) => {
-      const enable = c.enabled;
-      if (enable) {
-        const index = this._unAwakedComponent.indexOf(c);
-        if (index !== -1) {
-          this._unAwakedComponent.splice(index, 1);
-          this._sendMessageToComponent(c, "awake");
-        }
-        this._sendMessageToComponent(c, "mount");
-      } else {
-        this._sendMessageToComponent(c, "unmount");
+      if (c.enabled) {
+        this._sendBufferdMessageToComponent(c, "mount", false, true);
+        this._sendBufferdMessageToComponent(c, "unmount", false, true);
       }
     });
 
     if (this._mounted) {
-      this._sendMessageToComponent(component, "awake");
-    } else {
-      this._unAwakedComponent.push(component);
+      this._sendMessageToComponent(component, "awake", true, false);
+      this._sendMessageToComponent(component, "mount", false, true);
     }
   }
   public getComponents(): Component[] {
@@ -437,38 +465,97 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * コンポーネントにメッセージを送る。ただしenableでなければ何もしない。
-   * @param  {Component} targetComponent [description]
-   * @param  {string}    message         [description]
-   * @param  {any}       args            [description]
-   * @return {boolean}                   コンポーネントがenableでなければfalse
+   * バッファしていたmount,unmountが送信されるかもしれない.アクティブなら
    */
-  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
-    if (!targetComponent.enabled) {
+  public notifyActivenessUpdate(): void {
+    if (this.isActive) {
+      this._sendBufferdMessage(this.mounted ? "mount" : "unmount", false);
+      this.children.forEach(child => {
+        child.notifyActivenessUpdate();
+      })
+    }
+  }
+
+  /**
+   * コンポーネントにメッセージを送る。送信したらバッファからは削除される.
+   * @param  {Component} targetComponent 対象コンポーネント
+   * @param  {string}    message         メッセージ
+   * @param  {boolean}   forced          trueでコンポーネントのenableを無視して送信
+   * @param  {boolean}   toBuffer        trueで送信失敗したらバッファに追加
+   * @param  {any}       args            [description]
+   * @return {boolean}                   送信したか
+   */
+  private _sendMessageToComponent(targetComponent: Component, message: string, forced: boolean, toBuffer: boolean, args?: any): boolean {
+    message = Ensure.ensureTobeMessage(message);
+    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === targetComponent);
+    if (!forced && (!targetComponent.enabled || !this.isActive)) {
+      if (toBuffer && bufferdIndex < 0) {
+        this._messageBuffer.push({ message: Ensure.ensureTobeMessage(message), target: targetComponent });
+      }
       return false;
     }
-    if (!message.startsWith("$")) {
-      message = "$" + message;
-    }
+    message = Ensure.ensureTobeMessage(message);
     let method = targetComponent[message];
     if (typeof method === "function") {
       method.bind(targetComponent)(args);
     }
+    if (bufferdIndex >= 0) {
+      this._messageBuffer.splice(bufferdIndex, 1);
+    }
     return true;
+  }
+  /**
+   * バッファからメッセージを送信。成功したらバッファから削除
+   * @param  {Component} target  [description]
+   * @param  {string}    message [description]
+   * @param  {boolean}   forced  [description]
+   * @param  {any}       args    [description]
+   * @return {boolean}           成功したか
+   */
+  private _sendBufferdMessageToComponent(target: Component, message: string, forced: boolean, sendToRemove: boolean, args?: any): boolean {
+    if (!forced && (!target.enabled || !this.isActive)) {
+      return false;
+    }
+    message = Ensure.ensureTobeMessage(message);
+    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === target);
+    if (bufferdIndex >= 0) {
+      let method = target[message];
+      if (typeof method === "function") {
+        method.bind(target)(args);
+      }
+      if (sendToRemove) {
+        this._messageBuffer.splice(bufferdIndex, 1);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  private _sendMessage(message: string, forced: boolean, toBuffer: boolean, args?: any): void {
+    this._components.forEach((component) => {
+      this._sendMessageToComponent(component, message, forced, toBuffer, args);
+    });
   }
 
   /**
-   * コンポーネントをawakeして、成功したらunawakedリストから削除
+   * バッファのメッセージを送信可能なら送信してバッファから削除
    */
-  private _attemptAwakeComponents(): void {
-    const nextUnAwaked: Component[] = [];
-    this._unAwakedComponent.forEach((component) => {
-      if (!this._sendMessageToComponent(component, "awake")) {
-        nextUnAwaked.push(component);
+  private _sendBufferdMessage(message: string, forced: boolean, args?: any): void {
+    const next: { message: string, target: Component }[] = [];
+    message = Ensure.ensureTobeMessage(message);
+    this._messageBuffer.forEach((obj) => {
+      if (obj.message !== message || !this._sendBufferdMessageToComponent(obj.target, message, forced, false, args)) {
+        next.push(obj);
       }
     });
-    this._unAwakedComponent = nextUnAwaked;
+    this._messageBuffer = next;
   }
+
+  private _clearMessageBuffer(message: string): void {
+    message = Ensure.ensureTobeMessage(message);
+    this._messageBuffer = this._messageBuffer.filter(obj => obj.message !== message)
+  }
+
   private _callRecursively<T>(func: (g: GomlNode) => T, nextGenerator: (n: GomlNode) => GomlNode[]): T[] {
     const val = func(this);
     const nexts = nextGenerator(this);
