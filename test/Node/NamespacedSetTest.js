@@ -17,15 +17,15 @@ import NSIdentity from "../../lib-es5/Base/NSIdentity"
 
 // DefaultPluginRegister.register();
 
-test('test parse for goml parser',(t)=>{
+test('test parse for goml parser', (t) => {
   // const element = obtainElementTag("GomlParserTest_Case1.goml");
   // GomlParser.parse(element);
   // console.log(element);
-  const name = new NSIdentity("namespace1","name1");
+  const name = new NSIdentity("namespace1", "name1");
   const set = new NSSet();
   set.push(name);
   const array = set.toArray();
   t.truthy(array.length === 1);
-  t.truthy(array[0].name === "NAME1");
+  t.truthy(array[0].name === "name1");
 
 });

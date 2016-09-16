@@ -30,7 +30,6 @@ class GrimoireComponent extends Component {
     });
     this.getAttribute("enabled").addObserver(attr => {
       if (this.node.isActive) {
-        console.log("アクティ日になったから通知")
         this.node.notifyActivenessUpdate();
       }
     })

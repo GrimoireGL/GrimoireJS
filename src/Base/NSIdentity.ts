@@ -60,7 +60,7 @@ class NSIdentity {
     constructor(ns: string, name: string);
     constructor(ns: string, name?: string) {
         if (name) {
-            this.ns = ns;
+            this.ns = ns.toUpperCase();
             this.name = name;
         } else {
             this.ns = Constants.defaultNamespace;

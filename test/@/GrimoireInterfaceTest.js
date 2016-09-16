@@ -22,7 +22,7 @@ test.beforeEach(() => {
 
 test('ns method should generate namespace generating function correctly', (t) => {
   const g = GrimoireInterface.ns('http://grimoire.gl/ns/2');
-  t.truthy(g("test").fqn === "TEST|HTTP://GRIMOIRE.GL/NS/2");
+  t.truthy(g("test").fqn === "test|HTTP://GRIMOIRE.GL/NS/2");
 });
 
 test('_ensureTobeComponentConstructor works correctly', (t) => {
