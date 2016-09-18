@@ -91,16 +91,6 @@ test("detach method works correctly", t => {
   t.truthy(node3.deleted === false);
 });
 
-test("attr method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  t.truthy(false);
-});
-
-test("addAttribute method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  t.truthy(false);
-});
-
 test("getComponents method works correctly", t => {
   GrimoireInterface.registerComponent("testComponent", {
     attr1: "testAttr"
