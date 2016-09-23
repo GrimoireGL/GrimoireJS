@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "noImplicitAny": true,
-    "outDir": "./lib"
+    "noImplicitAny": true
   },
   "filesGlob": [
     "./src/**/*.ts"

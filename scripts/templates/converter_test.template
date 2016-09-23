@@ -1,6 +1,0 @@
-import test from 'ava';
-import {{key}} from '../../lib-es5/Converters/{{path}}';
-
-test('StringConverter should convert collectly', (t) => {
-    t.truthy( /*Write test here*/ );
-});

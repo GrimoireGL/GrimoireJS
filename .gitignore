@@ -104,11 +104,21 @@ $RECYCLE.BIN/
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
 
+### Grimoire.js ###
+
+# Generated codes included in package publishing.
 lib
-lib-ts
 lib-es5
+
+# Generated codes just used in local environment
+lib-ts
 lib-test
 product
+
+# If you are using atom-typescript without any configuration, that plugin would generate js files in ts folder.
+# To prevent conflict by this files, any js files included src folder would be ignored.
+# Only if you want to import js file from typescript(NOT RECOMMENDED, the ideal method is what separate them as packages and use them as dependency),you should remove the line below.
 src/**/*.js
+
+
 ci
-test-es5

@@ -6,6 +6,9 @@ import IDObject from "./IDObject";
  * EventEmitterをmixinしたIDObject
  */
 class EEObject extends IDObject implements NodeJS.EventEmitter {
+  public prependListener: (event: string, listener: Function) => this;
+  public prependOnceListener: (event: string, listener: Function) => this;
+  public eventNames: () => string[];
   public addListener: (event: string, listener: Function) => this;
   public on: (event: string, listener: Function) => this;
   public once: (event: string, listener: Function) => this;
