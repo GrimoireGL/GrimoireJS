@@ -60,20 +60,23 @@ class Attribute {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
-    this.name = new NSIdentity(component.name.ns, name);
-    this.component = component;
-    this.declaration = declaration;
+  public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
+    const attr = new Attribute();
+    attr.name = new NSIdentity(component.name.ns, name);
+    attr.component = component;
+    attr.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
-    this.converter = GrimoireInterface.converters.get(converterName);
-    if (this.converter === void 0) {
+    attr.converter = GrimoireInterface.converters.get(converterName);
+    if (attr.converter === void 0) {
       // When the specified converter was not found
-      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${this.component.name.fqn}\n Attribute: ${this.name.name}`);
+      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
-    this.converter = {
-      convert: this.converter.convert.bind(this),
-      name: this.converter.name
+    attr.converter = {
+      convert: attr.converter.convert.bind(attr),
+      name: attr.converter.name
     };
+    attr.component.attributes.set(attr.name, attr);
+    return attr;
   }
 
   public addObserver(handler: (attr: Attribute) => void): void {
