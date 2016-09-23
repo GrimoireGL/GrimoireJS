@@ -136,8 +136,7 @@ class Component extends IDObject {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");
     }
-    const attr = new Attribute(name, attribute, this);
-    this.attributes.set(attr.name, attr);
+    const attr = Attribute.generateAttributeForComponent(name, attribute, this);
     if (this.isDefaultComponent) {
       this.node.addAttribute(attr);
     }
