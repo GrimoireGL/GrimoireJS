@@ -11,7 +11,7 @@ import GomlParser from "../../lib-es5/Node/GomlParser";
 import GomlLoader from "../../lib-es5/Node/GomlLoader";
 import NSIdentity from "../../lib-es5/Base/NSIdentity";
 import GomlNode from "../../lib-es5/Node/GomlNode";
-
+import Attribute from "../../lib-es5/Node/Attribute";
 global.Node = {
   ELEMENT_NODE: 1
 };
@@ -101,14 +101,6 @@ test("getComponents method works correctly", t => {
   t.truthy(components.length === 2);
   t.truthy(node._components[0].id === components[0].id);
 });
-test("getComponent method works correctly", t => {
-  GrimoireInterface.registerComponent("testComponent", {
-    attr1: "testAttr"
-  });
-  GrimoireInterface.registerComponent("testComponent2", {
-    attr2: "testAttr2"
-  });
-});
 
 test("setMounted method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
@@ -126,4 +118,96 @@ test("index method works correctly", t => {
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
   t.truthy(node2.index() === 0);
+});
+test("addComponent method works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  node.addChild(node2, null, null);
+  GrimoireInterface.registerComponent("testComponent1", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
+  node.addComponent(component);
+  const components = node.getComponents();
+  t.truthy(components.length == 2);
+  t.truthy(components[1].name.name == "testComponent1");
+});
+test("addComponent method overload works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  node.addChild(node2, null, null);
+  GrimoireInterface.registerComponent("testComponent1", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  node.addComponent("testComponent1");
+  const components = node.getComponents();
+  t.truthy(components.length == 2);
+  t.truthy(components[1].name.name == "testComponent1");
+});
+test("getComponent method overload works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  node.addChild(node2, null, null);
+  GrimoireInterface.registerComponent("testComponent1", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  node.addComponent("testComponent1");
+  const testComponent = node.getComponent("testComponent1");
+  t.truthy(testComponent.name.name == "testComponent1");
+});
+test("getComponents method overload works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  node.addChild(node2, null, null);
+  GrimoireInterface.registerComponent("testComponent1", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  GrimoireInterface.registerComponent("testComponent2", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  node.addComponent("testComponent1");
+  node.addComponent("testComponent2");
+  const components = node.getComponents();
+  t.truthy(components.length == 3);
+});
+test("addAttribute method works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  GrimoireInterface.registerComponent("testComponent1", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  });
+  const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
+  const attr = new Attribute("testAttr", {
+    converter: "String",
+    defaultValue: "thisistest"
+  }, component);
 });
