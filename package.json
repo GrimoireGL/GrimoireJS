@@ -31,7 +31,7 @@
   "scripts": {
     "start": "cauldron build --server --watch",
     "test": "inquisitor",
-    "prepublish":"cauldron build & inquisitor"
+    "prepublish":"cauldron build --buildSeparated && inquisitor"
   },
   "grimoire": {
     "isPlugin":false,
