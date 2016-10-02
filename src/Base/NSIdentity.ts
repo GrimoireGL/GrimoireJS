@@ -53,14 +53,14 @@ class NSIdentity {
         if (name == null) {
             throw new Error("Specified name was null or undefined");
         }
-        return name.toUpperCase();
+        return name;
     }
 
     constructor(name: string);
     constructor(ns: string, name: string);
     constructor(ns: string, name?: string) {
         if (name) {
-            this.ns = ns;
+            this.ns = ns.toUpperCase();
             this.name = name;
         } else {
             this.ns = Constants.defaultNamespace;

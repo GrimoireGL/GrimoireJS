@@ -18,8 +18,6 @@ class Attribute {
   public declaration: IAttributeDeclaration;
   public converter: AttributeConverter;
   public component: Component;
-  public responsively: boolean = false; // sync value with DomElement.
-  // TODO: stringじゃない属性はDomに反映できない
 
 
   private _value: any;
@@ -51,9 +49,6 @@ class Attribute {
    */
   public set Value(val: any) {
     this._value = val;
-    if (this.responsively) {
-      this.component.node.element.setAttribute(this.name.name, this.Value);
-    }
     this._notifyChange();
   }
 
@@ -65,19 +60,23 @@ class Attribute {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  constructor(name: string, declaration: IAttributeDeclaration, component: Component) {
-    this.name = new NSIdentity(component.name.ns, name);
-    this.component = component;
-    this.declaration = declaration;
+  public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
+    const attr = new Attribute();
+    attr.name = new NSIdentity(component.name.ns, name);
+    attr.component = component;
+    attr.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
-    this.converter = GrimoireInterface.converters.get(converterName);
-    this.converter = {
-      convert: this.converter.convert.bind(this),
-      name: this.converter.name
-    };
-    if (!this.converter) {
-      throw new Error(`Attribute converter '${converterName.fqn}' can not found`);
+    attr.converter = GrimoireInterface.converters.get(converterName);
+    if (attr.converter === void 0) {
+      // When the specified converter was not found
+      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
+    attr.converter = {
+      convert: attr.converter.convert.bind(attr),
+      name: attr.converter.name
+    };
+    attr.component.attributes.set(attr.name, attr);
+    return attr;
   }
 
   public addObserver(handler: (attr: Attribute) => void): void {
@@ -98,16 +97,29 @@ class Attribute {
     this._handlers.splice(index, 1);
   }
 
-  public boundTo(variableName: string): void {
+  /**
+   * Bind converted value to specified field.
+   * When target object was not specified, field of owner component would be assigned.
+   * @param {string} variableName [description]
+   * @param {any} targetObject [description]
+   */
+  public boundTo(variableName: string, targetObject: any = this.component): void {
     this.addObserver((v) => {
-      this.component[variableName] = v.Value;
+      targetObject[variableName] = v.Value;
     });
-    this.component[variableName] = this.Value;
+    targetObject[variableName] = this.Value;
   }
 
+  /**
+   * Apply default value to attribute from DOM values.
+   * @param {string }} domValues [description]
+   */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
+    if (this._value !== void 0) {// value is already exist.
+      return;
+    }
     let tagAttrValue = domValues[this.name.name];
-    if (!!tagAttrValue) {
+    if (tagAttrValue !== void 0) {
       this.Value = tagAttrValue; // Dom指定値で解決
       return;
     }

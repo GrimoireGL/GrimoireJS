@@ -40,18 +40,18 @@ class Component extends IDObject {
    * Flag that this component is activated or not.
    * @type {boolean}
    */
-  private _enable: boolean = true;
+  private _enabled: boolean = true;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
 
-  public get enable(): boolean {
-    return this._enable;
+  public get enabled(): boolean {
+    return this._enabled;
   }
-  public set enable(val) {
-    if (this._enable === val) {
+  public set enabled(val) {
+    if (this._enabled === val) {
       return;
     }
-    this._enable = val;
+    this._enabled = val;
     this._handlers.forEach((handler) => {
       handler(this);
     });
@@ -68,7 +68,7 @@ class Component extends IDObject {
    * @return {IGomlInterface} [description]
    */
   public get tree(): IGomlInterface {
-    return this.node ? this.node.treeInterface : null;
+    return this.node ? this.node.tree : null;
   }
 
   /**
@@ -136,8 +136,7 @@ class Component extends IDObject {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");
     }
-    const attr = new Attribute(name, attribute, this);
-    this.attributes.set(attr.name, attr);
+    const attr = Attribute.generateAttributeForComponent(name, attribute, this);
     if (this.isDefaultComponent) {
       this.node.addAttribute(attr);
     }

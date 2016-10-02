@@ -70,6 +70,14 @@ class Ensure {
       return newDict;
     }
   }
+
+  public static ensureTobeMessage(message: string): string {
+    if (message.startsWith("$")) {
+      return message;
+    } else {
+      return "$" + message;
+    }
+  }
 }
 
 export default Ensure;

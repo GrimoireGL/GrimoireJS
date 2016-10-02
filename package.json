@@ -1,95 +1,69 @@
 {
   "name": "grimoirejs",
-  "version": "0.4.1",
-  "description": "A web service oriented Web3D framework.",
+  "version": "0.7.1",
+  "description": "A service-oriented WebGL framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
   "files": [
     "lib",
-    "samples"
+    "samples",
+    "lib-es5"
   ],
   "keywords": [
-    "grimoire.js"
+    "grimoire"
   ],
   "dependencies": {
-    "@types/node": "6.0.33",
-    "buffer": "^4.9.0",
-    "events": "^1.1.1",
-    "utils": "^0.3.1"
+    "@types/node": "^6.0.41",
+    "events": "^1.1.1"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "babel-cli": "^6.11.4",
-    "babel-helpers": "^6.8.0",
-    "babel-plugin-transform-runtime": "^6.12.0",
-    "babel-preset-es2015": "^6.13.2",
-    "babel-preset-stage-2": "^6.13.0",
-    "babel-runtime": "^6.11.6",
-    "chalk": "^1.1.3",
-    "fs-extra": "^0.30.0",
-    "grimoirejs": "^0.1.10",
-    "grimoirejs-build-env-base": "^1.0.4",
-    "handlebars": "^4.0.5",
-    "http-server": "^0.9.0",
-    "jsdom": "^9.4.2",
+    "grimoirejs-cauldron": "^1.5.1",
+    "grimoirejs-inquisitor": "^1.0.2",
+    "jsdom": "^9.5.0",
+    "lodash": "^4.16.2",
     "progress": "^1.1.8",
     "proxyquire": "^1.7.10",
-    "rollup": "^0.34.8",
-    "rollup-plugin-babel": "^2.6.1",
-    "rollup-plugin-commonjs": "^3.3.1",
-    "rollup-plugin-node-builtins": "^1.0.7",
-    "rollup-plugin-node-globals": "^1.0.6",
-    "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-replace": "^1.1.1",
-    "rollup-plugin-sourcemaps": "^0.3.6",
-    "rollup-plugin-typescript": "^0.7.7",
-    "sinon": "^1.17.5",
-    "source-map": "^0.5.6",
-    "typescript": "beta",
-    "typescript-awaiter": "^1.0.0",
-    "typings": "^1.3.2",
-    "uglify": "^0.1.5",
-    "watch": "^0.19.1",
+    "sinon": "^1.17.6",
     "xhr-mock": "^1.6.0",
-    "xmldom": "^0.1.22",
-    "yargs": "^4.8.1"
+    "xmldom": "^0.1.22"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "scafold": "babel-node ./scripts/scafold.js --presets es2015,stage-2 --plugins transform-runtime",
-    "minify": "uglify -s ./product/index.js -o ./product/index.min.js",
-    "compile": "tsc @./lib-ts/entry_files --declaration --outDir ./lib -m es6 -t es6 --moduleResolution node --sourcemap --noEmitHelpers",
-    "build": "babel-node rollup.config.js --presets es2015,stage-2 --plugins transform-runtime",
-    "babel": "babel ./product/index.es2016.js --out-file ./product/index.js --inputSourceMap ./product/index.es2016.js.map --sourceMaps true -sourceMapTarget ./index.js.map",
-    "prepublish": "babel-node ./scripts/prepublish.js --presets es2015,stage-2 --plugins transform-runtime",
-    "start": "npm run build -- -w -s",
-    "serve": "hs ./",
-    "babel-test": "babel ./lib  --out-dir ./lib-es5",
-    "babel-ci-test": "babel ./test  --out-dir ./lib-test-es5",
-    "ava": "ava --verbose --serial",
-    "test": "babel-node ./scripts/test-runner.js --presets es2015,stage-2 --plugins transform-runtime",
-    "compiler-version":"tsc -v",
-    "lint":"tslint -c ./tslint.json ./src/**/*.ts"
-  },
-  "ava": {
-    "babel": {
-      "presets": [
-        "es2015",
-        "stage-2"
-      ]
-    },
-    "require": [
-      "babel-register"
-    ]
+    "start": "cauldron build --server --watch",
+    "test": "inquisitor",
+    "prepublish": "cauldron build --buildSeparated && inquisitor",
+    "build": "cauldron build"
   },
   "grimoire": {
-    "namespace": "HTTP://GRIMOIRE.GL/NS/CUSTOM",
-    "dependencies": [],
-    "txt2js": [
-      "*.html",
-      "*.goml",
-      "*.xml"
-    ]
+    "isPlugin": false,
+    "ts": {
+      "lib": "./lib",
+      "temp": "./lib-ts",
+      "src": "./src",
+      "es5": "./lib-es5"
+    },
+    "main": "Grimoire.ts",
+    "test": {
+      "defaultGlob": "**/*Test.js",
+      "src": "./test",
+      "temp": "./lib-test"
+    },
+    "out": {
+      "es6": "./product/grimoire.es2016.js",
+      "es5": "./product/grimoire.js"
+    },
+    "txt-exts": [
+      ".txt",
+      ".html",
+      ".xml",
+      ".goml"
+    ],
+    "doc": {
+      "src": "./doc",
+      "header": "./doc/header.md",
+      "footer": "./doc/footer.md",
+      "dest": "./lib-md/index.md"
+    }
   },
   "license": "MIT"
 }

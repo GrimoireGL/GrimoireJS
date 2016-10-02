@@ -1,3 +1,7 @@
+import BooleanConverter from "./Converters/BooleanConverter";
+import GrimoireComponent from "./Components/GrimoireComponent";
+import StringArrayConverter from "./Converters/StringArrayConverter";
+import StringConverter from "./Converters/StringConverter";
 import Attribute from "./Node/Attribute";
 import Constants from "./Base/Constants";
 import ITreeInitializedInfo from "./Node/ITreeInitializedInfo";
@@ -39,6 +43,14 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    */
   public ns(ns: string): (name: string) => NSIdentity {
     return (name: string) => new NSIdentity(ns, name);
+  }
+
+  public initialize(): void {
+    this.registerConverter("String", StringConverter);
+    this.registerConverter("StringArray", StringArrayConverter);
+    this.registerConverter("Boolean", BooleanConverter);
+    this.registerComponent("GrimoireComponent", GrimoireComponent);
+    this.registerNode("GrimoireNodeBase", ["GrimoireComponent"]);
   }
 
   /**
@@ -98,13 +110,16 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   }
   this.rootNodes[rootNode.id] = rootNode;
   rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+
+  // check tree constraint.
   const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
     .reduce((list, current) => list.concat(current)).filter(error => error);
   if (errorMessages.length !== 0) {
     const message = errorMessages.reduce((m, current) => m + "\n" + current);
     throw new Error("tree constraint is not satisfied.\n" + message);
   }
-  rootNode.callRecursively(n => n.resolveAttributesValue());
+
+  // awake and mount tree.
   rootNode.setMounted(true);
   rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
     ownerScriptTag: tag,
@@ -141,10 +156,11 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   this.nodeDeclarations.clear();
   this.componentDeclarations.clear();
   this.converters.clear();
-  for(let key in this.rootNodes) {
+  for (let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
     this.loadTasks.splice(0, this.loadTasks.length);
+    this.initialize();
 }
 
   /**

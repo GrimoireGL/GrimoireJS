@@ -11,6 +11,10 @@ class GomlInterface implements IGomlInterfaceBase {
 
   }
 
+  public getNodeById(id: string): GomlNode[] {
+    return (new Array(this.rootNodes.length)).map((v, i) => GomlNode.fromElement(this.rootNodes[i].element.ownerDocument.getElementById(id)));
+  }
+
   public queryFunc(query: string): INodeInterface {
     const context = new NodeInterface(this.queryNodes(query));
     const queryFunc = context.queryFunc.bind(context);
@@ -19,14 +23,14 @@ class GomlInterface implements IGomlInterfaceBase {
   }
 
   public queryNodes(query: string): GomlNode[][] {
-      return this.rootNodes.map((root) => {
+    return this.rootNodes.map((root) => {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {
-          const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute("x-gr-id")];
-          if (node) {
-              nodes.push(node);
-          }
+        const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute("x-gr-id")];
+        if (node) {
+          nodes.push(node);
+        }
       }
       return nodes;
     });

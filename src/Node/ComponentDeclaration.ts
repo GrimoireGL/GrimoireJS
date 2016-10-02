@@ -25,8 +25,7 @@ class ComponentDeclaration {
     component.element = componentElement;
     component.attributes = new NSDictionary<Attribute>();
     for (let key in this.attributes) {
-      const attr = new Attribute(key, this.attributes[key], component);
-      component.attributes.set(attr.name, attr);
+      Attribute.generateAttributeForComponent(key, this.attributes[key], component);
     }
     return component;
   }

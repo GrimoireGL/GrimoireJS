@@ -31,7 +31,9 @@ class NodeDeclaration {
     private _defaultAttributes: NSDictionary<any>,
     public inherits: NSIdentity,
     private _treeConstraints?: ((node: GomlNode) => string)[]) {
-
+    if (!this.inherits && this.name.name.toUpperCase() !== "GRIMOIRENODEBASE") {
+      this.inherits = new NSIdentity("GrimoireNodeBase");
+    }
   }
 
 
@@ -44,8 +46,8 @@ class NodeDeclaration {
     const inherits = GrimoireInterface.nodeDeclarations.get(this.inherits);
     const inheritedDefaultComponents = inherits.defaultComponents;
     const inheritedDefaultAttribute = inherits.defaultAttributes;
-    this._defaultComponentsActual = this._defaultComponents.clone().merge(inheritedDefaultComponents);
-    this._defaultAttributesActual = this._defaultAttributes.pushDictionary(inheritedDefaultAttribute);
+    this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this._defaultComponents);
+    this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this._defaultAttributes);
   }
 
 }
