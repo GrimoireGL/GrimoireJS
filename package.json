@@ -12,7 +12,7 @@
     "grimoire.js"
   ],
   "dependencies": {
-    "@types/node": "^6.0.33",
+    "@types/node": "6.0.33",
     "buffer": "^4.9.0",
     "events": "^1.1.1",
     "utils": "^0.3.1"
