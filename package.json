@@ -31,10 +31,11 @@
   "scripts": {
     "start": "cauldron build --server --watch",
     "test": "inquisitor",
-    "prepublish":"cauldron build --buildSeparated && inquisitor"
+    "prepublish": "cauldron build --buildSeparated && inquisitor",
+    "build": "cauldron build"
   },
   "grimoire": {
-    "isPlugin":false,
+    "isPlugin": false,
     "ts": {
       "lib": "./lib",
       "temp": "./lib-ts",
