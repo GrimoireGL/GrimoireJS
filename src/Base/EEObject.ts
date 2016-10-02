@@ -18,6 +18,9 @@ class EEObject extends IDObject implements NodeJS.EventEmitter {
   public getMaxListeners: () => number;
   public listeners: (event: string) => Function[];
   public listenerCount: (type: string) => number;
+  public prependListener: (event: string, listener: Function) => this;
+  public prependOnceListener: (event: string, listener: Function) => this;
+  public eventNames: () => string[];
   public emit: (event: string, ...args: any[]) => boolean;
   public emitException(eventName: string, error: IHandlableError): void {
     error.handled = false;
