@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.6.0",
+  "version": "0.7.1",
   "description": "A service-oriented WebGL framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
@@ -13,26 +13,28 @@
     "grimoire"
   ],
   "dependencies": {
-    "@types/node": "^6.0.33",
+    "@types/node": "^6.0.41",
     "events": "^1.1.1"
   },
   "devDependencies": {
-    "grimoirejs-cauldron": "^1.1.1",
-    "grimoirejs-inquisitor": "^1.0.1",
-    "jsdom": "^9.4.2",
-    "lodash": "^4.15.0",
+    "grimoirejs-cauldron": "^1.5.1",
+    "grimoirejs-inquisitor": "^1.0.2",
+    "jsdom": "^9.5.0",
+    "lodash": "^4.16.2",
     "progress": "^1.1.8",
     "proxyquire": "^1.7.10",
-    "sinon": "^1.17.5",
+    "sinon": "^1.17.6",
     "xhr-mock": "^1.6.0",
     "xmldom": "^0.1.22"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "start": "cauldron build --server --watch",
-    "test": "inquisitor"
+    "test": "inquisitor",
+    "prepublish":"cauldron build & inquisitor"
   },
   "grimoire": {
+    "isPlugin":false,
     "ts": {
       "lib": "./lib",
       "temp": "./lib-ts",

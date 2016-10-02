@@ -11,6 +11,15 @@ import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 
 class GomlNode extends EEObject {
+  /**
+   * Get actual goml node from element of xml tree.
+   * @param  {Element}  elem [description]
+   * @return {GomlNode}      [description]
+   */
+  public static fromElement(elem: Element): GomlNode {
+    return GrimoireInterface.nodeDictionary[elem.getAttribute("x-gr-id")];
+  }
+
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
@@ -71,6 +80,10 @@ class GomlNode extends EEObject {
     return this._parent;
   }
 
+  public get hasChildren(): boolean {
+    return this.children.length > 0;
+  }
+
   /**
    * Get mounted status.
    * @return {boolean} Whether this node is mounted or not.
@@ -120,6 +133,16 @@ class GomlNode extends EEObject {
 
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
+  }
+
+  public getChildrenByClass(className: string): GomlNode[] {
+    const nodes = this.element.getElementsByClassName(className);
+    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+  }
+
+  public getChildrenByNodeName(nodeName: string): GomlNode[] {
+    const nodes = this.element.getElementsByTagName(nodeName);
+    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
   }
 
   /**
