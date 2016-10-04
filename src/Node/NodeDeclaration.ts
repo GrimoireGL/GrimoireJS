@@ -1,3 +1,4 @@
+import Ensure from "../Base/Ensure";
 import NSDictionary from "../Base/NSDictionary";
 import NSSet from "../Base/NSSet";
 import GomlNode from "./GomlNode";
@@ -29,23 +30,31 @@ class NodeDeclaration {
     public name: NSIdentity,
     private _defaultComponents: NSSet,
     private _defaultAttributes: NSDictionary<any>,
-    public inherits: NSIdentity,
+    public superNode: NSIdentity,
     private _treeConstraints?: ((node: GomlNode) => string)[]) {
-    if (!this.inherits && this.name.name.toUpperCase() !== "GRIMOIRENODEBASE") {
-      this.inherits = new NSIdentity("GrimoireNodeBase");
+    if (!this.superNode && this.name.name.toUpperCase() !== "GRIMOIRENODEBASE") {
+      this.superNode = new NSIdentity("GrimoireNodeBase");
+    }
+  }
+
+  public addDefaultComponent(componentName: string | NSIdentity): void {
+    const componentId = Ensure.ensureTobeNSIdentity(componentName) as NSIdentity;
+    this._defaultComponents.push(componentId);
+    if (this._defaultComponentsActual) {
+      this._defaultComponentsActual.push(componentId);
     }
   }
 
 
   private _resolveInherites(): void {
-    if (!this.inherits) { // not inherit.
+    if (!this.superNode) { // not inherit.
       this._defaultComponentsActual = this._defaultComponents;
       this._defaultAttributesActual = this._defaultAttributes;
       return;
     }
-    const inherits = GrimoireInterface.nodeDeclarations.get(this.inherits);
-    const inheritedDefaultComponents = inherits.defaultComponents;
-    const inheritedDefaultAttribute = inherits.defaultAttributes;
+    const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
+    const inheritedDefaultComponents = superNode.defaultComponents;
+    const inheritedDefaultAttribute = superNode.defaultAttributes;
     this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this._defaultComponents);
     this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this._defaultAttributes);
   }

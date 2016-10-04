@@ -68,7 +68,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     }
   }
 
-  // TODO test
   /**
    * register custom component
    * @param  {string                |   NSIdentity} name          [description]
@@ -156,11 +155,11 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   this.nodeDeclarations.clear();
   this.componentDeclarations.clear();
   this.converters.clear();
-  for (let key in this.rootNodes) {
+  for(let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
     this.loadTasks.splice(0, this.loadTasks.length);
-    this.initialize();
+  this.initialize();
 }
 
   /**
