@@ -116,13 +116,7 @@ class GomlNode extends EEObject {
 
     // instanciate default components
     defaultComponentNames.toArray().map((id) => {
-      const declaration = GrimoireInterface.componentDeclarations.get(id);
-      if (!declaration) {
-        throw new Error(`component '${id.fqn}' is not found.`);
-      }
-      const component = declaration.generateInstance();
-      component.isDefaultComponent = true;
-      this.addComponent(component);
+      this.addComponent(id, true);
     });
 
     // デフォルトコンポーネント群の属性リスト作成
@@ -406,20 +400,27 @@ class GomlNode extends EEObject {
   public removeAttribute(attr: Attribute): void {
     this.attributes.delete(attr.name);
   }
+
   /**
    * このノードにコンポーネントをアタッチする。
    * @param {Component} component [description]
    */
-  public addComponent(component: Component): void;
-  public addComponent(component: string): void;
-  public addComponent(component: Component | string): void {
-    if (typeof component === "string") {
-      const declaration = GrimoireInterface.componentDeclarations.get(component);
-      this.addComponent(declaration.generateInstance());
-      return;
-    }
-    if (component.node) {
-      throw new Error("component is already registrated other node. the Component could be add to node only once, and never move.");
+  public addComponent(component: string | NSIdentity, isDefaultComponent = false): Component {
+    const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
+    const instance = declaration.generateInstance();
+    this._addComponentDirectly(instance, isDefaultComponent);
+    return instance;
+  }
+
+  /**
+   * Internal use!
+   * Should not operate by users or plugin developpers
+   * @param {Component} component          [description]
+   * @param {boolean}   isDefaultComponent [description]
+   */
+  public _addComponentDirectly(component: Component, isDefaultComponent: boolean): void {
+    if (isDefaultComponent) {
+      component.isDefaultComponent = true;
     }
     const insertIndex = this._components.length;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, insertIndex)];
@@ -429,6 +430,7 @@ class GomlNode extends EEObject {
     component.node = this;
     component.addEnabledObserver((c) => {
       if (c.enabled) {
+        // TODO ??
         this._sendBufferdMessageToComponent(c, "mount", false, true);
         this._sendBufferdMessageToComponent(c, "unmount", false, true);
       }
@@ -438,7 +440,12 @@ class GomlNode extends EEObject {
       this._sendMessageToComponent(component, "awake", true, false);
       this._sendMessageToComponent(component, "mount", false, true);
     }
+    if (isDefaultComponent) {
+      // attributes should be exposed on node
+      component.attributes.forEach(p => this.addAttribute(p));
+    }
   }
+
   public getComponents(): Component[] {
     return this._components;
   }

@@ -79,8 +79,11 @@ class Attribute {
     return attr;
   }
 
-  public addObserver(handler: (attr: Attribute) => void): void {
+  public addObserver(handler: (attr: Attribute) => void, callFirst = false): void {
     this._handlers.push(handler);
+    if (callFirst) {
+      handler(this);
+    }
   }
 
   public removeObserver(handler: (attr: Attribute) => void): void {
