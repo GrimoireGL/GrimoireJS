@@ -132,12 +132,13 @@ test("addComponent method works correctly", t => {
     }
   });
   const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
-  node.addComponent(component);
+  node._addComponentDirectly(component,true);
   const components = node.getComponents();
   t.truthy(components.length == 2);
   t.truthy(components[1].name.name == "testComponent1");
+  t.truthy(component.isDefaultComponent)
 });
-test("addComponent method overload works correctly", t => {
+test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
@@ -149,10 +150,11 @@ test("addComponent method overload works correctly", t => {
       }
     }
   });
-  node.addComponent("testComponent1");
+  const component = node.addComponent("testComponent1");
   const components = node.getComponents();
   t.truthy(components.length == 2);
   t.truthy(components[1].name.name == "testComponent1");
+  t.truthy(component.isDefaultComponent === false);
 });
 test("getComponent method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);

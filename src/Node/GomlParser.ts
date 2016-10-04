@@ -93,7 +93,7 @@ class GomlParser {
       }
 
       const component = componentDecl.generateInstance(componentNode);
-      node.addComponent(component);
+      node._addComponentDirectly(component, false);
     }
   }
 

@@ -199,9 +199,7 @@ class NodeInterface implements INodeInterfaceBase {
    */
   public addCompnent(componentId: NSIdentity): NodeInterface {
     this.forEach((node) => {
-      const componentDec = GrimoireInterface.componentDeclarations.get(componentId);
-      const comp = componentDec.generateInstance();
-      node.addComponent(comp);
+      node.addComponent(componentId, false);
     });
     return this;
   }
