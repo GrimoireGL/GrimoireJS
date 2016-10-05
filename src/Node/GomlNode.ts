@@ -35,6 +35,7 @@ class GomlNode extends EEObject {
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
   private _attrBuffer: { [fqn: string]: any } = {};
+  private _defaultValueResolved: boolean = false;
 
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
@@ -118,12 +119,6 @@ class GomlNode extends EEObject {
     defaultComponentNames.toArray().map((id) => {
       this.addComponent(id, true);
     });
-
-    // デフォルトコンポーネント群の属性リスト作成
-    const attributes: Attribute[] = this._components.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
-    // register attributes as node attributes
-    attributes.forEach(attr => this.addAttribute(attr));
 
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
@@ -435,14 +430,16 @@ class GomlNode extends EEObject {
         this._sendBufferdMessageToComponent(c, "unmount", false, true);
       }
     });
-
-    if (this._mounted) {
-      this._sendMessageToComponent(component, "awake", true, false);
-      this._sendMessageToComponent(component, "mount", false, true);
-    }
     if (isDefaultComponent) {
       // attributes should be exposed on node
       component.attributes.forEach(p => this.addAttribute(p));
+      if (this._defaultValueResolved) {
+        component.attributes.forEach(p => p.resolveDefaultValue(NodeUtility.getAttributes(this.element)));
+      }
+    }
+    if (this._mounted) {
+      this._sendMessageToComponent(component, "awake", true, false);
+      this._sendMessageToComponent(component, "mount", false, true);
     }
   }
 
@@ -471,6 +468,7 @@ class GomlNode extends EEObject {
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
   public resolveAttributesValue(): void {
+    this._defaultValueResolved = true;
     this._components.forEach((component) => {
       component.resolveDefaultAttributes(NodeUtility.getAttributes(this.element));
     });
