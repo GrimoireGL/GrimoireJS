@@ -117,7 +117,7 @@ class GomlNode extends EEObject {
 
     // instanciate default components
     defaultComponentNames.toArray().map((id) => {
-      this.addComponent(id, true);
+      this.addComponent(id, null, true);
     });
 
     // register to GrimoireInterface.
@@ -200,9 +200,9 @@ class GomlNode extends EEObject {
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addNode(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
     if (typeof nodeName === "string") {
-      this.addNode(new NSIdentity(nodeName), attributes);
+      this.addChildByName(new NSIdentity(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec, null);
@@ -400,9 +400,13 @@ class GomlNode extends EEObject {
    * このノードにコンポーネントをアタッチする。
    * @param {Component} component [description]
    */
-  public addComponent(component: string | NSIdentity, isDefaultComponent = false): Component {
+  public addComponent(component: string | NSIdentity, attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
     const instance = declaration.generateInstance();
+    attributes = attributes == null ? {} : attributes;
+    for (let key in attributes) {
+      instance.setValue(key, attributes[key]);
+    }
     this._addComponentDirectly(instance, isDefaultComponent);
     return instance;
   }
