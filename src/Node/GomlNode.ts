@@ -35,6 +35,7 @@ class GomlNode extends EEObject {
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
   private _attrBuffer: { [fqn: string]: any } = {};
+  private _defaultValueResolved: boolean = false;
 
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
@@ -58,10 +59,10 @@ class GomlNode extends EEObject {
     }
   }
   public get enabled(): boolean {
-    return this.attr("enabled");
+    return this.getValue("enabled");
   }
   public set enabled(value) {
-    this.attr("enabled", value);
+    this.setValue("enabled", value);
   }
 
   /**
@@ -112,18 +113,12 @@ class GomlNode extends EEObject {
     this.attributes = new NSDictionary<Attribute>();
 
     this.element.setAttribute("x-gr-id", this.id);
-    const defaultComponentNames = recipe.defaultComponents;
+    const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
     defaultComponentNames.toArray().map((id) => {
-      this.addComponent(id, true);
+      this.addComponent(id, null, true);
     });
-
-    // デフォルトコンポーネント群の属性リスト作成
-    const attributes: Attribute[] = this._components.map((c) => c.attributes.toArray())
-      .reduce((pre, current) => pre.concat(current), []); // map attributes to array.
-    // register attributes as node attributes
-    attributes.forEach(attr => this.addAttribute(attr));
 
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
@@ -205,16 +200,16 @@ class GomlNode extends EEObject {
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addNode(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
     if (typeof nodeName === "string") {
-      this.addNode(new NSIdentity(nodeName), attributes);
+      this.addChildByName(new NSIdentity(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec, null);
       if (attributes) {
         for (let key in attributes) {
           const id = key.indexOf("|") !== -1 ? NSIdentity.fromFQN(key) : new NSIdentity(key);
-          node.attr(id, attributes[key]);
+          node.setValue(id, attributes[key]);
         }
       }
       this.addChild(node);
@@ -315,32 +310,28 @@ class GomlNode extends EEObject {
     }
   }
 
-  public attr(attrName: string | NSIdentity): any;
-  public attr(attrName: string | NSIdentity, value: any): void;
-  public attr(attrName: string | NSIdentity, value?: any): any | void {
+  public getValue(attrName: string | NSIdentity): any {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
-    if (value !== void 0) {
-      // setValue.
-      if (!attr) {
-        console.warn(`attribute "${attrName.name}" is not found.`);
-        this._attrBuffer[attrName.fqn] = value;
-      } else {
-        attr.Value = value;
+    if (!attr) {
+      const attrBuf = this._attrBuffer[attrName.fqn];
+      if (attrBuf !== void 0) {
+        return attrBuf;
       }
+      console.warn(`attribute "${attrName.name}" is not found.`);
+      return;
     } else {
-      // getValue.
-      if (!attr) {
-        const attrBuf = this._attrBuffer[attrName.fqn];
-        if (attrBuf !== void 0) {
-          console.log("get attrBuf!")
-          return attrBuf;
-        }
-        console.warn(`attribute "${attrName.name}" is not found.`);
-        return;
-      } else {
-        return attr.Value;
-      }
+      return attr.Value;
+    }
+  }
+  public setValue(attrName: string | NSIdentity, value: any): void {
+    attrName = Ensure.ensureTobeNSIdentity(attrName);
+    const attr = this.attributes.get(attrName);
+    if (!attr) {
+      console.warn(`attribute "${attrName.name}" is not found.`);
+      this._attrBuffer[attrName.fqn] = value;
+    } else {
+      attr.Value = value;
     }
   }
 
@@ -405,9 +396,13 @@ class GomlNode extends EEObject {
    * このノードにコンポーネントをアタッチする。
    * @param {Component} component [description]
    */
-  public addComponent(component: string | NSIdentity, isDefaultComponent = false): Component {
+  public addComponent(component: string | NSIdentity, attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
     const instance = declaration.generateInstance();
+    attributes = attributes == null ? {} : attributes;
+    for (let key in attributes) {
+      instance.setValue(key, attributes[key]);
+    }
     this._addComponentDirectly(instance, isDefaultComponent);
     return instance;
   }
@@ -435,14 +430,16 @@ class GomlNode extends EEObject {
         this._sendBufferdMessageToComponent(c, "unmount", false, true);
       }
     });
-
-    if (this._mounted) {
-      this._sendMessageToComponent(component, "awake", true, false);
-      this._sendMessageToComponent(component, "mount", false, true);
-    }
     if (isDefaultComponent) {
       // attributes should be exposed on node
       component.attributes.forEach(p => this.addAttribute(p));
+      if (this._defaultValueResolved) {
+        component.attributes.forEach(p => p.resolveDefaultValue(NodeUtility.getAttributes(this.element)));
+      }
+    }
+    if (this._mounted) {
+      this._sendMessageToComponent(component, "awake", true, false);
+      this._sendMessageToComponent(component, "mount", false, true);
     }
   }
 
@@ -471,6 +468,7 @@ class GomlNode extends EEObject {
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
   public resolveAttributesValue(): void {
+    this._defaultValueResolved = true;
     this._components.forEach((component) => {
       component.resolveDefaultAttributes(NodeUtility.getAttributes(this.element));
     });

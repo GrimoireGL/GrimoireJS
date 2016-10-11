@@ -199,7 +199,7 @@ class NodeInterface implements INodeInterfaceBase {
    */
   public addCompnent(componentId: NSIdentity): NodeInterface {
     this.forEach((node) => {
-      node.addComponent(componentId, false);
+      node.addComponent(componentId);
     });
     return this;
   }
