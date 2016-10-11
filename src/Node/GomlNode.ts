@@ -59,10 +59,10 @@ class GomlNode extends EEObject {
     }
   }
   public get enabled(): boolean {
-    return this.attr("enabled");
+    return this.getValue("enabled");
   }
   public set enabled(value) {
-    this.attr("enabled", value);
+    this.setValue("enabled", value);
   }
 
   /**
@@ -209,7 +209,7 @@ class GomlNode extends EEObject {
       if (attributes) {
         for (let key in attributes) {
           const id = key.indexOf("|") !== -1 ? NSIdentity.fromFQN(key) : new NSIdentity(key);
-          node.attr(id, attributes[key]);
+          node.setValue(id, attributes[key]);
         }
       }
       this.addChild(node);
@@ -310,32 +310,28 @@ class GomlNode extends EEObject {
     }
   }
 
-  public attr(attrName: string | NSIdentity): any;
-  public attr(attrName: string | NSIdentity, value: any): void;
-  public attr(attrName: string | NSIdentity, value?: any): any | void {
+  public getValue(attrName: string | NSIdentity): any {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
-    if (value !== void 0) {
-      // setValue.
-      if (!attr) {
-        console.warn(`attribute "${attrName.name}" is not found.`);
-        this._attrBuffer[attrName.fqn] = value;
-      } else {
-        attr.Value = value;
+    if (!attr) {
+      const attrBuf = this._attrBuffer[attrName.fqn];
+      if (attrBuf !== void 0) {
+        return attrBuf;
       }
+      console.warn(`attribute "${attrName.name}" is not found.`);
+      return;
     } else {
-      // getValue.
-      if (!attr) {
-        const attrBuf = this._attrBuffer[attrName.fqn];
-        if (attrBuf !== void 0) {
-          console.log("get attrBuf!")
-          return attrBuf;
-        }
-        console.warn(`attribute "${attrName.name}" is not found.`);
-        return;
-      } else {
-        return attr.Value;
-      }
+      return attr.Value;
+    }
+  }
+  public setValue(attrName: string | NSIdentity, value: any): void {
+    attrName = Ensure.ensureTobeNSIdentity(attrName);
+    const attr = this.attributes.get(attrName);
+    if (!attr) {
+      console.warn(`attribute "${attrName.name}" is not found.`);
+      this._attrBuffer[attrName.fqn] = value;
+    } else {
+      attr.Value = value;
     }
   }
 
