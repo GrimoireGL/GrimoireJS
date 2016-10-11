@@ -113,7 +113,7 @@ class GomlNode extends EEObject {
     this.attributes = new NSDictionary<Attribute>();
 
     this.element.setAttribute("x-gr-id", this.id);
-    const defaultComponentNames = recipe.defaultComponents;
+    const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
     defaultComponentNames.toArray().map((id) => {
