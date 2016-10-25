@@ -36,6 +36,8 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
   public companion: NSDictionary<any> = new NSDictionary<any>();
+
+  public initializedEventHandler: ((id: string, className: string, tag: HTMLScriptElement) => void)[] = [];
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
@@ -125,6 +127,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     id: rootNode.id
   });
   tag.setAttribute("x-rootNodeId", rootNode.id);
+  this._onTreeInitialized(tag);
   return rootNode.id;
 }
 
@@ -193,10 +196,20 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   }
   return obj as (new () => Component);
 }
+
+private _onTreeInitialized(tag:HTMLScriptElement):void {
+  this.initializedEventHandler.forEach((h) => {
+    h(tag.id, tag.className, tag);
+  });
+}
 }
 const context = new GrimoireInterfaceImpl();
-const obtainGomlInterface = function(query: string): IGomlInterface {
-  return GomlInterfaceGenerator(context.queryRootNodes(query));
+const obtainGomlInterface = function(query: string | ((id: string, className: string, tag: HTMLScriptElement) => void)): IGomlInterface {
+  if (typeof query === "string") {
+    return GomlInterfaceGenerator(context.queryRootNodes(query));
+  } else {
+    context.initializedEventHandler.push(query);
+  }
 };
 // const bindedFunction = obtainGomlInterface.bind(context);
 Object.setPrototypeOf(obtainGomlInterface, context);
