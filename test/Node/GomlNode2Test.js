@@ -205,31 +205,31 @@ test('broadcastMessage should not invoke message if the node is not enabled', (t
 
 test('class attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  var classes = testNode3.attr("class");
+  var classes = testNode3.getValue("class");
   t.truthy(classes.length === 1);
   t.truthy(classes[0] === "classTest");
 });
 
 test('id attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  t.truthy(testNode3.attr("id") === "test");
+  t.truthy(testNode3.getValue("id") === "test");
 });
 
 test('enabled attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  t.truthy(testNode3.attr("enabled") === false);
+  t.truthy(testNode3.getValue("enabled") === false);
 });
 
 test('id attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
   const id = testNode3.attributes.get("id");
-  testNode3.attr("id", "test2");
+  testNode3.setValue("id", "test2");
   t.truthy(testNode3.element.id === "test2");
 });
 
 test('class attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.attr("class", "test");
+  testNode3.setValue("class", "test");
   t.truthy(testNode3.element.className === "test");
 });
 
@@ -240,9 +240,9 @@ test('addComponent should work correctly', (t) => {
 });
 test('addNode works correctly', (t) => {
   const testNode2 = rootNode.children[0].children[0];
-  testNode2.addNode("testNode2", {
+  testNode2.addChildByName("testNode2", {
     testAttr2: "ADDEDNODE"
   });
   t.truthy(testNode2.children[0].name.name === "testNode2");
-  t.truthy(testNode2.children[0].attr("testAttr2") === "ADDEDNODE");
+  t.truthy(testNode2.children[0].getValue("testAttr2") === "ADDEDNODE");
 });

@@ -9,14 +9,14 @@ class NodeDeclaration {
   private _defaultComponentsActual: NSSet;
   private _defaultAttributesActual: NSDictionary<any>;
 
-  public get defaultComponents(): NSSet {
+  public get defaultComponentsActual(): NSSet {
     if (!this._defaultComponentsActual) {
       this._resolveInherites();
     }
     return this._defaultComponentsActual;
   }
 
-  public get defaultAttributes(): NSDictionary<any> {
+  public get defaultAttributesActual(): NSDictionary<any> {
     if (!this._defaultAttributesActual) {
       this._resolveInherites();
     }
@@ -28,8 +28,8 @@ class NodeDeclaration {
 
   constructor(
     public name: NSIdentity,
-    private _defaultComponents: NSSet,
-    private _defaultAttributes: NSDictionary<any>,
+    public defaultComponents: NSSet,
+    public defaultAttributes: NSDictionary<any>,
     public superNode: NSIdentity,
     private _treeConstraints?: ((node: GomlNode) => string)[]) {
     if (!this.superNode && this.name.name.toUpperCase() !== "GRIMOIRENODEBASE") {
@@ -39,7 +39,7 @@ class NodeDeclaration {
 
   public addDefaultComponent(componentName: string | NSIdentity): void {
     const componentId = Ensure.ensureTobeNSIdentity(componentName) as NSIdentity;
-    this._defaultComponents.push(componentId);
+    this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {
       this._defaultComponentsActual.push(componentId);
     }
@@ -48,15 +48,15 @@ class NodeDeclaration {
 
   private _resolveInherites(): void {
     if (!this.superNode) { // not inherit.
-      this._defaultComponentsActual = this._defaultComponents;
-      this._defaultAttributesActual = this._defaultAttributes;
+      this._defaultComponentsActual = this.defaultComponents;
+      this._defaultAttributesActual = this.defaultAttributes;
       return;
     }
     const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
-    const inheritedDefaultComponents = superNode.defaultComponents;
-    const inheritedDefaultAttribute = superNode.defaultAttributes;
-    this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this._defaultComponents);
-    this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this._defaultAttributes);
+    const inheritedDefaultComponents = superNode.defaultComponentsActual;
+    const inheritedDefaultAttribute = superNode.defaultAttributesActual;
+    this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this.defaultComponents);
+    this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this.defaultAttributes);
   }
 
 }

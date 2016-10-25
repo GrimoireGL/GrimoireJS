@@ -132,7 +132,7 @@ test("addComponent method works correctly", t => {
     }
   });
   const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
-  node._addComponentDirectly(component,true);
+  node._addComponentDirectly(component, true);
   const components = node.getComponents();
   t.truthy(components.length == 2);
   t.truthy(components[1].name.name == "testComponent1");
@@ -150,10 +150,11 @@ test("addComponent method works correctly", t => {
       }
     }
   });
-  const component = node.addComponent("testComponent1");
+  const component = node.addComponent("testComponent1", { testAttr1: "testValue" });
   const components = node.getComponents();
   t.truthy(components.length == 2);
   t.truthy(components[1].name.name == "testComponent1");
+  t.truthy(components[1].getValue("testAttr1") == "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
 test("getComponent method overload works correctly", t => {
