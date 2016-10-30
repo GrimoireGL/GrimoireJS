@@ -1,4 +1,4 @@
-![Grimoire.js](./.github/logo.svg)
+![Grimoire.js](./.github/logo.png)
 
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
