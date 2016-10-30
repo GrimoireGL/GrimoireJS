@@ -32,7 +32,6 @@ This is not only just editing property names or refactoring class relationships.
 ## Useful Links
 
 * **Official Site**・・・http://grimoire.gl
-* **Playground**・・・http://studio.grimoire.gl
 
 **Note:Most part of documentation are not completed yet. **
 
