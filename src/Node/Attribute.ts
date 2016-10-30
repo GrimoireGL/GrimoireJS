@@ -8,25 +8,56 @@ import GrimoireInterface from "../GrimoireInterface";
 import Component from "./Component";
 
 /**
- * Management a single attribute with specified type. Converter will serve a value with object with any type instead of string.
- * When attribute is changed, emit a "change" event. When attribute is requested, emit a "get" event.
- * If responsive flag is not true, event will not be emitted.
+ * Manage a attribute attached to components.
  */
 class Attribute {
 
+  /**
+   * The name of attribute.
+   * @type {NSIdentity}
+   */
   public name: NSIdentity;
+  /**
+   * The declaration of attribute used for defining this attribute.
+   * @type {IAttributeDeclaration}
+   */
   public declaration: IAttributeDeclaration;
+
+  /**
+   * A function to convert any values into ideal type.
+   * @type {AttributeConverter}
+   */
   public converter: AttributeConverter;
+
+  /**
+   * A component reference that this attribute is bound to.
+   * @type {Component}
+   */
   public component: Component;
 
-
+  /**
+   * Cache of attribute value.
+   * @type {any}
+   */
   private _value: any;
-  private _handlers: ((attr: Attribute) => void)[] = [];
 
+  /**
+   * List of functions that is listening changing values.
+   */
+  private _observers: ((attr: Attribute) => void)[] = [];
+
+  /**
+   * Goml tree interface which contains the component this attribute bound to.
+   * @return {IGomlInterface} [description]
+   */
   public get tree(): IGomlInterface {
     return this.component.tree;
   }
 
+  /**
+   * Companion map which is bounding to the component this attribute bound to.
+   * @return {NSDictionary<any>} [description]
+   */
   public get companion(): NSDictionary<any> {
     return this.component.companion;
   }
@@ -79,17 +110,27 @@ class Attribute {
     return attr;
   }
 
+  /**
+   * Add event handler to observe changing this attribute.
+   * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
+   * @param {boolean = false} callFirst whether that handler should be called first time.
+   */
   public addObserver(handler: (attr: Attribute) => void, callFirst = false): void {
-    this._handlers.push(handler);
+    this._observers.push(handler);
     if (callFirst) {
       handler(this);
     }
   }
 
+  /**
+   * Remove event handler you added.
+   * @param  {Attribute} handler [description]
+   * @return {[type]}            [description]
+   */
   public removeObserver(handler: (attr: Attribute) => void): void {
     let index = -1;
-    for (let i = 0; i < this._handlers.length; i++) {
-      if (handler === this._handlers[i]) {
+    for (let i = 0; i < this._observers.length; i++) {
+      if (handler === this._observers[i]) {
         index = i;
         break;
       }
@@ -97,7 +138,7 @@ class Attribute {
     if (index < 0) {
       return;
     }
-    this._handlers.splice(index, 1);
+    this._observers.splice(index, 1);
   }
 
   /**
@@ -137,7 +178,7 @@ class Attribute {
   }
 
   private _notifyChange(): void {
-    this._handlers.forEach((handler) => {
+    this._observers.forEach((handler) => {
       handler(this);
     });
   }

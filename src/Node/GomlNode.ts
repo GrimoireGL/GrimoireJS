@@ -24,7 +24,7 @@ class GomlNode extends EEObject {
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public attributes: NSDictionary<Attribute>; // デフォルトコンポーネントの属性
-  public componentsElement: Element;
+  public componentsElement: Element; //<.components>
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
@@ -37,20 +37,38 @@ class GomlNode extends EEObject {
   private _attrBuffer: { [fqn: string]: any } = {};
   private _defaultValueResolved: boolean = false;
 
+  /**
+   * Tag name.
+   */
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
   }
   /**
-   * このノードの属するツリーのGomlInterface。unmountedならnull。
+   * GomlInterface that this node is bound to.
+   * throw exception if this node is not mounted.
    * @return {IGomlInterface} [description]
    */
   public get tree(): IGomlInterface {
+    if (!this.mounted) {
+      throw new Error("this node is not mounted");
+    }
     return this._tree;
   }
 
+  /**
+   * indicate this node is already deleted.
+   * if this node is deleted once, this node will not be mounted.
+   * @return {boolean} [description]
+   */
   public get deleted(): boolean {
     return this._deleted;
   }
+
+  /**
+   * indicate this node is enabled in tree.
+   * This value must be false when ancestor of this node is disabled.
+   * @return {boolean} [description]
+   */
   public get isActive(): boolean {
     if (this._parent) {
       return this._parent.isActive && this.enabled;
@@ -58,6 +76,12 @@ class GomlNode extends EEObject {
       return this.enabled;
     }
   }
+
+  /**
+   * indicate this node is enabled.
+   * this node never recieve any message if this node is not enabled.
+   * @return {boolean} [description]
+   */
   public get enabled(): boolean {
     return this.getValue("enabled");
   }
@@ -66,27 +90,34 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * ツリーで共有されるオブジェクト。マウントされていない状態ではnull。
+   * the shared object by all nodes in tree.
    * @return {NSDictionary<any>} [description]
    */
   public get companion(): NSDictionary<any> {
     return this._companion;
   }
 
-  public get nodeName(): NSIdentity {
-    return this.nodeDeclaration.name;
-  }
-
+  /**
+   * parent node of this node.
+   * if this node is root, return null.
+   * @return {GomlNode} [description]
+   */
   public get parent(): GomlNode {
     return this._parent;
   }
 
+  /**
+   * return true if this node has some child nodes.
+   * @return {boolean} [description]
+   */
   public get hasChildren(): boolean {
     return this.children.length > 0;
   }
 
   /**
-   * Get mounted status.
+   * indicate mounted status.
+   * this property to be true when treeroot registered to GrimoireInterface.
+   * to be false when this node detachd from the tree.
    * @return {boolean} Whether this node is mounted or not.
    */
   public get mounted(): boolean {
@@ -94,7 +125,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * 新しいインスタンスの作成
+   * create new instance.
    * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
    * @param  {Element}         element 対応するDomElement
    * @return {[type]}                  [description]
@@ -124,18 +155,31 @@ class GomlNode extends EEObject {
     GrimoireInterface.nodeDictionary[this.id] = this;
   }
 
+  /**
+   * search from children node by class property.
+   * return all nodes has same class as given.
+   * @param  {string}     className [description]
+   * @return {GomlNode[]}           [description]
+   */
   public getChildrenByClass(className: string): GomlNode[] {
     const nodes = this.element.getElementsByClassName(className);
     return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
   }
 
+  /**
+   * search from children node by name property.
+   * return all nodes has same name as given.
+   * @param  {string}     nodeName [description]
+   * @return {GomlNode[]}          [description]
+   */
   public getChildrenByNodeName(nodeName: string): GomlNode[] {
     const nodes = this.element.getElementsByTagName(nodeName);
     return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
   }
 
   /**
-   * ノードを削除する。使わなくなったら呼ぶ。子要素も再帰的に削除する。
+   * detach and delete this node and children.
+   * call when this node will never use.
    */
   public delete(): void {
     this.children.forEach((c) => {
@@ -153,6 +197,13 @@ class GomlNode extends EEObject {
     this._deleted = true;
   }
 
+  /**
+   * send message to this node.
+   * invoke component method has same name as message if this node isActive.
+   * @param  {string}  message [description]
+   * @param  {any}     args    [description]
+   * @return {boolean}         is this node active.
+   */
   public sendMessage(message: string, args?: any): boolean {
     if (!this.enabled || !this.mounted) {
       return false;
@@ -164,8 +215,8 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * [broadcastMessage description]
-   * @param {number} range 0でそのノードのみ、1で子要素,2で孫...
+   * sendMessage recursively for children.
+   * @param {number} range depth for recursive call.0 for only this node.1 for only children.
    * @param {string} name  [description]
    * @param {any}    args  [description]
    */
@@ -196,7 +247,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * 指定したノード名と属性で生成されたノードの新しいインスタンスを、このノードの子要素として追加
+   * add new instance created by given name and attributes for this node as child.
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
@@ -217,9 +268,9 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * Add child.
-   * @param {GomlNode} child            追加する子ノード
-   * @param {number}   index            追加位置。なければ末尾に追加
+   * Add child for this node.
+   * @param {GomlNode} child            child node to add.
+   * @param {number}   index            index for insert.なければ末尾に追加
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
   public addChild(child: GomlNode, index?: number, elementSync = true): void {
@@ -247,20 +298,21 @@ class GomlNode extends EEObject {
       let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
-    child._tree = this.tree;
-    child._companion = this.companion;
+    child._tree = this._tree;
+    child._companion = this._companion;
     // mounting
     if (this.mounted) {
       child.setMounted(true);
     }
   }
 
+
   public callRecursively<T>(func: (g: GomlNode) => T): T[] {
     return this._callRecursively(func, (n) => n.children);
   }
 
   /**
-   * デタッチしてdeleteする。
+   * delete child node.
    * @param {GomlNode} child Target node to be inserted.
    */
   public removeChild(child: GomlNode): void {
@@ -271,9 +323,10 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * 指定したノードが子要素なら子要素から外す。
+   * detach given node from this node if target is child of this node.
+   * return null if target is not child of this node.
    * @param  {GomlNode} child [description]
-   * @return {GomlNode}       [description]
+   * @return {GomlNode}       detached node.
    */
   public detachChild(target: GomlNode): GomlNode {
     // search child.
@@ -300,7 +353,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * detach myself
+   * detach this node from parent.
    */
   public detach(): void {
     if (this.parent) {
@@ -310,6 +363,11 @@ class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * get value of attribute.
+   * @param  {string | NSIdentity}  attrName [description]
+   * @return {any}         [description]
+   */
   public getValue(attrName: string | NSIdentity): any {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
@@ -324,6 +382,12 @@ class GomlNode extends EEObject {
       return attr.Value;
     }
   }
+
+  /**
+   * set value to selected attribute.
+   * @param {string |     NSIdentity}  attrName [description]
+   * @param {any}       value [description]
+   */
   public setValue(attrName: string | NSIdentity, value: any): void {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
@@ -388,18 +452,22 @@ class GomlNode extends EEObject {
     return this._parent.children.indexOf(this);
   }
 
+  /**
+   * remove attribute from this node.
+   * @param {Attribute} attr [description]
+   */
   public removeAttribute(attr: Attribute): void {
     this.attributes.delete(attr.name);
   }
 
   /**
-   * このノードにコンポーネントをアタッチする。
+   * attach component to this node.
    * @param {Component} component [description]
    */
   public addComponent(component: string | NSIdentity, attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
     const instance = declaration.generateInstance();
-    attributes = attributes == null ? {} : attributes;
+    attributes = attributes || {};
     for (let key in attributes) {
       instance.setValue(key, attributes[key]);
     }
@@ -447,6 +515,11 @@ class GomlNode extends EEObject {
     return this._components;
   }
 
+  /**
+   * search component by name from this node.
+   * @param  {string | NSIdentity}  name [description]
+   * @return {Component}   component found first.
+   */
   public getComponent(name: string | NSIdentity): Component {
     if (typeof name === "string") {
       for (let i = 0; i < this._components.length; i++) {
@@ -465,6 +538,7 @@ class GomlNode extends EEObject {
   }
 
   /**
+   * resolve default attribute value for all component.
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
   public resolveAttributesValue(): void {
@@ -475,7 +549,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * このノードのtreeConstrainが満たされるか調べる
+   * check tree constraint for this node.
    * @return {string[]} [description]
    */
   public checkTreeConstraints(): string[] {
