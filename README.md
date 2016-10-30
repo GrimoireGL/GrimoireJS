@@ -1,4 +1,4 @@
-![Grimoire.js](./.github/logo.png)
+![Grimoire.js](./.github/logo.svg)
 
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
@@ -8,34 +8,27 @@
 
 ## Overview
 
-**Web3D is not only for games, but also for web services.**
+Why virtual DOM needs to be only for actual DOM?
+Logics like drawing formulas for canvas even needs DOM for easy way.
+
+* **DOM based** ・・・The way that Web engineers can work most effectively.
+* **jQuery like API** ・・・No more complex procedural webgl logics, just operate attributes with the API.
+* **Web development friendly**・・・Use with the other Web frontend frameworks. Very easy to coop with them.
+* **No more redundant codes**・・・Include  only the `tags` you actually need.
+
+## Purpose
+
+**WebGL is not only for games, but also for web services.**
 
 After WebGL feature being implemented with modern browsers, many impressive Web3D libraries are appeared. However, most of them are just imported from 3D development culture that was grown in the environments very apart from web development culture.
 
----
-
-This library has 3 of main concepts that is considered to take advantage of using Web3D in Web services.
-
-* **Workflow**・・・No longer consider environments for 3D engineers cope with.
-* **Interface**・・・Create 3D scenes with xml syntax and handle them with event oriented interfaces that web engineers used to.
-* **Extensive**・・・Choose what you actually need, no more coding out of your specialized area.
-
-## News
-
-**Wait for using this library.**
-
-From the last release of this library, our team decided to refactor a lot of interfaces. Most of API in the last release would not work in next version(Maybe 100% of API will be affected.).
-
-This is not only just editing property names or refactoring class relationships. This version would change the behaviours how all users would do with this library.
+There should be good way of mixing these cultures. Grimoire.js is one of solution of that future.
 
 ## Useful Links
 
 * **Official Site**・・・http://grimoire.gl
-* **Playground**・・・http://studio.grimoire.gl
 
 **Note:Most part of documentation are not completed yet. **
-
-**And all of these documentation are targeted to next release.**
 
 ## LICENSE
 
