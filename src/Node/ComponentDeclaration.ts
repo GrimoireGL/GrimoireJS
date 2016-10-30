@@ -7,13 +7,11 @@ import Component from "./Component";
 
 class ComponentDeclaration {
 
-  public attributes: { [key: string]: IAttributeDeclaration };
-
   public constructor(
     public name: NSIdentity,
-    attributes: { [name: string]: IAttributeDeclaration },
+    public attributes: { [name: string]: IAttributeDeclaration },
     public ctor: new () => Component) {
-    this.attributes = attributes;
+
   }
 
   public generateInstance(componentElement?: Element): Component {
