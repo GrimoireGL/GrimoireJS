@@ -66,15 +66,6 @@ class ComponentInterface implements IComponentInterface {
       });
     }
   }
-
-  public on(): any {
-    // TODO implement
-    return;
-  }
-  public off(): any {
-    // TODO implement
-    return;
-  }
 }
 
 export default ComponentInterface;
