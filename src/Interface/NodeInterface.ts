@@ -15,7 +15,9 @@ import GomlNode from "../Node/GomlNode";
  */
 class NodeInterface implements INodeInterfaceBase {
   constructor(public nodes: GomlNode[][]) {
-
+    if (!nodes) {
+      throw new Error("nodes is null");
+    }
   }
   public queryFunc(query: string): IComponentInterface {
     return new ComponentInterface(this.queryComponents(query));
@@ -193,7 +195,7 @@ class NodeInterface implements INodeInterfaceBase {
    * 対象ノードにコンポーネントをアタッチします。
    * @param {Component} component [description]
    */
-  public addCompnent(componentId: NSIdentity): NodeInterface {
+  public addComponent(componentId: NSIdentity): NodeInterface {
     this.forEach((node) => {
       node.addComponent(componentId);
     });
