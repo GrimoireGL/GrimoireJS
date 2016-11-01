@@ -65,25 +65,21 @@ class NodeInterface implements INodeInterfaceBase {
       }
     }
   }
-
-  public attr(attrName: string | NSIdentity): Attribute;
-  public attr(attrName: string | NSIdentity, value: any): void;
-  public attr(attrName: string | NSIdentity, value?: any): Attribute | void {
-    if (value === void 0) {
-      // return Attribute.
-      return this.nodes[0][0].attributes.get(attrName as string).Value;
-    } else {
-      // set value.
-      this.forEach((node) => {
-        const attr = node.attributes.get(attrName as string);
-        if (attr.declaration.readonly) {
-          throw new Error(`The attribute ${attr.name.fqn} is readonly`);
-        }
-        if (attr) {
-          attr.Value = value;
-        }
-      });
+  public getAttribute(attrName: string | NSIdentity): any {
+    if (this.nodes.length > 0 && this.nodes[0].length > 0) {
+      throw new Error("node interface is empty.");
     }
+  }
+  public setAttribute(attrName: string | NSIdentity, value: any): void {
+    this.forEach((node) => {
+      const attr = node.attributes.get(attrName as string);
+      if (attr.declaration.readonly) {
+        throw new Error(`The attribute ${attr.name.fqn} is readonly`);
+      }
+      if (attr) {
+        attr.Value = value;
+      }
+    });
   }
 
   /**
