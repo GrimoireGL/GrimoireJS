@@ -8,7 +8,10 @@ class XMLReader {
   public static parseXML(doc: string, rootElementName?: string): Element[] {
     let isParseError = (parsedDocument: Document) => {
       var errorneousParse = XMLReader._parser.parseFromString('<', 'text/xml');
-      let parsererrorNS = errorneousParse.getElementsByTagName("parsererror")[0].namespaceURI;
+      if ((errorneousParse as any).documentURI === void 0) {
+        return false;
+      }
+      let parsererrorNS = errorneousParse.getElementsByTagName("parsererror").item(0).namespaceURI;
       if (parsererrorNS === 'http://www.w3.org/1999/xhtml') {
         return parsedDocument.getElementsByTagName("parsererror").length > 0;
       }
