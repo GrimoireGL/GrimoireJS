@@ -198,7 +198,7 @@ class NodeInterface implements INodeInterfaceBase {
    * 対象ノードにコンポーネントをアタッチします。
    * @param {Component} component [description]
    */
-  public addComponent(componentId: NSIdentity): NodeInterface {
+  public addComponent(componentId: string | NSIdentity): NodeInterface {
     this.forEach((node) => {
       node.addComponent(componentId);
     });
