@@ -251,7 +251,7 @@ class GomlNode extends EEObject {
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
       this.addChildByName(new NSIdentity(nodeName), attributes);
     } else {
@@ -264,6 +264,7 @@ class GomlNode extends EEObject {
         }
       }
       this.addChild(node);
+      return node;
     }
   }
 
