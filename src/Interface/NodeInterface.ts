@@ -47,32 +47,37 @@ class NodeInterface implements INodeInterfaceBase {
   public get<T extends GomlNode>(nodeIndex: number): T;
   public get<T extends GomlNode>(treeIndex: number, nodeIndex: number): T;
   public get<T extends GomlNode>(i1?: number, i2?: number): T {
-    const c = this.nodes;
     if (i1 === void 0) {
       if (this.isEmpty()) {
-        throw new Error("this NodeInterface is empty.")
-      } else if (c.length === 1 && c[0].length === 1) {
-        return c[0][0] as T;
-      }
-      throw new Error("There are too many candidate");
-    } else if (i2 === void 0) {
-      if (c.length === 0 || c[0].length <= i1) {
-        return null;
-      } else if (c.length === 1 && c[0].length > i1) {
-        return c[0][i1] as T;
-      }
-      throw new Error("There are too many candidate");
-    } else {
-      if (c.length <= i1 || c[i1].length <= i2) {
-        return null;
+        throw new Error("this NodeInterface is empty.");
       } else {
-        return c[i1][i2] as T;
+        return this.nodes[0][0] as T;
+      }
+    } else if (i2 === void 0) {
+      if (this.count() <= i1) {
+        throw new Error("index out of range.");
+      } else {
+        let c = i1;
+        let returnNode: GomlNode = null;
+        this.forEach(node => {
+          if (c === 0) {
+            returnNode = node
+          }
+          c--;
+        })
+        return returnNode as T;
+      }
+    } else {
+      if (this.nodes.length <= i1 || this.nodes[i1].length <= i2) {
+        throw new Error("index out of range.");
+      } else {
+        return this.nodes[i1][i2] as T;
       }
     }
   }
   public getAttribute(attrName: string | NSIdentity): any {
     if (this.nodes.length > 0 && this.nodes[0].length > 0) {
-      throw new Error("node interface is empty.");
+      throw new Error("this NodeInterface is empty.");
     }
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
