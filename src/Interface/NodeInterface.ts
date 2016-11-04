@@ -1,3 +1,4 @@
+import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
 import GomlParser from "../Node/GomlParser";
@@ -79,6 +80,7 @@ class NodeInterface implements INodeInterfaceBase {
     if (this.nodes.length > 0 && this.nodes[0].length > 0) {
       throw new Error("this NodeInterface is empty.");
     }
+    return this.get().attributes.get(Ensure.ensureTobeNSIdentity(attrName)).Value;
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {

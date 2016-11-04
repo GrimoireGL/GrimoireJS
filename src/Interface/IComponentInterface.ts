@@ -10,6 +10,8 @@ interface IComponentInterface {
   attr(attrName: string): Attribute;
   attr(attrName: string, value: any): void;
   attr(attrName: string, value?: any): Attribute | void;
+  getAttribute(attrName: string): any;
+  setAttribute(attrName: string, value: any): void;
 }
 
 export default IComponentInterface;
