@@ -6,6 +6,7 @@ import Attribute from "../Node/Attribute";
 
 
 interface INodeInterfaceBase {
+  isEmpty(): boolean;
   getAttribute(attrName: string | NSIdentity): any;
   setAttribute(attrName: string | NSIdentity, value: any): void;
   on(eventName: string, listener: Function): void;

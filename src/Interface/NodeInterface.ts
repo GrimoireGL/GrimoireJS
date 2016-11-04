@@ -39,6 +39,9 @@ class NodeInterface implements INodeInterfaceBase {
       });
     });
   }
+  public isEmpty(): boolean {
+    return this.count() === 0;
+  }
 
   public get<T extends GomlNode>(): T;
   public get<T extends GomlNode>(nodeIndex: number): T;
@@ -46,8 +49,8 @@ class NodeInterface implements INodeInterfaceBase {
   public get<T extends GomlNode>(i1?: number, i2?: number): T {
     const c = this.nodes;
     if (i1 === void 0) {
-      if (c.length === 0 || c[0].length === 0) {
-        return null;
+      if (this.isEmpty()) {
+        throw new Error("this NodeInterface is empty.")
       } else if (c.length === 1 && c[0].length === 1) {
         return c[0][0] as T;
       }
