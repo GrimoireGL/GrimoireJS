@@ -371,7 +371,7 @@ class GomlNode extends EEObject {
    */
   public getValue(attrName: string | NSIdentity): any {
     console.warn("getValue is obsolate. please use getAttribute instead of");
-    this.getAttribute(attrName);
+    return this.getAttribute(attrName);
   }
   public getAttribute(attrName: string | NSIdentity): any {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
