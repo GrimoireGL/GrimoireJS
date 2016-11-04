@@ -139,9 +139,9 @@ class NodeInterface implements INodeInterfaceBase {
    * 指定されたノードが存在すれば削除します。
    * @param {GomlNode} child [description]
    */
-  public remove(child: GomlNode): NodeInterface {
+  public remove(): NodeInterface {
     this.forEach((node) => {
-      node.removeChild(child);
+      node.delete()
     });
     return this;
   }
@@ -151,10 +151,10 @@ class NodeInterface implements INodeInterfaceBase {
    * @param  {GomlNode} callback [description]
    * @return {[type]}            [description]
    */
-  public forEach(callback: ((node: GomlNode) => void)): NodeInterface {
-    this.nodes.forEach((array) => {
-      array.forEach((node) => {
-        callback(node);
+  public forEach(callback: ((node: GomlNode, gomlIndex: number, nodeIndex: number) => void)): NodeInterface {
+    this.nodes.forEach((array, gomlIndex) => {
+      array.forEach((node, nodeIndex) => {
+        callback(node, gomlIndex, nodeIndex);
       });
     });
     return this;
@@ -177,6 +177,7 @@ class NodeInterface implements INodeInterfaceBase {
    * @return {Component[]}       [description]
    */
   public find(query: string): Component[] {
+    console.warn("'find' is obsolate.use componentInterface instead.")
     const allComponents: Component[] = [];
     this.queryComponents(query).forEach((gomlComps) => {
       gomlComps.forEach((nodeComps) => {
