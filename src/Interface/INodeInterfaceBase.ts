@@ -6,6 +6,8 @@ import Attribute from "../Node/Attribute";
 
 
 interface INodeInterfaceBase {
+  isEmpty(): boolean;
+  get(): GomlNode;
   getAttribute(attrName: string | NSIdentity): any;
   setAttribute(attrName: string | NSIdentity, value: any): void;
   on(eventName: string, listener: Function): void;
