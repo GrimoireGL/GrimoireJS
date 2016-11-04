@@ -83,10 +83,10 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get enabled(): boolean {
-    return this.getValue("enabled");
+    return this.getAttribute("enabled");
   }
   public set enabled(value) {
-    this.setValue("enabled", value);
+    this.setAttribute("enabled", value);
   }
 
   /**
@@ -365,7 +365,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * get value of attribute.
+   * [[[OBSOLETE!]]]get value of attribute.
    * @param  {string | NSIdentity}  attrName [description]
    * @return {any}         [description]
    */
