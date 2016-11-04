@@ -65,7 +65,7 @@ class ComponentInterface implements IComponentInterface {
     if (this.isEmpty()) {
       throw new Error("component interface is empty.");
     }
-    return this.components[0][0][0].getValue(attrName).Value;
+    return this.components[0][0][0].getValue(attrName);
   }
   public setAttribute(attrName: string, value: any): void {
     this.forEach((component) => {
@@ -83,6 +83,15 @@ class ComponentInterface implements IComponentInterface {
       console.warn("attr is obsolate. please use setAttribute instead of.");
       this.setAttribute(attrName, value);
     }
+  }
+
+  public count(): number {
+    if (this.components.length === 0) {
+      return 0;
+    }
+    return this.components.map(components =>
+      components.map(c => c.length).reduce((total, current) => total + current, 0)
+    ).reduce((total, current) => total + current, 0);
   }
 }
 
