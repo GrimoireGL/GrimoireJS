@@ -28,14 +28,14 @@ class ComponentInterface implements IComponentInterface {
       }
       throw new Error("There are too many candidate");
     } else if (i3 === void 0) {
-      if (c.length === 0 || c[0].length <= i2 || c[0][0].length <= i1) {
+      if (c.length === 0 || c[0].length <= i2 || c[0][i2].length <= i1) {
         return null;
       } else if (c.length === 1) {
         return c[0][i2][i1] as T;
       }
       throw new Error("There are too many candidate");
     } else {
-      if (c.length <= i3 || c[0].length <= i2 || c[0][0].length <= i1) {
+      if (c.length <= i3 || c[i3].length <= i2 || c[i3][i2].length <= i1) {
         return null;
       }
       return c[i3][i2][i1] as T;
@@ -51,6 +51,27 @@ class ComponentInterface implements IComponentInterface {
       });
     });
     return this;
+  }
+
+  public first(pred: (component: Component, gomlIndex: number, nodeIndex: number, componentIndex: number) => boolean): Component;
+  public first(): Component;
+  public first(pred?: (component: Component, gomlIndex: number, nodeIndex: number, componentIndex: number) => boolean): Component {
+    if (!pred) {
+      return this.first(() => true);
+    }
+    for (let i = 0; i < this.components.length; i++) {
+      let array1 = this.components[i];
+      for (let j = 0; j < array1.length; i++) {
+        let array2 = array1[j];
+        for (let k = 0; k < array2.length; k++) {
+          let c = array2[k];
+          if (pred(c, i, j, k)) {
+            return c;
+          }
+        }
+      }
+    }
+    return null;
   }
 
   public isEmpty(): boolean {
