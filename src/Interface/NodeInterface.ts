@@ -1,3 +1,4 @@
+import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
 import GomlParser from "../Node/GomlParser";
@@ -15,7 +16,9 @@ import GomlNode from "../Node/GomlNode";
  */
 class NodeInterface implements INodeInterfaceBase {
   constructor(public nodes: GomlNode[][]) {
-
+    if (!nodes) {
+      throw new Error("nodes is null");
+    }
   }
   public queryFunc(query: string): IComponentInterface {
     return new ComponentInterface(this.queryComponents(query));
@@ -37,38 +40,47 @@ class NodeInterface implements INodeInterfaceBase {
       });
     });
   }
+  public isEmpty(): boolean {
+    return this.count() === 0;
+  }
 
   public get<T extends GomlNode>(): T;
   public get<T extends GomlNode>(nodeIndex: number): T;
   public get<T extends GomlNode>(treeIndex: number, nodeIndex: number): T;
   public get<T extends GomlNode>(i1?: number, i2?: number): T {
-    const c = this.nodes;
     if (i1 === void 0) {
-      if (c.length === 0 || c[0].length === 0) {
-        return null;
-      } else if (c.length === 1 && c[0].length === 1) {
-        return c[0][0] as T;
-      }
-      throw new Error("There are too many candidate");
-    } else if (i2 === void 0) {
-      if (c.length === 0 || c[0].length <= i1) {
-        return null;
-      } else if (c.length === 1 && c[0].length > i1) {
-        return c[0][i1] as T;
-      }
-      throw new Error("There are too many candidate");
-    } else {
-      if (c.length <= i1 || c[i1].length <= i2) {
-        return null;
+      if (this.isEmpty()) {
+        throw new Error("this NodeInterface is empty.");
       } else {
-        return c[i1][i2] as T;
+        return this.nodes[0][0] as T;
+      }
+    } else if (i2 === void 0) {
+      if (this.count() <= i1) {
+        throw new Error("index out of range.");
+      } else {
+        let c = i1;
+        let returnNode: GomlNode = null;
+        this.forEach(node => {
+          if (c === 0) {
+            returnNode = node
+          }
+          c--;
+        })
+        return returnNode as T;
+      }
+    } else {
+      if (this.nodes.length <= i1 || this.nodes[i1].length <= i2) {
+        throw new Error("index out of range.");
+      } else {
+        return this.nodes[i1][i2] as T;
       }
     }
   }
   public getAttribute(attrName: string | NSIdentity): any {
     if (this.nodes.length > 0 && this.nodes[0].length > 0) {
-      throw new Error("node interface is empty.");
+      throw new Error("this NodeInterface is empty.");
     }
+    return this.get().attributes.get(Ensure.ensureTobeNSIdentity(attrName)).Value;
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {
@@ -114,7 +126,10 @@ class NodeInterface implements INodeInterfaceBase {
   public append(tag: string): NodeInterface {
     this.forEach((node) => {
       const elems = XMLReader.parseXML(tag);
-      elems.forEach((elem) => GomlParser.parse(elem, node, null));
+      elems.forEach((elem) => {
+        let child = GomlParser.parse(elem, null, null);
+        node.addChild(child);
+      });
     });
     return this;
   }
@@ -124,9 +139,9 @@ class NodeInterface implements INodeInterfaceBase {
    * 指定されたノードが存在すれば削除します。
    * @param {GomlNode} child [description]
    */
-  public remove(child: GomlNode): NodeInterface {
+  public remove(): NodeInterface {
     this.forEach((node) => {
-      node.removeChild(child);
+      node.delete()
     });
     return this;
   }
@@ -136,10 +151,10 @@ class NodeInterface implements INodeInterfaceBase {
    * @param  {GomlNode} callback [description]
    * @return {[type]}            [description]
    */
-  public forEach(callback: ((node: GomlNode) => void)): NodeInterface {
-    this.nodes.forEach((array) => {
-      array.forEach((node) => {
-        callback(node);
+  public forEach(callback: ((node: GomlNode, gomlIndex: number, nodeIndex: number) => void)): NodeInterface {
+    this.nodes.forEach((array, gomlIndex) => {
+      array.forEach((node, nodeIndex) => {
+        callback(node, gomlIndex, nodeIndex);
       });
     });
     return this;
@@ -162,6 +177,7 @@ class NodeInterface implements INodeInterfaceBase {
    * @return {Component[]}       [description]
    */
   public find(query: string): Component[] {
+    console.warn("'find' is obsolate.use componentInterface instead.")
     const allComponents: Component[] = [];
     this.queryComponents(query).forEach((gomlComps) => {
       gomlComps.forEach((nodeComps) => {
@@ -193,7 +209,7 @@ class NodeInterface implements INodeInterfaceBase {
    * 対象ノードにコンポーネントをアタッチします。
    * @param {Component} component [description]
    */
-  public addCompnent(componentId: NSIdentity): NodeInterface {
+  public addComponent(componentId: string | NSIdentity): NodeInterface {
     this.forEach((node) => {
       node.addComponent(componentId);
     });

@@ -53,18 +53,45 @@ class ComponentInterface implements IComponentInterface {
     return this;
   }
 
+  public isEmpty(): boolean {
+    let _isEmpty = true;
+    this.forEach(component => {
+      _isEmpty = false;
+    });
+    return _isEmpty;
+  }
+
+  public getAttribute(attrName: string): any {
+    if (this.isEmpty()) {
+      throw new Error("component interface is empty.");
+    }
+    return this.components[0][0][0].getValue(attrName);
+  }
+  public setAttribute(attrName: string, value: any): void {
+    this.forEach((component) => {
+      component.setValue(attrName, value);
+    });
+  }
+
   public attr(attrName: string): Attribute;
   public attr(attrName: string, value: any): void;
   public attr(attrName: string, value?: any): Attribute | void {
     if (value === void 0) {
-      // return Attribute.
-      return this.components[0][0][0].getValue(attrName).Value;
+      console.warn("attr is obsolate. please use getAttribute instead of.");
+      return this.getAttribute(attrName);
     } else {
-      // set value.
-      this.forEach((component) => {
-        component.setValue(attrName, value);
-      });
+      console.warn("attr is obsolate. please use setAttribute instead of.");
+      this.setAttribute(attrName, value);
     }
+  }
+
+  public count(): number {
+    if (this.components.length === 0) {
+      return 0;
+    }
+    return this.components.map(components =>
+      components.map(c => c.length).reduce((total, current) => total + current, 0)
+    ).reduce((total, current) => total + current, 0);
   }
 }
 

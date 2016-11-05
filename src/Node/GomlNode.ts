@@ -83,10 +83,10 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get enabled(): boolean {
-    return this.getValue("enabled");
+    return this.getAttribute("enabled");
   }
   public set enabled(value) {
-    this.setValue("enabled", value);
+    this.setAttribute("enabled", value);
   }
 
   /**
@@ -251,7 +251,7 @@ class GomlNode extends EEObject {
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
       this.addChildByName(new NSIdentity(nodeName), attributes);
     } else {
@@ -264,6 +264,7 @@ class GomlNode extends EEObject {
         }
       }
       this.addChild(node);
+      return node;
     }
   }
 
@@ -364,11 +365,15 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * get value of attribute.
+   * [[[OBSOLETE!]]]get value of attribute.
    * @param  {string | NSIdentity}  attrName [description]
    * @return {any}         [description]
    */
   public getValue(attrName: string | NSIdentity): any {
+    console.warn("getValue is obsolate. please use getAttribute instead of");
+    return this.getAttribute(attrName);
+  }
+  public getAttribute(attrName: string | NSIdentity): any {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
     if (!attr) {
@@ -389,6 +394,10 @@ class GomlNode extends EEObject {
    * @param {any}       value [description]
    */
   public setValue(attrName: string | NSIdentity, value: any): void {
+    console.warn("setValue is obsolate. please use setAttribute instead of");
+    this.setAttribute(attrName, value);
+  }
+  public setAttribute(attrName: string | NSIdentity, value: any): void {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
     if (!attr) {
