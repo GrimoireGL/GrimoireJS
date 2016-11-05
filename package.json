@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "A service-oriented WebGL framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
