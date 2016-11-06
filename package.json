@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.9.5",
+  "version": "0.9.7",
   "description": "A service-oriented WebGL framework.",
   "main": "./lib/Grimoire.js",
   "typings": "./lib/Grimoire.d.ts",
@@ -13,14 +13,14 @@
     "grimoire"
   ],
   "dependencies": {
-    "@types/node": "^6.0.41",
+    "@types/node": "^6.0.46",
     "events": "^1.1.1"
   },
   "devDependencies": {
-    "grimoirejs-cauldron": "^1.5.1",
+    "grimoirejs-cauldron": "^1.5.13",
     "grimoirejs-inquisitor": "^1.0.2",
-    "jsdom": "^9.5.0",
-    "lodash": "^4.16.2",
+    "jsdom": "^9.8.3",
+    "lodash": "^4.16.6",
     "progress": "^1.1.8",
     "proxyquire": "^1.7.10",
     "sinon": "^1.17.6",

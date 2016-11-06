@@ -458,6 +458,9 @@ class GomlNode extends EEObject {
    * @return {number} number of index.
    */
   public index(): number {
+    if (!this._parent) {
+      return -1;
+    }
     return this._parent.children.indexOf(this);
   }
 

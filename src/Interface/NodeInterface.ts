@@ -84,13 +84,7 @@ class NodeInterface implements INodeInterfaceBase {
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {
-      const attr = node.attributes.get(attrName as string);
-      if (attr.declaration.readonly) {
-        throw new Error(`The attribute ${attr.name.fqn} is readonly`);
-      }
-      if (attr) {
-        attr.Value = value;
-      }
+      node.setAttribute(attrName, value);
     });
   }
 
