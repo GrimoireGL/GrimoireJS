@@ -208,9 +208,7 @@ class GomlNode extends EEObject {
     if (!this.enabled || !this.mounted) {
       return false;
     }
-    this._components.forEach((component) => {
-      this._sendMessageToComponent(component, message, false, false, args);
-    });
+    this._sendMessage(message, false, false, args);
     return true;
   }
 
@@ -480,6 +478,7 @@ class GomlNode extends EEObject {
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
     const instance = declaration.generateInstance();
     attributes = attributes || {};
+
     for (let key in attributes) {
       instance.setValue(key, attributes[key]);
     }
@@ -494,15 +493,14 @@ class GomlNode extends EEObject {
    * @param {boolean}   isDefaultComponent [description]
    */
   public _addComponentDirectly(component: Component, isDefaultComponent: boolean): void {
-    if (isDefaultComponent) {
-      component.isDefaultComponent = true;
+    if (component.node) {
+      throw new Error("component never change attached node");
     }
-    const insertIndex = this._components.length;
-    let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, insertIndex)];
-    this.componentsElement.insertBefore(component.element, referenceElement);
-
-    this._components.push(component);
+    component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
+    let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
+    this.componentsElement.insertBefore(component.element, referenceElement);
+    this._components.push(component);
     component.addEnabledObserver((c) => {
       if (c.enabled) {
         // TODO ??
@@ -534,11 +532,7 @@ class GomlNode extends EEObject {
    */
   public getComponent(name: string | NSIdentity): Component {
     if (typeof name === "string") {
-      for (let i = 0; i < this._components.length; i++) {
-        if (this._components[i].name.name === name) {
-          return this._components[i];
-        }
-      }
+      return this.getComponent(Ensure.ensureTobeNSIdentity(name));
     } else {
       for (let i = 0; i < this._components.length; i++) {
         if (this._components[i].name.fqn === name.fqn) {
