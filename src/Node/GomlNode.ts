@@ -205,10 +205,10 @@ class GomlNode extends EEObject {
    * @return {boolean}         is this node active.
    */
   public sendMessage(message: string, args?: any): boolean {
-    if (!this.enabled || !this.mounted) {
+    if (!this.isActive) {
       return false;
     }
-    this._sendMessage(message, false, false, args);
+    this._sendMessage(message, args);
     return true;
   }
 
@@ -432,8 +432,8 @@ class GomlNode extends EEObject {
     if (mounted) {
       this._mounted = mounted;
       this._clearMessageBuffer("unmount");
-      this._sendMessage("awake", true, false);
-      this._sendMessage("mount", false, true);
+      this._sendMessageForced("awake");
+      this._sendMessageBuffer("mount");
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
@@ -442,8 +442,8 @@ class GomlNode extends EEObject {
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
-      this._sendMessage("unmount", false, true);
-      this._sendMessage("dispose", true, false);
+      this._sendMessageBuffer("unmount");
+      this._sendMessageForced("dispose");
       this._tree = null;
       this._companion = null;
       this._mounted = mounted;
@@ -503,9 +503,8 @@ class GomlNode extends EEObject {
     this._components.push(component);
     component.addEnabledObserver((c) => {
       if (c.enabled) {
-        // TODO ??
-        this._sendBufferdMessageToComponent(c, "mount", false, true);
-        this._sendBufferdMessageToComponent(c, "unmount", false, true);
+        this._resolveBufferdMessageTo(c, "mount");
+        this._resolveBufferdMessageTo(c, "unmount");
       }
     });
     if (isDefaultComponent) {
@@ -516,8 +515,8 @@ class GomlNode extends EEObject {
       }
     }
     if (this._mounted) {
-      this._sendMessageToComponent(component, "awake", true, false);
-      this._sendMessageToComponent(component, "mount", false, true);
+      this._sendMessageForcedTo(component, "awake");
+      this._sendMessageBufferTo(component, "mount");
     }
   }
 
@@ -577,7 +576,7 @@ class GomlNode extends EEObject {
    */
   public notifyActivenessUpdate(): void {
     if (this.isActive) {
-      this._sendBufferdMessage(this.mounted ? "mount" : "unmount", false);
+      this._resolveBufferdMessage(this.mounted ? "mount" : "unmount");
       this.children.forEach(child => {
         child.notifyActivenessUpdate();
       })
@@ -593,35 +592,27 @@ class GomlNode extends EEObject {
    * @param  {any}       args            [description]
    * @return {boolean}                   送信したか
    */
-  private _sendMessageToComponent(targetComponent: Component, message: string, forced: boolean, toBuffer: boolean, args?: any): boolean {
+  private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
     message = Ensure.ensureTobeMessage(message);
-    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === targetComponent);
-    if (!forced && (!targetComponent.enabled || !this.isActive)) {
-      if (toBuffer && bufferdIndex < 0) {
-        this._messageBuffer.push({ message: Ensure.ensureTobeMessage(message), target: targetComponent });
-      }
+    if (!targetComponent.enabled || !this.isActive) {
       return false;
     }
-    message = Ensure.ensureTobeMessage(message);
     let method = targetComponent[message];
     if (typeof method === "function") {
       method.bind(targetComponent)(args);
     }
-    if (bufferdIndex >= 0) {
-      this._messageBuffer.splice(bufferdIndex, 1);
-    }
     return true;
   }
   /**
-   * バッファからメッセージを送信。成功したらバッファから削除
+   * バッファにあればメッセージを送信。成功したらバッファから削除
    * @param  {Component} target  [description]
    * @param  {string}    message [description]
    * @param  {boolean}   forced  [description]
    * @param  {any}       args    [description]
    * @return {boolean}           成功したか
    */
-  private _sendBufferdMessageToComponent(target: Component, message: string, forced: boolean, sendToRemove: boolean, args?: any): boolean {
-    if (!forced && (!target.enabled || !this.isActive)) {
+  private _resolveBufferdMessageTo(target: Component, message: string): boolean {
+    if (!target.enabled || !this.isActive) {
       return false;
     }
     message = Ensure.ensureTobeMessage(message);
@@ -629,34 +620,77 @@ class GomlNode extends EEObject {
     if (bufferdIndex >= 0) {
       let method = target[message];
       if (typeof method === "function") {
-        method.bind(target)(args);
+        method.bind(target)();
       }
-      if (sendToRemove) {
-        this._messageBuffer.splice(bufferdIndex, 1);
-      }
+      this._messageBuffer.splice(bufferdIndex, 1);
       return true;
     }
     return false;
   }
 
-  private _sendMessage(message: string, forced: boolean, toBuffer: boolean, args?: any): void {
+  private _sendMessage(message: string, args?: any): void {
     this._components.forEach((component) => {
-      this._sendMessageToComponent(component, message, forced, toBuffer, args);
+      this._sendMessageToComponent(component, message, args);
     });
+  }
+  private _sendMessageForced(message: string): void {
+    this._components.forEach(c => {
+      this._sendMessageForcedTo(c, message);
+    });
+  }
+  private _sendMessageBuffer(message: string): void {
+    this._components.forEach(c => {
+      this._sendMessageBufferTo(c, message);
+    });
+  }
+
+  /**
+   * for $mount
+   * @param  {Component} target  [description]
+   * @param  {string}    message [description]
+   * @return {boolean}           [description]
+   */
+  private _sendMessageBufferTo(target: Component, message: string): boolean {
+    message = Ensure.ensureTobeMessage(message);
+    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === target);
+    if (!target.enabled || !this.isActive) {
+      if (bufferdIndex < 0) {
+        this._messageBuffer.push({ message: message, target: target });
+      }
+      return false;
+    }
+    let method = target[message];
+    if (typeof method === "function") {
+      method.bind(target)();
+    }
+    if (bufferdIndex >= 0) {
+      this._messageBuffer.splice(bufferdIndex, 1);
+    }
+    return true;
+  }
+
+  /**
+   * for $awake
+   * @param {Component} target  [description]
+   * @param {string}    message [description]
+   */
+  private _sendMessageForcedTo(target: Component, message: string): void {
+    message = Ensure.ensureTobeMessage(message);
+    let method = target[message];
+    if (typeof method === "function") {
+      method.bind(target)();
+    }
   }
 
   /**
    * バッファのメッセージを送信可能なら送信してバッファから削除
    */
-  private _sendBufferdMessage(message: string, forced: boolean, args?: any): void {
-    const next: { message: string, target: Component }[] = [];
+  private _resolveBufferdMessage(message: string): void {
     message = Ensure.ensureTobeMessage(message);
-    this._messageBuffer.forEach((obj) => {
-      if (obj.message !== message || !this._sendBufferdMessageToComponent(obj.target, message, forced, false, args)) {
-        next.push(obj);
-      }
+    const copy = this._messageBuffer.filter(obj => obj.message === message);
+    copy.forEach(obj => {
+      this._resolveBufferdMessageTo(obj.target, message);
     });
-    this._messageBuffer = next;
   }
 
   private _clearMessageBuffer(message: string): void {
