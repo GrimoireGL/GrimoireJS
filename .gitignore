@@ -123,3 +123,4 @@ src/**/*.js
 .grimoire.dependency
 
 ci
+register

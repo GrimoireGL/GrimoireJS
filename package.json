@@ -3,10 +3,11 @@
   "version": "0.10.5",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
-  "typings": "./ref/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "files": [
     "ref",
-    "register"
+    "register",
+    "lib"
   ],
   "keywords": [
     "grimoire"
@@ -15,12 +16,14 @@
     "@types/node": "^6.0.46",
     "babel-loader": "^6.2.7",
     "events": "^1.1.1",
+    "ts-loader": "^1.2.0",
     "typescript": "^2.0.9",
+    "watch": "^1.0.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {
-    "grimoirejs-cauldron": "^1.5.13",
+    "grimoirejs-cauldron": "^1.6.0",
     "grimoirejs-inquisitor": "^1.0.2",
     "jsdom": "^9.8.3",
     "lodash": "^4.16.6",
@@ -32,11 +35,11 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "start": "",
+    "start": "watch 'npm run build' ./src & hs",
     "test": "inquisitor",
-    "prepublish": "npm run pack",
-    "build": "tsc",
-    "pack": "webpack"
+    "prepublish": "npm run generate-expose && npm run build",
+    "build":  "webpack --progress",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts"
   },
   "grimoire": {
     "doc": {

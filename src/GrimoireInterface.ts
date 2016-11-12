@@ -14,12 +14,12 @@ import IAttributeDeclaration from "./Node/IAttributeDeclaration";
 import AttributeConverter from "./Node/AttributeConverter";
 import NSSet from "./Base/NSSet";
 import IGrimoireInterface from "./IGrimoireInterface";
-
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
 import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
+
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
