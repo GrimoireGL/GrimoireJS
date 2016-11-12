@@ -24,17 +24,16 @@
   import NodeGomlParser from "./Node/GomlParser";
   import NodeNodeDeclaration from "./Node/NodeDeclaration";
   import NodeNodeUtility from "./Node/NodeUtility";
-  import __INTERFACE__1 from "./Base/IHandlableError";
-  import __INTERFACE__2 from "./IGrimoireInterface";
-  import __INTERFACE__3 from "./IGrimoireInterfaceBase";
-  import __INTERFACE__4 from "./Interface/IComponentInterface";
-  import __INTERFACE__5 from "./Interface/IGomlInterface";
-  import __INTERFACE__6 from "./Interface/IGomlInterfaceBase";
-  import __INTERFACE__7 from "./Interface/INodeInterface";
-  import __INTERFACE__8 from "./Interface/INodeInterfaceBase";
-  import __INTERFACE__9 from "./Node/AttributeConverter";
-  import __INTERFACE__10 from "./Node/IAttributeDeclaration";
-  import __INTERFACE__11 from "./Node/ITreeInitializedInfo";
+  import __INTERFACE__1 from "./IGrimoireInterface";
+  import __INTERFACE__2 from "./IGrimoireInterfaceBase";
+  import __INTERFACE__3 from "./Interface/IComponentInterface";
+  import __INTERFACE__4 from "./Interface/IGomlInterface";
+  import __INTERFACE__5 from "./Interface/IGomlInterfaceBase";
+  import __INTERFACE__6 from "./Interface/INodeInterface";
+  import __INTERFACE__7 from "./Interface/INodeInterfaceBase";
+  import __INTERFACE__8 from "./Node/AttributeConverter";
+  import __INTERFACE__9 from "./Node/IAttributeDeclaration";
+  import __INTERFACE__10 from "./Node/ITreeInitializedInfo";
 
 import __MAIN__ from "./main"
 

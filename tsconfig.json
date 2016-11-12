@@ -16,7 +16,6 @@
     "./src/Base/EEObject.ts",
     "./src/Base/Ensure.ts",
     "./src/Base/IDObject.ts",
-    "./src/Base/IHandlableError.ts",
     "./src/Base/NSDictionary.ts",
     "./src/Base/NSIdentity.ts",
     "./src/Base/NSSet.ts",

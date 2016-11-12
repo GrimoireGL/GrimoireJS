@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 module.exports = {
     cache:true,
     entry: path.resolve(__dirname,"src/index.ts"),
@@ -19,7 +18,6 @@ module.exports = {
         extensions: ['','.ts','.js']
     },
     plugins:[
-      new webpack.optimize.UglifyJsPlugin()
     ],
     devtool: 'source-map'
 };
