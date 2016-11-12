@@ -1,20 +1,23 @@
 {
   "name": "grimoirejs",
-  "version": "0.9.7",
+  "version": "0.10.3",
   "description": "A service-oriented WebGL framework.",
-  "main": "./lib/Grimoire.js",
-  "typings": "./lib/Grimoire.d.ts",
+  "main": "./ref/index.js",
+  "typings": "./ref/index.d.ts",
   "files": [
-    "lib",
-    "samples",
-    "lib-es5"
+    "ref",
+    "register"
   ],
   "keywords": [
     "grimoire"
   ],
   "dependencies": {
     "@types/node": "^6.0.46",
-    "events": "^1.1.1"
+    "babel-loader": "^6.2.7",
+    "events": "^1.1.1",
+    "typescript": "^2.0.9",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {
     "grimoirejs-cauldron": "^1.5.13",
@@ -29,35 +32,13 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "start": "cauldron build --server --watch",
+    "start": "",
     "test": "inquisitor",
-    "prepublish": "cauldron build --buildSeparated && inquisitor",
-    "build": "cauldron build"
+    "prepublish": "npm run pack",
+    "build": "tsc",
+    "pack": "webpack"
   },
   "grimoire": {
-    "isPlugin": false,
-    "ts": {
-      "lib": "./lib",
-      "temp": "./lib-ts",
-      "src": "./src",
-      "es5": "./lib-es5"
-    },
-    "main": "Grimoire.ts",
-    "test": {
-      "defaultGlob": "**/*Test.js",
-      "src": "./test",
-      "temp": "./lib-test"
-    },
-    "out": {
-      "es6": "./product/grimoire.es2016.js",
-      "es5": "./product/grimoire.js"
-    },
-    "txt-exts": [
-      ".txt",
-      ".html",
-      ".xml",
-      ".goml"
-    ],
     "doc": {
       "src": "./doc",
       "header": "./doc/header.md",
