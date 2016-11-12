@@ -100,14 +100,14 @@ class Component extends IDObject {
     return this.attributes.get(name);
   }
 
-  public addEnabledObserver(handler: (component: Component) => void): void {
-    this._handlers.push(handler);
+  public addEnabledObserver(observer: (component: Component) => void): void {
+    this._handlers.push(observer);
   }
 
-  public removeEnabledObserver(handler: (component: Component) => void): void {
+  public removeEnabledObserver(observer: (component: Component) => void): void {
     let index = -1;
     for (let i = 0; i < this._handlers.length; i++) {
-      if (handler === this._handlers[i]) {
+      if (observer === this._handlers[i]) {
         index = i;
         break;
       }

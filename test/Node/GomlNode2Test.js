@@ -229,7 +229,7 @@ test('id attribute should sync with element', (t) => {
 
 test('class attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.setValue("class", "test");
+  testNode3.setAttribute("class", "test");
   t.truthy(testNode3.element.className === "test");
 });
 
@@ -244,5 +244,5 @@ test('addNode works correctly', (t) => {
     testAttr2: "ADDEDNODE"
   });
   t.truthy(testNode2.children[0].name.name === "testNode2");
-  t.truthy(testNode2.children[0].getValue("testAttr2") === "ADDEDNODE");
+  t.truthy(testNode2.children[0].getAttribute("testAttr2") === "ADDEDNODE");
 });
