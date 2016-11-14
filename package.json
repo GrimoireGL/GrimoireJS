@@ -1,23 +1,28 @@
 {
   "name": "grimoirejs",
-  "version": "0.9.7",
+  "version": "0.11.6",
   "description": "A service-oriented WebGL framework.",
-  "main": "./lib/Grimoire.js",
-  "typings": "./lib/Grimoire.d.ts",
+  "main": "./ref/index.js",
+  "typings": "./ref/index.d.ts",
   "files": [
-    "lib",
-    "samples",
-    "lib-es5"
+    "ref",
+    "register",
+    "lib"
   ],
   "keywords": [
     "grimoire"
   ],
   "dependencies": {
     "@types/node": "^6.0.46",
-    "events": "^1.1.1"
+    "babel-loader": "^6.2.7",
+    "events": "^1.1.1",
+    "ts-loader": "^1.2.0",
+    "typescript": "^2.0.9",
+    "watch": "^1.0.1",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "devDependencies": {
-    "grimoirejs-cauldron": "^1.5.13",
     "grimoirejs-inquisitor": "^1.0.2",
     "jsdom": "^9.8.3",
     "lodash": "^4.16.6",
@@ -29,35 +34,13 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "start": "cauldron build --server --watch",
     "test": "inquisitor",
-    "prepublish": "cauldron build --buildSeparated && inquisitor",
-    "build": "cauldron build"
+    "prepublish": "npm run build",
+    "build": "npm run generate-expose && webpack --progress && npm run generate-reference",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
+    "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
   },
   "grimoire": {
-    "isPlugin": false,
-    "ts": {
-      "lib": "./lib",
-      "temp": "./lib-ts",
-      "src": "./src",
-      "es5": "./lib-es5"
-    },
-    "main": "Grimoire.ts",
-    "test": {
-      "defaultGlob": "**/*Test.js",
-      "src": "./test",
-      "temp": "./lib-test"
-    },
-    "out": {
-      "es6": "./product/grimoire.es2016.js",
-      "es5": "./product/grimoire.js"
-    },
-    "txt-exts": [
-      ".txt",
-      ".html",
-      ".xml",
-      ".goml"
-    ],
     "doc": {
       "src": "./doc",
       "header": "./doc/header.md",
