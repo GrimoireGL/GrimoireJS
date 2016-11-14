@@ -114,10 +114,6 @@ lib-es5
 lib-ts
 lib-test
 product
-
-# If you are using atom-typescript without any configuration, that plugin would generate js files in ts folder.
-# To prevent conflict by this files, any js files included src folder would be ignored.
-# Only if you want to import js file from typescript(NOT RECOMMENDED, the ideal method is what separate them as packages and use them as dependency),you should remove the line below.
 src/**/*.js
 
 .grimoire.dependency
@@ -125,3 +121,4 @@ src/**/*.js
 ci
 register
 ref
+test-es5

@@ -29,14 +29,16 @@
     "progress": "^1.1.8",
     "proxyquire": "^1.7.10",
     "sinon": "^1.17.6",
+    "webpack-shell-plugin": "^0.4.3",
     "xhr-mock": "^1.6.0",
     "xmldom": "^0.1.22"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "test": "inquisitor",
+    "test": "tsc --outDir ./lib && babel ./lib --presets es2015  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose ",
     "prepublish": "npm run build",
-    "build": "npm run generate-expose && webpack --progress && npm run generate-reference",
+    "start":"webpack --progress --watch",
+    "build": "webpack --progress",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
   },

@@ -60,5 +60,5 @@ class GrimoireInitializer {
 
 export default function(): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
-  return window["GrimoireJS"] = GrimoireInterface;
+  return window["gr"] = window["GrimoireJS"] = GrimoireInterface; // TODO gr should implements 
 };

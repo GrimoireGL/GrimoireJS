@@ -1,4 +1,5 @@
 const path = require("path");
+const shell = require("webpack-shell-plugin");
 module.exports = {
     cache:true,
     entry: path.resolve(__dirname,"src/index.ts"),
@@ -18,6 +19,10 @@ module.exports = {
         extensions: ['','.ts','.js']
     },
     plugins:[
+      new shell({
+        onBuildStart:"npm run generate-expose",
+        onBuildEnd:"npm run generate-reference"
+      })
     ],
     devtool: 'source-map'
 };

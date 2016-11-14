@@ -4631,6 +4631,10 @@ webpack-dev-server:
     supports-color "^3.1.1"
     webpack-dev-middleware "^1.4.0"
 
+webpack-shell-plugin:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/webpack-shell-plugin/-/webpack-shell-plugin-0.4.3.tgz#a633e98c16b3bed5b6963e98059ca783841f3043"
+
 websocket-driver@>=0.5.1:
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/websocket-driver/-/websocket-driver-0.6.5.tgz#5cb2556ceb85f4373c6d8238aa691c8454e13a36"
