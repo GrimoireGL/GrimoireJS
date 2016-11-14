@@ -33,6 +33,8 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
   public loadTasks: (() => Promise<void>)[] = [];
 
+  public lib: { [key: string]: any } = {};
+
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
   public companion: NSDictionary<any> = new NSDictionary<any>();

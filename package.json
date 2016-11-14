@@ -34,11 +34,11 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "start": "watch 'npm run build' ./src & hs",
     "test": "inquisitor",
-    "prepublish": "npm run generate-expose && npm run build",
-    "build": "webpack --progress",
-    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
+    "prepublish": "npm run build",
+    "build": "npm run generate-expose && webpack --progress && npm run generate-reference",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
+    "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
   },
   "grimoire": {
     "doc": {
