@@ -11,7 +11,7 @@ module.exports = {
       loaders: [{
           test: /\.ts$/,
           exclude: /node_modules/,
-          loader: "babel-loader?presets[]=es2015,presets[]=stage-2!ts-loader"
+          loader: "babel-loader?presets[]=es2015,presets[]=stage-2,plugins[]=transform-runtime!ts-loader"
       }]
     },
     resolve: {

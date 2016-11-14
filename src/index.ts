@@ -80,4 +80,4 @@ let __BASE__ = __MAIN__();
 
 Object.assign(__BASE__|| {},__EXPOSE__);
 
-export default __BASE__ as (typeof __BASE__ & typeof __EXPOSE__);
+export default __BASE__;
