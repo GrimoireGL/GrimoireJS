@@ -1,3 +1,5 @@
+import GomlParser from "./GomlParser";
+import XMLReader from "../Base/XMLReader";
 import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
@@ -43,6 +45,7 @@ class GomlNode extends EEObject {
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
   }
+
   /**
    * GomlInterface that this node is bound to.
    * throw exception if this node is not mounted.
@@ -182,6 +185,11 @@ class GomlNode extends EEObject {
    * call when this node will never use.
    */
   public delete(): void {
+    console.warn("delete is obsolate. please use remove() instead of");
+    this.remove();
+  }
+
+  public remove(): void {
     this.children.forEach((c) => {
       c.delete();
     });
@@ -242,6 +250,17 @@ class GomlNode extends EEObject {
         this.children[i].broadcastMessage(message, args);
       }
     }
+  }
+
+  public append(tag: string): GomlNode[] {
+    const elems = XMLReader.parseXML(tag);
+    let ret: GomlNode[] = [];
+    elems.forEach(elem => {
+      let child = GomlParser.parse(elem, null, null);
+      this.addChild(child);
+      ret.push(child);
+    });
+    return ret;
   }
 
   /**

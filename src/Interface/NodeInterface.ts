@@ -21,10 +21,10 @@ class NodeInterface implements INodeInterfaceBase {
     }
   }
   public queryFunc(query: string): IComponentInterface {
-    return new ComponentInterface(this.queryComponents(query));
+    return new ComponentInterface(this._queryComponents(query));
   }
 
-  public queryComponents(query: string): Component[][][] {
+  private _queryComponents(query: string): Component[][][] {
     return this.nodes.map((nodes) => {
       return nodes.map((node) => {
         const componentElements = node.componentsElement.querySelectorAll(query);
@@ -173,7 +173,7 @@ class NodeInterface implements INodeInterfaceBase {
   public find(query: string): Component[] {
     console.warn("'find' is obsolate.use componentInterface instead.")
     const allComponents: Component[] = [];
-    this.queryComponents(query).forEach((gomlComps) => {
+    this._queryComponents(query).forEach((gomlComps) => {
       gomlComps.forEach((nodeComps) => {
         nodeComps.forEach((comp) => {
           allComponents.push(comp);
