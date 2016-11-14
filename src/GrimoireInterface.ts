@@ -38,6 +38,9 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public companion: NSDictionary<any> = new NSDictionary<any>();
 
   public initializedEventHandler: ((id: string, className: string, tag: HTMLScriptElement) => void)[] = [];
+
+  public debug: boolean = false;
+
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
