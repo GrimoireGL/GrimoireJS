@@ -36,7 +36,7 @@
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "test": "tsc --outDir ./lib && babel ./lib --presets es2015  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose ",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npm test",
     "start":"webpack --progress --watch",
     "build": "webpack --progress",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
