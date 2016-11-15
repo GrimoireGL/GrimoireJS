@@ -1,5 +1,5 @@
 const jsdom = require("jsdom");
-exports.default=(str,arr) => {
+module.exports =(str,arr) => {
   return new Promise((resolve,reject)=>{
     jsdom.env(str,arr,(err,window)=>{
       if(err){

@@ -1,4 +1,4 @@
-const GrimoireInterface =require("../../../lib-es5/GrimoireInterface");
+const GrimoireInterface =require("../../../lib-es5/GrimoireInterface").default;
 const sinon = require("sinon");
 
 // Components
