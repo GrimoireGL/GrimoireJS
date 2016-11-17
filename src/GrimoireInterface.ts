@@ -14,12 +14,12 @@ import IAttributeDeclaration from "./Node/IAttributeDeclaration";
 import AttributeConverter from "./Node/AttributeConverter";
 import NSSet from "./Base/NSSet";
 import IGrimoireInterface from "./IGrimoireInterface";
-
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
 import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
+
 
 class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
@@ -33,11 +33,16 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
 
   public loadTasks: (() => Promise<void>)[] = [];
 
+  public lib: { [key: string]: any } = {};
+
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
   public companion: NSDictionary<any> = new NSDictionary<any>();
 
   public initializedEventHandler: ((id: string, className: string, tag: HTMLScriptElement) => void)[] = [];
+
+  public debug: boolean = false;
+
   /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used

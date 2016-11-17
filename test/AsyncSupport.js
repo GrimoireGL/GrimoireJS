@@ -1,4 +1,4 @@
-import rr from 'regenerator-runtime';
-import __awaiter from 'typescript-awaiter';
+const rr = require("regenerator-runtime");
+const __awaiter =require('typescript-awaiter');
 global.__awaiter = __awaiter;
 global.regeneratorRuntime = rr;

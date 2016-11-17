@@ -1,5 +1,5 @@
-import GrimoireInterface from "../../../lib-es5/GrimoireInterface";
-import sinon from "sinon";
+const GrimoireInterface =require("../../../lib-es5/GrimoireInterface").default;
+const sinon = require("sinon");
 
 // Components
 

@@ -6,22 +6,17 @@ import Attribute from "../Node/Attribute";
 
 
 interface INodeInterfaceBase {
-  isEmpty(): boolean;
-  get(): GomlNode;
   getAttribute(attrName: string | NSIdentity): any;
   setAttribute(attrName: string | NSIdentity, value: any): void;
   on(eventName: string, listener: Function): void;
   off(eventName: string, listener: Function): void;
   append(tag: string): void;
   remove(child: GomlNode): void;
-  forEach(callback: ((node: GomlNode) => void)): void;
   setEnable(enable: boolean): void;
   find(query: string): Component[];
   children(): NodeInterface;
   addComponent(componentId: NSIdentity): NodeInterface;
-  first(): GomlNode;
-  single(): GomlNode;
-  count(): number;
+
 }
 
 export default INodeInterfaceBase;

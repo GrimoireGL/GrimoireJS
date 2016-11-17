@@ -1,5 +1,6 @@
 import GrimoireInterface from "./GrimoireInterface";
 import GomlLoader from "./Node/GomlLoader";
+import IGrimoireInterface from "./IGrimoireInterface";
 /**
  * Provides procedures for initializing.
  */
@@ -56,7 +57,8 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-GrimoireInitializer.initialize();
-window["gr"] = GrimoireInterface;
 
-export default GrimoireInterface;
+export default function(): typeof GrimoireInterface {
+  GrimoireInitializer.initialize();
+  return window["gr"] = window["GrimoireJS"] = GrimoireInterface; // TODO gr should implements noConflict
+};
