@@ -44,6 +44,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public debug: boolean = false;
 
   /**
+   * The object assigned to gr before loading grimoire.js
+   * @type {any}
+   */
+  public noConflictPreserve: any;
+
+  /**
    * Generate namespace helper function
    * @param  {string} ns namespace URI to be used
    * @return {[type]}    the namespaced identity
@@ -139,6 +145,10 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public getRootNode(scriptTag: Element): GomlNode {
   const id = scriptTag.getAttribute("x-rootNodeId");
   return this.rootNodes[id];
+}
+
+public noConflict():void {
+  window["gr"] = this.noConflictPreserve;
 }
 
   public queryRootNodes(query: string): GomlNode[] {

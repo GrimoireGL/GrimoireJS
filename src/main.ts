@@ -60,5 +60,6 @@ class GrimoireInitializer {
 
 export default function(): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
+  GrimoireInterface.noConflictPreserve = window["gr"];
   return window["gr"] = window["GrimoireJS"] = GrimoireInterface; // TODO gr should implements noConflict
 };
