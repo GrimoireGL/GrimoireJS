@@ -3,12 +3,12 @@ const webpack = require("webpack");
 const shell = require("webpack-shell-plugin");
 const argv = require("yargs").argv;
 const fs = require("fs");
-const fnPrefix = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8")).name;
+const fnPrefix = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8")).name.replace("grimoirejs", "grimoire");
 
-const getBuildTask = (fileName, plugins) => {
+const getBuildTask = (fileName, plugins, needPolyfill) => {
   return {
     cache: true,
-    entry: path.resolve(__dirname, "src/index.ts"),
+    entry: needPolyfill ? ['babel-polyfill', path.resolve(__dirname, "src/index.ts")] : path.resolve(__dirname, "src/index.ts"),
     output: {
       path: __dirname,
       filename: "/register/" + fileName,
@@ -18,7 +18,7 @@ const getBuildTask = (fileName, plugins) => {
       loaders: [{
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "babel-loader?presets[]=es2015,presets[]=stage-2,plugins[]=transform-runtime!ts-loader"
+        loader: "babel-loader?presets[]=es2015,presets[]=stage-2!ts-loader"
       }]
     },
     resolve: {
@@ -31,10 +31,10 @@ const getBuildTask = (fileName, plugins) => {
     devtool: 'source-map'
   }
 };
-const buildTasks = [getBuildTask(fnPrefix + ".js", [])]
+const buildTasks = [getBuildTask(fnPrefix + ".js", [], true)]
 
 if (argv.prod) {
-  buildTasks.push(getBuildTask("index.js", [])); // for npm registeirng
+  buildTasks.push(getBuildTask("index.js", [], false)); // for npm registeirng
   buildTasks.push(getBuildTask(fnPrefix + ".min.js", [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -44,7 +44,7 @@ if (argv.prod) {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin()
-  ]));
+  ], true));
 }
 
 module.exports = buildTasks;
