@@ -20,13 +20,10 @@ interface IGrimoireInterfaceBase {
   register(loadTask: () => Promise<void>): void;
   resolvePlugins(): Promise<void>;
   addRootNode(tag: HTMLScriptElement, node: GomlNode): string;
+  noConflict(): void;
+  registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void;
+  registerNode(name: string | NSIdentity, requiredComponents: (string | NSIdentity)[], defaultValues?: { [key: string]: any } | NSDictionary<any>, superNode?: string | NSIdentity): void;
   registerConverter(name: string | NSIdentity, converter: (this:Attribute, value: any) => any): void;
-registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void;
-registerNode(name: string | NSIdentity,
-  requiredComponents: (string | NSIdentity)[],
-  defaultValues ?: { [key: string]: any } | NSDictionary < any >,
-  superNode ?: string | NSIdentity): void;
-noConflict():void;
 }
 
 export default IGrimoireInterfaceBase;
