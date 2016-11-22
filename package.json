@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -45,7 +45,7 @@
     "prepublish": "npm run build --prod&& npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
-    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
   },
   "grimoire": {
