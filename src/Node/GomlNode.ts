@@ -534,6 +534,7 @@ class GomlNode extends EEObject {
       }
     }
     if (this._mounted) {
+      component.resolveDefaultAttributes();
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageBufferTo(component, "mount");
     }
