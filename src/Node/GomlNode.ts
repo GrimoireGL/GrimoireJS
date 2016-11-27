@@ -571,6 +571,10 @@ class GomlNode extends EEObject {
     return null;
   }
 
+  public getComponentsInChildren(name: string | NSIdentity): Component[] {
+    return this.callRecursively(node => node.getComponent(name));
+  }
+
   /**
    * resolve default attribute value for all component.
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
