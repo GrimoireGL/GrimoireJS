@@ -118,7 +118,7 @@ class Component extends IDObject {
     this._handlers.splice(index, 1);
   }
 
-  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; }): any {
+  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; } = {}): any {
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
       this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttributes));
     } else { // If not,the default value of attributes should be retrived from this element.
