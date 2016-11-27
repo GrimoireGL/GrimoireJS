@@ -519,6 +519,15 @@ class GomlNode extends EEObject {
     component.node = this;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
     this.componentsElement.insertBefore(component.element, referenceElement);
+    let propNames: string[] = [];
+    let o = component;
+    while (o) {
+      propNames = propNames.concat(Object.getOwnPropertyNames(o));
+      o = Object.getPrototypeOf(o);
+    }
+    propNames.filter(name => name.startsWith("$") && typeof component[name] === "function").forEach(method => {
+      component["$" + method] = component[method].bind(component);
+    });
     this._components.push(component);
     component.addEnabledObserver((c) => {
       if (c.enabled) {
@@ -619,7 +628,7 @@ class GomlNode extends EEObject {
     }
     let method = targetComponent[message];
     if (typeof method === "function") {
-      method.bind(targetComponent)(args);
+      method(args);
     }
     return true;
   }
@@ -640,7 +649,7 @@ class GomlNode extends EEObject {
     if (bufferdIndex >= 0) {
       let method = target[message];
       if (typeof method === "function") {
-        method.bind(target)();
+        method();
       }
       this._messageBuffer.splice(bufferdIndex, 1);
       return true;
@@ -681,7 +690,7 @@ class GomlNode extends EEObject {
     }
     let method = target[message];
     if (typeof method === "function") {
-      method.bind(target)();
+      method();
     }
     if (bufferdIndex >= 0) {
       this._messageBuffer.splice(bufferdIndex, 1);
@@ -698,7 +707,7 @@ class GomlNode extends EEObject {
     message = Ensure.ensureTobeMessage(message);
     let method = target[message];
     if (typeof method === "function") {
-      method.bind(target)();
+      method();
     }
   }
 
