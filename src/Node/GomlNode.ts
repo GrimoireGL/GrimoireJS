@@ -277,7 +277,7 @@ class GomlNode extends EEObject {
       if (attributes) {
         for (let key in attributes) {
           const id = key.indexOf("|") !== -1 ? NSIdentity.fromFQN(key) : new NSIdentity(key);
-          node.setValue(id, attributes[key]);
+          node.setAttribute(id, attributes[key]);
         }
       }
       this.addChild(node);
