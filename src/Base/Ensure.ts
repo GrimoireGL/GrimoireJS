@@ -73,9 +73,13 @@ class Ensure {
 
   public static ensureTobeMessage(message: string): string {
     if (message.startsWith("$")) {
-      return message;
+      if (message.startsWith("$$")) {
+        return message;
+      } else {
+        return "$" + message;
+      }
     } else {
-      return "$" + message;
+      return "$$" + message;
     }
   }
 }
