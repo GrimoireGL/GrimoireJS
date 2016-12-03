@@ -191,7 +191,7 @@ class GomlNode extends EEObject {
 
   public remove(): void {
     this.children.forEach((c) => {
-      c.delete();
+      c.remove();
     });
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
@@ -336,7 +336,7 @@ class GomlNode extends EEObject {
   public removeChild(child: GomlNode): void {
     const node = this.detachChild(child);
     if (node) {
-      node.delete();
+      node.remove();
     }
   }
 
@@ -558,17 +558,27 @@ class GomlNode extends EEObject {
    * @param  {string | NSIdentity}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent(name: string | NSIdentity): Component {
-    if (typeof name === "string") {
+  public getComponent(name: string | NSIdentity | (new () => Component)): Component {
+    if (!name) {
+      throw new Error("name must be not null or undefined");
+    } else if (typeof name === "string") {
       return this.getComponent(Ensure.ensureTobeNSIdentity(name));
-    } else {
+    } else if (typeof name === "function") {
       for (let i = 0; i < this._components.length; i++) {
-        if (this._components[i].name.fqn === name.fqn) {
+        if (this._components[i] instanceof name) {
           return this._components[i];
         }
       }
+      return null;
+    } else {
+      //NSIdentity here.
+      const dec = GrimoireInterface.componentDeclarations.get(name);
+      if (dec) {
+        return this.getComponent(dec.ctor)
+      } else {
+        throw new Error(`component ${name.fqn} is not exist.`);
+      }
     }
-    return null;
   }
 
   public getComponentsInChildren(name: string | NSIdentity): Component[] {

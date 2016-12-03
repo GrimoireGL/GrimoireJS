@@ -88,10 +88,14 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void {
+  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): void {
     name = Ensure.ensureTobeNSIdentity(name);
-    const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration };
-    obj = this._ensureTobeComponentConstructor(obj);
+    if (this.componentDeclarations.get(name)) {
+      console.log(this.componentDeclarations)
+      throw new Error(`component ${name.fqn} is already registerd.`);
+    }
+    obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
+    const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     this.componentDeclarations.set(name as NSIdentity, new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component)));
   }
 
@@ -100,6 +104,9 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     defaultValues?: { [key: string]: any } | NSDictionary<any>,
     superNode?: string | NSIdentity): void {
     name = Ensure.ensureTobeNSIdentity(name);
+    if (this.nodeDeclarations.get(name)) {
+      throw new Error(`gomlnode ${name.fqn} is already registerd.`)
+    }
     requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
     defaultValues = Ensure.ensureTobeNSDictionary<any>(defaultValues, (name as NSIdentity).ns);
     superNode = Ensure.ensureTobeNSIdentity(superNode);
@@ -176,7 +183,7 @@ public noConflict():void {
   for(let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
-    this.loadTasks.splice(0, this.loadTasks.length);
+  this.loadTasks.splice(0, this.loadTasks.length);
   this.initialize();
 }
 
@@ -185,14 +192,19 @@ public noConflict():void {
    * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
    * @return {[type]}      [The constructor inherits Component]
    */
-  private _ensureTobeComponentConstructor(obj: Object | (new () => Component)): new () => Component {
+  private _ensureTobeComponentConstructor(obj: Object | (new () => Component), baseConstructor ?: (new ()=>Component)): new () => Component {
   if (typeof obj === "function") {
     if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
       throw new Error("Component constructor must extends Component class.");
     }
+    return obj as (new () => Component);
   } else if (typeof obj === "object") {
+    if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component)) {
+      throw new Error("Base component comstructor must extends Compoent class.")
+    }
+    const ctor = baseConstructor || Component;
     const newCtor = function() {
-      Component.call(this);
+      ctor.call(this);
     };
     const properties = {};
     for (let key in obj) {
@@ -201,15 +213,40 @@ public noConflict():void {
       }
       properties[key] = { value: obj[key] };
     }
-    newCtor.prototype = Object.create(Component.prototype, properties);
+
+    const attributes = {};
+    for (let key in ctor["attributes"]) {
+      attributes[key] = ctor["attributes"][key];
+    }
+    for (let key in obj["attributes"]) {
+      attributes[key] = obj["attributes"][key];
+    }
+    newCtor.prototype = Object.create(ctor.prototype, properties);
     Object.defineProperty(newCtor, "attributes", {
-      value: obj["attributes"]
+      value: attributes
     });
     obj = newCtor;
-  } else if (!obj) {
-    obj = Component;
+    return obj as (new () => Component);
   }
-  return obj as (new () => Component);
+  return Component;
+}
+
+private _ensureNameTobeConstructor(component: string | NSIdentity | (new ()=>Component)):(new ()=>Component){
+  if (!component) {
+    return null;
+  }
+  if (typeof component === "function") {
+    return component;
+  } else if (typeof component === "string") {
+    return this._ensureNameTobeConstructor(Ensure.ensureTobeNSIdentity(component));
+  } else {
+    //here NSIdentity.
+    let c = this.componentDeclarations.get(component);
+    if (!c) {
+      return null;
+    }
+    return c.ctor;
+  }
 }
 
 private _onTreeInitialized(tag:HTMLScriptElement):void {
