@@ -25,6 +25,66 @@ test('ns method should generate namespace generating function correctly', (t) =>
   t.truthy(g("test").fqn === "test|HTTP://GRIMOIRE.GL/NS/2");
 });
 
+test('_ensureNameTobeConstructor is works correctly', (t) => {
+  GrimoireInterface.registerComponent("aaa", {
+    attributes: {
+      testValue: {
+        converter: "stringConverter",
+        defaultValue: "bbb"
+      }
+    }
+  });
+  const ctor = GrimoireInterface._ensureNameTobeConstructor("aaa");
+  t.truthy(ctor.attributes.testValue);
+})
+
+test('registerComponent works correctly', (t) => {
+  const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
+  GrimoireInterface.registerComponent("aaa", {
+    attributes: {
+      testValue: {
+        converter: "stringConverter",
+        defaultValue: "bbb"
+      }
+    },
+    $test: function () {
+      //do nothing.
+    }
+  });
+  const aaa = GrimoireInterface.componentDeclarations.get("aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
+  t.truthy(aaa.attributes.testValue);
+  GrimoireInterface.registerComponent("bbb", {
+    attributes: {
+      testValue2: {
+        converter: "stringConverter",
+        defaultValue: "ccc"
+      }
+    },
+    $test2: function () {
+      //do nothing.
+    }
+  }, "aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
+  const bbb = GrimoireInterface.componentDeclarations.get("bbb");
+  t.truthy(bbb.attributes.testValue);
+  t.truthy(bbb.attributes.testValue2);
+  t.truthy(bbb.ctor);
+  const bbbo = new bbb.ctor();
+  t.truthy(bbbo.$test);
+  t.truthy(bbbo.$test2);
+});
+test('throw error on attempt registerComponent/Node by duplicate name.', t => {
+  GrimoireInterface.registerComponent("aaa", {});
+  GrimoireInterface.registerNode("node");
+  t.throws(() => {
+    GrimoireInterface.registerComponent("aaa", {});
+  });
+  t.throws(() => {
+    GrimoireInterface.registerNode("node");
+  });
+});
+
 test('_ensureTobeComponentConstructor works correctly', (t) => {
   // passing plain object
   const testSpy = sinon.spy();

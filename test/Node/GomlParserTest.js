@@ -67,36 +67,6 @@ test.beforeEach(async() => {
 
 
 function registerUserPlugin() {
-  const ns1 = "http://testNamespace/test1";
-  const ns2 = "http://testNamespace/test2";
-  const id_a = new NSIdentity(ns1, "conflictNode");
-  const id_b = new NSIdentity(ns2, "conflictNode");
-  const id_a_c = new NSIdentity(ns1, "conflictComponent");
-  const id_b_c = new NSIdentity(ns2, "conflictComponent");
-  GrimoireInterface.registerNode(id_a, ["testComponent2"], {
-    attr1: "nodeA"
-  }, null, null);
-  GrimoireInterface.registerNode(id_b, ["testComponent2"], {
-    attr1: "nodeB"
-  });
-  GrimoireInterface.registerComponent(id_a_c, {
-    value: {
-      converter: "stringConverter",
-      defaultValue: "aaa"
-    }
-  }, {
-    conf1: function (obj) {
-      const v = this.attributes.get("value").Value;
-      obj.value = v;
-      //  console.log("component conf1 ::" + v);
-    }
-  });
-  GrimoireInterface.registerComponent(id_b_c, {
-    value: {
-      converter: "stringConverter",
-      defaultValue: "bbb"
-    }
-  });
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");
 }
@@ -144,9 +114,8 @@ test('test for namespace parsing.', (t) => {
   const node = GomlParser.parse(element);
   node.setMounted(true)
   node.broadcastMessage("onTest", "testArg");
-  sinon.assert.notCalled(conflictComponent1Spy);
-  sinon.assert.neverCalledWith(conflictComponent1Spy, "aaa");
-  sinon.assert.neverCalledWith(conflictComponent2Spy, "bbb");
+  sinon.assert.calledWith(conflictComponent1Spy, "aaa");
+  sinon.assert.calledWith(conflictComponent2Spy, "bbb");
 });
 
 test('test for companion', (t) => {
