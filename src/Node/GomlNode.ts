@@ -166,7 +166,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByClass(className: string): GomlNode[] {
     const nodes = this.element.getElementsByClassName(className);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
@@ -177,7 +181,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByNodeName(nodeName: string): GomlNode[] {
     const nodes = this.element.getElementsByTagName(nodeName);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
