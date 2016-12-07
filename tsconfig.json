@@ -37,7 +37,6 @@
     "./src/Interface/IGomlInterface.ts",
     "./src/Interface/IGomlInterfaceBase.ts",
     "./src/Interface/INodeInterface.ts",
-    "./src/Interface/INodeInterfaceBase.ts",
     "./src/Interface/NodeInterface.ts",
     "./src/main.ts",
     "./src/Node/Attribute.ts",

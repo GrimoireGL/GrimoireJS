@@ -31,10 +31,9 @@
   import __INTERFACE__4 from "./Interface/IGomlInterface";
   import __INTERFACE__5 from "./Interface/IGomlInterfaceBase";
   import __INTERFACE__6 from "./Interface/INodeInterface";
-  import __INTERFACE__7 from "./Interface/INodeInterfaceBase";
-  import __INTERFACE__8 from "./Node/AttributeConverter";
-  import __INTERFACE__9 from "./Node/IAttributeDeclaration";
-  import __INTERFACE__10 from "./Node/ITreeInitializedInfo";
+  import __INTERFACE__7 from "./Node/AttributeConverter";
+  import __INTERFACE__8 from "./Node/IAttributeDeclaration";
+  import __INTERFACE__9 from "./Node/ITreeInitializedInfo";
 
 import __MAIN__ from "./main"
 

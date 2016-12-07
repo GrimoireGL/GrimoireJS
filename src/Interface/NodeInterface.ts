@@ -1,3 +1,4 @@
+import INodeInterface from "./INodeInterface";
 import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
@@ -6,7 +7,6 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "../Node/Component";
-import INodeInterfaceBase from "./INodeInterfaceBase";
 import ComponentInterface from "./ComponentInterface";
 import IComponentInterface from "./IComponentInterface";
 import GomlNode from "../Node/GomlNode";
@@ -15,7 +15,7 @@ import GomlNode from "../Node/GomlNode";
 /**
  * 複数のノードを対象とした操作を提供するインタフェース
  */
-class NodeInterface implements INodeInterfaceBase {
+class NodeInterface {
   constructor(public nodes: GomlNode[][]) {
     if (!nodes) {
       throw new Error("nodes is null");
@@ -154,6 +154,16 @@ class NodeInterface implements INodeInterfaceBase {
     });
     return this;
   }
+  public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
+    this.nodes.forEach((array, gomlIndex) => {
+      array.forEach((node, nodeIndex) => {
+        if (predicate(node, gomlIndex, nodeIndex)) {
+          return node;
+        }
+      });
+    });
+    return null;
+  }
 
   /**
    * このノードインタフェースが対象とするノードを有効、または無効にします。
@@ -164,24 +174,6 @@ class NodeInterface implements INodeInterfaceBase {
       node.enabled = !!enable;
     });
     return this;
-  }
-
-  /**
-   * このノードインタフェースにアタッチされたコンポーネントをセレクタで検索します。
-   * @pram  {string}      query [description]
-   * @return {Component[]}       [description]
-   */
-  public find(query: string): Component[] {
-    console.warn("'find' is obsolate.use componentInterface instead.")
-    const allComponents: Component[] = [];
-    this._queryComponents(query).forEach((gomlComps) => {
-      gomlComps.forEach((nodeComps) => {
-        nodeComps.forEach((comp) => {
-          allComponents.push(comp);
-        });
-      });
-    });
-    return allComponents;
   }
 
   /**

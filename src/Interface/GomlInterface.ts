@@ -16,11 +16,11 @@ class GomlInterface implements IGomlInterfaceBase {
     return (new Array(this.rootNodes.length)).map((v, i) => GomlNode.fromElement(this.rootNodes[i].element.ownerDocument.getElementById(id)));
   }
 
-  public queryFunc(query: string): INodeInterface {
+  public queryFunc(query: string): NodeInterface & INodeInterface {
     const context = new NodeInterface(this.queryNodes(query));
     const queryFunc = context.queryFunc.bind(context);
     Object.setPrototypeOf(queryFunc, context);
-    return queryFunc as INodeInterface;
+    return queryFunc;
   }
 
   public queryNodes(query: string): GomlNode[][] {
