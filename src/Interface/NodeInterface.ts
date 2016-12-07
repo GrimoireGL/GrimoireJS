@@ -49,10 +49,11 @@ class NodeInterface {
   public get<T extends GomlNode>(treeIndex: number, nodeIndex: number): T;
   public get<T extends GomlNode>(i1?: number, i2?: number): T {
     if (i1 === void 0) {
-      if (this.isEmpty()) {
+      const first = this.first();
+      if (!first) {
         throw new Error("this NodeInterface is empty.");
       } else {
-        return this.nodes[0][0] as T;
+        return first as T;
       }
     } else if (i2 === void 0) {
       if (this.count() <= i1) {
@@ -77,10 +78,11 @@ class NodeInterface {
     }
   }
   public getAttribute(attrName: string | NSIdentity): any {
-    if (this.nodes.length > 0 && this.nodes[0].length > 0) {
+    const first = this.first();
+    if (!first) {
       throw new Error("this NodeInterface is empty.");
     }
-    return this.get().attributes.get(Ensure.ensureTobeNSIdentity(attrName)).Value;
+    return first.getAttribute(attrName);
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {
@@ -207,10 +209,7 @@ class NodeInterface {
    * @return {GomlNode} [description]
    */
   public first(): GomlNode {
-    if (this.count() === 0) {
-      return null;
-    }
-    return this.nodes[0][0];
+    return this.find(node => !!node);
   }
 
   /**
