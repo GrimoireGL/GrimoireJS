@@ -168,7 +168,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByClass(className: string): GomlNode[] {
     const nodes = this.element.getElementsByClassName(className);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
@@ -179,7 +183,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByNodeName(nodeName: string): GomlNode[] {
     const nodes = this.element.getElementsByTagName(nodeName);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
@@ -560,15 +568,20 @@ class GomlNode extends EEObject {
    * @param  {string | NSIdentity}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent(name: string | NSIdentity | (new () => Component)): Component {
+  public getComponent<T>(ctor: new () => T): T;
+  public getComponent<T>(name: string | NSIdentity): T;
+  public getComponent<T>(name: string | NSIdentity | (new () => T)): T {
+    // 事情により<T extends Component>とはできない。
+    // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
+    // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
     if (!name) {
       throw new Error("name must be not null or undefined");
     } else if (typeof name === "string") {
-      return this.getComponent(Ensure.ensureTobeNSIdentity(name));
+      return this.getComponent<T>(Ensure.ensureTobeNSIdentity(name));
     } else if (typeof name === "function") {
       for (let i = 0; i < this._components.length; i++) {
         if (this._components[i] instanceof name) {
-          return this._components[i];
+          return this._components[i] as any as T;
         }
       }
       return null;
@@ -576,7 +589,7 @@ class GomlNode extends EEObject {
       //NSIdentity here.
       const dec = GrimoireInterface.componentDeclarations.get(name);
       if (dec) {
-        return this.getComponent(dec.ctor)
+        return this.getComponent(dec.ctor) as any as T;
       } else {
         throw new Error(`component ${name.fqn} is not exist.`);
       }
@@ -584,7 +597,7 @@ class GomlNode extends EEObject {
   }
 
   public getComponentsInChildren(name: string | NSIdentity): Component[] {
-    return this.callRecursively(node => node.getComponent(name));
+    return this.callRecursively(node => node.getComponent<Component>(name));
   }
 
   /**
