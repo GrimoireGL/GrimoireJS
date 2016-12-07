@@ -35,6 +35,9 @@ class NSDictionary<V> {
   public get(element: Element): V;
   public get(attribute: Attr): V;
   public get(arg1: string | Element | NSIdentity | Attr, name?: string): V {
+    if (!arg1) {
+      throw new Error("NSDictionary.get() can not recieve args null or undefined.");
+    }
     if (typeof arg1 === "string") {
       if (name) {
         return this.get(new NSIdentity(arg1 as string, name));

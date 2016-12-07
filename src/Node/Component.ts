@@ -1,3 +1,5 @@
+import Utility from "../Base/Utility";
+import Constants from "../Base/Constants";
 import NodeUtility from "./NodeUtility";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import IGomlInterface from "../Interface/IGomlInterface";
@@ -118,11 +120,18 @@ class Component extends IDObject {
     this._handlers.splice(index, 1);
   }
 
-  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; } = {}): any {
+  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; }): any {
+    nodeAttributes = nodeAttributes || {};
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
       this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttributes));
     } else { // If not,the default value of attributes should be retrived from this element.
       const attrs = NodeUtility.getAttributes(this.element);
+      for (let key in attrs) {
+        if (key === Constants.x_gr_id) continue;
+        if (!this.attributes.get(key)) {//if unexist attribute in components element.
+          Utility.w(`attribute '${key}' is not exist in this component '${this.name.fqn}'`)
+        }
+      }
       this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
     }
   }

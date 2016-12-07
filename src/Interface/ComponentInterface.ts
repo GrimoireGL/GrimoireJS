@@ -1,8 +1,7 @@
 import Attribute from "../Node/Attribute";
-import IComponentInterface from "./IComponentInterface";
 import Component from "../Node/Component";
 
-export class ComponentInterface implements IComponentInterface {
+export class ComponentInterface {
   constructor(public components: Component[][][]) {
 
   }

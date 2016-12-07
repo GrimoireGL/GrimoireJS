@@ -160,11 +160,11 @@ test('Detach node should invoke unmount before detaching', (t) => {
   });
 });
 
-test('Delete should invoke unmount before deleting', (t) => {
+test('Remove() should invoke unmount before deleting', (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
-  testNode3.delete();
+  testNode3.remove();
   const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
   sinon.assert.callOrder.apply(sinon.assert, called);
   called.forEach((v) => {
@@ -205,25 +205,25 @@ test('broadcastMessage should not invoke message if the node is not enabled', (t
 
 test('class attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  var classes = testNode3.getValue("class");
+  var classes = testNode3.getAttribute("class");
   t.truthy(classes.length === 1);
   t.truthy(classes[0] === "classTest");
 });
 
 test('id attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  t.truthy(testNode3.getValue("id") === "test");
+  t.truthy(testNode3.getAttribute("id") === "test");
 });
 
 test('enabled attribute can be obatined as default', (t) => {
   const testNode3 = rootNode.children[0];
-  t.truthy(testNode3.getValue("enabled") === false);
+  t.truthy(testNode3.getAttribute("enabled") === false);
 });
 
 test('id attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
   const id = testNode3.attributes.get("id");
-  testNode3.setValue("id", "test2");
+  testNode3.setAttribute("id", "test2");
   t.truthy(testNode3.element.id === "test2");
 });
 

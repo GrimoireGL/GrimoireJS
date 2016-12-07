@@ -24,7 +24,6 @@ xhrmock.get("http://grimoire.gl/index2.goml", (req, res) => {
 xhrmock.get("http://grimoire.gl/index3.goml", (req, res) => {
   return res.status(200).body('<goml>\n</goml>');
 });
-console.log(GrimoireInterface.registerNode);
 
 function mockXMLParse(func, spy) {
   return prequire('../../lib-es5/Node/GomlLoader', {
@@ -62,7 +61,6 @@ test('Processing script[type="text/goml"] tag correctly when the text content wa
 });
 
 test('Processing script[type="text/goml"] and call parse related methods in correct order', async(t) => {
-  console.log("test0");
   const src = require("./_TestResource/GomlLoaderTest_Case1.html");
   const window = await jsdomAsync(src, []);
   global.document = window.document;
@@ -72,9 +70,6 @@ test('Processing script[type="text/goml"] and call parse related methods in corr
     spy(src.replace(/[\n\s]/g, ""));
   });
   await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-  console.log("test1");
-  GrimoireInterface.registerNode("goml", [], {});
-  console.log("test2");
   t.truthy(spy.calledWith(`<goml><goml><goml></goml><goml/></goml></goml>`));
 });
 
@@ -88,7 +83,6 @@ test('Processing script[type="text/goml"] tag correctly when the src attribute w
     spy(src.replace(/[\n\s]/g, ""));
   });
 
-  GrimoireInterface.registerNode("goml", [], {});
   await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
   t.truthy(spy.calledWith(`<goml></goml>`));
 });
@@ -101,7 +95,6 @@ test('Processing goml scripts from query', async(t) => {
   const mockedParseXML = mockXMLParse((src) => {
     spy(src.trim());
   });
-  GrimoireInterface.registerNode("goml", [], {});
   await mockedParseXML.loadFromQuery("script.call");
   t.truthy(spy.calledWith('<goml>\n</goml>'));
 });
@@ -114,7 +107,6 @@ test('Processing goml scripts for page', async(t) => {
   const mockedParseXML = mockXMLParse((src) => {
     spy(src.trim());
   });
-  GrimoireInterface.registerNode("goml", [], {});
   await mockedParseXML.loadForPage();
   t.truthy(spy.calledWith('<goml>\n</goml>'));
 });

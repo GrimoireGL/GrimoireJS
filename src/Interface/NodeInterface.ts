@@ -1,3 +1,5 @@
+import INodeInterface from "./INodeInterface";
+import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
@@ -5,22 +7,20 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "../Node/Component";
-import INodeInterfaceBase from "./INodeInterfaceBase";
 import ComponentInterface from "./ComponentInterface";
-import IComponentInterface from "./IComponentInterface";
 import GomlNode from "../Node/GomlNode";
 
 
 /**
  * 複数のノードを対象とした操作を提供するインタフェース
  */
-class NodeInterface implements INodeInterfaceBase {
+class NodeInterface {
   constructor(public nodes: GomlNode[][]) {
     if (!nodes) {
       throw new Error("nodes is null");
     }
   }
-  public queryFunc(query: string): IComponentInterface {
+  public queryFunc(query: string): ComponentInterface {
     return new ComponentInterface(this._queryComponents(query));
   }
 
@@ -31,7 +31,7 @@ class NodeInterface implements INodeInterfaceBase {
         const components: Component[] = [];
         for (let i = 0; i < componentElements.length; i++) {
           const elem = componentElements[i];
-          const component = GrimoireInterface.componentDictionary[elem.getAttribute("x-gr-id")];
+          const component = GrimoireInterface.componentDictionary[elem.getAttribute(Constants.x_gr_id)];
           if (component) {
             components.push(component);
           }
@@ -49,10 +49,11 @@ class NodeInterface implements INodeInterfaceBase {
   public get<T extends GomlNode>(treeIndex: number, nodeIndex: number): T;
   public get<T extends GomlNode>(i1?: number, i2?: number): T {
     if (i1 === void 0) {
-      if (this.isEmpty()) {
+      const first = this.first();
+      if (!first) {
         throw new Error("this NodeInterface is empty.");
       } else {
-        return this.nodes[0][0] as T;
+        return first as T;
       }
     } else if (i2 === void 0) {
       if (this.count() <= i1) {
@@ -77,10 +78,11 @@ class NodeInterface implements INodeInterfaceBase {
     }
   }
   public getAttribute(attrName: string | NSIdentity): any {
-    if (this.nodes.length > 0 && this.nodes[0].length > 0) {
+    const first = this.first();
+    if (!first) {
       throw new Error("this NodeInterface is empty.");
     }
-    return this.get().attributes.get(Ensure.ensureTobeNSIdentity(attrName)).Value;
+    return first.getAttribute(attrName);
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {
@@ -153,6 +155,16 @@ class NodeInterface implements INodeInterfaceBase {
     });
     return this;
   }
+  public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
+    this.nodes.forEach((array, gomlIndex) => {
+      array.forEach((node, nodeIndex) => {
+        if (predicate(node, gomlIndex, nodeIndex)) {
+          return node;
+        }
+      });
+    });
+    return null;
+  }
 
   /**
    * このノードインタフェースが対象とするノードを有効、または無効にします。
@@ -163,24 +175,6 @@ class NodeInterface implements INodeInterfaceBase {
       node.enabled = !!enable;
     });
     return this;
-  }
-
-  /**
-   * このノードインタフェースにアタッチされたコンポーネントをセレクタで検索します。
-   * @pram  {string}      query [description]
-   * @return {Component[]}       [description]
-   */
-  public find(query: string): Component[] {
-    console.warn("'find' is obsolate.use componentInterface instead.")
-    const allComponents: Component[] = [];
-    this._queryComponents(query).forEach((gomlComps) => {
-      gomlComps.forEach((nodeComps) => {
-        nodeComps.forEach((comp) => {
-          allComponents.push(comp);
-        });
-      });
-    });
-    return allComponents;
   }
 
   /**
@@ -215,10 +209,7 @@ class NodeInterface implements INodeInterfaceBase {
    * @return {GomlNode} [description]
    */
   public first(): GomlNode {
-    if (this.count() === 0) {
-      return null;
-    }
-    return this.nodes[0][0];
+    return this.find(node => !!node);
   }
 
   /**

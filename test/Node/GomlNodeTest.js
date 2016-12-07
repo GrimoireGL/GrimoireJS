@@ -41,7 +41,7 @@ test("delete method works correctly", t => {
   const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
-  node2.delete();
+  node2.remove();
   t.truthy(node.children.length === 0);
   t.truthy(node2.parent === null);
   t.truthy(node2.deleted === true);
@@ -169,9 +169,17 @@ test("getComponent method overload works correctly", t => {
       }
     }
   });
-  node.addComponent("testComponent1");
-  const testComponent = node.getComponent("testComponent1");
-  t.truthy(testComponent.name.name == "testComponent1");
+  GrimoireInterface.registerComponent("testComponent2", {
+    attributes: {
+      testAttr1: {
+        converter: "String",
+        defaultValue: "thisistest"
+      }
+    }
+  }, "testComponent1");
+  node.addComponent("testComponent2");
+  t.truthy(node.getComponent("testComponent2").name.name == "testComponent2");
+  t.truthy(node.getComponent("testComponent1").name.name == "testComponent2");
 });
 test("getComponents method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);

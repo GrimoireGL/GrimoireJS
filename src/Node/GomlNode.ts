@@ -1,6 +1,8 @@
+import GrimoireComponent from "../Components/GrimoireComponent";
+import Utility from "../Base/Utility";
+import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
-import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
@@ -19,7 +21,7 @@ class GomlNode extends EEObject {
    * @return {GomlNode}      [description]
    */
   public static fromElement(elem: Element): GomlNode {
-    return GrimoireInterface.nodeDictionary[elem.getAttribute("x-gr-id")];
+    return GrimoireInterface.nodeDictionary[elem.getAttribute(Constants.x_gr_id)];
   }
 
   public element: Element; // Dom Element
@@ -142,11 +144,11 @@ class GomlNode extends EEObject {
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this._tree = GomlInterfaceGenerator([this]);
+    this._tree = GrimoireInterface([this]);
     this._components = [];
     this.attributes = new NSDictionary<Attribute>();
 
-    this.element.setAttribute("x-gr-id", this.id);
+    this.element.setAttribute(Constants.x_gr_id, this.id);
     const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
@@ -166,7 +168,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByClass(className: string): GomlNode[] {
     const nodes = this.element.getElementsByClassName(className);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
@@ -177,7 +183,11 @@ class GomlNode extends EEObject {
    */
   public getChildrenByNodeName(nodeName: string): GomlNode[] {
     const nodes = this.element.getElementsByTagName(nodeName);
-    return (new Array(nodes.length)).map((v, i) => GomlNode.fromElement(nodes.item(i)));
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
   }
 
   /**
@@ -191,7 +201,7 @@ class GomlNode extends EEObject {
 
   public remove(): void {
     this.children.forEach((c) => {
-      c.delete();
+      c.remove();
     });
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
@@ -270,14 +280,14 @@ class GomlNode extends EEObject {
    */
   public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
-      this.addChildByName(new NSIdentity(nodeName), attributes);
+      return this.addChildByName(new NSIdentity(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec, null);
       if (attributes) {
         for (let key in attributes) {
           const id = key.indexOf("|") !== -1 ? NSIdentity.fromFQN(key) : new NSIdentity(key);
-          node.setValue(id, attributes[key]);
+          node.setAttribute(id, attributes[key]);
         }
       }
       this.addChild(node);
@@ -336,7 +346,7 @@ class GomlNode extends EEObject {
   public removeChild(child: GomlNode): void {
     const node = this.detachChild(child);
     if (node) {
-      node.delete();
+      node.remove();
     }
   }
 
@@ -543,14 +553,19 @@ class GomlNode extends EEObject {
       }
     }
     if (this._mounted) {
-      component.resolveDefaultAttributes();
+      component.resolveDefaultAttributes(null); // here must be optional component.should not use node element attributes.
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageBufferTo(component, "mount");
     }
   }
 
-  public getComponents(): Component[] {
-    return this._components;
+  public getComponents<T>(filter?: string | NSIdentity | (new () => T)): T[] {
+    if (!filter) {
+      return this._components as any as T[];
+    } else {
+      const ctor = Ensure.ensureTobeComponentConstructor(filter);
+      return this._components.filter(c => c instanceof ctor) as any as T[];
+    }
   }
 
   /**
@@ -558,21 +573,31 @@ class GomlNode extends EEObject {
    * @param  {string | NSIdentity}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent(name: string | NSIdentity): Component {
-    if (typeof name === "string") {
-      return this.getComponent(Ensure.ensureTobeNSIdentity(name));
+  public getComponent<T>(ctor: new () => T): T;
+  public getComponent<T>(name: string | NSIdentity): T;
+  public getComponent<T>(name: string | NSIdentity | (new () => T)): T {
+    // 事情により<T extends Component>とはできない。
+    // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
+    // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
+    if (!name) {
+      throw new Error("name must be not null or undefined");
+    } else if (typeof name === "function") {
+      return this._components.find(c => c instanceof name) as any as T || null;
     } else {
-      for (let i = 0; i < this._components.length; i++) {
-        if (this._components[i].name.fqn === name.fqn) {
-          return this._components[i];
-        }
+      const ctor = Ensure.ensureTobeComponentConstructor(name);
+      if (!ctor) {
+        throw new Error(`component ${name} is not exist`);
       }
+      return this.getComponent<T>(ctor as any as (new () => T));
     }
-    return null;
   }
 
-  public getComponentsInChildren(name: string | NSIdentity): Component[] {
-    return this.callRecursively(node => node.getComponent(name));
+  public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
+    if (typeof name === "function") {
+      return this.callRecursively(node => node.getComponent<T>(name));
+    } else {
+      return this.callRecursively(node => node.getComponent<T>(name));
+    }
   }
 
   /**
@@ -581,8 +606,14 @@ class GomlNode extends EEObject {
    */
   public resolveAttributesValue(): void {
     this._defaultValueResolved = true;
+    const attrs = NodeUtility.getAttributes(this.element);
+    for (let key in attrs) {
+      if (!this.attributes.get(key)) {
+        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`)
+      }
+    }
     this._components.forEach((component) => {
-      component.resolveDefaultAttributes(NodeUtility.getAttributes(this.element));
+      component.resolveDefaultAttributes(attrs);
     });
   }
 
