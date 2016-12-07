@@ -8,7 +8,6 @@ import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "../Node/Component";
 import ComponentInterface from "./ComponentInterface";
-import IComponentInterface from "./IComponentInterface";
 import GomlNode from "../Node/GomlNode";
 
 
@@ -21,7 +20,7 @@ class NodeInterface {
       throw new Error("nodes is null");
     }
   }
-  public queryFunc(query: string): IComponentInterface {
+  public queryFunc(query: string): ComponentInterface {
     return new ComponentInterface(this._queryComponents(query));
   }
 

@@ -1,9 +1,9 @@
 import GomlNode from "../Node/GomlNode";
-import IComponentInterface from "./IComponentInterface";
+import ComponentInterface from "./ComponentInterface";
 
 
 interface INodeInterface {
-  (query: string): IComponentInterface;
+  (query: string): ComponentInterface;
   // first(): GomlNode;
   // single(): GomlNode;
   // count(): number;

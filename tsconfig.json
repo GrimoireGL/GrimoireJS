@@ -33,7 +33,6 @@
     "./src/Interface/ComponentInterface.ts",
     "./src/Interface/GomlInterface.ts",
     "./src/Interface/GomlInterfaceGenerator.ts",
-    "./src/Interface/IComponentInterface.ts",
     "./src/Interface/IGomlInterface.ts",
     "./src/Interface/IGomlInterfaceBase.ts",
     "./src/Interface/INodeInterface.ts",
