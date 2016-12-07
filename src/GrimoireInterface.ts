@@ -91,7 +91,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): void {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.componentDeclarations.get(name)) {
-      console.log(this.componentDeclarations)
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
     obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
