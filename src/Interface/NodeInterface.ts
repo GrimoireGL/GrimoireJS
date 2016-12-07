@@ -1,3 +1,4 @@
+import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
@@ -31,7 +32,7 @@ class NodeInterface implements INodeInterfaceBase {
         const components: Component[] = [];
         for (let i = 0; i < componentElements.length; i++) {
           const elem = componentElements[i];
-          const component = GrimoireInterface.componentDictionary[elem.getAttribute("x-gr-id")];
+          const component = GrimoireInterface.componentDictionary[elem.getAttribute(Constants.x_gr_id)];
           if (component) {
             components.push(component);
           }

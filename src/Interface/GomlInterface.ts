@@ -1,3 +1,4 @@
+import Constants from "../Base/Constants";
 import GrimoireInterface from "../GrimoireInterface";
 import INodeInterface from "./INodeInterface";
 import NodeInterface from "./NodeInterface";
@@ -27,7 +28,7 @@ class GomlInterface implements IGomlInterfaceBase {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {
-        const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute("x-gr-id")];
+        const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute(Constants.x_gr_id)];
         if (node) {
           nodes.push(node);
         }

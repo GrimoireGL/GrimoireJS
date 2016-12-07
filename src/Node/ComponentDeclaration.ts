@@ -1,3 +1,4 @@
+import Constants from "../Base/Constants";
 import GrimoireInterface from "../GrimoireInterface";
 import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
@@ -23,7 +24,7 @@ class ComponentDeclaration {
   public generateInstance(componentElement?: Element): Component {
     componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns, this.name.name);
     const component = new this.ctor();
-    componentElement.setAttribute("x-gr-id", component.id);
+    componentElement.setAttribute(Constants.x_gr_id, component.id);
     GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
     component.element = componentElement;

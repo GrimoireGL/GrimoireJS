@@ -1,3 +1,4 @@
+import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
 import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
@@ -19,7 +20,7 @@ class GomlNode extends EEObject {
    * @return {GomlNode}      [description]
    */
   public static fromElement(elem: Element): GomlNode {
-    return GrimoireInterface.nodeDictionary[elem.getAttribute("x-gr-id")];
+    return GrimoireInterface.nodeDictionary[elem.getAttribute(Constants.x_gr_id)];
   }
 
   public element: Element; // Dom Element
@@ -146,7 +147,7 @@ class GomlNode extends EEObject {
     this._components = [];
     this.attributes = new NSDictionary<Attribute>();
 
-    this.element.setAttribute("x-gr-id", this.id);
+    this.element.setAttribute(Constants.x_gr_id, this.id);
     const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
