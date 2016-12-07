@@ -3,7 +3,6 @@ import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
-import GomlInterfaceGenerator from "../Interface/GomlInterfaceGenerator";
 import GrimoireInterface from "../GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
@@ -145,7 +144,7 @@ class GomlNode extends EEObject {
     this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this._tree = GomlInterfaceGenerator([this]);
+    this._tree = GrimoireInterface([this]);
     this._components = [];
     this.attributes = new NSDictionary<Attribute>();
 

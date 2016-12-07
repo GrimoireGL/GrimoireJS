@@ -3,11 +3,10 @@ import GrimoireInterface from "../GrimoireInterface";
 import INodeInterface from "./INodeInterface";
 import NodeInterface from "./NodeInterface";
 import GomlNode from "../Node/GomlNode";
-import IGomlInterfaceBase from "./IGomlInterfaceBase";
 /**
  * Provides interfaces to treat whole goml tree for each.
  */
-class GomlInterface implements IGomlInterfaceBase {
+class GomlInterface {
   constructor(public rootNodes: GomlNode[]) {
 
   }

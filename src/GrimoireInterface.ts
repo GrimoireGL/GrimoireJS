@@ -1,3 +1,4 @@
+import GomlInterface from "./Interface/GomlInterface";
 import BooleanConverter from "./Converters/BooleanConverter";
 import GrimoireComponent from "./Components/GrimoireComponent";
 import StringArrayConverter from "./Converters/StringArrayConverter";
@@ -17,7 +18,6 @@ import IGrimoireInterface from "./IGrimoireInterface";
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
-import GomlInterfaceGenerator from "./Interface/GomlInterfaceGenerator";
 import Ensure from "./Base/Ensure";
 
 
@@ -255,11 +255,20 @@ private _onTreeInitialized(tag:HTMLScriptElement):void {
 }
 }
 const context = new GrimoireInterfaceImpl();
-const obtainGomlInterface = function(query: string | ((id: string, className: string, tag: HTMLScriptElement) => void)): IGomlInterface {
+const obtainGomlInterface = function(query: string | GomlNode[] | ((id: string, className: string, tag: HTMLScriptElement) => void)): GomlInterface & IGomlInterface {
   if (typeof query === "string") {
-    return GomlInterfaceGenerator(context.queryRootNodes(query));
-  } else {
+    // return GomlInterfaceGenerator(context.queryRootNodes(query));
+    const gomlContext = new GomlInterface(context.queryRootNodes(query));
+    const queryFunc = gomlContext.queryFunc.bind(gomlContext);
+    Object.setPrototypeOf(queryFunc, gomlContext);
+    return queryFunc;
+  } else if (typeof query === "function") {
     context.initializedEventHandler.push(query);
+  } else {
+    const gomlContext = new GomlInterface(query);
+    const queryFunc = gomlContext.queryFunc.bind(gomlContext);
+    Object.setPrototypeOf(queryFunc, gomlContext);
+    return queryFunc;
   }
 };
 // const bindedFunction = obtainGomlInterface.bind(context);
