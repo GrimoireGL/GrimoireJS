@@ -1,3 +1,4 @@
+import GrimoireComponent from "../Components/GrimoireComponent";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
@@ -559,8 +560,13 @@ class GomlNode extends EEObject {
     }
   }
 
-  public getComponents(): Component[] {
-    return this._components;
+  public getComponents<T>(filter?: string | NSIdentity | (new () => T)): T[] {
+    if (!filter) {
+      return this._components as any as T[];
+    } else {
+      const ctor = Ensure.ensureTobeComponentConstructor(filter);
+      return this._components.filter(c => c instanceof ctor) as any as T[];
+    }
   }
 
   /**
@@ -576,28 +582,23 @@ class GomlNode extends EEObject {
     // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
     if (!name) {
       throw new Error("name must be not null or undefined");
-    } else if (typeof name === "string") {
-      return this.getComponent<T>(Ensure.ensureTobeNSIdentity(name));
     } else if (typeof name === "function") {
-      for (let i = 0; i < this._components.length; i++) {
-        if (this._components[i] instanceof name) {
-          return this._components[i] as any as T;
-        }
-      }
-      return null;
+      return this._components.find(c => c instanceof name) as any as T || null;
     } else {
-      //NSIdentity here.
-      const dec = GrimoireInterface.componentDeclarations.get(name);
-      if (dec) {
-        return this.getComponent(dec.ctor) as any as T;
-      } else {
-        throw new Error(`component ${name.fqn} is not exist.`);
+      const ctor = Ensure.ensureTobeComponentConstructor(name);
+      if (!ctor) {
+        throw new Error(`component ${name} is not exist`);
       }
+      return this.getComponent<T>(ctor as any as (new () => T));
     }
   }
 
-  public getComponentsInChildren(name: string | NSIdentity): Component[] {
-    return this.callRecursively(node => node.getComponent<Component>(name));
+  public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
+    if (typeof name === "function") {
+      return this.callRecursively(node => node.getComponent<T>(name));
+    } else {
+      return this.callRecursively(node => node.getComponent<T>(name));
+    }
   }
 
   /**

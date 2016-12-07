@@ -5,6 +5,7 @@
   import BaseNSDictionary from "./Base/NSDictionary";
   import BaseNSIdentity from "./Base/NSIdentity";
   import BaseNSSet from "./Base/NSSet";
+  import BaseUtility from "./Base/Utility";
   import BaseXMLHttpRequestAsync from "./Base/XMLHttpRequestAsync";
   import BaseXMLReader from "./Base/XMLReader";
   import ComponentsGrimoireComponent from "./Components/GrimoireComponent";
@@ -46,6 +47,7 @@ var __EXPOSE__ = {
     "NSDictionary": BaseNSDictionary,
     "NSIdentity": BaseNSIdentity,
     "NSSet": BaseNSSet,
+    "Utility": BaseUtility,
     "XMLHttpRequestAsync": BaseXMLHttpRequestAsync,
     "XMLReader": BaseXMLReader
   },
