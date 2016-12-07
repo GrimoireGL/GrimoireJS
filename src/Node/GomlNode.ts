@@ -1,3 +1,4 @@
+import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
@@ -544,7 +545,7 @@ class GomlNode extends EEObject {
       }
     }
     if (this._mounted) {
-      component.resolveDefaultAttributes();
+      component.resolveDefaultAttributes(null); // here must be optional component.should not use node element attributes.
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageBufferTo(component, "mount");
     }
@@ -592,8 +593,14 @@ class GomlNode extends EEObject {
    */
   public resolveAttributesValue(): void {
     this._defaultValueResolved = true;
+    const attrs = NodeUtility.getAttributes(this.element);
+    for (let key in attrs) {
+      if (!this.attributes.get(key)) {
+        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`)
+      }
+    }
     this._components.forEach((component) => {
-      component.resolveDefaultAttributes(NodeUtility.getAttributes(this.element));
+      component.resolveDefaultAttributes(attrs);
     });
   }
 
