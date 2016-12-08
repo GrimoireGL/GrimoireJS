@@ -1,3 +1,4 @@
+import Utility from "./Base/Utility";
 import GomlInterface from "./Interface/GomlInterface";
 import BooleanConverter from "./Converters/BooleanConverter";
 import GrimoireComponent from "./Components/GrimoireComponent";
@@ -93,6 +94,9 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
+    if (this.debug && !Utility.isCamelCase(name.name)) {
+      console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
+    }
     obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
     const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     this.componentDeclarations.set(name as NSIdentity, new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component)));
@@ -105,6 +109,9 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.nodeDeclarations.get(name)) {
       throw new Error(`gomlnode ${name.fqn} is already registerd.`)
+    }
+    if (this.debug && !Utility.isSnakeCase(name.name)) {
+      console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
     }
     requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
     defaultValues = Ensure.ensureTobeNSDictionary<any>(defaultValues, (name as NSIdentity).ns);
