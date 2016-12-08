@@ -22,12 +22,18 @@ class GrimoireComponent extends Component {
 
   public $awake(): void {
     this.node.resolveAttributesValue();
-    this.getAttribute("id").addObserver((attr) => {
+    const idAttribute = this.getAttribute("id");
+    const classAttribute = this.getAttribute("class");
+    idAttribute.addObserver((attr) => {
       this.node.element.id = attr.Value;
     });
-    this.getAttribute("class").addObserver((attr) => {
-      this.node.element.className = attr.Value.join(" ");
+    classAttribute.addObserver((attr) => {
+      const v = attr.Value;
+      this.node.element.className = v ? v.join(" ") : null;
     });
+    this.node.element.id = idAttribute.Value;
+    const v = classAttribute.Value;
+    this.node.element.className = v ? v.join(" ") : null;
     this.getAttribute("enabled").addObserver(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();

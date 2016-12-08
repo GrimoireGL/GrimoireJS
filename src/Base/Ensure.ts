@@ -41,6 +41,9 @@ class Ensure {
       return undefined;
     }
     if (typeof name === "string") {
+      if (name.indexOf("|") !== -1) {//name is fqn
+        return NSIdentity.fromFQN(name)
+      }
       return new NSIdentity(name);
     } else {
       return name;
