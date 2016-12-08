@@ -244,8 +244,10 @@ test('addNode works correctly', (t) => {
     testAttr2: "ADDEDNODE",
     id: "idtest"
   });
-  t.truthy(testNode2.children[0].name.name === "testNode2");
-  t.truthy(testNode2.children[0].getAttribute("testAttr2") === "ADDEDNODE");
-  t.truthy(testNode2.children[0].getAttribute("id") === "idtest");
-  t.truthy(testNode2.children[0].element.id === "idtest");
+  const child = testNode2.children[0];
+  t.truthy(child.name.name === "testNode2");
+  t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
+  t.truthy(child.getAttribute("id") === "idtest");
+  t.truthy(child.element.id === "idtest");
+  t.truthy(child.getComponent("GrimoireComponent")._id === "idtest");
 });

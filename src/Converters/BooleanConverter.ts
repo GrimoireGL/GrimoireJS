@@ -14,7 +14,7 @@ function BooleanConverter(this: Attribute, val: any): any {
     }
   }
 
-  throw new Error(`Parsing failed: ${val}`);
+  throw new Error(`Invalid string ${val} for parsing as boolean`);
 }
 
 export default BooleanConverter;

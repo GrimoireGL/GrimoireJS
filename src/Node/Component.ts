@@ -175,6 +175,12 @@ class Component extends IDObject {
       });
     }
   }
+  protected __bindAttributes(): void {
+    this.attributes.forEach(attr => {
+      const name = attr.name.name;
+      attr.boundTo("_" + name);
+    });
+  }
 }
 
 export default Component;
