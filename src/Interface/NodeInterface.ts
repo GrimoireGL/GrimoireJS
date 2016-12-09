@@ -221,7 +221,11 @@ class NodeInterface {
     if (this.count() !== 1) {
       throw new Error("this nodeInterface is not single.");
     }
-    return this.first();
+    const first = this.first();
+    if (!first) {
+      throw new Error("this nodeInterface is not single,but is empty.")
+    }
+    return first;
   }
 
   /**
@@ -234,6 +238,14 @@ class NodeInterface {
     }
     const counts = this.nodes.map(nodes => nodes.length);
     return counts.reduce((total, current) => total + current, 0);
+  }
+
+  public filter(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): NodeInterface {
+    const newNodes = this.nodes.map((nodes, gomlIndex) => nodes.filter((node, nodeIndex) => predicate(node, gomlIndex, nodeIndex)));
+    return new NodeInterface(newNodes);
+  }
+  public toArray(): GomlNode[] {
+    return this.nodes.reduce((pre, current) => pre.concat(current), []);
   }
 }
 
