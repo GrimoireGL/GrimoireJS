@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.11.18",
+  "version": "0.11.19",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -42,7 +42,7 @@
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "test": "tsc --outDir ./lib && babel ./lib --presets es2015,stage-2  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
-    "prepublish": "npm run build --prod&& npm test",
+    "prepublish": "npm run build -- --prod&& npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
