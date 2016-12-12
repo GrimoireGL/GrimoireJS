@@ -9,12 +9,43 @@
 ## Overview
 
 Why virtual DOM needs to be only for actual DOM?
-Logics like drawing formulas for canvas even needs DOM for easy way.
+Logics like drawing formulas for canvas even needs DOM for easier way.
 
 * **DOM based** ・・・The way that Web engineers can work most effectively.
-* **jQuery like API** ・・・No more complex procedural webgl logics, just operate attributes with the API.
-* **Web development friendly**・・・Use with the other Web frontend frameworks. Very easy to coop with them.
-* **No more redundant codes**・・・Include  only the `tags` you actually need.
+* **jQuery like API** ・・・No more complex procedural WebGL logics, just operate attributes with the API.
+* **Web development friendly**・・・Use with the other Web front-end frameworks. Very easy to coop with them.
+* **No more redundant codes**・・・Include only `tag`s you actually need.
+
+## First Interact
+
+**HTML file**
+
+```xml
+<html>
+  <head>
+    <script src="grimoire-preset-basic.js"></script>
+  </head>
+  <body>
+    <script type="text/goml" src="./index.goml">
+  </body>
+</html>
+```
+
+**GOML file(Canvas DOM we defined)**
+
+```xml
+<goml>
+  <scene>
+    <camera>
+      <camera.components>
+        <!-- Attaching component to move the camera with mouse-->
+        <MouseCameraControl/>
+      </camera.components>
+    </camera>
+    <mesh geometry="cube" color="red"/>
+  </scene>
+</goml>
+```
 
 ## Purpose
 
@@ -28,7 +59,27 @@ There should be good way of mixing these cultures. Grimoire.js is one of solutio
 
 * **Official Site**・・・http://grimoire.gl
 
-**Note:Most part of documentation are not completed yet. **
+(Currently all of documents are written in japanese only)
+
+## Extensions
+
+You can try these plugins with just downloading them. Or, If you are npm user, you can install them with `npm install` easily.
+
+### Major Plugins
+
+Plugin is a necessary feature to use Grimoire.js. Most of features are separated as plugin. This repo is core of Grimoire.js not containing any WebGL codes.
+
+|Name|Purpose|Dependency|
+|:-:|:-:|:-:|
+|grimoirejs-math| Defining math related class and converters| None|
+|grimoirejs-fundamental| Defining basement system for WebGL and defines basic tags|grimoirejs-math|
+|grimoirejs-gltf|glTF model loader plugin defines the tags to populate glTF model in the scene|grimoirejs-math,grimoirejs-fundamental|
+
+### Major Presets
+
+It is hard work to download all depends plugins and links with script tag. So, there are presets containing multiple plugins.
+
+* grimoirejs-preset-basic・・・containing grimoirejs,grimoirejs-fundamental,grimoirejs-math
 
 ## LICENSE
 
