@@ -5,12 +5,12 @@ class GrimoireComponent extends Component {
   public static attributes: { [key: string]: IAttributeDeclaration } = {
     id: {
       converter: "String",
-      defaultValue: null,
+      defaultValue: "",
       readonly: false
     },
     class: {
       converter: "StringArray",
-      defaultValue: null,
+      defaultValue: "",
       readonly: false
     },
     enabled: {
@@ -26,15 +26,12 @@ class GrimoireComponent extends Component {
     const idAttribute = this.getAttribute("id");
     const classAttribute = this.getAttribute("class");
     idAttribute.addObserver((attr) => {
-      this.node.element.id = attr.Value;
-    });
+      this.node.element.id = attr.Value ? attr.Value : "";
+    }, true);
     classAttribute.addObserver((attr) => {
       const v = attr.Value;
-      this.node.element.className = v ? v.join(" ") : null;
-    });
-    this.node.element.id = idAttribute.Value;
-    const v = classAttribute.Value;
-    this.node.element.className = v ? v.join(" ") : null;
+      this.node.element.className = v ? v.join(" ") : "";
+    }, true);
     this.getAttribute("enabled").addObserver(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
