@@ -156,13 +156,15 @@ class NodeInterface {
     return this;
   }
   public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
-    this.nodes.forEach((array, gomlIndex) => {
-      array.forEach((node, nodeIndex) => {
-        if (predicate(node, gomlIndex, nodeIndex)) {
+    const nodes = this.nodes;
+    for (let i = 0; i < nodes.length; i++) {
+      const array = nodes[i];
+      for (let j = 0; j < array.length; j++) {
+        if (predicate(node, i, j)) {
           return node;
         }
-      });
-    });
+      }
+    }
     return null;
   }
 
