@@ -1,143 +1,60 @@
 {
-  "name": "jThree",
-  "description": "New version of jThree derived from m-mituhide jThreev2",
-  "version": "0.1.0",
-  "homepage": "https://github.com/jThreeJS/jThree",
-  "author": {
-    "name": "LimeStreem",
-    "email": "LimeStreem@gmail.com"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jThreeJS/jThree"
-  },
-  "bugs": {
-    "url": "https://github.com/jThreeJS/jThree/issues"
-  },
-  "main": "lib/jThree",
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "scripts": {
-    "build": "gulp build",
-    "build-debug": "gulp --gulpfile gulpfile-old.coffee --require coffee-script/register build:debug",
-    "watch": "gulp watch",
-    "test": "gulp build-all && ava ./test-es5/**/*Test.js",
-    "cover": "nyc --all --reporter=json --reporter=text npm run test",
-    "doc": "gulp doc",
-    "clean": "gulp clean",
-    "lint": "gulp lint-ts"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "ava": {
-    "verbose": true
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-2"
-    ]
+  "name": "grimoirejs",
+  "version": "0.11.15",
+  "description": "A service-oriented WebGL framework.",
+  "main": "./ref/index.js",
+  "typings": "./ref/index.d.ts",
+  "files": [
+    "ref",
+    "register",
+    "lib"
+  ],
+  "keywords": [
+    "grimoire"
+  ],
+  "dependencies": {
+    "@types/node": "^6.0.47",
+    "events": "^1.1.1",
+    "grimoirejs-cauldron": "^2.1.0"
   },
   "devDependencies": {
-    "ava": "^0.13.0",
-    "babel-cli": "^6.6.5",
-    "babel-core": "^6.7.2",
-    "babel-polyfill": "^6.7.2",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-2": "^6.5.0",
-    "babel-preset-stage-3": "^6.5.0",
-    "babel-register": "^6.7.2",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
-    "coffee-loader": "^0.7.2",
-    "coffee-reactify": "^4.0.0",
-    "coffee-script": "^1.10.0",
-    "coffeeify": "^2.0.1",
-    "coveralls": "^2.11.8",
-    "cross-env": "^1.0.7",
-    "del": "^2.2.0",
-    "difflet": "^1.0.1",
-    "envify": "^3.4.0",
-    "espower-babel": "^4.0.1",
-    "espower-typescript": "^5.0.1",
-    "gl": "^4.0.1",
-    "glob-array": "^0.1.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-cached": "^1.1.0",
-    "gulp-changed": "^1.3.0",
-    "gulp-connect": "^3.1.0",
-    "gulp-debug": "^2.1.2",
-    "gulp-if": "^2.0.0",
-    "gulp-istanbul": "^0.10.3",
-    "gulp-jade": "^1.1.0",
-    "gulp-match": "^1.0.1",
-    "gulp-mocha": "^2.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-tslint": "^4.3.3",
-    "gulp-txtjs": "0.0.4",
-    "gulp-typedoc": "^1.2.1",
-    "gulp-typescript": "^2.12.1",
-    "gulp-uglify": "^1.5.3",
-    "gulp-util": "^3.0.7",
-    "is-promise": "^2.1.0",
-    "js-cookie": "^2.1.0",
-    "js-yaml": "^3.5.5",
-    "jsdom": "^8.1.0",
-    "json-loader": "^0.5.4",
-    "lodash": "^4.6.1",
-    "mkdirp": "^0.5.1",
-    "mocha": "^2.4.5",
-    "node-notifier": "^4.5.0",
-    "nyc": "bcoe/nyc#b5907adbd638d774629e12dc00080e7fe132c7df",
-    "power-assert": "^1.3.1",
-    "pretty-hrtime": "^1.0.2",
-    "proxyquire": "^1.7.4",
-    "radium": "^0.16.6",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-simpletabs": "^0.7.0",
-    "react-tap-event-plugin": "^0.2.2",
-    "react-tooltip": "^1.1.4",
-    "react-treeview": "^0.4.5",
-    "remap-istanbul": "^0.5.1",
-    "run-sequence": "^1.1.5",
-    "shader-loader": "^1.1.4",
-    "shaderify": "pnlybubbles/shaderify#0fcdf2aa0140253170cbbc608ade68d34f78e448",
-    "sinon": "^1.17.3",
-    "source-map-support": "^0.4.0",
-    "superagent": "^1.8.1",
-    "ternary-stream": "^2.0.0",
-    "through2": "^2.0.1",
-    "tsify": "^0.14.1",
-    "tslint": "^3.6.0",
-    "txtify": "jThreeJS/txtify#8a1eea58ce848007d9a10cce4c4d6e235fc31865",
-    "typedoc": "^0.3.12",
-    "typescript": "^1.8.9",
-    "underscore": "^1.8.3",
-    "underscore.string": "^3.3.4",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0",
+    "ava": "^0.16.0",
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "jsdom": "^9.8.3",
+    "lodash": "^4.17.0",
+    "proxyquire": "^1.7.10",
+    "sinon": "^1.17.6",
+    "ts-loader": "^1.2.0",
+    "typescript": "^2.0.9",
+    "typescript-awaiter": "^1.0.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-shell-plugin": "^0.4.3",
+    "xhr-mock": "^1.6.0",
     "xmldom": "^0.1.22",
-    "yargs": "^4.3.1"
+    "yargs": "^6.4.0"
   },
-  "keywords": [],
-  "dependencies": {
-    "gl-matrix": "^2.3.2",
-    "json5": "^0.5.0",
-    "lodash.isarray": "^4.0.0",
-    "lodash.isfunction": "^3.0.8",
-    "lodash.isnumber": "^3.0.3",
-    "lodash.isplainobject": "^4.0.3",
-    "lodash.isstring": "^4.0.1",
-    "lodash.isundefined": "^3.0.1",
-    "object-assign": "^4.0.1",
-    "q": "^1.4.1"
-  }
+  "repository": "http://github.com/GrimoireGL/GrimoireJS",
+  "scripts": {
+    "test": "tsc --outDir ./lib && babel ./lib --presets es2015,stage-2  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
+    "prepublish": "npm run build --prod&& npm test",
+    "start": "webpack --progress --watch",
+    "build": "webpack --progress",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
+    "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
+  },
+  "grimoire": {
+    "doc": {
+      "src": "./doc",
+      "header": "./doc/header.md",
+      "footer": "./doc/footer.md",
+      "dest": "./lib-md/index.md"
+    }
+  },
+  "license": "MIT"
 }

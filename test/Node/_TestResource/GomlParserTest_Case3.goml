@@ -1,0 +1,9 @@
+<goml>
+  <testNode1 testAttr1 = "hugahuga">
+    <testNode2 testAttr2 = "123" inheritAttr = "hogehoge">
+      <testNode2.components>
+        <testComponentOptional value="999"/>
+      </testNode2.components>
+    </testNode2>
+  </testNode1>
+</goml>

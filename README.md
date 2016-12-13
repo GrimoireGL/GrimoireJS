@@ -1,62 +1,37 @@
-# GrimoireJS -- A service-oriented Web3D framework.
+![Grimoire.js](./.github/logo.png)
+
 [![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
-[![Appveyor Status](https://ci.appveyor.com/api/projects/status/github/GrimoireGL/GrimoireJS?branch=develop&svg=true)](https://ci.appveyor.com/project/LimeStreem/jthree)
-
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
 [![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
 [![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
 
-## About
+## Overview
 
-### Mission
+Why virtual DOM needs to be only for actual DOM?
+Logics like drawing formulas for canvas even needs DOM for easy way.
 
-**Establish usage of 3DCG as assets over the web like text,image,video and so on.**
+* **DOM based** ・・・The way that Web engineers can work most effectively.
+* **jQuery like API** ・・・No more complex procedural webgl logics, just operate attributes with the API.
+* **Web development friendly**・・・Use with the other Web frontend frameworks. Very easy to coop with them.
+* **No more redundant codes**・・・Include  only the `tags` you actually need.
 
-This is the one and only mission we define.
+## Purpose
 
-### Our methods
+**WebGL is not only for games, but also for web services.**
 
-* Make every developer being able to focus in the most important task they want to do.
-* Redefine the value of 3DCG over the web.
-* Fully care about UX for contributors.
-* This is not game engine, but **Web3D service engine**
+After WebGL feature being implemented with modern browsers, many impressive Web3D libraries are appeared. However, most of them are just imported from 3D development culture that was grown in the environments very apart from web development culture.
 
-### Dependencies
+There should be good way of mixing these cultures. Grimoire.js is one of solution of that future.
 
-This library depends on the following libraries. We appreciate these contributors below :heart:
+## Useful Links
 
-|Name|Purpose|URL|Memo|
-|:-:|:-:|:-:|:-:|
-|gl-matrix|Use for calculation for webgl|https://github.com/toji/gl-matrix||
+* **Official Site**・・・http://grimoire.gl
 
-### Installation to build
+**Note:Most part of documentation are not completed yet. **
 
-You need the applications below.
-* node.js
-* npm
+## LICENSE
 
-You need **not** to install any packages in global.
+**MIT License**
 
-You need to run the command below to install npm packages,bower packages,and so on in local environment.
-
-```shell
-npm install
-```
-
-**That is all you need to do for preparation!**
-
-Then, run the command below to build "j3.js"
-
-```shell
-npm run build
-```
-
-|command|description|
-|:-:|:-:|
-|npm run build|build "j3.js"|
-|npm run test|run test|
-|npm run watch|watch files for build and run simple web server(under wwwroot)|
-|npm start|only run simple web server(under wwwroot)|
-
-(simple web server supported LiveReload)
+(See the LICENSE file for more detail.)

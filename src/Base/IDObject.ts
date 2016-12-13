@@ -1,18 +1,24 @@
-import IIDObject from "./IIDObject";
-import IDGenerator from "./IDGenerator";
-import JsHack from "./JsHack";
 /**
  * Most based object for any Grimoire.js related classes.
  * @type {[type]}
  */
-class IDObject implements IIDObject {
+class IDObject {
     /**
      * ID related to this instance to identify.
      */
     public id: string;
 
-    constructor(id?: string) {
-        this.id = id || IDGenerator.getUniqueRandom(10);
+    /**
+     * Generate random string
+     * @param  {number} length length of random string
+     * @return {string}        generated string
+     */
+    public static getUniqueRandom(length: number): string {
+        return Math.random().toString(36).slice(-length);
+    }
+
+    constructor() {
+        this.id = IDObject.getUniqueRandom(10);
     }
     /**
      * Obtain stringfied object.
@@ -20,7 +26,7 @@ class IDObject implements IIDObject {
      * @return {string} stringfied object
      */
     public toString(): string {
-        return JsHack.getObjectName(this);
+        return this.getTypeName();
     }
 
     /**
@@ -28,7 +34,9 @@ class IDObject implements IIDObject {
      * @return {string} Class name of the instance.
      */
     public getTypeName(): string {
-        return JsHack.getObjectName(this);
+        const funcNameRegex = /function (.{1,})\(/;
+        const result = (funcNameRegex).exec((this).constructor.toString());
+        return (result && result.length > 1) ? result[1] : "";
     }
 }
 

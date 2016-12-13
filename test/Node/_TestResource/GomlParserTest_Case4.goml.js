@@ -1,0 +1,1 @@
+module.exports = "<goml xmlns:a=\"http://testNamespace/test1\" xmlns:b=\"http://testNamespace/test2\">\n  <a:conflictNode>\n    <conflictNode.components>\n      <a:conflictComponent/>\n      <b:conflictComponent/>\n    </conflictNode.components>\n  </a:conflictNode>\n  <b:conflictNode/>\n</goml>\n";
