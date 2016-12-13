@@ -428,6 +428,9 @@ class GomlNode extends EEObject {
     attrName = Ensure.ensureTobeNSIdentity(attrName);
     const attr = this.attributes.get(attrName);
     if (!attr) {
+      if (GrimoireInterface.debug) {
+        console.warn(`attribute "${attrName.name}" is not found.`);
+      }
       this._attrBuffer[attrName.fqn] = value;
     } else {
       attr.Value = value;

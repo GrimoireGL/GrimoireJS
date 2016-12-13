@@ -209,7 +209,7 @@ class NodeInterface {
    * @return {GomlNode} [description]
    */
   public first(): GomlNode {
-    return this.find(node => !!node);
+    return this.find(() => true);
   }
 
   /**
