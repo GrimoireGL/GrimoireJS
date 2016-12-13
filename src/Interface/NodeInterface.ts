@@ -160,6 +160,7 @@ class NodeInterface {
     for (let i = 0; i < nodes.length; i++) {
       const array = nodes[i];
       for (let j = 0; j < array.length; j++) {
+        const node = array[j];
         if (predicate(node, i, j)) {
           return node;
         }
