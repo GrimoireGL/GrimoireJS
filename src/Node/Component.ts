@@ -98,7 +98,7 @@ class Component extends IDObject {
     }
   }
 
-  public getAttribute(name: string): Attribute {
+  public getAttribute(name: string): any {
     const attr = this.getAttributeRaw(name);
     if (attr) {
       return attr.Value;
