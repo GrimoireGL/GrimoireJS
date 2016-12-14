@@ -41,6 +41,8 @@ class Attribute {
    */
   private _value: any;
 
+  private _lastValuete: any;
+
   /**
    * List of functions that is listening changing values.
    */
@@ -70,11 +72,7 @@ class Attribute {
     if (this._value === void 0) {
       throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`)
     }
-    const v = (this.converter as any).convert(this._value);
-    if (v === void 0) {
-      throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
-    }
-    return v;
+    return this._valuate(this._value);
   }
 
   /**
@@ -85,9 +83,8 @@ class Attribute {
     if (this._value === val) {
       return;
     }
-    const old = this._value;
     this._value = val;
-    this._notifyChange(val, old);
+    this._notifyChange(val);
   }
 
   /**
@@ -175,10 +172,20 @@ class Attribute {
     this.Value = this.declaration.default;
   }
 
-  private _notifyChange(newValue: any, oldValue: any): void {
+  private _valuate(raw: any): any {
+    const v = (this.converter as any).convert(raw);
+    if (v === void 0) {
+      throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
+    }
+    this._lastValuete = v;
+    return v;
+  }
+
+  private _notifyChange(newValue: any): void {
+    const lastvalue = this._lastValuete;
     const c = this.converter as any;
     this._observers.forEach((handler) => {
-      handler(c.convert(newValue), oldValue !== void 0 ? c.convert(oldValue) : undefined, this);
+      handler(c.convert(newValue), lastvalue, this);
     });
   }
 }

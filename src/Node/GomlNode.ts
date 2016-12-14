@@ -1,3 +1,4 @@
+import AttributeManager from "../Base/AttributeManager";
 import GrimoireComponent from "../Components/GrimoireComponent";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
@@ -27,7 +28,7 @@ class GomlNode extends EEObject {
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public attributes: NSDictionary<Attribute>; // デフォルトコンポーネントの属性
+  // public attributes: NSDictionary<Attribute>;
   public componentsElement: Element; //<.components>
 
   private _parent: GomlNode = null;
@@ -40,12 +41,17 @@ class GomlNode extends EEObject {
   private _deleted: boolean = false;
   private _attrBuffer: { [fqn: string]: any } = {};
   private _defaultValueResolved: boolean = false;
+  private _attributeManager: AttributeManager;
 
   /**
    * Tag name.
    */
   public get name(): NSIdentity {
     return this.nodeDeclaration.name;
+  }
+
+  public get attributes(): NSDictionary<Attribute> {// デフォルトコンポーネントの属性
+    return this._attributeManager.attributes;
   }
 
   /**
@@ -146,7 +152,7 @@ class GomlNode extends EEObject {
     this._root = this;
     this._tree = GrimoireInterface([this]);
     this._components = [];
-    this.attributes = new NSDictionary<Attribute>();
+    this._attributeManager = new AttributeManager(recipe.name.name, new NSDictionary<Attribute>());
 
     this.element.setAttribute(Constants.x_gr_id, this.id);
     const defaultComponentNames = recipe.defaultComponentsActual;
@@ -401,18 +407,7 @@ class GomlNode extends EEObject {
     return this.getAttribute(attrName);
   }
   public getAttribute(attrName: string | NSIdentity): any {
-    attrName = Ensure.ensureTobeNSIdentity(attrName);
-    const attr = this.attributes.get(attrName);
-    if (!attr) {
-      const attrBuf = this._attrBuffer[attrName.fqn];
-      if (attrBuf !== void 0) {
-        return attrBuf;
-      }
-      console.warn(`attribute "${attrName.name}" is not found.`);
-      return;
-    } else {
-      return attr.Value;
-    }
+    return this._attributeManager.getAttribute(attrName);
   }
 
   /**
@@ -425,14 +420,7 @@ class GomlNode extends EEObject {
     this.setAttribute(attrName, value);
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
-    attrName = Ensure.ensureTobeNSIdentity(attrName);
-    const attr = this.attributes.get(attrName);
-    if (!attr) {
-      console.warn(`attribute "${attrName.name}" is not found.`);
-      this._attrBuffer[attrName.fqn] = value;
-    } else {
-      attr.Value = value;
-    }
+    return this._attributeManager.setAttribute(attrName, value);
   }
 
   /**
@@ -440,14 +428,7 @@ class GomlNode extends EEObject {
    *  Use __addAttribute in Component should be used instead.
    */
   public addAttribute(attr: Attribute): void {
-    this.attributes.set(attr.name, attr);
-
-    // check buffer value.
-    const attrBuf = this._attrBuffer[attr.name.fqn];
-    if (attrBuf !== void 0) {
-      attr.Value = attrBuf;
-      delete this._attrBuffer[attr.name.fqn];
-    }
+    return this._attributeManager.addAttribute(attr);
   }
 
   /**
@@ -495,8 +476,8 @@ class GomlNode extends EEObject {
    * remove attribute from this node.
    * @param {Attribute} attr [description]
    */
-  public removeAttribute(attr: Attribute): void {
-    this.attributes.delete(attr.name);
+  public removeAttribute(attr: Attribute): boolean {
+    return this._attributeManager.removeAttribute(attr);
   }
 
   /**
@@ -609,7 +590,7 @@ class GomlNode extends EEObject {
     const attrs = NodeUtility.getAttributes(this.element);
     for (let key in attrs) {
       if (!this.attributes.get(key)) {
-        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`)
+        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
       }
     }
     this._components.forEach((component) => {
@@ -643,8 +624,12 @@ class GomlNode extends EEObject {
       this._resolveBufferdMessage(this.mounted ? "mount" : "unmount");
       this.children.forEach(child => {
         child.notifyActivenessUpdate();
-      })
+      });
     }
+  }
+
+  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {
+    this._attributeManager.watch(attrName, watcher, immediate);
   }
 
   /**
