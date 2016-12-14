@@ -160,6 +160,11 @@ class NodeInterface {
     });
     return null;
   }
+  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {
+    this.forEach(node => {
+      node.watch(attrName, watcher, immediate);
+    })
+  }
 
   /**
    * このノードインタフェースが対象とするノードを有効、または無効にします。
