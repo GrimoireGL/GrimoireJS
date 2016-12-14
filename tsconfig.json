@@ -12,6 +12,7 @@
     "./src/**/*.ts"
   ],
   "files": [
+    "./src/Base/AttributeManager.ts",
     "./src/Base/Constants.ts",
     "./src/Base/EEObject.ts",
     "./src/Base/Ensure.ts",
