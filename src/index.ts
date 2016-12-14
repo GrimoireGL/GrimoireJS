@@ -13,7 +13,6 @@ import ConvertersBooleanConverter from "./Converters/BooleanConverter";
 import ConvertersStringArrayConverter from "./Converters/StringArrayConverter";
 import ConvertersStringConverter from "./Converters/StringConverter";
 import GrimoireInterface from "./GrimoireInterface";
-import InterfaceComponentInterface from "./Interface/ComponentInterface";
 import InterfaceGomlInterface from "./Interface/GomlInterface";
 import InterfaceNodeInterface from "./Interface/NodeInterface";
 import NodeAttribute from "./Node/Attribute";
@@ -27,10 +26,9 @@ import NodeNodeUtility from "./Node/NodeUtility";
 import __INTERFACE__1 from "./IGrimoireInterface";
 import __INTERFACE__2 from "./IGrimoireInterfaceBase";
 import __INTERFACE__3 from "./Interface/IGomlInterface";
-import __INTERFACE__5 from "./Interface/INodeInterface";
-import __INTERFACE__6 from "./Node/AttributeConverter";
-import __INTERFACE__7 from "./Node/IAttributeDeclaration";
-import __INTERFACE__8 from "./Node/ITreeInitializedInfo";
+import __INTERFACE__5 from "./Node/AttributeConverter";
+import __INTERFACE__6 from "./Node/IAttributeDeclaration";
+import __INTERFACE__7 from "./Node/ITreeInitializedInfo";
 
 import __MAIN__ from "./main"
 
@@ -57,7 +55,6 @@ var __EXPOSE__ = {
   },
   "GrimoireInterface": GrimoireInterface,
   "Interface": {
-    "ComponentInterface": InterfaceComponentInterface,
     "GomlInterface": InterfaceGomlInterface,
     "NodeInterface": InterfaceNodeInterface
   },

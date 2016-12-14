@@ -1,4 +1,3 @@
-import INodeInterface from "./INodeInterface";
 import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
@@ -7,7 +6,6 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "../Node/Component";
-import ComponentInterface from "./ComponentInterface";
 import GomlNode from "../Node/GomlNode";
 
 
@@ -19,9 +17,6 @@ class NodeInterface {
     if (!nodes) {
       throw new Error("nodes is null");
     }
-  }
-  public queryFunc(query: string): ComponentInterface {
-    return new ComponentInterface(this._queryComponents(query));
   }
 
   private _queryComponents(query: string): Component[][][] {
