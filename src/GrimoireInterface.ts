@@ -63,7 +63,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter("Boolean", BooleanConverter);
     this.registerComponent("GrimoireComponent", GrimoireComponent);
-    this.registerNode("GrimoireNodeBase", ["GrimoireComponent"]);
+    this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
   }
 
   /**
