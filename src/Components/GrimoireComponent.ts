@@ -15,28 +15,24 @@ class GrimoireComponent extends Component {
     },
     enabled: {
       converter: "Boolean",
-      defaultValue: true,
+      default: true,
       readonly: false
     }
   };
 
   public $awake(): void {
     this.node.resolveAttributesValue();
-    this.__bindAttributes();
-    const idAttribute = this.getAttribute("id");
-    const classAttribute = this.getAttribute("class");
-    idAttribute.addObserver((attr) => {
-      this.node.element.id = attr.Value ? attr.Value : "";
-    }, true);
-    classAttribute.addObserver((attr) => {
-      const v = attr.Value;
-      this.node.element.className = v ? v.join(" ") : "";
-    }, true);
-    this.getAttribute("enabled").addObserver(attr => {
+    this.getAttributeRaw("id").watch((attr) => {
+      this.node.element.id = attr;
+    });
+    this.getAttributeRaw("class").watch((attr) => {
+      this.node.element.className = attr.join(" ");
+    });
+    this.getAttributeRaw("enabled").watch(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
-    })
+    });
   }
 }
 

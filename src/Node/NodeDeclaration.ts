@@ -32,8 +32,8 @@ class NodeDeclaration {
     public defaultAttributes: NSDictionary<any>,
     public superNode: NSIdentity,
     private _treeConstraints?: ((node: GomlNode) => string)[]) {
-    if (!this.superNode && this.name.name.toUpperCase() !== "GRIMOIRENODEBASE") {
-      this.superNode = new NSIdentity("GrimoireNodeBase");
+    if (!this.superNode && this.name.name !== "grimoire-node-base") {
+      this.superNode = new NSIdentity("grimoire-node-base");
     }
   }
 

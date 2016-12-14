@@ -1,6 +1,5 @@
 import Constants from "../Base/Constants";
 import GrimoireInterface from "../GrimoireInterface";
-import INodeInterface from "./INodeInterface";
 import NodeInterface from "./NodeInterface";
 import GomlNode from "../Node/GomlNode";
 /**
@@ -15,11 +14,8 @@ class GomlInterface {
     return (new Array(this.rootNodes.length)).map((v, i) => GomlNode.fromElement(this.rootNodes[i].element.ownerDocument.getElementById(id)));
   }
 
-  public queryFunc(query: string): NodeInterface & INodeInterface {
-    const context = new NodeInterface(this.queryNodes(query));
-    const queryFunc = context.queryFunc.bind(context);
-    Object.setPrototypeOf(queryFunc, context);
-    return queryFunc;
+  public queryFunc(query: string): NodeInterface {
+    return new NodeInterface(this.queryNodes(query));
   }
 
   public queryNodes(query: string): GomlNode[][] {

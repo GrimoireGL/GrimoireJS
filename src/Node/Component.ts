@@ -79,19 +79,19 @@ class Component extends IDObject {
    * @return {any}         [description]
    */
   public getValue(name: string): any {
-    const attr = this.attributes.get(name);
-    if (attr) {
-      return attr.Value;
-    } else {
-      return undefined;
-    }
+    console.warn("Component#getValue is obsolete. please use getAttribute instead of.");
+    return this.getAttribute(name);
+  }
+  public setValue(name: string, value: any): void {
+    console.warn("Component#setValue is obsolete. please use setAttribute instead of.");
+    return this.setAttribute(name, value);
   }
   /**
    * Set value of attribute
    * @param {string} name  [description]
    * @param {any}    value [description]
    */
-  public setValue(name: string, value: any): void {
+  public setAttribute(name: string, value: any): void {
     const attr = this.attributes.get(name); // TODO:check readonly?
     if (attr) {
       attr.Value = value;
@@ -99,6 +99,14 @@ class Component extends IDObject {
   }
 
   public getAttribute(name: string): Attribute {
+    const attr = this.getAttributeRaw(name);
+    if (attr) {
+      return attr.Value;
+    } else {
+      return undefined;
+    }
+  }
+  public getAttributeRaw(name: string): Attribute {
     return this.attributes.get(name);
   }
 

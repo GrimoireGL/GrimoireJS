@@ -1,8 +1,7 @@
 import NodeInterface from "./NodeInterface";
-import INodeInterface from "./INodeInterface";
 
 interface IGomlInterface {
-  (query: string): (INodeInterface & NodeInterface);
+  (query: string): NodeInterface;
 }
 
 export default IGomlInterface;

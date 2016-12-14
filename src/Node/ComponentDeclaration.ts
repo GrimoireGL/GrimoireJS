@@ -17,7 +17,7 @@ class ComponentDeclaration {
     // }
     // this.attributes["enabled"] = {
     //   converter: "Boolean",
-    //   defaultValue: true
+    //   default true
     // };
   }
 
