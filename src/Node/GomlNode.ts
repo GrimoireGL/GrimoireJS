@@ -509,7 +509,7 @@ class GomlNode extends EEObject {
     attributes = attributes || {};
 
     for (let key in attributes) {
-      instance.setValue(key, attributes[key]);
+      instance.setAttribute(key, attributes[key]);
     }
     this._addComponentDirectly(instance, isDefaultComponent);
     return instance;

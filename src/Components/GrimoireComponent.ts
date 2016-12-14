@@ -22,13 +22,13 @@ class GrimoireComponent extends Component {
 
   public $awake(): void {
     this.node.resolveAttributesValue();
-    this.getAttribute("id").addObserver((attr) => {
+    this.getAttributeRaw("id").addObserver((attr) => {
       this.node.element.id = attr.Value;
     });
-    this.getAttribute("class").addObserver((attr) => {
+    this.getAttributeRaw("class").addObserver((attr) => {
       this.node.element.className = attr.Value.join(" ");
     });
-    this.getAttribute("enabled").addObserver(attr => {
+    this.getAttributeRaw("enabled").addObserver(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
