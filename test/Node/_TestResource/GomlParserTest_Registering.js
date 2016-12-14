@@ -1,4 +1,4 @@
-const GrimoireInterface =require("../../../lib-es5/GrimoireInterface").default;
+const GrimoireInterface = require("../../../lib-es5/GrimoireInterface").default;
 const sinon = require("sinon");
 
 // Components
@@ -9,7 +9,7 @@ export function testComponent1() {
     attributes: {
       testAttr1: {
         converter: "string",
-        defaultValue: null
+        default: null
       }
     },
     $onTest: function (arg) {
@@ -34,7 +34,7 @@ export function testComponent2() {
     attributes: {
       testAttr2: {
         converter: "string",
-        defaultValue: "tc2default"
+        default: "tc2default"
       }
     },
     $onTest: function (arg) {
@@ -59,7 +59,7 @@ export function testComponent3() {
     attributes: {
       testAttr3: {
         converter: "string",
-        defaultValue: "tc2default"
+        default: "tc2default"
       }
     },
     $onTest: function (arg) {
@@ -84,7 +84,7 @@ export function testComponentBase() {
     attributes: {
       inheritAttr: {
         converter: "string",
-        defaultValue: "base"
+        default: "base"
       }
     },
     $onTest: function (arg) {
@@ -109,7 +109,7 @@ export function testComponentOptional() {
     attributes: {
       value: {
         converter: "string",
-        defaultValue: "optional"
+        default: "optional"
       }
     },
     $onTest: function (arg) {
@@ -135,7 +135,7 @@ export function conflictComponent1() {
     attributes: {
       value: {
         converter: "string",
-        defaultValue: "aaa"
+        default: "aaa"
       }
     },
     $onTest: function () {
@@ -152,7 +152,7 @@ export function conflictComponent2() {
     attributes: {
       value: {
         converter: "string",
-        defaultValue: "bbb"
+        default: "bbb"
       }
     },
     $onTest: function () {

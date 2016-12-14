@@ -172,7 +172,7 @@ class Attribute {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;
     }
-    this.Value = this.declaration.defaultValue;
+    this.Value = this.declaration.default;
   }
 
   private _notifyChange(): void {

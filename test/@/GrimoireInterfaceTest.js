@@ -30,7 +30,7 @@ test('_ensureNameTobeConstructor is works correctly', (t) => {
     attributes: {
       testValue: {
         converter: "stringConverter",
-        defaultValue: "bbb"
+        default: "bbb"
       }
     }
   });
@@ -44,7 +44,7 @@ test('registerComponent works correctly', (t) => {
     attributes: {
       testValue: {
         converter: "stringConverter",
-        defaultValue: "bbb"
+        default: "bbb"
       }
     },
     $test: function () {
@@ -58,7 +58,7 @@ test('registerComponent works correctly', (t) => {
     attributes: {
       testValue2: {
         converter: "stringConverter",
-        defaultValue: "ccc"
+        default: "ccc"
       }
     },
     $test2: function () {

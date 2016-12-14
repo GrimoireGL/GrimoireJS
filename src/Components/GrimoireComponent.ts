@@ -5,17 +5,17 @@ class GrimoireComponent extends Component {
   public static attributes: { [key: string]: IAttributeDeclaration } = {
     id: {
       converter: "String",
-      defaultValue: null,
+      default: null,
       readonly: false
     },
     class: {
       converter: "StringArray",
-      defaultValue: null,
+      default: null,
       readonly: false
     },
     enabled: {
       converter: "Boolean",
-      defaultValue: true,
+      default: true,
       readonly: false
     }
   };
