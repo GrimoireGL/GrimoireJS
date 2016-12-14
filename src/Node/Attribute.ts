@@ -12,6 +12,15 @@ import Component from "./Component";
  */
 class Attribute {
 
+  public static convert(converter: string | NSIdentity, val: any): any {
+    const cname = Ensure.ensureTobeNSIdentity(converter);
+    const conv = GrimoireInterface.converters.get(cname);
+    if (!conv) {
+      throw new Error(`converter ${cname.name} is not defined.`);
+    }
+    return (conv as any).convert(val);
+  }
+
   /**
    * The name of attribute.
    * @type {NSIdentity}
