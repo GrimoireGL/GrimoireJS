@@ -25,6 +25,24 @@ test('ns method should generate namespace generating function correctly', (t) =>
   t.truthy(g("test").fqn === "test|HTTP://GRIMOIRE.GL/NS/2");
 });
 
+test('registerComponent works correctly', (t) => {
+  const l = GrimoireInterface.componentDeclarations.toArray().length;
+  const dec = GrimoireInterface.registerComponent("Name", {
+    attributes: {
+      attr: { converter: "String", default: "aaa" }
+    }
+  });
+  t.truthy(dec.attributes["attr"].default === "aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === l + 1);
+  t.throws(() => {
+    GrimoireInterface.registerComponent("Name", {
+      attributes: {
+        attr: { converter: "String", default: undefined }
+      }
+    });
+  });
+});
+
 test('_ensureNameTobeConstructor is works correctly', (t) => {
   GrimoireInterface.registerComponent("aaa", {
     attributes: {

@@ -44,7 +44,7 @@ class Attribute {
   /**
    * List of functions that is listening changing values.
    */
-  private _observers: ((attr: Attribute) => void)[] = [];
+  private _observers: ((newValue: any, oldValue: any, attr: Attribute) => void)[] = [];
 
   /**
    * Goml tree interface which contains the component this attribute bound to.
@@ -67,11 +67,14 @@ class Attribute {
    * @return {any} value with specified type.
    */
   public get Value(): any {
-    try {
-      return (this.converter as any).convert(this._value);
-    } catch (e) {
-      console.error(e); // TODO should be more convenient error handling
+    if (this._value === void 0) {
+      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`)
     }
+    const v = (this.converter as any).convert(this._value);
+    if (v === void 0) {
+      throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
+    }
+    return v;
   }
 
   /**
@@ -79,8 +82,12 @@ class Attribute {
    * @param {any} val Value with string or specified type.
    */
   public set Value(val: any) {
+    if (this._value === val) {
+      return;
+    }
+    const old = this._value;
     this._value = val;
-    this._notifyChange();
+    this._notifyChange(val, old);
   }
 
   /**
@@ -115,10 +122,10 @@ class Attribute {
    * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
    * @param {boolean = false} callFirst whether that handler should be called first time.
    */
-  public addObserver(handler: (attr: Attribute) => void, callFirst = false): void {
-    this._observers.push(handler);
-    if (callFirst) {
-      handler(this);
+  public watch(watcher: (newValue: any, oldValue: any, attr: Attribute) => void, immedateCalls = false): void {
+    this._observers.push(watcher);
+    if (immedateCalls) {
+      watcher(this.Value, undefined, this);
     }
   }
 
@@ -127,14 +134,8 @@ class Attribute {
    * @param  {Attribute} handler [description]
    * @return {[type]}            [description]
    */
-  public removeObserver(handler: (attr: Attribute) => void): void {
-    let index = -1;
-    for (let i = 0; i < this._observers.length; i++) {
-      if (handler === this._observers[i]) {
-        index = i;
-        break;
-      }
-    }
+  public removeObserver(target: (newValue: any, oldValue: any, attr: Attribute) => void): void {
+    const index = this._observers.findIndex(f => f === target);
     if (index < 0) {
       return;
     }
@@ -148,10 +149,9 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
-    this.addObserver((v) => {
-      targetObject[variableName] = v.Value;
-    });
-    targetObject[variableName] = this.Value;
+    this.watch((v) => {
+      targetObject[variableName] = v;
+    }, true);
   }
 
   /**
@@ -175,9 +175,10 @@ class Attribute {
     this.Value = this.declaration.default;
   }
 
-  private _notifyChange(): void {
+  private _notifyChange(newValue: any, oldValue: any): void {
+    const c = this.converter as any;
     this._observers.forEach((handler) => {
-      handler(this);
+      handler(c.convert(newValue), oldValue !== void 0 ? c.convert(oldValue) : undefined, this);
     });
   }
 }

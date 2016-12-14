@@ -102,10 +102,9 @@ test('test for parse user-define component.', (t) => {
   sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
   sinon.assert.neverCalledWith(testComponent2Spy, "testArg");
   sinon.assert.neverCalledWith(testComponentOptionalSpy, "testArg");
-  // TODO uncomment this. sinon.assert.calledWith(testComponentBaseSpy, "testArg");
+  t.truthy("testArg" === testComponentBaseSpy.args[2][1]);
   sinon.assert.neverCalledWith(stringConverterSpy, "hugahuga");
   sinon.assert.neverCalledWith(stringConverterSpy, "123");
-  //sinon.assert.calledWith(stringConverterSpy, "hogehoge");
   sinon.assert.neverCalledWith(stringConverterSpy, "999");
 });
 

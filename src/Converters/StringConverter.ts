@@ -8,7 +8,6 @@ function StringConverter(this: Attribute, val: any): any {
   } else if (typeof val.toString === "function") {
     return val.toString();
   }
-  throw new Error("value is not supported by StringConverter.");
 }
 
 export default StringConverter;

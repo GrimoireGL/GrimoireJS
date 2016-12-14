@@ -22,17 +22,17 @@ class GrimoireComponent extends Component {
 
   public $awake(): void {
     this.node.resolveAttributesValue();
-    this.getAttributeRaw("id").addObserver((attr) => {
-      this.node.element.id = attr.Value;
+    this.getAttributeRaw("id").watch((attr) => {
+      this.node.element.id = attr;
     });
-    this.getAttributeRaw("class").addObserver((attr) => {
-      this.node.element.className = attr.Value.join(" ");
+    this.getAttributeRaw("class").watch((attr) => {
+      this.node.element.className = attr.join(" ");
     });
-    this.getAttributeRaw("enabled").addObserver(attr => {
+    this.getAttributeRaw("enabled").watch(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
-    })
+    });
   }
 }
 

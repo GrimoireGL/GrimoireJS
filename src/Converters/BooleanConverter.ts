@@ -10,11 +10,9 @@ function BooleanConverter(this: Attribute, val: any): any {
       case "false":
         return false;
       default:
-        throw new Error(`Invalid string ${val} for parsing as boolean`);
+        return undefined;
     }
   }
-
-  throw new Error(`Parsing failed: ${val}`);
 }
 
 export default BooleanConverter;

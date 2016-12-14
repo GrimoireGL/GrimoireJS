@@ -8,7 +8,7 @@ export function testComponent1() {
   GrimoireInterface.registerComponent("testComponent1", {
     attributes: {
       testAttr1: {
-        converter: "string",
+        converter: "Str",
         default: null
       }
     },
@@ -33,7 +33,7 @@ export function testComponent2() {
   GrimoireInterface.registerComponent("testComponent2", {
     attributes: {
       testAttr2: {
-        converter: "string",
+        converter: "Str",
         default: "tc2default"
       }
     },
@@ -58,7 +58,7 @@ export function testComponent3() {
   GrimoireInterface.registerComponent("testComponent3", {
     attributes: {
       testAttr3: {
-        converter: "string",
+        converter: "Str",
         default: "tc2default"
       }
     },
@@ -83,7 +83,7 @@ export function testComponentBase() {
   GrimoireInterface.registerComponent("testComponentBase", {
     attributes: {
       inheritAttr: {
-        converter: "string",
+        converter: "Str",
         default: "base"
       }
     },
@@ -108,7 +108,7 @@ export function testComponentOptional() {
   GrimoireInterface.registerComponent("testComponentOptional", {
     attributes: {
       value: {
-        converter: "string",
+        converter: "Str",
         default: "optional"
       }
     },
@@ -134,7 +134,7 @@ export function conflictComponent1() {
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
     attributes: {
       value: {
-        converter: "string",
+        converter: "Str",
         default: "aaa"
       }
     },
@@ -151,7 +151,7 @@ export function conflictComponent2() {
   GrimoireInterface.registerComponent(ns("conflictComponent"), {
     attributes: {
       value: {
-        converter: "string",
+        converter: "Str",
         default: "bbb"
       }
     },
@@ -170,11 +170,11 @@ export function goml() {
 };
 
 export function testNode1() {
-  GrimoireInterface.registerNode("testNode1", ["testComponent1"], null, null, null);
+  GrimoireInterface.registerNode("testNode1", ["testComponent1"]);
 }
 
 export function testNode2() {
-  GrimoireInterface.registerNode("testNode2", ["testComponent2"], null, null, "testNodeBase");
+  GrimoireInterface.registerNode("testNode2", ["testComponent2"], null, "testNodeBase");
 };
 
 export function testNode3() {
@@ -182,7 +182,7 @@ export function testNode3() {
 }
 
 export function testNodeBase() {
-  GrimoireInterface.registerNode("testNodeBase", ["testComponentBase"], null, null, null);
+  GrimoireInterface.registerNode("testNodeBase", ["testComponentBase"]);
 }
 
 export function conflictNode1() {
@@ -203,7 +203,7 @@ export function conflictNode2() {
 // Converters
 export function stringConverter() {
   const spy = sinon.spy();
-  GrimoireInterface.registerConverter("string", (arg) => {
+  GrimoireInterface.registerConverter("Str", (arg) => {
     spy(arg);
     if (typeof arg === "string" || !arg) {
       return arg;
