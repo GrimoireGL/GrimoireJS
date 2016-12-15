@@ -7,9 +7,11 @@ class XMLReader {
 
   public static parseXML(doc: string, rootElementName?: string): Element[] {
     let isParseError = (parsedDocument: Document) => {
+      const defaultError = console.error;
       console.error = function() { };//disable error message!
       var errorneousParse = XMLReader._parser.parseFromString('<', 'text/xml');
       delete console.error;//restore...
+      console.error = defaultError;
       if ((errorneousParse as any).documentURI === void 0) {
         return false;
       }

@@ -17,7 +17,7 @@ class NSDictionary<V> {
     this._fqnObjectMap.set(key.fqn, value);
   }
 
-  public delete(key: NSIdentity): void {
+  public delete(key: NSIdentity): boolean {
     if (this._fqnObjectMap.has(key.fqn)) {
       const theMap = this._nameObjectMap.get(key.name);
       if (theMap.size === 1) {
@@ -26,7 +26,9 @@ class NSDictionary<V> {
         theMap.delete(key.fqn);
       }
       this._fqnObjectMap.delete(key.fqn);
+      return true;
     }
+    return false;
   }
 
   public get(name: string): V;

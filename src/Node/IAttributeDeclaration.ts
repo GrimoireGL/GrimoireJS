@@ -1,7 +1,7 @@
 import NSIdentity from "../Base/NSIdentity";
 interface IAttributeDeclaration {
   converter: string | NSIdentity;
-  defaultValue: any;
+  default: any;
   readonly?: boolean;
   [parameters: string]: any;
 }

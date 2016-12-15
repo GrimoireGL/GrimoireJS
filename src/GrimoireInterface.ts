@@ -1,3 +1,4 @@
+import Utility from "./Base/Utility";
 import GomlInterface from "./Interface/GomlInterface";
 import BooleanConverter from "./Converters/BooleanConverter";
 import GrimoireComponent from "./Components/GrimoireComponent";
@@ -63,7 +64,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter("Boolean", BooleanConverter);
     this.registerComponent("GrimoireComponent", GrimoireComponent);
-    this.registerNode("GrimoireNodeBase", ["GrimoireComponent"]);
+    this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
   }
 
   /**
@@ -88,31 +89,44 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): void {
+  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): ComponentDeclaration {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
+    if (this.debug && !Utility.isCamelCase(name.name)) {
+      console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
+    }
     obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
     const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration } || {};
-    this.componentDeclarations.set(name as NSIdentity, new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component)));
+    for (let key in attrs) {
+      if (attrs[key].default === void 0) {
+        throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
+      }
+    }
+    const dec = new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component));
+    this.componentDeclarations.set(name as NSIdentity, dec);
+    return dec;
   }
 
   public registerNode(name: string | NSIdentity,
     requiredComponents: (string | NSIdentity)[],
-    defaultValues?: { [key: string]: any } | NSDictionary<any>,
+    defaults?: { [key: string]: any } | NSDictionary<any>,
     superNode?: string | NSIdentity): void {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.nodeDeclarations.get(name)) {
       throw new Error(`gomlnode ${name.fqn} is already registerd.`)
     }
+    if (this.debug && !Utility.isSnakeCase(name.name)) {
+      console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
+    }
     requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
-    defaultValues = Ensure.ensureTobeNSDictionary<any>(defaultValues, (name as NSIdentity).ns);
+    defaults = Ensure.ensureTobeNSDictionary<any>(defaults, (name as NSIdentity).ns);
     superNode = Ensure.ensureTobeNSIdentity(superNode);
     this.nodeDeclarations.set(name as NSIdentity,
       new NodeDeclaration(name as NSIdentity,
         NSSet.fromArray(requiredComponents as NSIdentity[]),
-        defaultValues as NSDictionary<any>,
+        defaults as NSDictionary<any>,
         superNode as NSIdentity)
     );
   }
