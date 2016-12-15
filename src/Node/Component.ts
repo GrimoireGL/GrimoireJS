@@ -79,26 +79,34 @@ class Component extends IDObject {
    * @return {any}         [description]
    */
   public getValue(name: string): any {
-    const attr = this.attributes.get(name);
-    if (attr) {
-      return attr.Value;
-    } else {
-      return undefined;
-    }
+    console.warn("Component#getValue is obsolete. please use getAttribute instead of.");
+    return this.getAttribute(name);
+  }
+  public setValue(name: string, value: any): void {
+    console.warn("Component#setValue is obsolete. please use setAttribute instead of.");
+    return this.setAttribute(name, value);
   }
   /**
    * Set value of attribute
    * @param {string} name  [description]
    * @param {any}    value [description]
    */
-  public setValue(name: string, value: any): void {
+  public setAttribute(name: string, value: any): void {
     const attr = this.attributes.get(name); // TODO:check readonly?
     if (attr) {
       attr.Value = value;
     }
   }
 
-  public getAttribute(name: string): Attribute {
+  public getAttribute(name: string): any {
+    const attr = this.getAttributeRaw(name);
+    if (attr) {
+      return attr.Value;
+    } else {
+      return undefined;
+    }
+  }
+  public getAttributeRaw(name: string): Attribute {
     return this.attributes.get(name);
   }
 
@@ -174,6 +182,12 @@ class Component extends IDObject {
         this.__removeAttributes(id.name);
       });
     }
+  }
+  protected __bindAttributes(): void {
+    this.attributes.forEach(attr => {
+      const name = attr.name.name;
+      attr.boundTo("_" + name);
+    });
   }
 }
 

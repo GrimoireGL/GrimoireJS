@@ -1,4 +1,3 @@
-import INodeInterface from "./INodeInterface";
 import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
@@ -7,7 +6,6 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "../Node/Component";
-import ComponentInterface from "./ComponentInterface";
 import GomlNode from "../Node/GomlNode";
 
 
@@ -19,9 +17,6 @@ class NodeInterface {
     if (!nodes) {
       throw new Error("nodes is null");
     }
-  }
-  public queryFunc(query: string): ComponentInterface {
-    return new ComponentInterface(this._queryComponents(query));
   }
 
   private _queryComponents(query: string): Component[][][] {
@@ -156,14 +151,22 @@ class NodeInterface {
     return this;
   }
   public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
-    this.nodes.forEach((array, gomlIndex) => {
-      array.forEach((node, nodeIndex) => {
-        if (predicate(node, gomlIndex, nodeIndex)) {
+    const nodes = this.nodes;
+    for (let i = 0; i < nodes.length; i++) {
+      const array = nodes[i];
+      for (let j = 0; j < array.length; j++) {
+        const node = array[j];
+        if (predicate(node, i, j)) {
           return node;
         }
-      });
-    });
+      }
+    }
     return null;
+  }
+  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {
+    this.forEach(node => {
+      node.watch(attrName, watcher, immediate);
+    })
   }
 
   /**
@@ -209,7 +212,7 @@ class NodeInterface {
    * @return {GomlNode} [description]
    */
   public first(): GomlNode {
-    return this.find(node => !!node);
+    return this.find(() => true);
   }
 
   /**
@@ -221,7 +224,11 @@ class NodeInterface {
     if (this.count() !== 1) {
       throw new Error("this nodeInterface is not single.");
     }
-    return this.first();
+    const first = this.first();
+    if (!first) {
+      throw new Error("this nodeInterface is not single,but is empty.")
+    }
+    return first;
   }
 
   /**
@@ -234,6 +241,14 @@ class NodeInterface {
     }
     const counts = this.nodes.map(nodes => nodes.length);
     return counts.reduce((total, current) => total + current, 0);
+  }
+
+  public filter(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): NodeInterface {
+    const newNodes = this.nodes.map((nodes, gomlIndex) => nodes.filter((node, nodeIndex) => predicate(node, gomlIndex, nodeIndex)));
+    return new NodeInterface(newNodes);
+  }
+  public toArray(): GomlNode[] {
+    return this.nodes.reduce((pre, current) => pre.concat(current), []);
   }
 }
 

@@ -5,34 +5,34 @@ class GrimoireComponent extends Component {
   public static attributes: { [key: string]: IAttributeDeclaration } = {
     id: {
       converter: "String",
-      defaultValue: null,
+      default: null,
       readonly: false
     },
     class: {
       converter: "StringArray",
-      defaultValue: null,
+      default: null,
       readonly: false
     },
     enabled: {
       converter: "Boolean",
-      defaultValue: true,
+      default: true,
       readonly: false
     }
   };
 
   public $awake(): void {
     this.node.resolveAttributesValue();
-    this.getAttribute("id").addObserver((attr) => {
-      this.node.element.id = attr.Value;
-    });
-    this.getAttribute("class").addObserver((attr) => {
-      this.node.element.className = attr.Value.join(" ");
-    });
-    this.getAttribute("enabled").addObserver(attr => {
+    this.getAttributeRaw("id").watch((attr) => {
+      this.node.element.id = attr ? attr : "";
+    }, true);
+    this.getAttributeRaw("class").watch((attr) => {
+      this.node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
+    }, true);
+    this.getAttributeRaw("enabled").watch(attr => {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
-    })
+    });
   }
 }
 

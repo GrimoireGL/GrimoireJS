@@ -7,7 +7,6 @@ function StringArrayConverter(this: Attribute, val: any): any {
   if (typeof val === "string") {
     return val.split(" ");
   }
-  throw new Error("value is not supported by StringArrayConverter.:" + val);
 }
 
 export default StringArrayConverter;

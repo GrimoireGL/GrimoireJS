@@ -12,6 +12,7 @@
     "./src/**/*.ts"
   ],
   "files": [
+    "./src/Base/AttributeManager.ts",
     "./src/Base/Constants.ts",
     "./src/Base/EEObject.ts",
     "./src/Base/Ensure.ts",
@@ -30,10 +31,8 @@
     "./src/IGrimoireInterface.ts",
     "./src/IGrimoireInterfaceBase.ts",
     "./src/index.ts",
-    "./src/Interface/ComponentInterface.ts",
     "./src/Interface/GomlInterface.ts",
     "./src/Interface/IGomlInterface.ts",
-    "./src/Interface/INodeInterface.ts",
     "./src/Interface/NodeInterface.ts",
     "./src/main.ts",
     "./src/Node/Attribute.ts",

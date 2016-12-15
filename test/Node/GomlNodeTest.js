@@ -127,7 +127,7 @@ test("addComponent method works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
@@ -146,7 +146,7 @@ test("addComponent method works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
@@ -154,7 +154,7 @@ test("addComponent method works correctly", t => {
   const components = node.getComponents();
   t.truthy(components.length == 2);
   t.truthy(components[1].name.name == "testComponent1");
-  t.truthy(components[1].getValue("testAttr1") == "testValue");
+  t.truthy(components[1].getAttribute("testAttr1") == "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
 test("getComponent method overload works correctly", t => {
@@ -165,7 +165,7 @@ test("getComponent method overload works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
@@ -173,7 +173,7 @@ test("getComponent method overload works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   }, "testComponent1");
@@ -189,7 +189,7 @@ test("getComponents method overload works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
@@ -197,7 +197,7 @@ test("getComponents method overload works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
@@ -212,13 +212,13 @@ test("addAttribute method works correctly", t => {
     attributes: {
       testAttr1: {
         converter: "String",
-        defaultValue: "thisistest"
+        default: "thisistest"
       }
     }
   });
   const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
   const attr = new Attribute("testAttr", {
     converter: "String",
-    defaultValue: "thisistest"
+    default: "thisistest"
   }, component);
 });
