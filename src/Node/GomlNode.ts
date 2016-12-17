@@ -34,6 +34,7 @@ class GomlNode extends EEObject {
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
+  private _enabled: boolean = false;
   private _components: Component[];
   private _messageBuffer: { message: string, target: Component }[] = [];
   private _tree: IGomlInterface = null;
@@ -94,7 +95,7 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get enabled(): boolean {
-    return this.getAttribute("enabled");
+    return this._enabled;
   }
   public set enabled(value) {
     this.setAttribute("enabled", value);
@@ -161,7 +162,6 @@ class GomlNode extends EEObject {
     defaultComponentNames.toArray().map((id) => {
       this.addComponent(id, null, true);
     });
-
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
   }
@@ -410,6 +410,10 @@ class GomlNode extends EEObject {
     return this._attributeManager.getAttribute(attrName);
   }
 
+  public getAttributeRaw(attrName: string | NSIdentity): Attribute {
+    return this._attributeManager.attributes.get(attrName as string);
+  }
+
   /**
    * set value to selected attribute.
    * @param {string |     NSIdentity}  attrName [description]
@@ -596,6 +600,7 @@ class GomlNode extends EEObject {
     this._components.forEach((component) => {
       component.resolveDefaultAttributes(attrs);
     });
+    this.getAttributeRaw("enabled").boundTo("_enabled", this);
   }
 
   /**
