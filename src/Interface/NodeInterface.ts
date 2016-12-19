@@ -250,6 +250,12 @@ class NodeInterface {
   public toArray(): GomlNode[] {
     return this.nodes.reduce((pre, current) => pre.concat(current), []);
   }
+
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
+    this.forEach(node => {
+      node.addChildByName(nodeName, attributes);
+    })
+  }
 }
 
 
