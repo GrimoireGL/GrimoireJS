@@ -34,7 +34,7 @@ class GomlNode extends EEObject {
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
-  private _enabled: boolean = false;
+  private _enabled: boolean = true;
   private _components: Component[];
   private _messageBuffer: { message: string, target: Component }[] = [];
   private _tree: IGomlInterface = null;
@@ -318,14 +318,14 @@ class GomlNode extends EEObject {
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
 
-    const checkChildConstraints = child.checkTreeConstraints();
-    const checkAncestorConstraint = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-      .reduce((list, current) => list.concat(current));
-    const errors = checkChildConstraints.concat(checkAncestorConstraint).filter(m => m);
-    if (errors.length !== 0) {
-      const message = errors.reduce((m, current) => m + "\n" + current);
-      throw new Error("tree constraint is not satisfied.\n" + message);
-    }
+    // const checkChildConstraints = child.checkTreeConstraints();
+    // const checkAncestorConstraint = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
+    //   .reduce((list, current) => list.concat(current));
+    // const errors = checkChildConstraints.concat(checkAncestorConstraint).filter(m => m);
+    // if (errors.length !== 0) {
+    //   const message = errors.reduce((m, current) => m + "\n" + current);
+    //   throw new Error("tree constraint is not satisfied.\n" + message);
+    // }
 
     // handling html
     if (elementSync) {
@@ -600,7 +600,6 @@ class GomlNode extends EEObject {
     this._components.forEach((component) => {
       component.resolveDefaultAttributes(attrs);
     });
-    this.getAttributeRaw("enabled").boundTo("_enabled", this);
   }
 
   /**

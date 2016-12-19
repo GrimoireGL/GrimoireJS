@@ -32,7 +32,9 @@ class GrimoireComponent extends Component {
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
+      this.node["_enabled"] = attr;
     });
+    this.node["_enabled"] = this.getAttribute("enabled");
   }
 }
 
