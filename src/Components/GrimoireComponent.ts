@@ -29,10 +29,10 @@ class GrimoireComponent extends Component {
       this.node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
     }, true);
     this.getAttributeRaw("enabled").watch(attr => {
+      this.node["_enabled"] = attr;
       if (this.node.isActive) {
         this.node.notifyActivenessUpdate();
       }
-      this.node["_enabled"] = attr;
     });
     this.node["_enabled"] = this.getAttribute("enabled");
   }

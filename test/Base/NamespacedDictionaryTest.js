@@ -9,9 +9,9 @@ test('set element correctly', (t) => {
   const newKey = new NSIdentity("test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test element");
-  t.truthy(theDict._nameObjectMap.get(newKey.name).size === 1);
-  t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
-  t.truthy(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
+  t.truthy(theDict._nameObjectMap[newKey.name]);
+  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test element");
+  t.truthy(theDict._fqnObjectMap[newKey.fqn] === "test element");
 });
 
 test('set element correctly when dupelicated name was given', (t) => {
@@ -20,11 +20,10 @@ test('set element correctly when dupelicated name was given', (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test element");
   theDict.set(secoundKey, "test element2");
-  t.truthy(theDict._nameObjectMap.get(newKey.name).size === 2);
-  t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test element");
-  t.truthy(theDict._nameObjectMap.get(secoundKey.name).get(secoundKey.fqn) === "test element2");
-  t.truthy(theDict._fqnObjectMap.get(newKey.fqn) === "test element");
-  t.truthy(theDict._fqnObjectMap.get(secoundKey.fqn) === "test element2");
+  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test element");
+  t.truthy(theDict._nameObjectMap[secoundKey.name][secoundKey.fqn] === "test element2");
+  t.truthy(theDict._fqnObjectMap[newKey.fqn] === "test element");
+  t.truthy(theDict._fqnObjectMap[secoundKey.fqn] === "test element2");
 });
 
 test('element should be repalaced when dupelicated fqn was given', (t) => {
@@ -34,8 +33,8 @@ test('element should be repalaced when dupelicated fqn was given', (t) => {
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
   t.truthy(theDict.fromFQN(newKey.fqn));
-  t.truthy(theDict._nameObjectMap.get(newKey.name).size === 1);
-  t.truthy(theDict._nameObjectMap.get(newKey.name).get(newKey.fqn) === "test1");
+  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test1");
+  t.truthy(theDict._nameObjectMap[secoundKey.name][secoundKey.fqn] === "test2");
 });
 
 test('get element correctly with fqn', (t) => {

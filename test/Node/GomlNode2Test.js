@@ -111,6 +111,13 @@ test('mount should be called in ideal timing', (t) => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
 });
+test('mount should not be called if disable node.', (t) => {
+  const testNode3 = rootNode.children[0];
+  const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
+  order.forEach(spy => {
+    t.truthy(!spy.getCall(1));
+  });
+});
 
 test('awake should be called in ideal timing', (t) => {
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
@@ -249,22 +256,22 @@ test('addNode works correctly', (t) => {
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === "idtest");
   t.truthy(child.element.id === "idtest");
-  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id")=== "idtest");
+  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id") === "idtest");
 });
 
 test('null should be "" as id and classname', (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("testNode2", {
     testAttr2: "ADDEDNODE",
-    id:null,
-    class:null
+    id: null,
+    class: null
   });
   const child = testNode2.children[0];
   t.truthy(child.name.name === "testNode2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === null);
   t.truthy(child.element.id === "");
-  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id")=== null);
+  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id") === null);
   t.truthy(child.getAttribute("class") === null);
   t.truthy(child.element.className === "");
   t.truthy(child.getComponent("GrimoireComponent").getAttribute("class") === null);
