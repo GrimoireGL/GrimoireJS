@@ -40,7 +40,7 @@ class NSDictionary<V> {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
-      if (name) {
+      if (name) {//name only.
         return this.get(new NSIdentity(arg1 as string, name));
       } else {
         const namedMap = this._nameObjectMap[(arg1 as string)];
@@ -56,11 +56,11 @@ class NSDictionary<V> {
       }
     } else {
       if (arg1 instanceof NSIdentity) {
-        return this.fromFQN((arg1 as NSIdentity).fqn);
+        return this.fromFQN(arg1.fqn);
       } else {
-        if (arg1.prefix) {
+        if (arg1.prefix) {//element
           return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
-        } else {
+        } else {//attr
           if (arg1.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.namespaceURI] !== void 0) {
             return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
           }
@@ -95,7 +95,7 @@ class NSDictionary<V> {
 
   public toArray(): V[] {
     const ret: V[] = [];
-    Object.keys(this._fqnObjectMap).forEach((key) => {
+    Object.keys(this._fqnObjectMap).forEach(key => {
       ret.push(this._fqnObjectMap[key]);
     });
     return ret;
@@ -105,7 +105,7 @@ class NSDictionary<V> {
     return dict.pushDictionary(this);
   }
   public forEach(callback: (value: V, fqn: string) => void): NSDictionary<V> {
-    Object.keys(this._fqnObjectMap).forEach((key) => {
+    Object.keys(this._fqnObjectMap).forEach(key => {
       callback(this._fqnObjectMap[key], key);
     });
     return this;

@@ -1,3 +1,4 @@
+import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import Ensure from "../Base/Ensure";
 import GrimoireInterface from "../GrimoireInterface";
@@ -171,11 +172,9 @@ class NodeInterface {
    * @return {NodeInterface} [description]
    */
   public children(): NodeInterface {
-    const children = this.nodes.map((nodes) => {
-      return nodes.map((node) => {
+    const children = this.nodes.map(nodes => {
+      return Utility.flatMap(nodes, node => {
         return node.children;
-      }).reduce((pre, cur) => {
-        return pre.concat(cur);
       });
     });
     return new NodeInterface(children);
@@ -225,11 +224,21 @@ class NodeInterface {
       return 0;
     }
     const counts = this.nodes.map(nodes => nodes.length);
-    return counts.reduce((total, current) => total + current, 0);
+    return Utility.sum(counts);
   }
 
   public filter(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): NodeInterface {
-    const newNodes = this.nodes.map((nodes, gomlIndex) => nodes.filter((node, nodeIndex) => predicate(node, gomlIndex, nodeIndex)));
+    const newNodes: GomlNode[][] = [];
+    for (let i = 0; i < this.nodes.length; i++) {
+      const goml = this.nodes[i];
+      newNodes.push([]);
+      for (let j = 0; j < goml.length; j++) {
+        const node = goml[j];
+        if (predicate(node, i, j)) {
+          newNodes[i].push(node);
+        }
+      }
+    }
     return new NodeInterface(newNodes);
   }
   public toArray(): GomlNode[] {

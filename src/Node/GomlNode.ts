@@ -159,7 +159,7 @@ class GomlNode extends EEObject {
     const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
-    defaultComponentNames.toArray().map((id) => {
+    defaultComponentNames.forEach(id => {
       this.addComponent(id, null, true);
     });
     // register to GrimoireInterface.
@@ -232,8 +232,14 @@ class GomlNode extends EEObject {
     if (!this.isActive) {
       return false;
     }
+    message = Ensure.ensureTobeMessage(message);
     this._sendMessage(message, args);
     return true;
+  }
+  private _sendMessage(message: string, args?: any): void {
+    for (let i = 0; i < this._components.length; i++) {
+      this._sendMessageToComponent(this._components[i], message, args);
+    }
   }
 
   /**
@@ -249,22 +255,25 @@ class GomlNode extends EEObject {
       return;
     }
     if (typeof arg1 === "number") {
-      const range = <number>arg1;
-      const message = <string>arg2;
+      const range = arg1;
+      const message = Ensure.ensureTobeMessage(<string>arg2);
       const args = arg3;
-      this.sendMessage(message, args);
-      if (range > 0) {
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].broadcastMessage(range - 1, message, args);
-        }
-      }
+      this._broadcastMessage(message, args, range);
     } else {
-      const message = arg1;
+      const message = Ensure.ensureTobeMessage(arg1);
       const args = arg2;
-      this.sendMessage(message, args);
-      for (let i = 0; i < this.children.length; i++) {
-        this.children[i].broadcastMessage(message, args);
-      }
+      this._broadcastMessage(message, args, -1);
+    }
+  }
+  private _broadcastMessage(message: string, args: any, range: number): void {
+    //message is already ensured.-1 to unlimited range.
+    this._sendMessage(message, args);
+    if (range === 0) {
+      return;
+    }
+    const nextRange = -1;
+    for (let i = 0; i < this.children.length; i++) {
+      this.children[i]._broadcastMessage(message, args, nextRange);
     }
   }
 
@@ -376,13 +385,13 @@ class GomlNode extends EEObject {
     this.element.removeChild(target.element);
 
     // check ancestor constraint.
-    const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-      .reduce((list, current) => list.concat(current))
-      .filter(m => m);
-    if (errors.length !== 0) {
-      const message = errors.reduce((m, current) => m + "\n" + current);
-      throw new Error("tree constraint is not satisfied.\n" + message);
-    }
+    // const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
+    //   .reduce((list, current) => list.concat(current))
+    //   .filter(m => m);
+    // if (errors.length !== 0) {
+    //   const message = errors.reduce((m, current) => m + "\n" + current);
+    //   throw new Error("tree constraint is not satisfied.\n" + message);
+    // }
     return target;
   }
 
@@ -607,17 +616,18 @@ class GomlNode extends EEObject {
    * @return {string[]} [description]
    */
   public checkTreeConstraints(): string[] {
-    const constraints = this.nodeDeclaration.treeConstraints;
-    if (!constraints) {
-      return [];
-    }
-    const errorMesasges = constraints.map(constraint => {
-      return constraint(this);
-    }).filter(message => message !== null);
-    if (errorMesasges.length === 0) {
-      return null;
-    }
-    return errorMesasges;
+    return null;
+    // const constraints = this.nodeDeclaration.treeConstraints;
+    // if (!constraints) {
+    //   return [];
+    // }
+    // const errorMesasges = constraints.map(constraint => {
+    //   return constraint(this);
+    // }).filter(message => message !== null);
+    // if (errorMesasges.length === 0) {
+    //   return null;
+    // }
+    // return errorMesasges;
   }
 
   /**
@@ -646,7 +656,6 @@ class GomlNode extends EEObject {
    * @return {boolean}                   送信したか
    */
   private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
-    message = Ensure.ensureTobeMessage(message);
     if (!targetComponent.enabled || !this.isActive) {
       return false;
     }
@@ -681,20 +690,15 @@ class GomlNode extends EEObject {
     return false;
   }
 
-  private _sendMessage(message: string, args?: any): void {
-    this._components.forEach((component) => {
-      this._sendMessageToComponent(component, message, args);
-    });
-  }
   private _sendMessageForced(message: string): void {
-    this._components.forEach(c => {
-      this._sendMessageForcedTo(c, message);
-    });
+    for (let i = 0; i < this._components.length; i++) {
+      this._sendMessageForcedTo(this._components[i], message);
+    }
   }
   private _sendMessageBuffer(message: string): void {
-    this._components.forEach(c => {
-      this._sendMessageBufferTo(c, message);
-    });
+    for (let i = 0; i < this._components.length; i++) {
+      this._sendMessageBufferTo(this._components[i], message);
+    }
   }
 
   /**
@@ -755,7 +759,7 @@ class GomlNode extends EEObject {
     const val = func(this);
     const nexts = nextGenerator(this);
     const nextVals = nexts.map(c => c.callRecursively(func));
-    const list = nextVals.reduce((clist, current) => clist.concat(current), []);
+    const list = Utility.flat(nextVals);
     list.unshift(val);
     return list;
   }

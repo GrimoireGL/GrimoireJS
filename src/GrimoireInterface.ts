@@ -144,12 +144,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
 
   // check tree constraint.
-  const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
-    .reduce((list, current) => list.concat(current)).filter(error => error);
-  if (errorMessages.length !== 0) {
-    const message = errorMessages.reduce((m, current) => m + "\n" + current);
-    throw new Error("tree constraint is not satisfied.\n" + message);
-  }
+  // const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
+  //   .reduce((list, current) => list.concat(current)).filter(error => error);
+  // if (errorMessages.length !== 0) {
+  //   const message = errorMessages.reduce((m, current) => m + "\n" + current);
+  //   throw new Error("tree constraint is not satisfied.\n" + message);
+  // }
 
   // awake and mount tree.
   rootNode.setMounted(true);
