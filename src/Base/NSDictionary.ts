@@ -4,27 +4,42 @@ type Dict<V> = { [key: string]: V };
 
 class NSDictionary<V> {
 
-  private _nameObjectMap: Dict<Dict<V>> = {};
+  private _nameObjectMap: Dict<{ id: NSIdentity, value: V }[]> = {};
 
   private _fqnObjectMap: Dict<V> = {};
+  private _nameMap: Dict<V> = {}
 
   public set(key: NSIdentity, value: V): void {
-    let namedChildMap: Dict<V>;
-    if (this._nameObjectMap[key.name] !== void 0) {
-      namedChildMap = this._nameObjectMap[key.name];
-    } else {
-      namedChildMap = {};
-      this._nameObjectMap[key.name] = namedChildMap;
+    if (!this._fqnObjectMap[key.fqn]) {//new value
+      this._fqnObjectMap[key.fqn] = value;
+      let c = this._nameObjectMap[key.name];
+      if (c !== void 0) {
+        c.push({ id: key, value: value });
+      } else {
+        this._nameObjectMap[key.name] = [{ id: key, value: value }];
+      }
+    } else {//overwrite
+      this._fqnObjectMap[key.fqn] = value;
+      let c = this._nameObjectMap[key.name];
+      for (let i = 0; i < c.length; i++) {
+        if (c[i].id.fqn == key.fqn) {
+          c[i] = { id: key, value: value };
+          break;
+        }
+      }
     }
-    namedChildMap[key.fqn] = value;
-    this._fqnObjectMap[key.fqn] = value;
   }
 
   public delete(key: NSIdentity): boolean {
     if (this._fqnObjectMap[key.fqn] !== void 0) {
-      const theMap = this._nameObjectMap[key.name];
-      delete theMap[key.fqn];
       delete this._fqnObjectMap[key.fqn];
+      const theMap = this._nameObjectMap[key.name];
+      for (let i = 0; i < theMap.length; i++) {
+        if (theMap[i].id.fqn == key.fqn) {
+          theMap.splice(i, 1);
+          break;
+        }
+      }
       return true;
     }
     return false;
@@ -36,20 +51,19 @@ class NSDictionary<V> {
   public get(element: Element): V;
   public get(attribute: Attr): V;
   public get(arg1: string | Element | NSIdentity | Attr, name?: string): V {
-    if (!arg1) {
-      throw new Error("NSDictionary.get() can not recieve args null or undefined.");
-    }
+    // if (!arg1) {
+    //   throw new Error("NSDictionary.get() can not recieve args null or undefined.");
+    // }
     if (typeof arg1 === "string") {
-      if (name) {//name only.
-        return this.get(new NSIdentity(arg1 as string, name));
-      } else {
-        const namedMap = this._nameObjectMap[(arg1 as string)];
+      if (name) {//name and ns.
+        return this.fromFQN(arg1.toUpperCase() + "|" + name);
+      } else {//name only.
+        const namedMap = this._nameObjectMap[arg1];
         if (!namedMap) {
           return null;
         }
-        const keys = Object.keys(namedMap);
-        if (keys.length === 1) {
-          return namedMap[keys[0]];
+        if (namedMap.length === 1) {
+          return namedMap[0].value;
         } else {
           throw new Error(`Specified tag name ${arg1} is ambigious to identify.`);
         }
@@ -78,7 +92,7 @@ class NSDictionary<V> {
   }
 
   public isAmbigious(name: string): boolean {
-    return Object.keys(this._nameObjectMap[name]).length > 1;
+    return this._nameObjectMap[name].length > 1;
   }
 
   public has(name: string): boolean {
