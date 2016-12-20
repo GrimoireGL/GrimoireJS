@@ -19,22 +19,7 @@ class NodeInterface {
     }
   }
 
-  private _queryComponents(query: string): Component[][][] {
-    return this.nodes.map((nodes) => {
-      return nodes.map((node) => {
-        const componentElements = node.componentsElement.querySelectorAll(query);
-        const components: Component[] = [];
-        for (let i = 0; i < componentElements.length; i++) {
-          const elem = componentElements[i];
-          const component = GrimoireInterface.componentDictionary[elem.getAttribute(Constants.x_gr_id)];
-          if (component) {
-            components.push(component);
-          }
-        }
-        return components;
-      });
-    });
-  }
+
   public isEmpty(): boolean {
     return this.count() === 0;
   }
@@ -254,8 +239,43 @@ class NodeInterface {
   public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
     this.forEach(node => {
       node.addChildByName(nodeName, attributes);
-    })
+    });
   }
+  public sendMessage(message: string, args?: any): void {
+    this.forEach(node => {
+      node.sendMessage(message, args);
+    });
+  }
+  public broadcastMessage(range: number, name: string, args?: any): void;
+  public broadcastMessage(name: string, args?: any): void;
+  public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {
+    if (typeof arg1 === "number") {
+      this.forEach(node => {
+        node.broadcastMessage(arg1, arg2, arg3);
+      });
+    } else {
+      this.forEach(node => {
+        node.broadcastMessage(arg2, arg3);
+      });
+    }
+  }
+
+  // private _queryComponents(query: string): Component[][][] {
+  //   return this.nodes.map((nodes) => {
+  //     return nodes.map((node) => {
+  //       const componentElements = node.componentsElement.querySelectorAll(query);
+  //       const components: Component[] = [];
+  //       for (let i = 0; i < componentElements.length; i++) {
+  //         const elem = componentElements[i];
+  //         const component = GrimoireInterface.componentDictionary[elem.getAttribute(Constants.x_gr_id)];
+  //         if (component) {
+  //           components.push(component);
+  //         }
+  //       }
+  //       return components;
+  //     });
+  //   });
+  // }
 }
 
 
