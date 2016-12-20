@@ -43,6 +43,7 @@ class GomlNode extends EEObject {
   private _attrBuffer: { [fqn: string]: any } = {};
   private _defaultValueResolved: boolean = false;
   private _attributeManager: AttributeManager;
+  private _isActive: boolean = false;
 
   /**
    * Tag name.
@@ -82,11 +83,7 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get isActive(): boolean {
-    if (this._parent) {
-      return this._parent.isActive && this.enabled;
-    } else {
-      return this.enabled;
-    }
+    return this._isActive;
   }
 
   /**
@@ -267,11 +264,14 @@ class GomlNode extends EEObject {
   }
   private _broadcastMessage(message: string, args: any, range: number): void {
     //message is already ensured.-1 to unlimited range.
+    if (!this.isActive) {
+      return;
+    }
     this._sendMessage(message, args);
     if (range === 0) {
       return;
     }
-    const nextRange = -1;
+    const nextRange = range - 1;
     for (let i = 0; i < this.children.length; i++) {
       this.children[i]._broadcastMessage(message, args, nextRange);
     }
@@ -327,14 +327,6 @@ class GomlNode extends EEObject {
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
 
-    // const checkChildConstraints = child.checkTreeConstraints();
-    // const checkAncestorConstraint = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-    //   .reduce((list, current) => list.concat(current));
-    // const errors = checkChildConstraints.concat(checkAncestorConstraint).filter(m => m);
-    // if (errors.length !== 0) {
-    //   const message = errors.reduce((m, current) => m + "\n" + current);
-    //   throw new Error("tree constraint is not satisfied.\n" + message);
-    // }
 
     // handling html
     if (elementSync) {
@@ -456,6 +448,7 @@ class GomlNode extends EEObject {
       this._mounted = mounted;
       this._clearMessageBuffer("unmount");
       this._sendMessageForced("awake");
+      this._isActive = this._parent ? this._parent.isActive && this.enabled : this.enabled;
       this._sendMessageBuffer("mount");
       this.children.forEach((child) => {
         child.setMounted(mounted);
@@ -467,6 +460,7 @@ class GomlNode extends EEObject {
       });
       this._sendMessageBuffer("unmount");
       this._sendMessageForced("dispose");
+      this._isActive = false;
       this._tree = null;
       this._companion = null;
       this._mounted = mounted;
@@ -633,11 +627,12 @@ class GomlNode extends EEObject {
   /**
    * バッファしていたmount,unmountが送信されるかもしれない.アクティブなら
    */
-  public notifyActivenessUpdate(): void {
-    if (this.isActive) {
+  public notifyActivenessUpdate(activeness: boolean): void {
+    if (this.isActive !== activeness) {
+      this._isActive = activeness;
       this._resolveBufferdMessage(this.mounted ? "mount" : "unmount");
       this.children.forEach(child => {
-        child.notifyActivenessUpdate();
+        child.notifyActivenessUpdate(activeness && child.enabled);
       });
     }
   }
@@ -656,7 +651,7 @@ class GomlNode extends EEObject {
    * @return {boolean}                   送信したか
    */
   private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
-    if (!targetComponent.enabled || !this.isActive) {
+    if (!targetComponent.enabled) {
       return false;
     }
     let method = targetComponent[message];
