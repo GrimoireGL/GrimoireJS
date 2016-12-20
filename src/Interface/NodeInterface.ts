@@ -242,7 +242,7 @@ class NodeInterface {
     return new NodeInterface(newNodes);
   }
   public toArray(): GomlNode[] {
-    return this.nodes.reduce((pre, current) => pre.concat(current), []);
+    return Utility.flat(this.nodes);
   }
 
   public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {

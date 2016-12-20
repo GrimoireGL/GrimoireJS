@@ -56,7 +56,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
    * @return {[type]}    the namespaced identity
    */
   public ns(ns: string): (name: string) => NSIdentity {
-    return (name: string) => new NSIdentity(ns, name);
+    return (name: string) => NSIdentity.from(ns, name);
   }
 
   public initialize(): void {

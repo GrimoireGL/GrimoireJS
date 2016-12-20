@@ -73,13 +73,13 @@ class NSDictionary<V> {
         return this.fromFQN(arg1.fqn);
       } else {
         if (arg1.prefix) {//element
-          return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
+          return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
         } else {//attr
           if (arg1.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.namespaceURI] !== void 0) {
-            return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
+            return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
           }
           if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + (arg1 as Attr).ownerElement.namespaceURI] !== void 0) {
-            return this.get(new NSIdentity((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
+            return this.get(NSIdentity.from((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
           }
           return this.get(arg1.localName);
         }

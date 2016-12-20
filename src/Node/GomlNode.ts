@@ -295,7 +295,7 @@ class GomlNode extends EEObject {
    */
   public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
-      return this.addChildByName(new NSIdentity(nodeName), attributes);
+      return this.addChildByName(NSIdentity.from(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec, null);

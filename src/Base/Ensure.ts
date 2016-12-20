@@ -44,7 +44,7 @@ class Ensure {
       if (name.indexOf("|") !== -1) {//name is fqn
         return NSIdentity.fromFQN(name)
       }
-      return new NSIdentity(name);
+      return NSIdentity.from(name);
     } else {
       return name;
     }
@@ -70,7 +70,7 @@ class Ensure {
     } else {
       const newDict = new NSDictionary<T>();
       for (let key in dict) {
-        newDict.set(new NSIdentity(defaultNamespace, key), dict[key]);
+        newDict.set(NSIdentity.from(defaultNamespace, key), dict[key]);
       }
       return newDict;
     }
