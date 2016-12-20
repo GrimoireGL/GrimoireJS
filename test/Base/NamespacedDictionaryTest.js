@@ -10,7 +10,7 @@ test('set element correctly', (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test element");
   t.truthy(theDict._nameObjectMap[newKey.name]);
-  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test element");
+  t.truthy(theDict._nameObjectMap[newKey.name][0].value === "test element");
   t.truthy(theDict._fqnObjectMap[newKey.fqn] === "test element");
 });
 
@@ -20,8 +20,8 @@ test('set element correctly when dupelicated name was given', (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test element");
   theDict.set(secoundKey, "test element2");
-  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test element");
-  t.truthy(theDict._nameObjectMap[secoundKey.name][secoundKey.fqn] === "test element2");
+  t.truthy(theDict._nameObjectMap[newKey.name][0].value === "test element");
+  t.truthy(theDict._nameObjectMap[secoundKey.name][1].value === "test element2");
   t.truthy(theDict._fqnObjectMap[newKey.fqn] === "test element");
   t.truthy(theDict._fqnObjectMap[secoundKey.fqn] === "test element2");
 });
@@ -33,8 +33,8 @@ test('element should be repalaced when dupelicated fqn was given', (t) => {
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
   t.truthy(theDict.fromFQN(newKey.fqn));
-  t.truthy(theDict._nameObjectMap[newKey.name][newKey.fqn] === "test1");
-  t.truthy(theDict._nameObjectMap[secoundKey.name][secoundKey.fqn] === "test2");
+  t.truthy(theDict._nameObjectMap[newKey.name][0].value === "test1");
+  t.truthy(theDict._nameObjectMap[secoundKey.name][0].value === "test2");
 });
 
 test('get element correctly with fqn', (t) => {
@@ -50,6 +50,7 @@ test('get element with strict name', async(t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
+  console.log(theDict._fqnObjectMap);
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(require("./_TestResource/NSDictionary_QueryDOM.xml"), "text/xml");
   const idElement = parsed.getElementById("test");

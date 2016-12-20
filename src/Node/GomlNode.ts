@@ -527,7 +527,7 @@ class GomlNode extends EEObject {
       component["$" + method] = component[method].bind(component);
     });
     this._components.push(component);
-    component.addEnabledObserver((c) => {
+    component.addEnabledObserver(c => {
       if (c.enabled) {
         this._resolveBufferdMessageTo(c, "mount");
         this._resolveBufferdMessageTo(c, "unmount");

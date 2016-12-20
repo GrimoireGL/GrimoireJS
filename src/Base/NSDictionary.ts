@@ -56,7 +56,7 @@ class NSDictionary<V> {
     // }
     if (typeof arg1 === "string") {
       if (name) {//name and ns.
-        return this.fromFQN(arg1.toUpperCase() + "|" + name);
+        return this.fromFQN(name + "|" + arg1.toUpperCase());
       } else {//name only.
         const namedMap = this._nameObjectMap[arg1];
         if (!namedMap) {
