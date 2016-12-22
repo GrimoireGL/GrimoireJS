@@ -43,4 +43,18 @@ export default class Utility {
     }
     return total;
   }
+  public static remove<T>(array: T[], target: T): boolean {
+    let index = -1;
+    for (let i = 0; i < array.length; i++) {
+      if (target === array[i]) {
+        index = i;
+        break;
+      }
+    }
+    if (index < 0) {
+      return false;
+    }
+    array.splice(index, 1);
+    return true;
+  }
 }

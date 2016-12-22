@@ -233,7 +233,7 @@ class GomlNode extends EEObject {
     this._sendMessage(message, args);
     return true;
   }
-  private _sendMessage(message: string, args?: any): void {
+  private _sendMessage(message: string, args?: any): void {//TODO:メッセージに対して呼び出し対象をキャッシュ
     for (let i = 0; i < this._components.length; i++) {
       this._sendMessageToComponent(this._components[i], message, args);
     }
@@ -510,7 +510,7 @@ class GomlNode extends EEObject {
    * @param {boolean}   isDefaultComponent [description]
    */
   public _addComponentDirectly(component: Component, isDefaultComponent: boolean): void {
-    if (component.node) {
+    if (component.node || component.disposed) {
       throw new Error("component never change attached node");
     }
     component.isDefaultComponent = !!isDefaultComponent;
@@ -527,7 +527,7 @@ class GomlNode extends EEObject {
       component["$" + method] = component[method].bind(component);
     });
     this._components.push(component);
-    component.addEnabledObserver(c => {
+    component.addEnabledObserver(c => {//remove時に削除?そもそもbufferに入れにあ
       if (c.enabled) {
         this._resolveBufferdMessageTo(c, "mount");
         this._resolveBufferdMessageTo(c, "unmount");
@@ -545,6 +545,15 @@ class GomlNode extends EEObject {
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageBufferTo(component, "mount");
     }
+  }
+
+  public removeComponent(component: Component): boolean {
+    if (Utility.remove(this._components, component)) {
+      component.node = null;
+      component.disposed = true;
+      return true;
+    }
+    return false;
   }
 
   public getComponents<T>(filter?: string | NSIdentity | (new () => T)): T[] {
