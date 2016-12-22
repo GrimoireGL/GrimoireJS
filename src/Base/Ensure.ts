@@ -61,7 +61,7 @@ class Ensure {
     return newArr;
   }
 
-  public static ensureTobeNSDictionary<T>(dict: NSDictionary<T> | { [key: string]: T }, defaultNamespace: string): NSDictionary<T> {
+  public static ensureTobeNSDictionary<T>(dict: NSDictionary<T> | { [key: string]: T }): NSDictionary<T> {
     if (!dict) {
       return new NSDictionary<T>();
     }
@@ -70,7 +70,7 @@ class Ensure {
     } else {
       const newDict = new NSDictionary<T>();
       for (let key in dict) {
-        newDict.set(NSIdentity.from(defaultNamespace, key), dict[key]);
+        newDict.set(NSIdentity.from(key), dict[key]);
       }
       return newDict;
     }

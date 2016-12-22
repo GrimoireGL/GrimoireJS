@@ -45,7 +45,7 @@ class NSDictionary<V> {
     return false;
   }
 
-  public get(name: string): V;
+  public get(name: string | NSIdentity): V;
   public get(ns: string, name: string): V;
   public get(nsi: NSIdentity): V;
   public get(element: Element): V;

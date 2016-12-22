@@ -115,13 +115,13 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     superNode?: string | NSIdentity): void {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.nodeDeclarations.get(name)) {
-      throw new Error(`gomlnode ${name.fqn} is already registerd.`)
+      throw new Error(`gomlnode ${name.fqn} is already registerd.`);
     }
     if (this.debug && !Utility.isSnakeCase(name.name)) {
       console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
     }
     requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
-    defaults = Ensure.ensureTobeNSDictionary<any>(defaults, (name as NSIdentity).ns);
+    defaults = Ensure.ensureTobeNSDictionary(defaults);
     superNode = Ensure.ensureTobeNSIdentity(superNode);
     this.nodeDeclarations.set(name as NSIdentity,
       new NodeDeclaration(name as NSIdentity,
@@ -135,6 +135,31 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     name = Ensure.ensureTobeNSIdentity(name);
     this.converters.set(name as NSIdentity, { name: name as NSIdentity, convert: converter });
   }
+
+  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents:(string | NSIdentity)[]):NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults:{ [attrName:string]:any }):NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents:(string | NSIdentity)[], defaults:{ [attrName:string]:any }):NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2:(string | NSIdentity)[] | { [attrName: string]: any }, defaults ?: { [attrName: string]: any }): NodeDeclaration {
+  const dec = this.nodeDeclarations.get(targetDeclaration);
+  if (!dec) {
+    throw new Error(`attempt not-exist node declaration : ${Ensure.ensureTobeNSIdentity(targetDeclaration).name}`);
+  }
+  if (defaults) {
+    const additionalC = arg2 as (string | NSIdentity)[];
+    for (let i = 0; i < additionalC.length; i++) {
+      dec.addDefaultComponent(additionalC[i]);
+    }
+    dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(defaults));
+  } else if (Array.isArray(arg2)) {
+    const additionalC = arg2 as (string | NSIdentity)[];
+    for (let i = 0; i < additionalC.length; i++) {
+      dec.addDefaultComponent(additionalC[i]);
+    }
+  } else {
+    dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(arg2));
+  }
+  return dec;
+}
 
   public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
   if (!rootNode) {
