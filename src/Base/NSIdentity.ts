@@ -84,6 +84,11 @@ class NSIdentity {
     }
   }
 
+  public static clear(): void {
+    NSIdentity._instances = {};
+    NSIdentity._map = {};
+  }
+
 
   /**
    * Make sure given name is valid for using in identity.

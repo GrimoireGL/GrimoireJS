@@ -5,31 +5,31 @@ import Constants from '../../lib-es5/Base/Constants';
 
 test('Not accept to get invalid name or namespace', (t) => {
   t.throws(() => {
-    new NSIdentity("Wrong|Name");
+    NSIdentity.from("Wrong|Name");
   });
   t.throws(() => {
-    new NSIdentity("Wrong|Namespace", "Name");
+    NSIdentity.from("Wrong|Namespace", "Name");
   });
   t.throws(() => {
-    new NSIdentity("Wrong.Namespace", "Wrong|Name");
+    NSIdentity.from("Wrong.Namespace", "Wrong|Name");
   });
   t.notThrows(() => {
-    new NSIdentity("CorrectName");
+    NSIdentity.from("CorrectName");
   });
   t.notThrows(() => {
-    new NSIdentity("CorrectNamespace", "CorrectName");
+    NSIdentity.from("CorrectNamespace", "CorrectName");
   });
 });
 
 test('Transform name and ns correctly', (t) => {
-  const i = new NSIdentity("http://grimoire.gl/ns", "Sample");
+  const i = NSIdentity.from("http://grimoire.gl/ns", "Sample");
   t.truthy(i.name === "Sample");
   t.truthy(i.ns === "HTTP://GRIMOIRE.GL/NS");
 });
 
 test('Generate fqn correctly', (t) => {
-  t.truthy((new NSIdentity("http://ns.com", "test")).fqn === "test|HTTP://NS.COM");
-  t.truthy((new NSIdentity("test")).fqn === "test|" + Constants.defaultNamespace);
+  t.truthy((NSIdentity.from("http://ns.com", "test")).fqn === "test|HTTP://NS.COM");
+  t.truthy((NSIdentity.createOnDefaultNS("test")).fqn === "test|" + Constants.defaultNamespace);
 });
 
 test('Parse fqn correctly', (t) => {
