@@ -193,15 +193,6 @@ class GomlNode extends EEObject {
     return array;
   }
 
-  /**
-   * detach and delete this node and children.
-   * call when this node will never use.
-   */
-  public delete(): void {
-    console.warn("delete is obsolate. please use remove() instead of");
-    this.remove();
-  }
-
   public remove(): void {
     this.children.forEach((c) => {
       c.remove();
@@ -711,3 +702,4 @@ class GomlNode extends EEObject {
 
 
 export default GomlNode;
+de;
