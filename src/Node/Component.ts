@@ -77,19 +77,6 @@ class Component extends IDObject {
   }
 
   /**
-   * Obtain value of attribute. When the attribute is not existing, this method would return undefined.
-   * @param  {string} name [description]
-   * @return {any}         [description]
-   */
-  public getValue(name: string): any {
-    console.warn("Component#getValue is obsolete. please use getAttribute instead of.");
-    return this.getAttribute(name);
-  }
-  public setValue(name: string, value: any): void {
-    console.warn("Component#setValue is obsolete. please use setAttribute instead of.");
-    return this.setAttribute(name, value);
-  }
-  /**
    * Set value of attribute
    * @param {string} name  [description]
    * @param {any}    value [description]
