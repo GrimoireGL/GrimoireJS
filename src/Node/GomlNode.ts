@@ -569,8 +569,6 @@ class GomlNode extends EEObject {
    * @param  {string | NSIdentity}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(ctor: new () => T): T;
-  public getComponent<T>(name: string | NSIdentity): T;
   public getComponent<T>(name: string | NSIdentity | (new () => T)): T {
     // 事情により<T extends Component>とはできない。
     // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
@@ -594,6 +592,22 @@ class GomlNode extends EEObject {
     } else {
       return this.callRecursively(node => node.getComponent<T>(name));
     }
+  }
+  public getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+    if (this.parent) {
+      return this.parent._getComponentInAncesotor(name);
+    }
+    return null;
+  }
+  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+    const ret = this.getComponent(name);
+    if (ret) {
+      return ret;
+    }
+    if (this.parent) {
+      return this.parent._getComponentInAncesotor(name);
+    }
+    return null;
   }
 
   /**
