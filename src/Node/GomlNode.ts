@@ -44,6 +44,7 @@ class GomlNode extends EEObject {
   private _defaultValueResolved: boolean = false;
   private _attributeManager: AttributeManager;
   private _isActive: boolean = false;
+  private _messageCache: { [message: string]: Component[] } = {};
 
   /**
    * Tag name.
@@ -233,9 +234,13 @@ class GomlNode extends EEObject {
     this._sendMessage(message, args);
     return true;
   }
-  private _sendMessage(message: string, args?: any): void {//TODO:メッセージに対して呼び出し対象をキャッシュ
-    for (let i = 0; i < this._components.length; i++) {
-      this._sendMessageToComponent(this._components[i], message, args);
+  private _sendMessage(message: string, args?: any): void {
+    if (this._messageCache[message] === void 0) {
+      this._messageCache[message] = this._components.filter(c => typeof c[message] === "function");
+    }
+    const targetList = this._messageCache[message];
+    for (let i = 0; i < targetList.length; i++) {
+      this._sendMessageToComponent(targetList[i], message, args);
     }
   }
 
@@ -666,8 +671,9 @@ class GomlNode extends EEObject {
     let method = targetComponent[message];
     if (typeof method === "function") {
       method(args);
+      return true;
     }
-    return true;
+    return false;
   }
   /**
    * バッファにあればメッセージを送信。成功したらバッファから削除
