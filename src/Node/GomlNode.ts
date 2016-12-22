@@ -436,7 +436,7 @@ class GomlNode extends EEObject {
    *  Add new attribute. In most of case, users no need to call this method.
    *  Use __addAttribute in Component should be used instead.
    */
-  public addAttribute(attr: Attribute): void {
+  public addAttribute(attr: Attribute): Attribute {
     return this._attributeManager.addAttribute(attr);
   }
 
