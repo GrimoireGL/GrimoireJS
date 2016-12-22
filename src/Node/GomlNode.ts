@@ -518,6 +518,7 @@ class GomlNode extends EEObject {
     if (component.node || component.disposed) {
       throw new Error("component never change attached node");
     }
+    this._messageCache = {};//TODO:optimize.
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
@@ -532,6 +533,7 @@ class GomlNode extends EEObject {
       component["$" + method] = component[method].bind(component);
     });
     this._components.push(component);
+
     component.addEnabledObserver(c => {//remove時に削除?そもそもbufferに入れにあ
       if (c.enabled) {
         this._resolveBufferdMessageTo(c, "mount");
@@ -554,6 +556,7 @@ class GomlNode extends EEObject {
 
   public removeComponent(component: Component): boolean {
     if (Utility.remove(this._components, component)) {
+      this._messageCache = {};//TODO:optimize.
       component.node = null;
       component.disposed = true;
       return true;
