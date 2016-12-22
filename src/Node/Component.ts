@@ -93,7 +93,7 @@ class Component extends IDObject {
     if (attr) {
       return attr.Value;
     } else {
-      return undefined;
+      throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
     }
   }
   public getAttributeRaw(name: string): Attribute {
