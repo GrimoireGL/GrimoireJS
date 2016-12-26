@@ -106,7 +106,7 @@ class Attribute {
    */
   public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
     const attr = new Attribute();
-    attr.name = new NSIdentity(component.name.ns, name);
+    attr.name = NSIdentity.from(component.name.ns, name);
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);

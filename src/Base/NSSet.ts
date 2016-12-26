@@ -50,6 +50,9 @@ class NSSet {
     }
     return this;
   }
+  public forEach(func: (name: NSIdentity) => void): void {
+    this._contentArray.forEach(func);
+  }
 }
 
 export default NSSet;

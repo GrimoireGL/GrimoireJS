@@ -11,7 +11,7 @@ class GomlInterface {
   }
 
   public getNodeById(id: string): GomlNode[] {
-    return (new Array(this.rootNodes.length)).map((v, i) => GomlNode.fromElement(this.rootNodes[i].element.ownerDocument.getElementById(id)));
+    return this.rootNodes.map(root => GomlNode.fromElement(root.element.ownerDocument.getElementById(id)));
   }
 
   public queryFunc(query: string): NodeInterface {
@@ -19,7 +19,7 @@ class GomlInterface {
   }
 
   public queryNodes(query: string): GomlNode[][] {
-    return this.rootNodes.map((root) => {
+    return this.rootNodes.map(root => {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {

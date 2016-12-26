@@ -38,6 +38,9 @@ class Component extends IDObject {
    * @type {boolean}
    */
   public isDefaultComponent: boolean = false;
+
+  public disposed: boolean = false;
+
   /**
    * Flag that this component is activated or not.
    * @type {boolean}
@@ -74,19 +77,6 @@ class Component extends IDObject {
   }
 
   /**
-   * Obtain value of attribute. When the attribute is not existing, this method would return undefined.
-   * @param  {string} name [description]
-   * @return {any}         [description]
-   */
-  public getValue(name: string): any {
-    console.warn("Component#getValue is obsolete. please use getAttribute instead of.");
-    return this.getAttribute(name);
-  }
-  public setValue(name: string, value: any): void {
-    console.warn("Component#setValue is obsolete. please use setAttribute instead of.");
-    return this.setAttribute(name, value);
-  }
-  /**
    * Set value of attribute
    * @param {string} name  [description]
    * @param {any}    value [description]
@@ -103,7 +93,7 @@ class Component extends IDObject {
     if (attr) {
       return attr.Value;
     } else {
-      return undefined;
+      throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
     }
   }
   public getAttributeRaw(name: string): Attribute {
@@ -114,18 +104,8 @@ class Component extends IDObject {
     this._handlers.push(observer);
   }
 
-  public removeEnabledObserver(observer: (component: Component) => void): void {
-    let index = -1;
-    for (let i = 0; i < this._handlers.length; i++) {
-      if (observer === this._handlers[i]) {
-        index = i;
-        break;
-      }
-    }
-    if (index < 0) {
-      return;
-    }
-    this._handlers.splice(index, 1);
+  public removeEnabledObserver(observer: (component: Component) => void): boolean {
+    return Utility.remove(this._handlers, observer);
   }
 
   public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; }): any {
@@ -142,6 +122,10 @@ class Component extends IDObject {
       }
       this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
     }
+  }
+
+  public dispose(): void {
+    this.node.removeComponent(this);
   }
 
   /**

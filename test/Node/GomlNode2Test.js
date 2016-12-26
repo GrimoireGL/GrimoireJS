@@ -111,18 +111,12 @@ test('mount should be called in ideal timing', (t) => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
 });
-test('mount should not be called if disable node.', (t) => {
-  const testNode3 = rootNode.children[0];
-  const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
-  order.forEach(spy => {
-    t.truthy(!spy.getCall(1));
-  });
-});
 
-test('awake should be called in ideal timing', (t) => {
+test('awake and mount should be called in ideal timing', (t) => {
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
   order.forEach(v => {
     t.truthy(v.getCall(0).args[0] === "awake");
+    t.truthy(v.getCall(1).args[0] === "mount");
   });
 });
 

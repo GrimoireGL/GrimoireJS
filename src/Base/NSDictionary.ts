@@ -4,33 +4,47 @@ type Dict<V> = { [key: string]: V };
 
 class NSDictionary<V> {
 
-  private _nameObjectMap: Dict<Dict<V>> = {};
+  private _nameObjectMap: Dict<{ id: NSIdentity, value: V }[]> = {};
 
   private _fqnObjectMap: Dict<V> = {};
 
   public set(key: NSIdentity, value: V): void {
-    let namedChildMap: Dict<V>;
-    if (this._nameObjectMap[key.name] !== void 0) {
-      namedChildMap = this._nameObjectMap[key.name];
-    } else {
-      namedChildMap = {};
-      this._nameObjectMap[key.name] = namedChildMap;
+    if (!this._fqnObjectMap[key.fqn]) {// new value
+      this._fqnObjectMap[key.fqn] = value;
+      let c = this._nameObjectMap[key.name];
+      if (c !== void 0) {
+        c.push({ id: key, value: value });
+      } else {
+        this._nameObjectMap[key.name] = [{ id: key, value: value }];
+      }
+    } else {// overwrite
+      this._fqnObjectMap[key.fqn] = value;
+      let c = this._nameObjectMap[key.name];
+      for (let i = 0; i < c.length; i++) {
+        if (c[i].id.fqn === key.fqn) {
+          c[i] = { id: key, value: value };
+          break;
+        }
+      }
     }
-    namedChildMap[key.fqn] = value;
-    this._fqnObjectMap[key.fqn] = value;
   }
 
   public delete(key: NSIdentity): boolean {
     if (this._fqnObjectMap[key.fqn] !== void 0) {
-      const theMap = this._nameObjectMap[key.name];
-      delete theMap[key.fqn];
       delete this._fqnObjectMap[key.fqn];
+      const theMap = this._nameObjectMap[key.name];
+      for (let i = 0; i < theMap.length; i++) {
+        if (theMap[i].id.fqn === key.fqn) {
+          theMap.splice(i, 1);
+          break;
+        }
+      }
       return true;
     }
     return false;
   }
 
-  public get(name: string): V;
+  public get(name: string | NSIdentity): V;
   public get(ns: string, name: string): V;
   public get(nsi: NSIdentity): V;
   public get(element: Element): V;
@@ -40,32 +54,31 @@ class NSDictionary<V> {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
-      if (name) {
-        return this.get(new NSIdentity(arg1 as string, name));
-      } else {
-        const namedMap = this._nameObjectMap[(arg1 as string)];
+      if (name) {// name and ns.
+        return this.fromFQN(name + "|" + arg1.toUpperCase());
+      } else {// name only.
+        const namedMap = this._nameObjectMap[arg1];
         if (!namedMap) {
           return null;
         }
-        const keys = Object.keys(namedMap);
-        if (keys.length === 1) {
-          return namedMap[keys[0]];
+        if (namedMap.length === 1) {
+          return namedMap[0].value;
         } else {
           throw new Error(`Specified tag name ${arg1} is ambigious to identify.`);
         }
       }
     } else {
       if (arg1 instanceof NSIdentity) {
-        return this.fromFQN((arg1 as NSIdentity).fqn);
+        return this.fromFQN(arg1.fqn);
       } else {
-        if (arg1.prefix) {
-          return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
-        } else {
+        if (arg1.prefix) {// element
+          return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
+        } else {// attr
           if (arg1.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.namespaceURI] !== void 0) {
-            return this.get(new NSIdentity(arg1.namespaceURI, arg1.localName));
+            return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
           }
           if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + (arg1 as Attr).ownerElement.namespaceURI] !== void 0) {
-            return this.get(new NSIdentity((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
+            return this.get(NSIdentity.from((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
           }
           return this.get(arg1.localName);
         }
@@ -78,7 +91,7 @@ class NSDictionary<V> {
   }
 
   public isAmbigious(name: string): boolean {
-    return Object.keys(this._nameObjectMap[name]).length > 1;
+    return this._nameObjectMap[name].length > 1;
   }
 
   public has(name: string): boolean {
@@ -95,7 +108,7 @@ class NSDictionary<V> {
 
   public toArray(): V[] {
     const ret: V[] = [];
-    Object.keys(this._fqnObjectMap).forEach((key) => {
+    Object.keys(this._fqnObjectMap).forEach(key => {
       ret.push(this._fqnObjectMap[key]);
     });
     return ret;
@@ -105,7 +118,7 @@ class NSDictionary<V> {
     return dict.pushDictionary(this);
   }
   public forEach(callback: (value: V, fqn: string) => void): NSDictionary<V> {
-    Object.keys(this._fqnObjectMap).forEach((key) => {
+    Object.keys(this._fqnObjectMap).forEach(key => {
       callback(this._fqnObjectMap[key], key);
     });
     return this;

@@ -11,9 +11,9 @@ const genAttr = (name, watch) => {
   return { name: name, watch: watch, Value: "value of " + name };
 }
 
-const ns1 = new NSIdentity("aaa");
-const ns2 = new NSIdentity("bbb");
-const ns3 = new NSIdentity("ccc");
+const ns1 = NSIdentity.from("aaa");
+const ns2 = NSIdentity.from("bbb");
+const ns3 = NSIdentity.from("ccc");
 
 const genAM = () => {
   var d = {};
