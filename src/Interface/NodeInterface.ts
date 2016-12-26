@@ -67,7 +67,7 @@ class NodeInterface {
   }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     this.forEach((node) => {
-      node.setAttribute(attrName, value);
+      node.setAttribute(attrName, value, false);
     });
   }
 

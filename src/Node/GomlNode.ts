@@ -371,14 +371,6 @@ class GomlNode extends EEObject {
     // html sync
     this.element.removeChild(target.element);
 
-    // check ancestor constraint.
-    // const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-    //   .reduce((list, current) => list.concat(current))
-    //   .filter(m => m);
-    // if (errors.length !== 0) {
-    //   const message = errors.reduce((m, current) => m + "\n" + current);
-    //   throw new Error("tree constraint is not satisfied.\n" + message);
-    // }
     return target;
   }
 
@@ -410,7 +402,10 @@ class GomlNode extends EEObject {
     return this._attributeManager.attributes.get(attrName as string);
   }
 
-  public setAttribute(attrName: string | NSIdentity, value: any): void {
+  public setAttribute(attrName: string | NSIdentity, value: any, ignoireFreeze = true): void {
+    if (!ignoireFreeze && this.isFreezeAttribute(Ensure.ensureTobeNSIdentity(attrName).name)) {
+      throw new Error(`attribute ${Ensure.ensureTobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
+    }
     return this._attributeManager.setAttribute(attrName, value);
   }
 
@@ -600,6 +595,9 @@ class GomlNode extends EEObject {
     this._defaultValueResolved = true;
     const attrs = NodeUtility.getAttributes(this.element);
     for (let key in attrs) {
+      if (this.isFreezeAttribute(key)) {
+        throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
+      }
       if (!this.attributes.get(key)) {
         Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
       }
@@ -609,23 +607,8 @@ class GomlNode extends EEObject {
     });
   }
 
-  /**
-   * check tree constraint for this node.
-   * @return {string[]} [description]
-   */
-  public checkTreeConstraints(): string[] {
-    return null;
-    // const constraints = this.nodeDeclaration.treeConstraints;
-    // if (!constraints) {
-    //   return [];
-    // }
-    // const errorMesasges = constraints.map(constraint => {
-    //   return constraint(this);
-    // }).filter(message => message !== null);
-    // if (errorMesasges.length === 0) {
-    //   return null;
-    // }
-    // return errorMesasges;
+  public isFreezeAttribute(attributeName: string): boolean {
+    return !!this.nodeDeclaration.freezeAttributes.find(name => attributeName === name)
   }
 
   public notifyActivenessUpdate(activeness: boolean): void {

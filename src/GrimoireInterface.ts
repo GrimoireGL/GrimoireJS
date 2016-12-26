@@ -112,7 +112,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   public registerNode(name: string | NSIdentity,
     requiredComponents: (string | NSIdentity)[],
     defaults?: { [key: string]: any } | NSDictionary<any>,
-    superNode?: string | NSIdentity): void {
+    superNode?: string | NSIdentity, freezeAttributes?: string[]): void {
     name = Ensure.ensureTobeNSIdentity(name);
     if (this.nodeDeclarations.get(name)) {
       throw new Error(`gomlnode ${name.fqn} is already registerd.`);
@@ -127,8 +127,7 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
       new NodeDeclaration(name as NSIdentity,
         NSSet.fromArray(requiredComponents as NSIdentity[]),
         defaults as NSDictionary<any>,
-        superNode as NSIdentity)
-    );
+        superNode as NSIdentity, freezeAttributes));
   }
 
   public registerConverter(name: string | NSIdentity, converter: (this: Attribute, val: any) => any): void {
@@ -167,14 +166,6 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
   }
   this.rootNodes[rootNode.id] = rootNode;
   rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
-
-  // check tree constraint.
-  // const errorMessages = rootNode.callRecursively(n => n.checkTreeConstraints())
-  //   .reduce((list, current) => list.concat(current)).filter(error => error);
-  // if (errorMessages.length !== 0) {
-  //   const message = errorMessages.reduce((m, current) => m + "\n" + current);
-  //   throw new Error("tree constraint is not satisfied.\n" + message);
-  // }
 
   // awake and mount tree.
   rootNode.setMounted(true);
