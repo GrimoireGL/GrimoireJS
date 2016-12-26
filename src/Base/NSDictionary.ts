@@ -7,10 +7,9 @@ class NSDictionary<V> {
   private _nameObjectMap: Dict<{ id: NSIdentity, value: V }[]> = {};
 
   private _fqnObjectMap: Dict<V> = {};
-  private _nameMap: Dict<V> = {}
 
   public set(key: NSIdentity, value: V): void {
-    if (!this._fqnObjectMap[key.fqn]) {//new value
+    if (!this._fqnObjectMap[key.fqn]) {// new value
       this._fqnObjectMap[key.fqn] = value;
       let c = this._nameObjectMap[key.name];
       if (c !== void 0) {
@@ -18,11 +17,11 @@ class NSDictionary<V> {
       } else {
         this._nameObjectMap[key.name] = [{ id: key, value: value }];
       }
-    } else {//overwrite
+    } else {// overwrite
       this._fqnObjectMap[key.fqn] = value;
       let c = this._nameObjectMap[key.name];
       for (let i = 0; i < c.length; i++) {
-        if (c[i].id.fqn == key.fqn) {
+        if (c[i].id.fqn === key.fqn) {
           c[i] = { id: key, value: value };
           break;
         }
@@ -35,7 +34,7 @@ class NSDictionary<V> {
       delete this._fqnObjectMap[key.fqn];
       const theMap = this._nameObjectMap[key.name];
       for (let i = 0; i < theMap.length; i++) {
-        if (theMap[i].id.fqn == key.fqn) {
+        if (theMap[i].id.fqn === key.fqn) {
           theMap.splice(i, 1);
           break;
         }
@@ -51,13 +50,13 @@ class NSDictionary<V> {
   public get(element: Element): V;
   public get(attribute: Attr): V;
   public get(arg1: string | Element | NSIdentity | Attr, name?: string): V {
-    // if (!arg1) {
-    //   throw new Error("NSDictionary.get() can not recieve args null or undefined.");
-    // }
+    if (!arg1) {
+      throw new Error("NSDictionary.get() can not recieve args null or undefined.");
+    }
     if (typeof arg1 === "string") {
-      if (name) {//name and ns.
+      if (name) {// name and ns.
         return this.fromFQN(name + "|" + arg1.toUpperCase());
-      } else {//name only.
+      } else {// name only.
         const namedMap = this._nameObjectMap[arg1];
         if (!namedMap) {
           return null;
@@ -72,9 +71,9 @@ class NSDictionary<V> {
       if (arg1 instanceof NSIdentity) {
         return this.fromFQN(arg1.fqn);
       } else {
-        if (arg1.prefix) {//element
+        if (arg1.prefix) {// element
           return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
-        } else {//attr
+        } else {// attr
           if (arg1.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.namespaceURI] !== void 0) {
             return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
           }

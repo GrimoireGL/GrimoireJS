@@ -410,15 +410,6 @@ class GomlNode extends EEObject {
     return this._attributeManager.attributes.get(attrName as string);
   }
 
-  /**
-   * set value to selected attribute.
-   * @param {string |     NSIdentity}  attrName [description]
-   * @param {any}       value [description]
-   */
-  public setValue(attrName: string | NSIdentity, value: any): void {
-    console.warn("setValue is obsolate. please use setAttribute instead of");
-    this.setAttribute(attrName, value);
-  }
   public setAttribute(attrName: string | NSIdentity, value: any): void {
     return this._attributeManager.setAttribute(attrName, value);
   }
@@ -702,4 +693,3 @@ class GomlNode extends EEObject {
 
 
 export default GomlNode;
-de;

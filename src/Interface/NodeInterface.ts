@@ -118,7 +118,7 @@ class NodeInterface {
    */
   public remove(): NodeInterface {
     this.forEach((node) => {
-      node.delete()
+      node.remove()
     });
     return this;
   }
