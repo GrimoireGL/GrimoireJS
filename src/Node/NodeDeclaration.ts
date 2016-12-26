@@ -22,23 +22,21 @@ class NodeDeclaration {
     }
     return this._defaultAttributesActual;
   }
-  public get treeConstraints(): ((node: GomlNode) => string)[] {
-    return this._treeConstraints;
-  }
 
   constructor(
     public name: NSIdentity,
     public defaultComponents: NSSet,
     public defaultAttributes: NSDictionary<any>,
     public superNode: NSIdentity,
-    private _treeConstraints?: ((node: GomlNode) => string)[]) {
+    public freezeAttributes: string[]) {
+    this.freezeAttributes = this.freezeAttributes ? this.freezeAttributes : [];
     if (!this.superNode && this.name.name !== "grimoire-node-base") {
-      this.superNode = new NSIdentity("grimoire-node-base");
+      this.superNode = NSIdentity.createOnDefaultNS("grimoire-node-base");
     }
   }
 
   public addDefaultComponent(componentName: string | NSIdentity): void {
-    const componentId = Ensure.ensureTobeNSIdentity(componentName) as NSIdentity;
+    const componentId = Ensure.ensureTobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {
       this._defaultComponentsActual.push(componentId);

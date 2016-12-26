@@ -10,7 +10,7 @@ export default class AttributeManager {
   private _attrBuffer: { [fqn: string]: any } = {};
   private _watchBuffer: { [fqn: string]: (newValue: any, oldValue: any, attr: Attribute) => void } = {};
 
-  public addAttribute(attr: Attribute): void {
+  public addAttribute(attr: Attribute): Attribute {
     if (this.attributes.get(attr.name)) {
       console.warn(`attribute ${attr.name} is already exist in ${this.tag}`);
     }
@@ -27,6 +27,7 @@ export default class AttributeManager {
     if (watchBuf) {
       attr.watch(watchBuf, true);
     }
+    return attr;
   }
 
   public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {

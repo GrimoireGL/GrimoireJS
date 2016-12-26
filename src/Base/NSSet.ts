@@ -30,8 +30,8 @@ class NSSet {
 
   public toArray(): NSIdentity[] {
     const ret: NSIdentity[] = [];
-    for (let item of this._contentArray) {
-      ret.push(item);
+    for (let key in this._contentArray) {
+      ret.push(this._contentArray[key]);
     }
     return ret;
   }
@@ -49,6 +49,9 @@ class NSSet {
       this.push(elem);
     }
     return this;
+  }
+  public forEach(func: (name: NSIdentity) => void): void {
+    this._contentArray.forEach(func);
   }
 }
 

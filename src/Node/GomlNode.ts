@@ -28,20 +28,22 @@ class GomlNode extends EEObject {
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  // public attributes: NSDictionary<Attribute>;
   public componentsElement: Element; //<.components>
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _mounted: boolean = false;
+  private _enabled: boolean = true;
   private _components: Component[];
-  private _messageBuffer: { message: string, target: Component }[] = [];
+  // private _messageBuffer: { message: string, target: Component }[] = [];
   private _tree: IGomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _deleted: boolean = false;
   private _attrBuffer: { [fqn: string]: any } = {};
   private _defaultValueResolved: boolean = false;
   private _attributeManager: AttributeManager;
+  private _isActive: boolean = false;
+  private _messageCache: { [message: string]: Component[] } = {};
 
   /**
    * Tag name.
@@ -81,11 +83,7 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get isActive(): boolean {
-    if (this._parent) {
-      return this._parent.isActive && this.enabled;
-    } else {
-      return this.enabled;
-    }
+    return this._isActive;
   }
 
   /**
@@ -94,7 +92,7 @@ class GomlNode extends EEObject {
    * @return {boolean} [description]
    */
   public get enabled(): boolean {
-    return this.getAttribute("enabled");
+    return this._enabled;
   }
   public set enabled(value) {
     this.setAttribute("enabled", value);
@@ -158,10 +156,9 @@ class GomlNode extends EEObject {
     const defaultComponentNames = recipe.defaultComponentsActual;
 
     // instanciate default components
-    defaultComponentNames.toArray().map((id) => {
+    defaultComponentNames.forEach(id => {
       this.addComponent(id, null, true);
     });
-
     // register to GrimoireInterface.
     GrimoireInterface.nodeDictionary[this.id] = this;
   }
@@ -196,15 +193,6 @@ class GomlNode extends EEObject {
     return array;
   }
 
-  /**
-   * detach and delete this node and children.
-   * call when this node will never use.
-   */
-  public delete(): void {
-    console.warn("delete is obsolate. please use remove() instead of");
-    this.remove();
-  }
-
   public remove(): void {
     this.children.forEach((c) => {
       c.remove();
@@ -232,8 +220,18 @@ class GomlNode extends EEObject {
     if (!this.isActive) {
       return false;
     }
+    message = Ensure.ensureTobeMessage(message);
     this._sendMessage(message, args);
     return true;
+  }
+  private _sendMessage(message: string, args?: any): void {
+    if (this._messageCache[message] === void 0) {
+      this._messageCache[message] = this._components.filter(c => typeof c[message] === "function");
+    }
+    const targetList = this._messageCache[message];
+    for (let i = 0; i < targetList.length; i++) {
+      this._sendMessageToComponent(targetList[i], message, args);
+    }
   }
 
   /**
@@ -249,22 +247,28 @@ class GomlNode extends EEObject {
       return;
     }
     if (typeof arg1 === "number") {
-      const range = <number>arg1;
-      const message = <string>arg2;
+      const range = arg1;
+      const message = Ensure.ensureTobeMessage(<string>arg2);
       const args = arg3;
-      this.sendMessage(message, args);
-      if (range > 0) {
-        for (let i = 0; i < this.children.length; i++) {
-          this.children[i].broadcastMessage(range - 1, message, args);
-        }
-      }
+      this._broadcastMessage(message, args, range);
     } else {
-      const message = arg1;
+      const message = Ensure.ensureTobeMessage(arg1);
       const args = arg2;
-      this.sendMessage(message, args);
-      for (let i = 0; i < this.children.length; i++) {
-        this.children[i].broadcastMessage(message, args);
-      }
+      this._broadcastMessage(message, args, -1);
+    }
+  }
+  private _broadcastMessage(message: string, args: any, range: number): void {
+    //message is already ensured.-1 to unlimited range.
+    if (!this.isActive) {
+      return;
+    }
+    this._sendMessage(message, args);
+    if (range === 0) {
+      return;
+    }
+    const nextRange = range - 1;
+    for (let i = 0; i < this.children.length; i++) {
+      this.children[i]._broadcastMessage(message, args, nextRange);
     }
   }
 
@@ -286,7 +290,7 @@ class GomlNode extends EEObject {
    */
   public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
-      return this.addChildByName(new NSIdentity(nodeName), attributes);
+      return this.addChildByName(NSIdentity.from(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec, null);
@@ -318,14 +322,6 @@ class GomlNode extends EEObject {
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
 
-    const checkChildConstraints = child.checkTreeConstraints();
-    const checkAncestorConstraint = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-      .reduce((list, current) => list.concat(current));
-    const errors = checkChildConstraints.concat(checkAncestorConstraint).filter(m => m);
-    if (errors.length !== 0) {
-      const message = errors.reduce((m, current) => m + "\n" + current);
-      throw new Error("tree constraint is not satisfied.\n" + message);
-    }
 
     // handling html
     if (elementSync) {
@@ -375,14 +371,6 @@ class GomlNode extends EEObject {
     // html sync
     this.element.removeChild(target.element);
 
-    // check ancestor constraint.
-    const errors = this._callRecursively(n => n.checkTreeConstraints(), n => n._parent ? [n._parent] : [])
-      .reduce((list, current) => list.concat(current))
-      .filter(m => m);
-    if (errors.length !== 0) {
-      const message = errors.reduce((m, current) => m + "\n" + current);
-      throw new Error("tree constraint is not satisfied.\n" + message);
-    }
     return target;
   }
 
@@ -410,16 +398,14 @@ class GomlNode extends EEObject {
     return this._attributeManager.getAttribute(attrName);
   }
 
-  /**
-   * set value to selected attribute.
-   * @param {string |     NSIdentity}  attrName [description]
-   * @param {any}       value [description]
-   */
-  public setValue(attrName: string | NSIdentity, value: any): void {
-    console.warn("setValue is obsolate. please use setAttribute instead of");
-    this.setAttribute(attrName, value);
+  public getAttributeRaw(attrName: string | NSIdentity): Attribute {
+    return this._attributeManager.attributes.get(attrName as string);
   }
-  public setAttribute(attrName: string | NSIdentity, value: any): void {
+
+  public setAttribute(attrName: string | NSIdentity, value: any, ignoireFreeze = true): void {
+    if (!ignoireFreeze && this.isFreezeAttribute(Ensure.ensureTobeNSIdentity(attrName).name)) {
+      throw new Error(`attribute ${Ensure.ensureTobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
+    }
     return this._attributeManager.setAttribute(attrName, value);
   }
 
@@ -427,7 +413,7 @@ class GomlNode extends EEObject {
    *  Add new attribute. In most of case, users no need to call this method.
    *  Use __addAttribute in Component should be used instead.
    */
-  public addAttribute(attr: Attribute): void {
+  public addAttribute(attr: Attribute): Attribute {
     return this._attributeManager.addAttribute(attr);
   }
 
@@ -441,19 +427,19 @@ class GomlNode extends EEObject {
     }
     if (mounted) {
       this._mounted = mounted;
-      this._clearMessageBuffer("unmount");
       this._sendMessageForced("awake");
-      this._sendMessageBuffer("mount");
+      this._isActive = this._parent ? this._parent.isActive && this.enabled : this.enabled;
+      this._sendMessageForced("mount");
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
     } else {
-      this._clearMessageBuffer("mount");
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
-      this._sendMessageBuffer("unmount");
+      this._sendMessageForced("unmount");
       this._sendMessageForced("dispose");
+      this._isActive = false;
       this._tree = null;
       this._companion = null;
       this._mounted = mounted;
@@ -503,9 +489,10 @@ class GomlNode extends EEObject {
    * @param {boolean}   isDefaultComponent [description]
    */
   public _addComponentDirectly(component: Component, isDefaultComponent: boolean): void {
-    if (component.node) {
+    if (component.node || component.disposed) {
       throw new Error("component never change attached node");
     }
+    this._messageCache = {};//TODO:optimize.
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
@@ -520,12 +507,7 @@ class GomlNode extends EEObject {
       component["$" + method] = component[method].bind(component);
     });
     this._components.push(component);
-    component.addEnabledObserver((c) => {
-      if (c.enabled) {
-        this._resolveBufferdMessageTo(c, "mount");
-        this._resolveBufferdMessageTo(c, "unmount");
-      }
-    });
+
     if (isDefaultComponent) {
       // attributes should be exposed on node
       component.attributes.forEach(p => this.addAttribute(p));
@@ -536,8 +518,18 @@ class GomlNode extends EEObject {
     if (this._mounted) {
       component.resolveDefaultAttributes(null); // here must be optional component.should not use node element attributes.
       this._sendMessageForcedTo(component, "awake");
-      this._sendMessageBufferTo(component, "mount");
+      this._sendMessageForcedTo(component, "mount");
     }
+  }
+
+  public removeComponent(component: Component): boolean {
+    if (Utility.remove(this._components, component)) {
+      this._messageCache = {};//TODO:optimize.
+      component.node = null;
+      component.disposed = true;
+      return true;
+    }
+    return false;
   }
 
   public getComponents<T>(filter?: string | NSIdentity | (new () => T)): T[] {
@@ -554,8 +546,6 @@ class GomlNode extends EEObject {
    * @param  {string | NSIdentity}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(ctor: new () => T): T;
-  public getComponent<T>(name: string | NSIdentity): T;
   public getComponent<T>(name: string | NSIdentity | (new () => T)): T {
     // 事情により<T extends Component>とはできない。
     // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
@@ -580,6 +570,22 @@ class GomlNode extends EEObject {
       return this.callRecursively(node => node.getComponent<T>(name));
     }
   }
+  public getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+    if (this.parent) {
+      return this.parent._getComponentInAncesotor(name);
+    }
+    return null;
+  }
+  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+    const ret = this.getComponent(name);
+    if (ret) {
+      return ret;
+    }
+    if (this.parent) {
+      return this.parent._getComponentInAncesotor(name);
+    }
+    return null;
+  }
 
   /**
    * resolve default attribute value for all component.
@@ -589,6 +595,9 @@ class GomlNode extends EEObject {
     this._defaultValueResolved = true;
     const attrs = NodeUtility.getAttributes(this.element);
     for (let key in attrs) {
+      if (this.isFreezeAttribute(key)) {
+        throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
+      }
       if (!this.attributes.get(key)) {
         Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
       }
@@ -598,32 +607,15 @@ class GomlNode extends EEObject {
     });
   }
 
-  /**
-   * check tree constraint for this node.
-   * @return {string[]} [description]
-   */
-  public checkTreeConstraints(): string[] {
-    const constraints = this.nodeDeclaration.treeConstraints;
-    if (!constraints) {
-      return [];
-    }
-    const errorMesasges = constraints.map(constraint => {
-      return constraint(this);
-    }).filter(message => message !== null);
-    if (errorMesasges.length === 0) {
-      return null;
-    }
-    return errorMesasges;
+  public isFreezeAttribute(attributeName: string): boolean {
+    return !!this.nodeDeclaration.freezeAttributes.find(name => attributeName === name)
   }
 
-  /**
-   * バッファしていたmount,unmountが送信されるかもしれない.アクティブなら
-   */
-  public notifyActivenessUpdate(): void {
-    if (this.isActive) {
-      this._resolveBufferdMessage(this.mounted ? "mount" : "unmount");
+  public notifyActivenessUpdate(activeness: boolean): void {
+    if (this.isActive !== activeness) {
+      this._isActive = activeness;
       this.children.forEach(child => {
-        child.notifyActivenessUpdate();
+        child.notifyActivenessUpdate(activeness && child.enabled);
       });
     }
   }
@@ -642,80 +634,21 @@ class GomlNode extends EEObject {
    * @return {boolean}                   送信したか
    */
   private _sendMessageToComponent(targetComponent: Component, message: string, args?: any): boolean {
-    message = Ensure.ensureTobeMessage(message);
-    if (!targetComponent.enabled || !this.isActive) {
+    if (!targetComponent.enabled) {
       return false;
     }
     let method = targetComponent[message];
     if (typeof method === "function") {
       method(args);
-    }
-    return true;
-  }
-  /**
-   * バッファにあればメッセージを送信。成功したらバッファから削除
-   * @param  {Component} target  [description]
-   * @param  {string}    message [description]
-   * @param  {boolean}   forced  [description]
-   * @param  {any}       args    [description]
-   * @return {boolean}           成功したか
-   */
-  private _resolveBufferdMessageTo(target: Component, message: string): boolean {
-    if (!target.enabled || !this.isActive) {
-      return false;
-    }
-    message = Ensure.ensureTobeMessage(message);
-    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === target);
-    if (bufferdIndex >= 0) {
-      let method = target[message];
-      if (typeof method === "function") {
-        method();
-      }
-      this._messageBuffer.splice(bufferdIndex, 1);
       return true;
     }
     return false;
   }
 
-  private _sendMessage(message: string, args?: any): void {
-    this._components.forEach((component) => {
-      this._sendMessageToComponent(component, message, args);
-    });
-  }
   private _sendMessageForced(message: string): void {
-    this._components.forEach(c => {
-      this._sendMessageForcedTo(c, message);
-    });
-  }
-  private _sendMessageBuffer(message: string): void {
-    this._components.forEach(c => {
-      this._sendMessageBufferTo(c, message);
-    });
-  }
-
-  /**
-   * for $mount
-   * @param  {Component} target  [description]
-   * @param  {string}    message [description]
-   * @return {boolean}           [description]
-   */
-  private _sendMessageBufferTo(target: Component, message: string): boolean {
-    message = Ensure.ensureTobeMessage(message);
-    const bufferdIndex = this._messageBuffer.findIndex(obj => obj.message === message && obj.target === target);
-    if (!target.enabled || !this.isActive) {
-      if (bufferdIndex < 0) {
-        this._messageBuffer.push({ message: message, target: target });
-      }
-      return false;
+    for (let i = 0; i < this._components.length; i++) {
+      this._sendMessageForcedTo(this._components[i], message);
     }
-    let method = target[message];
-    if (typeof method === "function") {
-      method();
-    }
-    if (bufferdIndex >= 0) {
-      this._messageBuffer.splice(bufferdIndex, 1);
-    }
-    return true;
   }
 
   /**
@@ -731,27 +664,11 @@ class GomlNode extends EEObject {
     }
   }
 
-  /**
-   * バッファのメッセージを送信可能なら送信してバッファから削除
-   */
-  private _resolveBufferdMessage(message: string): void {
-    message = Ensure.ensureTobeMessage(message);
-    const copy = this._messageBuffer.filter(obj => obj.message === message);
-    copy.forEach(obj => {
-      this._resolveBufferdMessageTo(obj.target, message);
-    });
-  }
-
-  private _clearMessageBuffer(message: string): void {
-    message = Ensure.ensureTobeMessage(message);
-    this._messageBuffer = this._messageBuffer.filter(obj => obj.message !== message)
-  }
-
   private _callRecursively<T>(func: (g: GomlNode) => T, nextGenerator: (n: GomlNode) => GomlNode[]): T[] {
     const val = func(this);
     const nexts = nextGenerator(this);
     const nextVals = nexts.map(c => c.callRecursively(func));
-    const list = nextVals.reduce((clist, current) => clist.concat(current), []);
+    const list = Utility.flat(nextVals);
     list.unshift(val);
     return list;
   }

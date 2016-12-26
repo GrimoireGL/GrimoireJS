@@ -12,13 +12,6 @@ class ComponentDeclaration {
     public name: NSIdentity,
     public attributes: { [name: string]: IAttributeDeclaration },
     public ctor: new () => Component) {
-    // if (this.attributes["enabled"]) {//TODO implements enabled
-    //   throw new Error("attribute 'enabled' is already defined by default.");
-    // }
-    // this.attributes["enabled"] = {
-    //   converter: "Boolean",
-    //   default true
-    // };
   }
 
   public generateInstance(componentElement?: Element): Component {
