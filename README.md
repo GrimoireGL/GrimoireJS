@@ -6,6 +6,8 @@
 [![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
 [![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
 
+**Official website accessed via https://grimoire.gl is tempolally broken. Please use https://grimoiregl.github.io/grimoire.gl/ instead**
+
 ## Overview
 
 Why virtual DOM needs to be only for actual DOM?
