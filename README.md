@@ -1,12 +1,10 @@
 ![Grimoire.js](./.github/logo.png)
 
-[![Slack Status](https://jthree-slackin.herokuapp.com/badge.svg)](https://jthree-slackin.herokuapp.com/)
+[![Slack Status](https://grimoire-slackin.herokuapp.com/badge.svg)](https://grimoire-slackin.herokuapp.com/)
 [![Circle CI](https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg)](https://circleci.com/gh/GrimoireGL/GrimoireJS)
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
 [![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
 [![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
-
-**Official website accessed via https://grimoire.gl is tempolally broken. Please use https://grimoiregl.github.io/grimoire.gl/ instead**
 
 ## Overview
 
