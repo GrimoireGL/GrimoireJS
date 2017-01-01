@@ -31,6 +31,9 @@
   import __INTERFACE__5 from "./Node/IAttributeDeclaration";
   import __INTERFACE__6 from "./Node/ITreeInitializedInfo";
 
+var __VERSION__ = "0.13.0";
+var __NAME__ = "grimoirejs";
+
 import __MAIN__ from "./main"
 
 var __EXPOSE__ = {
@@ -74,8 +77,13 @@ var __EXPOSE__ = {
 
 let __BASE__ = __MAIN__();
 
+Object.assign(__EXPOSE__,{
+    __VERSION__:__VERSION__,
+    __NAME__:__NAME__
+});
 Object.assign(__BASE__|| {},__EXPOSE__);
 
+window["GrimoireJS"]["__VERSION__"]=__VERSION__;
 
 
 export default __BASE__;

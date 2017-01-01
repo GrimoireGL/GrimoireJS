@@ -15,6 +15,7 @@ class GrimoireInitializer {
       GrimoireInitializer._copyGLConstants();
       GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
+      GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();
     } catch (e) {
@@ -51,6 +52,22 @@ class GrimoireInitializer {
         resolve();
       });
     });
+  }
+
+  private static _logVersions():void{
+    const gr = GrimoireInterface;
+    if(!gr.debug){
+      return;
+    }
+    let log = `%cGrimoire.js v${gr["__VERSION__"]}\nplugins:\n\n`;
+    let i = 1;
+    for(let key in gr.lib){
+      const plugin = gr.lib[key];
+      log += `  ${i} : ${plugin.__NAME__||key}@${plugin.__VERSION__}\n`;
+      i++;
+    }
+    log += `\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.`;
+    console.log(log,"color:#44F;font-weight:bold;");
   }
 }
 

@@ -11,6 +11,11 @@ interface IGrimoireInterfaceBase {
   converters: NSDictionary<AttributeConverter>;
   loadTasks: (() => Promise<void>)[];
   nodeDictionary: { [nodeId: string]: GomlNode };
+  lib:{[key:string]:{
+    __VERSION__:string;
+    __NAME__:string;
+    [key:string]:any;
+  }};
   componentDictionary: { [componentId: string]: Component };
   componentDeclarations: NSDictionary<ComponentDeclaration>;
   noConflictPreserve: any;
