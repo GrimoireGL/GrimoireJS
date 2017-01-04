@@ -429,8 +429,8 @@ class GomlNode extends EEObject {
       return;
     }
     if (mounted) {
-      this._sendMessageForced("awake");
       this._mounted = mounted;
+      this._sendMessageForced("awake");
       this._isActive = this._parent ? this._parent.isActive && this.enabled : this.enabled;
       this._sendMessageForced("mount");
       this.children.forEach((child) => {
@@ -530,6 +530,8 @@ class GomlNode extends EEObject {
       this._messageCache = {};//TODO:optimize.
       component.node = null;
       component.disposed = true;
+      this._sendMessageForcedTo(component, "unmount");
+      this._sendMessageForcedTo(component, "dispose");
       return true;
     }
     return false;
@@ -660,7 +662,7 @@ class GomlNode extends EEObject {
   }
 
   /**
-   * for $awake
+   * for system messages.
    * @param {Component} target  [description]
    * @param {string}    message [description]
    */
