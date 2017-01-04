@@ -429,8 +429,8 @@ class GomlNode extends EEObject {
       return;
     }
     if (mounted) {
-      this._mounted = mounted;
       this._sendMessageForced("awake");
+      this._mounted = mounted;
       this._isActive = this._parent ? this._parent.isActive && this.enabled : this.enabled;
       this._sendMessageForced("mount");
       this.children.forEach((child) => {
