@@ -472,6 +472,10 @@ class GomlNode extends EEObject {
    */
   public addComponent(component: string | NSIdentity, attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
+    if(!declaration){
+      throw new Error(`Specified component "${Ensure.ensureTobeNSIdentity(component).fqn}" was not registered yet.
+      Did you register your component on valid timing?`);
+    }
     const instance = declaration.generateInstance();
     attributes = attributes || {};
 
@@ -597,9 +601,6 @@ class GomlNode extends EEObject {
     for (let key in attrs) {
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
-      }
-      if (!this.attributes.get(key)) {
-        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
       }
     }
     this._components.forEach((component) => {

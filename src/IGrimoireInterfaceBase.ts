@@ -20,6 +20,10 @@ interface IGrimoireInterfaceBase {
   componentDeclarations: NSDictionary<ComponentDeclaration>;
   noConflictPreserve: any;
   debug: boolean;
+  overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
+  overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
+  overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[], defaults: { [attrName: string]: any }): NodeDeclaration;
+  overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration;
   ns(ns: string): (name: string) => NSIdentity;
   initialize(): void;
   register(loadTask: () => Promise<void>): void;

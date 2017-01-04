@@ -31,7 +31,7 @@
   import __INTERFACE__5 from "./Node/IAttributeDeclaration";
   import __INTERFACE__6 from "./Node/ITreeInitializedInfo";
 
-var __VERSION__ = "0.13.0";
+var __VERSION__ = "0.14.0beta0";
 var __NAME__ = "grimoirejs";
 
 import __MAIN__ from "./main"
