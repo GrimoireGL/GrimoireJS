@@ -230,6 +230,9 @@ class GomlNode extends EEObject {
     }
     const targetList = this._messageCache[message];
     for (let i = 0; i < targetList.length; i++) {
+      if (targetList[i].disposed) {
+        continue;
+      }
       this._sendMessageToComponent(targetList[i], message, args);
     }
   }
@@ -647,8 +650,13 @@ class GomlNode extends EEObject {
   }
 
   private _sendMessageForced(message: string): void {
-    for (let i = 0; i < this._components.length; i++) {
-      this._sendMessageForcedTo(this._components[i], message);
+    let componentsBuffer = this._components.concat();
+    for (let i = 0; i < componentsBuffer.length; i++) {
+      let target = componentsBuffer[i];
+      if (target.disposed) {
+        continue;
+      }
+      this._sendMessageForcedTo(target, message);
     }
   }
 
