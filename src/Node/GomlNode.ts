@@ -600,6 +600,7 @@ class GomlNode extends EEObject {
     this._defaultValueResolved = true;
     const attrs = NodeUtility.getAttributes(this.element);
     for (let key in attrs) {
+      if (key === Constants.x_gr_id) continue;
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
       }
