@@ -32,19 +32,20 @@ class GomlNode extends EEObject {
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
-  private _mounted: boolean = false;
-  private _enabled: boolean = true;
   private _components: Component[];
-  // private _messageBuffer: { message: string, target: Component }[] = [];
   private _tree: IGomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
-  private _deleted: boolean = false;
-  private _attrBuffer: { [fqn: string]: any } = {};
-  private _defaultValueResolved: boolean = false;
   private _attributeManager: AttributeManager;
   private _isActive: boolean = false;
-  private _messageCache: { [message: string]: Component[] } = {};
 
+  private _messageCache: { [message: string]: Component[] } = {};
+  private _attrBuffer: { [fqn: string]: any } = {};
+
+  private _awaked: boolean = false;
+  private _deleted: boolean = false;
+  private _mounted: boolean = false;
+  private _enabled: boolean = true;
+  private _defaultValueResolved: boolean = false;
   /**
    * Tag name.
    */
@@ -202,10 +203,11 @@ class GomlNode extends EEObject {
       this._parent.detachChild(this);
     } else {
       this.setMounted(false);
-      if (this.element.parentNode) {// Dom sync TODO:必要？
+      if (this.element.parentNode) {
         this.element.parentNode.removeChild(this.element);
       }
     }
+    this._sendMessageForced("$$dispose");
     this._deleted = true;
   }
 
@@ -429,10 +431,7 @@ class GomlNode extends EEObject {
       return;
     }
     if (mounted) {
-      this._mounted = mounted;
-      this._sendMessageForced("awake");
-      this._isActive = this._parent ? this._parent.isActive && this.enabled : this.enabled;
-      this._sendMessageForced("mount");
+      this._mount();
       this.children.forEach((child) => {
         child.setMounted(mounted);
       });
@@ -441,7 +440,6 @@ class GomlNode extends EEObject {
         child.setMounted(mounted);
       });
       this._sendMessageForced("unmount");
-      this._sendMessageForced("dispose");
       this._isActive = false;
       this._tree = null;
       this._companion = null;
@@ -672,6 +670,22 @@ class GomlNode extends EEObject {
     let method = target[message];
     if (typeof method === "function") {
       method();
+    }
+  }
+
+  /**
+   * sending mount and awake message if needed to all components.
+   */
+  private _mount(): void {
+    this._mounted = true;
+    let componentsBuffer = this._components.concat();
+    for (let i = 0; i < componentsBuffer.length; i++) {
+      let target = componentsBuffer[i];
+      if (target.disposed) {
+        continue;
+      }
+      target.awake();
+      this._sendMessageForcedTo(target, "$$mount");
     }
   }
 

@@ -46,6 +46,7 @@ class Component extends IDObject {
    * @type {boolean}
    */
   private _enabled: boolean = true;
+  private _awaked: boolean = false;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
 
@@ -126,6 +127,17 @@ class Component extends IDObject {
 
   public dispose(): void {
     this.node.removeComponent(this);
+  }
+
+  public awake(): boolean {
+    if (this._awaked) {
+      return;
+    }
+    this._awaked = true;
+    let method = this["$$awake"];
+    if (typeof method === "function") {
+      method();
+    }
   }
 
   /**
