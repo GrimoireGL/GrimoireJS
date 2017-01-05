@@ -432,13 +432,13 @@ class GomlNode extends EEObject {
     }
     if (mounted) {
       this._mount();
-      this.children.forEach((child) => {
-        child.setMounted(mounted);
-      });
+      for (let i = 0; i < this.children.length; i++) {
+        this.children[i].setMounted(mounted);
+      }
     } else {
-      this.children.forEach((child) => {
-        child.setMounted(mounted);
-      });
+      for (let i = 0; i < this.children.length; i++) {
+        this.children[i].setMounted(mounted);
+      }
       this._sendMessageForced("unmount");
       this._isActive = false;
       this._tree = null;
