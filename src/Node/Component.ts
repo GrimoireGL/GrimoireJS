@@ -76,6 +76,9 @@ class Component extends IDObject {
   public get tree(): IGomlInterface {
     return this.node ? this.node.tree : null;
   }
+  public get isActive(): boolean {
+    return this.enabled && this.node.isActive;
+  }
 
   /**
    * Set value of attribute
