@@ -28,7 +28,9 @@ import GrimoireInterface from "../../lib-es5/GrimoireInterface";
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  return res.status(200).body(require("./_TestResource/GomlNodeTest_Case1.goml"));
+  let aa = res.status(200).body(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.goml"));
+  // console.log(aa);
+  return aa;
 });
 
 let stringConverterSpy,
@@ -51,10 +53,16 @@ function resetSpies() {
   conflictComponent2Spy.reset();
 }
 
+function readFile(path) {
+  const fs = require("fs");
+  const p = require("path");
+  return fs.readFileSync(p.join(__dirname, path), "utf8");
+}
+
 test.beforeEach(async() => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(require("./_TestResource/GomlNodeTest_Case1.html"), "text/html");
+  const htmlDoc = parser.parseFromString(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html"), "text/html");
   global.document = htmlDoc;
   global.document.querySelectorAll = function (selector) {
     return global.document.getElementsByTagName("script");
@@ -175,15 +183,15 @@ test('Remove() should invoke unmount before deleting', (t) => {
 
 test('Get component return value correctly', (t) => {
   const testNode2 = rootNode.children[0].children[0];
-  t.truthy(!testNode2.getComponent("testComponent1"));
-  t.truthy(testNode2.getComponent("testComponent2")); // Must check actually the instance being same.
+  t.truthy(!testNode2.getComponent("TestComponent1"));
+  t.truthy(testNode2.getComponent("TestComponent2")); // Must check actually the instance being same.
 });
 
 test('broadcastMessage should not invoke message if the component is not enabled', (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
-  const optionalComponent = rootNode.children[0].children[0].getComponent("testComponentOptional");
+  const optionalComponent = rootNode.children[0].children[0].getComponent("TestComponentOptional");
   optionalComponent.enabled = false;
   rootNode.broadcastMessage("onTest");
   const called = [testComponent3Spy, testComponent2Spy, testComponent1Spy];
@@ -236,17 +244,17 @@ test('class attribute should sync with element', (t) => {
 
 test('addComponent should work correctly', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.addComponent("testComponentOptional");
-  t.truthy(testNode3.getComponent("testComponentOptional"));
+  testNode3.addComponent("TestComponentOptional");
+  t.truthy(testNode3.getComponent("TestComponentOptional"));
 });
 test('addNode works correctly', (t) => {
   const testNode2 = rootNode.children[0].children[0];
-  testNode2.addChildByName("testNode2", {
+  testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
     id: "idtest"
   });
   const child = testNode2.children[0];
-  t.truthy(child.name.name === "testNode2");
+  t.truthy(child.name.name === "test-node2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === "idtest");
   t.truthy(child.element.id === "idtest");
@@ -255,13 +263,13 @@ test('addNode works correctly', (t) => {
 
 test('null should be "" as id and classname', (t) => {
   const testNode2 = rootNode.children[0].children[0];
-  testNode2.addChildByName("testNode2", {
+  testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
     id: null,
     class: null
   });
   const child = testNode2.children[0];
-  t.truthy(child.name.name === "testNode2");
+  t.truthy(child.name.name === "test-node2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === null);
   t.truthy(child.element.id === "");

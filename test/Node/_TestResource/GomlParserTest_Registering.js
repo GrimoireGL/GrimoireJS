@@ -5,7 +5,7 @@ const sinon = require("sinon");
 
 export function testComponent1() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "Str",
@@ -30,7 +30,7 @@ export function testComponent1() {
 
 export function testComponent2() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponent2", {
+  GrimoireInterface.registerComponent("TestComponent2", {
     attributes: {
       testAttr2: {
         converter: "Str",
@@ -55,7 +55,7 @@ export function testComponent2() {
 
 export function testComponent3() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponent3", {
+  GrimoireInterface.registerComponent("TestComponent3", {
     attributes: {
       testAttr3: {
         converter: "Str",
@@ -80,7 +80,7 @@ export function testComponent3() {
 
 export function testComponentBase() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponentBase", {
+  GrimoireInterface.registerComponent("TestComponentBase", {
     attributes: {
       inheritAttr: {
         converter: "Str",
@@ -105,7 +105,7 @@ export function testComponentBase() {
 
 export function testComponentOptional() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("testComponentOptional", {
+  GrimoireInterface.registerComponent("TestComponentOptional", {
     attributes: {
       value: {
         converter: "Str",
@@ -131,7 +131,7 @@ export function testComponentOptional() {
 export function conflictComponent1() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("http://testNamespace/test1");
-  GrimoireInterface.registerComponent(ns("conflictComponent"), {
+  GrimoireInterface.registerComponent(ns("ConflictComponent"), {
     attributes: {
       value: {
         converter: "Str",
@@ -148,7 +148,7 @@ export function conflictComponent1() {
 export function conflictComponent2() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("http://testNamespace/test2");
-  GrimoireInterface.registerComponent(ns("conflictComponent"), {
+  GrimoireInterface.registerComponent(ns("ConflictComponent"), {
     attributes: {
       value: {
         converter: "Str",
@@ -170,31 +170,31 @@ export function goml() {
 };
 
 export function testNode1() {
-  GrimoireInterface.registerNode("testNode1", ["testComponent1"]);
+  GrimoireInterface.registerNode("test-node1", ["TestComponent1"]);
 }
 
 export function testNode2() {
-  GrimoireInterface.registerNode("testNode2", ["testComponent2"], null, "testNodeBase");
+  GrimoireInterface.registerNode("test-node2", ["TestComponent2"], null, "test-node-base");
 };
 
 export function testNode3() {
-  GrimoireInterface.registerNode("testNode3", ["testComponent3"], {});
+  GrimoireInterface.registerNode("test-node3", ["TestComponent3"], {});
 }
 
 export function testNodeBase() {
-  GrimoireInterface.registerNode("testNodeBase", ["testComponentBase"]);
+  GrimoireInterface.registerNode("test-node-base", ["TestComponentBase"]);
 }
 
 export function conflictNode1() {
   const ns = GrimoireInterface.ns("http://testNamespace/test1");
-  GrimoireInterface.registerNode(ns("conflictNode"), ["testComponent2"], {
+  GrimoireInterface.registerNode(ns("conflict-node"), ["TestComponent2"], {
     attr1: "nodeA"
   }, null, null);
 }
 
 export function conflictNode2() {
   const ns = GrimoireInterface.ns("http://testNamespace/test2");
-  GrimoireInterface.registerNode(ns("conflictNode"), ["testComponent2"], {
+  GrimoireInterface.registerNode(ns("conflict-node"), ["TestComponent2"], {
     attr1: "nodeB"
   }, null, null);
 }
