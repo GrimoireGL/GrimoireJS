@@ -105,13 +105,14 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
       console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
     obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
-    const attrs = obj["attributes"] as { [name: string]: IAttributeDeclaration } || {};
+    let ctor = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
+    const attrs = ctor["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     for (let key in attrs) {
       if (attrs[key].default === void 0) {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
     }
-    const dec = new ComponentDeclaration(name as NSIdentity, attrs, obj as (new () => Component));
+    const dec = new ComponentDeclaration(name as NSIdentity, attrs, ctor);
     this.componentDeclarations.set(name as NSIdentity, dec);
     return dec;
   }

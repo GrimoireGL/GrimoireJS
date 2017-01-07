@@ -1,3 +1,4 @@
+import ComponentDeclaration from "./ComponentDeclaration";
 import AttributeManager from "../Base/AttributeManager";
 import GrimoireComponent from "../Components/GrimoireComponent";
 import Utility from "../Base/Utility";
@@ -471,7 +472,11 @@ class GomlNode extends EEObject {
    * attach component to this node.
    * @param {Component} component [description]
    */
-  public addComponent(component: string | NSIdentity, attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
+  public addComponent(component: string | NSIdentity | (new () => Component), attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
+    if (typeof component === "function") { // TODO:test
+      const obj = ComponentDeclaration.ctorMap.find(obj => obj.ctor === component);
+      component = obj.name;
+    }
     const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
     const instance = declaration.generateInstance();
     attributes = attributes || {};
