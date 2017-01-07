@@ -1,3 +1,9 @@
+import EnumConverter from "./Converters/EnumConverter";
+import NumberArrayConverter from "./Converters/NumberArrayConverter";
+import ComponentConverter from "./Converters/ComponentConverter";
+import NumberConverter from "./Converters/NumberConverter";
+import ObjectConverter from "./Converters/ObjectConverter";
+import ArrayConverter from "./Converters/ArrayConverter";
 import NodeInterface from "./Interface/NodeInterface";
 import Utility from "./Base/Utility";
 import GomlInterface from "./Interface/GomlInterface";
@@ -70,6 +76,12 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     this.registerConverter("String", StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter("Boolean", BooleanConverter);
+    this.registerConverter("Array", ArrayConverter);
+    this.registerConverter("Object", ObjectConverter);
+    this.registerConverter("Enum", EnumConverter);
+    this.registerConverter("Number", NumberConverter);
+    this.registerConverter("Component", ComponentConverter);
+    this.registerConverter("NumberArray", NumberArrayConverter);
     this.registerComponent("GrimoireComponent", GrimoireComponent);
     this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
   }
