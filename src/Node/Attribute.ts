@@ -155,9 +155,16 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
-    this.watch((v) => {
-      targetObject[variableName] = v;
-    }, true);
+    let backing;
+    this.watch(v => {
+      backing = v;
+    });
+    targetObject.__defineGetter__(variableName, function() {
+      return backing;
+    });
+    targetObject.__defineSetter__(variableName, function(val) {
+      this.Value = val;
+    });
   }
 
   /**
