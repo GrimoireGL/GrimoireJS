@@ -21,6 +21,9 @@ class NodeUtility { // TODO merge with Base/XMLReader
     for (let i = 0; i < domAttr.length; i++) {
       const attrNode = domAttr.item(i);
       const name = attrNode.name;
+      if (name.startsWith("xmlns")) {
+        continue;
+      }
       attributes[name] = attrNode.value;
     }
     return attributes;
