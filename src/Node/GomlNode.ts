@@ -524,12 +524,15 @@ class GomlNode extends EEObject {
   }
 
   public removeComponent(component: Component): boolean {
-    if (Utility.remove(this._components, component)) {
-      this._messageCache = {};//TODO:optimize.
-      component.node = null;
-      component.disposed = true;
+    const index = this._components.indexOf(component);
+    if (index != -1) {
       this._sendMessageForcedTo(component, "unmount");
       this._sendMessageForcedTo(component, "dispose");
+      this.componentsElement.removeChild(component.element);
+      this._components.splice(index, 1);
+      this._messageCache = {}; // TODO:optimize.
+      component.node = null;
+      component.disposed = true;
       return true;
     }
     return false;
