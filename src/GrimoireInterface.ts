@@ -104,8 +104,16 @@ class GrimoireInterfaceImpl implements IGrimoireInterfaceBase {
     if (this.debug && !Utility.isCamelCase(name.name)) {
       console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
-    obj = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
-    let ctor = this._ensureTobeComponentConstructor(obj, this._ensureNameTobeConstructor(superComponent));
+
+    let superCtor;
+    if (superComponent) {
+      superCtor = this._ensureNameTobeConstructor(superComponent);
+      if (!superCtor) {
+        throw new Error(`${superComponent} is not exist.`);
+      }
+    }
+    obj = this._ensureTobeComponentConstructor(obj, superCtor);
+    let ctor = this._ensureTobeComponentConstructor(obj, superCtor);
     const attrs = ctor["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     for (let key in attrs) {
       if (attrs[key].default === void 0) {

@@ -54,7 +54,6 @@ test('get element with strict name', async(t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
-  console.log(theDict._fqnObjectMap);
   const domParser = new DOMParser();
   const parsed = domParser.parseFromString(require("./_TestResource/NSDictionary_QueryDOM.xml"), "text/xml");
   const idElement = parsed.getElementById("test");

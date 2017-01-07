@@ -44,7 +44,7 @@ test('registerComponent works correctly', (t) => {
 });
 
 test('_ensureNameTobeConstructor is works correctly', (t) => {
-  GrimoireInterface.registerComponent("aaa", {
+  GrimoireInterface.registerComponent("Aaa", {
     attributes: {
       testValue: {
         converter: "stringConverter",
@@ -52,13 +52,13 @@ test('_ensureNameTobeConstructor is works correctly', (t) => {
       }
     }
   });
-  const ctor = GrimoireInterface._ensureNameTobeConstructor("aaa");
+  const ctor = GrimoireInterface._ensureNameTobeConstructor("Aaa");
   t.truthy(ctor.attributes.testValue);
 })
 
 test('registerComponent works correctly', (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
-  GrimoireInterface.registerComponent("aaa", {
+  GrimoireInterface.registerComponent("Aaa", {
     attributes: {
       testValue: {
         converter: "stringConverter",
@@ -69,10 +69,10 @@ test('registerComponent works correctly', (t) => {
       //do nothing.
     }
   });
-  const aaa = GrimoireInterface.componentDeclarations.get("aaa");
+  const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
   t.truthy(aaa.attributes.testValue);
-  GrimoireInterface.registerComponent("bbb", {
+  GrimoireInterface.registerComponent("Bbb", {
     attributes: {
       testValue2: {
         converter: "stringConverter",
@@ -82,9 +82,9 @@ test('registerComponent works correctly', (t) => {
     $test2: function () {
       //do nothing.
     }
-  }, "aaa");
+  }, "Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
-  const bbb = GrimoireInterface.componentDeclarations.get("bbb");
+  const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
   t.truthy(bbb.attributes.testValue);
   t.truthy(bbb.attributes.testValue2);
   t.truthy(bbb.ctor);
@@ -93,10 +93,10 @@ test('registerComponent works correctly', (t) => {
   t.truthy(bbbo.$test2);
 });
 test('throw error on attempt registerComponent/Node by duplicate name.', t => {
-  GrimoireInterface.registerComponent("aaa", {});
+  GrimoireInterface.registerComponent("Aaa", {});
   GrimoireInterface.registerNode("node");
   t.throws(() => {
-    GrimoireInterface.registerComponent("aaa", {});
+    GrimoireInterface.registerComponent("Aaa", {});
   });
   t.throws(() => {
     GrimoireInterface.registerNode("node");
