@@ -26,6 +26,7 @@ class Attribute {
    * @type {NSIdentity}
    */
   public name: NSIdentity;
+
   /**
    * The declaration of attribute used for defining this attribute.
    * @type {IAttributeDeclaration}
@@ -158,7 +159,7 @@ class Attribute {
     let backing;
     this.watch(v => {
       backing = v;
-    });
+    }, true);
     targetObject.__defineGetter__(variableName, function() {
       return backing;
     });
