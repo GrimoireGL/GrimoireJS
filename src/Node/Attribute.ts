@@ -156,16 +156,25 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
-    let backing;
-    this.watch(v => {
-      backing = v;
-    }, true);
-    targetObject.__defineGetter__(variableName, () => {
-      return backing;
-    });
-    targetObject.__defineSetter__(variableName, (val) => {
-      this.Value = val;
-    });
+    if (this.declaration.lazy) {
+      targetObject.__defineGetter__(variableName, () => {
+        return this.Value;
+      });
+      targetObject.__defineSetter__(variableName, (val) => {
+        this.Value = val;
+      });
+    } else {
+      let backing;
+      this.watch(v => {
+        backing = v;
+      }, true);
+      targetObject.__defineGetter__(variableName, () => {
+        return backing;
+      });
+      targetObject.__defineSetter__(variableName, (val) => {
+        this.Value = val;
+      });
+    }
   }
 
   /**
