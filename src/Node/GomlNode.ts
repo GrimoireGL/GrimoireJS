@@ -1,3 +1,4 @@
+import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import ComponentDeclaration from "./ComponentDeclaration";
 import AttributeManager from "../Base/AttributeManager";
 import GrimoireComponent from "../Components/GrimoireComponent";
@@ -47,6 +48,8 @@ class GomlNode extends EEObject {
   private _mounted: boolean = false;
   private _enabled: boolean = true;
   private _defaultValueResolved: boolean = false;
+  private _initializedInfo: ITreeInitializedInfo = null;
+
   /**
    * Tag name.
    */
@@ -324,21 +327,28 @@ class GomlNode extends EEObject {
     if (index != null && typeof index !== "number") {
       throw new Error("insert index should be number or null or undefined.");
     }
-    child._parent = this;
+
+    // add process.
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
+    child._parent = this;
+    child._tree = this._tree;
+    child._companion = this._companion;
 
-
-    // handling html
+    // sync html
     if (elementSync) {
       let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
-    child._tree = this._tree;
-    child._companion = this._companion;
+
     // mounting
     if (this.mounted) {
       child.setMounted(true);
+    }
+
+    // send initializedInfo if needed
+    if (this._initializedInfo) {
+      child.sendInitializedMessage(this._initializedInfo);
     }
   }
 
@@ -526,6 +536,11 @@ class GomlNode extends EEObject {
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageForcedTo(component, "mount");
     }
+
+    // sending `initialized` message if needed.
+    if (this._initializedInfo) {
+      component.initialized(this._initializedInfo);
+    }
   }
 
   public removeComponent(component: Component): boolean {
@@ -587,6 +602,24 @@ class GomlNode extends EEObject {
     }
     return null;
   }
+
+  public sendInitializedMessage(info: ITreeInitializedInfo) {
+    if (this._initializedInfo === info) {
+      return;
+    }
+    let components = this._components.concat();
+    for (let i = 0; i < components.length; i++) {
+      components[i].initialized(info);
+    }
+    this._initializedInfo = info;
+    let children = this.children.concat();
+    children.forEach(child => {
+      child.sendInitializedMessage(info);
+    });
+  }
+
+
+
   private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
     const ret = this.getComponent(name);
     if (ret) {

@@ -199,6 +199,10 @@ export default class GrimoireInterfaceImpl {
     ownerScriptTag: tag,
     id: rootNode.id
   });
+  rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
+    ownerScriptTag: tag,
+    id: rootNode.id
+  });
   this._onTreeInitialized(tag);
   return rootNode.id;
 }

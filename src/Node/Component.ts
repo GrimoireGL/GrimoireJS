@@ -1,3 +1,4 @@
+import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import NodeUtility from "./NodeUtility";
@@ -49,6 +50,7 @@ class Component extends IDObject {
   private _awaked: boolean = false;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
+  private _initializedInfo: ITreeInitializedInfo = null;
 
   public get enabled(): boolean {
     return this._enabled;
@@ -142,6 +144,17 @@ class Component extends IDObject {
       method();
     }
     return true;
+  }
+
+  public initialized(info: ITreeInitializedInfo): void {
+    if (this._initializedInfo === info) {
+      return;
+    }
+    this._initializedInfo = info;
+    let method = this["$$initialized"];
+    if (typeof method === "function") {
+      method(info);
+    }
   }
 
   /**
