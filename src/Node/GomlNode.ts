@@ -590,11 +590,7 @@ class GomlNode extends EEObject {
   }
 
   public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
-    if (typeof name === "function") {
-      return this.callRecursively(node => node.getComponent<T>(name));
-    } else {
-      return this.callRecursively(node => node.getComponent<T>(name));
-    }
+    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
   public getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
     if (this.parent) {
