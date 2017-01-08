@@ -134,13 +134,14 @@ class Component extends IDObject {
 
   public awake(): boolean {
     if (this._awaked) {
-      return;
+      return false;
     }
     this._awaked = true;
     let method = this["$$awake"];
     if (typeof method === "function") {
       method();
     }
+    return true;
   }
 
   /**

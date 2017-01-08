@@ -189,6 +189,7 @@ export default class GrimoireInterfaceImpl {
   if (!rootNode) {
     throw new Error("can not register null to rootNodes.");
   }
+  tag.setAttribute("x-rootNodeId", rootNode.id);
   this.rootNodes[rootNode.id] = rootNode;
   rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
 
@@ -198,7 +199,6 @@ export default class GrimoireInterfaceImpl {
     ownerScriptTag: tag,
     id: rootNode.id
   });
-  tag.setAttribute("x-rootNodeId", rootNode.id);
   this._onTreeInitialized(tag);
   return rootNode.id;
 }
