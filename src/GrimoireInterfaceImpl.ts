@@ -154,11 +154,51 @@ export default class GrimoireInterfaceImpl {
         defaults as NSDictionary<any>,
         superNode as NSIdentity, freezeAttributes));
   }
-
-  public registerConverter(name: string | NSIdentity, converter: (this: Attribute, val: any) => any): void {
-    name = Ensure.ensureTobeNSIdentity(name);
-    this.converters.set(name as NSIdentity, { name: name as NSIdentity, convert: converter });
+  public getCompanion(scriptTag: Element): NSDictionary<any> {
+    const root = this.getRootNode(scriptTag);
+    if (root) {
+      return root.companion;
+    } else {
+      throw new Error("scriptTag is not goml");
+    }
   }
+  public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
+    if (!rootNode) {
+      throw new Error("can not register null to rootNodes.");
+    }
+    tag.setAttribute("x-rootNodeId", rootNode.id);
+    this.rootNodes[rootNode.id] = rootNode;
+    rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+
+    // awake and mount tree.
+    rootNode.setMounted(true);
+    rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
+      ownerScriptTag: tag,
+      id: rootNode.id
+    });
+    rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
+      ownerScriptTag: tag,
+      id: rootNode.id
+    });
+    this._onTreeInitialized(tag);
+    return rootNode.id;
+  }
+
+  public getRootNode(scriptTag: Element): GomlNode {
+    const id = scriptTag.getAttribute("x-rootNodeId");
+    return this.rootNodes[id];
+  }
+
+  public noConflict(): void {
+    window["gr"] = this.noConflictPreserve;
+  }
+
+  public registerConverter(name: string | NSIdentity, converter: ((this: Attribute, val: any) => any)): void {
+    const n = Ensure.ensureTobeNSIdentity(name);
+    this.converters.set(n, { name: n, convert: converter });
+  }
+
+
 
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
@@ -185,36 +225,7 @@ export default class GrimoireInterfaceImpl {
   return dec;
 }
 
-  public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
-  if (!rootNode) {
-    throw new Error("can not register null to rootNodes.");
-  }
-  tag.setAttribute("x-rootNodeId", rootNode.id);
-  this.rootNodes[rootNode.id] = rootNode;
-  rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
 
-  // awake and mount tree.
-  rootNode.setMounted(true);
-  rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
-    ownerScriptTag: tag,
-    id: rootNode.id
-  });
-  rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
-    ownerScriptTag: tag,
-    id: rootNode.id
-  });
-  this._onTreeInitialized(tag);
-  return rootNode.id;
-}
-
-  public getRootNode(scriptTag: Element): GomlNode {
-  const id = scriptTag.getAttribute("x-rootNodeId");
-  return this.rootNodes[id];
-}
-
-  public noConflict(): void {
-  window["gr"] = this.noConflictPreserve;
-}
 
   public queryRootNodes(query: string): GomlNode[] {
   const scriptTags = document.querySelectorAll(query);
