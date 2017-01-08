@@ -80,7 +80,7 @@ class Attribute {
    */
   public get Value(): any {
     if (this._value === void 0) {
-      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`)
+      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`);
     }
     return this._valuate(this._value);
   }
@@ -160,10 +160,10 @@ class Attribute {
     this.watch(v => {
       backing = v;
     }, true);
-    targetObject.__defineGetter__(variableName, function() {
+    targetObject.__defineGetter__(variableName, () => {
       return backing;
     });
-    targetObject.__defineSetter__(variableName, function(val) {
+    targetObject.__defineSetter__(variableName, (val) => {
       this.Value = val;
     });
   }
