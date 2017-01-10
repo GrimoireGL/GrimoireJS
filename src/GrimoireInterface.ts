@@ -1,4 +1,3 @@
-import NodeInterface from "./Interface/NodeInterface";
 import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
 import GomlInterface from "./Interface/GomlInterface";
 import IGomlInterface from "./Interface/IGomlInterface";

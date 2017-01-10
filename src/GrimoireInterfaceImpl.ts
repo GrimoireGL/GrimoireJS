@@ -48,7 +48,6 @@ export default class GrimoireInterfaceImpl {
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
-  public companion: NSDictionary<any> = new NSDictionary<any>();
 
   public initializedEventHandler: ((id: string, className: string, tag: HTMLScriptElement) => void)[] = [];
 
