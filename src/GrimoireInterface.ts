@@ -10,7 +10,7 @@ type IGrimoireInterface = {
 };
 
 const context = new GrimoireInterfaceImpl();
-const obtainGomlInterface = function(query: string | GomlNode[] | ((id: string, className: string, tag: HTMLScriptElement) => void)): GomlInterface & IGomlInterface {
+const obtainGomlInterface = function(query: string | GomlNode[] | ((scriptTags: HTMLScriptElement[]) => void)): GomlInterface & IGomlInterface {
   if (typeof query === "string") {
     // return GomlInterfaceGenerator(context.queryRootNodes(query));
     const gomlContext = new GomlInterface(context.queryRootNodes(query));

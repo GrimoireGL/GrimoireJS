@@ -1,3 +1,4 @@
+import GomlLoader from "./Node/GomlLoader";
 import EnumConverter from "./Converters/EnumConverter";
 import NumberArrayConverter from "./Converters/NumberArrayConverter";
 import ComponentConverter from "./Converters/ComponentConverter";
@@ -49,8 +50,6 @@ export default class GrimoireInterfaceImpl {
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
 
-  public initializedEventHandler: ((id: string, className: string, tag: HTMLScriptElement) => void)[] = [];
-
   public debug: boolean = true;
 
   /**
@@ -58,6 +57,10 @@ export default class GrimoireInterfaceImpl {
    * @type {any}
    */
   public noConflictPreserve: any;
+
+  public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
+    return GomlLoader.initializedEventHandlers;
+  }
 
   /**
    * Generate namespace helper function
@@ -179,7 +182,6 @@ export default class GrimoireInterfaceImpl {
       ownerScriptTag: tag,
       id: rootNode.id
     });
-    this._onTreeInitialized(tag); // TODO: fix.slackにかいたとおり1/10
     return rootNode.id;
   }
 
@@ -192,12 +194,23 @@ export default class GrimoireInterfaceImpl {
     window["gr"] = this.noConflictPreserve;
   }
 
-  public registerConverter(name: string | NSIdentity, converter: ((this: Attribute, val: any) => any)): void {
-    const n = Ensure.ensureTobeNSIdentity(name);
-    this.converters.set(n, { name: n, convert: converter });
+  public queryRootNodes(query: string): GomlNode[] {
+    const scriptTags = document.querySelectorAll(query);
+    const nodes: GomlNode[] = [];
+    for (let i = 0; i < scriptTags.length; i++) {
+      const node = this.getRootNode(scriptTags.item(i));
+      if (node) {
+        nodes.push(node);
+      }
+    }
+    return nodes;
   }
 
 
+  public registerConverter(name: string | NSIdentity, converter: ((this: Attribute, val: any) => any)): void {
+    const n = Ensure.ensureTobeNSIdentity(name);
+    this.converters.set(n, { name: n, convert: converter } as AttributeConverter);
+  }
 
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
@@ -225,18 +238,6 @@ export default class GrimoireInterfaceImpl {
 }
 
 
-
-  public queryRootNodes(query: string): GomlNode[] {
-  const scriptTags = document.querySelectorAll(query);
-  const nodes: GomlNode[] = [];
-  for (let i = 0; i < scriptTags.length; i++) {
-    const node = this.getRootNode(scriptTags.item(i));
-    if (node) {
-      nodes.push(node);
-    }
-  }
-  return nodes;
-}
 
   /**
    * This method is not for users.
@@ -267,7 +268,7 @@ this[name] = func.bind(this);
   }
   GomlInterface[name] = func.bind(this);
 }
-  public extendNodeInterface(name:string, func:Function):void {
+  public extendNodeInterface(name: string, func:Function):void {
   if(NodeInterface[name]) {
     throw new Error(`gr.${name} can not extend.it is already exist.`);
   }
@@ -334,11 +335,5 @@ this[name] = func.bind(this);
     }
     return c.ctor;
   }
-}
-
-  private _onTreeInitialized(tag: HTMLScriptElement): void {
-  this.initializedEventHandler.forEach((h) => {
-    h(tag.id, tag.className, tag);
-  });
 }
 }

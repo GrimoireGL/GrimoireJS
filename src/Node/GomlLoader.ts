@@ -6,6 +6,8 @@ import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
  * Provides the features to fetch Goml source.
  */
 class GomlLoader {
+  public static initializedEventHandlers: ((scriptTags: HTMLScriptElement[]) => void)[] = [];
+
   /**
    * Obtain the Goml source from specified tag.
    * @param  {HTMLScriptElement} scriptTag [the script tag to load]
@@ -32,16 +34,22 @@ class GomlLoader {
    * @param  {string}          query [the query to find script tag]
    * @return {Promise<void[]>}       [the promise to wait for all goml loading]
    */
-  public static loadFromQuery(query: string): Promise<void[]> {
+  public static async loadFromQuery(query: string): Promise<void> {
     const tags = document.querySelectorAll(query);
     const pArray: Promise<void>[] = [];
+    const elements: HTMLScriptElement[] = [];
     for (let i = 0; i < tags.length; i++) {
-      pArray[i] = GomlLoader.loadFromScriptTag(tags.item(i) as HTMLScriptElement);
+      const element = tags.item(i) as HTMLScriptElement;
+      elements.push(element);
+      pArray[i] = GomlLoader.loadFromScriptTag(element);
     }
     if (pArray.length === 0 && GrimoireInterface.debug) {
       console.warn("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?")
     }
-    return Promise.all<void>(pArray);
+    await Promise.all<void>(pArray);
+    GomlLoader.initializedEventHandlers.forEach(handler => {
+      handler(elements);
+    })
   }
 
   /**
