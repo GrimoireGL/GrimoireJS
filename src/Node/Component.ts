@@ -1,3 +1,4 @@
+import GomlInterface from "../Interface/GomlInterface";
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
@@ -75,7 +76,7 @@ class Component extends IDObject {
    * Tree interface for the tree this node is attached.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface {
+  public get tree(): IGomlInterface & GomlInterface {
     return this.node ? this.node.tree : null;
   }
   public get isActive(): boolean {

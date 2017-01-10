@@ -1,7 +1,7 @@
+import GomlInterface from "../Interface/GomlInterface";
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import ComponentDeclaration from "./ComponentDeclaration";
 import AttributeManager from "../Base/AttributeManager";
-import GrimoireComponent from "../Components/GrimoireComponent";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
@@ -30,12 +30,12 @@ class GomlNode extends EEObject {
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public componentsElement: Element; //<.components>
+  public componentsElement: Element; // <.components>
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _components: Component[];
-  private _tree: IGomlInterface = null;
+  private _tree: IGomlInterface & GomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _attributeManager: AttributeManager;
   private _isActive: boolean = false;
@@ -66,7 +66,7 @@ class GomlNode extends EEObject {
    * throw exception if this node is not mounted.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface {
+  public get tree(): IGomlInterface & GomlInterface {
     if (!this.mounted) {
       throw new Error("this node is not mounted");
     }

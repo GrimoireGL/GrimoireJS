@@ -1,8 +1,14 @@
+import NodeInterface from "./Interface/NodeInterface";
 import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
 import GomlInterface from "./Interface/GomlInterface";
 import IGomlInterface from "./Interface/IGomlInterface";
 import GomlNode from "./Node/GomlNode";
-import IGrimoireInterface from "./IGrimoireInterface";
+
+type IGrimoireInterface = {
+  (query: string): GomlInterface & IGomlInterface;
+  (query: GomlNode[]): GomlInterface & IGomlInterface;
+  (callback: Function): void;
+};
 
 const context = new GrimoireInterfaceImpl();
 const obtainGomlInterface = function(query: string | GomlNode[] | ((id: string, className: string, tag: HTMLScriptElement) => void)): GomlInterface & IGomlInterface {

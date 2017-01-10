@@ -1,6 +1,5 @@
 import GrimoireInterface from "./GrimoireInterface";
 import GomlLoader from "./Node/GomlLoader";
-import IGrimoireInterface from "./IGrimoireInterface";
 /**
  * Provides procedures for initializing.
  */
@@ -54,20 +53,20 @@ class GrimoireInitializer {
     });
   }
 
-  private static _logVersions():void{
+  private static _logVersions(): void {
     const gr = GrimoireInterface;
-    if(!gr.debug){
+    if (!gr.debug) {
       return;
     }
     let log = `%cGrimoire.js v${gr["__VERSION__"]}\nplugins:\n\n`;
     let i = 1;
-    for(let key in gr.lib){
+    for (let key in gr.lib) {
       const plugin = gr.lib[key];
-      log += `  ${i} : ${plugin.__NAME__||key}@${plugin.__VERSION__}\n`;
+      log += `  ${i} : ${plugin.__NAME__ || key}@${plugin.__VERSION__}\n`;
       i++;
     }
     log += `\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.`;
-    console.log(log,"color:#44F;font-weight:bold;");
+    console.log(log, "color:#44F;font-weight:bold;");
   }
 }
 

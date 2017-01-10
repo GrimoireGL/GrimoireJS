@@ -1,3 +1,4 @@
+import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
@@ -62,7 +63,7 @@ class Attribute {
    * Goml tree interface which contains the component this attribute bound to.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface {
+  public get tree(): IGomlInterface & GomlInterface {
     return this.component.tree;
   }
 

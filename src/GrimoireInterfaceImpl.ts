@@ -180,7 +180,7 @@ export default class GrimoireInterfaceImpl {
       ownerScriptTag: tag,
       id: rootNode.id
     });
-    this._onTreeInitialized(tag);
+    this._onTreeInitialized(tag); // TODO: fix.slackにかいたとおり1/10
     return rootNode.id;
   }
 
@@ -256,20 +256,20 @@ export default class GrimoireInterfaceImpl {
   this.initialize();
 }
 
-  public extendGrimoireInterface(name:string, func:Function){
-  if (this[name]) {
-    throw new Error(`gr.${name} can not extend.it is already exist.`);
-  }
-  this[name] = func.bind(this);
+  public extendGrimoireInterface(name:string, func:Function):void {
+  if(this[name]) {
+  throw new Error(`gr.${name} can not extend.it is already exist.`);
 }
-  public extendGomlInterface(name:string, func:Function){
-  if (GomlInterface[name]) {
+this[name] = func.bind(this);
+}
+  public extendGomlInterface(name:string, func:Function):void {
+  if(GomlInterface[name]) {
     throw new Error(`gr.${name} can not extend.it is already exist.`);
   }
   GomlInterface[name] = func.bind(this);
 }
-  public extendNodeInterface(name:string, func:Function){
-  if (NodeInterface[name]) {
+  public extendNodeInterface(name:string, func:Function):void {
+  if(NodeInterface[name]) {
     throw new Error(`gr.${name} can not extend.it is already exist.`);
   }
   NodeInterface[name] = func.bind(this);
