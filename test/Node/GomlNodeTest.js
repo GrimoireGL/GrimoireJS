@@ -116,8 +116,8 @@ test("setMounted method works correctly", t => {
 test("index method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  node.addChild(node2, null, null);
-  t.truthy(node2.index() === 0);
+  node.addChild(node2);
+  t.truthy(node2.index === 0);
 });
 test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
