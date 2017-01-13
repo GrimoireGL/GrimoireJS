@@ -13,15 +13,6 @@ import Component from "./Component";
  */
 class Attribute {
 
-  public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
-    const cname = Ensure.ensureTobeNSIdentity(converter);
-    const conv = GrimoireInterface.converters.get(cname);
-    if (!conv) {
-      throw new Error(`converter ${cname.name} is not defined.`);
-    }
-    return conv.convert.bind(self)(val); // TODO: performance problem?
-  }
-
   /**
    * The name of attribute.
    * @type {NSIdentity}
@@ -98,6 +89,16 @@ class Attribute {
     this._notifyChange(val);
   }
 
+
+  public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
+    const cname = Ensure.ensureTobeNSIdentity(converter);
+    const conv = GrimoireInterface.converters.get(cname);
+    if (!conv) {
+      throw new Error(`converter ${cname.name} is not defined.`);
+    }
+    return conv.convert.bind(self)(val); // TODO: performance problem?
+  }
+
   /**
    * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
    * If converter is not served, string converter will be set as default.
@@ -161,9 +162,6 @@ class Attribute {
       targetObject.__defineGetter__(variableName, () => {
         return this.Value;
       });
-      targetObject.__defineSetter__(variableName, (val) => {
-        this.Value = val;
-      });
     } else {
       let backing;
       this.watch(v => {
@@ -172,10 +170,10 @@ class Attribute {
       targetObject.__defineGetter__(variableName, () => {
         return backing;
       });
-      targetObject.__defineSetter__(variableName, (val) => {
-        this.Value = val;
-      });
     }
+    targetObject.__defineSetter__(variableName, (val) => {
+      this.Value = val;
+    });
   }
 
   /**

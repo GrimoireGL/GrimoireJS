@@ -12,8 +12,9 @@ function ArrayConverter(this: Attribute, val: any): any {
   if (!converter) {
     throw new Error(`converter ${this.declaration["type"]} is not registerd.`);
   }
+  const c = converter.convert.bind(this);
   if (Array.isArray(val)) {
-    return val;
+    return val.map(v => c(v));
   }
   if (typeof val === "string") {
     let ar = val.split(splitter);
@@ -30,7 +31,6 @@ function ArrayConverter(this: Attribute, val: any): any {
       }
     }
 
-    const c = converter.convert.bind(this);
     return ar.map(v => c(v));
   }
   return null;

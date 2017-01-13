@@ -18,19 +18,12 @@ import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 
 class GomlNode extends EEObject {
-  /**
-   * Get actual goml node from element of xml tree.
-   * @param  {Element}  elem [description]
-   * @return {GomlNode}      [description]
-   */
-  public static fromElement(elem: Element): GomlNode {
-    return GrimoireInterface.nodeDictionary[elem.getAttribute(Constants.x_gr_id)];
-  }
 
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public componentsElement: Element; // <.components>
+
 
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
@@ -41,14 +34,21 @@ class GomlNode extends EEObject {
   private _isActive: boolean = false;
 
   private _messageCache: { [message: string]: Component[] } = {};
-  private _attrBuffer: { [fqn: string]: any } = {};
 
-  private _awaked: boolean = false;
   private _deleted: boolean = false;
   private _mounted: boolean = false;
   private _enabled: boolean = true;
   private _defaultValueResolved: boolean = false;
   private _initializedInfo: ITreeInitializedInfo = null;
+
+  /**
+   * Get actual goml node from element of xml tree.
+   * @param  {Element}  elem [description]
+   * @return {GomlNode}      [description]
+   */
+  public static fromElement(elem: Element): GomlNode {
+    return GrimoireInterface.nodeDictionary[elem.getAttribute(Constants.x_gr_id)];
+  }
 
   /**
    * Tag name.
@@ -230,18 +230,6 @@ class GomlNode extends EEObject {
     this._sendMessage(message, args);
     return true;
   }
-  private _sendMessage(message: string, args?: any): void {
-    if (this._messageCache[message] === void 0) {
-      this._messageCache[message] = this._components.filter(c => typeof c[message] === "function");
-    }
-    const targetList = this._messageCache[message];
-    for (let i = 0; i < targetList.length; i++) {
-      if (targetList[i].disposed) {
-        continue;
-      }
-      this._sendMessageToComponent(targetList[i], message, args);
-    }
-  }
 
   /**
    * sendMessage recursively for children.
@@ -266,20 +254,9 @@ class GomlNode extends EEObject {
       this._broadcastMessage(message, args, -1);
     }
   }
-  private _broadcastMessage(message: string, args: any, range: number): void {
-    //message is already ensured.-1 to unlimited range.
-    if (!this.isActive) {
-      return;
-    }
-    this._sendMessage(message, args);
-    if (range === 0) {
-      return;
-    }
-    const nextRange = range - 1;
-    for (let i = 0; i < this.children.length; i++) {
-      this.children[i]._broadcastMessage(message, args, nextRange);
-    }
-  }
+
+
+
 
   public append(tag: string): GomlNode[] {
     const elems = XMLReader.parseXML(tag);
@@ -463,7 +440,7 @@ class GomlNode extends EEObject {
    * Get index of this node from parent.
    * @return {number} number of index.
    */
-  public index(): number {
+  public get index(): number {
     if (!this._parent) {
       return -1;
     }
@@ -508,7 +485,7 @@ class GomlNode extends EEObject {
     if (component.node || component.disposed) {
       throw new Error("component never change attached node");
     }
-    this._messageCache = {};//TODO:optimize.
+    this._messageCache = {}; // TODO: optimize.
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
@@ -545,7 +522,7 @@ class GomlNode extends EEObject {
 
   public removeComponent(component: Component): boolean {
     const index = this._components.indexOf(component);
-    if (index != -1) {
+    if (index !== -1) {
       this._sendMessageForcedTo(component, "unmount");
       this._sendMessageForcedTo(component, "dispose");
       this.componentsElement.removeChild(component.element);
@@ -615,18 +592,6 @@ class GomlNode extends EEObject {
   }
 
 
-
-  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
-    const ret = this.getComponent(name);
-    if (ret) {
-      return ret;
-    }
-    if (this.parent) {
-      return this.parent._getComponentInAncesotor(name);
-    }
-    return null;
-  }
-
   /**
    * resolve default attribute value for all component.
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
@@ -635,7 +600,9 @@ class GomlNode extends EEObject {
     this._defaultValueResolved = true;
     const attrs = NodeUtility.getAttributes(this.element);
     for (let key in attrs) {
-      if (key === Constants.x_gr_id) continue;
+      if (key === Constants.x_gr_id) {
+        continue;
+      }
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
       }
@@ -649,7 +616,7 @@ class GomlNode extends EEObject {
   }
 
   public isFreezeAttribute(attributeName: string): boolean {
-    return !!this.nodeDeclaration.freezeAttributes.find(name => attributeName === name)
+    return !!this.nodeDeclaration.freezeAttributes.find(name => attributeName === name);
   }
 
   public notifyActivenessUpdate(activeness: boolean): void {
@@ -661,8 +628,48 @@ class GomlNode extends EEObject {
     }
   }
 
-  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {
+  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
+  }
+
+  private _sendMessage(message: string, args?: any): void {
+    if (this._messageCache[message] === void 0) {
+      this._messageCache[message] = this._components.filter(c => typeof c[message] === "function");
+    }
+    const targetList = this._messageCache[message];
+    for (let i = 0; i < targetList.length; i++) {
+      if (targetList[i].disposed) {
+        continue;
+      }
+      this._sendMessageToComponent(targetList[i], message, args);
+    }
+  }
+  private _broadcastMessage(message: string, args: any, range: number): void {
+    // message is already ensured.-1 to unlimited range.
+    if (!this.isActive) {
+      return;
+    }
+    this._sendMessage(message, args);
+    if (range === 0) {
+      return;
+    }
+    const nextRange = range - 1;
+    for (let i = 0; i < this.children.length; i++) {
+      this.children[i]._broadcastMessage(message, args, nextRange);
+    }
+  }
+
+
+
+  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+    const ret = this.getComponent(name);
+    if (ret) {
+      return ret;
+    }
+    if (this.parent) {
+      return this.parent._getComponentInAncesotor(name);
+    }
+    return null;
   }
 
   /**
