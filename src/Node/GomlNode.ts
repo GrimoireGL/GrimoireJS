@@ -639,9 +639,9 @@ class GomlNode extends EEObject {
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
       }
-      if (!this.attributes.get(key)) {
-        Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
-      }
+      // if (!this.attributes.get(key)) {
+      //   Utility.w(`attribute '${key}' is not exist in this node '${this.name.fqn}'`);
+      // }
     }
     this._components.forEach((component) => {
       component.resolveDefaultAttributes(attrs);

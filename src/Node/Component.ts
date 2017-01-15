@@ -122,9 +122,9 @@ class Component extends IDObject {
       const attrs = NodeUtility.getAttributes(this.element);
       for (let key in attrs) {
         if (key === Constants.x_gr_id) continue;
-        if (!this.attributes.get(key)) {//if unexist attribute in components element.
-          Utility.w(`attribute '${key}' is not exist in this component '${this.name.fqn}'`)
-        }
+        // if (!this.attributes.get(key)) {//if unexist attribute in components element.
+        //   Utility.w(`attribute '${key}' is not exist in this component '${this.name.fqn}'`)
+        // }
       }
       this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
     }
