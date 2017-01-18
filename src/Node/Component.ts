@@ -80,7 +80,7 @@ class Component extends IDObject {
     return this.node ? this.node.tree : null;
   }
   public get isActive(): boolean {
-    return this.enabled && this.node.isActive;
+    return this.enabled && this.node && this.node.isActive;
   }
 
   /**

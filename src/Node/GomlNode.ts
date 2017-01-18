@@ -461,10 +461,10 @@ class GomlNode extends EEObject {
    */
   public addComponent(component: string | NSIdentity | (new () => Component), attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     if (typeof component === "function") { // TODO:test
-      const obj = ComponentDeclaration.ctorMap.find(obj => obj.ctor === component);
+      const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       component = obj.name;
     }
-    const declaration = GrimoireInterface.componentDeclarations.get(component as NSIdentity);
+    const declaration = GrimoireInterface.componentDeclarations.get(component);
     const instance = declaration.generateInstance();
     attributes = attributes || {};
 
@@ -485,11 +485,17 @@ class GomlNode extends EEObject {
     if (component.node || component.disposed) {
       throw new Error("component never change attached node");
     }
+
+    // resetting cache
     this._messageCache = {}; // TODO: optimize.
+
+    //
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
     let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
     this.componentsElement.insertBefore(component.element, referenceElement);
+
+    // bind this for message reciever.
     let propNames: string[] = [];
     let o = component;
     while (o) {
@@ -499,6 +505,7 @@ class GomlNode extends EEObject {
     propNames.filter(name => name.startsWith("$") && typeof component[name] === "function").forEach(method => {
       component["$" + method] = component[method].bind(component);
     });
+
     this._components.push(component);
 
     if (isDefaultComponent) {
