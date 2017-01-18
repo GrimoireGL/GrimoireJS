@@ -90,10 +90,12 @@ class Ensure {
   public static ensureTobeComponentConstructor<T>(c: string | NSIdentity | (new () => T)): (new () => T) {
     if (typeof c === "function") {
       return c;
-    } else if (typeof c === "string") {
-      return GrimoireInterface.componentDeclarations.get(c).ctor as any as (new () => T);
     } else {
-      return GrimoireInterface.componentDeclarations.get(c).ctor as any as (new () => T);
+      const dec = GrimoireInterface.componentDeclarations.get(c);
+      if (dec) {
+        return dec.ctor as any as (new () => T);
+      }
+      return null;
     }
   }
 }

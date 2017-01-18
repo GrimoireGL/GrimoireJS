@@ -554,7 +554,7 @@ class GomlNode extends EEObject {
     // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
     if (!name) {
-      throw new Error("name must be not null or undefined");
+      throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
       return this._components.find(c => c instanceof name) as any as T || null;
     } else {

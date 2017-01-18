@@ -5,10 +5,10 @@ import Attribute from "../Node/Attribute";
 
 export default class AttributeManager {
 
-  public constructor(public tag: string, public attributes: NSDictionary<Attribute>) { }
-
   private _attrBuffer: { [fqn: string]: any } = {};
   private _watchBuffer: { [fqn: string]: (newValue: any, oldValue: any, attr: Attribute) => void } = {};
+
+  public constructor(public tag: string, public attributes: NSDictionary<Attribute>) { }
 
   public addAttribute(attr: Attribute): Attribute {
     if (this.attributes.get(attr.name)) {

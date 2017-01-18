@@ -252,6 +252,12 @@ export default class GrimoireInterfaceImpl {
   for(let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
+  for(let key in this.nodeDictionary) {
+    delete this.nodeDictionary[key];
+  }
+  for(let key in this.componentDictionary) {
+    delete this.componentDictionary[key];
+  }
   this.loadTasks.splice(0, this.loadTasks.length);
   this.initialize();
 }
@@ -268,7 +274,7 @@ this[name] = func.bind(this);
   }
   GomlInterface[name] = func.bind(this);
 }
-  public extendNodeInterface(name: string, func:Function):void {
+  public extendNodeInterface(name: string, func: Function): void {
   if(NodeInterface[name]) {
     throw new Error(`gr.${name} can not extend.it is already exist.`);
   }

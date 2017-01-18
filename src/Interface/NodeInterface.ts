@@ -119,8 +119,7 @@ class NodeInterface {
   }
 
   /**
-   * このノードインタフェースが対象とするノードの子に、
-   * 指定されたノードが存在すれば削除します。
+   * このノードインタフェースが対象とするノードをツリーから削除します。s
    * @param {GomlNode} child [description]
    */
   public remove(): NodeInterface {
