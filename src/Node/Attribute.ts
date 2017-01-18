@@ -207,6 +207,9 @@ class Attribute {
   }
 
   private _notifyChange(newValue: any): void {
+    if (!this.component.isActive) {
+      return;
+    }
     const lastvalue = this._lastValuete;
     const c = this.converter as any;
     this._observers.forEach((handler) => {
