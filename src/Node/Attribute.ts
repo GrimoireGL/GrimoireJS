@@ -3,7 +3,6 @@ import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
-import AttributeConverter from "./AttributeConverter";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 import Component from "./Component";
@@ -29,7 +28,7 @@ class Attribute {
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: AttributeConverter;
+  public converter: (val: any, attr: Attribute) => any;
 
   /**
    * A component reference that this attribute is bound to.
@@ -113,15 +112,11 @@ class Attribute {
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
-    attr.converter = GrimoireInterface.converters.get(converterName);
+    attr.converter = GrimoireInterface.converters.get(converterName).convert;
     if (attr.converter === void 0) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
-    attr.converter = {
-      convert: attr.converter.convert.bind(attr),
-      name: attr.converter.name
-    };
     attr.component.attributes.set(attr.name, attr);
     return attr;
   }
@@ -198,7 +193,7 @@ class Attribute {
   }
 
   private _valuate(raw: any): any {
-    const v = (this.converter as any).convert(raw);
+    const v = this.converter(raw, this);
     if (v === void 0) {
       throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
     }
@@ -211,9 +206,8 @@ class Attribute {
       return;
     }
     const lastvalue = this._lastValuete;
-    const c = this.converter as any;
     this._observers.forEach((handler) => {
-      handler(c.convert(newValue), lastvalue, this);
+      handler(this.converter(newValue, this), lastvalue, this);
     });
   }
 }

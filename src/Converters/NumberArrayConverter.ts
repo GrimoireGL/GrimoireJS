@@ -1,6 +1,4 @@
-import Attribute from "../Node/Attribute";
-
-function NumberArrayConverter(this: Attribute, val: any): any {
+export default function NumberArrayConverter(val: any): any {
   if (val instanceof Array) {
     return val;
   }
@@ -9,5 +7,3 @@ function NumberArrayConverter(this: Attribute, val: any): any {
     return splitted.map(s => Number.parseFloat(s));
   }
 }
-
-export default NumberArrayConverter;

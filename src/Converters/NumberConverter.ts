@@ -1,7 +1,4 @@
-import Attribute from "../Node/Attribute";
-
-
-function NumberConverter(this: Attribute, val: any): number {
+export default function NumberConverter(val: any): number {
   if (typeof val === "number") {
     return val;
   } else if (typeof val === "string") {
@@ -10,5 +7,3 @@ function NumberConverter(this: Attribute, val: any): number {
     return null;
   }
 }
-
-export default NumberConverter;

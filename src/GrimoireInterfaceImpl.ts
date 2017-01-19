@@ -1,3 +1,4 @@
+import IAttributeConverterDeclaration from "./declaration/IAttributeConverterDeclaration";
 import GomlLoader from "./Node/GomlLoader";
 import EnumConverter from "./Converters/EnumConverter";
 import NumberArrayConverter from "./Converters/NumberArrayConverter";
@@ -19,7 +20,6 @@ import GomlNode from "./Node/GomlNode";
 import ComponentDeclaration from "./Node/ComponentDeclaration";
 import Component from "./Node/Component";
 import IAttributeDeclaration from "./Node/IAttributeDeclaration";
-import AttributeConverter from "./Node/AttributeConverter";
 import NSSet from "./Base/NSSet";
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
@@ -31,7 +31,7 @@ export default class GrimoireInterfaceImpl {
 
   public nodeDeclarations: NSDictionary<NodeDeclaration> = new NSDictionary<NodeDeclaration>();
 
-  public converters: NSDictionary<AttributeConverter> = new NSDictionary<AttributeConverter>();
+  public converters: NSDictionary<IAttributeConverterDeclaration> = new NSDictionary<IAttributeConverterDeclaration>();
 
   public componentDeclarations: NSDictionary<ComponentDeclaration> = new NSDictionary<ComponentDeclaration>();
 
@@ -206,10 +206,15 @@ export default class GrimoireInterfaceImpl {
     return nodes;
   }
 
-
-  public registerConverter(name: string | NSIdentity, converter: ((this: Attribute, val: any) => any)): void {
-    const n = Ensure.ensureTobeNSIdentity(name);
-    this.converters.set(n, { name: n, convert: converter } as AttributeConverter);
+  public registerConverter(name: string | NSIdentity, converter: ((val: any, attr: Attribute) => any)): void;
+  public registerConverter(declaration: IAttributeConverterDeclaration): void;
+  public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((this: Attribute, val: any) => any)): void {
+    if(converter) {
+      this.registerConverter({ name: Ensure.ensureTobeNSIdentity(arg1 as any), parameter: {}, verify: () => true, convert: converter });
+      return;
+    }
+    const dec = arg1 as IAttributeConverterDeclaration;
+    this.converters.set(Ensure.ensureTobeNSIdentity(dec.name), dec);
   }
 
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
@@ -252,17 +257,17 @@ export default class GrimoireInterfaceImpl {
   for(let key in this.rootNodes) {
     delete this.rootNodes[key];
   }
-  for(let key in this.nodeDictionary) {
+  for (let key in this.nodeDictionary) {
     delete this.nodeDictionary[key];
   }
-  for(let key in this.componentDictionary) {
+  for (let key in this.componentDictionary) {
     delete this.componentDictionary[key];
   }
   this.loadTasks.splice(0, this.loadTasks.length);
   this.initialize();
 }
 
-  public extendGrimoireInterface(name:string, func:Function):void {
+  public extendGrimoireInterface(name: string, func: Function): void {
   if(this[name]) {
   throw new Error(`gr.${name} can not extend.it is already exist.`);
 }
