@@ -208,8 +208,8 @@ export default class GrimoireInterfaceImpl {
 
   public registerConverter(name: string | NSIdentity, converter: ((val: any, attr: Attribute) => any)): void;
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
-  public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((this: Attribute, val: any) => any)): void {
-    if(converter) {
+  public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+    if (converter) {
       this.registerConverter({ name: Ensure.ensureTobeNSIdentity(arg1 as any), parameter: {}, verify: () => true, convert: converter });
       return;
     }
@@ -220,27 +220,27 @@ export default class GrimoireInterfaceImpl {
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[], defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults ?: { [attrName: string]: any }): NodeDeclaration {
-  const dec = this.nodeDeclarations.get(targetDeclaration);
-  if (!dec) {
-    throw new Error(`attempt not-exist node declaration : ${Ensure.ensureTobeNSIdentity(targetDeclaration).name}`);
-  }
-  if (defaults) {
-    const additionalC = arg2 as (string | NSIdentity)[];
-    for (let i = 0; i < additionalC.length; i++) {
-      dec.addDefaultComponent(additionalC[i]);
+  public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
+    const dec = this.nodeDeclarations.get(targetDeclaration);
+    if (!dec) {
+      throw new Error(`attempt not-exist node declaration : ${Ensure.ensureTobeNSIdentity(targetDeclaration).name}`);
     }
-    dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(defaults));
-  } else if (Array.isArray(arg2)) {
-    const additionalC = arg2 as (string | NSIdentity)[];
-    for (let i = 0; i < additionalC.length; i++) {
-      dec.addDefaultComponent(additionalC[i]);
+    if (defaults) {
+      const additionalC = arg2 as (string | NSIdentity)[];
+      for (let i = 0; i < additionalC.length; i++) {
+        dec.addDefaultComponent(additionalC[i]);
+      }
+      dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(defaults));
+    } else if (Array.isArray(arg2)) {
+      const additionalC = arg2 as (string | NSIdentity)[];
+      for (let i = 0; i < additionalC.length; i++) {
+        dec.addDefaultComponent(additionalC[i]);
+      }
+    } else {
+      dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(arg2));
     }
-  } else {
-    dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(arg2));
+    return dec;
   }
-  return dec;
-}
 
 
 
@@ -251,100 +251,100 @@ export default class GrimoireInterfaceImpl {
    * Clear all configuration that GrimoireInterface contain.
    */
   public clear(): void {
-  this.nodeDeclarations.clear();
-  this.componentDeclarations.clear();
-  this.converters.clear();
-  for(let key in this.rootNodes) {
-    delete this.rootNodes[key];
+    this.nodeDeclarations.clear();
+    this.componentDeclarations.clear();
+    this.converters.clear();
+    for (let key in this.rootNodes) {
+      delete this.rootNodes[key];
+    }
+    for (let key in this.nodeDictionary) {
+      delete this.nodeDictionary[key];
+    }
+    for (let key in this.componentDictionary) {
+      delete this.componentDictionary[key];
+    }
+    this.loadTasks.splice(0, this.loadTasks.length);
+    this.initialize();
   }
-  for (let key in this.nodeDictionary) {
-    delete this.nodeDictionary[key];
-  }
-  for (let key in this.componentDictionary) {
-    delete this.componentDictionary[key];
-  }
-  this.loadTasks.splice(0, this.loadTasks.length);
-  this.initialize();
-}
 
   public extendGrimoireInterface(name: string, func: Function): void {
-  if(this[name]) {
-  throw new Error(`gr.${name} can not extend.it is already exist.`);
-}
-this[name] = func.bind(this);
-}
-  public extendGomlInterface(name:string, func:Function):void {
-  if(GomlInterface[name]) {
-    throw new Error(`gr.${name} can not extend.it is already exist.`);
+    if (this[name]) {
+      throw new Error(`gr.${name} can not extend.it is already exist.`);
+    }
+    this[name] = func.bind(this);
   }
-  GomlInterface[name] = func.bind(this);
-}
+  public extendGomlInterface(name: string, func: Function): void {
+    if (GomlInterface[name]) {
+      throw new Error(`gr.${name} can not extend.it is already exist.`);
+    }
+    GomlInterface[name] = func.bind(this);
+  }
   public extendNodeInterface(name: string, func: Function): void {
-  if(NodeInterface[name]) {
-    throw new Error(`gr.${name} can not extend.it is already exist.`);
+    if (NodeInterface[name]) {
+      throw new Error(`gr.${name} can not extend.it is already exist.`);
+    }
+    NodeInterface[name] = func.bind(this);
   }
-  NodeInterface[name] = func.bind(this);
-}
 
   /**
    * Ensure the given object or constructor to be an constructor inherits Component;
    * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
    * @return {[type]}      [The constructor inherits Component]
    */
-  private _ensureTobeComponentConstructor(obj: Object | (new () => Component), baseConstructor ?: (new () => Component)): new () => Component {
-  if (typeof obj === "function") {
-    if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
-      throw new Error("Component constructor must extends Component class.");
-    }
-    return obj as (new () => Component);
-  } else if (typeof obj === "object") {
-    if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component)) {
-      throw new Error("Base component comstructor must extends Compoent class.");
-    }
-    const ctor = baseConstructor || Component;
-    const newCtor = function() {
-      ctor.call(this);
-    };
-    const properties = {};
-    for (let key in obj) {
-      if (key === "attributes") {
-        continue;
+  private _ensureTobeComponentConstructor(obj: Object | (new () => Component), baseConstructor?: (new () => Component)): new () => Component {
+    if (typeof obj === "function") {
+      if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
+        throw new Error("Component constructor must extends Component class.");
       }
-      properties[key] = { value: obj[key] };
-    }
+      return obj as (new () => Component);
+    } else if (typeof obj === "object") {
+      if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component)) {
+        throw new Error("Base component comstructor must extends Compoent class.");
+      }
+      const ctor = baseConstructor || Component;
+      const newCtor = function() {
+        ctor.call(this);
+      };
+      const properties = {};
+      for (let key in obj) {
+        if (key === "attributes") {
+          continue;
+        }
+        properties[key] = { value: obj[key] };
+      }
 
-    const attributes = {};
-    for (let key in ctor["attributes"]) {
-      attributes[key] = ctor["attributes"][key];
+      const attributes = {};
+      for (let key in ctor["attributes"]) {
+        attributes[key] = ctor["attributes"][key];
+      }
+      for (let key in obj["attributes"]) {
+        attributes[key] = obj["attributes"][key];
+      }
+      newCtor.prototype = Object.create(ctor.prototype, properties);
+      Object.defineProperty(newCtor, "attributes", {
+        value: attributes
+      });
+      obj = newCtor;
+      return obj as (new () => Component);
     }
-    for (let key in obj["attributes"]) {
-      attributes[key] = obj["attributes"][key];
-    }
-    newCtor.prototype = Object.create(ctor.prototype, properties);
-    Object.defineProperty(newCtor, "attributes", {
-      value: attributes
-    });
-    obj = newCtor;
-    return obj as (new () => Component);
+    return Component;
   }
-  return Component;
-}
 
   private _ensureNameTobeConstructor(component: string | NSIdentity | (new () => Component)): (new () => Component) {
-  if (!component) {
-    return null;
-  }
-  if (typeof component === "function") {
-    return component;
-  } else if (typeof component === "string") {
-    return this._ensureNameTobeConstructor(Ensure.ensureTobeNSIdentity(component));
-  } else {
-    // here NSIdentity.
-    let c = this.componentDeclarations.get(component);
-    if (!c) {
+    if (!component) {
       return null;
     }
-    return c.ctor;
+    if (typeof component === "function") {
+      return component;
+    } else if (typeof component === "string") {
+      return this._ensureNameTobeConstructor(Ensure.ensureTobeNSIdentity(component));
+    } else {
+      // here NSIdentity.
+      let c = this.componentDeclarations.get(component);
+      if (!c) {
+        return null;
+      }
+      return c.ctor;
+    }
   }
-}
 }
