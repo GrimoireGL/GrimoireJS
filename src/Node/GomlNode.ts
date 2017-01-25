@@ -465,6 +465,9 @@ class GomlNode extends EEObject {
       component = obj.name;
     }
     const declaration = GrimoireInterface.componentDeclarations.get(component);
+    if (!declaration) {
+      throw new Error(`component '${Ensure.ensureTobeNSIdentity(component).fqn}' is not defined.`);
+    }
     const instance = declaration.generateInstance();
     attributes = attributes || {};
 
@@ -576,7 +579,7 @@ class GomlNode extends EEObject {
   public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
     return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
-  public getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+  public getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
     if (this.parent) {
       return this.parent._getComponentInAncesotor(name);
     }
