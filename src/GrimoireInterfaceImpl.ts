@@ -77,7 +77,7 @@ export default class GrimoireInterfaceImpl {
     this.registerConverter("Boolean", BooleanConverter);
     this.registerConverter("Array", ArrayConverter);
     this.registerConverter("Object", ObjectConverter);
-    this.registerConverter("Enum", EnumConverter);
+    this.registerConverter(EnumConverter);
     this.registerConverter("Number", NumberConverter);
     this.registerConverter("Component", ComponentConverter);
     this.registerConverter("NumberArray", NumberArrayConverter);
@@ -210,7 +210,7 @@ export default class GrimoireInterfaceImpl {
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
   public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
-      this.registerConverter({ name: Ensure.ensureTobeNSIdentity(arg1 as any), parameter: {}, verify: () => true, convert: converter });
+      this.registerConverter({ name: Ensure.ensureTobeNSIdentity(arg1 as any), verify: () => true, convert: converter });
       return;
     }
     const dec = arg1 as IAttributeConverterDeclaration;

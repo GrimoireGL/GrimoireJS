@@ -3,12 +3,6 @@ interface IAttributeDeclaration {
   converter: string | NSIdentity;
   default: any;
   readonly?: boolean;
-
-  /**
-   * set TRUE if this attribute should be lazy evaluation.
-   * @type {[type]}
-   */
-  lazy?: boolean;
   [parameters: string]: any;
 }
 

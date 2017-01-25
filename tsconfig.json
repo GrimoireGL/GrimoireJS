@@ -33,7 +33,7 @@
     "./src/Converters/ObjectConverter.ts",
     "./src/Converters/StringArrayConverter.ts",
     "./src/Converters/StringConverter.ts",
-    "./src/declaration/IAttributeConverterDeclaration.ts",
+    "./src/Declaration/IAttributeConverterDeclaration.ts",
     "./src/GrimoireInterface.ts",
     "./src/GrimoireInterfaceImpl.ts",
     "./src/index.ts",

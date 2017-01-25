@@ -1,3 +1,4 @@
+import IAttributeConverterDeclaration from "../declaration/IAttributeConverterDeclaration";
 import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
@@ -28,7 +29,7 @@ class Attribute {
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: (val: any, attr: Attribute) => any;
+  public converter: IAttributeConverterDeclaration;
 
   /**
    * A component reference that this attribute is bound to.
@@ -36,6 +37,7 @@ class Attribute {
    */
   public component: Component;
 
+  public convertContext: any = {};
   /**
    * Cache of attribute value.
    * @type {any}
@@ -95,7 +97,7 @@ class Attribute {
     if (!conv) {
       throw new Error(`converter ${cname.name} is not defined.`);
     }
-    return conv.convert.bind(self)(val); // TODO: performance problem?
+    return conv.convert(val, self);
   }
 
   /**
@@ -112,12 +114,13 @@ class Attribute {
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
-    attr.converter = GrimoireInterface.converters.get(converterName).convert;
+    attr.converter = GrimoireInterface.converters.get(converterName);
     if (attr.converter === void 0) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
     attr.component.attributes.set(attr.name, attr);
+    attr.converter.verify(attr);
     return attr;
   }
 
@@ -153,7 +156,7 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
-    if (this.declaration.lazy) {
+    if (this.converter["lazy"]) {
       targetObject.__defineGetter__(variableName, () => {
         return this.Value;
       });
@@ -193,7 +196,7 @@ class Attribute {
   }
 
   private _valuate(raw: any): any {
-    const v = this.converter(raw, this);
+    const v = this.converter.convert(raw, this);
     if (v === void 0) {
       throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
     }
@@ -207,7 +210,7 @@ class Attribute {
     }
     const lastvalue = this._lastValuete;
     this._observers.forEach((handler) => {
-      handler(this.converter(newValue, this), lastvalue, this);
+      handler(this.converter.convert(newValue, this), lastvalue, this);
     });
   }
 }
