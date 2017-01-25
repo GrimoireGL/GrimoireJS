@@ -36,6 +36,7 @@
     "./src/Declaration/IAttributeConverterDeclaration.ts",
     "./src/GrimoireInterface.ts",
     "./src/GrimoireInterfaceImpl.ts",
+    "./src/index.ts",
     "./src/Interface/GomlInterface.ts",
     "./src/Interface/IGomlInterface.ts",
     "./src/Interface/NodeInterface.ts",
