@@ -1,4 +1,4 @@
-import IAttributeConverterDeclaration from "./declaration/IAttributeConverterDeclaration";
+import IAttributeConverterDeclaration from "./Declaration/IAttributeConverterDeclaration";
 import GomlLoader from "./Node/GomlLoader";
 import EnumConverter from "./Converters/EnumConverter";
 import NumberArrayConverter from "./Converters/NumberArrayConverter";

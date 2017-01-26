@@ -1,4 +1,4 @@
-import IAttributeConverterDeclaration from "../declaration/IAttributeConverterDeclaration";
+import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
 import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
