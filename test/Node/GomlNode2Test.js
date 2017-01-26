@@ -29,7 +29,6 @@ import GrimoireInterface from "../../lib-es5/GrimoireInterface";
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
   let aa = res.status(200).body(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.goml"));
-  // console.log(aa);
   return aa;
 });
 
@@ -64,7 +63,7 @@ test.beforeEach(async() => {
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html"), "text/html");
   global.document = htmlDoc;
-  global.document.querySelectorAll = function (selector) {
+  global.document.querySelectorAll = function () {
     return global.document.getElementsByTagName("script");
   };
   global.Node = {
@@ -231,7 +230,7 @@ test('enabled attribute can be obatined as default', (t) => {
 
 test('id attribute should sync with element', (t) => {
   const testNode3 = rootNode.children[0];
-  const id = testNode3.attributes.get("id");
+  const id = testNode3.getAttribute("id");
   testNode3.setAttribute("id", "test2");
   t.truthy(testNode3.element.id === "test2");
 });
@@ -278,3 +277,7 @@ test('null should be "" as id and classname', (t) => {
   t.truthy(child.element.className === "");
   t.truthy(child.getComponent("GrimoireComponent").getAttribute("class") === null);
 });
+
+// test("getComponentsInChildren",t=>{
+//   GrimoireInterface("")
+// });

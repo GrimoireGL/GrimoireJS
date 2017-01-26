@@ -57,9 +57,9 @@ class GomlNode extends EEObject {
     return this.nodeDeclaration.name;
   }
 
-  public get attributes(): NSDictionary<Attribute> {// デフォルトコンポーネントの属性
-    return this._attributeManager.attributes;
-  }
+  // public get attributes(): NSDictionary<Attribute> {// デフォルトコンポーネントの属性
+  //   return this._attributeManager.attributes;
+  // }
 
   /**
    * GomlInterface that this node is bound to.
@@ -155,7 +155,7 @@ class GomlNode extends EEObject {
     this._root = this;
     this._tree = GrimoireInterface([this]);
     this._components = [];
-    this._attributeManager = new AttributeManager(recipe.name.name, new NSDictionary<Attribute>());
+    this._attributeManager = new AttributeManager(recipe.name.name);
 
     this.element.setAttribute(Constants.x_gr_id, this.id);
     const defaultComponentNames = recipe.defaultComponentsActual;
@@ -388,11 +388,11 @@ class GomlNode extends EEObject {
     return this.getAttribute(attrName);
   }
   public getAttribute(attrName: string | NSIdentity): any {
-    return this._attributeManager.getAttribute(attrName);
+    return this._attributeManager.getAttribute(attrName).Value;
   }
 
   public getAttributeRaw(attrName: string | NSIdentity): Attribute {
-    return this._attributeManager.attributes.get(attrName as string);
+    return this._attributeManager.getAttribute(attrName);
   }
 
   public setAttribute(attrName: string | NSIdentity, value: any, ignoireFreeze = true): void {
