@@ -11,7 +11,7 @@ import Component from "./Component";
 /**
  * Manage a attribute attached to components.
  */
-class Attribute {
+export default class Attribute {
 
   /**
    * The name of attribute.
@@ -156,6 +156,9 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
+    if (targetObject[variableName]) {
+      console.warn(`component field ${variableName} is already defined.`);
+    }
     if (this.converter["lazy"]) {
       targetObject.__defineGetter__(variableName, () => {
         return this.Value;
@@ -214,6 +217,3 @@ class Attribute {
     });
   }
 }
-
-
-export default Attribute;
