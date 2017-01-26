@@ -160,21 +160,24 @@ export default class Attribute {
       console.warn(`component field ${variableName} is already defined.`);
     }
     if (this.converter["lazy"]) {
-      targetObject.__defineGetter__(variableName, () => {
-        return this.Value;
+      Object.defineProperty(targetObject, variableName, {
+        get: () => this.Value,
+        set: (val) => { this.Value = val; },
+        enumerable: true,
+        configurable: true
       });
     } else {
       let backing;
       this.watch(v => {
         backing = v;
       }, true);
-      targetObject.__defineGetter__(variableName, () => {
-        return backing;
+      Object.defineProperty(targetObject, variableName, {
+        get: () => backing,
+        set: (val) => { this.Value = val; },
+        enumerable: true,
+        configurable: true
       });
     }
-    targetObject.__defineSetter__(variableName, (val) => {
-      this.Value = val;
-    });
   }
 
   /**
