@@ -44,7 +44,8 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
-        throw new Error(`attribute ${attrName} is not found.`);
+        this._watchBuffer[Ensure.ensureTobeNSIdentity(attrName).fqn] = watcher;
+        return;
       }
       const attrFQN = attrs[0].name.fqn;
       for (let i = 1; i < attrs.length; i++) {
@@ -58,7 +59,8 @@ export default class AttributeManager {
     } else {
       const attrs = this._attributesFQNMap[attrName.fqn];
       if (attrs === void 0 || attrs.length === 0) {
-        throw new Error(`attribute ${attrName} is not found.`);
+        this._watchBuffer[attrName.fqn] = watcher;
+        return;
       }
       for (let i = 0; i < attrs.length; i++) {
         attrs[i].watch(watcher, immediate);
@@ -70,7 +72,8 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
-        throw new Error(`attribute ${attrName} is not found.`);
+        this._attrBuffer[Ensure.ensureTobeNSIdentity(attrName).fqn] = value;
+        return;
       }
       const attrFQN = attrs[0].name.fqn;
       for (let i = 1; i < attrs.length; i++) {
@@ -84,7 +87,8 @@ export default class AttributeManager {
     } else {
       const attrs = this._attributesFQNMap[attrName.fqn];
       if (attrs === void 0 || attrs.length === 0) {
-        throw new Error(`attribute ${attrName} is not found.`);
+        this._attrBuffer[attrName.fqn] = value;
+        return;
       }
       for (let i = 0; i < attrs.length; i++) {
         attrs[i].Value = value;
