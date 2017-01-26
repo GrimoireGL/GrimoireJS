@@ -57,10 +57,6 @@ class GomlNode extends EEObject {
     return this.nodeDeclaration.name;
   }
 
-  // public get attributes(): NSDictionary<Attribute> {// デフォルトコンポーネントの属性
-  //   return this._attributeManager.attributes;
-  // }
-
   /**
    * GomlInterface that this node is bound to.
    * throw exception if this node is not mounted.
@@ -255,9 +251,6 @@ class GomlNode extends EEObject {
     }
   }
 
-
-
-
   public append(tag: string): GomlNode[] {
     const elems = XMLReader.parseXML(tag);
     let ret: GomlNode[] = [];
@@ -378,15 +371,6 @@ class GomlNode extends EEObject {
     }
   }
 
-  /**
-   * [[[OBSOLETE!]]]get value of attribute.
-   * @param  {string | NSIdentity}  attrName [description]
-   * @return {any}         [description]
-   */
-  public getValue(attrName: string | NSIdentity): any {
-    console.warn("getValue is obsolate. please use getAttribute instead of");
-    return this.getAttribute(attrName);
-  }
   public getAttribute(attrName: string | NSIdentity): any {
     return this._attributeManager.getAttribute(attrName).Value;
   }
@@ -511,13 +495,12 @@ class GomlNode extends EEObject {
 
     this._components.push(component);
 
-    if (isDefaultComponent) {
-      // attributes should be exposed on node
-      component.attributes.forEach(p => this.addAttribute(p));
-      if (this._defaultValueResolved) {
-        component.attributes.forEach(p => p.resolveDefaultValue(NodeUtility.getAttributes(this.element)));
-      }
+    // attributes should be exposed on node
+    component.attributes.forEach(p => this.addAttribute(p));
+    if (this._defaultValueResolved) {
+      component.attributes.forEach(p => p.resolveDefaultValue(NodeUtility.getAttributes(this.element)));
     }
+
     if (this._mounted) {
       component.resolveDefaultAttributes(null); // here must be optional component.should not use node element attributes.
       this._sendMessageForcedTo(component, "awake");

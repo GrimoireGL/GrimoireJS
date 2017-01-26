@@ -13,7 +13,7 @@ import IDObject from "../Base/IDObject";
 /**
  * Base class for any components
  */
-class Component extends IDObject {
+export default class Component extends IDObject {
   /**
    * Name of this component
    * @type {NSIdentity}
@@ -167,9 +167,7 @@ class Component extends IDObject {
       throw new Error("can not add attribute null or undefined.");
     }
     const attr = Attribute.generateAttributeForComponent(name, attribute, this);
-    if (this.isDefaultComponent) {
-      this.node.addAttribute(attr);
-    }
+    this.node.addAttribute(attr);
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
       attr.resolveDefaultValue(NodeUtility.getAttributes(this.node.element));
     } else { // If not,the default value of attributes should be retrived from this element.
@@ -185,9 +183,7 @@ class Component extends IDObject {
         throw new Error("can not remove attributes :" + name);
       }
       const attrId = this._additionalAttributesNames[index];
-      if (this.isDefaultComponent) {
-        this.node.removeAttribute(this.attributes.get(attrId));
-      }
+      this.node.removeAttribute(this.attributes.get(attrId));
       this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {
@@ -203,5 +199,3 @@ class Component extends IDObject {
     });
   }
 }
-
-export default Component;
