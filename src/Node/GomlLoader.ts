@@ -44,12 +44,12 @@ class GomlLoader {
       pArray[i] = GomlLoader.loadFromScriptTag(element);
     }
     if (pArray.length === 0 && GrimoireInterface.debug) {
-      console.warn("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?")
+      console.warn("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?");
     }
     await Promise.all<void>(pArray);
     GomlLoader.initializedEventHandlers.forEach(handler => {
       handler(elements);
-    })
+    });
   }
 
   /**

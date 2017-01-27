@@ -1,4 +1,3 @@
-import NodeUtility from "./NodeUtility";
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../GrimoireInterface";
 

@@ -39,16 +39,16 @@ export default class Component extends IDObject {
    * Whether this component was created by nodeDeclaration
    * @type {boolean}
    */
-  public isDefaultComponent: boolean = false;
+  public isDefaultComponent = false;
 
-  public disposed: boolean = false;
+  public disposed = false;
 
   /**
    * Flag that this component is activated or not.
    * @type {boolean}
    */
-  private _enabled: boolean = true;
-  private _awaked: boolean = false;
+  private _enabled = true;
+  private _awaked = false;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
   private _initializedInfo: ITreeInitializedInfo = null;

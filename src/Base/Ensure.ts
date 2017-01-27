@@ -1,4 +1,3 @@
-import Component from "../Node/Component";
 import GrimoireInterface from "../GrimoireInterface";
 import NSIdentity from "./NSIdentity";
 import NSDictionary from "./NSDictionary";
@@ -41,8 +40,8 @@ class Ensure {
       return undefined;
     }
     if (typeof name === "string") {
-      if (name.indexOf("|") !== -1) {//name is fqn
-        return NSIdentity.fromFQN(name)
+      if (name.indexOf("|") !== -1) {// name is fqn
+        return NSIdentity.fromFQN(name);
       }
       return NSIdentity.from(name);
     } else {

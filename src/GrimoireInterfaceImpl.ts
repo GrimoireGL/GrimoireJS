@@ -49,8 +49,7 @@ export default class GrimoireInterfaceImpl {
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
-
-  public debug: boolean = true;
+  public debug = true;
 
   /**
    * The object assigned to gr before loading grimoire.js

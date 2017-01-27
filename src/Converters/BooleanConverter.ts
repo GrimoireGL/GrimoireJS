@@ -1,6 +1,6 @@
 import Attribute from "../Node/Attribute";
 
-function BooleanConverter(val: any,attr: Attribute): any {
+function BooleanConverter(val: any, attr: Attribute): any {
   if (typeof val === "boolean") {
     return val;
   } else if (typeof val === "string") {

@@ -1,7 +1,6 @@
 import Ensure from "../Base/Ensure";
 import NSDictionary from "../Base/NSDictionary";
 import NSSet from "../Base/NSSet";
-import GomlNode from "./GomlNode";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 

@@ -31,14 +31,14 @@ class GomlNode extends EEObject {
   private _tree: IGomlInterface & GomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _attributeManager: AttributeManager;
-  private _isActive: boolean = false;
+  private _isActive = false;
 
   private _messageCache: { [message: string]: Component[] } = {};
 
-  private _deleted: boolean = false;
-  private _mounted: boolean = false;
-  private _enabled: boolean = true;
-  private _defaultValueResolved: boolean = false;
+  private _deleted = false;
+  private _mounted = false;
+  private _enabled = true;
+  private _defaultValueResolved = false;
   private _initializedInfo: ITreeInitializedInfo = null;
 
   /**
