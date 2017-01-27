@@ -1,3 +1,8 @@
+/**
+ * 数値のためのコンバータ
+ * @param  {any}    val [description]
+ * @return {number}     [description]
+ */
 export default function NumberConverter(val: any): number {
   if (typeof val === "number") {
     return val;

@@ -74,11 +74,11 @@ export default class GrimoireInterfaceImpl {
     this.registerConverter("String", StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter("Boolean", BooleanConverter);
-    this.registerConverter("Array", ArrayConverter);
+    this.registerConverter(ArrayConverter);
     this.registerConverter("Object", ObjectConverter);
     this.registerConverter(EnumConverter);
     this.registerConverter("Number", NumberConverter);
-    this.registerConverter("Component", ComponentConverter);
+    this.registerConverter(ComponentConverter);
     this.registerConverter("NumberArray", NumberArrayConverter);
     this.registerComponent("GrimoireComponent", GrimoireComponent);
     this.registerNode("grimoire-node-base", ["GrimoireComponent"]);

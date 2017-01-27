@@ -1,8 +1,14 @@
 import Attribute from "../Node/Attribute";
 
+/**
+ * 列挙のためのコンバータ。
+ * 属性宣言に`table`パラメータが必要です。
+ * `table`パラメータは列挙する文字列から数値への連想配列です。
+ * 数値の場合、そのまま返します。
+ * 文字列の場合、テーブルの対応する値を返します。
+ */
 export default {
   name: "Enum",
-
   verify: function(attr: Attribute) {
     if (!attr.declaration["table"]) {
       throw new Error("Enum converter needs to be specified table in attribute dictionary");
@@ -16,10 +22,8 @@ export default {
       const result = attr.declaration["table"][val];
       if (!result) {
         throw new Error("Specified value is not exisiting in the relation table");
-      } else {
-        return result;
       }
+      return result;
     }
-    return null;
   }
 };
