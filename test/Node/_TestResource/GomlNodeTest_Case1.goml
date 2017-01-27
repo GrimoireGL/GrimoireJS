@@ -1,10 +1,10 @@
 <goml>
-  <testNode3 id="test" class="classTest" enabled="false">
-    <testNode2 testAttr2="123" inheritAttr="hogehoge">
-      <testNode2.components>
-        <testComponentOptional value="999"/>
-      </testNode2.components>
-    </testNode2>
-    <testNode1 testAttr1="hugahuga"></testNode1>
-  </testNode3>
+  <test-node3 id="test" class="classTest" enabled="false">
+    <test-node2 testAttr2="123" inheritAttr="hogehoge">
+      <test-node2.components>
+        <TestComponentOptional value="999"/>
+      </test-node2.components>
+    </test-node2>
+    <test-node1 testAttr1="hugahuga"></test-node1>
+  </test-node3>
 </goml>

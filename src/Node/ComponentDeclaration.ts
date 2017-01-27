@@ -7,11 +7,13 @@ import NSIdentity from "../Base/NSIdentity";
 import Component from "./Component";
 
 class ComponentDeclaration {
+  public static ctorMap: { ctor: new () => Component, name: NSIdentity }[] = [];
 
   public constructor(
     public name: NSIdentity,
     public attributes: { [name: string]: IAttributeDeclaration },
     public ctor: new () => Component) {
+    ComponentDeclaration.ctorMap.push({ ctor: ctor, name: name });
   }
 
   public generateInstance(componentElement?: Element): Component {

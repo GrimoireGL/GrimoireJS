@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.13.0",
+  "version": "0.14.1-beta4",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/node": "^6.0.47",
     "events": "^1.1.1",
-    "grimoirejs-cauldron": "^2.2.5"
+    "grimoirejs-cauldron": "beta"
   },
   "devDependencies": {
     "ava": "^0.17.0",

@@ -77,7 +77,7 @@ class NSIdentity {
       if (!list) {
         return new NSIdentity(Constants.defaultNamespace, arg1);
       }
-      if (list.length == 1) {
+      if (list.length === 1) {
         return list[0];
       }
       throw new Error(`name ${arg1} is ambiguous in NSIdentity.${list} exists.`);

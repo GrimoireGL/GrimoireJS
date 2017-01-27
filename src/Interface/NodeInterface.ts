@@ -1,12 +1,8 @@
 import Utility from "../Base/Utility";
-import Constants from "../Base/Constants";
-import Ensure from "../Base/Ensure";
-import GrimoireInterface from "../GrimoireInterface";
 import XMLReader from "../Base/XMLReader";
 import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
-import Component from "../Node/Component";
 import GomlNode from "../Node/GomlNode";
 
 
@@ -20,9 +16,20 @@ class NodeInterface {
     }
   }
 
+  /**
+   * 対象となるノードの個数を取得する
+   * @return {number} [description]
+   */
+  public get count(): number {
+    if (this.nodes.length === 0) {
+      return 0;
+    }
+    const counts = this.nodes.map(nodes => nodes.length);
+    return Utility.sum(counts);
+  }
 
-  public isEmpty(): boolean {
-    return this.count() === 0;
+  public get isEmpty(): boolean {
+    return this.count === 0;
   }
 
   public get<T extends GomlNode>(): T;
@@ -37,17 +44,17 @@ class NodeInterface {
         return first as T;
       }
     } else if (i2 === void 0) {
-      if (this.count() <= i1) {
+      if (this.count <= i1) {
         throw new Error("index out of range.");
       } else {
         let c = i1;
         let returnNode: GomlNode = null;
         this.forEach(node => {
           if (c === 0) {
-            returnNode = node
+            returnNode = node;
           }
           c--;
-        })
+        });
         return returnNode as T;
       }
     } else {
@@ -112,13 +119,12 @@ class NodeInterface {
   }
 
   /**
-   * このノードインタフェースが対象とするノードの子に、
-   * 指定されたノードが存在すれば削除します。
+   * このノードインタフェースが対象とするノードをツリーから削除します。s
    * @param {GomlNode} child [description]
    */
   public remove(): NodeInterface {
     this.forEach((node) => {
-      node.remove()
+      node.remove();
     });
     return this;
   }
@@ -149,10 +155,10 @@ class NodeInterface {
     }
     return null;
   }
-  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate: boolean = false) {
+  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this.forEach(node => {
       node.watch(attrName, watcher, immediate);
-    })
+    });
   }
 
   /**
@@ -205,26 +211,14 @@ class NodeInterface {
    * @return {GomlNode} [description]
    */
   public single(): GomlNode {
-    if (this.count() !== 1) {
+    if (this.count !== 1) {
       throw new Error("this nodeInterface is not single.");
     }
     const first = this.first();
     if (!first) {
-      throw new Error("this nodeInterface is not single,but is empty.")
+      throw new Error("this nodeInterface is not single,but is empty.");
     }
     return first;
-  }
-
-  /**
-   * 対象となるノードの個数を取得する
-   * @return {number} [description]
-   */
-  public count(): number {
-    if (this.nodes.length === 0) {
-      return 0;
-    }
-    const counts = this.nodes.map(nodes => nodes.length);
-    return Utility.sum(counts);
   }
 
   public filter(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): NodeInterface {
@@ -268,23 +262,6 @@ class NodeInterface {
       });
     }
   }
-
-  // private _queryComponents(query: string): Component[][][] {
-  //   return this.nodes.map((nodes) => {
-  //     return nodes.map((node) => {
-  //       const componentElements = node.componentsElement.querySelectorAll(query);
-  //       const components: Component[] = [];
-  //       for (let i = 0; i < componentElements.length; i++) {
-  //         const elem = componentElements[i];
-  //         const component = GrimoireInterface.componentDictionary[elem.getAttribute(Constants.x_gr_id)];
-  //         if (component) {
-  //           components.push(component);
-  //         }
-  //       }
-  //       return components;
-  //     });
-  //   });
-  // }
 }
 
 

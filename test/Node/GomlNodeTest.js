@@ -92,11 +92,11 @@ test("detach method works correctly", t => {
 });
 
 test("getComponents method works correctly", t => {
-  GrimoireInterface.registerComponent("testComponent", {
+  GrimoireInterface.registerComponent("TestComponent", {
     attr1: "testAttr"
   });
-  GrimoireInterface.registerNode("testNode", ["testComponent"]);
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("testNode"), null);
+  GrimoireInterface.registerNode("test-node", ["TestComponent"]);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("test-node"), null);
   const components = node.getComponents();
   t.truthy(components.length === 2);
   t.truthy(node._components[0].id === components[0].id);
@@ -116,14 +116,14 @@ test("setMounted method works correctly", t => {
 test("index method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  node.addChild(node2, null, null);
-  t.truthy(node2.index() === 0);
+  node.addChild(node2);
+  t.truthy(node2.index === 0);
 });
 test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -131,18 +131,18 @@ test("addComponent method works correctly", t => {
       }
     }
   });
-  const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
+  const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
   node._addComponentDirectly(component, true);
   const components = node.getComponents();
   t.truthy(components.length == 2);
-  t.truthy(components[1].name.name == "testComponent1");
+  t.truthy(components[1].name.name == "TestComponent1");
   t.truthy(component.isDefaultComponent)
 });
 test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -150,10 +150,10 @@ test("addComponent method works correctly", t => {
       }
     }
   });
-  const component = node.addComponent("testComponent1", { testAttr1: "testValue" });
+  const component = node.addComponent("TestComponent1", { testAttr1: "testValue" });
   const components = node.getComponents();
   t.truthy(components.length == 2);
-  t.truthy(components[1].name.name == "testComponent1");
+  t.truthy(components[1].name.name == "TestComponent1");
   t.truthy(components[1].getAttribute("testAttr1") == "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
@@ -161,7 +161,7 @@ test("getComponent method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -169,23 +169,23 @@ test("getComponent method overload works correctly", t => {
       }
     }
   });
-  GrimoireInterface.registerComponent("testComponent2", {
+  GrimoireInterface.registerComponent("TestComponent2", {
     attributes: {
       testAttr1: {
         converter: "String",
         default: "thisistest"
       }
     }
-  }, "testComponent1");
-  node.addComponent("testComponent2");
-  t.truthy(node.getComponent("testComponent2").name.name == "testComponent2");
-  t.truthy(node.getComponent("testComponent1").name.name == "testComponent2");
+  }, "TestComponent1");
+  node.addComponent("TestComponent2");
+  t.truthy(node.getComponent("TestComponent2").name.name == "TestComponent2");
+  t.truthy(node.getComponent("TestComponent1").name.name == "TestComponent2");
 });
 test("getComponents method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -193,7 +193,7 @@ test("getComponents method overload works correctly", t => {
       }
     }
   });
-  GrimoireInterface.registerComponent("testComponent2", {
+  GrimoireInterface.registerComponent("TestComponent2", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -201,14 +201,14 @@ test("getComponents method overload works correctly", t => {
       }
     }
   });
-  node.addComponent("testComponent1");
-  node.addComponent("testComponent2");
+  node.addComponent("TestComponent1");
+  node.addComponent("TestComponent2");
   const components = node.getComponents();
   t.truthy(components.length == 3);
 });
 test("addAttribute method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  GrimoireInterface.registerComponent("testComponent1", {
+  GrimoireInterface.registerComponent("TestComponent1", {
     attributes: {
       testAttr1: {
         converter: "String",
@@ -216,7 +216,7 @@ test("addAttribute method works correctly", t => {
       }
     }
   });
-  const component = GrimoireInterface.componentDeclarations.get("testComponent1").generateInstance();
+  const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
   const attr = new Attribute("testAttr", {
     converter: "String",
     default: "thisistest"

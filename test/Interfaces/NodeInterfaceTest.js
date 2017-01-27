@@ -1,5 +1,5 @@
 import '../AsyncSupport';
-import '../XMLDomInit'
+import '../XMLDomInit';
 import test from 'ava';
 import sinon from 'sinon';
 import xmldom from 'xmldom';
@@ -28,7 +28,9 @@ import GrimoireInterface from "../../lib-es5/GrimoireInterface";
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  return res.status(200).body(require("../Node/_TestResource/GomlNodeTest_Case1.goml"));
+  let aa = res.status(200).body(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.goml"));
+  // console.log(aa);
+  return aa;
 });
 
 let stringConverterSpy,
@@ -51,10 +53,21 @@ function resetSpies() {
   conflictComponent2Spy.reset();
 }
 
+
+const fs = require('fs');
+const pathaa = require("path");
+
+function readFile(path) {
+  return fs.readFileSync(pathaa.join(__dirname, path), "utf8");
+}
+
+
 test.beforeEach(async() => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(require("../Node/_TestResource/GomlNodeTest_Case1.html"), "text/html");
+  let a = readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html");
+  // console.log(a);
+  const htmlDoc = parser.parseFromString(a, "text/html");
   global.document = htmlDoc;
   global.document.querySelectorAll = function (selector) {
     return global.document.getElementsByTagName("script");
