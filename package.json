@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.14.1-beta4",
+  "version": "0.14.2",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
