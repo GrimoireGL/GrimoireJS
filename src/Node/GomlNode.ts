@@ -564,7 +564,7 @@ class GomlNode extends EEObject {
   }
   public getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
     if (this.parent) {
-      return this.parent._getComponentInAncesotor(name);
+      return this.parent._getComponentInAncestor(name);
     }
     return null;
   }
@@ -651,13 +651,13 @@ class GomlNode extends EEObject {
 
 
 
-  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+  private _getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
     const ret = this.getComponent(name);
     if (ret) {
       return ret;
     }
     if (this.parent) {
-      return this.parent._getComponentInAncesotor(name);
+      return this.parent._getComponentInAncestor(name);
     }
     return null;
   }
