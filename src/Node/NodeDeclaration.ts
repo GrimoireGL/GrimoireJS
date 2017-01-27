@@ -35,7 +35,7 @@ class NodeDeclaration {
   }
 
   public addDefaultComponent(componentName: string | NSIdentity): void {
-    const componentId = Ensure.ensureTobeNSIdentity(componentName);
+    const componentId = Ensure.tobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {
       this._defaultComponentsActual.push(componentId);

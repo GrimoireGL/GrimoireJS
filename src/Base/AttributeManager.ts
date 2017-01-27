@@ -44,7 +44,7 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
-        this._watchBuffer[Ensure.ensureTobeNSIdentity(attrName).fqn] = watcher;
+        this._watchBuffer[Ensure.tobeNSIdentity(attrName).fqn] = watcher;
         return;
       }
       const attrFQN = attrs[0].name.fqn;
@@ -72,7 +72,7 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
-        this._attrBuffer[Ensure.ensureTobeNSIdentity(attrName).fqn] = value;
+        this._attrBuffer[Ensure.tobeNSIdentity(attrName).fqn] = value;
         return;
       }
       const attrFQN = attrs[0].name.fqn;
@@ -99,7 +99,7 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
-        const attrBuf = this._attrBuffer[Ensure.ensureTobeNSIdentity(attrName).fqn];
+        const attrBuf = this._attrBuffer[Ensure.tobeNSIdentity(attrName).fqn];
         if (attrBuf !== void 0) {
           return attrBuf;
         }

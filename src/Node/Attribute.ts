@@ -92,7 +92,7 @@ export default class Attribute {
 
 
   public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
-    const cname = Ensure.ensureTobeNSIdentity(converter);
+    const cname = Ensure.tobeNSIdentity(converter);
     const conv = GrimoireInterface.converters.get(cname);
     if (!conv) {
       throw new Error(`converter ${cname.name} is not defined.`);
@@ -113,7 +113,7 @@ export default class Attribute {
     attr.name = NSIdentity.from(component.name.ns, name);
     attr.component = component;
     attr.declaration = declaration;
-    const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
+    const converterName = Ensure.tobeNSIdentity(declaration.converter);
     attr.converter = GrimoireInterface.converters.get(converterName);
     if (attr.converter === void 0) {
       // When the specified converter was not found

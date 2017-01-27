@@ -222,7 +222,7 @@ class GomlNode extends EEObject {
     if (!this.isActive) {
       return false;
     }
-    message = Ensure.ensureTobeMessage(message);
+    message = Ensure.tobeMessage(message);
     this._sendMessage(message, args);
     return true;
   }
@@ -241,11 +241,11 @@ class GomlNode extends EEObject {
     }
     if (typeof arg1 === "number") {
       const range = arg1;
-      const message = Ensure.ensureTobeMessage(<string>arg2);
+      const message = Ensure.tobeMessage(<string>arg2);
       const args = arg3;
       this._broadcastMessage(message, args, range);
     } else {
-      const message = Ensure.ensureTobeMessage(arg1);
+      const message = Ensure.tobeMessage(arg1);
       const args = arg2;
       this._broadcastMessage(message, args, -1);
     }
@@ -275,7 +275,7 @@ class GomlNode extends EEObject {
       const node = new GomlNode(nodeDec, null);
       if (attributes) {
         for (let key in attributes) {
-          const id = Ensure.ensureTobeNSIdentity(key);
+          const id = Ensure.tobeNSIdentity(key);
           node.setAttribute(id, attributes[key]);
         }
       }
@@ -380,8 +380,8 @@ class GomlNode extends EEObject {
   }
 
   public setAttribute(attrName: string | NSIdentity, value: any, ignoireFreeze = true): void {
-    if (!ignoireFreeze && this.isFreezeAttribute(Ensure.ensureTobeNSIdentity(attrName).name)) {
-      throw new Error(`attribute ${Ensure.ensureTobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
+    if (!ignoireFreeze && this.isFreezeAttribute(Ensure.tobeNSIdentity(attrName).name)) {
+      throw new Error(`attribute ${Ensure.tobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
     }
     return this._attributeManager.setAttribute(attrName, value);
   }
@@ -450,7 +450,7 @@ class GomlNode extends EEObject {
     }
     const declaration = GrimoireInterface.componentDeclarations.get(component);
     if (!declaration) {
-      throw new Error(`component '${Ensure.ensureTobeNSIdentity(component).fqn}' is not defined.`);
+      throw new Error(`component '${Ensure.tobeNSIdentity(component).fqn}' is not defined.`);
     }
     const instance = declaration.generateInstance();
     attributes = attributes || {};
@@ -532,7 +532,7 @@ class GomlNode extends EEObject {
     if (!filter) {
       return this._components as any as T[];
     } else {
-      const ctor = Ensure.ensureTobeComponentConstructor(filter);
+      const ctor = Ensure.tobeComponentConstructor(filter);
       return this._components.filter(c => c instanceof ctor) as any as T[];
     }
   }
@@ -551,7 +551,7 @@ class GomlNode extends EEObject {
     } else if (typeof name === "function") {
       return this._components.find(c => c instanceof name) as any as T || null;
     } else {
-      const ctor = Ensure.ensureTobeComponentConstructor(name);
+      const ctor = Ensure.tobeComponentConstructor(name);
       if (!ctor) {
         throw new Error(`component ${name} is not exist`);
       }
@@ -700,7 +700,7 @@ class GomlNode extends EEObject {
    * @param {string}    message [description]
    */
   private _sendMessageForcedTo(target: Component, message: string): void {
-    message = Ensure.ensureTobeMessage(message);
+    message = Ensure.tobeMessage(message);
     let method = target[message];
     if (typeof method === "function") {
       method();

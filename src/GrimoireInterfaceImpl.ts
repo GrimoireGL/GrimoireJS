@@ -107,7 +107,7 @@ export default class GrimoireInterfaceImpl {
    * @return {[type]}                       [description]
    */
   public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): ComponentDeclaration {
-    name = Ensure.ensureTobeNSIdentity(name);
+    name = Ensure.tobeNSIdentity(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
@@ -139,16 +139,16 @@ export default class GrimoireInterfaceImpl {
     requiredComponents: (string | NSIdentity)[],
     defaults?: { [key: string]: any } | NSDictionary<any>,
     superNode?: string | NSIdentity, freezeAttributes?: string[]): void {
-    name = Ensure.ensureTobeNSIdentity(name);
+    name = Ensure.tobeNSIdentity(name);
     if (this.nodeDeclarations.get(name)) {
       throw new Error(`gomlnode ${name.fqn} is already registerd.`);
     }
     if (this.debug && !Utility.isSnakeCase(name.name)) {
       console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
     }
-    requiredComponents = Ensure.ensureTobeNSIdentityArray(requiredComponents);
-    defaults = Ensure.ensureTobeNSDictionary(defaults);
-    superNode = Ensure.ensureTobeNSIdentity(superNode);
+    requiredComponents = Ensure.tobeNSIdentityArray(requiredComponents);
+    defaults = Ensure.tobeNSDictionary(defaults);
+    superNode = Ensure.tobeNSIdentity(superNode);
     this.nodeDeclarations.set(name as NSIdentity,
       new NodeDeclaration(name as NSIdentity,
         NSSet.fromArray(requiredComponents as NSIdentity[]),
@@ -209,11 +209,11 @@ export default class GrimoireInterfaceImpl {
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
   public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
-      this.registerConverter({ name: Ensure.ensureTobeNSIdentity(arg1 as any), verify: () => true, convert: converter });
+      this.registerConverter({ name: Ensure.tobeNSIdentity(arg1 as any), verify: () => true, convert: converter });
       return;
     }
     const dec = arg1 as IAttributeConverterDeclaration;
-    this.converters.set(Ensure.ensureTobeNSIdentity(dec.name), dec);
+    this.converters.set(Ensure.tobeNSIdentity(dec.name), dec);
   }
 
   public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
@@ -222,21 +222,21 @@ export default class GrimoireInterfaceImpl {
   public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
-      throw new Error(`attempt not-exist node declaration : ${Ensure.ensureTobeNSIdentity(targetDeclaration).name}`);
+      throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
     }
     if (defaults) {
       const additionalC = arg2 as (string | NSIdentity)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
-      dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(defaults));
+      dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(defaults));
     } else if (Array.isArray(arg2)) {
       const additionalC = arg2 as (string | NSIdentity)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
     } else {
-      dec.defaultAttributes.pushDictionary(Ensure.ensureTobeNSDictionary(arg2));
+      dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(arg2));
     }
     return dec;
   }
@@ -336,7 +336,7 @@ export default class GrimoireInterfaceImpl {
     if (typeof component === "function") {
       return component;
     } else if (typeof component === "string") {
-      return this._ensureNameTobeConstructor(Ensure.ensureTobeNSIdentity(component));
+      return this._ensureNameTobeConstructor(Ensure.tobeNSIdentity(component));
     } else {
       // here NSIdentity.
       let c = this.componentDeclarations.get(component);
