@@ -142,6 +142,13 @@ class NodeInterface {
     });
     return this;
   }
+  public map<T>(func: (node: GomlNode, gomlIndex: number, nodeIndex: number) => T): T[][] {
+    return this.nodes.map((array, gomlIndex) => {
+      return array.map((node, nodeIndex) => {
+        return func(node, gomlIndex, nodeIndex);
+      })
+    })
+  }
   public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
     const nodes = this.nodes;
     for (let i = 0; i < nodes.length; i++) {
@@ -239,10 +246,10 @@ class NodeInterface {
     return Utility.flat(this.nodes);
   }
 
-  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): void {
-    this.forEach(node => {
-      node.addChildByName(nodeName, attributes);
-    });
+  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): NodeInterface {
+    return new NodeInterface(this.map(node => {
+      return node.addChildByName(nodeName, attributes);
+    }));
   }
   public sendMessage(message: string, args?: any): void {
     this.forEach(node => {
