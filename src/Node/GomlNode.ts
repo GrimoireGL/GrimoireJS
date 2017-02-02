@@ -560,9 +560,15 @@ class GomlNode extends EEObject {
   }
 
   public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
+    if (name === null) {
+      throw new Error("getComponentsInChildren recieve null or undefined");
+    }
     return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
   public getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
+    if (name === null) {
+      throw new Error("getComponentInAncestor recieve null or undefined");
+    }
     if (this.parent) {
       return this.parent._getComponentInAncestor(name);
     }
