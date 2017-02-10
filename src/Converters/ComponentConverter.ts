@@ -1,3 +1,4 @@
+import Ensure from "../Base/Ensure";
 import Component from "../Node/Component";
 import GomlNode from "../Node/GomlNode";
 import Attribute from "../Node/Attribute";
@@ -25,7 +26,7 @@ export default {
     if (val instanceof GomlNode) {
       return val.getComponent(attr.declaration["target"]);
     } else if (val instanceof Component) {
-      if (val.name === attr.declaration["target"]) {
+      if (val.name.fqn === Ensure.tobeNSIdentity(attr.declaration["target"]).fqn) {
         return val;
       } else {
         throw new Error(`Specified component must be ${attr.declaration["target"]}`);
