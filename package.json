@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.14.1-beta4",
+  "version": "1.0.0",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -25,11 +25,14 @@
     "babel-polyfill": "^6.20.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-stage-2": "^6.18.0",
+    "condition-circle": "^1.5.0",
     "jsdom": "^9.8.3",
     "lodash": "^4.17.2",
     "proxyquire": "^1.7.10",
+    "semantic-release": "^6.3.2",
     "sinon": "^1.17.6",
     "ts-loader": "^1.3.2",
+    "tslint": "^4.4.2",
     "typescript": "^2.0.9",
     "typescript-awaiter": "^1.0.0",
     "webpack": "^1.13.3",
@@ -42,11 +45,13 @@
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "test": "tsc --outDir ./lib && babel ./lib --presets es2015,stage-2  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
+    "lint":"tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "npm run build -- --prod&& npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
-    "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref"
+    "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "grimoire": {
     "doc": {
@@ -56,5 +61,8 @@
       "dest": "./lib-md/index.md"
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "release": {
+    "verifyConditions": "condition-circle"
+  }
 }

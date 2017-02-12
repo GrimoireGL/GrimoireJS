@@ -12,6 +12,7 @@ class XMLReader {
       let errorneousParse = XMLReader._parser.parseFromString("<", "text/xml");
       delete console.error; // restore...
       console.error = defaultError;
+
       if ((errorneousParse as any).documentURI === void 0) {
         return false;
       }
@@ -22,7 +23,10 @@ class XMLReader {
       return parsedDocument.getElementsByTagNameNS(parsererrorNS, "parsererror").length > 0;
     };
     const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
-    if (isParseError(parsed)) {
+    // if (isParseError(parsed)) {
+    //   throw new Error("Error parsing XML");
+    // }
+    if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
       throw new Error("Error parsing XML");
     }
     if (rootElementName) {

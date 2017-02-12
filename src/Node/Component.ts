@@ -187,7 +187,8 @@ export default class Component extends IDObject {
       this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {
-      this._additionalAttributesNames.forEach(id => {
+      const arr = [].concat(this._additionalAttributesNames);
+      arr.forEach(id => {
         this.__removeAttributes(id.name);
       });
     }

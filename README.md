@@ -16,6 +16,12 @@ Logics like drawing formulas for canvas even needs DOM for easier way.
 * **Web development friendly**・・・Use with the other Web front-end frameworks. Very easy to coop with them.
 * **No more redundant codes**・・・Include only `tag`s you actually need.
 
+## Download
+
+The file you might want to download is not included this repository since even set of WebGL operations are treated as plugins.  
+Basic set for using Grimoire.js is bundled and published here([unpkg](https://unpkg.com/grimoirejs-preset-basic@1.8.5/register/grimoire-preset-basic.min.js)).  
+This file includes `grimoirejs`,`grimoirejs-math` and `grimoirejs-fundamental`.
+
 ## First Interact
 
 **HTML file**

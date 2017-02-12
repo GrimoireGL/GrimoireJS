@@ -560,11 +560,17 @@ class GomlNode extends EEObject {
   }
 
   public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
+    if (name === null) {
+      throw new Error("getComponentsInChildren recieve null or undefined");
+    }
     return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
   public getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
+    if (name === null) {
+      throw new Error("getComponentInAncestor recieve null or undefined");
+    }
     if (this.parent) {
-      return this.parent._getComponentInAncesotor(name);
+      return this.parent._getComponentInAncestor(name);
     }
     return null;
   }
@@ -651,13 +657,13 @@ class GomlNode extends EEObject {
 
 
 
-  private _getComponentInAncesotor<T>(name: string | NSIdentity | (new () => T)): T {
+  private _getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
     const ret = this.getComponent(name);
     if (ret) {
       return ret;
     }
     if (this.parent) {
-      return this.parent._getComponentInAncesotor(name);
+      return this.parent._getComponentInAncestor(name);
     }
     return null;
   }
