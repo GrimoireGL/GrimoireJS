@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const shell = require("webpack-shell-plugin");
 const argv = require("yargs").argv;
 const fs = require("fs");
 const fnPrefix = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8")).name.replace("grimoirejs", "grimoire");
@@ -25,10 +24,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
     resolve: {
       extensions: ['.ts', '.js']
     },
-    plugins: [new shell({
-      onBuildStart: "npm run generate-expose",
-      onBuildEnd: "npm run generate-reference"
-    })].concat(plugins),
+    plugins: plugins,
     devtool: 'source-map'
   }
 };
