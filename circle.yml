@@ -1,11 +1,22 @@
-general:
-  branches:
-    ignore:
-      - gh-pages
 machine:
-    timezone: Asia/Tokyo
-    node:
-      version: 6.5.0
+  node:
+    version: 6.9.5
+
+  post:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+
+dependencies:
+  cache_directories:
+    - "~/.cache/yarn"
+
+  pre:
+    - yarn --version
+
+  override:
+    - yarn install
+
 test:
+  post:
+    - npm run semantic-release
   override:
     - npm run build && npm test
