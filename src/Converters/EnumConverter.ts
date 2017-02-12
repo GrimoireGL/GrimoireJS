@@ -1,4 +1,5 @@
 import Attribute from "../Node/Attribute";
+
 /**
  * 列挙のためのコンバータ。
  * 属性宣言に`table`パラメータが必要です。
