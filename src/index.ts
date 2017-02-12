@@ -10,10 +10,17 @@
   import BaseXMLHttpRequestAsync from "./Base/XMLHttpRequestAsync";
   import BaseXMLReader from "./Base/XMLReader";
   import ComponentsGrimoireComponent from "./Components/GrimoireComponent";
+  import ConvertersArrayConverter from "./Converters/ArrayConverter";
   import ConvertersBooleanConverter from "./Converters/BooleanConverter";
+  import ConvertersComponentConverter from "./Converters/ComponentConverter";
+  import ConvertersEnumConverter from "./Converters/EnumConverter";
+  import ConvertersNumberArrayConverter from "./Converters/NumberArrayConverter";
+  import ConvertersNumberConverter from "./Converters/NumberConverter";
+  import ConvertersObjectConverter from "./Converters/ObjectConverter";
   import ConvertersStringArrayConverter from "./Converters/StringArrayConverter";
   import ConvertersStringConverter from "./Converters/StringConverter";
   import GrimoireInterface from "./GrimoireInterface";
+  import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
   import InterfaceGomlInterface from "./Interface/GomlInterface";
   import InterfaceNodeInterface from "./Interface/NodeInterface";
   import NodeAttribute from "./Node/Attribute";
@@ -24,17 +31,16 @@
   import NodeGomlParser from "./Node/GomlParser";
   import NodeNodeDeclaration from "./Node/NodeDeclaration";
   import NodeNodeUtility from "./Node/NodeUtility";
-  import __INTERFACE__1 from "./IGrimoireInterface";
+  import __INTERFACE__1 from "./Declaration/IAttributeConverterDeclaration";
   import __INTERFACE__2 from "./IGrimoireInterfaceBase";
   import __INTERFACE__3 from "./Interface/IGomlInterface";
-  import __INTERFACE__4 from "./Node/AttributeConverter";
-  import __INTERFACE__5 from "./Node/IAttributeDeclaration";
-  import __INTERFACE__6 from "./Node/ITreeInitializedInfo";
+  import __INTERFACE__4 from "./Node/IAttributeDeclaration";
+  import __INTERFACE__5 from "./Node/ITreeInitializedInfo";
 
 var __VERSION__ = "0.14.0beta0";
 var __NAME__ = "grimoirejs";
 
-import __MAIN__ from "./main"
+import __MAIN__ from "./main";
 
 var __EXPOSE__ = {
   "Base": {
@@ -54,11 +60,18 @@ var __EXPOSE__ = {
     "GrimoireComponent": ComponentsGrimoireComponent
   },
   "Converters": {
+    "ArrayConverter": ConvertersArrayConverter,
     "BooleanConverter": ConvertersBooleanConverter,
+    "ComponentConverter": ConvertersComponentConverter,
+    "EnumConverter": ConvertersEnumConverter,
+    "NumberArrayConverter": ConvertersNumberArrayConverter,
+    "NumberConverter": ConvertersNumberConverter,
+    "ObjectConverter": ConvertersObjectConverter,
     "StringArrayConverter": ConvertersStringArrayConverter,
     "StringConverter": ConvertersStringConverter
   },
   "GrimoireInterface": GrimoireInterface,
+  "GrimoireInterfaceImpl": GrimoireInterfaceImpl,
   "Interface": {
     "GomlInterface": InterfaceGomlInterface,
     "NodeInterface": InterfaceNodeInterface

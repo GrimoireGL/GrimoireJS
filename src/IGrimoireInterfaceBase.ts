@@ -3,7 +3,7 @@ import Component from "./Node/Component";
 import NSIdentity from "./Base/NSIdentity";
 import ComponentDeclaration from "./Node/ComponentDeclaration";
 import GomlNode from "./Node/GomlNode";
-import AttributeConverter from "./Node/AttributeConverter";
+import AttributeConverter from "./Declaration/IAttributeConverterDeclaration";
 import NodeDeclaration from "./Node/NodeDeclaration";
 import NSDictionary from "./Base/NSDictionary";
 interface IGrimoireInterfaceBase {
@@ -11,10 +11,10 @@ interface IGrimoireInterfaceBase {
   converters: NSDictionary<AttributeConverter>;
   loadTasks: (() => Promise<void>)[];
   nodeDictionary: { [nodeId: string]: GomlNode };
-  lib:{[key:string]:{
-    __VERSION__:string;
-    __NAME__:string;
-    [key:string]:any;
+  lib: {[key: string]: {
+    __VERSION__: string;
+    __NAME__: string;
+    [key: string]: any;
   }};
   componentDictionary: { [componentId: string]: Component };
   componentDeclarations: NSDictionary<ComponentDeclaration>;
@@ -32,7 +32,7 @@ interface IGrimoireInterfaceBase {
   noConflict(): void;
   registerComponent(name: string | NSIdentity, obj: Object | (new () => Component)): void;
   registerNode(name: string | NSIdentity, requiredComponents: (string | NSIdentity)[], defaultValues?: { [key: string]: any } | NSDictionary<any>, superNode?: string | NSIdentity): void;
-  registerConverter(name: string | NSIdentity, converter: (this:Attribute, value: any) => any): void;
+  registerConverter(name: string | NSIdentity, converter: (this: Attribute, value: any) => any): void;
 }
 
 export default IGrimoireInterfaceBase;

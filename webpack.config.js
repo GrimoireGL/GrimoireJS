@@ -22,7 +22,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
       }]
     },
     resolve: {
-      extensions: ['', '.ts', '.js']
+      extensions: ['.ts', '.js']
     },
     plugins: [new shell({
       onBuildStart: "npm run generate-expose",
