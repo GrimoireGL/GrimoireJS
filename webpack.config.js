@@ -34,6 +34,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
 };
 
 module.exports = (env)=>{
+  env = env || {};
   const buildTasks = [getBuildTask(fnPrefix + ".js", [], true)]
 
   if (env.prod) {
