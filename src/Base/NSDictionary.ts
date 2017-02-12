@@ -39,7 +39,7 @@ class NSDictionary<V> {
           break;
         }
       }
-      if(theMap.length === 0){
+      if (theMap.length === 0) {
         delete this._nameObjectMap[key.name];
       }
       return true;

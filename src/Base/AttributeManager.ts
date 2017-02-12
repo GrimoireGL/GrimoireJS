@@ -128,8 +128,8 @@ export default class AttributeManager {
       Utility.remove(this._attributesFQNMap[attr.name.fqn], attr);
       Utility.remove(this._attributesMap[attr.name.name], attr);
       delete this._attributesFQNMap[attr.name.fqn];
-      if(this._attributesMap[attr.name.name].length === 0){
-        delete this._attributesMap[attr.name.name]
+      if (this._attributesMap[attr.name.name].length === 0) {
+        delete this._attributesMap[attr.name.name];
       }
       return true;
     }

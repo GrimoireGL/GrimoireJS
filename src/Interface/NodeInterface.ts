@@ -146,8 +146,8 @@ class NodeInterface {
     return this.nodes.map((array, gomlIndex) => {
       return array.map((node, nodeIndex) => {
         return func(node, gomlIndex, nodeIndex);
-      })
-    })
+      });
+    });
   }
   public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
     const nodes = this.nodes;
