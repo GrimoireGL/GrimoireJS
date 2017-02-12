@@ -61,5 +61,8 @@
       "dest": "./lib-md/index.md"
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "release": {
+    "verifyConditions": "condition-circle"
+  }
 }
