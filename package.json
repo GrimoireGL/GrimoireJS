@@ -29,6 +29,7 @@
     "jsdom": "^9.11.0",
     "lodash": "^4.17.2",
     "proxyquire": "^1.7.11",
+    "regenerator-runtime": "^0.10.1",
     "semantic-release": "^6.3.2",
     "sinon": "^1.17.6",
     "ts-loader": "^2.0.0",
@@ -44,7 +45,7 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "test": "tsc --outDir ./lib && babel ./lib --presets es2015,stage-2  --plugin transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugin transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
+    "test": "tsc --outDir ./lib && babel ./lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugins transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "npm run build -- --prod&& npm test",
     "start": "webpack --progress --watch",
