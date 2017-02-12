@@ -6,6 +6,7 @@ const fs = require("fs");
 const fnPrefix = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8")).name.replace("grimoirejs", "grimoire");
 
 const getBuildTask = (fileName, plugins, needPolyfill) => {
+
   return {
     cache: true,
     entry: needPolyfill ? ['babel-polyfill', path.resolve(__dirname, "src/index.ts")] : path.resolve(__dirname, "src/index.ts"),
@@ -22,7 +23,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
       }]
     },
     resolve: {
-      extensions: ['', '.ts', '.js']
+      extensions: ['.ts', '.js']
     },
     plugins: [new shell({
       onBuildStart: "npm run generate-expose",
@@ -31,20 +32,22 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
     devtool: 'source-map'
   }
 };
-const buildTasks = [getBuildTask(fnPrefix + ".js", [], true)]
 
-if (argv.prod) {
-  buildTasks.push(getBuildTask("index.js", [], false)); // for npm registeirng
-  buildTasks.push(getBuildTask(fnPrefix + ".min.js", [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
-  ], true));
-}
+module.exports = (env)=>{
+  env = env || {};
+  const buildTasks = [getBuildTask(fnPrefix + ".js", [], true)]
 
-module.exports = buildTasks;
+  if (env.prod) {
+    buildTasks.push(getBuildTask("index.js", [], false)); // for npm registeirng
+    buildTasks.push(getBuildTask(fnPrefix + ".min.js", [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      }),
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.AggressiveMergingPlugin()
+    ], true));
+  }
+  return buildTasks;
+};
