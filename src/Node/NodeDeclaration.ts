@@ -1,7 +1,6 @@
 import Ensure from "../Base/Ensure";
 import NSDictionary from "../Base/NSDictionary";
 import NSSet from "../Base/NSSet";
-import GomlNode from "./GomlNode";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 
@@ -36,7 +35,7 @@ class NodeDeclaration {
   }
 
   public addDefaultComponent(componentName: string | NSIdentity): void {
-    const componentId = Ensure.ensureTobeNSIdentity(componentName);
+    const componentId = Ensure.tobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {
       this._defaultComponentsActual.push(componentId);

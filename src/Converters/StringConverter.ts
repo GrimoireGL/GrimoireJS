@@ -1,6 +1,4 @@
-import Attribute from "../Node/Attribute";
-
-function StringConverter(this: Attribute, val: any): any {
+export default function StringConverter(val: any): any {
   if (typeof val === "string") {
     return val;
   } else if (!val) {
@@ -9,5 +7,3 @@ function StringConverter(this: Attribute, val: any): any {
     return val.toString();
   }
 }
-
-export default StringConverter;

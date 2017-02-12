@@ -15,10 +15,10 @@ class GomlInterface {
   }
 
   public queryFunc(query: string): NodeInterface {
-    return new NodeInterface(this.queryNodes(query));
+    return new NodeInterface(this._queryNodes(query));
   }
 
-  public queryNodes(query: string): GomlNode[][] {
+  private _queryNodes(query: string): GomlNode[][] {
     return this.rootNodes.map(root => {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];

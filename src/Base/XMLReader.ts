@@ -8,22 +8,26 @@ class XMLReader {
   public static parseXML(doc: string, rootElementName?: string): Element[] {
     let isParseError = (parsedDocument: Document) => {
       const defaultError = console.error;
-      console.error = function() { };//disable error message!
-      var errorneousParse = XMLReader._parser.parseFromString('<', 'text/xml');
-      delete console.error;//restore...
+      console.error = function() { ; }; // disable error message!
+      let errorneousParse = XMLReader._parser.parseFromString("<", "text/xml");
+      delete console.error; // restore...
       console.error = defaultError;
+
       if ((errorneousParse as any).documentURI === void 0) {
         return false;
       }
       let parsererrorNS = errorneousParse.getElementsByTagName("parsererror").item(0).namespaceURI;
-      if (parsererrorNS === 'http://www.w3.org/1999/xhtml') {
+      if (parsererrorNS === "http://www.w3.org/1999/xhtml") {
         return parsedDocument.getElementsByTagName("parsererror").length > 0;
       }
-      return parsedDocument.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0;
+      return parsedDocument.getElementsByTagNameNS(parsererrorNS, "parsererror").length > 0;
     };
     const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
-    if (isParseError(parsed)) {
-      throw new Error('Error parsing XML');
+    // if (isParseError(parsed)) {
+    //   throw new Error("Error parsing XML");
+    // }
+    if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
+      throw new Error("Error parsing XML");
     }
     if (rootElementName) {
       if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {

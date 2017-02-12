@@ -1,8 +1,9 @@
+import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
+import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
-import AttributeConverter from "./AttributeConverter";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 import Component from "./Component";
@@ -10,22 +11,14 @@ import Component from "./Component";
 /**
  * Manage a attribute attached to components.
  */
-class Attribute {
-
-  public static convert(converter: string | NSIdentity, val: any): any {
-    const cname = Ensure.ensureTobeNSIdentity(converter);
-    const conv = GrimoireInterface.converters.get(cname);
-    if (!conv) {
-      throw new Error(`converter ${cname.name} is not defined.`);
-    }
-    return (conv as any).convert(val);
-  }
+export default class Attribute {
 
   /**
    * The name of attribute.
    * @type {NSIdentity}
    */
   public name: NSIdentity;
+
   /**
    * The declaration of attribute used for defining this attribute.
    * @type {IAttributeDeclaration}
@@ -36,7 +29,7 @@ class Attribute {
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: AttributeConverter;
+  public converter: IAttributeConverterDeclaration;
 
   /**
    * A component reference that this attribute is bound to.
@@ -44,6 +37,7 @@ class Attribute {
    */
   public component: Component;
 
+  public convertContext: any = {};
   /**
    * Cache of attribute value.
    * @type {any}
@@ -61,7 +55,7 @@ class Attribute {
    * Goml tree interface which contains the component this attribute bound to.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface {
+  public get tree(): IGomlInterface & GomlInterface {
     return this.component.tree;
   }
 
@@ -79,7 +73,7 @@ class Attribute {
    */
   public get Value(): any {
     if (this._value === void 0) {
-      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`)
+      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`);
     }
     return this._valuate(this._value);
   }
@@ -96,6 +90,16 @@ class Attribute {
     this._notifyChange(val);
   }
 
+
+  public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
+    const cname = Ensure.tobeNSIdentity(converter);
+    const conv = GrimoireInterface.converters.get(cname);
+    if (!conv) {
+      throw new Error(`converter ${cname.name} is not defined.`);
+    }
+    return conv.convert(val, self);
+  }
+
   /**
    * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
    * If converter is not served, string converter will be set as default.
@@ -109,17 +113,14 @@ class Attribute {
     attr.name = NSIdentity.from(component.name.ns, name);
     attr.component = component;
     attr.declaration = declaration;
-    const converterName = Ensure.ensureTobeNSIdentity(declaration.converter);
+    const converterName = Ensure.tobeNSIdentity(declaration.converter);
     attr.converter = GrimoireInterface.converters.get(converterName);
     if (attr.converter === void 0) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
-    attr.converter = {
-      convert: attr.converter.convert.bind(attr),
-      name: attr.converter.name
-    };
     attr.component.attributes.set(attr.name, attr);
+    attr.converter.verify(attr);
     return attr;
   }
 
@@ -155,9 +156,28 @@ class Attribute {
    * @param {any} targetObject [description]
    */
   public boundTo(variableName: string, targetObject: any = this.component): void {
-    this.watch((v) => {
-      targetObject[variableName] = v;
-    }, true);
+    if (targetObject[variableName]) {
+      console.warn(`component field ${variableName} is already defined.`);
+    }
+    if (this.converter["lazy"]) {
+      Object.defineProperty(targetObject, variableName, {
+        get: () => this.Value,
+        set: (val) => { this.Value = val; },
+        enumerable: true,
+        configurable: true
+      });
+    } else {
+      let backing;
+      this.watch(v => {
+        backing = v;
+      }, true);
+      Object.defineProperty(targetObject, variableName, {
+        get: () => backing,
+        set: (val) => { this.Value = val; },
+        enumerable: true,
+        configurable: true
+      });
+    }
   }
 
   /**
@@ -182,7 +202,7 @@ class Attribute {
   }
 
   private _valuate(raw: any): any {
-    const v = (this.converter as any).convert(raw);
+    const v = this.converter.convert(raw, this);
     if (v === void 0) {
       throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
     }
@@ -191,13 +211,12 @@ class Attribute {
   }
 
   private _notifyChange(newValue: any): void {
+    if (!this.component.isActive) {
+      return;
+    }
     const lastvalue = this._lastValuete;
-    const c = this.converter as any;
     this._observers.forEach((handler) => {
-      handler(c.convert(newValue), lastvalue, this);
+      handler(this.converter.convert(newValue, this), lastvalue, this);
     });
   }
 }
-
-
-export default Attribute;

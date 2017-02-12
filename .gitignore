@@ -122,3 +122,5 @@ ci
 register
 ref
 test-es5
+src/index.ts
+yarn.lock

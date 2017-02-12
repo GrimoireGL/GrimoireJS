@@ -57,4 +57,19 @@ export default class Utility {
     array.splice(index, 1);
     return true;
   }
+
+  /**
+   * 重複がなければtrue
+   */
+  public static checkOverlap<T>(array: T[]): boolean {
+    const list = [];
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i];
+      if (list.indexOf(item) !== -1) {
+        return false;
+      }
+      list.push(item);
+    }
+    return true;
+  }
 }

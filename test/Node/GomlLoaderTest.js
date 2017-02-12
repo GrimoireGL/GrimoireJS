@@ -14,6 +14,8 @@ import {
   testNode1,
   testNode2
 } from "./_TestResource/GomlParserTest_Registering";
+
+
 xhrmock.setup();
 xhrmock.get("http://grimoire.gl/index.goml", (req, res) => {
   return res.status(200).body('<goml>\n</goml>');
@@ -38,6 +40,12 @@ function mockXMLParse(func, spy) {
   }).default;
 }
 
+function readFile(path) {
+  const fs = require("fs");
+  const p = require("path");
+  return fs.readFileSync(p.join(__dirname, path), "utf8");
+}
+
 test.beforeEach(() => {
   GrimoireInterface.clear();
   global.Node = {
@@ -48,7 +56,8 @@ test.beforeEach(() => {
   testNode2();
 });
 test('Processing script[type="text/goml"] tag correctly when the text content was existing', async(t) => {
-  const src = require("./_TestResource/GomlLoaderTest_Case1.html");
+  const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case1.html");
+  // console.log(src);
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');
@@ -61,7 +70,7 @@ test('Processing script[type="text/goml"] tag correctly when the text content wa
 });
 
 test('Processing script[type="text/goml"] and call parse related methods in correct order', async(t) => {
-  const src = require("./_TestResource/GomlLoaderTest_Case1.html");
+  const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case1.html");
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');
@@ -74,7 +83,7 @@ test('Processing script[type="text/goml"] and call parse related methods in corr
 });
 
 test('Processing script[type="text/goml"] tag correctly when the src attribute was existing', async(t) => {
-  const src = require("./_TestResource/GomlLoaderTest_Case2.html");
+  const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case2.html");
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');
@@ -88,7 +97,7 @@ test('Processing script[type="text/goml"] tag correctly when the src attribute w
 });
 
 test('Processing goml scripts from query', async(t) => {
-  const src = require("./_TestResource/GomlLoaderTest_Case3.html");
+  const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case3.html");
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const spy = sinon.spy();
@@ -100,7 +109,7 @@ test('Processing goml scripts from query', async(t) => {
 });
 
 test('Processing goml scripts for page', async(t) => {
-  const src = require("./_TestResource/GomlLoaderTest_Case4.html");
+  const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case4.html");
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const spy = sinon.spy();

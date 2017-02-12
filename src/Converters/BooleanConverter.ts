@@ -1,6 +1,15 @@
 import Attribute from "../Node/Attribute";
 
-function BooleanConverter(this: Attribute, val: any): any {
+
+/**
+ * booleanのためのコンバータです。
+ * booleanはそのまま通します。
+ * 文字列は、`true`,`false`のみ通します。
+ * @param  {any}       val  [description]
+ * @param  {Attribute} attr [description]
+ * @return {any}            [description]
+ */
+function BooleanConverter(val: any, attr: Attribute): any {
   if (typeof val === "boolean") {
     return val;
   } else if (typeof val === "string") {
@@ -9,8 +18,6 @@ function BooleanConverter(this: Attribute, val: any): any {
         return true;
       case "false":
         return false;
-      default:
-        return undefined;
     }
   }
 }

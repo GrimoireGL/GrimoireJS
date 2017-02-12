@@ -23,7 +23,13 @@ import {
 } from "./_TestResource/GomlParserTest_Registering";
 
 function loadFromTestResource(path) {
-  return require("./_TestResource/" + path);
+  return readFile(path);
+}
+
+function readFile(path) {
+  const fs = require("fs");
+  const p = require("path");
+  return fs.readFileSync(p.join(__dirname, path), "utf8");
 }
 
 // Get element from test case source which is located with relative path.
@@ -73,7 +79,7 @@ function registerUserPlugin() {
 
 
 test('test for parsing node hierarchy.', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case1.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case1.goml");
   const node = GomlParser.parse(element);
   t.truthy(node.parent === null);
   t.truthy(node.children.length === 1);
@@ -87,14 +93,14 @@ test('test for parsing node hierarchy.', (t) => {
 });
 
 test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case2.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case2.goml");
   const node = GomlParser.parse(element);
   t.truthy(node.parent === null);
   sinon.assert.notCalled(stringConverterSpy);
 });
 
 test('test for parse user-define component.', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case3.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
   node.setMounted(true)
   sinon.assert.notCalled(stringConverterSpy);
@@ -109,7 +115,7 @@ test('test for parse user-define component.', (t) => {
 });
 
 test('test for namespace parsing.', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   node.setMounted(true)
   node.broadcastMessage("onTest", "testArg");
@@ -118,18 +124,18 @@ test('test for namespace parsing.', (t) => {
 });
 
 test('test for companion', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const components = node.children[0].getComponents();
-  const ns1 = new NSIdentity("http://testNamespace/test1", "conflictComponent");
-  const ns2 = new NSIdentity("http://testNamespace/test2", "conflictComponent");
+  const ns1 = new NSIdentity("http://testNamespace/test1", "ConflictComponent");
+  const ns2 = new NSIdentity("http://testNamespace/test2", "ConflictComponent");
   const compo1 = components.find((comp) => ns1.fqn === comp.name.fqn);
   const compo2 = components.find((comp) => ns2.fqn === comp.name.fqn);
   t.truthy(compo1.companion === compo2.companion);
 });
 
 test('treeInterface must be same if the node is included in same tree', (t) => {
-  const element = obtainElementTag("GomlParserTest_Case4.goml");
+  const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case4.goml");
   const node = GomlParser.parse(element);
   const original = node._treeInterface;
   node.callRecursively(v => {

@@ -1,6 +1,4 @@
-import Attribute from "../Node/Attribute";
-
-function StringArrayConverter(this: Attribute, val: any): any {
+export default function StringArrayConverter(val: any): any {
   if (Array.isArray(val) || !val) {
     return val;
   }
@@ -8,5 +6,3 @@ function StringArrayConverter(this: Attribute, val: any): any {
     return val.split(" ");
   }
 }
-
-export default StringArrayConverter;

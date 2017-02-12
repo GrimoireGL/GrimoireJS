@@ -1,3 +1,5 @@
+import GomlInterface from "../Interface/GomlInterface";
+import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import NodeUtility from "./NodeUtility";
@@ -11,7 +13,7 @@ import IDObject from "../Base/IDObject";
 /**
  * Base class for any components
  */
-class Component extends IDObject {
+export default class Component extends IDObject {
   /**
    * Name of this component
    * @type {NSIdentity}
@@ -37,17 +39,19 @@ class Component extends IDObject {
    * Whether this component was created by nodeDeclaration
    * @type {boolean}
    */
-  public isDefaultComponent: boolean = false;
+  public isDefaultComponent = false;
 
-  public disposed: boolean = false;
+  public disposed = false;
 
   /**
    * Flag that this component is activated or not.
    * @type {boolean}
    */
-  private _enabled: boolean = true;
+  private _enabled = true;
+  private _awaked = false;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
+  private _initializedInfo: ITreeInitializedInfo = null;
 
   public get enabled(): boolean {
     return this._enabled;
@@ -72,8 +76,11 @@ class Component extends IDObject {
    * Tree interface for the tree this node is attached.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface {
+  public get tree(): IGomlInterface & GomlInterface {
     return this.node ? this.node.tree : null;
+  }
+  public get isActive(): boolean {
+    return this.enabled && this.node && this.node.isActive;
   }
 
   /**
@@ -115,7 +122,9 @@ class Component extends IDObject {
     } else { // If not,the default value of attributes should be retrived from this element.
       const attrs = NodeUtility.getAttributes(this.element);
       for (let key in attrs) {
-        if (key === Constants.x_gr_id) continue;
+        if (key === Constants.x_gr_id) {
+          continue;
+        }
       }
       this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
     }
@@ -123,6 +132,29 @@ class Component extends IDObject {
 
   public dispose(): void {
     this.node.removeComponent(this);
+  }
+
+  public awake(): boolean {
+    if (this._awaked) {
+      return false;
+    }
+    this._awaked = true;
+    let method = this["$$awake"];
+    if (typeof method === "function") {
+      method();
+    }
+    return true;
+  }
+
+  public initialized(info: ITreeInitializedInfo): void {
+    if (this._initializedInfo === info) {
+      return;
+    }
+    this._initializedInfo = info;
+    let method = this["$$initialized"];
+    if (typeof method === "function") {
+      method(info);
+    }
   }
 
   /**
@@ -135,9 +167,7 @@ class Component extends IDObject {
       throw new Error("can not add attribute null or undefined.");
     }
     const attr = Attribute.generateAttributeForComponent(name, attribute, this);
-    if (this.isDefaultComponent) {
-      this.node.addAttribute(attr);
-    }
+    this.node.addAttribute(attr);
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
       attr.resolveDefaultValue(NodeUtility.getAttributes(this.node.element));
     } else { // If not,the default value of attributes should be retrived from this element.
@@ -153,13 +183,12 @@ class Component extends IDObject {
         throw new Error("can not remove attributes :" + name);
       }
       const attrId = this._additionalAttributesNames[index];
-      if (this.isDefaultComponent) {
-        this.node.removeAttribute(this.attributes.get(attrId));
-      }
+      this.node.removeAttribute(this.attributes.get(attrId));
       this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {
-      this._additionalAttributesNames.forEach(id => {
+      const arr = [].concat(this._additionalAttributesNames);
+      arr.forEach(id => {
         this.__removeAttributes(id.name);
       });
     }
@@ -167,9 +196,7 @@ class Component extends IDObject {
   protected __bindAttributes(): void {
     this.attributes.forEach(attr => {
       const name = attr.name.name;
-      attr.boundTo("_" + name);
+      attr.boundTo(name);
     });
   }
 }
-
-export default Component;
