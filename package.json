@@ -53,14 +53,6 @@
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "grimoire": {
-    "doc": {
-      "src": "./doc",
-      "header": "./doc/header.md",
-      "footer": "./doc/footer.md",
-      "dest": "./lib-md/index.md"
-    }
-  },
   "license": "MIT",
   "release": {
     "verifyConditions": "condition-circle"
