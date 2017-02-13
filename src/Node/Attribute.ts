@@ -50,6 +50,7 @@ export default class Attribute {
    * List of functions that is listening changing values.
    */
   private _observers: ((newValue: any, oldValue: any, attr: Attribute) => void)[] = [];
+  private _ignoireActivenessObservers: ((newValue: any, oldValue: any, attr: Attribute) => void)[] = [];
 
   /**
    * Goml tree interface which contains the component this attribute bound to.
@@ -129,10 +130,14 @@ export default class Attribute {
    * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
    * @param {boolean = false} callFirst whether that handler should be called first time.
    */
-  public watch(watcher: (newValue: any, oldValue: any, attr: Attribute) => void, immedateCalls = false): void {
-    this._observers.push(watcher);
+  public watch(watcher: (newValue: any, oldValue: any, attr: Attribute) => void, immedateCalls = false, ignoireActiveness = false): void {
+    if (ignoireActiveness) {
+      this._ignoireActivenessObservers.push(watcher);
+    } else {
+      this._observers.push(watcher);
+    }
     if (immedateCalls) {
-      watcher(this.Value, undefined, this);
+      watcher(this.Value, void 0, this);
     }
   }
 
@@ -142,11 +147,16 @@ export default class Attribute {
    * @return {[type]}            [description]
    */
   public unwatch(target: (newValue: any, oldValue: any, attr: Attribute) => void): void {
-    const index = this._observers.findIndex(f => f === target);
-    if (index < 0) {
+    let index = this._observers.findIndex(f => f === target);
+    if (index >= 0) {
+      this._observers.splice(index, 1);
       return;
     }
-    this._observers.splice(index, 1);
+    index = this._ignoireActivenessObservers.findIndex(f => f === target);
+    if (index >= 0) {
+      this._ignoireActivenessObservers.splice(index, 1);
+      return;
+    }
   }
 
   /**
@@ -212,11 +222,22 @@ export default class Attribute {
 
   private _notifyChange(newValue: any): void {
     if (!this.component.isActive) {
-      return;
+      if (this._ignoireActivenessObservers.length === 0) {
+        return;
+      }
+      const lastvalue = this._lastValuete;
+      const convertedNewValue = this._valuate(newValue);
+      this._ignoireActivenessObservers.forEach((watcher) => {
+        watcher(convertedNewValue, lastvalue, this);
+      });
     }
     const lastvalue = this._lastValuete;
-    this._observers.forEach((handler) => {
-      handler(this.converter.convert(newValue, this), lastvalue, this);
+    const convertedNewValue = this._valuate(newValue);
+    this._observers.forEach((watcher) => {
+      watcher(convertedNewValue, lastvalue, this);
+    });
+    this._ignoireActivenessObservers.forEach((watcher) => {
+      watcher(convertedNewValue, lastvalue, this);
     });
   }
 }

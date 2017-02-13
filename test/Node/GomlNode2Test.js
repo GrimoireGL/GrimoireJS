@@ -133,6 +133,45 @@ test('Nodes should be mounted after loading', (t) => {
     t.truthy(n.mounted);
   });
 });
+test('attribute default value work correctly1', (t) => {
+  t.truthy(rootNode.getAttribute("id") !== void 0);
+  t.truthy(rootNode.getAttribute("id") === null);
+});
+
+test('attribute watch should work correctly', (t) => {
+  const idAttr = rootNode.getAttributeRaw("id");
+  const spy = sinon.spy();
+
+  const watcher = (newValue, oldValue, attr) => {
+    // spy("watch", { newValue: newValue, oldValue: oldValue, attr: attr });
+    spy(newValue);
+  };
+  idAttr.watch(watcher);
+  idAttr.Value = "id";
+  t.truthy(spy.getCall(0).args[0] === "id");
+
+  spy.reset();
+  rootNode.enabled = false;
+  idAttr.Value = "id";
+  sinon.assert.notCalled(spy);
+});
+test('attribute watch should work correctly2', (t) => {
+  const idAttr = rootNode.getAttributeRaw("id");
+  const spy = sinon.spy();
+  const watcher = (newValue, oldValue, attr) => {
+    // spy("watch", { newValue: newValue, oldValue: oldValue, attr: attr });
+    spy(newValue);
+  };
+  idAttr.watch(watcher);
+  idAttr.unwatch(watcher);
+  idAttr.Value = "id";
+  sinon.assert.notCalled(spy);
+
+  idAttr.watch(watcher, false, true);
+  rootNode.enabled = false;
+  idAttr.Value = "idid";
+  t.truthy(spy.getCall(0).args[0] === "idid");
+});
 
 test('Broadcast message should call correct order', (t) => {
   rootNode.broadcastMessage("onTest");
