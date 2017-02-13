@@ -627,6 +627,18 @@ class GomlNode extends EEObject {
   public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
   }
+  public toString(): string {
+    let name = this.name.fqn;
+    let id = this.getAttribute("id");
+    if (id !== null) {
+      name += ` id: ${id}`;
+    }
+    let classValue = this.getAttribute("id");
+    if (classValue !== null) {
+      name += ` class: ${classValue}`;
+    }
+    return name;
+  }
 
   private _sendMessage(message: string, args?: any): void {
     if (this._messageCache[message] === void 0) {
