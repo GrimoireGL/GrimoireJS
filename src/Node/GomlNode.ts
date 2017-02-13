@@ -198,6 +198,8 @@ class GomlNode extends EEObject {
     this.children.forEach((c) => {
       c.remove();
     });
+    this._sendMessageForced("$$dispose");
+    this.removeAllListeners();
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
       this._parent.detachChild(this);
@@ -207,7 +209,6 @@ class GomlNode extends EEObject {
         this.element.parentNode.removeChild(this.element);
       }
     }
-    this._sendMessageForced("$$dispose");
     this._deleted = true;
   }
 

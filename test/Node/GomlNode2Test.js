@@ -376,7 +376,3 @@ test('null should be "" as id and classname', (t) => {
   t.truthy(child.element.className === "");
   t.truthy(child.getComponent("GrimoireComponent").getAttribute("class") === null);
 });
-
-// test("getComponentsInChildren",t=>{
-//   GrimoireInterface("")
-// });

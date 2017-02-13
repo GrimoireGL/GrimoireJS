@@ -66,7 +66,6 @@ test.beforeEach(async() => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
   let a = readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html");
-  // console.log(a);
   const htmlDoc = parser.parseFromString(a, "text/html");
   global.document = htmlDoc;
   global.document.querySelectorAll = function (selector) {
@@ -96,8 +95,9 @@ test.beforeEach(async() => {
 });
 
 test('count first single.', (t) => {
-  // const ni = GrimoireInterface("*")("*");
-  // console.log(GrimoireInterface("*")("*").nodes)
+  console.log(GrimoireInterface("*").rootNodes[0].name);
+  const ni = GrimoireInterface("script")("goml");
+  console.log(ni.nodes)
   // t.truthy(ni.count() === 1);
   // t.truthy(ni.first());
   t.truthy(true);
