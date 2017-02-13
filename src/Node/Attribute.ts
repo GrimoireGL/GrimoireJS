@@ -141,7 +141,7 @@ export default class Attribute {
    * @param  {Attribute} handler [description]
    * @return {[type]}            [description]
    */
-  public removeObserver(target: (newValue: any, oldValue: any, attr: Attribute) => void): void {
+  public unwatch(target: (newValue: any, oldValue: any, attr: Attribute) => void): void {
     const index = this._observers.findIndex(f => f === target);
     if (index < 0) {
       return;
