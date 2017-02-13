@@ -173,20 +173,80 @@ test('attribute watch should work correctly2', (t) => {
   t.truthy(spy.getCall(0).args[0] === "idid");
 });
 
+test('enabled should work correctly', (t) => {
+  const testNode3 = rootNode.children[0];
+  const testNode2 = testNode3.children[0];
+  t.truthy(rootNode.enabled);
+  t.truthy(rootNode.isActive);
+  t.truthy(!testNode3.enabled);
+  t.truthy(!testNode3.isActive);
+  t.truthy(testNode2.enabled);
+  t.truthy(!testNode2.isActive);
+  testNode3.enabled = true;
+  t.truthy(testNode3.enabled);
+  t.truthy(testNode3.isActive);
+  t.truthy(testNode2.enabled);
+  t.truthy(testNode2.isActive);
+  testNode2.enabled = false;
+  t.truthy(!testNode2.enabled);
+  t.truthy(!testNode2.isActive);
+  rootNode.enabled = false;
+  t.truthy(!rootNode.enabled);
+  t.truthy(!rootNode.isActive);
+  t.truthy(testNode3.enabled);
+  t.truthy(!testNode3.isActive);
+  t.truthy(!testNode2.enabled);
+  t.truthy(!testNode2.isActive);
+});
+
 test('Broadcast message should call correct order', (t) => {
-  rootNode.broadcastMessage("onTest");
   sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
 });
 
 test('Broadcast message with range should work correctly', (t) => {
   const testNode3 = rootNode.children[0];
-  testNode3.enabled = true;
   resetSpies();
+  testNode3.enabled = true;
   rootNode.broadcastMessage(1, "onTest");
   sinon.assert.called(testComponent3Spy);
   sinon.assert.notCalled(testComponent2Spy);
   sinon.assert.notCalled(testComponentOptionalSpy);
   sinon.assert.notCalled(testComponent1Spy);
+});
+
+test('Broadcast message with enabled should work correctly', (t) => {
+  const testNode3 = rootNode.children[0];
+  const testNode2 = testNode3.children[0];
+
+  resetSpies();
+  sinon.assert.notCalled(testComponent3Spy);
+  sinon.assert.notCalled(testComponent2Spy);
+  sinon.assert.notCalled(testComponentOptionalSpy);
+  sinon.assert.notCalled(testComponent1Spy);
+
+  resetSpies();
+  rootNode.broadcastMessage("onTest");
+  sinon.assert.notCalled(testComponent3Spy);
+  sinon.assert.notCalled(testComponent2Spy);
+  sinon.assert.notCalled(testComponentOptionalSpy);
+  sinon.assert.notCalled(testComponent1Spy);
+
+  resetSpies();
+  testNode3.enabled = true;
+  testNode2.enabled = false;
+  rootNode.broadcastMessage("onTest");
+  sinon.assert.called(testComponent3Spy);
+  sinon.assert.notCalled(testComponent2Spy);
+  sinon.assert.notCalled(testComponentOptionalSpy);
+  sinon.assert.called(testComponent1Spy);
+
+  resetSpies();
+  testNode2.enabled = true;
+  rootNode.broadcastMessage("onTest");
+  sinon.assert.called(testComponent3Spy);
+  sinon.assert.called(testComponent2Spy);
+  sinon.assert.called(testComponentOptionalSpy);
+  sinon.assert.called(testComponent1Spy);
 });
 
 test('SendMessage should call correct order', (t) => {
