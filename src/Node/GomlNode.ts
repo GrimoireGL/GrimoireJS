@@ -695,7 +695,23 @@ class GomlNode extends EEObject {
     }
     let method = targetComponent[message];
     if (typeof method === "function") {
-      method(args);
+      try {
+        method(args);
+      } catch (e) {
+        const errorHandler = {
+          node: this,
+          component: targetComponent,
+          message: message,
+          handled: false
+        };
+        this.emit("error", errorHandler);
+        if (!errorHandler.handled) {
+          GrimoireInterface.emit("error", errorHandler);
+          if (!errorHandler.handled) {
+            throw e;
+          }
+        }
+      }
       return true;
     }
     return false;
