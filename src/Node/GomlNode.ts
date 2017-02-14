@@ -198,6 +198,8 @@ class GomlNode extends EEObject {
     this.children.forEach((c) => {
       c.remove();
     });
+    this._sendMessageForced("$$dispose");
+    this.removeAllListeners();
     GrimoireInterface.nodeDictionary[this.id] = null;
     if (this._parent) {
       this._parent.detachChild(this);
@@ -207,7 +209,6 @@ class GomlNode extends EEObject {
         this.element.parentNode.removeChild(this.element);
       }
     }
-    this._sendMessageForced("$$dispose");
     this._deleted = true;
   }
 
@@ -627,6 +628,18 @@ class GomlNode extends EEObject {
   public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
   }
+  public toString(): string {
+    let name = this.name.fqn;
+    let id = this.getAttribute("id");
+    if (id !== null) {
+      name += ` id: ${id}`;
+    }
+    let classValue = this.getAttribute("id");
+    if (classValue !== null) {
+      name += ` class: ${classValue}`;
+    }
+    return name;
+  }
 
   private _sendMessage(message: string, args?: any): void {
     if (this._messageCache[message] === void 0) {
@@ -683,7 +696,23 @@ class GomlNode extends EEObject {
     }
     let method = targetComponent[message];
     if (typeof method === "function") {
-      method(args);
+      try {
+        method(args);
+      } catch (e) {
+        const errorHandler = {
+          node: this,
+          component: targetComponent,
+          message: message,
+          handled: false
+        };
+        this.emit("error", errorHandler);
+        if (!errorHandler.handled) {
+          GrimoireInterface.emit("error", errorHandler);
+          if (!errorHandler.handled) {
+            throw e;
+          }
+        }
+      }
       return true;
     }
     return false;
