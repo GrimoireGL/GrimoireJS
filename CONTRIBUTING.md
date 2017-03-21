@@ -1,4 +1,4 @@
-# Guideline for contribution[WIP]
+# Guideline for contribution
 
 ## Got a questions or problem?
 
@@ -22,6 +22,25 @@ This is including a lot of stuff to do, we need contributors. Even if you correc
 Reducing works we need to do manually is very important.  
 Please read this guideline for keeping clean repository and keeping developing environment efficiently.
 
+### Build library
+
+You need to use npm to setup project build environment.(You can use yarn also)
+
+```sh
+$ git clone <Path to this repository> .
+$ npm install
+$ npm start
+```
+
+`npm start` trigger watch task to rebuild when you changed the codes in `src` folder.
+This command will change `register/index.js` only.
+
+If you need to build with all build configurations, you can use `npm run build -- --env.prod` to generate all codes.
+
+`npm test` will execute unit testing included in `test` folder.
+
+If you need to use with the other plugins, `npm link` would be useful to use generated new codes.
+
 ### Coding rule
 
 Most of the coding rules are checked with `TSLint`. You can run `npm run lint` to check whether your code is fitting to coding rule.  
@@ -43,8 +62,14 @@ Protected method name must begin with two `__`, and following characters are sam
 
 ### Commit message guideline
 
-Currently the version of this package is managed by `semantic-release`.  
+The version of this package uses `semantic-release`.  
 To generate changelog and release new version automatically, please follow this rule.
+
+### When the commit is only changing comments(Anything no effect for logics)
+
+```
+chore: COMMIT MESSAGE HERE
+```
 
 #### When the commit is bug fix,refactor or chore (Anything no effect for API).
 

@@ -27,7 +27,8 @@ class XMLReader {
     //   throw new Error("Error parsing XML");
     // }
     if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
-      throw new Error("Error parsing XML");
+      const err = new XMLSerializer().serializeToString(parsed);
+      throw new Error(`Error parsing XML: ${err}`);
     }
     if (rootElementName) {
       if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {
