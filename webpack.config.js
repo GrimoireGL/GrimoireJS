@@ -11,7 +11,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
     entry: needPolyfill ? ['babel-polyfill', path.resolve(__dirname, "src/index.ts")] : path.resolve(__dirname, "src/index.ts"),
     output: {
       path: __dirname,
-      filename: "/register/" + fileName,
+      filename: "./register/" + fileName,
       libraryTarget: "umd"
     },
     module: {
