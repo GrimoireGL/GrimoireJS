@@ -8,6 +8,8 @@
 
 ## Overview
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/GrimoireGL/GrimoireJS.svg)](https://greenkeeper.io/)
+
 Why virtual DOM needs to be only for actual DOM?
 Logics like drawing formulas for canvas even needs DOM for easier way.
 
