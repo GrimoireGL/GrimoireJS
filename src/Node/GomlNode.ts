@@ -720,7 +720,7 @@ class GomlNode extends EEObject {
           handled: false,
           error: e,
           toString: () => {
-              return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n`;
+              return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
           }
         };
         this.emit("error", errorHandler);
