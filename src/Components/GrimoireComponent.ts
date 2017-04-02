@@ -24,17 +24,17 @@ class GrimoireComponent extends Component {
     this.node.resolveAttributesValue();
     this.getAttributeRaw("id").watch((attr) => {
       this.node.element.id = attr ? attr : "";
-    }, true);
+    }, true, true);
     this.getAttributeRaw("class").watch((attr) => {
       this.node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
-    }, true);
+    }, true, true);
     this.getAttributeRaw("enabled").watch(attr => {
       this.node["_enabled"] = attr;
       const p = this.node.parent;
       this.node.notifyActivenessUpdate(p ? p.isActive && this.node.enabled : this.node.enabled);
-    });
+    }, false, true);
     this.node["_enabled"] = this.getAttribute("enabled");
-    this.node["_isActive"] = this.node.parent ? this.node.parent.isActive && this.enabled : this.enabled;
+    this.node["_isActive"] = this.node.parent ? this.node.parent.isActive && this.node.enabled : this.node.enabled;
   }
 }
 

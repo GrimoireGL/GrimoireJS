@@ -8,7 +8,7 @@ class XMLReader {
   public static parseXML(doc: string, rootElementName?: string): Element[] {
     let isParseError = (parsedDocument: Document) => {
       const defaultError = console.error;
-      console.error = function() { ; }; // disable error message!
+      console.error = function() { return void 0; }; // disable error message!
       let errorneousParse = XMLReader._parser.parseFromString("<", "text/xml");
       delete console.error; // restore...
       console.error = defaultError;
@@ -27,7 +27,8 @@ class XMLReader {
     //   throw new Error("Error parsing XML");
     // }
     if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
-      throw new Error("Error parsing XML");
+      const err = new XMLSerializer().serializeToString(parsed);
+      throw new Error(`Error parsing XML: ${err}`);
     }
     if (rootElementName) {
       if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {

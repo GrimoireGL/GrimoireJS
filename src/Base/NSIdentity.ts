@@ -112,6 +112,11 @@ class NSIdentity {
     return name;
   }
 
+
+  public toString(): string {
+    return this.fqn;
+  }
+
   private constructor(ns: string, name: string) {
     this._ns = ns.toUpperCase();
     this._name = name;
