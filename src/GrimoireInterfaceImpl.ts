@@ -1,3 +1,4 @@
+import EEObject from "./Base/EEObject";
 import IAttributeConverterDeclaration from "./Declaration/IAttributeConverterDeclaration";
 import GomlLoader from "./Node/GomlLoader";
 import EnumConverter from "./Converters/EnumConverter";
@@ -27,7 +28,7 @@ import NSDictionary from "./Base/NSDictionary";
 import Ensure from "./Base/Ensure";
 
 
-export default class GrimoireInterfaceImpl {
+export default class GrimoireInterfaceImpl extends EEObject {
 
   public nodeDeclarations: NSDictionary<NodeDeclaration> = new NSDictionary<NodeDeclaration>();
 
