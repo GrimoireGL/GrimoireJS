@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.14.4-beta7",
+  "version": "0.0.0-development",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -15,7 +15,8 @@
   "dependencies": {
     "@types/node": "^7.0.12",
     "events": "^1.1.1",
-    "grimoirejs-cauldron": "^2.3.3"
+    "grimoirejs-cauldron": "^2.3.3",
+    "typedoc": "git://github.com/GrimoireGL/typedoc#includeAll"
   },
   "devDependencies": {
     "ava": "^0.18.2",
@@ -34,6 +35,8 @@
     "sinon": "^2.1.0",
     "ts-loader": "^2.0.3",
     "tslint": "^5.0.0",
+    "typedoc": "git+https://github.com/GrimoireGL/typedoc.git",
+    "typedoc-md-theme": "^1.0.1",
     "typescript": "^2.2.2",
     "typescript-awaiter": "^1.0.0",
     "webpack": "^2.3.2",
@@ -51,15 +54,8 @@
     "build-production": "npm run generate-expose && webpack --progress --env.prod && npm run generate-reference",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
-  },
-  "grimoire": {
-    "doc": {
-      "src": "./doc",
-      "header": "./doc/header.md",
-      "footer": "./doc/footer.md",
-      "dest": "./lib-md/index.md"
-    }
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "doc": "typedoc --out ./docs/ --options typedoc.json  ./tsconfig.json"
   },
   "license": "MIT",
   "release": {
