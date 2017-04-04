@@ -20,3 +20,10 @@ test:
     - sh release.sh
   override:
     - npm run lint && npm run build && npm test
+
+deployment:
+  deploy:
+    branch: master
+    commands:
+      - npm run doc
+      - aws s3 cp ./docs/ s3://grimoire-api-document/$CIRCLE_PROJECT_REPONAME --recursive --acl public-read
