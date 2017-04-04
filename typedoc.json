@@ -5,6 +5,5 @@
   "includeDeclarations": true,
   "ignoreCompilerErrors": true,
   "excludePrivate": true,
-  "excludeExternals": true,
-  "out": "docs/markdown"
+  "excludeExternals": true
 }
