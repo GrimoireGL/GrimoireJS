@@ -5,6 +5,6 @@ if [ $? = "0" ]; then
   echo DOCUMENT_GENERATING
   npm run doc
   echo DOCUMENT_UPLOADING
-  aws s3 cp ./docs/ s3://circleci-grimoire-e2e/docs/$CIRCLE_PROJECT_REPONAME --recursive --acl public-read
+  aws s3 cp ./docs/ s3://grimoire-api-document/$CIRCLE_PROJECT_REPONAME --recursive --acl public-read
 fi
 exit 0
