@@ -34,7 +34,7 @@
     "sinon": "^2.1.0",
     "ts-loader": "^2.0.3",
     "tslint": "^5.0.0",
-    "typedoc": "git://github.com/GrimoireGL/typedoc#includeAll",
+    "typedoc": "^0.5.10",
     "typedoc-md-theme": "^1.0.1",
     "typescript": "^2.2.2",
     "typescript-awaiter": "^1.0.0",
