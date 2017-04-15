@@ -1,5 +1,8 @@
 # Guideline for contribution
 
+This contribution guide is not only for core package, also for plugins of grimoire.js maintained by our organization.
+It is not necessary, but we encourage the other plugins made by third party should use same contribution guide line if possible.
+
 ## Got a questions or problem?
 
 Using slack is the best way to ask main contributors.  
@@ -35,11 +38,27 @@ $ npm start
 `npm start` trigger watch task to rebuild when you changed the codes in `src` folder.
 This command will change `register/index.js` only.
 
+If you want to generate `grimoire.js` or `grimoirejs-<library-name>.js` to link these script with `<script>` tag, you can use `env.browser` configuration with the following command.
+
+```sh
+$ npm start -- --env.browser
+```
+
 If you need to build with all build configurations, you can use `npm run build -- --env.prod` to generate all codes.
 
 `npm test` will execute unit testing included in `test` folder.
 
 If you need to use with the other plugins, `npm link` would be useful to use generated new codes.
+
+### E2E testing
+
+Several plugins of Grimoire.js are using E2E testing for maintaining same rendering result.
+If e2e testing are enabled on a repository, the repository should have e2e folder.
+E2E folder has several folder containing test case to render.
+
+CI would capture screen shot to compare last rendering result. If the compare result was different from last build, CI will send us notification on `#e2e` channel in our slack(See official site for more detail).
+
+When the build was triggered with PR, CI would automatically make a comment containing rendering result.
 
 ### Coding rule
 
