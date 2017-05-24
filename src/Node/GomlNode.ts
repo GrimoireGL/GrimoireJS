@@ -16,6 +16,7 @@ import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
+import {Name} from "../Base/Types";
 
 class GomlNode extends EEObject {
 
@@ -444,7 +445,7 @@ class GomlNode extends EEObject {
    * attach component to this node.
    * @param {Component} component [description]
    */
-  public addComponent(component: string | NSIdentity | (new () => Component), attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
+  public addComponent(component: Name | (new () => Component), attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
     if (typeof component === "function") { // TODO:test
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       component = obj.name;

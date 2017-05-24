@@ -20,6 +20,7 @@
     "./src/Base/NSDictionary.ts",
     "./src/Base/NSIdentity.ts",
     "./src/Base/NSSet.ts",
+    "./src/Base/Types.ts",
     "./src/Base/Utility.ts",
     "./src/Base/XMLHttpRequestAsync.ts",
     "./src/Base/XMLReader.ts",
