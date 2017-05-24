@@ -181,6 +181,20 @@ class GomlNode extends EEObject {
   }
 
   /**
+   * Query children from current node.
+   * @param  {string}   query [description]
+   * @return GomlNode[]       [description]
+   */
+  public queryChildren(query: string): GomlNode[] {
+    const nodes = this.element.querySelectorAll(query);
+    const array = new Array(nodes.length);
+    for (let i = 0; i < nodes.length; i++) {
+      array[i] = GomlNode.fromElement(nodes.item(i));
+    }
+    return array;
+  }
+
+  /**
    * search from children node by name property.
    * return all nodes has same name as given.
    * @param  {string}     nodeName [description]
@@ -704,7 +718,11 @@ class GomlNode extends EEObject {
           node: this,
           component: targetComponent,
           message: message,
-          handled: false
+          handled: false,
+          error: e,
+          toString: () => {
+              return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
+          }
         };
         this.emit("error", errorHandler);
         if (!errorHandler.handled) {

@@ -17,6 +17,13 @@ dependencies:
 
 test:
   post:
-    - npm run semantic-release || true
+    - sh release.sh
   override:
     - npm run lint && npm run build && npm test
+
+deployment:
+  deploy:
+    branch: master
+    commands:
+      - npm run doc
+      - aws s3 cp ./docs/ s3://api.grimoire.gl/core --recursive --region ap-northeast-1 --acl public-read
