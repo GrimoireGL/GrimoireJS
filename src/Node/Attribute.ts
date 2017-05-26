@@ -1,12 +1,11 @@
 import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
-import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
-import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
 import Component from "./Component";
+import {GomlInterface, Name} from "../Base/Types";
 
 /**
  * Manage a attribute attached to components.
@@ -54,9 +53,9 @@ export default class Attribute {
 
   /**
    * Goml tree interface which contains the component this attribute bound to.
-   * @return {IGomlInterface} [description]
+   * @return {GomlInterface} [description]
    */
-  public get tree(): IGomlInterface & GomlInterface {
+  public get tree(): GomlInterface {
     return this.component.tree;
   }
 
@@ -92,7 +91,7 @@ export default class Attribute {
   }
 
 
-  public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
+  public static convert(converter: Name, self: Attribute, val: any): any {
     const cname = Ensure.tobeNSIdentity(converter);
     const conv = GrimoireInterface.converters.get(cname);
     if (!conv) {

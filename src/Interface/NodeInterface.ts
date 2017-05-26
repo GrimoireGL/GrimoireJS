@@ -4,6 +4,7 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import GomlNode from "../Node/GomlNode";
+import {Name} from "../Base/Types";
 
 
 /**
@@ -65,14 +66,14 @@ class NodeInterface {
       }
     }
   }
-  public getAttribute(attrName: string | NSIdentity): any {
+  public getAttribute(attrName: Name): any {
     const first = this.first();
     if (!first) {
       throw new Error("this NodeInterface is empty.");
     }
     return first.getAttribute(attrName);
   }
-  public setAttribute(attrName: string | NSIdentity, value: any): void {
+  public setAttribute(attrName: Name, value: any): void {
     this.forEach((node) => {
       node.setAttribute(attrName, value, false);
     });
@@ -162,7 +163,7 @@ class NodeInterface {
     }
     return null;
   }
-  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
+  public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this.forEach(node => {
       node.watch(attrName, watcher, immediate);
     });
@@ -197,7 +198,7 @@ class NodeInterface {
    * 対象ノードにコンポーネントをアタッチします。
    * @param {Component} component [description]
    */
-  public addComponent(componentId: string | NSIdentity, attributes: { [key: string]: any } = {}): NodeInterface {
+  public addComponent(componentId: Name, attributes: { [key: string]: any } = {}): NodeInterface {
     this.forEach((node) => {
       node.addComponent(componentId, attributes);
     });
@@ -246,7 +247,7 @@ class NodeInterface {
     return Utility.flat(this.nodes);
   }
 
-  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): NodeInterface {
+  public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): NodeInterface {
     return new NodeInterface(this.map(node => {
       return node.addChildByName(nodeName, attributes);
     }));

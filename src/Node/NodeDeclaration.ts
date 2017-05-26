@@ -3,6 +3,7 @@ import NSDictionary from "../Base/NSDictionary";
 import NSSet from "../Base/NSSet";
 import NSIdentity from "../Base/NSIdentity";
 import GrimoireInterface from "../GrimoireInterface";
+import {Name} from "../Base/Types";
 
 class NodeDeclaration {
   private _defaultComponentsActual: NSSet;
@@ -34,7 +35,7 @@ class NodeDeclaration {
     }
   }
 
-  public addDefaultComponent(componentName: string | NSIdentity): void {
+  public addDefaultComponent(componentName: Name): void {
     const componentId = Ensure.tobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {

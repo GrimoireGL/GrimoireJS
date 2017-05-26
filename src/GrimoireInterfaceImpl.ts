@@ -9,7 +9,7 @@ import ObjectConverter from "./Converters/ObjectConverter";
 import ArrayConverter from "./Converters/ArrayConverter";
 import NodeInterface from "./Interface/NodeInterface";
 import Utility from "./Base/Utility";
-import GomlInterface from "./Interface/GomlInterface";
+import GomlInterfaceImpl from "./Interface/GomlInterfaceImpl";
 import BooleanConverter from "./Converters/BooleanConverter";
 import GrimoireComponent from "./Components/GrimoireComponent";
 import StringArrayConverter from "./Converters/StringArrayConverter";
@@ -26,6 +26,7 @@ import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
 import Ensure from "./Base/Ensure";
+import {Name} from "./Base/Types";
 
 
 export default class GrimoireInterfaceImpl extends EEObject {
@@ -38,7 +39,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
-  public loadTasks: (() => Promise<void>)[] = [];
+  public loadTasks: ({ ns: string, task: (interf: GrimoireInterfaceImpl) => Promise<void> })[] = [];
 
   public lib: {
     [key: string]: {
@@ -57,6 +58,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @type {any}
    */
   public noConflictPreserve: any;
+
+  private _registeringPluginNamespace: string;
+  private _registrationContext: string = Constants.defaultNamespace;
 
   public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
     return GomlLoader.initializedEventHandlers;
@@ -90,14 +94,23 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {(}      loadTask [description]
    * @return {[type]}          [description]
    */
-  public register(loadTask: () => Promise<void>): void {
-    this.loadTasks.push(loadTask);
+  public register(loadTask: (inf: GrimoireInterfaceImpl) => Promise<void>): void {
+    this.loadTasks.push({ ns: this._registeringPluginNamespace, task: loadTask });
+    this._registeringPluginNamespace = Constants.defaultNamespace;
   }
 
   public async resolvePlugins(): Promise<void> {
     for (let i = 0; i < this.loadTasks.length; i++) {
-      await this.loadTasks[i]();
+      const obj = this.loadTasks[i];
+      this._registrationContext = obj.ns;
+      try {
+        await obj.task(this);
+      } catch (e) {
+        console.error(`Error: loadTask of plugin '${obj.ns}' is failed.`);
+        console.error(e);
+      }
     }
+    this._registrationContext = Constants.defaultNamespace;
   }
 
   /**
@@ -107,8 +120,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): ComponentDeclaration {
-    name = Ensure.tobeNSIdentity(name);
+  public registerComponent(name: Name, obj: Object | (new () => Component), superComponent?: Name | (new () => Component)): ComponentDeclaration {
+    name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
@@ -136,11 +149,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return dec;
   }
 
-  public registerNode(name: string | NSIdentity,
-    requiredComponents: (string | NSIdentity)[],
+  public registerNode(name: Name,
+    requiredComponents: (Name)[],
     defaults?: { [key: string]: any } | NSDictionary<any>,
-    superNode?: string | NSIdentity, freezeAttributes?: string[]): void {
-    name = Ensure.tobeNSIdentity(name);
+    superNode?: Name, freezeAttributes?: string[]): void {
+    name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.nodeDeclarations.get(name)) {
       throw new Error(`gomlnode ${name.fqn} is already registerd.`);
     }
@@ -149,7 +162,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
     requiredComponents = Ensure.tobeNSIdentityArray(requiredComponents);
     defaults = Ensure.tobeNSDictionary(defaults);
-    superNode = Ensure.tobeNSIdentity(superNode);
+    superNode = Ensure.tobeNSIdentity(superNode); // TODO: lazy evaluate ?
     this.nodeDeclarations.set(name as NSIdentity,
       new NodeDeclaration(name as NSIdentity,
         NSSet.fromArray(requiredComponents as NSIdentity[]),
@@ -206,33 +219,33 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return nodes;
   }
 
-  public registerConverter(name: string | NSIdentity, converter: ((val: any, attr: Attribute) => any)): void;
+  public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
-  public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+  public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
-      this.registerConverter({ name: Ensure.tobeNSIdentity(arg1 as any), verify: () => true, convert: converter });
+      this.registerConverter({ name: this._ensureTobeNSIdentityOnRegister(arg1 as any), verify: () => true, convert: converter });
       return;
     }
     const dec = arg1 as IAttributeConverterDeclaration;
-    this.converters.set(Ensure.tobeNSIdentity(dec.name), dec);
+    this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[], defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: (Name)[]): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, defaults: { [attrName: string]: any }): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: (Name)[], defaults: { [attrName: string]: any }): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, arg2: (Name)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
       throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
     }
     if (defaults) {
-      const additionalC = arg2 as (string | NSIdentity)[];
+      const additionalC = arg2 as (Name)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
       dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(defaults));
     } else if (Array.isArray(arg2)) {
-      const additionalC = arg2 as (string | NSIdentity)[];
+      const additionalC = arg2 as (Name)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
@@ -264,6 +277,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       delete this.componentDictionary[key];
     }
     this.loadTasks.splice(0, this.loadTasks.length);
+    this._registeringPluginNamespace = Constants.defaultNamespace;
     this.initialize();
   }
 
@@ -274,16 +288,25 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this[name] = func.bind(this);
   }
   public extendGomlInterface(name: string, func: Function): void {
-    if (GomlInterface[name]) {
+    if (GomlInterfaceImpl[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    GomlInterface[name] = func.bind(this);
+    GomlInterfaceImpl[name] = func.bind(this);
   }
   public extendNodeInterface(name: string, func: Function): void {
     if (NodeInterface[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
     NodeInterface[name] = func.bind(this);
+  }
+
+  /**
+   * use for notify GrimoireInterface of plugin namespace to be ragister.
+   * notified namespace will use when resolve loadTask of the plugin.
+   * @param {string} namespace namespace of plugin to be ragister.
+   */
+  public notifyRegisteringPlugin(namespace: string): void {
+    this._registeringPluginNamespace = namespace;
   }
 
   /**
@@ -330,7 +353,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return Component;
   }
 
-  private _ensureNameTobeConstructor(component: string | NSIdentity | (new () => Component)): (new () => Component) {
+  private _ensureNameTobeConstructor(component: Name | (new () => Component)): (new () => Component) {
     if (!component) {
       return null;
     }
@@ -345,6 +368,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
         return null;
       }
       return c.ctor;
+    }
+  }
+
+  private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity {
+    if (!name) {
+      return undefined;
+    }
+    if (typeof name === "string") {
+      if (name.indexOf("|") !== -1) {
+        return NSIdentity.fromFQN(name);
+      }
+      return NSIdentity.from(this._registrationContext, name);
+    } else {
+      return name;
     }
   }
 }

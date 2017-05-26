@@ -2,6 +2,7 @@ import Utility from "./Utility";
 import Ensure from "./Ensure";
 import NSIdentity from "./NSIdentity";
 import Attribute from "../Node/Attribute";
+import {Name} from "../Base/Types";
 
 export default class AttributeManager {
   private _attributesMap: { [name: string]: Attribute[] } = {};
@@ -40,7 +41,7 @@ export default class AttributeManager {
     return attr;
   }
 
-  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
+  public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
@@ -68,7 +69,7 @@ export default class AttributeManager {
     }
   }
 
-  public setAttribute(attrName: string | NSIdentity, value: any): void {
+  public setAttribute(attrName: Name, value: any): void {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
@@ -95,7 +96,7 @@ export default class AttributeManager {
       }
     }
   }
-  public getAttribute(attrName: string | NSIdentity): Attribute {
+  public getAttribute(attrName: Name): Attribute {
     if (typeof attrName === "string") {
       const attrs = this._attributesMap[attrName];
       if (attrs === void 0 || attrs.length === 0) {
