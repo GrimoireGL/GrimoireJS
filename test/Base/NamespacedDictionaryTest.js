@@ -68,7 +68,7 @@ test('get element with strict name', async(t) => {
 
 test('get element with shortened namespace prefix', async(t) => {
   const newKey = NSIdentity.from("test");
-  const secoundKey = NSIdentity.from("HTTP://GRIMOIRE.GL/NS/DEFAULT", "test");
+  const secoundKey = NSIdentity.from("grimoirejs", "test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
@@ -81,7 +81,7 @@ test('get element with shortened namespace prefix', async(t) => {
 });
 
 test('get element with fuzzy name', async(t) => {
-  const secoundKey = NSIdentity.from("HTTP://GRIMOIRE.GL/NS/DEFAULT", "test");
+  const secoundKey = NSIdentity.from("grimoirejs", "test");
   const theDict = new NSDictionary();
   theDict.set(secoundKey, "test2");
   const domParser = new DOMParser();

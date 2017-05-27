@@ -1,6 +1,7 @@
 import GrimoireInterface from "../GrimoireInterface";
 import NSIdentity from "./NSIdentity";
 import NSDictionary from "./NSDictionary";
+import {Name} from "./Types";
 /**
  * Provides static methods to ensure arguments are valid type.
  */
@@ -35,7 +36,7 @@ export default class Ensure {
     }
   }
 
-  public static tobeNSIdentity(name: string | NSIdentity): NSIdentity {
+  public static tobeNSIdentity(name: Name): NSIdentity {
     if (!name) {
       return undefined;
     }
@@ -49,7 +50,7 @@ export default class Ensure {
     }
   }
 
-  public static tobeNSIdentityArray(names: (string | NSIdentity)[]): NSIdentity[] {
+  public static tobeNSIdentityArray(names: (Name)[]): NSIdentity[] {
     if (!names) {
       return [];
     }
@@ -86,7 +87,7 @@ export default class Ensure {
       return "$$" + message;
     }
   }
-  public static tobeComponentConstructor<T>(c: string | NSIdentity | (new () => T)): (new () => T) {
+  public static tobeComponentConstructor<T>(c: Name | (new () => T)): (new () => T) {
     if (typeof c === "function") {
       return c;
     } else {

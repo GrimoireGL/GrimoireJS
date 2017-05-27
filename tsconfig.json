@@ -39,7 +39,7 @@
     "./src/GrimoireInterfaceImpl.ts",
     "./src/IGrimoireInterfaceBase.ts",
     "./src/index.ts",
-    "./src/Interface/GomlInterface.ts",
+    "./src/Interface/GomlInterfaceImpl.ts",
     "./src/Interface/IGomlInterface.ts",
     "./src/Interface/NodeInterface.ts",
     "./src/main.ts",

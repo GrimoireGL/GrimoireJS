@@ -1,15 +1,15 @@
-import GomlInterface from "../Interface/GomlInterface";
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import NodeUtility from "./NodeUtility";
 import IAttributeDeclaration from "./IAttributeDeclaration";
-import IGomlInterface from "../Interface/IGomlInterface";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IDObject from "../Base/IDObject";
+import {GomlInterface} from "../Base/Types";
+
 /**
  * Base class for any components
  */
@@ -74,9 +74,9 @@ export default class Component extends IDObject {
   }
   /**
    * Tree interface for the tree this node is attached.
-   * @return {IGomlInterface} [description]
+   * @return {GomlInterface} [description]
    */
-  public get tree(): IGomlInterface & GomlInterface {
+  public get tree(): GomlInterface {
     return this.node ? this.node.tree : null;
   }
   public get isActive(): boolean {

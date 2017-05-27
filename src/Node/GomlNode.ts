@@ -1,4 +1,3 @@
-import GomlInterface from "../Interface/GomlInterface";
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
 import ComponentDeclaration from "./ComponentDeclaration";
 import AttributeManager from "../Base/AttributeManager";
@@ -14,9 +13,8 @@ import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
-import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
-import {Name} from "../Base/Types";
+import {Name, GomlInterface} from "../Base/Types";
 
 class GomlNode extends EEObject {
 
@@ -29,7 +27,7 @@ class GomlNode extends EEObject {
   private _parent: GomlNode = null;
   private _root: GomlNode = null;
   private _components: Component[];
-  private _tree: IGomlInterface & GomlInterface = null;
+  private _tree: GomlInterface = null;
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _attributeManager: AttributeManager;
   private _isActive = false;
@@ -63,7 +61,7 @@ class GomlNode extends EEObject {
    * throw exception if this node is not mounted.
    * @return {IGomlInterface} [description]
    */
-  public get tree(): IGomlInterface & GomlInterface {
+  public get tree(): GomlInterface {
     if (!this.mounted) {
       throw new Error("this node is not mounted");
     }
@@ -283,7 +281,7 @@ class GomlNode extends EEObject {
    * @param {string |   NSIdentity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addChildByName(nodeName: string | NSIdentity, attributes: { [attrName: string]: any }): GomlNode {
+  public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
       return this.addChildByName(NSIdentity.from(nodeName), attributes);
     } else {
@@ -387,15 +385,15 @@ class GomlNode extends EEObject {
     }
   }
 
-  public getAttribute(attrName: string | NSIdentity): any {
+  public getAttribute(attrName: Name): any {
     return this._attributeManager.getAttribute(attrName).Value;
   }
 
-  public getAttributeRaw(attrName: string | NSIdentity): Attribute {
+  public getAttributeRaw(attrName: Name): Attribute {
     return this._attributeManager.getAttribute(attrName);
   }
 
-  public setAttribute(attrName: string | NSIdentity, value: any, ignoireFreeze = true): void {
+  public setAttribute(attrName: Name, value: any, ignoireFreeze = true): void {
     if (!ignoireFreeze && this.isFreezeAttribute(Ensure.tobeNSIdentity(attrName).name)) {
       throw new Error(`attribute ${Ensure.tobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
     }
@@ -544,7 +542,7 @@ class GomlNode extends EEObject {
     return false;
   }
 
-  public getComponents<T>(filter?: string | NSIdentity | (new () => T)): T[] {
+  public getComponents<T>(filter?: Name | (new () => T)): T[] {
     if (!filter) {
       return this._components as any as T[];
     } else {
@@ -555,10 +553,10 @@ class GomlNode extends EEObject {
 
   /**
    * search component by name from this node.
-   * @param  {string | NSIdentity}  name [description]
+   * @param  {Name}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(name: string | NSIdentity | (new () => T)): T {
+  public getComponent<T>(name: Name | (new () => T)): T {
     // 事情により<T extends Component>とはできない。
     // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
@@ -575,13 +573,13 @@ class GomlNode extends EEObject {
     }
   }
 
-  public getComponentsInChildren<T>(name: string | NSIdentity | (new () => T)): T[] {
+  public getComponentsInChildren<T>(name: Name | (new () => T)): T[] {
     if (name === null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
     }
     return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
-  public getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
+  public getComponentInAncestor<T>(name: Name | (new () => T)): T {
     if (name === null) {
       throw new Error("getComponentInAncestor recieve null or undefined");
     }
@@ -640,7 +638,7 @@ class GomlNode extends EEObject {
     }
   }
 
-  public watch(attrName: string | NSIdentity, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
+  public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
   }
   public toString(): string {
@@ -685,7 +683,7 @@ class GomlNode extends EEObject {
 
 
 
-  private _getComponentInAncestor<T>(name: string | NSIdentity | (new () => T)): T {
+  private _getComponentInAncestor<T>(name: Name | (new () => T)): T {
     const ret = this.getComponent(name);
     if (ret) {
       return ret;
@@ -721,7 +719,7 @@ class GomlNode extends EEObject {
           handled: false,
           error: e,
           toString: () => {
-              return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
+            return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
           }
         };
         this.emit("error", errorHandler);
