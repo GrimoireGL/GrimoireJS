@@ -1,6 +1,6 @@
 export default class Constants {
   public static get defaultNamespace(): string {
-    return "HTTP://GRIMOIRE.GL/NS/DEFAULT";
+    return "GRIMOIREJS";
   }
   public static get x_gr_id(): string {
     return "x-gr-id";
