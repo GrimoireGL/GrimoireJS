@@ -39,7 +39,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
-  public loadTasks: ({ ns: string, task: (interf: GrimoireInterfaceImpl) => Promise<void> })[] = [];
+  public loadTasks: ({ ns: string, task: () => Promise<void> })[] = [];
 
   public lib: {
     [key: string]: {
@@ -94,7 +94,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {(}      loadTask [description]
    * @return {[type]}          [description]
    */
-  public register(loadTask: (inf: GrimoireInterfaceImpl) => Promise<void>): void {
+  public register(loadTask: () => Promise<void>): void {
     this.loadTasks.push({ ns: this._registeringPluginNamespace, task: loadTask });
     this._registeringPluginNamespace = Constants.defaultNamespace;
   }
@@ -104,7 +104,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       const obj = this.loadTasks[i];
       this._registrationContext = obj.ns;
       try {
-        await obj.task(this);
+        await obj.task();
       } catch (e) {
         console.error(`Error: loadTask of plugin '${obj.ns}' is failed.`);
         console.error(e);
