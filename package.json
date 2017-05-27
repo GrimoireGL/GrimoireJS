@@ -51,7 +51,7 @@
     "start": "webpack --progress --watch",
     "build": "npm run generate-expose && webpack --progress && npm run generate-reference",
     "build-production": "npm run generate-expose && webpack --progress --env.prod && npm run generate-reference",
-    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts",
+    "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --core",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "doc": "typedoc --out ./docs/ --options typedoc.json  ./tsconfig.json"

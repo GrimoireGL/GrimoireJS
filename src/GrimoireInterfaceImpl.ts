@@ -306,6 +306,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param {string} namespace namespace of plugin to be ragister.
    */
   public notifyRegisteringPlugin(namespace: string): void {
+    let res = /^[Gg]rimoire(?:js|JS)?-(.*)$/.exec(namespace);
+    if (res) {
+      namespace = res[1];
+    }
     this._registeringPluginNamespace = namespace;
   }
 

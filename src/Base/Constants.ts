@@ -1,4 +1,4 @@
-class Constants {
+export default class Constants {
   public static get defaultNamespace(): string {
     return "HTTP://GRIMOIRE.GL/NS/DEFAULT";
   }
@@ -6,5 +6,3 @@ class Constants {
     return "x-gr-id";
   }
 }
-
-export default Constants;
