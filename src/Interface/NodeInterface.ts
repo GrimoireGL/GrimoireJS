@@ -4,7 +4,7 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import NSIdentity from "../Base/NSIdentity";
 import GomlNode from "../Node/GomlNode";
-import {Name} from "../Base/Types";
+import {Name, Undef, Nullable} from "../Base/Types";
 
 
 /**
@@ -49,14 +49,13 @@ class NodeInterface {
         throw new Error("index out of range.");
       } else {
         let c = i1;
-        let returnNode: GomlNode = null;
-        this.forEach(node => {
+        return this.find(node => {
           if (c === 0) {
-            returnNode = node;
+            return true;
           }
           c--;
-        });
-        return returnNode as T;
+          return false;
+        }) as T;
       }
     } else {
       if (this.nodes.length <= i1 || this.nodes[i1].length <= i2) {
@@ -74,7 +73,7 @@ class NodeInterface {
     return first.getAttribute(attrName);
   }
   public setAttribute(attrName: Name, value: any): void {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.setAttribute(attrName, value, false);
     });
   }
@@ -85,7 +84,7 @@ class NodeInterface {
    * @param {Function} listener  [description]
    */
   public on(eventName: string, listener: Function): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.on(eventName, listener);
     });
     return this;
@@ -97,7 +96,7 @@ class NodeInterface {
    * @param {Function} listener  [description]
    */
   public off(eventName: string, listener: Function): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.removeListener(eventName, listener);
     });
     return this;
@@ -109,10 +108,10 @@ class NodeInterface {
    * @param {string} tag [description]
    */
   public append(tag: string): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       const elems = XMLReader.parseXML(tag);
-      elems.forEach((elem) => {
-        let child = GomlParser.parse(elem, null, null);
+      elems.forEach(elem => {
+        let child = GomlParser.parse(elem);
         node.addChild(child);
       });
     });
@@ -124,25 +123,35 @@ class NodeInterface {
    * @param {GomlNode} child [description]
    */
   public remove(): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.remove();
     });
     return this;
   }
 
   /**
-   * このノードインタフェースが対象とするノードに対して反復処理を行います
-   * @param  {GomlNode} callback [description]
-   * @return {[type]}            [description]
+   * execute provided function once for each element targeted by this interface.
+   * @param  {number} callback Function to execute for each element, taking three arguments:
+   * abort the iteration if function returns True.
+   * @return {[type]}          [description]
    */
-  public forEach(callback: ((node: GomlNode, gomlIndex: number, nodeIndex: number) => void)): NodeInterface {
-    this.nodes.forEach((array, gomlIndex) => {
-      array.forEach((node, nodeIndex) => {
-        callback(node, gomlIndex, nodeIndex);
-      });
-    });
+  public forEach(callback: ((node: GomlNode, gomlIndex: number, nodeIndex: number, iterationHandler?: { abort: boolean }) => void)): NodeInterface {
+    for (let i = 0; i < this.nodes.length; i++) {
+      const array = this.nodes[i];
+      const gomlIndex = i;
+      for (let j = 0; j < array.length; j++) {
+        const node = array[j];
+        const nodeIndex = j;
+        const ih = { abort: false };
+        callback(node, gomlIndex, nodeIndex, ih);
+        if (ih.abort) {
+          return this;
+        }
+      }
+    }
     return this;
   }
+
   public map<T>(func: (node: GomlNode, gomlIndex: number, nodeIndex: number) => T): T[][] {
     return this.nodes.map((array, gomlIndex) => {
       return array.map((node, nodeIndex) => {
@@ -150,7 +159,7 @@ class NodeInterface {
       });
     });
   }
-  public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): GomlNode {
+  public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): Nullable<GomlNode> {
     const nodes = this.nodes;
     for (let i = 0; i < nodes.length; i++) {
       const array = nodes[i];
@@ -174,7 +183,7 @@ class NodeInterface {
    * @param {boolean} enable [description]
    */
   public setEnable(enable: boolean): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.enabled = !!enable;
     });
     return this;
@@ -199,7 +208,7 @@ class NodeInterface {
    * @param {Component} component [description]
    */
   public addComponent(componentId: Name, attributes: { [key: string]: any } = {}): NodeInterface {
-    this.forEach((node) => {
+    this.forEach(node => {
       node.addComponent(componentId, attributes);
     });
     return this;
@@ -207,9 +216,10 @@ class NodeInterface {
 
   /**
    * 最初の対象ノードを取得する
+   * ひとつもなければnull
    * @return {GomlNode} [description]
    */
-  public first(): GomlNode {
+  public first(): Nullable<GomlNode> {
     return this.find(() => true);
   }
 

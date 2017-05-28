@@ -11,8 +11,7 @@ class NodeUtility { // TODO merge with Base/XMLReader
       return v.nodeType === 1;
     });
     elementIndex = elementIndex < 0 ? elementArray.length + elementIndex : elementIndex;
-    const index = nodeArray.indexOf(elementArray[elementIndex]);
-    return index === -1 ? null : index;
+    return nodeArray.indexOf(elementArray[elementIndex]);
   }
 
   public static getAttributes(element: Element): { [key: string]: string } {

@@ -27,9 +27,8 @@ class NodeDeclaration {
     public name: NSIdentity,
     public defaultComponents: NSSet,
     public defaultAttributes: NSDictionary<any>,
-    public superNode: NSIdentity,
-    public freezeAttributes: string[]) {
-    this.freezeAttributes = this.freezeAttributes ? this.freezeAttributes : [];
+    public superNode?: NSIdentity,
+    public freezeAttributes: string[] = []) {
     if (!this.superNode && this.name.name !== "grimoire-node-base") {
       this.superNode = NSIdentity.createOnDefaultNS("grimoire-node-base");
     }

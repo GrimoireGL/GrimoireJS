@@ -24,16 +24,16 @@ test('Not accept to get invalid name or namespace', (t) => {
 test('Transform name and ns correctly', (t) => {
   const i = NSIdentity.from("http://grimoire.gl/ns", "Sample");
   t.truthy(i.name === "Sample");
-  t.truthy(i.ns === "HTTP://GRIMOIRE.GL/NS");
+  t.truthy(i.ns === "http://grimoire.gl/ns");
 });
 
 test('Generate fqn correctly', (t) => {
-  t.truthy((NSIdentity.from("http://ns.com", "test")).fqn === "test|HTTP://NS.COM");
+  t.truthy((NSIdentity.from("http://ns.com", "test")).fqn === "test|http://ns.com");
   t.truthy((NSIdentity.createOnDefaultNS("test")).fqn === "test|" + Constants.defaultNamespace);
 });
 
 test('Parse fqn correctly', (t) => {
-  const parsed = NSIdentity.fromFQN("TEST|HTTP://NS.COM");
+  const parsed = NSIdentity.fromFQN("TEST|HTTPNS");
   t.truthy("TEST" === parsed.name);
-  t.truthy("HTTP://NS.COM" === parsed.ns);
+  t.truthy("httpns" === parsed.ns);
 });

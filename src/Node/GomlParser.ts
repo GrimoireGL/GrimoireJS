@@ -12,13 +12,8 @@ class GomlParser {
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
    * @return {GomlNode}                    ルートノード
    */
-  public static parse(source: Element, parent: GomlNode, scriptTag: HTMLScriptElement): GomlNode {
+  public static parse(source: Element, parent?: GomlNode |null): GomlNode {
     const newNode = GomlParser._createNode(source);
-    if (!newNode) {
-      // when specified node could not be found
-      console.warn(`"${source.tagName}" was not parsed.`);
-      return null;
-    }
 
     // Parse children recursively
     const children = source.childNodes;
@@ -52,7 +47,7 @@ class GomlParser {
     }
 
     childNodeElements.forEach((child) => {
-      GomlParser.parse(child, newNode, null);
+      GomlParser.parse(child, newNode);
     });
     return newNode;
   }

@@ -5,18 +5,19 @@ import NSDictionary from "../Base/NSDictionary";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
 import Component from "./Component";
+import {Ctor} from "../Base/Types";
 
-class ComponentDeclaration {
-  public static ctorMap: { ctor: new () => Component, name: NSIdentity }[] = [];
+export default class ComponentDeclaration {
+  public static ctorMap: { ctor: Ctor<Component>, name: NSIdentity }[] = [];
 
   public constructor(
     public name: NSIdentity,
     public attributes: { [name: string]: IAttributeDeclaration },
-    public ctor: new () => Component) {
+    public ctor: Ctor<Component>) {
     ComponentDeclaration.ctorMap.push({ ctor: ctor, name: name });
   }
 
-  public generateInstance(componentElement?: Element): Component {
+  public generateInstance(componentElement?: Element): Component { //TODO: obsolete.make all operation on gomlnode
     componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute(Constants.x_gr_id, component.id);
@@ -30,5 +31,3 @@ class ComponentDeclaration {
     return component;
   }
 }
-
-export default ComponentDeclaration;

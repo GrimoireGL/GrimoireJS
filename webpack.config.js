@@ -19,8 +19,8 @@ class CopyPlugin {
   }
 }
 
+// Couldron generate-expose and generate-reference execute with build tasks.
 class CauldronPlugin {
-  constructor() {}
   apply(compiler) {
     compiler.plugin("compile", () => {
       try {

@@ -12,5 +12,8 @@ export type IGrimoireInterface = {
   (callback: (scriptTags: HTMLScriptElement[]) => void): void;
 };
 export type GrimoireInterface = IGrimoireInterface & GrimoireInterfaceImpl;
+export type Nullable<T> = T | null;
+export type Undef<T> = Nullable<T> | undefined;
+export type Ctor<T> = (new () => T);
 
 export default null;

@@ -2,7 +2,7 @@ import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
 import GomlInterfaceImpl from "./Interface/GomlInterfaceImpl";
 import IGomlInterface from "./Interface/IGomlInterface";
 import GomlNode from "./Node/GomlNode";
-import {GomlInterface, IGrimoireInterface, GrimoireInterface} from "./Base/Types";
+import {GomlInterface, IGrimoireInterface, GrimoireInterface, Undef} from "./Base/Types";
 
 
 const context = new GrimoireInterfaceImpl();
@@ -10,7 +10,7 @@ const context = new GrimoireInterfaceImpl();
 function obtainGomlInterface(query: string): GomlInterface;
 function obtainGomlInterface(query: GomlNode[]): GomlInterface;
 function obtainGomlInterface(callback: (scriptTags: HTMLScriptElement[]) => void): void;
-function obtainGomlInterface(query: string | GomlNode[] | ((scriptTags: HTMLScriptElement[]) => void)): GomlInterface {
+function obtainGomlInterface(query: string | GomlNode[] | ((scriptTags: HTMLScriptElement[]) => void)): void | GomlInterface {
   if (typeof query === "string") {
     const gomlContext = new GomlInterfaceImpl(context.queryRootNodes(query));
     const queryFunc = gomlContext.queryFunc.bind(gomlContext);

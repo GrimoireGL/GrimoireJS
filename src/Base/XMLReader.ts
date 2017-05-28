@@ -1,3 +1,5 @@
+import {Nullable} from "./Types";
+
 /**
  * Provides safe xml read feature.
  */
@@ -20,7 +22,7 @@ class XMLReader {
       if (parsererrorNS === "http://www.w3.org/1999/xhtml") {
         return parsedDocument.getElementsByTagName("parsererror").length > 0;
       }
-      return parsedDocument.getElementsByTagNameNS(parsererrorNS, "parsererror").length > 0;
+      return parsedDocument.getElementsByTagNameNS(parsererrorNS!, "parsererror").length > 0;
     };
     const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
     // if (isParseError(parsed)) {
@@ -48,7 +50,7 @@ class XMLReader {
     return result;
   }
 
-  public static getSingleElement(elem: Element, name: string, mandatory?: boolean): Element {
+  public static getSingleElement(elem: Element, name: string, mandatory?: boolean): Nullable<Element> {
     const result = XMLReader.getElements(elem, name);
     if (result.length === 1) {
       return result[0];
@@ -63,7 +65,7 @@ class XMLReader {
     }
   }
 
-  public static getAttribute(elem: Element, name: string, mandatory?: boolean): string {
+  public static getAttribute(elem: Element, name: string, mandatory?: boolean): Nullable<string> {
     const result = elem.attributes.getNamedItem(name);
     if (result) {
       return result.value;
@@ -74,14 +76,14 @@ class XMLReader {
     }
   }
 
-  public static getAttributeFloat(elem: Element, name: string, mandatory?: boolean): number {
+  public static getAttributeFloat(elem: Element, name: string, mandatory?: boolean): Nullable<number> {
     const resultStr = XMLReader.getAttribute(elem, name, mandatory);
-    return parseFloat(resultStr);
+    return resultStr ? parseFloat(resultStr) : null;
   }
 
-  public static getAttributeInt(elem: Element, name: string, mandatory?: boolean): number {
+  public static getAttributeInt(elem: Element, name: string, mandatory?: boolean): Nullable<number> {
     const resultStr = XMLReader.getAttribute(elem, name, mandatory);
-    return parseInt(resultStr, 10);
+    return resultStr ? parseInt(resultStr, 10) : null;
   }
 
   public static getChildElements(elem: Element): Element[] {
@@ -101,7 +103,7 @@ class XMLReader {
     for (let i = 0; i < attrs.length; i++) {
       const attr = attrs.item(i);
       if (!ns || attr.namespaceURI === ns) {
-        result[attr.localName] = attr.value;
+        result[attr.localName!] = attr.value;
       }
     }
     return result;

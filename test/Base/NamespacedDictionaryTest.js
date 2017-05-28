@@ -49,8 +49,8 @@ test('get element correctly with fqn', (t) => {
 });
 
 test('get element with strict name', async(t) => {
-  const newKey = NSIdentity.from("test");
-  const secoundKey = NSIdentity.from("HTTP://GRIMOIRE.GL/NS/TEST", "test");
+  const newKey = NSIdentity.from("test"); //test|grimoirejs
+  const secoundKey = NSIdentity.from("test", "test"); //test|grimoirejs
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
@@ -58,8 +58,8 @@ test('get element with strict name', async(t) => {
   const parsed = domParser.parseFromString(require("./_TestResource/NSDictionary_QueryDOM.xml"), "text/xml");
   const idElement = parsed.getElementById("test");
   const attr = idElement.getAttributeNode("d:test");
-  t.truthy(theDict.get("HTTP://GRIMOIRE.GL/NS/TEST", "test") === "test2");
-  t.truthy(theDict.get("http://grimoire.gl/NS/test", "test") === "test2");
+  t.truthy(theDict.get("test", "test") === "test2");
+  t.truthy(theDict.get("TEST", "test") === "test2");
   t.truthy(theDict.get(idElement) === "test2");
   t.truthy(theDict.get(secoundKey) === "test2");
   t.truthy(theDict.get(newKey) === "test1");

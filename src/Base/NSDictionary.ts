@@ -1,5 +1,5 @@
 import NSIdentity from "./NSIdentity";
-import {Name} from "./Types";
+import {Name, Nullable} from "./Types";
 
 type Dict<V> = { [key: string]: V };
 
@@ -50,20 +50,19 @@ class NSDictionary<V> {
 
   public get(name: Name): V;
   public get(ns: string, name: string): V;
-  public get(nsi: NSIdentity): V;
   public get(element: Element): V;
   public get(attribute: Attr): V;
-  public get(arg1: string | Element | NSIdentity | Attr, name?: string): V {
+  public get(arg1: string | Element | NSIdentity | Attr, name?: string): Nullable<V> {
     if (!arg1) {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
       if (name) {// name and ns.
-        return this.fromFQN(name + "|" + arg1.toUpperCase());
+        return this.fromFQN(name + "|" + arg1.toLowerCase());
       } else {// name only.
         const namedMap = this._nameObjectMap[arg1];
         if (!namedMap) {
-          return null;
+          return null; // not exist.
         }
         if (namedMap.length === 1) {
           return namedMap[0].value;
@@ -76,24 +75,36 @@ class NSDictionary<V> {
         return this.fromFQN(arg1.fqn);
       } else {
         if (arg1.prefix) {// element
-          return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
+          return this.get(NSIdentity.from(arg1.namespaceURI!, arg1.localName!));
         } else {// attr
+          arg1 = arg1 as Attr;
           if (arg1.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.namespaceURI] !== void 0) {
-            return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName));
+            return this.get(NSIdentity.from(arg1.namespaceURI, arg1.localName!));
           }
-          if ((arg1 as Attr) && (arg1 as Attr).ownerElement && (arg1 as Attr).ownerElement.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + (arg1 as Attr).ownerElement.namespaceURI] !== void 0) {
-            return this.get(NSIdentity.from((arg1 as Attr).ownerElement.namespaceURI, arg1.localName));
+          if (arg1.ownerElement && arg1.ownerElement.namespaceURI && this._fqnObjectMap[arg1.localName + "|" + arg1.ownerElement.namespaceURI] !== void 0) {
+            return this.get(NSIdentity.from(arg1.ownerElement.namespaceURI!, arg1.localName!));
           }
-          return this.get(arg1.localName);
+          return this.get(arg1.localName!);
         }
       }
     }
   }
 
+  /**
+   * get value from fqn.
+   * return undefined if key not found.
+   * @param  {string} fqn key fqn
+   * @return {V}          [description]
+   */
   public fromFQN(fqn: string): V {
     return this._fqnObjectMap[fqn];
   }
 
+  /**
+   * Check if name has possibility of multiple values.
+   * @param  {string}  name [description]
+   * @return {boolean}      Whether the name has multiple values.
+   */
   public isAmbigious(name: string): boolean {
     return this._nameObjectMap[name].length > 1;
   }

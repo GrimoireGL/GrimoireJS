@@ -26,7 +26,7 @@ import NodeDeclaration from "./Node/NodeDeclaration";
 import NSIdentity from "./Base/NSIdentity";
 import NSDictionary from "./Base/NSDictionary";
 import Ensure from "./Base/Ensure";
-import {Name} from "./Base/Types";
+import {Name, Nullable, Ctor} from "./Base/Types";
 
 
 export default class GrimoireInterfaceImpl extends EEObject {
@@ -120,7 +120,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: Name, obj: Object | (new () => Component), superComponent?: Name | (new () => Component)): ComponentDeclaration {
+  public registerComponent(name: Name, obj: Object | Ctor<Component>, superComponent?: Name | Ctor<Component>): ComponentDeclaration {
     name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
@@ -138,7 +138,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
     obj = this._ensureTobeComponentConstructor(obj, superCtor);
     let ctor = this._ensureTobeComponentConstructor(obj, superCtor);
-    const attrs = ctor["attributes"] as { [name: string]: IAttributeDeclaration } || {};
+    const attrs = (ctor as any)["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     for (let key in attrs) {
       if (attrs[key].default === void 0) {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
@@ -149,8 +149,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return dec;
   }
 
-  public registerNode(name: Name,
-    requiredComponents: (Name)[],
+  public registerNode(name: Name, requiredComponents: (Name)[],
     defaults?: { [key: string]: any } | NSDictionary<any>,
     superNode?: Name, freezeAttributes?: string[]): void {
     name = this._ensureTobeNSIdentityOnRegister(name);
@@ -160,14 +159,13 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (this.debug && !Utility.isSnakeCase(name.name)) {
       console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
     }
+
     requiredComponents = Ensure.tobeNSIdentityArray(requiredComponents);
-    defaults = Ensure.tobeNSDictionary(defaults);
-    superNode = Ensure.tobeNSIdentity(superNode); // TODO: lazy evaluate ?
-    this.nodeDeclarations.set(name as NSIdentity,
-      new NodeDeclaration(name as NSIdentity,
-        NSSet.fromArray(requiredComponents as NSIdentity[]),
-        defaults as NSDictionary<any>,
-        superNode as NSIdentity, freezeAttributes));
+    const requiredComponentsSet = NSSet.fromArray(Ensure.tobeNSIdentityArray(requiredComponents));
+    const superNodeId = superNode ? Ensure.tobeNSIdentity(superNode) : void 0; // TODO: lazy evaluate ?
+    const defaultNSDicts = Ensure.tobeNSDictionary(defaults || {});
+    const declaration = new NodeDeclaration(name, requiredComponentsSet, defaultNSDicts, superNodeId, freezeAttributes);
+    this.nodeDeclarations.set(name, declaration);
   }
   public getCompanion(scriptTag: Element): NSDictionary<any> {
     const root = this.getRootNode(scriptTag);
@@ -200,11 +198,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public getRootNode(scriptTag: Element): GomlNode {
     const id = scriptTag.getAttribute("x-rootNodeId");
-    return this.rootNodes[id];
+    if (id) {
+      return this.rootNodes[id];
+    } else {
+      throw new Error(`scriptTag has not attribute 'x-rootNodeId'.It surely has registerd GrimoireInterface by 'addRootNode()''?`);
+    }
   }
 
   public noConflict(): void {
-    window["gr"] = this.noConflictPreserve;
+    (<any>window)["gr"] = this.noConflictPreserve;
   }
 
   public queryRootNodes(query: string): GomlNode[] {
@@ -282,22 +284,22 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   public extendGrimoireInterface(name: string, func: Function): void {
-    if (this[name]) {
+    if ((<any>this)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    this[name] = func.bind(this);
+    (<any>this)[name] = func.bind(this);
   }
   public extendGomlInterface(name: string, func: Function): void {
-    if (GomlInterfaceImpl[name]) {
+    if ((<any>GomlInterfaceImpl)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    GomlInterfaceImpl[name] = func.bind(this);
+    (<any>GomlInterfaceImpl)[name] = func.bind(this);
   }
   public extendNodeInterface(name: string, func: Function): void {
-    if (NodeInterface[name]) {
+    if ((<any>NodeInterface)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    NodeInterface[name] = func.bind(this);
+    (<any>NodeInterface)[name] = func.bind(this);
   }
 
   /**
@@ -318,49 +320,50 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
    * @return {[type]}      [The constructor inherits Component]
    */
-  private _ensureTobeComponentConstructor(obj: Object | (new () => Component), baseConstructor?: (new () => Component)): new () => Component {
+  private _ensureTobeComponentConstructor(obj: Object | Ctor<Component>, baseConstructor?: Ctor<Component>): Ctor<Component> {
     if (typeof obj === "function") {
       if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
         throw new Error("Component constructor must extends Component class.");
       }
-      return obj as (new () => Component);
+      return obj as Ctor<Component>;
     } else if (typeof obj === "object") {
       if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component)) {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function() {
+      const newCtor = function(this: any) { // TODO works correctry?
         ctor.call(this);
       };
-      const properties = {};
+      const properties: { [key: string]: any } = {};
       for (let key in obj) {
         if (key === "attributes") {
           continue;
         }
-        properties[key] = { value: obj[key] };
+        properties[key] = { value: (obj as any)[key] };
       }
 
-      const attributes = {};
-      for (let key in ctor["attributes"]) {
-        attributes[key] = ctor["attributes"][key];
+      const attributes: { [key: string]: any } = {};
+      for (let key in (ctor as any)["attributes"]) {
+        attributes[key] = (ctor as any)["attributes"][key];
       }
-      for (let key in obj["attributes"]) {
-        attributes[key] = obj["attributes"][key];
+      for (let key in (obj as any)["attributes"]) {
+        attributes[key] = (obj as any)["attributes"][key];
       }
       newCtor.prototype = Object.create(ctor.prototype, properties);
       Object.defineProperty(newCtor, "attributes", {
         value: attributes
       });
       obj = newCtor;
-      return obj as (new () => Component);
+      return obj as Ctor<Component>;
     }
     return Component;
   }
 
-  private _ensureNameTobeConstructor(component: Name | (new () => Component)): (new () => Component) {
+  private _ensureNameTobeConstructor(component: Name | Ctor<Component>): Nullable<Ctor<Component>> {
     if (!component) {
       return null;
     }
+
     if (typeof component === "function") {
       return component;
     } else if (typeof component === "string") {
@@ -375,9 +378,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
   }
 
-  private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity {
+  private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity;
+  private _ensureTobeNSIdentityOnRegister(name: null | undefined): Nullable<NSIdentity>;
+  private _ensureTobeNSIdentityOnRegister(name: Name |null | undefined): Nullable<NSIdentity> {
     if (!name) {
-      return undefined;
+      return null;
     }
     if (typeof name === "string") {
       if (name.indexOf("|") !== -1) {

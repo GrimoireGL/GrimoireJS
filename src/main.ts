@@ -35,8 +35,8 @@ class GrimoireInitializer {
     // Otherwise like ""Safari""
     for (let propName in WebGLRenderingContext.prototype) {
       if (/^[A-Z]/.test(propName)) {
-        const property = WebGLRenderingContext.prototype[propName];
-        WebGLRenderingContext[propName] = property;
+        const property = (<any>WebGLRenderingContext.prototype)[propName];
+        (<any>WebGLRenderingContext)[propName] = property;
       }
     }
   }
@@ -58,7 +58,7 @@ class GrimoireInitializer {
     if (!gr.debug) {
       return;
     }
-    let log = `%cGrimoire.js v${gr["__VERSION__"]}\nplugins:\n\n`;
+    let log = `%cGrimoire.js v${(gr as any)["__VERSION__"]}\nplugins:\n\n`;
     let i = 1;
     for (let key in gr.lib) {
       const plugin = gr.lib[key];
@@ -76,6 +76,6 @@ class GrimoireInitializer {
 
 export default function(): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
-  GrimoireInterface.noConflictPreserve = window["gr"];
-  return window["gr"] = window["GrimoireJS"] = GrimoireInterface;
+  GrimoireInterface.noConflictPreserve = (window as any)["gr"];
+  return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;
 }

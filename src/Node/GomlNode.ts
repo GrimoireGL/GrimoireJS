@@ -14,7 +14,7 @@ import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import Ensure from "../Base/Ensure";
-import {Name, GomlInterface} from "../Base/Types";
+import {Name, GomlInterface, Nullable, Ctor} from "../Base/Types";
 
 class GomlNode extends EEObject {
 
@@ -24,10 +24,10 @@ class GomlNode extends EEObject {
   public componentsElement: Element; // <.components>
 
 
-  private _parent: GomlNode = null;
-  private _root: GomlNode = null;
+  private _parent: Nullable<GomlNode> = null;
+  private _root: Nullable<GomlNode> = null;
   private _components: Component[];
-  private _tree: GomlInterface = null;
+  private _tree: GomlInterface = GrimoireInterface([this]);
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _attributeManager: AttributeManager;
   private _isActive = false;
@@ -38,7 +38,7 @@ class GomlNode extends EEObject {
   private _mounted = false;
   private _enabled = true;
   private _defaultValueResolved = false;
-  private _initializedInfo: ITreeInitializedInfo = null;
+  private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
 
   /**
    * Get actual goml node from element of xml tree.
@@ -46,7 +46,12 @@ class GomlNode extends EEObject {
    * @return {GomlNode}      [description]
    */
   public static fromElement(elem: Element): GomlNode {
-    return GrimoireInterface.nodeDictionary[elem.getAttribute(Constants.x_gr_id)];
+    const id = elem.getAttribute(Constants.x_gr_id);
+    if (id) {
+      return GrimoireInterface.nodeDictionary[id];
+    } else {
+      throw new Error("element has not 'x-gr-id'");
+    }
   }
 
   /**
@@ -111,7 +116,7 @@ class GomlNode extends EEObject {
    * if this node is root, return null.
    * @return {GomlNode} [description]
    */
-  public get parent(): GomlNode {
+  public get parent(): Nullable<GomlNode> {
     return this._parent;
   }
 
@@ -139,16 +144,15 @@ class GomlNode extends EEObject {
    * @param  {Element}         element 対応するDomElement
    * @return {[type]}                  [description]
    */
-  constructor(recipe: NodeDeclaration, element: Element) {
+  constructor(recipe: NodeDeclaration, element?: Nullable<Element>) {
     super();
     if (!recipe) {
       throw new Error("recipe must not be null");
     }
     this.nodeDeclaration = recipe;
-    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name); // TODO Could be undefined or null?
+    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
-    this._tree = GrimoireInterface([this]);
     this._components = [];
     this._attributeManager = new AttributeManager(recipe.name.name);
 
@@ -213,7 +217,7 @@ class GomlNode extends EEObject {
     });
     this._sendMessageForced("$$dispose");
     this.removeAllListeners();
-    GrimoireInterface.nodeDictionary[this.id] = null;
+    delete GrimoireInterface.nodeDictionary[this.id];
     if (this._parent) {
       this._parent.detachChild(this);
     } else {
@@ -269,7 +273,7 @@ class GomlNode extends EEObject {
     const elems = XMLReader.parseXML(tag);
     let ret: GomlNode[] = [];
     elems.forEach(elem => {
-      let child = GomlParser.parse(elem, null, null);
+      let child = GomlParser.parse(elem);
       this.addChild(child);
       ret.push(child);
     });
@@ -286,7 +290,7 @@ class GomlNode extends EEObject {
       return this.addChildByName(NSIdentity.from(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
-      const node = new GomlNode(nodeDec, null);
+      const node = new GomlNode(nodeDec);
       if (attributes) {
         for (let key in attributes) {
           const id = Ensure.tobeNSIdentity(key);
@@ -304,7 +308,7 @@ class GomlNode extends EEObject {
    * @param {number}   index            index for insert.なければ末尾に追加
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
-  public addChild(child: GomlNode, index?: number, elementSync = true): void {
+  public addChild(child: GomlNode, index?: number |null, elementSync = true): void {
     if (child._deleted) {
       throw new Error("deleted node never use.");
     }
@@ -321,7 +325,7 @@ class GomlNode extends EEObject {
 
     // sync html
     if (elementSync) {
-      let referenceElement = this.element[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
+      let referenceElement = (this.element as any)[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
 
@@ -358,7 +362,7 @@ class GomlNode extends EEObject {
    * @param  {GomlNode} child [description]
    * @return {GomlNode}       detached node.
    */
-  public detachChild(target: GomlNode): GomlNode {
+  public detachChild(target: GomlNode): Nullable<GomlNode> {
     // search child.
     const index = this.children.indexOf(target);
     if (index === -1) {
@@ -393,7 +397,7 @@ class GomlNode extends EEObject {
     return this._attributeManager.getAttribute(attrName);
   }
 
-  public setAttribute(attrName: Name, value: any, ignoireFreeze = true): void {
+  public setAttribute(attrName: Name, value: any, ignoireFreeze = false): void {
     if (!ignoireFreeze && this.isFreezeAttribute(Ensure.tobeNSIdentity(attrName).name)) {
       throw new Error(`attribute ${Ensure.tobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
     }
@@ -427,8 +431,8 @@ class GomlNode extends EEObject {
       }
       this._sendMessageForced("unmount");
       this._isActive = false;
-      this._tree = null;
-      this._companion = null;
+      this._tree = GrimoireInterface([this]);
+      this._companion = new NSDictionary<any>();
       this._mounted = mounted;
     }
   }
@@ -457,10 +461,15 @@ class GomlNode extends EEObject {
    * attach component to this node.
    * @param {Component} component [description]
    */
-  public addComponent(component: Name | (new () => Component), attributes: { [key: string]: any } = null, isDefaultComponent = false): Component {
-    if (typeof component === "function") { // TODO:test
+  public addComponent(component: Name | (new () => Component), attributes?: { [key: string]: any } |null, isDefaultComponent = false): Component {
+    if (typeof component === "function") {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
-      component = obj.name;
+      if (obj) {
+        component = obj.name;
+      } else {
+        throw new Error(`constructor is not Component.`);
+      }
+
     }
     const declaration = GrimoireInterface.componentDeclarations.get(component);
     if (!declaration) {
@@ -490,10 +499,9 @@ class GomlNode extends EEObject {
     // resetting cache
     this._messageCache = {}; // TODO: optimize.
 
-    //
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
-    let referenceElement = this.componentsElement[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
+    let referenceElement = (this.componentsElement as any)[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
     this.componentsElement.insertBefore(component.element, referenceElement);
 
     // bind this for message reciever.
@@ -503,8 +511,8 @@ class GomlNode extends EEObject {
       propNames = propNames.concat(Object.getOwnPropertyNames(o));
       o = Object.getPrototypeOf(o);
     }
-    propNames.filter(name => name.startsWith("$") && typeof component[name] === "function").forEach(method => {
-      component["$" + method] = component[method].bind(component);
+    propNames.filter(name => name.startsWith("$") && typeof (<any>component)[name] === "function").forEach(method => {
+      (<any>component)["$" + method] = (<any>component)[method].bind(component);
     });
 
     this._components.push(component);
@@ -535,18 +543,22 @@ class GomlNode extends EEObject {
       this.componentsElement.removeChild(component.element);
       this._components.splice(index, 1);
       this._messageCache = {}; // TODO:optimize.
-      component.node = null;
+      delete component.node;
       component.disposed = true;
+      delete GrimoireInterface.componentDictionary[component.id];
       return true;
     }
     return false;
   }
 
-  public getComponents<T>(filter?: Name | (new () => T)): T[] {
+  public getComponents<T>(filter?: Name | Ctor<T>): T[] {
     if (!filter) {
       return this._components as any as T[];
     } else {
       const ctor = Ensure.tobeComponentConstructor(filter);
+      if (!ctor) {
+        return [];
+      }
       return this._components.filter(c => c instanceof ctor) as any as T[];
     }
   }
@@ -556,7 +568,7 @@ class GomlNode extends EEObject {
    * @param  {Name}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(name: Name | (new () => T)): T {
+  public getComponent<T>(name: Name | Ctor<T>): T {
     // 事情により<T extends Component>とはできない。
     // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
@@ -569,18 +581,26 @@ class GomlNode extends EEObject {
       if (!ctor) {
         throw new Error(`component ${name} is not exist`);
       }
-      return this.getComponent<T>(ctor as any as (new () => T));
+      return this.getComponent<T>(ctor as any as Ctor<T>);
     }
   }
 
-  public getComponentsInChildren<T>(name: Name | (new () => T)): T[] {
-    if (name === null) {
+  public getComponentsInChildren<T>(name: Name | Ctor<T>): T[] {
+    if (name == null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
     }
     return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
   }
-  public getComponentInAncestor<T>(name: Name | (new () => T)): T {
-    if (name === null) {
+
+  /**
+   * search component in ancectors of this node.
+   * return component that found first.
+   * return null if component not found.
+   * @param  {[type]} name==null [description]
+   * @return {[type]}            [description]
+   */
+  public getComponentInAncestor<T>(name: Name | Ctor<T>): Nullable<T> {
+    if (name == null) {
       throw new Error("getComponentInAncestor recieve null or undefined");
     }
     if (this.parent) {
@@ -593,7 +613,7 @@ class GomlNode extends EEObject {
     if (this._initializedInfo === info) {
       return;
     }
-    let components = this._components.concat();
+    let components = this._components.concat(); // copy
     for (let i = 0; i < components.length; i++) {
       components[i].initialized(info);
     }
@@ -656,7 +676,7 @@ class GomlNode extends EEObject {
 
   private _sendMessage(message: string, args?: any): void {
     if (this._messageCache[message] === void 0) {
-      this._messageCache[message] = this._components.filter(c => typeof c[message] === "function");
+      this._messageCache[message] = this._components.filter(c => typeof (c as any)[message] === "function");
     }
     const targetList = this._messageCache[message];
     for (let i = 0; i < targetList.length; i++) {
@@ -683,7 +703,7 @@ class GomlNode extends EEObject {
 
 
 
-  private _getComponentInAncestor<T>(name: Name | (new () => T)): T {
+  private _getComponentInAncestor<T>(name: Name | (new () => T)): Nullable<T> {
     const ret = this.getComponent(name);
     if (ret) {
       return ret;
@@ -707,7 +727,7 @@ class GomlNode extends EEObject {
     if (!targetComponent.enabled) {
       return false;
     }
-    let method = targetComponent[message];
+    let method = (targetComponent as any)[message];
     if (typeof method === "function") {
       try {
         method(args);
@@ -753,7 +773,7 @@ class GomlNode extends EEObject {
    */
   private _sendMessageForcedTo(target: Component, message: string): void {
     message = Ensure.tobeMessage(message);
-    let method = target[message];
+    let method = (target as any)[message];
     if (typeof method === "function") {
       method();
     }

@@ -66,7 +66,7 @@ class NSIdentity {
   public static from(ns: string, name: string): NSIdentity;
   public static from(arg1: string, name?: string): NSIdentity {
     if (name) {
-      const fqn = name + "|" + arg1.toUpperCase();
+      const fqn = name + "|" + arg1.toLowerCase();
       const inst = NSIdentity._instances[fqn];
       if (inst) {
         return inst;
@@ -118,7 +118,7 @@ class NSIdentity {
   }
 
   private constructor(ns: string, name: string) {
-    this._ns = ns.toUpperCase();
+    this._ns = ns.toLowerCase();
     this._name = name;
 
     // Ensure all of the characters are uppercase

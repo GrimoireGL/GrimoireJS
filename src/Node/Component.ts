@@ -8,10 +8,11 @@ import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IDObject from "../Base/IDObject";
-import {GomlInterface} from "../Base/Types";
+import {GomlInterface, Nullable} from "../Base/Types";
 
 /**
  * Base class for any components
+ * component must be attach to node before any operation.
  */
 export default class Component extends IDObject {
   /**
@@ -51,7 +52,7 @@ export default class Component extends IDObject {
   private _awaked = false;
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: NSIdentity[] = [];
-  private _initializedInfo: ITreeInitializedInfo = null;
+  private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
 
   public get enabled(): boolean {
     return this._enabled;
@@ -70,17 +71,17 @@ export default class Component extends IDObject {
    * @return {NSDictionary<any>} [description]
    */
   public get companion(): NSDictionary<any> {
-    return this.node ? this.node.companion : null;
+    return this.node.companion;
   }
   /**
    * Tree interface for the tree this node is attached.
    * @return {GomlInterface} [description]
    */
   public get tree(): GomlInterface {
-    return this.node ? this.node.tree : null;
+    return this.node.tree;
   }
   public get isActive(): boolean {
-    return this.enabled && this.node && this.node.isActive;
+    return this.enabled && !!this.node && this.node.isActive;
   }
 
   /**
@@ -115,10 +116,10 @@ export default class Component extends IDObject {
     return Utility.remove(this._handlers, observer);
   }
 
-  public resolveDefaultAttributes(nodeAttributes: { [key: string]: string; }): any {
-    nodeAttributes = nodeAttributes || {};
+  public resolveDefaultAttributes(nodeAttributes?: { [key: string]: string; } |null): any {
+    const nodeAttr = nodeAttributes || {};
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
-      this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttributes));
+      this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttr));
     } else { // If not,the default value of attributes should be retrived from this element.
       const attrs = NodeUtility.getAttributes(this.element);
       for (let key in attrs) {
@@ -139,7 +140,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    let method = this["$$awake"];
+    let method = (<any>this)["$$awake"];
     if (typeof method === "function") {
       method();
     }
@@ -151,14 +152,14 @@ export default class Component extends IDObject {
       return;
     }
     this._initializedInfo = info;
-    let method = this["$$initialized"];
+    let method = (<any>this)["$$initialized"];
     if (typeof method === "function") {
       method(info);
     }
   }
 
   /**
-   * Add attribute
+   * Add additional attribute to this component.
    * @param {string}                name      [description]
    * @param {IAttributeDeclaration} attribute [description]
    */
@@ -187,7 +188,7 @@ export default class Component extends IDObject {
       this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {
-      const arr = [].concat(this._additionalAttributesNames);
+      const arr = this._additionalAttributesNames.concat();
       arr.forEach(id => {
         this.__removeAttributes(id.name);
       });
