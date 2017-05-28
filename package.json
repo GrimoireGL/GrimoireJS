@@ -39,6 +39,7 @@
     "typescript": "^2.2.2",
     "typescript-awaiter": "^1.0.0",
     "webpack": "^2.3.2",
+    "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.7.0",
     "xmldom": "^0.1.27",
     "yargs": "^8.0.1"
@@ -49,7 +50,7 @@
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "npm run build-production && npm test",
     "start": "webpack --progress --watch",
-    "build": "npm run generate-expose && webpack --progress && npm run generate-reference",
+    "build": "webpack --progress",
     "build-production": "npm run generate-expose && webpack --progress --env.prod && npm run generate-reference",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --core",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref",
