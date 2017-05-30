@@ -1,6 +1,5 @@
 import Utility from "./Utility";
 import Ensure from "./Ensure";
-import NSIdentity from "./NSIdentity";
 import Attribute from "../Node/Attribute";
 import {Name} from "../Base/Types";
 

@@ -7,6 +7,7 @@
     "outDir": "./lib",
     "declarationDir": "./ref",
     "noImplicitReturns": true,
+    "noUnusedParameters": true,
     "strict": true
   },
   "filesGlob": [

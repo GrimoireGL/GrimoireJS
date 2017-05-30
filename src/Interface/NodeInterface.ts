@@ -73,7 +73,7 @@ export default class NodeInterface {
         throw new Error("index out of range.");
       }
       let c = i1;
-      return this.find(node => {
+      return this.find(() => {
         if (c === 0) {
           return true;
         }

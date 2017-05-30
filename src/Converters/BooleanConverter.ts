@@ -1,5 +1,3 @@
-import Attribute from "../Node/Attribute";
-
 
 /**
  * booleanのためのコンバータです。
@@ -9,7 +7,7 @@ import Attribute from "../Node/Attribute";
  * @param  {Attribute} attr [description]
  * @return {any}            [description]
  */
-function BooleanConverter(val: any, attr: Attribute): any {
+export default function BooleanConverter(val: any): any {
   if (typeof val === "boolean") {
     return val;
   } else if (typeof val === "string") {
@@ -21,5 +19,3 @@ function BooleanConverter(val: any, attr: Attribute): any {
     }
   }
 }
-
-export default BooleanConverter;
