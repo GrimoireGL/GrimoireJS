@@ -2,9 +2,8 @@ import Utility from "../Base/Utility";
 import XMLReader from "../Base/XMLReader";
 import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
-import NSIdentity from "../Base/NSIdentity";
 import GomlNode from "../Node/GomlNode";
-import {Name, Undef, Nullable} from "../Base/Types";
+import {Name, Nullable} from "../Base/Types";
 
 
 /**

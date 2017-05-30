@@ -64,7 +64,7 @@ class GomlNode extends EEObject {
   /**
    * GomlInterface that this node is bound to.
    * throw exception if this node is not mounted.
-   * @return {IGomlInterface} [description]
+   * @return {GomlInterface} [description]
    */
   public get tree(): GomlInterface {
     if (!this.mounted) {

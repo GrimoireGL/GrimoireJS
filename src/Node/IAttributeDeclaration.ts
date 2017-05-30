@@ -1,4 +1,3 @@
-import NSIdentity from "../Base/NSIdentity";
 import {Name} from "../Base/Types";
 
 interface IAttributeDeclaration {

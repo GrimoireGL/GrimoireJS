@@ -1,5 +1,4 @@
 import Attribute from "../Node/Attribute";
-import NSIdentity from "../Base/NSIdentity";
 import {Name} from "../Base/Types";
 
 interface IAttributeConverterDeclaration {
