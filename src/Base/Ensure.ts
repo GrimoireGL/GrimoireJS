@@ -1,5 +1,6 @@
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import NSIdentity from "./NSIdentity";
+// import Namespace from "./Namespace";
 import NSDictionary from "./NSDictionary";
 import {Name, Nullable, Ctor} from "./Types";
 /**
@@ -46,10 +47,7 @@ export default class Ensure {
       throw Error(`argument can not be null or undefined.`);
     }
     if (typeof name === "string") {
-      if (name.indexOf("|") !== -1) {// name is fqn
-        return NSIdentity.fromFQN(name);
-      }
-      return NSIdentity.from(name);
+      return NSIdentity.guess(name);
     } else {
       return name;
     }
@@ -75,7 +73,7 @@ export default class Ensure {
     } else {
       const newDict = new NSDictionary<T>();
       for (let key in dict) {
-        newDict.set(NSIdentity.from(key), dict[key]);
+        newDict.set(NSIdentity.guess(key), dict[key]);
       }
       return newDict;
     }

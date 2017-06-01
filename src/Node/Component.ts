@@ -119,7 +119,7 @@ export default class Component extends IDObject {
   public resolveDefaultAttributes(nodeAttributes?: { [key: string]: string; } |null): any {
     const nodeAttr = nodeAttributes || {};
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
-      this.attributes.forEach((attr) => attr.resolveDefaultValue(nodeAttr));
+      this.attributes.forEach(attr => attr.resolveDefaultValue(nodeAttr));
     } else { // If not,the default value of attributes should be retrived from this element.
       const attrs = NodeUtility.getAttributes(this.element);
       for (let key in attrs) {

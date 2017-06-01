@@ -1,21 +1,106 @@
-import Constants from "./Constants";
+import Namespace from "./Namespace";
+import IdResolver from "./IdResolver";
+
 /**
  * The class to identity with XML namespace feature.
  */
-class NSIdentity {
+export default class NSIdentity {
+
 
   private static _instances: { [fqn: string]: NSIdentity } = {};
-  private static _map: { [name: string]: NSIdentity[] } = {};
+  private static _map: IdResolver = new IdResolver();
 
-  private _ns: string;
+  private _ns: Namespace;
   private _name: string;
   private _fqn: string;
+
+  /**
+   * Generate an instance from Full qualified name.
+   * @param  {string}             fqn [description]
+   * @return {NSIdentity}     [description]
+   */
+  public static fromFQN(fqn: string): NSIdentity;
+  public static fromFQN(qn: Namespace, name: string): NSIdentity;
+  public static fromFQN(fqn: string | Namespace, name?: string): NSIdentity {
+    const hierarchy = NSIdentity._ensureQNTobeArray(fqn, name);
+    fqn = hierarchy.join(".");
+    const inst = NSIdentity._instances[fqn];
+    if (inst) {
+      return inst;
+    }
+    const splitted = fqn.split(".");
+    return new NSIdentity(splitted);
+  }
+
+  public static guess(...hierarchy: string[]): NSIdentity {
+    return NSIdentity._from(hierarchy);
+  }
+  public static guessByNS(ns: Namespace, name: string): NSIdentity {
+    return NSIdentity._from(ns.hierarchy.concat([name]));
+  }
+
+  public static clear(): void {
+    NSIdentity._instances = {};
+    NSIdentity._map = new IdResolver();
+  }
+
+  /**
+   * return instance if exists.
+   * generate and return new instanse if not exist id has same fqn.
+   * @param  {string[]}   hierarchy [description]
+   * @return {NSIdentity}           [description]
+   */
+  private static _from(hierarchy: string[]): NSIdentity {
+    hierarchy = hierarchy.join(".").split(".");
+    const fqn = hierarchy.join(".");
+    const inst = NSIdentity._instances[fqn];
+    if (inst) {
+      return inst;
+    }
+
+    return NSIdentity.fromFQN(NSIdentity._map.resolve(Namespace.defineByArray(hierarchy)));
+  }
+
+  private static _ensureQNTobeArray(arg1: string | string[] | Namespace, name?: string): string[] {
+    if (name) {
+      return NSIdentity._ensureQNTobeArray((arg1 as Namespace).extend(name));
+    }
+    if (typeof arg1 === "string") {
+      return arg1.split(".");
+    }
+    if (Array.isArray(arg1)) {
+      return arg1;
+    }
+    return arg1.hierarchy;
+  }
+
+  public constructor(fqn: string | string[]);
+  public constructor(qn: string[], n: string);
+  public constructor(qn: string | string[], n?: string) {
+    if (typeof qn === "string") {
+      qn = qn.split(".");
+    }
+    if (n) {
+      this._ns = Namespace.defineByArray(qn);
+      this._name = n;
+    } else {
+      this._name = qn[qn.length - 1];
+      qn = qn.slice(0, qn.length - 1);
+      this._ns = Namespace.defineByArray(qn);
+
+    }
+
+    this._fqn = this.ns.hierarchy.concat([this.name]).join(".");
+
+    NSIdentity._instances[this._fqn] = this;
+    NSIdentity._map.add(qn.concat([this._name]));
+  }
 
   /**
    * Namespace of this identity
    * @type {string}
    */
-  public get ns(): string {
+  public get ns(): Namespace {
     return this._ns;
   }
 
@@ -35,103 +120,8 @@ class NSIdentity {
     return this._fqn;
   }
 
-  /**
-   * Generate an instance from Full qualified name.
-   * @param  {string}             fqn [description]
-   * @return {NSIdentity}     [description]
-   */
-  public static fromFQN(fqn: string): NSIdentity {
-    const inst = NSIdentity._instances[fqn];
-    if (inst) {
-      return inst;
-    }
-    const splitted = fqn.split("|");
-    if (splitted.length !== 2) {
-      throw new Error("Invalid fqn was given");
-    }
-    return new NSIdentity(splitted[1], splitted[0]);
-  }
-
-
-  /**
-   * デフォルト名前空間でID作成
-   * @param  {string}     name [description]
-   * @return {NSIdentity}      [description]
-   */
-  public static createOnDefaultNS(name: string): NSIdentity {
-    return NSIdentity.from(Constants.defaultNamespace, name);
-  }
-
-  public static from(name: string): NSIdentity;
-  public static from(ns: string, name: string): NSIdentity;
-  public static from(arg1: string, name?: string): NSIdentity {
-    if (name) {
-      const fqn = name + "|" + arg1.toLowerCase();
-      const inst = NSIdentity._instances[fqn];
-      if (inst) {
-        return inst;
-      }
-      return new NSIdentity(arg1, name);
-    } else {
-      const list = NSIdentity._map[arg1];
-      if (!list) {
-        return new NSIdentity(Constants.defaultNamespace, arg1);
-      }
-      if (list.length === 1) {
-        return list[0];
-      }
-      throw new Error(`name ${arg1} is ambiguous in NSIdentity.${list} exists.`);
-    }
-  }
-
-  public static clear(): void {
-    NSIdentity._instances = {};
-    NSIdentity._map = {};
-  }
-
-
-  /**
-   * Make sure given name is valid for using in identity.
-   * | is prohibited for using in name or namespace.
-   * . is prohibited for using in name.
-   * All lowercase alphabet will be transformed into uppercase.
-   * @param  {string} name        [A name to verify]
-   * @param  {[type]} noDot=false [Ensure not using dot or not]
-   * @return {string}             [Valid name]
-   */
-  private static _ensureValidIdentity(name: string, noDot = false): string {
-    if (name == null) {
-      throw new Error("Specified name was null or undefined");
-    }
-    if (name.indexOf("|") > -1) {
-      throw new Error("Namespace and identity cannnot contain | ");
-    }
-    if (noDot && name.indexOf(".") > -1) {
-      throw new Error("identity cannnot contain .");
-    }
-    return name;
-  }
-
 
   public toString(): string {
     return this.fqn;
   }
-
-  private constructor(ns: string, name: string) {
-    this._ns = ns.toLowerCase();
-    this._name = name;
-
-    // Ensure all of the characters are uppercase
-    this._name = NSIdentity._ensureValidIdentity(this.name, true);
-    this._ns = NSIdentity._ensureValidIdentity(this.ns);
-    this._fqn = this.name + "|" + this.ns;
-    NSIdentity._instances[this._fqn] = this;
-    if (!NSIdentity._map[this.name]) {
-      NSIdentity._map[this.name] = [this];
-    } else {
-      NSIdentity._map[this.name].push(this);
-    }
-  }
 }
-
-export default NSIdentity;
