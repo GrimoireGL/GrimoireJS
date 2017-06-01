@@ -1,5 +1,5 @@
 import GomlNode from "./GomlNode";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 
 /**
  * Parser of Goml to Node utilities.
@@ -63,6 +63,9 @@ class GomlParser {
     const recipe = GrimoireInterface.nodeDeclarations.get(elem);
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
+    }
+    if (!recipe.resolvedDependency) {
+      throw new Error("akjsdhakshd")
     }
     return new GomlNode(recipe, elem);
   }

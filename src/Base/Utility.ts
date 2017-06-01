@@ -1,4 +1,4 @@
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 
 
 export default class Utility {

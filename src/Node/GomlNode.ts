@@ -5,7 +5,7 @@ import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
 import NodeDeclaration from "./NodeDeclaration";
@@ -149,8 +149,11 @@ class GomlNode extends EEObject {
     if (!recipe) {
       throw new Error("recipe must not be null");
     }
+    if (!recipe.resolvedDependency) {
+      recipe.resolveDependency();
+    }
     this.nodeDeclaration = recipe;
-    this.element = element ? element : document.createElementNS(recipe.name.ns, recipe.name.name);
+    this.element = element ? element : document.createElementNS(recipe.name.ns.qualifiedName, recipe.name.name);
     this.componentsElement = document.createElement("COMPONENTS");
     this._root = this;
     this._components = [];
@@ -287,7 +290,7 @@ class GomlNode extends EEObject {
    */
   public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): GomlNode {
     if (typeof nodeName === "string") {
-      return this.addChildByName(NSIdentity.from(nodeName), attributes);
+      return this.addChildByName(NSIdentity.guess(nodeName), attributes);
     } else {
       const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
       const node = new GomlNode(nodeDec);
@@ -398,10 +401,14 @@ class GomlNode extends EEObject {
   }
 
   public setAttribute(attrName: Name, value: any, ignoireFreeze = false): void {
-    if (!ignoireFreeze && this.isFreezeAttribute(Ensure.tobeNSIdentity(attrName).name)) {
-      throw new Error(`attribute ${Ensure.tobeNSIdentity(attrName).name} can not set. Attribute is frozen. `);
+    let attrIds = this._attributeManager.guess(attrName);
+    for (let i = 0; i < attrIds.length; i++) {
+      let id = attrIds[i];
+      if (!ignoireFreeze && this.isFreezeAttribute(id.fqn)) {
+        throw new Error(`attribute ${id.fqn} can not set. Attribute is frozen. `);
+      }
+      this._attributeManager.setAttribute(id, value);
     }
-    return this._attributeManager.setAttribute(attrName, value);
   }
 
   /**
@@ -646,7 +653,7 @@ class GomlNode extends EEObject {
   }
 
   public isFreezeAttribute(attributeName: string): boolean {
-    return !!this.nodeDeclaration.freezeAttributes.find(name => attributeName === name);
+    return !!this.nodeDeclaration.freezeAttributes.toArray().find(name => attributeName === name.fqn);
   }
 
   public notifyActivenessUpdate(activeness: boolean): void {

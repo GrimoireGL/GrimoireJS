@@ -1,4 +1,4 @@
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
 import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";

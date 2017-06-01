@@ -1,5 +1,5 @@
 import Constants from "../Base/Constants";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import NodeInterface from "./NodeInterface";
 import GomlNode from "../Node/GomlNode";
 /**

@@ -1,4 +1,4 @@
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import Attribute from "../Node/Attribute";
 
 const splitter = " ";

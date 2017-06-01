@@ -1,5 +1,6 @@
-import GrimoireInterface from "./GrimoireInterface";
+import GrimoireInterface from "./Interface/GrimoireInterface";
 import GomlLoader from "./Node/GomlLoader";
+
 /**
  * Provides procedures for initializing.
  */
@@ -73,7 +74,6 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-
 export default function(): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
   GrimoireInterface.noConflictPreserve = (window as any)["gr"];

@@ -1,7 +1,7 @@
 import NSIdentity from "./NSIdentity";
 import GomlInterfaceImpl from "../Interface/GomlInterfaceImpl";
 import GomlNode from "../Node/GomlNode";
-import GrimoireInterfaceImpl from "../GrimoireInterfaceImpl";
+import GrimoireInterfaceImpl from "../Interface/GrimoireInterfaceImpl";
 import NodeInterface from "../Interface/NodeInterface";
 
 export type Name = string | NSIdentity;

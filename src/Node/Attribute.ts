@@ -3,7 +3,7 @@ import NSDictionary from "../Base/NSDictionary";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import Component from "./Component";
 import {GomlInterface, Name, Nullable} from "../Base/Types";
 
@@ -111,7 +111,7 @@ export default class Attribute {
    */
   public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
     const attr = new Attribute();
-    attr.name = NSIdentity.from(component.name.ns, name);
+    attr.name = NSIdentity.fromFQN(component.name.fqn + "." + name);
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);
