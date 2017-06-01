@@ -21,7 +21,6 @@ import GomlNode from "../Node/GomlNode";
 import ComponentDeclaration from "../Node/ComponentDeclaration";
 import Component from "../Node/Component";
 import IAttributeDeclaration from "../Node/IAttributeDeclaration";
-// import NSSet from "../Base/NSSet";
 import NodeDeclaration from "../Node/NodeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
 import Namespace from "../Base/Namespace";
@@ -68,7 +67,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
-   * Generate namespace helper function
+   * [obsolete] use `Namespace.define` instead of.
    * @param  {string} ns namespace URI to be used
    * @return {[type]}    the namespaced identity
    */

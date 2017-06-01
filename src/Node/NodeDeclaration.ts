@@ -10,7 +10,7 @@ export default class NodeDeclaration {
   public defaultComponents: NSSet;
   public defaultAttributes: NSDictionary<any> = new NSDictionary();
   public superNode?: NSIdentity;
-  public freezeAttributes: NSSet;//TODO tobe idresolver.
+  public freezeAttributes: NSSet;
   public idResolver = new IdResolver();
 
   private _defaultComponentsActual: NSSet;
@@ -24,18 +24,15 @@ export default class NodeDeclaration {
 
   public get defaultComponentsActual(): NSSet {
     if (!this._resolvedDependency) {
-      throw new Error(`${this.name.fqn} is not resolved dependency!`)
+      throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
     return this._defaultComponentsActual;
   }
 
   public get defaultAttributesActual(): NSDictionary<any> {
     if (!this._resolvedDependency) {
-      throw new Error(`${this.name.fqn} is not resolved dependency!`)
+      throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
-    // if (!this._defaultAttributesActual) {
-    //   this._resolveInherites();
-    // }
     return this._defaultAttributesActual;
   }
 
@@ -60,6 +57,8 @@ export default class NodeDeclaration {
   }
 
   /**
+   * resolve requiredComponents,superNode,defaults and freezeAttributes,
+   * throw error if they have any ambiguity.
    * デフォルトコンポーネント、スーパノード、デフォルト値、フリーズ値の名前解決。曖昧は例外
    */
   public resolveDependency(): boolean {

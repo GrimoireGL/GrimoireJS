@@ -64,9 +64,6 @@ class GomlParser {
     if (!recipe) {
       throw new Error(`Tag "${tagName}" is not found.`);
     }
-    if (!recipe.resolvedDependency) {
-      throw new Error("akjsdhakshd")
-    }
     return new GomlNode(recipe, elem);
   }
 
