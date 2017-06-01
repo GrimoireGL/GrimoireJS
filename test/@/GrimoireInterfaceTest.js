@@ -3,13 +3,14 @@ import '../XMLDomInit';
 import xmldom from 'xmldom';
 import test from 'ava';
 import sinon from 'sinon';
-import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
 import Constants from "../../lib-es5/Base/Constants";
 import Component from "../../lib-es5/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
 import GomlParser from "../../lib-es5/Node/GomlParser";
 import GomlLoader from "../../lib-es5/Node/GomlLoader";
 import NSIdentity from "../../lib-es5/Base/NSIdentity";
+import Namespace from "../../lib-es5/Base/Namespace";
 import GomlNode from "../../lib-es5/Node/GomlNode";
 global.Node = {
   ELEMENT_NODE: 1
@@ -18,11 +19,12 @@ global.Node = {
 
 test.beforeEach(() => {
   GrimoireInterface.clear();
+  GrimoireInterface.resolvePlugins();
 });
 
 test('ns method should generate namespace generating function correctly', (t) => {
-  const g = GrimoireInterface.ns('grimoireglNS');
-  t.truthy(g("test").fqn === "test|grimoireglns");
+  const g = Namespace.define('grimoire');
+  t.truthy(g.for("test").fqn === "grimoire.test");
 });
 
 test('registerComponent works correctly', (t) => {
@@ -43,20 +45,7 @@ test('registerComponent works correctly', (t) => {
   });
 });
 
-test('_ensureNameTobeConstructor is works correctly', (t) => {
-  GrimoireInterface.registerComponent("Aaa", {
-    attributes: {
-      testValue: {
-        converter: "stringConverter",
-        default: "bbb"
-      }
-    }
-  });
-  const ctor = GrimoireInterface._ensureNameTobeConstructor("Aaa");
-  t.truthy(ctor.attributes.testValue);
-})
-
-test('registerComponent works correctly', (t) => {
+test('registerComponent works correctly2', async(t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   GrimoireInterface.registerComponent("Aaa", {
     attributes: {
@@ -65,13 +54,28 @@ test('registerComponent works correctly', (t) => {
         default: "bbb"
       }
     },
+    hoge: 0,
     $test: function () {
       //do nothing.
+      this.hoge += 1;
     }
   });
   const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
   t.truthy(aaa.attributes.testValue);
+  t.truthy(aaa.resolvedDependency); //because no inherits.
+  const aaa2 = new aaa.ctor();
+  const aaa22 = new aaa.ctor();
+  t.truthy(aaa2 instanceof Component);
+  t.truthy(aaa2.attributes.testValue);
+  t.truthy(aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  aaa2.enabled = false;
+  t.truthy(!aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  aaa2.$test();
+  t.truthy(aaa2.hoge === 1);
+  t.truthy(aaa22.hoge === 0);
   GrimoireInterface.registerComponent("Bbb", {
     attributes: {
       testValue2: {
@@ -85,15 +89,43 @@ test('registerComponent works correctly', (t) => {
   }, "Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
   const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
+  await GrimoireInterface.resolvePlugins();
+  t.truthy(aaa.resolvedDependency);
+  t.truthy(bbb.resolvedDependency);
+  const bbb2 = new bbb.ctor()
+  t.truthy(bbb2.attributes.testValue);
+  t.truthy(bbb2.attributes.testValue2);
   t.truthy(bbb.attributes.testValue);
   t.truthy(bbb.attributes.testValue2);
-  t.truthy(bbb.ctor);
-  const bbbo = new bbb.ctor();
-  t.truthy(bbbo.$test);
-  t.truthy(bbbo.$test2);
+  t.truthy(bbb2.$test);
+  t.truthy(bbb2.$test2);
+});
+test('registerNode/Component works correctly.', async t => {
+  GrimoireInterface.registerNode("a1");
+  GrimoireInterface.registerNode("a2", ["Hoge"]);
+  GrimoireInterface.registerNode("a3", [], { hoge: 7 }, "a2");
+  GrimoireInterface.registerComponent("Hoge", {
+    attributes: {
+      hoge: {
+        converter: "Number",
+        default: 9
+      }
+    }
+  });
+  await GrimoireInterface.resolvePlugins();
+  let a1 = GrimoireInterface.nodeDeclarations.get("a1");
+  let a2 = GrimoireInterface.nodeDeclarations.get("a2");
+  let a3 = GrimoireInterface.nodeDeclarations.get("a3");
+  t.truthy(a1.defaultComponentsActual.toArray().length === 1); //grimoireCompone
+  t.truthy(a2.defaultComponentsActual.toArray().length === 2); //grimoireCompone
+  t.truthy(a3.defaultComponentsActual.toArray().length === 2); //grimoireCompone
+
+  // console.log(a2.idResolver)
+  t.truthy(a2.idResolver.resolve(Namespace.define("hoge")) === "grimoirejs.Hoge.hoge");
+  t.truthy(a3.idResolver.resolve(Namespace.define("hoge")) === "grimoirejs.Hoge.hoge");
 });
 test('throw error on attempt registerComponent/Node by duplicate name.', t => {
-  GrimoireInterface.registerComponent("Aaa", {});
+  GrimoireInterface.registerComponent("Aaa", { attributes: {} });
   GrimoireInterface.registerNode("node");
   t.throws(() => {
     GrimoireInterface.registerComponent("Aaa", {});
@@ -103,49 +135,7 @@ test('throw error on attempt registerComponent/Node by duplicate name.', t => {
   });
 });
 
-test('_ensureTobeComponentConstructor works correctly', (t) => {
-  // passing plain object
-  const testSpy = sinon.spy();
-  const baseObject = {
-    test: testSpy
-  };
-  const i = GrimoireInterface._ensureTobeComponentConstructor(baseObject);
-  const io = (new i());
-  t.truthy(i.prototype instanceof Component);
-  t.truthy(io instanceof Component);
-  io.test();
-  t.truthy(testSpy.calledWith());
-  // passing undefined return raw component
-  const raw = GrimoireInterface._ensureTobeComponentConstructor(void 0);
-  t.truthy(raw === Component);
-  // passing constructor not extending Component should throw exception
-  const rawConstructor = () => {
-    return;
-  };
-  t.throws(() => {
-    GrimoireInterface._ensureTobeComponentConstructor(rawConstructor);
-  });
-  // passing a constructor extending Component should return the variable same as argument
-  t.truthy(Component === GrimoireInterface._ensureTobeComponentConstructor(Component));
-});
-
-// test('addRootNode/getRootNode/queryRootNodes works correctly', async(t) => {
-//   const window = await jsdomAsync(require("./_TestResource/GrimoireInterfaceTest_Case1.html"));
-//   global.document = window.document;
-//   GrimoireInterface.registerNode("goml",[],{})
-//   const node = await GomlLoader.loadForPage();
-//   const scriptTag = window.document.getElementById("test");
-//   const id = GrimoireInterface.addRootNode(scriptTag, node);
-//   t.truthy(GrimoireInterface.rootNodes[id] === node);
-//   t.truthy(id === scriptTag.getAttribute("x-rootNodeId"));
-//   t.truthy(node === GrimoireInterface.getRootNode(scriptTag));
-//   global.document = window.document;
-//   const queriedNode = GrimoireInterface.queryRootNodes("script");
-//   t.truthy(queriedNode.length === 1);
-//   t.truthy(queriedNode[0] === node);
-// });
-
-test('register and resolvePlugins works preperly', async(t) => {
+test('register and resolvePlugins works preperly', async() => {
   const spy1 = sinon.spy();
   const spy2 = sinon.spy();
   const wrapPromise = function (spy) {
@@ -163,33 +153,3 @@ test('register and resolvePlugins works preperly', async(t) => {
   await GrimoireInterface.resolvePlugins();
   sinon.assert.callOrder(spy1, spy2);
 });
-
-// test('function interface works correctly', async(t) => {
-//   GrimoireInterface.registerNode("goml");
-//   const window = await jsdomAsync(require("./_TestResource/GrimoireInterfaceTest_Case1.html"));
-//   global.document = window.document;
-//   global.window = window;
-//   const scriptTag = window.document.getElementById("test");
-//   // window.document.__proto__.querySelectorAll = (query) => {
-//   //   if ("#test") {
-//   //     return ""
-//   //   }
-//   //   return ""
-//   // };
-//   await GomlLoader.loadFromScriptTag(scriptTag);
-//
-//   const gi = GrimoireInterface("#test");
-//   const nodeInterface = gi("#testId1");
-//   //nodeInterface.forEach((node) => { console.log("foreach"); })
-//   t.truthy(nodeInterface.count() === 1);
-//   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
-//   // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
-//
-//   //t.truthy(GrimoireInterface.rootNodes[id] === rootNode);
-//   // t.truthy(id === scriptTag.getAttributeNS(Constants.defaultNamespace, "rootNodeId"));
-//   //t.truthy(dummyRootNode === GrimoireInterface.getRootNode(scriptTag));
-//   // global.document = window.document;
-//   // const queriedNode = GrimoireInterface.queryRootNodes("script");
-//   // t.truthy(queriedNode.length === 1);
-//   // t.truthy(queriedNode[0] === dummyRootNode);
-// })

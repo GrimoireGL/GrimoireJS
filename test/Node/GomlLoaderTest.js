@@ -7,12 +7,24 @@ import xhrmock from "xhr-mock";
 import xmldom from "../XMLDomInit";
 
 import XMLReader from "../../lib-es5/Base/XMLReader";
-import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
 import GomlParser from "../../lib-es5/Node/GomlParser";
 import {
   goml,
+  stringConverter,
+  testComponent1,
+  testComponent2,
+  testComponent3,
+  testComponentBase,
+  testComponentOptional,
   testNode1,
-  testNode2
+  testNode2,
+  testNode3,
+  testNodeBase,
+  conflictNode1,
+  conflictNode2,
+  conflictComponent1,
+  conflictComponent2
 } from "./_TestResource/GomlParserTest_Registering";
 
 
@@ -46,7 +58,7 @@ function readFile(path) {
   return fs.readFileSync(p.join(__dirname, path), "utf8");
 }
 
-test.beforeEach(() => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   global.Node = {
     ELEMENT_NODE: 1
@@ -54,10 +66,16 @@ test.beforeEach(() => {
   goml();
   testNode1();
   testNode2();
+  testComponent1();
+  testComponent2();
+  testNodeBase();
+  testComponentBase();
+
+  await GrimoireInterface.resolvePlugins();
 });
+
 test('Processing script[type="text/goml"] tag correctly when the text content was existing', async(t) => {
   const src = readFile("../../test/Node/_TestResource/GomlLoaderTest_Case1.html");
-  // console.log(src);
   const window = await jsdomAsync(src, []);
   global.document = window.document;
   const scriptTags = window.document.querySelectorAll('script[type="text/goml"]');

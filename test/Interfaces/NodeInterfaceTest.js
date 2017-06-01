@@ -24,7 +24,7 @@ import {
   conflictComponent2
 } from "../Node/_TestResource/GomlParserTest_Registering";
 import GomlLoader from "../../lib-es5/Node/GomlLoader";
-import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
@@ -89,15 +89,16 @@ test.beforeEach(async() => {
   testComponentOptionalSpy = testComponentOptional();
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
+  await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
   global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
   global.rootNode.element.ownerDocument = global.document;
 });
 
 test('count first single.', (t) => {
-  console.log(GrimoireInterface("*").rootNodes[0].name);
+  // console.log(GrimoireInterface("*").rootNodes[0].name);
   const ni = GrimoireInterface("script")("goml");
-  console.log(ni.nodes)
+  // console.log(ni.nodes)
   // t.truthy(ni.count() === 1);
   // t.truthy(ni.first());
   t.truthy(true);

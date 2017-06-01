@@ -24,7 +24,7 @@ import {
   conflictComponent2
 } from "./_TestResource/GomlParserTest_Registering";
 import GomlLoader from "../../lib-es5/Node/GomlLoader";
-import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
@@ -84,6 +84,7 @@ test.beforeEach(async() => {
   testComponentOptionalSpy = testComponentOptional();
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
+  await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
   global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
 });
@@ -359,7 +360,8 @@ test('addNode works correctly', (t) => {
   t.truthy(child.getComponent("GrimoireComponent").getAttribute("id") === "idtest");
 });
 
-test('null should be "" as id and classname', (t) => {
+test('null should be "" as id and classname', async(t) => {
+  await GrimoireInterface.resolvePlugins();
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",

@@ -3,7 +3,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import GrimoireInterface from "../../lib-es5/GrimoireInterface"
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface"
 import NSIdentity from "../../lib-es5/Base/NSIdentity"
 import jsdomAsync from "../JsDOMAsync";
 import {
@@ -69,6 +69,7 @@ test.beforeEach(async() => {
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
   registerUserPlugin();
+  await GrimoireInterface.resolvePlugins();
 });
 
 
@@ -77,6 +78,17 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
+test("aaa", t => {
+  GrimoireInterface.nodeDeclarations.forEach(nm => {
+    t.truthy(nm.resolvedDependency);
+  });
+});
+test("bbb", async t => {
+  await GrimoireInterface.resolvePlugins();
+  GrimoireInterface.nodeDeclarations.forEach(nm => {
+    t.truthy(nm.resolvedDependency);
+  });
+});
 
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case1.goml");
@@ -102,7 +114,7 @@ test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
 test('test for parse user-define component.', (t) => {
   const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
-  node.setMounted(true)
+  node.setMounted(true);
   sinon.assert.notCalled(stringConverterSpy);
   node.broadcastMessage("onTest", "testArg");
   sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
