@@ -11,52 +11,7 @@
     "noUnusedLocals":true,
     "strict": true
   },
-  "filesGlob": [
-    "./src/**/*.ts"
-  ],
-  "files": [
-    "./src/Base/AttributeManager.ts",
-    "./src/Base/Constants.ts",
-    "./src/Base/EEObject.ts",
-    "./src/Base/Ensure.ts",
-    "./src/Base/IDObject.ts",
-    "./src/Base/NSDictionary.ts",
-    "./src/Base/NSIdentity.ts",
-    "./src/Base/NSSet.ts",
-    "./src/Base/Types.ts",
-    "./src/Base/Utility.ts",
-    "./src/Base/XMLHttpRequestAsync.ts",
-    "./src/Base/XMLReader.ts",
-    "./src/Components/GrimoireComponent.ts",
-    "./src/Converters/ArrayConverter.ts",
-    "./src/Converters/BooleanConverter.ts",
-    "./src/Converters/ComponentConverter.ts",
-    "./src/Converters/EnumConverter.ts",
-    "./src/Converters/NumberArrayConverter.ts",
-    "./src/Converters/NumberConverter.ts",
-    "./src/Converters/ObjectConverter.ts",
-    "./src/Converters/StringArrayConverter.ts",
-    "./src/Converters/StringConverter.ts",
-    "./src/Declaration/IAttributeConverterDeclaration.ts",
-    "./src/Interface/GrimoireInterface.ts",
-    "./src/Interface/GrimoireInterfaceImpl.ts",
-    "./src/index.ts",
-    "./src/Interface/GomlInterfaceImpl.ts",
-    "./src/Interface/NodeInterface.ts",
-    "./src/main.ts",
-    "./src/Node/Attribute.ts",
-    "./src/Node/Component.ts",
-    "./src/Node/ComponentDeclaration.ts",
-    "./src/Node/GomlLoader.ts",
-    "./src/Node/GomlNode.ts",
-    "./src/Node/GomlParser.ts",
-    "./src/Node/IAttributeDeclaration.ts",
-    "./src/Node/ITreeInitializedInfo.ts",
-    "./src/Node/NodeDeclaration.ts",
-    "./src/Node/NodeUtility.ts"
-  ],
-  "exclude": [],
-  "atom": {
-    "rewriteTsconfig": true
-  }
+  "include": [
+    "src/**/*.ts"
+  ]
 }
