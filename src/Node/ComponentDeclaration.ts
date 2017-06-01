@@ -66,7 +66,7 @@ export default class ComponentDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    if (!this._super && !this.superComponent) {//no inherits.
+    if (!this._super && !this.superComponent) { // no inherits.
       return this._resolvedDependency = true;
     }
     const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
@@ -95,7 +95,7 @@ export default class ComponentDeclaration {
    */
   private _ensureTobeComponentConstructor(id: NSIdentity, obj: Object | Ctor<Component>, baseConstructor?: Ctor<Component>): Ctor<Component> {
     if (typeof obj === "function") {
-      if (baseConstructor) {//inherits
+      if (baseConstructor) { // inherits
         (obj as Function).prototype = Object.create((baseConstructor as Function).prototype, { value: { constructor: obj } });
       }
       if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
