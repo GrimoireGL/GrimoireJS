@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/node": "^7.0.12",
     "events": "^1.1.1",
-    "grimoirejs-cauldron": "^2.3.3"
+    "grimoirejs-cauldron": "beta"
   },
   "devDependencies": {
     "ava": "^0.18.2",
