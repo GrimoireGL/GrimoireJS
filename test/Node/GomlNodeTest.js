@@ -3,7 +3,7 @@ import '../XMLDomInit';
 import xmldom from 'xmldom';
 import test from 'ava';
 import sinon from 'sinon';
-import GrimoireInterface from "../../lib-es5/GrimoireInterface";
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
 import Constants from "../../lib-es5/Base/Constants";
 import Component from "../../lib-es5/Node/Component";
 import jsdomAsync from "../JsDOMAsync";
@@ -12,18 +12,20 @@ import GomlLoader from "../../lib-es5/Node/GomlLoader";
 import NSIdentity from "../../lib-es5/Base/NSIdentity";
 import GomlNode from "../../lib-es5/Node/GomlNode";
 import Attribute from "../../lib-es5/Node/Attribute";
+
 global.Node = {
   ELEMENT_NODE: 1
 };
 
-test.beforeEach(() => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
   global.document = htmlDoc;
   GrimoireInterface.registerNode("goml");
   GrimoireInterface.registerNode("scenes");
-  GrimoireInterface.registerNode("scene")
+  GrimoireInterface.registerNode("scene");
+  await GrimoireInterface.resolvePlugins();
 });
 
 test("addChild method works correctly", t => {
@@ -93,7 +95,13 @@ test("detach method works correctly", t => {
 
 test("getComponents method works correctly", t => {
   GrimoireInterface.registerComponent("TestComponent", {
-    attr1: "testAttr"
+    attributes: {
+      attr1: {
+        converter: "String",
+        default: "testAttr"
+      }
+    }
+
   });
   GrimoireInterface.registerNode("test-node", ["TestComponent"]);
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("test-node"), null);
@@ -157,7 +165,7 @@ test("addComponent method works correctly", t => {
   t.truthy(components[1].getAttribute("testAttr1") == "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
-test("getComponent method overload works correctly", t => {
+test("getComponent method overload works correctly", async t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
@@ -177,6 +185,8 @@ test("getComponent method overload works correctly", t => {
       }
     }
   }, "TestComponent1");
+  await GrimoireInterface.resolvePlugins();
+
   node.addComponent("TestComponent2");
   t.truthy(node.getComponent("TestComponent2").name.name == "TestComponent2");
   t.truthy(node.getComponent("TestComponent1").name.name == "TestComponent2");

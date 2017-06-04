@@ -1,7 +1,7 @@
 import '../XMLDomInit'
 import test from 'ava';
 import Ensure from '../../lib-es5/Base/Ensure';
-import GrimoireInterface from '../../lib-es5/GrimoireInterface';
+import GrimoireInterface from '../../lib-es5/Interface/GrimoireInterface';
 import NSDictionary from '../../lib-es5/Base/NSDictionary';
 import AttributeManager from '../../lib-es5/Base/AttributeManager';
 import NSIdentity from '../../lib-es5/Base/NSIdentity';
@@ -13,15 +13,15 @@ const genAttr = (name, watch) => {
   return { name: name, watch: watch, Value: "value of " + name };
 }
 
-const ns1 = NSIdentity.from("aaa");
-const ns2 = NSIdentity.from("bbb");
-const ns3 = NSIdentity.from("ccc");
+const ns1 = NSIdentity.fromFQN("aaa");
+const ns2 = NSIdentity.fromFQN("ns.bbb");
+const ns3 = NSIdentity.fromFQN("ns.hoge.ccc");
 
 const genAM = () => {
   const am = new AttributeManager("tag");
-  am.addAttribute(genAttr(ns1));
-  am.addAttribute(genAttr(ns2));
-  am.addAttribute(genAttr(ns3));
+  am.addAttribute(genAttr(ns1, () => {}));
+  am.addAttribute(genAttr(ns2, () => {}));
+  am.addAttribute(genAttr(ns3, () => {}));
   return am;
 }
 
@@ -55,17 +55,17 @@ test('test addAttribute', (t) => {
   t.truthy(count === l + 2);
 });
 
-test('test watch', (t) => {
+test('test watch', () => {
   const am = genAM();
   const spy1 = sinon.spy();
   const spy2 = sinon.spy();
-  am.addAttribute(genAttr(NSIdentity.from("ns", "aaa"), () => {
+  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa"), () => {
     spy1("watch");
   }));
-  am.addAttribute(genAttr(NSIdentity.from("ns", "aaa"), () => {
+  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa"), () => {
     spy2("watch");
   }));
-  am.watch(NSIdentity.from("ns", "aaa"), () => {});
+  am.watch(NSIdentity.guess("hoge.aaa"), () => {});
   sinon.assert.called(spy1);
   sinon.assert.called(spy2);
 });
@@ -74,7 +74,7 @@ test('test set/getAttribute', (t) => {
   const am = genAM();
   am.setAttribute("aaa", "hoge");
   t.truthy(am.getAttribute("aaa").Value === "hoge");
-  am.addAttribute(genAttr(ns1));
+  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa")));
   t.throws(() => {
     am.getAttribute("aaa");
   })

@@ -1,12 +1,11 @@
 import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
-import GomlInterface from "../Interface/GomlInterface";
 import NSDictionary from "../Base/NSDictionary";
-import IGomlInterface from "../Interface/IGomlInterface";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import Component from "./Component";
+import {GomlInterface, Name, Nullable} from "../Base/Types";
 
 /**
  * Manage a attribute attached to components.
@@ -54,9 +53,9 @@ export default class Attribute {
 
   /**
    * Goml tree interface which contains the component this attribute bound to.
-   * @return {IGomlInterface} [description]
+   * @return {GomlInterface} [description]
    */
-  public get tree(): IGomlInterface & GomlInterface {
+  public get tree(): Nullable<GomlInterface> {
     return this.component.tree;
   }
 
@@ -64,7 +63,7 @@ export default class Attribute {
    * Companion map which is bounding to the component this attribute bound to.
    * @return {NSDictionary<any>} [description]
    */
-  public get companion(): NSDictionary<any> {
+  public get companion(): Nullable<NSDictionary<any>> {
     return this.component.companion;
   }
 
@@ -74,7 +73,8 @@ export default class Attribute {
    */
   public get Value(): any {
     if (this._value === void 0) {
-      throw new Error(`attribute ${this.name.name} value is undefined in ${this.component.node.name.name}`);
+      const node = this.component.node;
+      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
     }
     return this._valuate(this._value);
   }
@@ -92,7 +92,7 @@ export default class Attribute {
   }
 
 
-  public static convert(converter: string | NSIdentity, self: Attribute, val: any): any {
+  public static convert(converter: Name, self: Attribute, val: any): any {
     const cname = Ensure.tobeNSIdentity(converter);
     const conv = GrimoireInterface.converters.get(cname);
     if (!conv) {
@@ -111,7 +111,7 @@ export default class Attribute {
    */
   public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
     const attr = new Attribute();
-    attr.name = NSIdentity.from(component.name.ns, name);
+    attr.name = NSIdentity.fromFQN(component.name.fqn + "." + name);
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);
@@ -177,7 +177,7 @@ export default class Attribute {
         configurable: true
       });
     } else {
-      let backing;
+      let backing: any;
       this.watch(v => {
         backing = v;
       }, true);
@@ -203,7 +203,7 @@ export default class Attribute {
       this.Value = tagAttrValue; // Dom指定値で解決
       return;
     }
-    const nodeDefaultValue = this.component.node.nodeDeclaration.defaultAttributesActual.get(this.name);
+    const nodeDefaultValue = this.component.node!.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
     if (nodeDefaultValue !== void 0) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;

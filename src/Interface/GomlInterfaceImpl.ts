@@ -1,5 +1,5 @@
 import Constants from "../Base/Constants";
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import NodeInterface from "./NodeInterface";
 import GomlNode from "../Node/GomlNode";
 /**
@@ -11,7 +11,7 @@ class GomlInterface {
   }
 
   public getNodeById(id: string): GomlNode[] {
-    return this.rootNodes.map(root => GomlNode.fromElement(root.element.ownerDocument.getElementById(id)));
+    return this.rootNodes.map(root => GomlNode.fromElement(root.element.ownerDocument.getElementById(id)!));
   }
 
   public queryFunc(query: string): NodeInterface {
@@ -23,9 +23,12 @@ class GomlInterface {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {
-        const node = GrimoireInterface.nodeDictionary[nodelist.item(i).getAttribute(Constants.x_gr_id)];
-        if (node) {
-          nodes.push(node);
+        const id = nodelist.item(i).getAttribute(Constants.x_gr_id);
+        if (id) {
+          const node = GrimoireInterface.nodeDictionary[id];
+          if (node) {
+            nodes.push(node);
+          }
         }
       }
       return nodes;

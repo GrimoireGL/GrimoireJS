@@ -1,8 +1,8 @@
-import NSIdentity from "../Base/NSIdentity";
+import {Name} from "../Base/Types";
+
 interface IAttributeDeclaration {
-  converter: string | NSIdentity;
+  converter: Name;
   default: any;
-  readonly?: boolean;
   [parameters: string]: any;
 }
 

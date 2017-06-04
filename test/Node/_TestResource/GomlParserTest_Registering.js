@@ -1,4 +1,4 @@
-const GrimoireInterface = require("../../../lib-es5/GrimoireInterface").default;
+const GrimoireInterface = require("../../../lib-es5/Interface/GrimoireInterface").default;
 const sinon = require("sinon");
 
 // Components
@@ -10,6 +10,10 @@ export function testComponent1() {
       testAttr1: {
         converter: "Str",
         default: null
+      },
+      hoge: {
+        converter: "Str",
+        default: "DEFAULT"
       }
     },
     $onTest: function (arg) {
@@ -26,7 +30,7 @@ export function testComponent1() {
     }
   });
   return spy;
-};
+}
 
 export function testComponent2() {
   const spy = sinon.spy();
@@ -60,6 +64,14 @@ export function testComponent3() {
       testAttr3: {
         converter: "Str",
         default: "tc2default"
+      },
+      hogehoge: {
+        converter: "Str",
+        default: "hoge"
+      },
+      hoge: {
+        converter: "Str",
+        default: "hoge"
       }
     },
     $onTest: function (arg) {
@@ -166,8 +178,8 @@ export function conflictComponent2() {
 
 // Nodes
 export function goml() {
-  GrimoireInterface.registerNode("goml", [], {});
-};
+  GrimoireInterface.registerNode("goml");
+}
 
 export function testNode1() {
   GrimoireInterface.registerNode("test-node1", ["TestComponent1"]);
@@ -175,10 +187,10 @@ export function testNode1() {
 
 export function testNode2() {
   GrimoireInterface.registerNode("test-node2", ["TestComponent2"], null, "test-node-base");
-};
+}
 
 export function testNode3() {
-  GrimoireInterface.registerNode("test-node3", ["TestComponent3"], {});
+  GrimoireInterface.registerNode("test-node3", ["TestComponent3"], { hoge: "AAA" });
 }
 
 export function testNodeBase() {
@@ -211,4 +223,4 @@ export function stringConverter() {
     throw new Error("Not Implemented:" + arg);
   });
   return spy;
-};
+}

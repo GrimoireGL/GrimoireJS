@@ -1,39 +1,47 @@
 import test from 'ava';
+import '../AsyncSupport';
+import '../XMLDomInit';
+import xmldom from 'xmldom';
+import sinon from 'sinon';
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
+import Constants from "../../lib-es5/Base/Constants";
+import Component from "../../lib-es5/Node/Component";
+import jsdomAsync from "../JsDOMAsync";
+import GomlParser from "../../lib-es5/Node/GomlParser";
+import GomlLoader from "../../lib-es5/Node/GomlLoader";
+import GomlNode from "../../lib-es5/Node/GomlNode";
 
 import NSIdentity from '../../lib-es5/Base/NSIdentity';
-import Constants from '../../lib-es5/Base/Constants';
+
+test.beforeEach(() => {
+  NSIdentity.clear();
+});
 
 test('Not accept to get invalid name or namespace', (t) => {
+  NSIdentity.fromFQN("hoge");
+  NSIdentity.fromFQN("a.b");
   t.throws(() => {
-    NSIdentity.from("Wrong|Name");
+    NSIdentity.guess("aaa");
   });
   t.throws(() => {
-    NSIdentity.from("Wrong|Namespace", "Name");
+    NSIdentity.guess("b", "a");
   });
   t.throws(() => {
-    NSIdentity.from("Wrong.Namespace", "Wrong|Name");
+    NSIdentity.guess("Wrongamespace", "WrongName");
   });
   t.notThrows(() => {
-    NSIdentity.from("CorrectName");
+    NSIdentity.guess("hoge");
   });
   t.notThrows(() => {
-    NSIdentity.from("CorrectNamespace", "CorrectName");
+    NSIdentity.guess("a", "b");
+  });
+  t.notThrows(() => {
+    NSIdentity.guess("b");
   });
 });
 
 test('Transform name and ns correctly', (t) => {
-  const i = NSIdentity.from("http://grimoire.gl/ns", "Sample");
+  const i = NSIdentity.fromFQN("ns.Sample");
   t.truthy(i.name === "Sample");
-  t.truthy(i.ns === "HTTP://GRIMOIRE.GL/NS");
-});
-
-test('Generate fqn correctly', (t) => {
-  t.truthy((NSIdentity.from("http://ns.com", "test")).fqn === "test|HTTP://NS.COM");
-  t.truthy((NSIdentity.createOnDefaultNS("test")).fqn === "test|" + Constants.defaultNamespace);
-});
-
-test('Parse fqn correctly', (t) => {
-  const parsed = NSIdentity.fromFQN("TEST|HTTP://NS.COM");
-  t.truthy("TEST" === parsed.name);
-  t.truthy("HTTP://NS.COM" === parsed.ns);
+  t.truthy(i.ns.qualifiedName === "ns");
 });

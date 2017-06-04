@@ -3,8 +3,9 @@ import test from 'ava';
 import sinon from 'sinon';
 import GomlParser from "../../lib-es5/Node/GomlParser";
 import xmldom from 'xmldom';
-import GrimoireInterface from "../../lib-es5/GrimoireInterface"
-import NSIdentity from "../../lib-es5/Base/NSIdentity"
+import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface"
+import NSIdentity from "../../lib-es5/Base/NSIdentity";
+import Namespace from "../../lib-es5/Base/Namespace";
 import jsdomAsync from "../JsDOMAsync";
 import {
   goml,
@@ -69,6 +70,7 @@ test.beforeEach(async() => {
   conflictComponent1Spy = conflictComponent1();
   conflictComponent2Spy = conflictComponent2();
   registerUserPlugin();
+  await GrimoireInterface.resolvePlugins();
 });
 
 
@@ -77,6 +79,17 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scene");
 }
 
+test("aaa", t => {
+  GrimoireInterface.nodeDeclarations.forEach(nm => {
+    t.truthy(nm.resolvedDependency);
+  });
+});
+test("bbb", async t => {
+  await GrimoireInterface.resolvePlugins();
+  GrimoireInterface.nodeDeclarations.forEach(nm => {
+    t.truthy(nm.resolvedDependency);
+  });
+});
 
 test('test for parsing node hierarchy.', (t) => {
   const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case1.goml");
@@ -102,16 +115,18 @@ test('test for send/broadcastMessage and component Attribute parsing.', (t) => {
 test('test for parse user-define component.', (t) => {
   const element = obtainElementTag("../../test/Node/_TestResource/GomlParserTest_Case3.goml");
   const node = GomlParser.parse(element);
-  node.setMounted(true)
-  sinon.assert.notCalled(stringConverterSpy);
+  node.setMounted(true);
+
+  t.truthy(node.children.length === 1); //only test-node1
+  t.truthy(node.children[0].getAttribute("testAttr1") === "hugahuga"); //goml default
+  t.truthy(node.children[0].getAttribute("hoge") === "DEFAULT"); //component default
+  t.truthy(node.children[0].children.length === 1);
+  t.truthy(node.children[0].children[0].getAttribute("testAttr2") === "123");
   node.broadcastMessage("onTest", "testArg");
   sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
   sinon.assert.neverCalledWith(testComponent2Spy, "testArg");
   sinon.assert.neverCalledWith(testComponentOptionalSpy, "testArg");
   t.truthy("testArg" === testComponentBaseSpy.args[2][1]);
-  sinon.assert.neverCalledWith(stringConverterSpy, "hugahuga");
-  sinon.assert.neverCalledWith(stringConverterSpy, "123");
-  sinon.assert.neverCalledWith(stringConverterSpy, "999");
 });
 
 test('test for namespace parsing.', (t) => {

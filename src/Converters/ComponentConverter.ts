@@ -32,7 +32,7 @@ export default {
         throw new Error(`Specified component must be ${attr.declaration["target"]}`);
       }
     } else {
-      const n = attr.tree(val).first();
+      const n = attr.tree!(val).first();
       if (n) {
         return n.getComponent(attr.declaration["target"]);
       }

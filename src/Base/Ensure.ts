@@ -1,6 +1,8 @@
-import GrimoireInterface from "../GrimoireInterface";
+import GrimoireInterface from "../Interface/GrimoireInterface";
 import NSIdentity from "./NSIdentity";
+// import Namespace from "./Namespace";
 import NSDictionary from "./NSDictionary";
+import {Name, Nullable, Ctor} from "./Types";
 /**
  * Provides static methods to ensure arguments are valid type.
  */
@@ -35,21 +37,23 @@ export default class Ensure {
     }
   }
 
-  public static tobeNSIdentity(name: string | NSIdentity): NSIdentity {
+  /**
+   * string or NSIdentity ensure to be NSIdentity.
+   * @param  {Name}       name [description]
+   * @return {NSIdentity}      [description]
+   */
+  public static tobeNSIdentity(name: Name): NSIdentity {
     if (!name) {
-      return undefined;
+      throw Error(`argument can not be null or undefined.`);
     }
     if (typeof name === "string") {
-      if (name.indexOf("|") !== -1) {// name is fqn
-        return NSIdentity.fromFQN(name);
-      }
-      return NSIdentity.from(name);
+      return NSIdentity.guess(name);
     } else {
       return name;
     }
   }
 
-  public static tobeNSIdentityArray(names: (string | NSIdentity)[]): NSIdentity[] {
+  public static tobeNSIdentityArray(names: Name[]): NSIdentity[] {
     if (!names) {
       return [];
     }
@@ -69,7 +73,7 @@ export default class Ensure {
     } else {
       const newDict = new NSDictionary<T>();
       for (let key in dict) {
-        newDict.set(NSIdentity.from(key), dict[key]);
+        newDict.set(NSIdentity.guess(key), dict[key]);
       }
       return newDict;
     }
@@ -86,13 +90,20 @@ export default class Ensure {
       return "$$" + message;
     }
   }
-  public static tobeComponentConstructor<T>(c: string | NSIdentity | (new () => T)): (new () => T) {
+
+  /**
+   * string, NSIdentity or constructor ensure to be constructor.
+   * return null if identity is not registered as component.
+   * @param  {[type]} typeofc==="function" [description]
+   * @return {[type]}                      [description]
+   */
+  public static tobeComponentConstructor<T>(c: Name | Ctor<T>): Nullable<Ctor<T>> {
     if (typeof c === "function") {
       return c;
     } else {
       const dec = GrimoireInterface.componentDeclarations.get(c);
       if (dec) {
-        return dec.ctor as any as (new () => T);
+        return dec.ctor as any as Ctor<T>;
       }
       return null;
     }

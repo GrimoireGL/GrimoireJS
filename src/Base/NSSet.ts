@@ -1,7 +1,12 @@
 import NSIdentity from "./NSIdentity";
 
-class NSSet {
-  private _contentArray: NSIdentity[] = [];
+/**
+ * set of NSIdentity
+ * @param  {NSIdentity[]} array [description]
+ * @return {NSSet}              [description]
+ */
+export default class NSSet {
+  private _content: { [fqn: string]: NSIdentity } = {};
 
   public static fromArray(array: NSIdentity[]): NSSet {
     const nSet = new NSSet();
@@ -9,12 +14,19 @@ class NSSet {
     return nSet;
   }
 
-  public push(item: NSIdentity): NSSet {
-    const index = this._contentArray.findIndex(id => id.fqn === item.fqn);
-    if (index === -1) {
-      this._contentArray.push(item);
+
+  constructor(content?: NSIdentity[]) {
+    if (content) {
+      this.pushArray(content);
     }
-    return this;
+  }
+
+  public push(item: NSIdentity): boolean {
+    if (!this._content[item.fqn]) {
+      this._content[item.fqn] = item;
+      return true;
+    }
+    return false;
   }
 
   public pushArray(item: NSIdentity[]): NSSet {
@@ -24,35 +36,31 @@ class NSSet {
     return this;
   }
 
-  public values(): IterableIterator<NSIdentity> {
-    return this._contentArray.values();
-  }
-
   public toArray(): NSIdentity[] {
     const ret: NSIdentity[] = [];
-    for (let key in this._contentArray) {
-      ret.push(this._contentArray[key]);
+    for (let key in this._content) {
+      ret.push(this._content[key]);
     }
     return ret;
   }
 
   public clone(): NSSet {
     const newSet = new NSSet();
-    for (let i of this._contentArray) {
-      newSet.push(i);
+    for (let key in this._content) {
+      newSet.push(this._content[key]);
     }
     return newSet;
   }
 
   public merge(other: NSSet): NSSet {
-    for (let elem of other._contentArray) {
-      this.push(elem);
+    this.pushArray(other.toArray());
+    return this;
+  }
+
+  public forEach(func: (name: NSIdentity) => void): NSSet {
+    for (let key in this._content) {
+      func(this._content[key]);
     }
     return this;
   }
-  public forEach(func: (name: NSIdentity) => void): void {
-    this._contentArray.forEach(func);
-  }
 }
-
-export default NSSet;

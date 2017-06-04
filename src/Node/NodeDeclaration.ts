@@ -2,44 +2,86 @@ import Ensure from "../Base/Ensure";
 import NSDictionary from "../Base/NSDictionary";
 import NSSet from "../Base/NSSet";
 import NSIdentity from "../Base/NSIdentity";
-import GrimoireInterface from "../GrimoireInterface";
+import IdResolver from "../Base/IdResolver";
+import GrimoireInterface from "../Interface/GrimoireInterface";
+import {Name} from "../Base/Types";
 
-class NodeDeclaration {
+export default class NodeDeclaration {
+  public defaultComponents: NSSet;
+  public defaultAttributes: NSDictionary<any> = new NSDictionary();
+  public superNode?: NSIdentity;
+  public freezeAttributes: NSSet;
+  public idResolver = new IdResolver();
+
   private _defaultComponentsActual: NSSet;
   private _defaultAttributesActual: NSDictionary<any>;
+  private _resolvedDependency = false;
+
+
+  public get resolvedDependency() {
+    return this._resolvedDependency;
+  }
 
   public get defaultComponentsActual(): NSSet {
-    if (!this._defaultComponentsActual) {
-      this._resolveInherites();
+    if (!this._resolvedDependency) {
+      throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
     return this._defaultComponentsActual;
   }
 
   public get defaultAttributesActual(): NSDictionary<any> {
-    if (!this._defaultAttributesActual) {
-      this._resolveInherites();
+    if (!this._resolvedDependency) {
+      throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
     return this._defaultAttributesActual;
   }
 
   constructor(
     public name: NSIdentity,
-    public defaultComponents: NSSet,
-    public defaultAttributes: NSDictionary<any>,
-    public superNode: NSIdentity,
-    public freezeAttributes: string[]) {
-    this.freezeAttributes = this.freezeAttributes ? this.freezeAttributes : [];
-    if (!this.superNode && this.name.name !== "grimoire-node-base") {
-      this.superNode = NSIdentity.createOnDefaultNS("grimoire-node-base");
+    private _defaultComponents: Name[],
+    private _defaultAttributes: { [key: string]: any },
+    private _superNode?: Name,
+    private _freezeAttributes: Name[] = []) {
+    if (!this._superNode && this.name.name !== "grimoire-node-base") {
+      this._superNode = new NSIdentity("grimoirejs.grimoire-node-base");
     }
+    this._freezeAttributes = this._freezeAttributes || [];
   }
 
-  public addDefaultComponent(componentName: string | NSIdentity): void {
+  public addDefaultComponent(componentName: Name): void {
     const componentId = Ensure.tobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
     if (this._defaultComponentsActual) {
       this._defaultComponentsActual.push(componentId);
     }
+  }
+
+  /**
+   * resolve requiredComponents,superNode,defaults and freezeAttributes,
+   * throw error if they have any ambiguity.
+   * デフォルトコンポーネント、スーパノード、デフォルト値、フリーズ値の名前解決。曖昧は例外
+   */
+  public resolveDependency(): boolean {
+    if (this._resolvedDependency) {
+      return false;
+    }
+    this.defaultComponents = new NSSet(this._defaultComponents.map(name => Ensure.tobeNSIdentity(name)));
+
+    for (let key in this._defaultAttributes) {
+      let value = this._defaultAttributes[key];
+      this.defaultAttributes.set(NSIdentity.fromFQN(key), value);
+    }
+    this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : void 0;
+    this._resolveInherites();
+    this._defaultComponentsActual.forEach(id => {
+      const dec = GrimoireInterface.componentDeclarations.get(id);
+      dec.idResolver.foreach(fqn => {
+        this.idResolver.add(NSIdentity.fromFQN(fqn));
+      });
+    });
+    this.freezeAttributes = new NSSet(this._freezeAttributes.map(name => Ensure.tobeNSIdentity(name)));
+    this._resolvedDependency = true;
+    return true;
   }
 
 
@@ -50,12 +92,10 @@ class NodeDeclaration {
       return;
     }
     const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
+    superNode.resolveDependency();
     const inheritedDefaultComponents = superNode.defaultComponentsActual;
     const inheritedDefaultAttribute = superNode.defaultAttributesActual;
     this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this.defaultComponents);
     this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this.defaultAttributes);
   }
-
 }
-
-export default NodeDeclaration;

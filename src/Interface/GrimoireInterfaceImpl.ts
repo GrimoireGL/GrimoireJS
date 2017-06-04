@@ -1,31 +1,32 @@
-import EEObject from "./Base/EEObject";
-import IAttributeConverterDeclaration from "./Declaration/IAttributeConverterDeclaration";
-import GomlLoader from "./Node/GomlLoader";
-import EnumConverter from "./Converters/EnumConverter";
-import NumberArrayConverter from "./Converters/NumberArrayConverter";
-import ComponentConverter from "./Converters/ComponentConverter";
-import NumberConverter from "./Converters/NumberConverter";
-import ObjectConverter from "./Converters/ObjectConverter";
-import ArrayConverter from "./Converters/ArrayConverter";
-import NodeInterface from "./Interface/NodeInterface";
-import Utility from "./Base/Utility";
-import GomlInterface from "./Interface/GomlInterface";
-import BooleanConverter from "./Converters/BooleanConverter";
-import GrimoireComponent from "./Components/GrimoireComponent";
-import StringArrayConverter from "./Converters/StringArrayConverter";
-import StringConverter from "./Converters/StringConverter";
-import Attribute from "./Node/Attribute";
-import Constants from "./Base/Constants";
-import ITreeInitializedInfo from "./Node/ITreeInitializedInfo";
-import GomlNode from "./Node/GomlNode";
-import ComponentDeclaration from "./Node/ComponentDeclaration";
-import Component from "./Node/Component";
-import IAttributeDeclaration from "./Node/IAttributeDeclaration";
-import NSSet from "./Base/NSSet";
-import NodeDeclaration from "./Node/NodeDeclaration";
-import NSIdentity from "./Base/NSIdentity";
-import NSDictionary from "./Base/NSDictionary";
-import Ensure from "./Base/Ensure";
+import EEObject from "../Base/EEObject";
+import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
+import GomlLoader from "../Node/GomlLoader";
+import EnumConverter from "../Converters/EnumConverter";
+import NumberArrayConverter from "../Converters/NumberArrayConverter";
+import ComponentConverter from "../Converters/ComponentConverter";
+import NumberConverter from "../Converters/NumberConverter";
+import ObjectConverter from "../Converters/ObjectConverter";
+import ArrayConverter from "../Converters/ArrayConverter";
+import NodeInterface from "../Interface/NodeInterface";
+import Utility from "../Base/Utility";
+import GomlInterfaceImpl from "../Interface/GomlInterfaceImpl";
+import BooleanConverter from "../Converters/BooleanConverter";
+import GrimoireComponent from "../Components/GrimoireComponent";
+import StringArrayConverter from "../Converters/StringArrayConverter";
+import StringConverter from "../Converters/StringConverter";
+import Attribute from "../Node/Attribute";
+import Constants from "../Base/Constants";
+import ITreeInitializedInfo from "../Node/ITreeInitializedInfo";
+import GomlNode from "../Node/GomlNode";
+import ComponentDeclaration from "../Node/ComponentDeclaration";
+import Component from "../Node/Component";
+import IAttributeDeclaration from "../Node/IAttributeDeclaration";
+import NodeDeclaration from "../Node/NodeDeclaration";
+import NSIdentity from "../Base/NSIdentity";
+import Namespace from "../Base/Namespace";
+import NSDictionary from "../Base/NSDictionary";
+import Ensure from "../Base/Ensure";
+import {Name, Nullable, Ctor} from "../Base/Types";
 
 
 export default class GrimoireInterfaceImpl extends EEObject {
@@ -38,7 +39,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
-  public loadTasks: (() => Promise<void>)[] = [];
+  public loadTasks: ({ ns: string, task: () => Promise<void> })[] = [];
 
   public lib: {
     [key: string]: {
@@ -58,17 +59,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public noConflictPreserve: any;
 
+  private _registeringPluginNamespace: string;
+  private _registrationContext: string = Constants.defaultNamespace;
+
   public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
     return GomlLoader.initializedEventHandlers;
   }
 
   /**
-   * Generate namespace helper function
+   * [obsolete] use `Namespace.define` instead of.
    * @param  {string} ns namespace URI to be used
    * @return {[type]}    the namespaced identity
    */
   public ns(ns: string): (name: string) => NSIdentity {
-    return (name: string) => NSIdentity.from(ns, name);
+    return (name: string) => Namespace.define(ns).for(name);
   }
 
   public initialize(): void {
@@ -91,13 +95,30 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @return {[type]}          [description]
    */
   public register(loadTask: () => Promise<void>): void {
-    this.loadTasks.push(loadTask);
+    this.loadTasks.push({ ns: this._registeringPluginNamespace, task: loadTask });
+    this._registeringPluginNamespace = Constants.defaultNamespace;
   }
 
   public async resolvePlugins(): Promise<void> {
     for (let i = 0; i < this.loadTasks.length; i++) {
-      await this.loadTasks[i]();
+      const obj = this.loadTasks[i];
+      this._registrationContext = obj.ns;
+      try {
+        await obj.task();
+      } catch (e) {
+        console.error(`Error: loadTask of plugin '${obj.ns}' is failed.`);
+        console.error(e);
+      }
     }
+    this._registrationContext = Constants.defaultNamespace;
+
+    // resolveDependency
+    this.componentDeclarations.forEach(dec => {
+      dec.resolveDependency();
+    });
+    this.nodeDeclarations.forEach(dec => {
+      dec.resolveDependency();
+    });
   }
 
   /**
@@ -107,54 +128,42 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: string | NSIdentity, obj: Object | (new () => Component), superComponent?: string | NSIdentity | (new () => Component)): ComponentDeclaration {
-    name = Ensure.tobeNSIdentity(name);
+  public registerComponent(name: Name, obj: Object | Ctor<Component>, superComponent?: Name | Ctor<Component>): ComponentDeclaration {
+    name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
     if (this.debug && !Utility.isCamelCase(name.name)) {
       console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
-
-    let superCtor;
-    if (superComponent) {
-      superCtor = this._ensureNameTobeConstructor(superComponent);
-      if (!superCtor) {
-        throw new Error(`${superComponent} is not exist.`);
-      }
+    const attrs = (typeof obj === "function" ? obj as any : obj)["attributes"] as { [name: string]: IAttributeDeclaration };
+    if (!attrs) {
+      throw new Error("component must has 'attributes'");
     }
-    obj = this._ensureTobeComponentConstructor(obj, superCtor);
-    let ctor = this._ensureTobeComponentConstructor(obj, superCtor);
-    const attrs = ctor["attributes"] as { [name: string]: IAttributeDeclaration } || {};
     for (let key in attrs) {
       if (attrs[key].default === void 0) {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
     }
-    const dec = new ComponentDeclaration(name as NSIdentity, attrs, ctor);
-    this.componentDeclarations.set(name as NSIdentity, dec);
+    const dec = new ComponentDeclaration(name, attrs, obj, superComponent);
+    this.componentDeclarations.set(name, dec);
     return dec;
   }
 
-  public registerNode(name: string | NSIdentity,
-    requiredComponents: (string | NSIdentity)[],
+  public registerNode(name: Name, requiredComponents: Name[],
     defaults?: { [key: string]: any } | NSDictionary<any>,
-    superNode?: string | NSIdentity, freezeAttributes?: string[]): void {
-    name = Ensure.tobeNSIdentity(name);
-    if (this.nodeDeclarations.get(name)) {
-      throw new Error(`gomlnode ${name.fqn} is already registerd.`);
+    superNode?: Name, freezeAttributes?: Name[]): NodeDeclaration {
+    const registerId = this._ensureTobeNSIdentityOnRegister(name);
+    if (this.nodeDeclarations.get(registerId)) {
+      throw new Error(`gomlnode ${registerId.fqn} is already registerd.`);
     }
-    if (this.debug && !Utility.isSnakeCase(name.name)) {
-      console.warn(`node ${name.name} is registerd. but,it should be 'snake-case'.`);
+    if (this.debug && !Utility.isSnakeCase(registerId.name)) {
+      console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
-    requiredComponents = Ensure.tobeNSIdentityArray(requiredComponents);
-    defaults = Ensure.tobeNSDictionary(defaults);
-    superNode = Ensure.tobeNSIdentity(superNode);
-    this.nodeDeclarations.set(name as NSIdentity,
-      new NodeDeclaration(name as NSIdentity,
-        NSSet.fromArray(requiredComponents as NSIdentity[]),
-        defaults as NSDictionary<any>,
-        superNode as NSIdentity, freezeAttributes));
+
+    const declaration = new NodeDeclaration(registerId, requiredComponents || [], defaults || {}, superNode, freezeAttributes);
+    this.nodeDeclarations.set(registerId, declaration);
+    return declaration;
   }
   public getCompanion(scriptTag: Element): NSDictionary<any> {
     const root = this.getRootNode(scriptTag);
@@ -187,11 +196,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public getRootNode(scriptTag: Element): GomlNode {
     const id = scriptTag.getAttribute("x-rootNodeId");
-    return this.rootNodes[id];
+    if (id) {
+      return this.rootNodes[id];
+    } else {
+      throw new Error(`scriptTag has not attribute 'x-rootNodeId'.It surely has registerd GrimoireInterface by 'addRootNode()''?`);
+    }
   }
 
   public noConflict(): void {
-    window["gr"] = this.noConflictPreserve;
+    (<any>window)["gr"] = this.noConflictPreserve;
   }
 
   public queryRootNodes(query: string): GomlNode[] {
@@ -206,33 +219,33 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return nodes;
   }
 
-  public registerConverter(name: string | NSIdentity, converter: ((val: any, attr: Attribute) => any)): void;
+  public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
-  public registerConverter(arg1: string | NSIdentity | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+  public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
-      this.registerConverter({ name: Ensure.tobeNSIdentity(arg1 as any), verify: () => true, convert: converter });
+      this.registerConverter({ name: this._ensureTobeNSIdentityOnRegister(arg1 as any), verify: () => true, convert: converter });
       return;
     }
     const dec = arg1 as IAttributeConverterDeclaration;
-    this.converters.set(Ensure.tobeNSIdentity(dec.name), dec);
+    this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[]): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, additionalComponents: (string | NSIdentity)[], defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: string | NSIdentity, arg2: (string | NSIdentity)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[]): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, defaults: { [attrName: string]: any }): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[], defaults: { [attrName: string]: any }): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, arg2: Name[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
       throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
     }
     if (defaults) {
-      const additionalC = arg2 as (string | NSIdentity)[];
+      const additionalC = arg2 as (Name)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
       dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(defaults));
     } else if (Array.isArray(arg2)) {
-      const additionalC = arg2 as (string | NSIdentity)[];
+      const additionalC = arg2 as (Name)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
@@ -264,76 +277,47 @@ export default class GrimoireInterfaceImpl extends EEObject {
       delete this.componentDictionary[key];
     }
     this.loadTasks.splice(0, this.loadTasks.length);
+    this._registeringPluginNamespace = Constants.defaultNamespace;
     this.initialize();
   }
 
   public extendGrimoireInterface(name: string, func: Function): void {
-    if (this[name]) {
+    if ((<any>this)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    this[name] = func.bind(this);
+    (<any>this)[name] = func.bind(this);
   }
   public extendGomlInterface(name: string, func: Function): void {
-    if (GomlInterface[name]) {
+    if ((GomlInterfaceImpl as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    GomlInterface[name] = func.bind(this);
+    (GomlInterfaceImpl as any)[name] = func.bind(this);
   }
   public extendNodeInterface(name: string, func: Function): void {
-    if (NodeInterface[name]) {
+    if ((NodeInterface as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    NodeInterface[name] = func.bind(this);
+    (NodeInterface as any)[name] = func.bind(this);
   }
 
   /**
-   * Ensure the given object or constructor to be an constructor inherits Component;
-   * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
-   * @return {[type]}      [The constructor inherits Component]
+   * use for notify GrimoireInterface of plugin namespace to be ragister.
+   * notified namespace will use when resolve loadTask of the plugin.
+   * @param {string} namespace namespace of plugin to be ragister.
    */
-  private _ensureTobeComponentConstructor(obj: Object | (new () => Component), baseConstructor?: (new () => Component)): new () => Component {
-    if (typeof obj === "function") {
-      if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
-        throw new Error("Component constructor must extends Component class.");
-      }
-      return obj as (new () => Component);
-    } else if (typeof obj === "object") {
-      if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component)) {
-        throw new Error("Base component comstructor must extends Compoent class.");
-      }
-      const ctor = baseConstructor || Component;
-      const newCtor = function() {
-        ctor.call(this);
-      };
-      const properties = {};
-      for (let key in obj) {
-        if (key === "attributes") {
-          continue;
-        }
-        properties[key] = { value: obj[key] };
-      }
-
-      const attributes = {};
-      for (let key in ctor["attributes"]) {
-        attributes[key] = ctor["attributes"][key];
-      }
-      for (let key in obj["attributes"]) {
-        attributes[key] = obj["attributes"][key];
-      }
-      newCtor.prototype = Object.create(ctor.prototype, properties);
-      Object.defineProperty(newCtor, "attributes", {
-        value: attributes
-      });
-      obj = newCtor;
-      return obj as (new () => Component);
+  public notifyRegisteringPlugin(namespace: string): void {
+    let res = /^[Gg]rimoire(?:js|JS)?-(.*)$/.exec(namespace);
+    if (res) {
+      namespace = res[1];
     }
-    return Component;
+    this._registeringPluginNamespace = namespace;
   }
 
-  private _ensureNameTobeConstructor(component: string | NSIdentity | (new () => Component)): (new () => Component) {
+  private _ensureNameTobeConstructor(component: Name | Ctor<Component>): Nullable<Ctor<Component>> {
     if (!component) {
       return null;
     }
+
     if (typeof component === "function") {
       return component;
     } else if (typeof component === "string") {
@@ -345,6 +329,22 @@ export default class GrimoireInterfaceImpl extends EEObject {
         return null;
       }
       return c.ctor;
+    }
+  }
+
+  private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity;
+  private _ensureTobeNSIdentityOnRegister(name: null | undefined): null;
+  private _ensureTobeNSIdentityOnRegister(name: Name |null | undefined): Nullable<NSIdentity> {
+    if (!name) {
+      return null;
+    }
+    if (typeof name === "string") {
+      if (name.indexOf("|") !== -1) {
+        return NSIdentity.fromFQN(name);
+      }
+      return NSIdentity.fromFQN(Namespace.define(this._registrationContext), name);
+    } else {
+      return name;
     }
   }
 }
