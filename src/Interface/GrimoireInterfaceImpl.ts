@@ -238,16 +238,18 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (!dec) {
       throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
     }
+    if (!dec.resolvedDependency) {
+      dec.resolveDependency();
+    }
     if (defaults) {
       const additionalC = arg2 as (Name)[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
       dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(defaults));
-    } else if (Array.isArray(arg2)) {
-      const additionalC = arg2 as (Name)[];
-      for (let i = 0; i < additionalC.length; i++) {
-        dec.addDefaultComponent(additionalC[i]);
+    } else if (Array.isArray(arg2)) { // only additiona components.
+      for (let i = 0; i < arg2.length; i++) {
+        dec.addDefaultComponent(arg2[i]);
       }
     } else {
       dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(arg2));
