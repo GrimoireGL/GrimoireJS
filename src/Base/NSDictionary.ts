@@ -1,14 +1,12 @@
 import NSIdentity from "./NSIdentity";
 import IdResolver from "./IdResolver";
 import Namespace from "./Namespace";
-import {Name, Nullable} from "./Types";
+import {Name, Nullable, Undef} from "./Types";
 
 type Dict<V> = { [key: string]: V };
 
 export default class NSDictionary<V> {
 
-  // private _nameObjectMap: Dict<{ id: NSIdentity, value: V }[]> = {};
-  //
   private _fqnObjectMap: Dict<V> = {};
   private _idResolver: IdResolver = new IdResolver();
 
@@ -85,6 +83,26 @@ export default class NSDictionary<V> {
       this.set(id, value);
     });
     return this;
+  }
+
+  public hasMatchingValue(name: NSIdentity): Undef<V> {
+    const resolver = new IdResolver();
+    resolver.add(name);
+    let match: string | undefined = void 0;
+    for (let key in this._fqnObjectMap) {
+      let v = resolver.get(Namespace.defineByArray(key.split(".")));
+      if (v.length === 1) {
+        if (match === void 0) {
+          match = key;
+        } else {
+          throw new Error("matching attribute is ambigious.");
+        }
+      }
+    }
+    if (match) {
+      return this._fqnObjectMap[match];
+    }
+    return void 0;
   }
 
   public toArray(): V[] {

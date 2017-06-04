@@ -127,7 +127,7 @@ export default class Component extends IDObject {
           continue;
         }
       }
-      this.attributes.forEach((attr) => attr.resolveDefaultValue(attrs));
+      this.attributes.forEach(attr => attr.resolveDefaultValue(attrs));
     }
   }
 

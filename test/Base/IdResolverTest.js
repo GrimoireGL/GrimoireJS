@@ -16,6 +16,16 @@ import Namespace from '../../lib-es5/Base/Namespace';
 import IdResolver from '../../lib-es5/Base/IdResolver';
 // import Constants from '../../lib-es5/Base/Constants';
 
+
+test("get() works correctly.", t => {
+  let r = new IdResolver();
+
+  r.add(NSIdentity.fromFQN("c.b.a"));
+  t.truthy(r.get(Namespace.define("a")).length === 1)
+  t.truthy(r.get(Namespace.define("b.a")).length === 1)
+  t.truthy(r.get(Namespace.define("c.a")).length === 1)
+  t.truthy(r.get(Namespace.define("c.b.a")).length === 1)
+})
 test('Not accept to get invalid name or namespace', (t) => {
   let r = new IdResolver();
 
@@ -55,5 +65,17 @@ test('Not accept to get invalid name or namespace', (t) => {
   r.add(NSIdentity.fromFQN("hage.huga.c"));
   r.add(NSIdentity.fromFQN("hage.a"));
   t.truthy(r.get(Namespace.define("a")).length === 2)
+
+});
+
+test('resolve works correctly', (t) => {
+  let r = new IdResolver();
+  r.add(NSIdentity.fromFQN("hoge.a"));
+  r.add(NSIdentity.fromFQN("hoge.b"));
+  r.add(NSIdentity.fromFQN("hage.huga.c"));
+  r.add(NSIdentity.fromFQN("hage.huga.a"));
+  t.truthy(r.get(Namespace.define("a")).length === 2);
+  t.truthy(r.get(Namespace.define("b")).length === 1);
+  t.truthy(r.resolve(Namespace.define("c")) === "hage.huga.c");
 
 });

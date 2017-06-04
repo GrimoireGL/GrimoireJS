@@ -203,7 +203,7 @@ export default class Attribute {
       this.Value = tagAttrValue; // Dom指定値で解決
       return;
     }
-    const nodeDefaultValue = this.component.node!.nodeDeclaration.defaultAttributesActual.get(this.name);
+    const nodeDefaultValue = this.component.node!.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
     if (nodeDefaultValue !== void 0) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;

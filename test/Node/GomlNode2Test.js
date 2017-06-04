@@ -110,6 +110,16 @@ test('Nodes must have tree', (t) => {
   })
 });
 
+test('default value works correctly.', t => {
+  const testNode3 = rootNode.children[0]; //test-node3
+  const a = testNode3.getAttribute("hoge");
+  t.truthy(a === "AAA"); //node default
+  const b = testNode3.getAttribute("hogehoge");
+  t.truthy(b === "hoge"); //component default
+  t.truthy(testNode3.getAttribute("id") === "test"); //goml default
+  t.truthy(testNode3.getAttribute("testAttr3") === "tc2default"); //component default
+})
+
 test('mount should be called in ideal timing', (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;

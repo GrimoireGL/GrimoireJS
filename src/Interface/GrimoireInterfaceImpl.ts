@@ -161,9 +161,6 @@ export default class GrimoireInterfaceImpl extends EEObject {
       console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
 
-    // const requiredComponentsSet = NSSet.fromArray(Ensure.tobeNSIdentityArray(requiredComponents));
-    // const superNodeId = superNode ? Ensure.tobeNSIdentity(superNode) : void 0;
-    // const defaultNSDicts = Ensure.tobeNSDictionary(defaults || {});
     const declaration = new NodeDeclaration(registerId, requiredComponents || [], defaults || {}, superNode, freezeAttributes);
     this.nodeDeclarations.set(registerId, declaration);
     return declaration;
@@ -233,10 +230,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 
-  public overrideDeclaration(targetDeclaration: Name, additionalComponents: (Name)[]): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[]): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: Name, defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: Name, additionalComponents: (Name)[], defaults: { [attrName: string]: any }): NodeDeclaration;
-  public overrideDeclaration(targetDeclaration: Name, arg2: (Name)[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
+  public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[], defaults: { [attrName: string]: any }): NodeDeclaration;
+  public overrideDeclaration(targetDeclaration: Name, arg2: Name[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
       throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);

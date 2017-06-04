@@ -10,6 +10,10 @@ export function testComponent1() {
       testAttr1: {
         converter: "Str",
         default: null
+      },
+      hoge: {
+        converter: "Str",
+        default: "DEFAULT"
       }
     },
     $onTest: function (arg) {
@@ -60,6 +64,14 @@ export function testComponent3() {
       testAttr3: {
         converter: "Str",
         default: "tc2default"
+      },
+      hogehoge: {
+        converter: "Str",
+        default: "hoge"
+      },
+      hoge: {
+        converter: "Str",
+        default: "hoge"
       }
     },
     $onTest: function (arg) {
@@ -178,7 +190,7 @@ export function testNode2() {
 }
 
 export function testNode3() {
-  GrimoireInterface.registerNode("test-node3", ["TestComponent3"], {});
+  GrimoireInterface.registerNode("test-node3", ["TestComponent3"], { hoge: "AAA" });
 }
 
 export function testNodeBase() {
