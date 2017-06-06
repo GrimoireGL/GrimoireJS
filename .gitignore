@@ -115,6 +115,7 @@ lib-ts
 lib-test
 product
 src/**/*.js
+test/**/*.js
 
 .grimoire.dependency
 
