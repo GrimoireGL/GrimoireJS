@@ -48,10 +48,9 @@
   "scripts": {
     "test": "tsc && babel ./lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugins transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
-    "prepublish": "npm run build-production && npm test",
+    "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
-    "build-production": "npm run generate-expose && webpack --progress --env.prod && npm run generate-reference",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --core",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref --core",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
