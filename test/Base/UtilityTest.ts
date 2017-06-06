@@ -1,6 +1,6 @@
-import '../XMLDomInit'
-import test from 'ava';
-import Utility from '../../lib-es5/Base/Utility';
+import "../XMLDomInit";
+import test from "ava";
+import Utility from "../../src/Base/Utility";
 
 test("isCamelCase works correctly.", t => {
   t.truthy(Utility.isCamelCase("NameName123"));
