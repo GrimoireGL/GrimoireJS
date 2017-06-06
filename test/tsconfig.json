@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "moduleResolution": "node"
+    "outDir":"./lib",
+    "moduleResolution": "node",
+    "allowJs":true
   },
   "include": [
     "./**/*.ts"
