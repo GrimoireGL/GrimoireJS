@@ -9,10 +9,7 @@ import Component from "../../src/Node/Component";
 import GomlParser from "../../src/Node/GomlParser";
 import GomlLoader from "../../src/Node/GomlLoader";
 import GomlNode from "../../src/Node/GomlNode";
-
-// import NSIdentity from "../../lib-es5/Base/NSIdentity";
 import Namespace from "../../src/Base/Namespace";
-// import Constants from "../../lib-es5/Base/Constants";
 
 test("constructor is works correctly.", (t) => {
   let ns = Namespace.define("a").extend("b");

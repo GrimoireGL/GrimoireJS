@@ -2,10 +2,12 @@ import "../XMLDomInit";
 import test from "ava";
 import xmldom from "xmldom";
 import XMLReader from "../../src/Base/XMLReader";
-import {readFileAsync} from "../FileHelper";
+import fs from "../FileHelper";
 
-test("parseXML behaves correctly", async t => {
-  const parsedDocument = XMLReader.parseXML(await readFileAsync("../../Base/_TestResource/XMLReader_Case1.xml"), "Goml");
+const xml = fs.readFile("../../_TestResource/XMLReader_Case1.xml");
+
+test("parseXML behaves correctly", t => {
+  const parsedDocument = XMLReader.parseXML(xml, "Goml");
   t.truthy(parsedDocument[0].localName === "goml");
   t.throws(() => {
     XMLReader.parseXML(">", "Goml");

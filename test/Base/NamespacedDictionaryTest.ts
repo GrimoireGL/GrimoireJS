@@ -8,9 +8,8 @@ import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import NodeInterface from "../../src/Interface/NodeInterface";
 import NSIdentity from "../../src/Base/NSIdentity";
 import NSDictionary from "../../src/Base/NSDictionary";
-import {readFileAsync} from "../FileHelper";
-
-const test_xml_path = "../../Base/_TestResource/NSDictionary_QueryDOM.xml";
+import fs from "../fileHelper";
+const xml = fs.readFile("../../_TestResource/NSDictionary_QueryDOM.xml");
 
 test.beforeEach(() => {
   NSIdentity.clear();
@@ -58,8 +57,7 @@ test("get element with strict name", async (t) => {
   theDict.set(secoundKey, "test2");
   const domParser = new DOMParser();
 
-  const test_xml = await readFileAsync(test_xml_path);
-  const parsed = domParser.parseFromString(test_xml, "text/xml");
+  const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test");
   const attr = idElement.getAttributeNode("d:test");
   t.truthy(theDict.get("test.test") === "test2");
@@ -77,8 +75,7 @@ test("get element with shortened namespace prefix", async (t) => {
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
   const domParser = new DOMParser();
-  const test_xml = await readFileAsync(test_xml_path);
-  const parsed = domParser.parseFromString(test_xml, "text/xml");
+  const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
   t.throws(() => {
@@ -93,8 +90,7 @@ test("get element with shortened namespace prefix", async (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test");
   const domParser = new DOMParser();
-  const test_xml = await readFileAsync(test_xml_path);
-  const parsed = domParser.parseFromString(test_xml, "text/xml");
+  const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
   t.truthy(theDict.get(idElement) === "test");
@@ -106,8 +102,7 @@ test("get element with fuzzy name", async (t) => {
   const theDict = new NSDictionary();
   theDict.set(secoundKey, "test2");
   const domParser = new DOMParser();
-  const test_xml = await readFileAsync(test_xml_path);
-  const parsed = domParser.parseFromString(test_xml, "text/xml");
+  const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
 
@@ -123,8 +118,7 @@ test("get element with ambigious name should throw error", async (t) => {
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
   const domParser = new DOMParser();
-  const test_xml = await readFileAsync(test_xml_path);
-  const parsed = domParser.parseFromString(test_xml, "text/xml");
+  const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
   t.throws(() => {

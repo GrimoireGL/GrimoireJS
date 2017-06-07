@@ -1,11 +1,10 @@
-import '../AsyncSupport';
-import '../XMLDomInit';
-import test from 'ava';
-import sinon from 'sinon';
-import xmldom from 'xmldom';
-import jsdomAsync from "../JsDOMAsync";
+import "../AsyncSupport";
+import "../XMLDomInit";
+import test from "ava";
+import sinon from "sinon";
+import xmldom from "xmldom";
 import xhrmock from "xhr-mock";
-import _ from "lodash";
+import * as _ from "lodash";
 import {
   goml,
   stringConverter,
@@ -22,15 +21,17 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "../Node/_TestResource/GomlParserTest_Registering";
-import GomlLoader from "../../lib-es5/Node/GomlLoader";
-import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
+} from "../Node/GomlParserTest_Registering";
+import GomlLoader from "../../src/Node/GomlLoader";
+import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import fs from "../fileHelper";
+
+const testcase1_goml = fs.readFile("../../_TestResource/GomlNodeTest_Case1.goml");
+const testcase1_html = fs.readFile("../../_TestResource/GomlNodeTest_Case1.html");
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  let aa = res.status(200).body(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.goml"));
-  // console.log(aa);
-  return aa;
+  return res.status(200).body(testcase1_goml);
 });
 
 let stringConverterSpy,
@@ -52,23 +53,17 @@ function resetSpies() {
   conflictComponent1Spy.reset();
   conflictComponent2Spy.reset();
 }
-
-
-const fs = require('fs');
-const pathaa = require("path");
-
-function readFile(path) {
-  return fs.readFileSync(pathaa.join(__dirname, path), "utf8");
+declare namespace global {
+  let document: any;
+  let Node: any;
 }
 
-
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
-  let a = readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html");
-  const htmlDoc = parser.parseFromString(a, "text/html");
+  const htmlDoc = parser.parseFromString(testcase1_html, "text/html");
   global.document = htmlDoc;
-  global.document.querySelectorAll = function (selector) {
+  global.document.querySelectorAll = function(selector) {
     return global.document.getElementsByTagName("script");
   };
   global.Node = {
@@ -91,12 +86,11 @@ test.beforeEach(async() => {
   conflictComponent2Spy = conflictComponent2();
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
-  global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
-  global.rootNode.element.ownerDocument = global.document;
+  global["rootNode"] = _.values(GrimoireInterface.rootNodes)[0];
+  global["rootNode"].element.ownerDocument = global["document"];
 });
 
-test('count first single.', (t) => {
-  // console.log(GrimoireInterface("*").rootNodes[0].name);
+test("count first single.", (t) => {
   const ni = GrimoireInterface("script")("goml");
   // console.log(ni.nodes)
   // t.truthy(ni.count() === 1);

@@ -1,23 +1,28 @@
-import '../AsyncSupport';
-import '../XMLDomInit';
-import xmldom from 'xmldom';
-import test from 'ava';
-import sinon from 'sinon';
-import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
-import Constants from "../../lib-es5/Base/Constants";
-import Component from "../../lib-es5/Node/Component";
-import jsdomAsync from "../JsDOMAsync";
-import GomlParser from "../../lib-es5/Node/GomlParser";
-import GomlLoader from "../../lib-es5/Node/GomlLoader";
-import NSIdentity from "../../lib-es5/Base/NSIdentity";
-import GomlNode from "../../lib-es5/Node/GomlNode";
-import Attribute from "../../lib-es5/Node/Attribute";
+import "../AsyncSupport";
+import "../XMLDomInit";
+import xmldom from "xmldom";
+import test from "ava";
+import sinon from "sinon";
+import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import Constants from "../../src/Base/Constants";
+import Component from "../../src/Node/Component";
+import GomlParser from "../../src/Node/GomlParser";
+import GomlLoader from "../../src/Node/GomlLoader";
+import NSIdentity from "../../src/Base/NSIdentity";
+import GomlNode from "../../src/Node/GomlNode";
+import Attribute from "../../src/Node/Attribute";
+
+declare namespace global {
+  let Node: any;
+  let document: any;
+  let rootNode: any;
+}
 
 global.Node = {
   ELEMENT_NODE: 1
 };
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
@@ -83,7 +88,7 @@ test("detach method works correctly", t => {
   node2.addChild(node3, null, null);
   node2.detach();
   try {
-    node.detach()
+    node.detach();
   } catch (err) {
     t.truthy(err.message === "root Node cannot be detached.");
   }
@@ -107,7 +112,6 @@ test("getComponents method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("test-node"), null);
   const components = node.getComponents();
   t.truthy(components.length === 2);
-  t.truthy(node._components[0].id === components[0].id);
 });
 
 test("setMounted method works correctly", t => {
@@ -141,10 +145,10 @@ test("addComponent method works correctly", t => {
   });
   const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
   node._addComponentDirectly(component, true);
-  const components = node.getComponents();
-  t.truthy(components.length == 2);
-  t.truthy(components[1].name.name == "TestComponent1");
-  t.truthy(component.isDefaultComponent)
+  const components = node.getComponents<Component>();
+  t.truthy(components.length === 2);
+  t.truthy(components[1].name.name === "TestComponent1");
+  t.truthy(component.isDefaultComponent);
 });
 test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
@@ -159,10 +163,10 @@ test("addComponent method works correctly", t => {
     }
   });
   const component = node.addComponent("TestComponent1", { testAttr1: "testValue" });
-  const components = node.getComponents();
-  t.truthy(components.length == 2);
-  t.truthy(components[1].name.name == "TestComponent1");
-  t.truthy(components[1].getAttribute("testAttr1") == "testValue");
+  const components = node.getComponents<Component>();
+  t.truthy(components.length === 2);
+  t.truthy(components[1].name.name === "TestComponent1");
+  t.truthy(components[1].getAttribute("testAttr1") === "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
 test("getComponent method overload works correctly", async t => {
@@ -188,8 +192,8 @@ test("getComponent method overload works correctly", async t => {
   await GrimoireInterface.resolvePlugins();
 
   node.addComponent("TestComponent2");
-  t.truthy(node.getComponent("TestComponent2").name.name == "TestComponent2");
-  t.truthy(node.getComponent("TestComponent1").name.name == "TestComponent2");
+  t.truthy(node.getComponent<Component>("TestComponent2").name.name === "TestComponent2");
+  t.truthy(node.getComponent<Component>("TestComponent1").name.name === "TestComponent2");
 });
 test("getComponents method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
@@ -214,21 +218,21 @@ test("getComponents method overload works correctly", t => {
   node.addComponent("TestComponent1");
   node.addComponent("TestComponent2");
   const components = node.getComponents();
-  t.truthy(components.length == 3);
+  t.truthy(components.length === 3);
 });
-test("addAttribute method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  GrimoireInterface.registerComponent("TestComponent1", {
-    attributes: {
-      testAttr1: {
-        converter: "String",
-        default: "thisistest"
-      }
-    }
-  });
-  const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
-  const attr = new Attribute("testAttr", {
-    converter: "String",
-    default: "thisistest"
-  }, component);
-});
+// test("addAttribute method works correctly", t => {
+//   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+//   GrimoireInterface.registerComponent("TestComponent1", {
+//     attributes: {
+//       testAttr1: {
+//         converter: "String",
+//         default: "thisistest"
+//       }
+//     }
+//   });
+//   const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
+//   const attr = new Attribute("testAttr", {
+//     converter: "String",
+//     default: "thisistest"
+//   }, component);
+// });
