@@ -1,3 +1,4 @@
+require("babel-polyfill");
 import "../XMLDomInit";
 import test from "ava";
 import sinon from "sinon";
