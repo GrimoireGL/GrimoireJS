@@ -4,7 +4,7 @@ import xmldom from "xmldom";
 import XMLReader from "../../src/Base/XMLReader";
 import fs from "../FileHelper";
 
-const xml = fs.readFile("../../_TestResource/XMLReader_Case1.xml");
+const xml = fs.readFile("../_TestResource/XMLReader_Case1.xml");
 
 test("parseXML behaves correctly", t => {
   const parsedDocument = XMLReader.parseXML(xml, "Goml");

@@ -32,10 +32,10 @@ declare namespace global {
   let document: any;
 }
 
-const testcase1_html = fs.readFile("../../_TestResource/GomlLoaderTest_Case1.html");
-const testcase2_html = fs.readFile("../../_TestResource/GomlLoaderTest_Case2.html");
-const testcase3_html = fs.readFile("../../_TestResource/GomlLoaderTest_Case3.html");
-const testcase4_html = fs.readFile("../../_TestResource/GomlLoaderTest_Case4.html");
+const testcase1_html = fs.readFile("../_TestResource/GomlLoaderTest_Case1.html");
+const testcase2_html = fs.readFile("../_TestResource/GomlLoaderTest_Case2.html");
+const testcase3_html = fs.readFile("../_TestResource/GomlLoaderTest_Case3.html");
+const testcase4_html = fs.readFile("../_TestResource/GomlLoaderTest_Case4.html");
 
 
 

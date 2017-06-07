@@ -9,7 +9,7 @@ import NodeInterface from "../../src/Interface/NodeInterface";
 import NSIdentity from "../../src/Base/NSIdentity";
 import NSDictionary from "../../src/Base/NSDictionary";
 import fs from "../fileHelper";
-const xml = fs.readFile("../../_TestResource/NSDictionary_QueryDOM.xml");
+const xml = fs.readFile("../_TestResource/NSDictionary_QueryDOM.xml");
 
 test.beforeEach(() => {
   NSIdentity.clear();

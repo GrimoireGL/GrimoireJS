@@ -35,8 +35,8 @@ declare namespace global {
   let rootNode: any;
 }
 
-const tc1_goml = fs.readFile("../../_TestResource/GomlNodeTest_Case1.goml");
-const tc1_html = fs.readFile("../../_TestResource/GomlNodeTest_Case1.html");
+const tc1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
+const tc1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {

@@ -70,10 +70,10 @@ test.beforeEach(async () => {
   await GrimoireInterface.resolvePlugins();
 });
 
-const gomlParserTestCasePath1 = "../../_TestResource/GomlParserTest_Case1.goml";
-const gomlParserTestCasePath2 = "../../_TestResource/GomlParserTest_Case2.goml";
-const gomlParserTestCasePath3 = "../../_TestResource/GomlParserTest_Case3.goml";
-const gomlParserTestCasePath4 = "../../_TestResource/GomlParserTest_Case4.goml";
+const gomlParserTestCasePath1 = "../_TestResource/GomlParserTest_Case1.goml";
+const gomlParserTestCasePath2 = "../_TestResource/GomlParserTest_Case2.goml";
+const gomlParserTestCasePath3 = "../_TestResource/GomlParserTest_Case3.goml";
+const gomlParserTestCasePath4 = "../_TestResource/GomlParserTest_Case4.goml";
 
 
 function registerUserPlugin() {

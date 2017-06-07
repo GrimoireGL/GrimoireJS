@@ -26,8 +26,8 @@ import GomlLoader from "../../src/Node/GomlLoader";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import fs from "../fileHelper";
 
-const testcase1_goml = fs.readFile("../../_TestResource/GomlNodeTest_Case1.goml");
-const testcase1_html = fs.readFile("../../_TestResource/GomlNodeTest_Case1.html");
+const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
+const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {

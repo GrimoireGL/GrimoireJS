@@ -126,3 +126,5 @@ test-es5
 src/index.ts
 yarn.lock
 docs
+test-lib
+test-lib-es5

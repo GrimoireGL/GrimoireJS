@@ -25,6 +25,8 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-2": "^6.22.0",
     "condition-circle": "^1.5.0",
+    "cpx": "^1.5.0",
+    "grimoirejs-cauldron": "latest",
     "jsdom": "^9.12.0",
     "lodash": "^4.17.2",
     "proxyquire": "^1.7.11",
@@ -41,12 +43,11 @@
     "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.7.0",
     "xmldom": "^0.1.27",
-    "yargs": "^8.0.1",
-    "grimoirejs-cauldron": "latest"
+    "yargs": "^8.0.1"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "test":"tsc -p test && babel ./test/lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./test/lib-es5 && ava ./test/lib-es5/**/*Test.js --verbose --serial",
+    "test": "tsc -p test && babel ./test-lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./test-lib-es5 && cpx test/_TestResource/**/* test-lib-es5/_TestResource && ava ./test-lib-es5/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",

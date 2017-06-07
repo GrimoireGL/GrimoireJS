@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "outDir":"./lib",
+    "outDir":"../test-lib",
     "moduleResolution": "node",
     "allowJs":true
   },
