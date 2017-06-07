@@ -61,7 +61,7 @@ export default class IdResolver {
       throw new Error(`${name} is not found in this context.`);
     }
     if (pathes.length > 1) {
-      throw new Error(`${name} is ambiguous in this context.`);
+      throw new Error(`${name} is ambiguous in this context. [${pathes.join(", ")}]`);
     }
     return pathes[0];
   }
