@@ -46,8 +46,7 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "test-ts":"tsc -p test && babel ./test/lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./test/lib-es5 && ava ./test/lib-es5/**/*Test.js --verbose --serial",
-    "test": "tsc && babel ./lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugins transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
+    "test":"tsc -p test && babel ./test/lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./test/lib-es5 && ava ./test/lib-es5/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
