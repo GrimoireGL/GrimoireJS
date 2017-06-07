@@ -289,20 +289,15 @@ class GomlNode extends EEObject {
    * @param {any    }} attributes   [description]
    */
   public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): GomlNode {
-    if (typeof nodeName === "string") {
-      return this.addChildByName(NSIdentity.guess(nodeName), attributes);
-    } else {
-      const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
-      const node = new GomlNode(nodeDec);
-      if (attributes) {
-        for (let key in attributes) {
-          const id = Ensure.tobeNSIdentity(key);
-          node.setAttribute(id, attributes[key]);
-        }
+    const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
+    const node = new GomlNode(nodeDec);
+    if (attributes) {
+      for (let key in attributes) {
+        node.setAttribute(key, attributes[key]);
       }
-      this.addChild(node);
-      return node;
     }
+    this.addChild(node);
+    return node;
   }
 
   /**

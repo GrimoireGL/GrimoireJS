@@ -194,17 +194,21 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return rootNode.id;
   }
 
-  public getRootNode(scriptTag: Element): GomlNode {
+  public getRootNode(scriptTag: Element): Nullable<GomlNode> {
     const id = scriptTag.getAttribute("x-rootNodeId");
     if (id) {
-      return this.rootNodes[id];
+      let ret = this.rootNodes[id];
+      if (!ret) {
+        throw new Error(`threr is no rootNode has id ${id}`);
+      }
+      return ret;
     } else {
-      throw new Error(`scriptTag has not attribute 'x-rootNodeId'.It surely has registerd GrimoireInterface by 'addRootNode()''?`);
+      return null;
     }
   }
 
   public noConflict(): void {
-    (<any>window)["gr"] = this.noConflictPreserve;
+    (window as any)["gr"] = this.noConflictPreserve;
   }
 
   public queryRootNodes(query: string): GomlNode[] {
