@@ -51,7 +51,7 @@
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=json npm run test && remap-istanbul -i coverage/coverage-final.json -o coverage/html-report -t html",
-    "test": "tsc -p test && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
+    "test": "tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
