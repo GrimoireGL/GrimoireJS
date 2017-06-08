@@ -2,7 +2,7 @@ import "../XMLDomInit";
 import test from "ava";
 import xmldom from "xmldom";
 import XMLReader from "../../src/Base/XMLReader";
-import fs from "../FileHelper";
+import fs from "../fileHelper";
 
 const xml = fs.readFile("../_TestResource/XMLReader_Case1.xml");
 
