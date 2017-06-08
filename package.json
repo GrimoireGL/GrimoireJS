@@ -24,11 +24,16 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-stage-2": "^6.22.0",
+    "babel-register": "^6.24.1",
     "condition-circle": "^1.5.0",
+    "cpx": "^1.5.0",
+    "grimoirejs-cauldron": "latest",
     "jsdom": "^9.12.0",
     "lodash": "^4.17.2",
+    "nyc": "^11.0.2",
     "proxyquire": "^1.7.11",
     "regenerator-runtime": "^0.10.3",
+    "remap-istanbul": "^0.9.5",
     "semantic-release": "^6.3.2",
     "sinon": "^2.1.0",
     "ts-loader": "^2.0.3",
@@ -41,24 +46,43 @@
     "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.7.0",
     "xmldom": "^0.1.27",
-    "yargs": "^8.0.1",
-    "grimoirejs-cauldron": "latest"
+    "yargs": "^8.0.1"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "test": "tsc && babel ./lib --presets es2015,stage-2 --plugins transform-runtime --out-dir ./lib-es5 && babel ./test --presets es2015,stage-2  --plugins transform-runtime --out-dir ./test-es5 && ava ./test-es5/**/*Test.js --verbose --serial",
+    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json npm run test && remap-istanbul -i coverage/coverage-final.json -o coverage/html-report -t html",
+    "test": "tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
-    "prepublish": "npm run build-production && npm test",
+    "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
-    "build-production": "npm run generate-expose && webpack --progress --env.prod && npm run generate-reference",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --core",
     "generate-reference": "cauldron generate-reference --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --dts ./ref --core",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "doc": "typedoc --out ./docs/ --options typedoc.json  ./tsconfig.json"
+    "doc": "typedoc --out ./docs/ --options typedoc.json  ./tsconfig.json",
+    "clear-test":"rm -rf coverage .nyc_output test-lib",
+    "clear":"rm -rf ref register && npm run clear-test"
   },
   "license": "MIT",
   "release": {
     "verifyConditions": "condition-circle"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "nyc": {
+    "sourceMap": true,
+    "include": [
+      "**/src/**/*"
+    ]
   }
 }

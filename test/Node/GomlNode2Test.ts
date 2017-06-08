@@ -1,11 +1,10 @@
-import '../AsyncSupport';
-import '../XMLDomInit'
-import test from 'ava';
-import sinon from 'sinon';
-import xmldom from 'xmldom';
-import jsdomAsync from "../JsDOMAsync";
+import "../AsyncSupport";
+import "../XMLDomInit";
+import test from "ava";
+import sinon from "sinon";
+import xmldom from "xmldom";
 import xhrmock from "xhr-mock";
-import _ from "lodash";
+import * as _ from "lodash";
 import {
   goml,
   stringConverter,
@@ -22,13 +21,26 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "./_TestResource/GomlParserTest_Registering";
-import GomlLoader from "../../lib-es5/Node/GomlLoader";
-import GrimoireInterface from "../../lib-es5/Interface/GrimoireInterface";
+} from "./GomlParserTest_Registering";
+import GomlLoader from "../../src/Node/GomlLoader";
+import GomlNode from "../../src/Node/GomlNode";
+import Component from "../../src/Node/Component";
+import GrimoireComponent from "../../src/Components/GrimoireComponent";
+import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import fs from "../fileHelper";
+
+declare namespace global {
+  let Node: any;
+  let document: any;
+  let rootNode: any;
+}
+
+const tc1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
+const tc1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
 xhrmock.setup();
 xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  let aa = res.status(200).body(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.goml"));
+  let aa = res.status(200).body(tc1_goml);
   return aa;
 });
 
@@ -51,19 +63,15 @@ function resetSpies() {
   conflictComponent1Spy.reset();
   conflictComponent2Spy.reset();
 }
+let rootNode: GomlNode;
 
-function readFile(path) {
-  const fs = require("fs");
-  const p = require("path");
-  return fs.readFileSync(p.join(__dirname, path), "utf8");
-}
-
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(readFile("../../test/Node/_TestResource/GomlNodeTest_Case1.html"), "text/html");
+  const htmlDoc = parser.parseFromString(tc1_html, "text/html");
+
   global.document = htmlDoc;
-  global.document.querySelectorAll = function () {
+  global.document.querySelectorAll = function() {
     return global.document.getElementsByTagName("script");
   };
   global.Node = {
@@ -86,15 +94,14 @@ test.beforeEach(async() => {
   conflictComponent2Spy = conflictComponent2();
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
-  global.rootNode = _.values(GrimoireInterface.rootNodes)[0];
+  rootNode = _.values(GrimoireInterface.rootNodes)[0];
 });
 
-test('Root node must not have parent', (t) => {
-  t.truthy(_.isNull(rootNode._parent));
+test("Root node must not have parent", (t) => {
   t.truthy(_.isNull(rootNode.parent));
 });
 
-test('Nodes must have companion', (t) => {
+test("Nodes must have companion", (t) => {
   const companion = rootNode.companion;
   t.truthy(companion);
   rootNode.callRecursively((n) => {
@@ -102,35 +109,35 @@ test('Nodes must have companion', (t) => {
   });
 });
 
-test('Nodes must have tree', (t) => {
+test("Nodes must have tree", (t) => {
   const tree = rootNode.tree;
   t.truthy(tree);
   rootNode.callRecursively((n) => {
     t.truthy(tree === n.tree);
-  })
+  });
 });
 
-test('default value works correctly.', t => {
-  const testNode3 = rootNode.children[0]; //test-node3
+test("default value works correctly.", t => {
+  const testNode3 = rootNode.children[0]; // test-node3
   const a = testNode3.getAttribute("hoge");
-  t.truthy(a === "AAA"); //node default
+  t.truthy(a === "AAA"); // node default
   const b = testNode3.getAttribute("hogehoge");
-  t.truthy(b === "hoge"); //component default
-  t.truthy(testNode3.getAttribute("id") === "test"); //goml default
-  t.truthy(testNode3.getAttribute("testAttr3") === "tc2default"); //component default
-})
+  t.truthy(b === "hoge"); //  component default
+  t.truthy(testNode3.getAttribute("id") === "test"); // goml default
+  t.truthy(testNode3.getAttribute("testAttr3") === "tc2default"); // component default
+});
 
-test('mount should be called in ideal timing', (t) => {
+test("mount should be called in ideal timing", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
-  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy)
+  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
   order.forEach(v => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
 });
 
-test('awake and mount should be called in ideal timing', (t) => {
+test("awake and mount should be called in ideal timing", (t) => {
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
   order.forEach(v => {
     t.truthy(v.getCall(0).args[0] === "awake");
@@ -138,18 +145,18 @@ test('awake and mount should be called in ideal timing', (t) => {
   });
 });
 
-test('Nodes should be mounted after loading', (t) => {
+test("Nodes should be mounted after loading", (t) => {
   t.truthy(rootNode.mounted);
   rootNode.callRecursively((n) => {
     t.truthy(n.mounted);
   });
 });
-test('attribute default value work correctly1', (t) => {
+test("attribute default value work correctly1", (t) => {
   t.truthy(rootNode.getAttribute("id") !== void 0);
   t.truthy(rootNode.getAttribute("id") === null);
 });
 
-test('attribute watch should work correctly', (t) => {
+test("attribute watch should work correctly", (t) => {
   const idAttr = rootNode.getAttributeRaw("id");
   const spy = sinon.spy();
 
@@ -166,7 +173,7 @@ test('attribute watch should work correctly', (t) => {
   idAttr.Value = "id";
   sinon.assert.notCalled(spy);
 });
-test('attribute watch should work correctly2', (t) => {
+test("attribute watch should work correctly2", (t) => {
   const idAttr = rootNode.getAttributeRaw("id");
   const spy = sinon.spy();
   const watcher = (newValue, oldValue, attr) => {
@@ -184,7 +191,7 @@ test('attribute watch should work correctly2', (t) => {
   t.truthy(spy.getCall(0).args[0] === "idid");
 });
 
-test('enabled should work correctly', (t) => {
+test("enabled should work correctly", (t) => {
   const testNode3 = rootNode.children[0];
   const testNode2 = testNode3.children[0];
   t.truthy(rootNode.enabled);
@@ -210,11 +217,11 @@ test('enabled should work correctly', (t) => {
   t.truthy(!testNode2.isActive);
 });
 
-test('Broadcast message should call correct order', (t) => {
+test("Broadcast message should call correct order", (t) => {
   sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
 });
 
-test('Broadcast message with range should work correctly', (t) => {
+test("Broadcast message with range should work correctly", (t) => {
   const testNode3 = rootNode.children[0];
   resetSpies();
   testNode3.enabled = true;
@@ -225,7 +232,7 @@ test('Broadcast message with range should work correctly', (t) => {
   sinon.assert.notCalled(testComponent1Spy);
 });
 
-test('Broadcast message with enabled should work correctly', (t) => {
+test("Broadcast message with enabled should work correctly", (t) => {
   const testNode3 = rootNode.children[0];
   const testNode2 = testNode3.children[0];
 
@@ -260,13 +267,13 @@ test('Broadcast message with enabled should work correctly', (t) => {
   sinon.assert.called(testComponent1Spy);
 });
 
-test('SendMessage should call correct order', (t) => {
+test("SendMessage should call correct order", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.sendMessage("onTest");
   sinon.assert.callOrder(testComponent2Spy, testComponentOptionalSpy);
 });
 
-test('Detach node should invoke unmount before detaching', (t) => {
+test("Detach node should invoke unmount before detaching", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
@@ -278,7 +285,7 @@ test('Detach node should invoke unmount before detaching', (t) => {
   });
 });
 
-test('Remove() should invoke unmount before deleting', (t) => {
+test("Remove() should invoke unmount before deleting", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
@@ -290,17 +297,17 @@ test('Remove() should invoke unmount before deleting', (t) => {
   });
 });
 
-test('Get component return value correctly', (t) => {
+test("Get component return value correctly", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   t.truthy(!testNode2.getComponent("TestComponent1"));
   t.truthy(testNode2.getComponent("TestComponent2")); // Must check actually the instance being same.
 });
 
-test('broadcastMessage should not invoke message if the component is not enabled', (t) => {
+test("broadcastMessage should not invoke message if the component is not enabled", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
-  const optionalComponent = rootNode.children[0].children[0].getComponent("TestComponentOptional");
+  const optionalComponent = rootNode.children[0].children[0].getComponent<Component>("TestComponentOptional");
   optionalComponent.enabled = false;
   rootNode.broadcastMessage("onTest");
   const called = [testComponent3Spy, testComponent2Spy, testComponent1Spy];
@@ -308,7 +315,7 @@ test('broadcastMessage should not invoke message if the component is not enabled
   sinon.assert.notCalled(testComponentOptionalSpy);
 });
 
-test('broadcastMessage should not invoke message if the node is not enabled', (t) => {
+test("broadcastMessage should not invoke message if the node is not enabled", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   resetSpies();
@@ -321,42 +328,42 @@ test('broadcastMessage should not invoke message if the node is not enabled', (t
   sinon.assert.notCalled(testComponent2Spy);
 });
 
-test('class attribute can be obatined as default', (t) => {
+test("class attribute can be obatined as default", (t) => {
   const testNode3 = rootNode.children[0];
-  var classes = testNode3.getAttribute("class");
+  let classes = testNode3.getAttribute("class");
   t.truthy(classes.length === 1);
   t.truthy(classes[0] === "classTest");
 });
 
-test('id attribute can be obatined as default', (t) => {
+test("id attribute can be obatined as default", (t) => {
   const testNode3 = rootNode.children[0];
   t.truthy(testNode3.getAttribute("id") === "test");
 });
 
-test('enabled attribute can be obatined as default', (t) => {
+test("enabled attribute can be obatined as default", (t) => {
   const testNode3 = rootNode.children[0];
   t.truthy(testNode3.getAttribute("enabled") === false);
 });
 
-test('id attribute should sync with element', (t) => {
+test("id attribute should sync with element", (t) => {
   const testNode3 = rootNode.children[0];
   const id = testNode3.getAttribute("id");
   testNode3.setAttribute("id", "test2");
   t.truthy(testNode3.element.id === "test2");
 });
 
-test('class attribute should sync with element', (t) => {
+test("class attribute should sync with element", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.setAttribute("class", "test");
   t.truthy(testNode3.element.className === "test");
 });
 
-test('addComponent should work correctly', (t) => {
+test("addComponent should work correctly", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.addComponent("TestComponentOptional");
   t.truthy(testNode3.getComponent("TestComponentOptional"));
 });
-test('addNode works correctly', (t) => {
+test("addNode works correctly", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
@@ -367,10 +374,10 @@ test('addNode works correctly', (t) => {
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === "idtest");
   t.truthy(child.element.id === "idtest");
-  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id") === "idtest");
+  t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === "idtest");
 });
 
-test('null should be "" as id and classname', async(t) => {
+test("null should be \"\" as id and classname", async (t) => {
   await GrimoireInterface.resolvePlugins();
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
@@ -383,8 +390,8 @@ test('null should be "" as id and classname', async(t) => {
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === null);
   t.truthy(child.element.id === "");
-  t.truthy(child.getComponent("GrimoireComponent").getAttribute("id") === null);
+  t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === null);
   t.truthy(child.getAttribute("class") === null);
   t.truthy(child.element.className === "");
-  t.truthy(child.getComponent("GrimoireComponent").getAttribute("class") === null);
+  t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
 });

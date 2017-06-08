@@ -1,35 +1,36 @@
-import '../XMLDomInit'
-import test from 'ava';
-
-import Ensure from '../../lib-es5/Base/Ensure';
-import GrimoireInterface from '../../lib-es5/Interface/GrimoireInterface';
-import NSDictionary from '../../lib-es5/Base/NSDictionary';
-import NSIdentity from '../../lib-es5/Base/NSIdentity';
-import Namespace from '../../lib-es5/Base/Namespace';
+import "../XMLDomInit";
+import test from "ava";
+import Ensure from "../../src/Base/Ensure";
+import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import NSDictionary from "../../src/Base/NSDictionary";
+import NSIdentity from "../../src/Base/NSIdentity";
+import Namespace from "../../src/Base/Namespace";
 
 test.beforeEach(() => {
   NSIdentity.clear();
 });
 
-test('Ensure passed argument should be transformed as NSIdentity', (t) => {
+test("Ensure passed argument should be transformed as NSIdentity", (t) => {
   NSIdentity.fromFQN("grimoirejs.HELLO");
   t.truthy(Ensure.tobeNSIdentity("HELLO").fqn === "grimoirejs.HELLO");
   t.truthy(Ensure.tobeNSIdentity(Namespace.define("test").for("WORLD")).fqn === "test.WORLD");
 });
 
-test('Ensure passed argument are transformed into number', (t) => {
+test("Ensure passed argument are transformed into number", (t) => {
   t.truthy(Ensure.tobeNumber("9") === 9);
   t.truthy(Ensure.tobeNumber(9) === 9);
-  t.throws(() => Ensure.ensureNumber(() => {}));
+  let a: any = () => {/*do nothing*/ };
+  t.throws(() => Ensure.tobeNumber(a));
 });
 
-test('Ensure passed argument are transformed into string', (t) => {
+test("Ensure passed argument are transformed into string", (t) => {
   t.truthy(Ensure.tobeString("9") === "9");
   t.truthy(Ensure.tobeString(9) === "9");
-  t.throws(() => Ensure.tobeString(() => {}));
+  let a: any = () => {/*do nothing*/ };
+  t.throws(() => Ensure.tobeString(a));
 });
 
-test('Ensure passed array are transformed into NSIdentity[]', (t) => {
+test("Ensure passed array are transformed into NSIdentity[]", (t) => {
   let transformed = Ensure.tobeNSIdentityArray(undefined);
   const g = Namespace.define("test");
   t.truthy(transformed.length === 0);
@@ -43,10 +44,10 @@ test('Ensure passed array are transformed into NSIdentity[]', (t) => {
   t.truthy(transformed[1].fqn === "test.WORLD");
 });
 
-test('Ensure passed object are transformed into NSDictionary', (t) => {
-  let transformed = Ensure.tobeNSDictionary(undefined, "grimoirejs");
+test("Ensure passed object are transformed into NSDictionary", (t) => {
+  let transformed = Ensure.tobeNSDictionary(void 0);
   t.truthy(transformed instanceof NSDictionary);
-  let obj = {}
+  let obj = {};
   obj[NSIdentity.fromFQN("Hello").fqn] = "test1";
   obj[NSIdentity.fromFQN("World").fqn] = "test2";
   transformed = Ensure.tobeNSDictionary(obj);
