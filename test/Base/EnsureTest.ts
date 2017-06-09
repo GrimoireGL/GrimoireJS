@@ -55,3 +55,12 @@ test("Ensure passed object are transformed into NSDictionary", (t) => {
   t.truthy(transformed.get("Hello") === "test1");
   t.truthy(transformed.get("World") === "test2");
 });
+
+test("Ensure name tobe fqn if name start with _", t => {
+  t.truthy(Ensure.tobeFQN("aaa") == null);
+  t.truthy(Ensure.tobeFQN("_aaa") == "aaa");
+  t.truthy(Ensure.tobeFQN("aaa.fff") == null);
+  t.truthy(Ensure.tobeFQN("_aaa.fff") == "aaa.fff");
+  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa.bbb")) == "aaa.bbb");
+  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa")) == "aaa");
+})

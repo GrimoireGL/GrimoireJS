@@ -397,15 +397,15 @@ class GomlNode extends EEObject {
 
   public setAttribute(attrName: Name, value: any, ignoireFreeze = false): void {
     let attrIds = this._attributeManager.guess(attrName);
-    if (attrIds.length === 0) { // such attribute is not exists.
-      this._attributeManager.setAttribute(typeof attrName === "string" ? NSIdentity.fromFQN(attrName) : attrName, value);
+    if (attrIds.length === 0) { // such attribute is not exists. set to Attribute buffer.
+      this._attributeManager.setAttribute(typeof attrName === "string" ? attrName : attrName.fqn, value);
     }
     for (let i = 0; i < attrIds.length; i++) {
       let id = attrIds[i];
       if (!ignoireFreeze && this.isFreezeAttribute(id.fqn)) {
         throw new Error(`attribute ${id.fqn} can not set. Attribute is frozen. `);
       }
-      this._attributeManager.setAttribute(id, value);
+      this._attributeManager.setAttribute(id.fqn, value);
     }
   }
 

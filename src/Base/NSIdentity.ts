@@ -35,9 +35,6 @@ export default class NSIdentity {
   public static guess(...hierarchy: string[]): NSIdentity {
     return NSIdentity._from(hierarchy);
   }
-  public static guessByNS(ns: Namespace, name: string): NSIdentity {
-    return NSIdentity._from(ns.hierarchy.concat([name]));
-  }
 
   public static clear(): void {
     NSIdentity._instances = {};
@@ -51,7 +48,6 @@ export default class NSIdentity {
    * @return {NSIdentity}           [description]
    */
   private static _from(hierarchy: string[]): NSIdentity {
-    hierarchy = hierarchy.join(".").split(".");
     const fqn = hierarchy.join(".");
     const inst = NSIdentity._instances[fqn];
     if (inst) {

@@ -4,6 +4,13 @@ import Utility from "./Utility";
 export default class Namespace {
 
   private _ns: string[];
+
+  /**
+   * create new Namespace instance.
+   * You can include dots in the name
+   * @param  {string[]}  ...name [description]
+   * @return {Namespace}         [description]
+   */
   public static define(...name: string[]): Namespace {
     return Namespace.defineByArray(name);
   }

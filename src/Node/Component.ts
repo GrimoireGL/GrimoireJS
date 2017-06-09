@@ -8,6 +8,7 @@ import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IDObject from "../Base/IDObject";
+import Ensure from "../Base/Ensure";
 import {GomlInterface, Nullable, Name} from "../Base/Types";
 
 /**
@@ -90,7 +91,7 @@ export default class Component extends IDObject {
    * @param {any}    value [description]
    */
   public setAttribute(name: Name, value: any): void {
-    if (typeof name === "string") {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
       name = this.name.fqn + "." + name; // TODO: test
     }
     const attr = this.attributes.get(name);
@@ -100,7 +101,7 @@ export default class Component extends IDObject {
   }
 
   public getAttribute(name: Name): any {
-    if (typeof name === "string") {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
       name = this.name.fqn + "." + name; // TODO: test
     }
     const attr = this.getAttributeRaw(name);
@@ -111,6 +112,9 @@ export default class Component extends IDObject {
     }
   }
   public getAttributeRaw(name: Name): Attribute {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
+      name = this.name.fqn + "." + name; // TODO: test
+    }
     return this.attributes.get(name);
   }
 
@@ -146,7 +150,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    let method = (<any>this)["$$awake"];
+    let method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();
     }
@@ -158,7 +162,7 @@ export default class Component extends IDObject {
       return;
     }
     this._initializedInfo = info;
-    let method = (<any>this)["$$initialized"];
+    let method = (this as any)["$$initialized"];
     if (typeof method === "function") {
       method(info);
     }
