@@ -3,6 +3,7 @@ import NSDictionary from "../Base/NSDictionary";
 import Ensure from "../Base/Ensure";
 import IAttributeDeclaration from "./IAttributeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
+import IdResolver from "../Base/IdResolver";
 import GrimoireInterface from "../Interface/GrimoireInterface";
 import Component from "./Component";
 import {GomlInterface, Name, Nullable} from "../Base/Types";
@@ -198,16 +199,41 @@ export default class Attribute {
     if (this._value !== void 0) {// value is already exist.
       return;
     }
-    let tagAttrValue = domValues[this.name.name];
-    if (tagAttrValue !== void 0) {
-      this.Value = tagAttrValue; // Dom指定値で解決
+
+    // resolve by goml value
+    const resolver = new IdResolver();
+    resolver.add(this.name);
+    let tagAttrKey;
+    for (let key in domValues) {
+      if (Ensure.checkFQNString(key)) {
+        if (this.name.fqn === key.substring(1)) {
+          this.Value = domValues[key];
+          return;
+        }
+        continue;
+      }
+      let get = resolver.get(key);
+      if (get.length > 0) {
+        if (tagAttrKey === void 0) {
+          tagAttrKey = key;
+        } else {
+          throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
+        }
+      }
+    }
+    if (tagAttrKey !== void 0) {
+      this.Value = domValues[tagAttrKey];
       return;
     }
+
+    // resolve by node defaults.
     const nodeDefaultValue = this.component.node!.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
     if (nodeDefaultValue !== void 0) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;
     }
+
+    // resolve by component defaults.
     this.Value = this.declaration.default;
   }
 

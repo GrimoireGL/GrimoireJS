@@ -111,7 +111,7 @@ test("get element with fuzzy name", async (t) => {
   t.truthy(theDict.get(attr) === "test2");
 });
 
-test("get element with ambigious name should throw error", async (t) => {
+test("get element with ambiguous name should throw error", async (t) => {
   const newKey = NSIdentity.fromFQN("AATEST.test");
   const secoundKey = NSIdentity.fromFQN("AATEST2.test");
   const theDict = new NSDictionary();
