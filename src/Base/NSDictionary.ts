@@ -1,6 +1,7 @@
 import NSIdentity from "./NSIdentity";
 import IdResolver from "./IdResolver";
 import Namespace from "./Namespace";
+import Ensure from "./Ensure";
 import {Name, Nullable, Undef} from "./Types";
 
 type Dict<V> = { [key: string]: V };
@@ -32,6 +33,10 @@ export default class NSDictionary<V> {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
+      const fqn = Ensure.tobeFQN(arg1);
+      if (fqn) {
+        return this._fqnObjectMap[fqn];
+      }
       const name = arg1.split(".");
       const res = this._idResolver.get(Namespace.defineByArray(name));
       // const namedMap = this._nameObjectMap[arg1];
