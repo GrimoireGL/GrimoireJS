@@ -114,7 +114,7 @@ export default class AttributeManager {
         return;
       }
       if (res.length > 1) {
-        throw new Error(`attribute ${attrName} is ambigious`);
+        throw new Error(`attribute ${attrName} is ambiguous`);
       }
       for (let i = 0; i < this._attributesFQNMap[res[0]].length; i++) {
         this._attributesFQNMap[res[0]][i].watch(watcher, immediate);
@@ -148,7 +148,7 @@ export default class AttributeManager {
       if (attrs.length === 0) {
         throw new Error(`attribute ${fqn} is not found.`);
       } else if (attrs.length !== 1) {
-        throw new Error(`attribute ${fqn} is ambigious. there are ${attrs.length} attributes has same fqn.`);
+        throw new Error(`attribute ${fqn} is ambiguous. there are ${attrs.length} attributes has same fqn.`);
       }
       return attrs[0];
     } else {
@@ -158,10 +158,10 @@ export default class AttributeManager {
         throw new Error(`attribute ${attrName} is not found.`);
       }
       if (res.length > 1) {
-        throw new Error(`attribute ${attrName} is ambigious. It has the following possibilities. ${res}`);
+        throw new Error(`attribute ${attrName} is ambiguous. It has the following possibilities. ${res}`);
       }
       if (this._attributesFQNMap[res[0]].length !== 1) {
-        throw new Error(`attribute ${attrName} is ambigious. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
+        throw new Error(`attribute ${attrName} is ambiguous. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
       }
       return this._attributesFQNMap[res[0]][0];
     }
@@ -178,7 +178,7 @@ export default class AttributeManager {
         }
         throw new Error(`attribute ${attrName} is not found.`);
       } else if (attrs.length !== 1) {
-        throw new Error(`attribute ${attrName} is ambigious. there are ${attrs.length} attributes has same fqn.`);
+        throw new Error(`attribute ${attrName} is ambiguous. there are ${attrs.length} attributes has same fqn.`);
       }
       return attrs[0].Value;
     } else {
@@ -192,7 +192,7 @@ export default class AttributeManager {
         throw new Error(`attribute ${attrName} is not found.`);
       }
       if (res.length > 1) {
-        throw new Error(`attribute ${attrName} is ambigious. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
+        throw new Error(`attribute ${attrName} is ambiguous. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
       }
       return this._attributesFQNMap[res[0]][0].Value;
     }
