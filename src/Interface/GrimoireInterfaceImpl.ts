@@ -246,7 +246,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       dec.resolveDependency();
     }
     if (defaults) {
-      const additionalC = arg2 as (Name)[];
+      const additionalC = arg2 as Name[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }

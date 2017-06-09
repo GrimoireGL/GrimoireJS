@@ -38,7 +38,10 @@ export default class IdResolver {
    * @param  {string | string[]}    name [description]
    * @return {string[]}    [description]
    */
-  public get(ns: Namespace): string[] {
+  public get(ns: Namespace | string): string[] {
+    if (typeof ns === "string") {
+      return this.get(Namespace.defineByArray(ns.split(".")))
+    }
     const name = ns.hierarchy;
     let current_name = name[name.length - 1];
     if (!this._nameMap[current_name]) {

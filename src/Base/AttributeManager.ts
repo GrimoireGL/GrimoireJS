@@ -1,24 +1,78 @@
 import Utility from "./Utility";
-import Ensure from "./Ensure";
 import Attribute from "../Node/Attribute";
 import IdResolver from "../Base/IdResolver";
 import Namespace from "../Base/Namespace";
 import NSIdentity from "../Base/NSIdentity";
-import {Name} from "../Base/Types";
+import {Name, Undef} from "../Base/Types";
 
+type NameValPair<T> = { fqn: string, val: T };
+
+class AttributeBuffer<T>{
+
+  private _fqnList: NameValPair<T>[] = [];
+
+  public add(fqn: string, val: T) {
+    for (let i = 0; i < this._fqnList.length; i++) {
+      const c = this._fqnList[i];
+      if (c.fqn === fqn) {
+        c.val = val;
+        this._fqnList.splice(i, 1);
+        this._fqnList.push(c);
+        return;
+      }
+    }
+    const obj = { fqn, val };
+    this._fqnList.push(obj);
+  }
+
+  public resolve(fqn: string, remove: boolean): Undef<T> {
+    const guess = this.guess(fqn, remove);
+    return guess.length === 0 ? void 0 : guess[guess.length - 1];
+  }
+
+  /**
+   * get list of value that matchs given fqn.
+   * @param  {string}         fqn          [description]
+   * @param  {[type]}         remove=false to remove match buffers.
+   * @return {NameValPair<T>}              [description]
+   */
+  public guess(fqn: string, remove: boolean): T[] {
+    const resolver = new IdResolver();
+    resolver.add(fqn.split("."));
+    const ret: T[] = [];
+    for (let i = 0; i < this._fqnList.length; i++) {
+      const name = this._fqnList[i].fqn;
+      const r = resolver.get(name);
+      if (r.length > 0) {
+        ret.push(this._fqnList[i].val);
+        if (remove) {
+          this._fqnList.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    return ret;
+  }
+}
+
+type observer = (newValue: any, oldValue: any, attr: Attribute) => void;
+
+
+/**
+ * internal use!
+ * @return {[type]} [description]
+ */
 export default class AttributeManager {
   private _attributesFQNMap: { [fqn: string]: Attribute[] } = {};
-
   private _idResolver: IdResolver = new IdResolver();
-
-  private _attrBuffer: { [fqn: string]: any } = {};
-  private _watchBuffer: { [fqn: string]: (newValue: any, oldValue: any, attr: Attribute) => void } = {};
+  private _attrBuffer: AttributeBuffer<any> = new AttributeBuffer<any>();
+  private _watchBuffer: AttributeBuffer<observer> = new AttributeBuffer<observer>();
 
   public constructor(public tag: string) { }
 
   public addAttribute(attr: Attribute): Attribute {
     const fqn = attr.name.fqn;
-    if (this._idResolver.has(fqn)) {
+    if (this._idResolver.has(fqn)) { // already exists
       Utility.w(`attribute ${attr.name} is already exist in ${this.tag}`);
     }
     if (this._attributesFQNMap[fqn] === void 0) {
@@ -28,15 +82,14 @@ export default class AttributeManager {
     this._idResolver.add(attr.name);
 
     // check buffer value.
-    const attrBuf = this._attrBuffer[attr.name.fqn];
+    const attrBuf = this._attrBuffer.resolve(attr.name.fqn, true);
     if (attrBuf !== void 0) {
       attr.Value = attrBuf;
-      delete this._attrBuffer[attr.name.fqn];
     }
 
-    const watchBuf = this._watchBuffer[attr.name.fqn];
-    if (watchBuf) {
-      attr.watch(watchBuf, true);
+    const watchBuf = this._watchBuffer.guess(attr.name.fqn, true);
+    for (let i = 0; i < watchBuf.length; i++) {
+      attr.watch(watchBuf[i], true);
     }
     return attr;
   }
@@ -45,7 +98,7 @@ export default class AttributeManager {
     if (typeof attrName === "string") {
       let res = this._idResolver.get(Namespace.defineByArray(attrName.split(".")));
       if (res.length === 0) {
-        this._watchBuffer[Ensure.tobeNSIdentity(attrName).fqn] = watcher;
+        this._watchBuffer.add(attrName, watcher);
         return;
       }
       if (res.length > 1) {
@@ -57,7 +110,7 @@ export default class AttributeManager {
     } else {
       const attrs = this._attributesFQNMap[attrName.fqn];
       if (attrs === void 0 || attrs.length === 0) {
-        this._watchBuffer[attrName.fqn] = watcher;
+        this._watchBuffer.add(attrName.fqn, watcher);
         return;
       }
       for (let i = 0; i < attrs.length; i++) {
@@ -66,56 +119,75 @@ export default class AttributeManager {
     }
   }
 
-  public setAttribute(attrName: Name, value: any): void {
-    if (typeof attrName === "string") {
-      let res = this._idResolver.get(Namespace.defineByArray(attrName.split(".")));
-      if (res.length === 0) {
-        this._attrBuffer[Ensure.tobeNSIdentity(attrName).fqn] = value;
-        return;
-      }
-      if (res.length > 1) {
-        throw new Error(`attribute ${attrName} is ambigious`);
-      }
-      for (let i = 0; i < this._attributesFQNMap[res[0]].length; i++) {
-        this._attributesFQNMap[res[0]][i].Value = value;
-      }
-    } else {
-      const attrs = this._attributesFQNMap[attrName.fqn];
-      if (attrs === void 0 || attrs.length === 0) {
-        this._attrBuffer[attrName.fqn] = value;
-        return;
-      }
-      for (let i = 0; i < attrs.length; i++) {
-        attrs[i].Value = value;
-      }
+  public setAttribute(attrName: NSIdentity, value: any): void {
+    const attrs = this._attributesFQNMap[attrName.fqn];
+    if (attrs === void 0 || attrs.length === 0) {
+      this._attrBuffer.add(attrName.fqn, value);
+      return;
+    }
+    for (let i = 0; i < attrs.length; i++) {
+      attrs[i].Value = value;
     }
   }
-  public getAttribute(attrName: Name): Attribute {
+
+  /**
+   * 文字列指定は曖昧性解消する。
+   * 曖昧はエラー。存在しないのはエラー。
+   * NSIdentityはfqnで。
+   * 指定されたFQNの属性が複数の場合エラー。
+   * @param  {Name}      attrName [description]
+   * @return {Attribute}          [description]
+   */
+  public getAttributeRaw(attrName: Name): Attribute {
     if (typeof attrName === "string") {
-      let res = this._idResolver.get(Namespace.defineByArray(attrName.split(".")));
+      let res = this._idResolver.get(attrName);
       if (res.length === 0) {
-        const attrBuf = this._attrBuffer[Ensure.tobeNSIdentity(attrName).fqn];
+        throw new Error(`attribute ${attrName} is not found.`);
+      }
+      if (res.length > 1) {
+        throw new Error(`attribute ${attrName} is ambigious. It has the following possibilities. ${res}`);
+      }
+      if (this._attributesFQNMap[res[0]].length !== 1) {
+        throw new Error(`attribute ${attrName} is ambigious. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
+      }
+      return this._attributesFQNMap[res[0]][0];
+    } else {
+      const attrs = this._attributesFQNMap[attrName.fqn] || [];
+      if (attrs.length === 0) {
+        throw new Error(`attribute ${attrName} is not found.`);
+      } else if (attrs.length !== 1) {
+        throw new Error(`attribute ${attrName} is ambigious. there are ${attrs.length} attributes has same fqn.`);
+      }
+      return attrs[0];
+    }
+  }
+
+  public getAttribute(attrName: Name): any {
+    if (typeof attrName === "string") {
+      let res = this._idResolver.get(attrName);
+      if (res.length === 0) {
+        const attrBuf = this._attrBuffer.resolve(attrName, false);
         if (attrBuf !== void 0) {
           return attrBuf;
         }
         throw new Error(`attribute ${attrName} is not found.`);
       }
       if (res.length > 1) {
-        throw new Error(`attribute ${attrName} is ambigious`);
+        throw new Error(`attribute ${attrName} is ambigious. there are ${this._attributesFQNMap[res[0]].length} attributes has same fqn.`);
       }
-      return this._attributesFQNMap[res[0]][0];
+      return this._attributesFQNMap[res[0]][0].Value;
     } else {
-      const attrs = this._attributesFQNMap[attrName.fqn];
-      if (attrs === void 0 || attrs.length === 0) {
-        const attrBuf = this._attrBuffer[attrName.fqn];
+      const attrs = this._attributesFQNMap[attrName.fqn] || [];
+      if (attrs.length === 0) {
+        const attrBuf = this._attrBuffer.resolve(attrName.fqn, false);
         if (attrBuf !== void 0) {
           return attrBuf;
         }
         throw new Error(`attribute ${attrName} is not found.`);
       } else if (attrs.length !== 1) {
-        throw new Error(`attribute ${attrName} is ambigious`);
+        throw new Error(`attribute ${attrName} is ambigious. there are ${attrs.length} attributes has same fqn.`);
       }
-      return attrs[0];
+      return attrs[0].Value;
     }
   }
   public removeAttribute(attr: Attribute): boolean {
@@ -135,6 +207,6 @@ export default class AttributeManager {
     if (name instanceof NSIdentity) {
       return [name];
     }
-    return this._idResolver.get(Namespace.defineByArray(name.split("."))).map(fqn => NSIdentity.fromFQN(fqn));
+    return this._idResolver.get(name).map(fqn => NSIdentity.fromFQN(fqn));
   }
 }

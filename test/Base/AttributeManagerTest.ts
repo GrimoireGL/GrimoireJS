@@ -72,8 +72,8 @@ test("test watch", () => {
 
 test("test set/getAttribute", (t) => {
   const am = genAM();
-  am.setAttribute("aaa", "hoge");
-  t.truthy(am.getAttribute("aaa").Value === "hoge");
+  am.setAttribute(NSIdentity.fromFQN("aaa"), "hoge");
+  t.truthy(am.getAttribute("aaa") === "hoge");
   am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa")));
   t.throws(() => {
     am.getAttribute("aaa");

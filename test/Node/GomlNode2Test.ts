@@ -3,7 +3,6 @@ import "../XMLDomInit";
 import test from "ava";
 import sinon from "sinon";
 import xmldom from "xmldom";
-import xhrmock from "xhr-mock";
 import * as _ from "lodash";
 import {
   goml,
@@ -25,24 +24,18 @@ import {
 import GomlLoader from "../../src/Node/GomlLoader";
 import GomlNode from "../../src/Node/GomlNode";
 import Component from "../../src/Node/Component";
+import Attribute from "../../src/Node/Attribute";
+import NSIdentity from "../../src/Base/NSIdentity";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import fs from "../fileHelper";
-
-declare namespace global {
-  let Node: any;
-  let document: any;
-  let rootNode: any;
-}
+import PLH from "../PageLoadingHelper";
 
 const tc1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const tc1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
-xhrmock.setup();
-xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  let aa = res.status(200).body(tc1_goml);
-  return aa;
-});
+PLH.mockSetup();
+PLH.mock("./GomlNodeTest_Case1.goml", tc1_goml);
 
 let stringConverterSpy,
   testComponent1Spy,
@@ -66,34 +59,16 @@ function resetSpies() {
 let rootNode: GomlNode;
 
 test.beforeEach(async () => {
-  GrimoireInterface.clear();
-  const parser = new DOMParser();
-  const htmlDoc = parser.parseFromString(tc1_html, "text/html");
-
-  global.document = htmlDoc;
-  global.document.querySelectorAll = function() {
-    return global.document.getElementsByTagName("script");
-  };
-  global.Node = {
-    ELEMENT_NODE: 1
-  };
-  goml();
-  testNode1();
-  testNode2();
-  testNode3();
-  testNodeBase();
-  conflictNode1();
-  conflictNode2();
-  stringConverterSpy = stringConverter();
-  testComponent1Spy = testComponent1();
-  testComponent2Spy = testComponent2();
-  testComponent3Spy = testComponent3();
-  testComponentBaseSpy = testComponentBase();
-  testComponentOptionalSpy = testComponentOptional();
-  conflictComponent1Spy = conflictComponent1();
-  conflictComponent2Spy = conflictComponent2();
-  await GrimoireInterface.resolvePlugins();
-  await GomlLoader.loadForPage();
+  let spys = await PLH.reset(GrimoireInterface, tc1_html);
+  stringConverterSpy = spys.stringConverterSpy;
+  testComponent1Spy = spys.testComponent1Spy;
+  testComponent2Spy = spys.testComponent2Spy;
+  testComponentBaseSpy = spys.testComponent3Spy;
+  testComponent3Spy = spys.testComponent3Spy;
+  testComponentBaseSpy = spys.testComponentBaseSpy;
+  testComponentOptionalSpy = spys.testComponentOptionalSpy;
+  conflictComponent1Spy = spys.conflictComponent1Spy;
+  conflictComponent2Spy = spys.conflictComponent2Spy;
   rootNode = _.values(GrimoireInterface.rootNodes)[0];
 });
 
@@ -363,6 +338,144 @@ test("addComponent should work correctly", (t) => {
   testNode3.addComponent("TestComponentOptional");
   t.truthy(testNode3.getComponent("TestComponentOptional"));
 });
+
+test("get/setAttribute should work correctly 1", t => {
+  t.throws(() => {
+    // throw error when get attribute for nonexist name.
+    rootNode.getAttribute("hoge");
+  });
+  rootNode.setAttribute("hoge", "hogehoge");
+  const att = rootNode.getAttribute("hoge");
+  t.truthy(att === "hogehoge");
+});
+
+test("get/setAttribute should work correctly 2", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  const att = rootNode.getAttribute("hoge");
+  t.truthy(att === "aaa");
+});
+
+test("get/setAttribute should work correctly 3", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  rootNode.setAttribute("hoge", "bbb");
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  const att = rootNode.getAttribute("hoge");
+  t.truthy(att === "bbb");
+});
+
+test("get/setAttribute should work correctly 4", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  rootNode.setAttribute("ns1.hoge", "bbb");
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  const att = rootNode.getAttribute("hoge");
+  t.truthy(att === "aaa");
+});
+
+test("attribute buffer is valid only last set value.", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  rootNode.setAttribute("hoge", "bbb");
+  rootNode.setAttribute("ns1.hoge", "ccc");
+  (c as any).__addAttribute("ns1.hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  let att = rootNode.getAttribute("ns1.hoge");
+  t.truthy(att === "ccc");
+
+  // both buffer are resolved in above __addAttribute.
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  t.truthy(att === "aaa");
+
+  rootNode.setAttribute("ns2.aaa", "1");
+  rootNode.setAttribute("aaa", "2");
+  rootNode.setAttribute("ns2.aaa", "3");
+  (c as any).__addAttribute("ns2.aaa", {
+    converter: "String",
+    default: "aaa"
+  });
+  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".ns2.aaa"));
+  t.truthy(att === "3");
+});
+
+test("get/setAttribute should work correctly 6", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  rootNode.setAttribute("ns1.hoge", "bbb");
+  rootNode.setAttribute("hoge", "ccc");
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "aaa"
+  });
+  const att = rootNode.getAttribute("hoge");
+  t.truthy(att === "ccc");
+});
+
+test("get/setAttribute should work correctly 7", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  (c as any).__addAttribute("ns1.hoge", {
+    converter: "String",
+    default: "1"
+  });
+  (c as any).__addAttribute("ns2.hoge", {
+    converter: "String",
+    default: "2"
+  });
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "3"
+  });
+  let att = rootNode.getAttribute("ns1.hoge");
+  t.truthy(att === "1");
+  t.throws(() => {
+    rootNode.getAttribute("hoge"); // ambigious!
+  });
+  att = rootNode.getAttribute("ns2.hoge");
+  t.truthy(att === "2");
+  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  t.truthy(att === "3");
+});
+test("get/setAttribute should work correctly 8", t => {
+  const c = rootNode.getComponent<Component>("GrimoireComponent");
+  rootNode.setAttribute("hoge", "bbb");
+  rootNode.setAttribute("ns2.hoge", "ccc");
+  (c as any).__addAttribute("ns1.hoge", { // matchs hoge but not matchs ns2.hoge.
+    converter: "String",
+    default: "1"
+  });
+  let att = rootNode.getAttribute("ns1.hoge");
+  t.truthy(att === "bbb");
+
+  (c as any).__addAttribute("ns2.hoge", {
+    converter: "String",
+    default: "2"
+  });
+  t.throws(() => {
+    rootNode.getAttribute("hoge");
+  });
+  att = rootNode.getAttribute("ns2.hoge");
+  t.truthy(att === "ccc");
+
+  (c as any).__addAttribute("hoge", {
+    converter: "String",
+    default: "3"
+  });
+  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  t.truthy(att === "3");
+});
+
 test("addNode works correctly", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
@@ -378,7 +491,6 @@ test("addNode works correctly", (t) => {
 });
 
 test("null should be \"\" as id and classname", async (t) => {
-  await GrimoireInterface.resolvePlugins();
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
@@ -394,4 +506,27 @@ test("null should be \"\" as id and classname", async (t) => {
   t.truthy(child.getAttribute("class") === null);
   t.truthy(child.element.className === "");
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
+});
+
+test("null should be \"\" as id and classname", async (t) => {
+  const testNode2 = rootNode.children[0].children[0];
+  testNode2.addChildByName("test-node2", {
+    testAttr2: "ADDEDNODE",
+    id: null,
+    class: null
+  });
+  const child = testNode2.children[0];
+  t.truthy(child.name.name === "test-node2");
+  t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
+  t.truthy(child.getAttribute("id") === null);
+  t.truthy(child.element.id === "");
+  t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === null);
+  t.truthy(child.getAttribute("class") === null);
+  t.truthy(child.element.className === "");
+  t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
+});
+
+test("Grimoireinterface should works correctly", t => {
+  const gi = GrimoireInterface("*");
+  t.truthy(gi.rootNodes.length === 1);
 });
