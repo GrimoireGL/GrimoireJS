@@ -3,7 +3,8 @@ import NSIdentity from "./NSIdentity";
 
 
 /**
- * 名前空間階層から、コンテキストに応じて曖昧性解消する。
+ * Internal use!
+ * Disambiguate according to the context from the namespace hierarchy.
  * @return {[type]} [description]
  */
 export default class IdResolver {
@@ -34,11 +35,14 @@ export default class IdResolver {
   }
 
   /**
-   * 可能性のあるIDすべて取得
+   * Get all possible FQN.
    * @param  {string | string[]}    name [description]
-   * @return {string[]}    [description]
+   * @return {string[]}    list of FQN
    */
-  public get(ns: Namespace): string[] {
+  public get(ns: Namespace | string): string[] {
+    if (typeof ns === "string") {
+      return this.get(Namespace.defineByArray(ns.split(".")));
+    }
     const name = ns.hierarchy;
     let current_name = name[name.length - 1];
     if (!this._nameMap[current_name]) {
@@ -55,7 +59,10 @@ export default class IdResolver {
     }
     return res;
   }
-  public resolve(name: Namespace): string {
+  public resolve(name: Namespace | string): string {
+    if (typeof name === "string") {
+      return this.resolve(Namespace.defineByArray(name.split(".")));
+    }
     let pathes = this.get(name);
     if (pathes.length === 0) {
       throw new Error(`${name} is not found in this context.`);

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "outDir":"../test-lib",
+    "moduleResolution": "node",
+    "allowJs":true,
+    "sourceMap": true
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}

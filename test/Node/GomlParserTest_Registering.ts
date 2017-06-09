@@ -1,7 +1,5 @@
-const GrimoireInterface = require("../../../lib-es5/Interface/GrimoireInterface").default;
-const sinon = require("sinon");
-
-// Components
+import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import sinon from "sinon";
 
 export function testComponent1() {
   const spy = sinon.spy();
@@ -16,16 +14,16 @@ export function testComponent1() {
         default: "DEFAULT"
       }
     },
-    $onTest: function (arg) {
+    $onTest: function(arg) {
       spy("onTest", arg);
     },
-    $mount: function (arg) {
+    $mount: function(arg) {
       spy("mount", arg);
     },
-    $unmount: function (arg) {
+    $unmount: function(arg) {
       spy("unmount", arg);
     },
-    $awake: function (arg) {
+    $awake: function(arg) {
       spy("awake", arg);
     }
   });
@@ -41,16 +39,16 @@ export function testComponent2() {
         default: "tc2default"
       }
     },
-    $onTest: function (arg) {
+    $onTest: function(arg) {
       spy("onTest", arg);
     },
-    $mount: function (arg) {
+    $mount: function(arg) {
       spy("mount", arg);
     },
-    $unmount: function (arg) {
+    $unmount: function(arg) {
       spy("unmount", arg);
     },
-    $awake: function (arg) {
+    $awake: function(arg) {
       spy("awake", arg);
     }
   });
@@ -74,16 +72,16 @@ export function testComponent3() {
         default: "hoge"
       }
     },
-    $onTest: function (arg) {
+    $onTest: function(arg) {
       spy("onTest", arg);
     },
-    $mount: function (arg) {
+    $mount: function(arg) {
       spy("mount", arg);
     },
-    $unmount: function (arg) {
+    $unmount: function(arg) {
       spy("unmount", arg);
     },
-    $awake: function (arg) {
+    $awake: function(arg) {
       spy("awake", arg);
     }
   });
@@ -99,16 +97,16 @@ export function testComponentBase() {
         default: "base"
       }
     },
-    $onTest: function (arg) {
+    $onTest: function(arg) {
       spy("onTest", arg);
     },
-    $mount: function (arg) {
+    $mount: function(arg) {
       spy("mount", arg);
     },
-    $unmount: function (arg) {
+    $unmount: function(arg) {
       spy("unmount", arg);
     },
-    $awake: function (arg) {
+    $awake: function(arg) {
       spy("awake", arg);
     }
   });
@@ -124,16 +122,16 @@ export function testComponentOptional() {
         default: "optional"
       }
     },
-    $onTest: function (arg) {
+    $onTest: function(arg) {
       spy("onTest", arg);
     },
-    $mount: function (arg) {
+    $mount: function(arg) {
       spy("mount", arg);
     },
-    $unmount: function (arg) {
+    $unmount: function(arg) {
       spy("unmount", arg);
     },
-    $awake: function (arg) {
+    $awake: function(arg) {
       spy("awake", arg);
     }
   });
@@ -142,7 +140,7 @@ export function testComponentOptional() {
 
 export function conflictComponent1() {
   const spy = sinon.spy();
-  const ns = GrimoireInterface.ns("http://testNamespace/test1");
+  const ns = GrimoireInterface.ns("test1");
   GrimoireInterface.registerComponent(ns("ConflictComponent"), {
     attributes: {
       value: {
@@ -150,7 +148,7 @@ export function conflictComponent1() {
         default: "aaa"
       }
     },
-    $onTest: function () {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -159,7 +157,7 @@ export function conflictComponent1() {
 
 export function conflictComponent2() {
   const spy = sinon.spy();
-  const ns = GrimoireInterface.ns("http://testNamespace/test2");
+  const ns = GrimoireInterface.ns("test2");
   GrimoireInterface.registerComponent(ns("ConflictComponent"), {
     attributes: {
       value: {
@@ -167,7 +165,7 @@ export function conflictComponent2() {
         default: "bbb"
       }
     },
-    $onTest: function () {
+    $onTest: function() {
       spy(this.attributes.get("value").Value);
     }
   });
@@ -198,14 +196,14 @@ export function testNodeBase() {
 }
 
 export function conflictNode1() {
-  const ns = GrimoireInterface.ns("http://testNamespace/test1");
+  const ns = GrimoireInterface.ns("test1");
   GrimoireInterface.registerNode(ns("conflict-node"), ["TestComponent2"], {
     attr1: "nodeA"
   }, null, null);
 }
 
 export function conflictNode2() {
-  const ns = GrimoireInterface.ns("http://testNamespace/test2");
+  const ns = GrimoireInterface.ns("test2");
   GrimoireInterface.registerNode(ns("conflict-node"), ["TestComponent2"], {
     attr1: "nodeB"
   }, null, null);

@@ -108,4 +108,19 @@ export default class Ensure {
       return null;
     }
   }
+
+  public static tobeFQN(name: Name): Nullable<string> {
+    if (typeof name === "string") {
+      if (Ensure.checkFQNString(name)) {
+        return name.substring(1);
+      }
+      return null;
+    } else {
+      return name.fqn;
+    }
+  }
+
+  public static checkFQNString(name: string): boolean {
+    return name.startsWith("_");
+  }
 }

@@ -388,25 +388,29 @@ class GomlNode extends EEObject {
   }
 
   public getAttribute(attrName: Name): any {
-    return this._attributeManager.getAttribute(attrName).Value;
+    return this._attributeManager.getAttribute(attrName);
   }
 
   public getAttributeRaw(attrName: Name): Attribute {
-    return this._attributeManager.getAttribute(attrName);
+    return this._attributeManager.getAttributeRaw(attrName);
   }
 
   public setAttribute(attrName: Name, value: any, ignoireFreeze = false): void {
     let attrIds = this._attributeManager.guess(attrName);
+    if (attrIds.length === 0) { // such attribute is not exists. set to Attribute buffer.
+      this._attributeManager.setAttribute(typeof attrName === "string" ? attrName : attrName.fqn, value);
+    }
     for (let i = 0; i < attrIds.length; i++) {
       let id = attrIds[i];
       if (!ignoireFreeze && this.isFreezeAttribute(id.fqn)) {
         throw new Error(`attribute ${id.fqn} can not set. Attribute is frozen. `);
       }
-      this._attributeManager.setAttribute(id, value);
+      this._attributeManager.setAttribute(id.fqn, value);
     }
   }
 
   /**
+   *  Internal use!
    *  Add new attribute. In most of case, users no need to call this method.
    *  Use __addAttribute in Component should be used instead.
    */
@@ -415,6 +419,7 @@ class GomlNode extends EEObject {
   }
 
   /**
+   * Internal use!
    * Update mounted status and emit events
    * @param {boolean} mounted Mounted status.
    */

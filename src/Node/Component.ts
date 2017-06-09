@@ -8,7 +8,8 @@ import GomlNode from "./GomlNode";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import IDObject from "../Base/IDObject";
-import {GomlInterface, Nullable} from "../Base/Types";
+import Ensure from "../Base/Ensure";
+import {GomlInterface, Nullable, Name} from "../Base/Types";
 
 /**
  * Base class for any components
@@ -89,14 +90,20 @@ export default class Component extends IDObject {
    * @param {string} name  [description]
    * @param {any}    value [description]
    */
-  public setAttribute(name: string, value: any): void {
-    const attr = this.attributes.get(name); // TODO:check readonly?
+  public setAttribute(name: Name, value: any): void {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
+      name = this.name.fqn + "." + name; // TODO: test
+    }
+    const attr = this.attributes.get(name);
     if (attr) {
       attr.Value = value;
     }
   }
 
-  public getAttribute(name: string): any {
+  public getAttribute(name: Name): any {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
+      name = this.name.fqn + "." + name; // TODO: test
+    }
     const attr = this.getAttributeRaw(name);
     if (attr) {
       return attr.Value;
@@ -104,7 +111,10 @@ export default class Component extends IDObject {
       throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
     }
   }
-  public getAttributeRaw(name: string): Attribute {
+  public getAttributeRaw(name: Name): Attribute {
+    if (typeof name === "string" && Ensure.checkFQNString(name)) {
+      name = this.name.fqn + "." + name; // TODO: test
+    }
     return this.attributes.get(name);
   }
 
@@ -140,7 +150,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    let method = (<any>this)["$$awake"];
+    let method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();
     }
@@ -152,10 +162,15 @@ export default class Component extends IDObject {
       return;
     }
     this._initializedInfo = info;
-    let method = (<any>this)["$$initialized"];
+    let method = (this as any)["$$initialized"];
     if (typeof method === "function") {
       method(info);
     }
+  }
+
+  protected __addAtribute(name: string, attribute: IAttributeDeclaration): void {
+    console.warn(`${this.name.fqn} is using '__addAtribute()'.\nthis method is deprecated because typo.\nplease use '__addAttribute() instead of.'`);
+    this.__addAttribute(name, attribute);
   }
 
   /**
@@ -163,7 +178,7 @@ export default class Component extends IDObject {
    * @param {string}                name      [description]
    * @param {IAttributeDeclaration} attribute [description]
    */
-  protected __addAtribute(name: string, attribute: IAttributeDeclaration): void {
+  protected __addAttribute(name: string, attribute: IAttributeDeclaration): Attribute {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");
     }
@@ -176,6 +191,7 @@ export default class Component extends IDObject {
       attr.resolveDefaultValue(attrs);
     }
     this._additionalAttributesNames.push(attr.name);
+    return attr;
   }
   protected __removeAttributes(name?: string): void {
     if (name) {

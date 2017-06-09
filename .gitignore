@@ -115,6 +115,7 @@ lib-ts
 lib-test
 product
 src/**/*.js
+test/**/*.js
 
 .grimoire.dependency
 
@@ -125,3 +126,5 @@ test-es5
 src/index.ts
 yarn.lock
 docs
+test-lib
+test-lib-es5

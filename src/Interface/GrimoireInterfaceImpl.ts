@@ -150,7 +150,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return dec;
   }
 
-  public registerNode(name: Name, requiredComponents: Name[],
+  public registerNode(name: Name, requiredComponents: Name[] = [],
     defaults?: { [key: string]: any } | NSDictionary<any>,
     superNode?: Name, freezeAttributes?: Name[]): NodeDeclaration {
     const registerId = this._ensureTobeNSIdentityOnRegister(name);
@@ -246,7 +246,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       dec.resolveDependency();
     }
     if (defaults) {
-      const additionalC = arg2 as (Name)[];
+      const additionalC = arg2 as Name[];
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
