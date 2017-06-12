@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "0.16.0-beta3",
+  "version": "0.16.0-beta4",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -50,7 +50,7 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json npm run test && remap-istanbul -i coverage/coverage-final.json -o coverage/html-report -t html",
+    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json --reporter html npm run test",
     "test": "tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
