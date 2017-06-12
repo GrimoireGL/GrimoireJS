@@ -440,7 +440,7 @@ test("get/setAttribute should work correctly 7", t => {
   let att = rootNode.getAttribute("ns1.hoge");
   t.truthy(att === "1");
   t.throws(() => {
-    rootNode.getAttribute("hoge"); // ambigious!
+    rootNode.getAttribute("hoge"); // ambiguous!
   });
   att = rootNode.getAttribute("ns2.hoge");
   t.truthy(att === "2");

@@ -67,8 +67,6 @@ There should be good way of mixing these cultures. Grimoire.js is one of solutio
 
 * **Official Site**・・・http://grimoire.gl
 
-(Currently all of documents are written in japanese only)
-
 ## Extensions
 
 You can try these plugins with just downloading them. Or, If you are npm user, you can install them with `npm install` easily.

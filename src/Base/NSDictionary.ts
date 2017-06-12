@@ -1,6 +1,7 @@
 import NSIdentity from "./NSIdentity";
 import IdResolver from "./IdResolver";
 import Namespace from "./Namespace";
+import Ensure from "./Ensure";
 import {Name, Nullable, Undef} from "./Types";
 
 type Dict<V> = { [key: string]: V };
@@ -32,6 +33,10 @@ export default class NSDictionary<V> {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
+      const fqn = Ensure.tobeFQN(arg1);
+      if (fqn) {
+        return this._fqnObjectMap[fqn];
+      }
       const name = arg1.split(".");
       const res = this._idResolver.get(Namespace.defineByArray(name));
       // const namedMap = this._nameObjectMap[arg1];
@@ -41,25 +46,17 @@ export default class NSDictionary<V> {
       if (res.length === 1) {
         return this._fqnObjectMap[res[0]];
       } else {
-        throw new Error(`Specified tag name ${arg1} is ambigious to identify.`);
+        throw new Error(`Specified tag name ${arg1} is ambiguous to identify.`);
       }
 
     } else {
       if (arg1 instanceof NSIdentity) {
         return this._fqnObjectMap[arg1.fqn];
       } else {
-        if (arg1.prefix) {// element
-          return this.get(arg1.namespaceURI! + "." + arg1.localName!);
-        } else {// attr
-          arg1 = arg1 as Attr;
-          if (arg1.namespaceURI && this._fqnObjectMap[arg1.namespaceURI + "." + arg1.localName] !== void 0) {
-            return this._fqnObjectMap[arg1.namespaceURI + "." + arg1.localName];
-          }
-          if (arg1.ownerElement && arg1.ownerElement.namespaceURI && this._fqnObjectMap[arg1.ownerElement.namespaceURI + "." + arg1.localName] !== void 0) {
-            return this._fqnObjectMap[arg1.ownerElement.namespaceURI + "." + arg1.localName];
-          }
-          return this.get(arg1.localName!);
+        if (arg1.namespaceURI) {
+          return this.get(arg1.namespaceURI + "." + arg1.localName!);
         }
+        return this.get(arg1.localName!);
       }
     }
   }
@@ -69,7 +66,7 @@ export default class NSDictionary<V> {
    * @param  {string}  name [description]
    * @return {boolean}      Whether the name has multiple values.
    */
-  public isAmbigious(name: string): boolean {
+  public isAmbiguous(name: string): boolean {
     return this._idResolver.get(Namespace.defineByArray(name.split("."))).length > 1;
   }
 
@@ -95,7 +92,7 @@ export default class NSDictionary<V> {
         if (match === void 0) {
           match = key;
         } else {
-          throw new Error("matching attribute is ambigious.");
+          throw new Error(`matching attribute is ambiguous. It has following possibilities ${match} ${key}`);
         }
       }
     }
