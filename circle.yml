@@ -20,7 +20,7 @@ test:
     - sh release.sh
     - aws s3 cp ./coverage/ s3://api.grimoire.gl/core/$CIRCLE_BRANCH --recursive --region ap-northeast-1 --acl public-read
   override:
-    - npm run lint && npm run build && npm test
+    - npm run lint && npm run build && npm run coverage
 
 deployment:
   deploy:
