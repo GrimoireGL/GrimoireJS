@@ -36,6 +36,7 @@
     "remap-istanbul": "^0.9.5",
     "semantic-release": "^6.3.2",
     "sinon": "^2.1.0",
+    "trash-cli": "^1.4.0",
     "ts-loader": "^2.0.3",
     "tslint": "^5.0.0",
     "typedoc": "^0.7.0",
@@ -50,8 +51,8 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json --reporter html npm run test",
-    "test": "tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
+    "coverage": "trash coverage && nyc --reporter=lcov --reporter=text --reporter=json --reporter=html npm run test",
+    "test": "trash test-lib && tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
@@ -80,7 +81,6 @@
     "babel": "inherit"
   },
   "nyc": {
-    "sourceMap": true,
     "include": [
       "**/src/**/*"
     ]
