@@ -4,8 +4,7 @@
     "module": "es6",
     "outDir":"./test-lib",
     "moduleResolution": "node",
-    "allowJs":true,
-    "sourceMap": true
+    "inlineSourceMap": true
   },
   "include": [
     "src/**/*.ts",

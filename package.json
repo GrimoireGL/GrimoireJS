@@ -50,7 +50,7 @@
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
-    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json --reporter html npm run test",
+    "coverage": "nyc --reporter=lcov --reporter=text --reporter=json --reporter=html npm run test",
     "test": "tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts",
     "prepublish": "webpack --progress --env.prod && npm test",
@@ -80,7 +80,6 @@
     "babel": "inherit"
   },
   "nyc": {
-    "sourceMap": true,
     "include": [
       "**/src/**/*"
     ]
