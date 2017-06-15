@@ -14,6 +14,7 @@ import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import Ensure from "../Base/Ensure";
+import MessageException from "../Base/MessageException";
 import { Name, GomlInterface, Nullable, Ctor } from "../Base/Types";
 
 class GomlNode extends EEObject {
@@ -686,11 +687,11 @@ class GomlNode extends EEObject {
    * Get detailed node structure with highlighting node.
    * @return {string} [description]
    */
-  public toStructualString(): string {
+  public toStructualString(message = ""): string {
     if (this.parent) {
-      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}>`, true) + this.parent._closeTreeString();
+      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true,  message) + this.parent._closeTreeString();
     } else {
-      return "\n" + this._currentSiblingsString(0, `<${this.toString()}>`, true);
+      return "\n" + this._currentSiblingsString(0, `<${this.toString()}/>`, true, message);
     }
   }
 
@@ -735,17 +736,13 @@ class GomlNode extends EEObject {
         abbr = `${spaces}...\n`;
       }
     }
-    return `${spaces}<${this.name.fqn}>\n${abbr}${ancestor}`;
+    return `${spaces}</${this.name.fqn}>\n${abbr}${ancestor}`;
   }
 
   /**
-   * Display
-   * @param  {number} spaceCount     [description]
-   * @param  {string} current        [description]
-   * @param  {[type]} emphasis=false [description]
-   * @return {string}                [description]
+   * Generate display string for siblings of this node.
    */
-  private _currentSiblingsString(spaceCount: number, current: string, emphasis = false): string {
+  private _currentSiblingsString(spaceCount: number, current: string, emphasis = false, message = ""): string {
     let spaces = "";
     for (let i = 0; i < spaceCount; i++) {
       spaces += " ";
@@ -753,7 +750,7 @@ class GomlNode extends EEObject {
     let emphasisStr = "";
     if (emphasis) {
       emphasisStr = `${spaces}`;
-      for (let i = 0; i < current.length + 2; i++) {
+      for (let i = 0; i < current.length; i++) {
         emphasisStr += "^";
       }
     }
@@ -761,15 +758,15 @@ class GomlNode extends EEObject {
     if (!this.parent) {
       targets.push(`${spaces}${current}`);
       if (emphasis) {
-        targets.push(emphasisStr);
+        targets.push(emphasisStr + message);
       }
     } else {
       let putDots = false;
       for (let i = 0; i < this.parent.children.length; i++) {
         if (i === this.index) {
-          targets.push(`${spaces}${current}`);
+          targets.push(`${spaces}${current}・・・(${i})`);
           if (emphasis) {
-            targets.push(emphasisStr);
+            targets.push(emphasisStr + message);
           }
           putDots = false;
         } else if ((i > 0 && this.index - 1 > i) || (i > this.index + 1 && this.parent.children.length - 1 > i)) {
@@ -778,7 +775,7 @@ class GomlNode extends EEObject {
             putDots = true;
           }
         } else {
-          targets.push(`${spaces}<${this.parent.children[i].toString()}>・・・(${i})`);
+          targets.push(`${spaces}<${this.parent.children[i].toString()}/>・・・(${i})`);
         }
       }
     }
@@ -843,21 +840,12 @@ class GomlNode extends EEObject {
       try {
         method(args);
       } catch (e) {
-        const errorHandler = {
-          node: this,
-          component: targetComponent,
-          message: message,
-          handled: false,
-          error: e,
-          toString: () => {
-            return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
-          }
-        };
-        this.emit("error", errorHandler);
-        if (!errorHandler.handled) {
-          GrimoireInterface.emit("error", errorHandler);
-          if (!errorHandler.handled) {
-            throw e;
+        const wrappedError = new MessageException(this, targetComponent, message.substr(1), e);
+        this.emit("error", wrappedError);
+        if (!wrappedError.handled) {
+          GrimoireInterface.emit("error", wrappedError);
+          if (!wrappedError.handled) {
+            throw wrappedError;
           }
         }
       }
