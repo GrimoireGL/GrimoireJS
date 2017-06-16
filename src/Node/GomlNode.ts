@@ -841,9 +841,9 @@ class GomlNode extends EEObject {
         method(args);
       } catch (e) {
         const wrappedError = new MessageException(this, targetComponent, message.substr(1), e);
-        this.emit("error", wrappedError);
+        this.emit("messageerror", wrappedError);
         if (!wrappedError.handled) {
-          GrimoireInterface.emit("error", wrappedError);
+          GrimoireInterface.emit("messageerror", wrappedError);
           if (!wrappedError.handled) {
             throw wrappedError;
           }
