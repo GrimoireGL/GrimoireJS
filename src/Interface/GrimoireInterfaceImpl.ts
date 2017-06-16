@@ -20,14 +20,12 @@ import ITreeInitializedInfo from "../Node/ITreeInitializedInfo";
 import GomlNode from "../Node/GomlNode";
 import ComponentDeclaration from "../Node/ComponentDeclaration";
 import Component from "../Node/Component";
-import IAttributeDeclaration from "../Node/IAttributeDeclaration";
 import NodeDeclaration from "../Node/NodeDeclaration";
 import NSIdentity from "../Base/NSIdentity";
 import Namespace from "../Base/Namespace";
 import NSDictionary from "../Base/NSDictionary";
 import Ensure from "../Base/Ensure";
-import {Name, Nullable, Ctor} from "../Base/Types";
-
+import {Name, Nullable, Ctor, ComponentRegistering} from "../Base/Types";
 
 export default class GrimoireInterfaceImpl extends EEObject {
 
@@ -85,7 +83,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.registerConverter("Number", NumberConverter);
     this.registerConverter(ComponentConverter);
     this.registerConverter("NumberArray", NumberArrayConverter);
-    this.registerComponent("GrimoireComponent", GrimoireComponent);
+    this.registerComponent(GrimoireComponent);
     this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
   }
 
@@ -128,15 +126,35 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(name: Name, obj: Object | Ctor<Component>, superComponent?: Name | Ctor<Component>): ComponentDeclaration {
+  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
+  public registerComponent(name: Name, obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
+  public registerComponent(arg1: Name | ComponentRegistering<Object | Ctor<Component>>, arg2?: Name | Ctor<Component> | ComponentRegistering<Object | Ctor<Component>>, arg3?: Name | Ctor<Component>): ComponentDeclaration {
+    let name: Name;
+    let obj: ComponentRegistering<Object | Ctor<Component>>;
+    let superComponent: Name | Ctor<Component> | undefined;
+    if (typeof arg1 === "string" || arg1 instanceof NSIdentity) {
+      name = arg1;
+      obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
+      superComponent = arg3;
+    } else {
+      obj = arg1 as ComponentRegistering<Object | Ctor<Component>>;
+      superComponent = arg2 as Name | Ctor<Component>;
+      if (obj.componentName == null) {
+        throw new Error(`registering component has not 'componentName': ${obj}`);
+      }
+      name = obj.componentName;
+    }
     name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
     }
+    if (typeof obj === "function" && !(obj.prototype instanceof Component)) {
+      throw new Error(`component constructor ${name.fqn} must be inherits Component`);
+    }
     if (this.debug && !Utility.isCamelCase(name.name)) {
       console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
-    const attrs = (typeof obj === "function" ? obj as any : obj)["attributes"] as { [name: string]: IAttributeDeclaration };
+    const attrs = obj.attributes;
     if (!attrs) {
       throw new Error("component must has 'attributes'");
     }
@@ -145,7 +163,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
     }
-    const dec = new ComponentDeclaration(name, attrs, obj, superComponent);
+    const dec = new ComponentDeclaration(name, obj, superComponent);
     this.componentDeclarations.set(name, dec);
     return dec;
   }

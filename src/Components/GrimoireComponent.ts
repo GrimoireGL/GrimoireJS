@@ -1,7 +1,8 @@
 import IAttributeDeclaration from "../Node/IAttributeDeclaration";
 import Component from "../Node/Component";
 
-class GrimoireComponent extends Component {
+export default class GrimoireComponent extends Component {
+  public static componentName = "GrimoireComponent";
   public static attributes: { [key: string]: IAttributeDeclaration } = {
     id: {
       converter: "String",
@@ -35,5 +36,3 @@ class GrimoireComponent extends Component {
     node["_isActive"] = node.parent ? node.parent.isActive && node.enabled : node.enabled;
   }
 }
-
-export default GrimoireComponent;
