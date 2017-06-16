@@ -17,7 +17,9 @@ class GrimoireInitializer {
       await GrimoireInitializer._waitForDOMLoading();
       GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
-      await GomlLoader.loadForPage();
+      if (GrimoireInterface.autoLoading) {
+        await GomlLoader.loadForPage();
+      }
     } catch (e) {
       console.error(e);
     }
@@ -36,8 +38,8 @@ class GrimoireInitializer {
     // Otherwise like ""Safari""
     for (let propName in WebGLRenderingContext.prototype) {
       if (/^[A-Z]/.test(propName)) {
-        const property = (<any>WebGLRenderingContext.prototype)[propName];
-        (<any>WebGLRenderingContext)[propName] = property;
+        const property = (WebGLRenderingContext.prototype as any)[propName];
+        (WebGLRenderingContext as any)[propName] = property;
       }
     }
   }

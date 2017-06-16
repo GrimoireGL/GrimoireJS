@@ -17,13 +17,12 @@ import Ensure from "../Base/Ensure";
 import MessageException from "../Base/MessageException";
 import { Name, GomlInterface, Nullable, Ctor } from "../Base/Types";
 
-class GomlNode extends EEObject {
+export default class GomlNode extends EEObject {
 
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
   public componentsElement: Element; // <.components>
-
 
   private _parent: Nullable<GomlNode> = null;
   private _root: Nullable<GomlNode> = null;
@@ -32,9 +31,7 @@ class GomlNode extends EEObject {
   private _companion: NSDictionary<any> = new NSDictionary<any>();
   private _attributeManager: AttributeManager;
   private _isActive = false;
-
   private _messageCache: { [message: string]: Component[] } = {};
-
   private _deleted = false;
   private _mounted = false;
   private _enabled = true;
@@ -145,7 +142,7 @@ class GomlNode extends EEObject {
    * @param  {Element}         element 対応するDomElement
    * @return {[type]}                  [description]
    */
-  constructor(recipe: NodeDeclaration, element?: Nullable<Element>) {
+  constructor(recipe: NodeDeclaration, element?: Element) {
     super();
     if (!recipe) {
       throw new Error("recipe must not be null");
@@ -689,7 +686,7 @@ class GomlNode extends EEObject {
    */
   public toStructualString(message = ""): string {
     if (this.parent) {
-      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true,  message) + this.parent._closeTreeString();
+      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true, message) + this.parent._closeTreeString();
     } else {
       return "\n" + this._currentSiblingsString(0, `<${this.toString()}/>`, true, message);
     }
@@ -903,6 +900,3 @@ class GomlNode extends EEObject {
     return list;
   }
 }
-
-
-export default GomlNode;

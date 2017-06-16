@@ -20,9 +20,6 @@ export default class NodeInterface {
   public nodes: GomlNode[][];
 
   constructor(nodes: GomlNode[][]) {
-    if (!nodes) {
-      throw new Error("nodes is null");
-    }
     this.nodes = nodes;
   }
 

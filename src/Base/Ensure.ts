@@ -2,7 +2,7 @@ import GrimoireInterface from "../Interface/GrimoireInterface";
 import NSIdentity from "./NSIdentity";
 // import Namespace from "./Namespace";
 import NSDictionary from "./NSDictionary";
-import {Name, Nullable, Ctor} from "./Types";
+import {Name, Nullable, Ctor, ComponentRegistering} from "./Types";
 /**
  * Provides static methods to ensure arguments are valid type.
  */
@@ -120,7 +120,25 @@ export default class Ensure {
     }
   }
 
+  /**
+   * check string is FQN format
+   * FQN format is just name start with '_'
+   * @param  {string}  name [description]
+   * @return {boolean}      [description]
+   */
   public static checkFQNString(name: string): boolean {
     return name.startsWith("_");
+  }
+
+  /**
+   * internal use!
+   * @param  {[type]} typeofname==="string"||nameinstanceofNSIdentity [description]
+   * @return {[type]}                                                 [description]
+   */
+  public static tobeName<T>(name: Name | ComponentRegistering<T>): Name {
+    if (typeof name === "string" || name instanceof NSIdentity) {
+      return name;
+    }
+    return name.componentName!;
   }
 }

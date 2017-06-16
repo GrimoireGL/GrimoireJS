@@ -2,10 +2,11 @@ import GrimoireInterface from "../Interface/GrimoireInterface";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Base/XMLReader";
 import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
+
 /**
  * Provides the features to fetch Goml source.
  */
-class GomlLoader {
+export default class GomlLoader {
   public static initializedEventHandlers: ((scriptTags: HTMLScriptElement[]) => void)[] = [];
 
   /**
@@ -29,6 +30,7 @@ class GomlLoader {
     const rootNode = GomlParser.parse(doc[0]);
     GrimoireInterface.addRootNode(scriptTag, rootNode);
   }
+
   /**
    * Load from the script tags which will be found with specified query.
    * @param  {string}          query [the query to find script tag]
@@ -60,5 +62,3 @@ class GomlLoader {
     await GomlLoader.loadFromQuery('script[type="text/goml"]');
   }
 }
-
-export default GomlLoader;

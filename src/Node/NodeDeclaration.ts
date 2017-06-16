@@ -4,6 +4,7 @@ import NSSet from "../Base/NSSet";
 import NSIdentity from "../Base/NSIdentity";
 import IdResolver from "../Base/IdResolver";
 import GrimoireInterface from "../Interface/GrimoireInterface";
+import Constants from "../Base/Constants";
 import {Name} from "../Base/Types";
 
 export default class NodeDeclaration {
@@ -42,8 +43,8 @@ export default class NodeDeclaration {
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     private _freezeAttributes: Name[] = []) {
-    if (!this._superNode && this.name.name !== "grimoire-node-base") {
-      this._superNode = new NSIdentity("grimoirejs.grimoire-node-base");
+    if (!this._superNode && this.name.fqn !== Constants.baseNodeName) {
+      this._superNode = NSIdentity.fromFQN(Constants.baseNodeName);
     }
     this._freezeAttributes = this._freezeAttributes || [];
   }

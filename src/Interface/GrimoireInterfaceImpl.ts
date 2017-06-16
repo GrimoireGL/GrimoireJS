@@ -52,6 +52,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public debug = true;
 
   /**
+   * Loading goml when page onload automaticaly or not.
+   * @return {[type]} [description]
+   */
+  public autoLoading = true;
+
+  /**
    * The object assigned to gr before loading grimoire.js
    * @type {any}
    */
@@ -77,12 +83,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.registerConverter("String", StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter("Boolean", BooleanConverter);
-    this.registerConverter(ArrayConverter);
     this.registerConverter("Object", ObjectConverter);
-    this.registerConverter(EnumConverter);
     this.registerConverter("Number", NumberConverter);
-    this.registerConverter(ComponentConverter);
     this.registerConverter("NumberArray", NumberArrayConverter);
+    this.registerConverter(ArrayConverter);
+    this.registerConverter(EnumConverter);
+    this.registerConverter(ComponentConverter);
     this.registerComponent(GrimoireComponent);
     this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
   }
@@ -133,6 +139,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     let obj: ComponentRegistering<Object | Ctor<Component>>;
     let superComponent: Name | Ctor<Component> | undefined;
     if (typeof arg1 === "string" || arg1 instanceof NSIdentity) {
+      Utility.w(` registerComponent() overload that call with name is deprecated. use other overload instead of.`);
       name = arg1;
       obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
       superComponent = arg3;
@@ -168,9 +175,13 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return dec;
   }
 
-  public registerNode(name: Name, requiredComponents: Name[] = [],
-    defaults?: { [key: string]: any } | NSDictionary<any>,
-    superNode?: Name, freezeAttributes?: Name[]): NodeDeclaration {
+  public registerNode(
+    name: Name,
+    requiredComponents: Name[] = [],
+    defaults?: { [key: string]: any },
+    superNode?: Name,
+    freezeAttributes?: Name[]): NodeDeclaration {
+
     const registerId = this._ensureTobeNSIdentityOnRegister(name);
     if (this.nodeDeclarations.get(registerId)) {
       throw new Error(`gomlnode ${registerId.fqn} is already registerd.`);
@@ -245,7 +256,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
   public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
-      this.registerConverter({ name: this._ensureTobeNSIdentityOnRegister(arg1 as any), verify: () => true, convert: converter });
+      this.registerConverter({
+        name: this._ensureTobeNSIdentityOnRegister(arg1 as Name),
+        verify: () => true,
+        convert: converter
+      });
       return;
     }
     const dec = arg1 as IAttributeConverterDeclaration;
@@ -358,15 +373,16 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity;
   private _ensureTobeNSIdentityOnRegister(name: null | undefined): null;
-  private _ensureTobeNSIdentityOnRegister(name: Name |null | undefined): Nullable<NSIdentity> {
+  private _ensureTobeNSIdentityOnRegister(name: Name | null | undefined): Nullable<NSIdentity> {
     if (!name) {
       return null;
     }
     if (typeof name === "string") {
-      if (name.indexOf("|") !== -1) {
-        return NSIdentity.fromFQN(name);
+      const fqn = Ensure.tobeFQN(name);
+      if (fqn) {
+        return NSIdentity.fromFQN(fqn);
       }
-      return NSIdentity.fromFQN(Namespace.define(this._registrationContext), name);
+      return Namespace.define(this._registrationContext).for(name);
     } else {
       return name;
     }

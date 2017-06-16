@@ -4,7 +4,7 @@ import IDObject from "./IDObject";
 /**
  * EventEmitterをmixinしたIDObject
  */
-class EEObject extends IDObject implements NodeJS.EventEmitter {
+export default class EEObject extends IDObject implements NodeJS.EventEmitter {
   public prependListener: (event: string, listener: Function) => this;
   public prependOnceListener: (event: string, listener: Function) => this;
   public eventNames: () => string[];
@@ -32,5 +32,3 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
 }
 
 applyMixins(EEObject, [EventEmitter]);
-
-export default EEObject;

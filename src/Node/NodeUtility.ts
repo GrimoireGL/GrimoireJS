@@ -1,4 +1,4 @@
-class NodeUtility { // TODO merge with Base/XMLReader
+export default class NodeUtility { // TODO merge with Base/XMLReader
   /**
    * Get index of NodeList converted from index in Element
    * @param  {HTMLElement} targetElement Parent element of search target elements
@@ -28,5 +28,3 @@ class NodeUtility { // TODO merge with Base/XMLReader
     return attributes;
   }
 }
-
-export default NodeUtility;
