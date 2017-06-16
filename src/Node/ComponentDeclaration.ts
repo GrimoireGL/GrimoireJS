@@ -7,34 +7,29 @@ import NSIdentity from "../Base/NSIdentity";
 import IdResolver from "../Base/IdResolver";
 import Component from "./Component";
 import Ensure from "../Base/Ensure";
-import {Ctor, Name} from "../Base/Types";
+import {Ctor, Name, ComponentRegistering} from "../Base/Types";
 
 export default class ComponentDeclaration {
-  public static ctorMap: { ctor: Ctor<Component>, name: NSIdentity }[] = [];
+  public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: NSIdentity }[] = [];
 
   public superComponent: Ctor<Component>;
   public ctor: Ctor<Component>;
   public idResolver: IdResolver = new IdResolver();
+  public attributes: { [name: string]: IAttributeDeclaration }; // undefined until resolve dependency.
 
   private _resolvedDependency = false;
   private _super?: Name;
 
-  public get resolvedDependency() {
+  public get isDependenyResolved() {
     return this._resolvedDependency;
   }
 
   public constructor(
     public name: NSIdentity,
-    public attributes: { [name: string]: IAttributeDeclaration },
-    private _ctorOrObj: Object | Ctor<Component>,
+    private _ctorOrObj: ComponentRegistering<Object | Ctor<Component>>,
     _super?: Name | Ctor<Component>) {
     if (!_super) {// no inherits.
-      this.ctor = this._ensureTobeComponentConstructor(this.name, _ctorOrObj);
-      ComponentDeclaration.ctorMap.push({ ctor: this.ctor, name: name });
-      for (let key in this.attributes) {
-        this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
-      }
-      this._resolvedDependency = true;
+      this.resolveDependency();
       return;
     }
     if (_super instanceof NSIdentity || typeof _super === "string") {
@@ -42,11 +37,10 @@ export default class ComponentDeclaration {
     } else {
       this.superComponent = _super;
     }
-
   }
 
   public generateInstance(componentElement?: Element): Component { // TODO: obsolete.make all operation on gomlnode
-    if (!this.resolvedDependency) {
+    if (!this.isDependenyResolved) {
       this.resolveDependency();
     }
     componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns.qualifiedName, this.name.name);
@@ -66,24 +60,26 @@ export default class ComponentDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    if (!this._super && !this.superComponent) { // no inherits.
-      return this._resolvedDependency = true;
-    }
-    const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
-    const dec = GrimoireInterface.componentDeclarations.get(id);
-    dec.resolveDependency();
     const attr: { [name: string]: IAttributeDeclaration } = {};
-    for (let key in dec.attributes) {
-      attr[key] = dec.attributes[key];
-      this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
+    let dec;
+    if (this._super || this.superComponent) { // inherits
+      const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
+      dec = GrimoireInterface.componentDeclarations.get(id);
+      dec.resolveDependency();
+      for (let key in dec.attributes) {
+        attr[key] = dec.attributes[key];
+        this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
+      }
+      this.superComponent = dec.ctor;
     }
-    for (let key in this.attributes) {
-      attr[key] = this.attributes[key];
+    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec ? dec.ctor : void 0);
+    for (let key in (this.ctor as any).attributes) {
+      attr[key] = (this.ctor as any).attributes[key];
       this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
     }
     this.attributes = attr;
-    this.superComponent = dec.ctor;
-    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec.ctor);
+
+    ComponentDeclaration.ctorMap.push({ ctor: this._ctorOrObj, name: this.name });
     return this._resolvedDependency = true;
   }
 
@@ -93,18 +89,26 @@ export default class ComponentDeclaration {
    * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
    * @return {[type]}      [The constructor inherits Component]
    */
-  private _ensureTobeComponentConstructor(id: NSIdentity, obj: Object | Ctor<Component>, baseConstructor?: Ctor<Component>): Ctor<Component> {
-    if (typeof obj === "function") {
+  private _ensureTobeComponentConstructor(id: NSIdentity, obj: ComponentRegistering<Object> | ComponentRegistering<Ctor<Component>>, baseConstructor?: Ctor<Component>): Ctor<Component> {
+    if (typeof obj === "function") { // obj is constructor
+      const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        (obj as Function).prototype = Object.create((baseConstructor as Function).prototype, { value: { constructor: obj } });
+        const newCtor = function(this: any) {
+          baseConstructor.call(this);
+          obj.call(this);
+        };
+        const proto = this._clonePrototypeChain(obj.prototype, baseConstructor.prototype);
+        newCtor.prototype = proto;
+        newCtor.prototype["name"] = id;
+        (newCtor as any).attributes = inheritsAttr;
+        return newCtor as any as Ctor<Component>;
+      } else {
+        obj.prototype["name"] = id;
+        obj.attributes = inheritsAttr;
+        return obj;
       }
-      if (!((obj as Function).prototype instanceof Component) && (obj as Function) !== Component) {
-        throw new Error("Component constructor must extends Component class.");
-      }
-      obj.prototype["name"] = id;
-      return obj;
     } else {
-      if (baseConstructor && !((baseConstructor as Function).prototype instanceof Component) && (baseConstructor as Function) !== Component) {
+      if (baseConstructor && !(baseConstructor.prototype instanceof Component) && baseConstructor !== Component) {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
@@ -114,12 +118,51 @@ export default class ComponentDeclaration {
       (obj as any).__proto__ = ctor.prototype;
 
       newCtor.prototype = obj;
-      Object.defineProperty(newCtor.prototype, "attributes", {
-        value: this.attributes
-      });
+      (newCtor as any).attributes = obj.attributes;
 
       newCtor.prototype["name"] = id;
       return newCtor as any as Ctor<Component>;
     }
+  }
+
+  private _extractInheritsAttributes(ctor: Ctor<Component>): { [key: string]: IAttributeDeclaration } {
+    type D = { [key: string]: IAttributeDeclaration };
+    const attrs: D[] = [];
+    while (ctor) {
+      if (ctor === Component) {
+        break;
+      }
+      attrs.push((ctor as any).attributes as D);
+      ctor = ctor.prototype.__proto__.constructor;
+    }
+    const atr: D = {};
+    for (let i = attrs.length - 1; i >= 0; i--) {
+      for (let key in attrs[i]) {
+        atr[key] = attrs[i][key];
+      }
+    }
+    return atr;
+  }
+
+  private _clonePrototypeChain(obj: Object, base: Object): any {
+    const chain = [];
+    let c = obj;
+    while (true) {
+      if (c.constructor === Component) {
+        break;
+      }
+      chain.push(c);
+      c = Object.getPrototypeOf(c);
+    }
+    chain.reverse();
+    chain.pop();
+
+    let ret = base;
+    for (let i = 0; i < chain.length; i++) {
+      const props = (Object as any).getOwnPropertyDescriptors(chain[0]);
+      ret = Object.create(ret, props);
+    }
+    (obj as any).__proto__ = ret;
+    return obj;
   }
 }

@@ -12,9 +12,15 @@ import NSIdentity from "../../src/Base/NSIdentity";
 import Namespace from "../../src/Base/Namespace";
 import GomlNode from "../../src/Node/GomlNode";
 
-global["Node"] = {
+declare namespace global {
+  let Node: any;
+  let document: any;
+}
+
+global.Node = {
   ELEMENT_NODE: 1
 };
+global.document = new DOMParser().parseFromString("<html></html>", "text/html");
 
 
 test.beforeEach(() => {
@@ -43,14 +49,27 @@ test("registerComponent works correctly", (t) => {
       }
     });
   });
+
+  class Hoo {
+    public static attributes = {
+
+    };
+  }
+  t.throws(() => {
+    GrimoireInterface.registerComponent("Name", Hoo); // because not extends Component.
+  });
 });
 
-test("registerComponent works correctly2", async (t) => {
+test("registerComponent by object works correctly", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   GrimoireInterface.registerComponent("Aaa", {
     attributes: {
       testValue: {
-        converter: "stringConverter",
+        converter: "String",
+        default: "bbb"
+      },
+      testOverride: {
+        converter: "String",
         default: "bbb"
       }
     },
@@ -63,23 +82,27 @@ test("registerComponent works correctly2", async (t) => {
   const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
   t.truthy(aaa.attributes.testValue);
-  t.truthy(aaa.resolvedDependency); // because no inherits.
-  const aaa2 = new aaa.ctor() as any;
-  const aaa22 = new aaa.ctor() as any;
+  t.truthy(aaa.isDependenyResolved); // because no inherits.
+  const aaa2 = aaa.generateInstance();
+  const aaa22 = aaa.generateInstance();
   t.truthy(aaa2 instanceof Component);
-  t.truthy(aaa2.attributes.testValue);
+  t.truthy(aaa2.attributes.get("testValue"));
   t.truthy(aaa2.enabled);
   t.truthy(aaa22.enabled);
   aaa2.enabled = false;
   t.truthy(!aaa2.enabled);
   t.truthy(aaa22.enabled);
-  aaa2.$test();
-  t.truthy(aaa2.hoge === 1);
-  t.truthy(aaa22.hoge === 0);
+  (aaa2 as any).$test();
+  t.truthy((aaa2 as any).hoge === 1);
+  t.truthy((aaa22 as any).hoge === 0);
   GrimoireInterface.registerComponent("Bbb", {
     attributes: {
       testValue2: {
-        converter: "stringConverter",
+        converter: "String",
+        default: "ccc"
+      },
+      testOverride: {
+        converter: "String",
         default: "ccc"
       }
     },
@@ -89,16 +112,175 @@ test("registerComponent works correctly2", async (t) => {
   }, "Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
   const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
+
+  t.truthy(!bbb.isDependenyResolved); // because bbb is inherits Aaa.
   await GrimoireInterface.resolvePlugins();
-  t.truthy(aaa.resolvedDependency);
-  t.truthy(bbb.resolvedDependency);
-  const bbb2 = new bbb.ctor() as any;
-  t.truthy(bbb2.attributes.testValue);
-  t.truthy(bbb2.attributes.testValue2);
+  t.truthy(bbb.isDependenyResolved);
+
+  t.truthy(bbb.attributes.testValue); // from Aaa
+  t.truthy(bbb.attributes.testValue2); // from Bbb
+  t.truthy(bbb.attributes.testOverride.default === "ccc"); // override attribute with inherits correctly.
+
+  const bbb2 = bbb.generateInstance();
+  t.truthy(bbb2.attributes.get("testValue")); // inherits attr from Aaa
+  t.truthy(bbb2.attributes.get("testValue2")); // attr defined by Bbb
+  t.truthy((bbb2 as any).$test);
+  t.truthy((bbb2 as any).$test2);
+});
+test("registerComponent by class works correctly", async (t) => {
+  const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
+
+  class Aaa extends Component {
+    public static attributes = {
+      testValue: {
+        converter: "String",
+        default: "bbb"
+      },
+      testOverride: {
+        converter: "String",
+        default: "bbb"
+      }
+    };
+    public hoge = 0;
+    public $test() {
+      this.hoge += 1;
+    }
+    public overridedFunc() {
+      return this.hoge;
+    }
+  }
+  class Bbb extends Component {
+    public static attributes = {
+      testValue2: {
+        converter: "String",
+        default: "ccc"
+      },
+      testOverride: {
+        converter: "String",
+        default: "ccc"
+      }
+    };
+    public fuga = 7;
+    public $test2() {
+      return this.fuga;
+    }
+    public overridedFunc() {
+      return this.$test2();
+    }
+  }
+
+  GrimoireInterface.registerComponent("Aaa", Aaa);
+  const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
+  t.truthy(aaa.attributes.testValue);
+  t.truthy(aaa.isDependenyResolved); // because no inherits.
+  const aaa2 = aaa.generateInstance();
+  const aaa22 = aaa.generateInstance();
+  t.truthy(aaa2 instanceof Component);
+  t.truthy(aaa2.attributes.get("testValue"));
+  t.truthy(aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  aaa2.enabled = false;
+  t.truthy(!aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  (aaa2 as any).$test();
+  t.truthy((aaa2 as any).hoge === 1);
+  t.truthy((aaa22 as any).hoge === 0);
+
+  GrimoireInterface.registerComponent("Bbb", Bbb, "Aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
+  const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
+
+  t.truthy(!bbb.isDependenyResolved);
+  await GrimoireInterface.resolvePlugins();
+  t.truthy(bbb.isDependenyResolved);
+
+  const bbb2 = bbb.generateInstance();
+  t.truthy(bbb2.attributes.get("testValue"));
+  t.truthy(bbb2.attributes.get("testValue2"));
+  t.truthy(bbb2.attributes.get("testOverride"));
   t.truthy(bbb.attributes.testValue);
   t.truthy(bbb.attributes.testValue2);
-  t.truthy(bbb2.$test);
-  t.truthy(bbb2.$test2);
+  t.truthy(bbb.attributes.testOverride.default === "ccc");
+  t.truthy((bbb2 as any).$test);
+  t.truthy((bbb2 as any).$test2);
+  t.truthy((bbb2 as any).fuga === 7);
+  t.truthy((bbb2 as any).hoge === 0);
+  (bbb2 as any).$test();
+  t.truthy((bbb2 as any).hoge === 1);
+
+  t.truthy((bbb2 as any).overridedFunc() === 7);
+});
+test("registerComponent works correctly4", async (t) => {
+  const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
+  class Aaa extends Component {
+    public static attributes: { [key: string]: any } = {
+      testValue: {
+        converter: "String",
+        default: "bbb"
+      },
+      testOverride: {
+        converter: "String",
+        default: "bbb"
+      }
+    };
+    public hoge = 0;
+    public $test() {
+      this.hoge += 1;
+    }
+  }
+  class Bbb2 extends Aaa {
+    public static attributes = {
+      testValue2: {
+        converter: "String",
+        default: "bbb"
+      },
+      testOverride: {
+        converter: "String",
+        default: "ccc"
+      }
+    };
+    public fuga = 7;
+    public $test2() {
+      // do nothing.
+    }
+  }
+  GrimoireInterface.registerComponent("Aaa", Aaa);
+
+  const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
+  t.truthy(aaa.attributes.testValue);
+  t.truthy(aaa.isDependenyResolved); // because no inherits.
+  const aaa2 = aaa.generateInstance();
+  const aaa22 = aaa.generateInstance();
+  t.truthy(aaa2 instanceof Component);
+  t.truthy(aaa2.attributes.get("testValue"));
+  t.truthy(aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  aaa2.enabled = false;
+  t.truthy(!aaa2.enabled);
+  t.truthy(aaa22.enabled);
+  (aaa2 as any).$test();
+  t.truthy((aaa2 as any).hoge === 1);
+  t.truthy((aaa22 as any).hoge === 0);
+
+  GrimoireInterface.registerComponent("Bbb", Bbb2);
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
+  const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
+  await GrimoireInterface.resolvePlugins();
+  t.truthy(aaa.isDependenyResolved);
+  t.truthy(bbb.isDependenyResolved);
+  const bbb2 = bbb.generateInstance();
+  t.truthy(bbb2.attributes.get("testValue"));
+  t.truthy(bbb.attributes.testValue);
+  t.truthy(bbb.attributes.testValue2);
+  t.truthy(bbb.attributes.testOverride.default === "ccc");
+  t.truthy((bbb2 as any).$test);
+  t.truthy((bbb2 as any).$test2);
+  t.truthy((bbb2 as any).fuga === 7);
+  t.truthy((bbb2 as any).hoge === 0);
+  (bbb2 as any).$test();
+  t.truthy((bbb2 as any).hoge === 1);
 });
 test("registerNode/Component works correctly.", async t => {
   GrimoireInterface.registerNode("a1");
@@ -128,7 +310,7 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
   GrimoireInterface.registerComponent("Aaa", { attributes: {} });
   GrimoireInterface.registerNode("node");
   t.throws(() => {
-    GrimoireInterface.registerComponent("Aaa", {});
+    GrimoireInterface.registerComponent("Aaa", {} as any);
   });
   t.throws(() => {
     GrimoireInterface.registerNode("node");
