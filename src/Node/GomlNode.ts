@@ -14,7 +14,8 @@ import Attribute from "./Attribute";
 import NSDictionary from "../Base/NSDictionary";
 import NSIdentity from "../Base/NSIdentity";
 import Ensure from "../Base/Ensure";
-import {Name, GomlInterface, Nullable, Ctor} from "../Base/Types";
+import MessageException from "../Base/MessageException";
+import { Name, GomlInterface, Nullable, Ctor } from "../Base/Types";
 
 class GomlNode extends EEObject {
 
@@ -306,7 +307,7 @@ class GomlNode extends EEObject {
    * @param {number}   index            index for insert.なければ末尾に追加
    * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
-  public addChild(child: GomlNode, index?: number |null, elementSync = true): void {
+  public addChild(child: GomlNode, index?: number | null, elementSync = true): void {
     if (child._deleted) {
       throw new Error("deleted node never use.");
     }
@@ -468,7 +469,7 @@ class GomlNode extends EEObject {
    * attach component to this node.
    * @param {Component} component [description]
    */
-  public addComponent(component: Name | (new () => Component), attributes?: { [key: string]: any } |null, isDefaultComponent = false): Component {
+  public addComponent(component: Name | (new () => Component), attributes?: { [key: string]: any } | null, isDefaultComponent = false): Component {
     if (typeof component === "function") {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
@@ -668,17 +669,117 @@ class GomlNode extends EEObject {
   public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
   }
+
   public toString(): string {
     let name = this.name.fqn;
     let id = this.getAttribute("id");
     if (id !== null) {
       name += ` id: ${id}`;
     }
-    let classValue = this.getAttribute("id");
+    let classValue = this.getAttribute("class");
     if (classValue !== null) {
       name += ` class: ${classValue}`;
     }
     return name;
+  }
+
+  /**
+   * Get detailed node structure with highlighting node.
+   * @return {string} [description]
+   */
+  public toStructualString(message = ""): string {
+    if (this.parent) {
+      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true,  message) + this.parent._closeTreeString();
+    } else {
+      return "\n" + this._currentSiblingsString(0, `<${this.toString()}/>`, true, message);
+    }
+  }
+
+  /**
+   * Fetch layer of this node. Root must be 1.
+   * @return {number} [description]
+   */
+  private get _layer(): number {
+    if (!this.parent) {
+      return 1;
+    } else {
+      return this.parent._layer + 1;
+    }
+  }
+
+  private _openTreeString(): string {
+    let spaces = "";
+    for (let i = 0; i < this._layer * 2; i++) {
+      spaces += " ";
+    }
+    let ancestor = "";
+    let abbr = "";
+    if (this.parent) {
+      ancestor = this.parent._openTreeString();
+      if (this.index !== 0) {
+        abbr = `${spaces}...\n`;
+      }
+    }
+    return `${ancestor}${abbr}${spaces}<${this.toString()}>\n`;
+  }
+
+  private _closeTreeString(): string {
+    let spaces = "";
+    for (let i = 0; i < this._layer * 2; i++) {
+      spaces += " ";
+    }
+    let ancestor = "";
+    let abbr = "";
+    if (this.parent) {
+      ancestor = this.parent._closeTreeString();
+      if (this.index !== this.parent.children.length - 1) {
+        abbr = `${spaces}...\n`;
+      }
+    }
+    return `${spaces}</${this.name.fqn}>\n${abbr}${ancestor}`;
+  }
+
+  /**
+   * Generate display string for siblings of this node.
+   */
+  private _currentSiblingsString(spaceCount: number, current: string, emphasis = false, message = ""): string {
+    let spaces = "";
+    for (let i = 0; i < spaceCount; i++) {
+      spaces += " ";
+    }
+    let emphasisStr = "";
+    if (emphasis) {
+      emphasisStr = `${spaces}`;
+      for (let i = 0; i < current.length; i++) {
+        emphasisStr += "^";
+      }
+    }
+    let targets: string[] = [];
+    if (!this.parent) {
+      targets.push(`${spaces}${current}`);
+      if (emphasis) {
+        targets.push(emphasisStr + message);
+      }
+    } else {
+      let putDots = false;
+      for (let i = 0; i < this.parent.children.length; i++) {
+        if (i === this.index) {
+          targets.push(`${spaces}${current}・・・(${i})`);
+          if (emphasis) {
+            targets.push(emphasisStr + message);
+          }
+          putDots = false;
+        } else if ((i > 0 && this.index - 1 > i) || (i > this.index + 1 && this.parent.children.length - 1 > i)) {
+          if (!putDots) {
+            targets.push(`${spaces}...`);
+            putDots = true;
+          }
+        } else {
+          targets.push(`${spaces}<${this.parent.children[i].toString()}/>・・・(${i})`);
+        }
+      }
+    }
+    return targets.join("\n") + "\n";
   }
 
   private _sendMessage(message: string, args?: any): void {
@@ -739,21 +840,12 @@ class GomlNode extends EEObject {
       try {
         method(args);
       } catch (e) {
-        const errorHandler = {
-          node: this,
-          component: targetComponent,
-          message: message,
-          handled: false,
-          error: e,
-          toString: () => {
-            return `\n\n[MESSAGE STACK] at ${targetComponent}.${message.substr(1)}\nerror:${e}\n${e.stack}\n\n`;
-          }
-        };
-        this.emit("error", errorHandler);
-        if (!errorHandler.handled) {
-          GrimoireInterface.emit("error", errorHandler);
-          if (!errorHandler.handled) {
-            throw e;
+        const wrappedError = new MessageException(this, targetComponent, message.substr(1), e);
+        this.emit("messageerror", wrappedError);
+        if (!wrappedError.handled) {
+          GrimoireInterface.emit("messageerror", wrappedError);
+          if (!wrappedError.handled) {
+            throw wrappedError;
           }
         }
       }
