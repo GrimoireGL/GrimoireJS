@@ -35,7 +35,8 @@ test("ns method should generate namespace generating function correctly", (t) =>
 
 test("registerComponent works correctly", (t) => {
   const l = GrimoireInterface.componentDeclarations.toArray().length;
-  const dec = GrimoireInterface.registerComponent("Name", {
+  const dec = GrimoireInterface.registerComponent({
+    componentName: "Name",
     attributes: {
       attr: { converter: "String", default: "aaa" }
     }
@@ -43,7 +44,8 @@ test("registerComponent works correctly", (t) => {
   t.truthy(dec.attributes["attr"].default === "aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === l + 1);
   t.throws(() => {
-    GrimoireInterface.registerComponent("Name", {
+    GrimoireInterface.registerComponent({
+      componentName: "Name",
       attributes: {
         attr: { converter: "String", default: undefined }
       }
@@ -51,18 +53,20 @@ test("registerComponent works correctly", (t) => {
   });
 
   class Hoo {
+    public static componentName = "Name";
     public static attributes = {
 
     };
   }
   t.throws(() => {
-    GrimoireInterface.registerComponent("Name", Hoo); // because not extends Component.
+    GrimoireInterface.registerComponent(Hoo); // because not extends Component.
   });
 });
 
 test("registerComponent by object works correctly", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
-  GrimoireInterface.registerComponent("Aaa", {
+  GrimoireInterface.registerComponent({
+    componentName: "Aaa",
     attributes: {
       testValue: {
         converter: "String",
@@ -95,7 +99,8 @@ test("registerComponent by object works correctly", async (t) => {
   (aaa2 as any).$test();
   t.truthy((aaa2 as any).hoge === 1);
   t.truthy((aaa22 as any).hoge === 0);
-  GrimoireInterface.registerComponent("Bbb", {
+  GrimoireInterface.registerComponent({
+    componentName: "Bbb",
     attributes: {
       testValue2: {
         converter: "String",
@@ -131,6 +136,7 @@ test("registerComponent by class works correctly", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
 
   class Aaa extends Component {
+    public static componentName = "Aaa";
     public static attributes = {
       testValue: {
         converter: "String",
@@ -150,6 +156,7 @@ test("registerComponent by class works correctly", async (t) => {
     }
   }
   class Bbb extends Component {
+    public static componentName = "Bbb";
     public static attributes = {
       testValue2: {
         converter: "String",
@@ -169,7 +176,7 @@ test("registerComponent by class works correctly", async (t) => {
     }
   }
 
-  GrimoireInterface.registerComponent("Aaa", Aaa);
+  GrimoireInterface.registerComponent(Aaa);
   const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
   t.truthy(aaa.attributes.testValue);
@@ -187,7 +194,7 @@ test("registerComponent by class works correctly", async (t) => {
   t.truthy((aaa2 as any).hoge === 1);
   t.truthy((aaa22 as any).hoge === 0);
 
-  GrimoireInterface.registerComponent("Bbb", Bbb, "Aaa");
+  GrimoireInterface.registerComponent(Bbb, "Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
   const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
 
@@ -214,6 +221,7 @@ test("registerComponent by class works correctly", async (t) => {
 test("registerComponent works correctly4", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   class Aaa extends Component {
+    public static componentName = "Aaa";
     public static attributes: { [key: string]: any } = {
       testValue: {
         converter: "String",
@@ -230,6 +238,7 @@ test("registerComponent works correctly4", async (t) => {
     }
   }
   class Bbb2 extends Aaa {
+    public static componentName = "Bbb";
     public static attributes = {
       testValue2: {
         converter: "String",
@@ -245,7 +254,7 @@ test("registerComponent works correctly4", async (t) => {
       // do nothing.
     }
   }
-  GrimoireInterface.registerComponent("Aaa", Aaa);
+  GrimoireInterface.registerComponent(Aaa);
 
   const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 1);
@@ -264,7 +273,7 @@ test("registerComponent works correctly4", async (t) => {
   t.truthy((aaa2 as any).hoge === 1);
   t.truthy((aaa22 as any).hoge === 0);
 
-  GrimoireInterface.registerComponent("Bbb", Bbb2);
+  GrimoireInterface.registerComponent(Bbb2);
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
   const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
   await GrimoireInterface.resolvePlugins();
@@ -307,10 +316,10 @@ test("registerNode/Component works correctly.", async t => {
   t.truthy(a3.idResolver.resolve(Namespace.define("hoge")) === "grimoirejs.Hoge.hoge");
 });
 test("throw error on attempt registerComponent/Node by duplicate name.", t => {
-  GrimoireInterface.registerComponent("Aaa", { attributes: {} });
+  GrimoireInterface.registerComponent({ componentName: "Aaa", attributes: {} });
   GrimoireInterface.registerNode("node");
   t.throws(() => {
-    GrimoireInterface.registerComponent("Aaa", {} as any);
+    GrimoireInterface.registerComponent({} as any);
   });
   t.throws(() => {
     GrimoireInterface.registerNode("node");

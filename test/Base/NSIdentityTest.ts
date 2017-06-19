@@ -44,3 +44,15 @@ test("Transform name and ns correctly", (t) => {
   t.truthy(i.name === "Sample");
   t.truthy(i.ns.qualifiedName === "ns");
 });
+
+test("isMatch works correctly", t => {
+  let hoge = NSIdentity.fromFQN("a.b.c");
+  t.truthy(hoge.isMatch("c"));
+  t.truthy(hoge.isMatch("b.c"));
+  t.truthy(hoge.isMatch("a.c"));
+  t.truthy(hoge.isMatch("a.b.c"));
+  t.truthy(!hoge.isMatch("c.c"));
+  t.truthy(!hoge.isMatch("b.a.c"));
+  t.truthy(!hoge.isMatch("d"));
+  t.truthy(!hoge.isMatch("a.d"));
+});

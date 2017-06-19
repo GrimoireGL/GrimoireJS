@@ -99,7 +99,8 @@ test("detach method works correctly", t => {
 });
 
 test("getComponents method works correctly", t => {
-  GrimoireInterface.registerComponent("TestComponent", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent",
     attributes: {
       attr1: {
         converter: "String",
@@ -135,7 +136,8 @@ test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("TestComponent1", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent1",
     attributes: {
       testAttr1: {
         converter: "String",
@@ -154,7 +156,8 @@ test("addComponent method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("TestComponent1", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent1",
     attributes: {
       testAttr1: {
         converter: "String",
@@ -173,7 +176,8 @@ test("getComponent method overload works correctly", async t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("TestComponent1", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent1",
     attributes: {
       testAttr1: {
         converter: "String",
@@ -181,7 +185,8 @@ test("getComponent method overload works correctly", async t => {
       }
     }
   });
-  GrimoireInterface.registerComponent("TestComponent2", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent2",
     attributes: {
       testAttr1: {
         converter: "String",
@@ -199,7 +204,8 @@ test("getComponents method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
   node.addChild(node2, null, null);
-  GrimoireInterface.registerComponent("TestComponent1", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent1",
     attributes: {
       testAttr1: {
         converter: "String",
@@ -207,7 +213,8 @@ test("getComponents method overload works correctly", t => {
       }
     }
   });
-  GrimoireInterface.registerComponent("TestComponent2", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent2",
     attributes: {
       testAttr1: {
         converter: "String",

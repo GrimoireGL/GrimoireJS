@@ -1,5 +1,6 @@
 import Namespace from "./Namespace";
 import IdResolver from "./IdResolver";
+import Ensure from "./Ensure";
 
 /**
  * The class to identity with XML namespace feature.
@@ -116,6 +117,16 @@ export default class NSIdentity {
     return this._fqn;
   }
 
+  public isMatch(name: string): boolean {
+    if (Ensure.checkFQNString(name)) {
+      return this._fqn === Ensure.tobeFQN(name);
+    } else {
+      let resolver = new IdResolver();
+      resolver.add(this);
+      let get = resolver.get(name);
+      return get.length === 1;
+    }
+  }
 
   public toString(): string {
     return this.fqn;

@@ -3,7 +3,8 @@ import sinon from "sinon";
 
 export function testComponent1() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("TestComponent1", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent1",
     attributes: {
       testAttr1: {
         converter: "Str",
@@ -32,7 +33,8 @@ export function testComponent1() {
 
 export function testComponent2() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("TestComponent2", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent2",
     attributes: {
       testAttr2: {
         converter: "Str",
@@ -57,7 +59,8 @@ export function testComponent2() {
 
 export function testComponent3() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("TestComponent3", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponent3",
     attributes: {
       testAttr3: {
         converter: "Str",
@@ -90,7 +93,8 @@ export function testComponent3() {
 
 export function testComponentBase() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("TestComponentBase", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponentBase",
     attributes: {
       inheritAttr: {
         converter: "Str",
@@ -115,7 +119,8 @@ export function testComponentBase() {
 
 export function testComponentOptional() {
   const spy = sinon.spy();
-  GrimoireInterface.registerComponent("TestComponentOptional", {
+  GrimoireInterface.registerComponent({
+    componentName: "TestComponentOptional",
     attributes: {
       value: {
         converter: "Str",
@@ -141,7 +146,8 @@ export function testComponentOptional() {
 export function conflictComponent1() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("test1");
-  GrimoireInterface.registerComponent(ns("ConflictComponent"), {
+  GrimoireInterface.registerComponent({
+    componentName: ns("ConflictComponent"),
     attributes: {
       value: {
         converter: "Str",
@@ -158,7 +164,8 @@ export function conflictComponent1() {
 export function conflictComponent2() {
   const spy = sinon.spy();
   const ns = GrimoireInterface.ns("test2");
-  GrimoireInterface.registerComponent(ns("ConflictComponent"), {
+  GrimoireInterface.registerComponent({
+    componentName: ns("ConflictComponent"),
     attributes: {
       value: {
         converter: "Str",

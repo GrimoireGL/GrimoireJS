@@ -321,10 +321,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   public extendGrimoireInterface(name: string, func: Function): void {
-    if ((<any>this)[name]) {
+    if ((this as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
-    (<any>this)[name] = func.bind(this);
+    (this as any)[name] = func.bind(this);
   }
   public extendGomlInterface(name: string, func: Function): void {
     if ((GomlInterfaceImpl as any)[name]) {
