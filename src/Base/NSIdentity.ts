@@ -8,7 +8,7 @@ export default class NSIdentity {
 
 
   private static _instances: { [fqn: string]: NSIdentity } = {};
-  private static _map: IdResolver = new IdResolver();
+  private static _map: IdResolver;
 
   private _ns: Namespace;
   private _name: string;
@@ -73,6 +73,9 @@ export default class NSIdentity {
   public constructor(fqn: string | string[]);
   public constructor(qn: string[], n: string);
   public constructor(qn: string | string[], n?: string) {
+    if (!NSIdentity._map) { // Lazy static field initialization for testing
+       NSIdentity._map = new IdResolver();
+    }
     if (typeof qn === "string") {
       qn = qn.split(".");
     }

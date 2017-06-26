@@ -1,5 +1,4 @@
 import ITreeInitializedInfo from "./ITreeInitializedInfo";
-import ComponentDeclaration from "./ComponentDeclaration";
 import AttributeManager from "../Base/AttributeManager";
 import Utility from "../Base/Utility";
 import Constants from "../Base/Constants";
@@ -470,15 +469,7 @@ class GomlNode extends EEObject {
    * @param {Component} component [description]
    */
   public addComponent(component: Name | (new () => Component), attributes?: { [key: string]: any } | null, isDefaultComponent = false): Component {
-    if (typeof component === "function") {
-      const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
-      if (obj) {
-        component = obj.name;
-      } else {
-        throw new Error(`constructor is not Component.`);
-      }
-
-    }
+    component = Ensure.tobeComponentIdentity(component);
     const declaration = GrimoireInterface.componentDeclarations.get(component);
     if (!declaration) {
       throw new Error(`component '${Ensure.tobeNSIdentity(component).fqn}' is not defined.`);
@@ -541,6 +532,23 @@ class GomlNode extends EEObject {
     if (this._initializedInfo) {
       component.initialized(this._initializedInfo);
     }
+  }
+
+  public removeComponents(component: Name | (new () => Component)): boolean {
+    let result = false;
+    const removeTargets = [];
+    component = Ensure.tobeComponentIdentity(component);
+    for (let i = 0; i < this._components.length; i++) {
+      const c = this._components[i];
+      if (c.name.fqn === component.fqn) {
+        removeTargets.push(c);
+      }
+    }
+    removeTargets.forEach(c  => {
+      let b =  this.removeComponent(c);
+      result = result || b;
+    });
+    return result;
   }
 
   public removeComponent(component: Component): boolean {
@@ -689,7 +697,7 @@ class GomlNode extends EEObject {
    */
   public toStructualString(message = ""): string {
     if (this.parent) {
-      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true,  message) + this.parent._closeTreeString();
+      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true, message) + this.parent._closeTreeString();
     } else {
       return "\n" + this._currentSiblingsString(0, `<${this.toString()}/>`, true, message);
     }
