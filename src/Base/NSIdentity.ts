@@ -8,7 +8,13 @@ export default class NSIdentity {
 
 
   private static _instances: { [fqn: string]: NSIdentity } = {};
-  private static _map: IdResolver;
+  private static _mapBackingField: IdResolver;
+  private static get _map(): IdResolver{
+    if (this._mapBackingField === void 0) {
+      this._mapBackingField = new IdResolver();
+    }
+    return this._mapBackingField;
+  }
 
   private _ns: Namespace;
   private _name: string;
@@ -38,7 +44,7 @@ export default class NSIdentity {
 
   public static clear(): void {
     NSIdentity._instances = {};
-    NSIdentity._map = new IdResolver();
+    NSIdentity._mapBackingField = new IdResolver();
   }
 
   /**
@@ -73,9 +79,6 @@ export default class NSIdentity {
   public constructor(fqn: string | string[]);
   public constructor(qn: string[], n: string);
   public constructor(qn: string | string[], n?: string) {
-    if (!NSIdentity._map) { // Lazy static field initialization for testing
-       NSIdentity._map = new IdResolver();
-    }
     if (typeof qn === "string") {
       qn = qn.split(".");
     }

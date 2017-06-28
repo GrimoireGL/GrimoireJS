@@ -9,7 +9,10 @@
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals":true,
-    "strict": true
+    "strict": true,
+    "types":[
+      "node"
+    ]
   },
   "include": [
     "src/**/*.ts"
