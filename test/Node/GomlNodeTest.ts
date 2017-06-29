@@ -30,7 +30,43 @@ test.beforeEach(async () => {
   GrimoireInterface.registerNode("goml");
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");
+  GrimoireInterface.registerComponent("Test", { attributes: {}, valueTest: "Test"});
+  GrimoireInterface.registerComponent("Test2", { attributes: {}, valueTest: "Test2"});
   await GrimoireInterface.resolvePlugins();
+});
+
+test("Add component works correctly", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  node.addComponent("Test");
+  node.addComponent("Test2");
+  node.addComponent("Test");
+  t.truthy(node.getComponents("Test").length === 2);
+  t.truthy(node.getComponents("Test2").length === 1);
+  const a = node.getComponent("Test") as any;
+  t.truthy(a.valueTest === "Test");
+  const b = node.getComponent("Test2") as any;
+  t.truthy(b.valueTest === "Test2");
+});
+
+test("Remove component actually delete specified insatnce", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  node.addComponent("Test");
+  node.addComponent("Test2");
+  node.addComponent("Test");
+  const a = node.getComponent("Test") as any;
+  node.removeComponent(a);
+  t.truthy(node.getComponent("Test"));
+  t.truthy(node.getComponents("Test").length === 1);
+});
+
+test("Remove components should delete specified all components in node", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  node.addComponent("Test");
+  node.addComponent("Test");
+  node.addComponent("Test");
+  t.truthy(node.getComponents("Test").length === 3);
+  node.removeComponents("Test");
+  t.truthy(node.getComponents("Test").length === 0);
 });
 
 test("addChild method works correctly", t => {

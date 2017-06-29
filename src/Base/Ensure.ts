@@ -3,10 +3,26 @@ import NSIdentity from "./NSIdentity";
 // import Namespace from "./Namespace";
 import NSDictionary from "./NSDictionary";
 import {Name, Nullable, Ctor} from "./Types";
+import ComponentDeclaration from "../Node/ComponentDeclaration";
+import Component from "../Node/Component";
 /**
  * Provides static methods to ensure arguments are valid type.
  */
 export default class Ensure {
+
+  public static tobeComponentIdentity(component: Name | (new () => Component)): NSIdentity {
+    if (typeof component === "function") {
+      const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
+      if (obj) {
+        component = obj.name;
+      } else {
+        throw new Error(`Specified constructor have not registered to current context.`);
+      }
+    } else {
+      component = Ensure.tobeNSIdentity(component);
+    }
+    return component;
+  }
   /**
    * Ensure specified str being string
    * @param  {string | number}      str [description]
