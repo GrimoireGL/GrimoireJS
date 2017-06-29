@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/@types/node/index.d.ts"/>
+/// <reference types="node"/>
 import {EventEmitter} from "events";
 import IDObject from "./IDObject";
 

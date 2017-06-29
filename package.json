@@ -13,7 +13,7 @@
     "grimoire"
   ],
   "dependencies": {
-    "@types/node": "^8.0.4",
+    "@types/node": "^8.0.5",
     "events": "^1.1.1"
   },
   "devDependencies": {
@@ -35,9 +35,9 @@
     "regenerator-runtime": "^0.10.3",
     "remap-istanbul": "^0.9.5",
     "semantic-release": "^6.3.2",
-    "sinon": "^2.3.5",
+    "sinon": "^2.3.6",
     "trash-cli": "^1.4.0",
-    "ts-loader": "^2.2.0",
+    "ts-loader": "^2.2.1",
     "tslint": "^5.4.3",
     "typedoc": "^0.7.0",
     "typedoc-md-theme": "^1.0.1",
