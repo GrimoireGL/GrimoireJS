@@ -93,11 +93,11 @@ export default class IdResolver {
   }
 
   private _get(name: string[]): string[][] {
+    const res: string[][] = [];
     if (name.length === 0) {
       if (this.count === 0) {
         return [[]];
       }
-      const res: string[][] = [];
       for (let key in this._nameMap) {
         let match = this._nameMap[key]._get([])!;
         for (let i = 0; i < match.length; i++) {
@@ -112,7 +112,6 @@ export default class IdResolver {
       return res;
     }
     let current_name = name[name.length - 1];
-    const res: string[][] = [];
     for (let key in this._nameMap) {
       let match = key === current_name ? this._nameMap[key]._get(name.slice(0, name.length - 1)) : this._nameMap[key]._get(name);
       if (match.length !== 0) {
