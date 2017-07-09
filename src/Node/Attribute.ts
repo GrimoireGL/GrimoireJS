@@ -248,23 +248,23 @@ export default class Attribute {
   }
 
   private _notifyChange(newValue: any): void {
+    const lastvalue = this._lastValuete;
     if (!this.component.isActive) {
       if (this._ignoireActivenessObservers.length === 0) {
         return;
       }
-      const lastvalue = this._lastValuete;
       const convertedNewValue = this._valuate(newValue);
       this._ignoireActivenessObservers.forEach((watcher) => {
         watcher(convertedNewValue, lastvalue, this);
       });
+    } else {
+      const convertedNewValue = this._valuate(newValue);
+      this._observers.forEach((watcher) => {
+        watcher(convertedNewValue, lastvalue, this);
+      });
+      this._ignoireActivenessObservers.forEach((watcher) => {
+        watcher(convertedNewValue, lastvalue, this);
+      });
     }
-    const lastvalue = this._lastValuete;
-    const convertedNewValue = this._valuate(newValue);
-    this._observers.forEach((watcher) => {
-      watcher(convertedNewValue, lastvalue, this);
-    });
-    this._ignoireActivenessObservers.forEach((watcher) => {
-      watcher(convertedNewValue, lastvalue, this);
-    });
   }
 }
