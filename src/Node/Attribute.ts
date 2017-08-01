@@ -240,30 +240,31 @@ export default class Attribute {
   private _valuate(raw: any): any {
     const v = this.converter.convert(raw, this);
     if (v === void 0) {
-      throw new Error(`attribute ${this.name.name} value can not be convert from ${this._value}`);
+      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+      throw new Error(errorMessage);
     }
     this._lastValuete = v;
     return v;
   }
 
   private _notifyChange(newValue: any): void {
+    const lastvalue = this._lastValuete;
     if (!this.component.isActive) {
       if (this._ignoireActivenessObservers.length === 0) {
         return;
       }
-      const lastvalue = this._lastValuete;
       const convertedNewValue = this._valuate(newValue);
       this._ignoireActivenessObservers.forEach((watcher) => {
         watcher(convertedNewValue, lastvalue, this);
       });
+    } else {
+      const convertedNewValue = this._valuate(newValue);
+      this._observers.forEach((watcher) => {
+        watcher(convertedNewValue, lastvalue, this);
+      });
+      this._ignoireActivenessObservers.forEach((watcher) => {
+        watcher(convertedNewValue, lastvalue, this);
+      });
     }
-    const lastvalue = this._lastValuete;
-    const convertedNewValue = this._valuate(newValue);
-    this._observers.forEach((watcher) => {
-      watcher(convertedNewValue, lastvalue, this);
-    });
-    this._ignoireActivenessObservers.forEach((watcher) => {
-      watcher(convertedNewValue, lastvalue, this);
-    });
   }
 }
