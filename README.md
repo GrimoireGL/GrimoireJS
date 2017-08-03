@@ -5,87 +5,137 @@
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jThreeJS/jThree/blob/develop/LICENSE)
 [![Dependency Status](https://david-dm.org/GrimoireGL/GrimoireJS.svg)](https://david-dm.org/GrimoireGL/GrimoireJS)
 [![devDependency Status](https://david-dm.org/GrimoireGL/GrimoireJS/dev-status.svg)](https://david-dm.org/GrimoireGL/GrimoireJS#info=devDependencies)
+[![Greenkeeper badge](https://badges.greenkeeper.io/GrimoireGL/GrimoireJS.svg)](https://greenkeeper.io/)
 
 ## Overview
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/GrimoireGL/GrimoireJS.svg)](https://greenkeeper.io/)
+**Grimoire.js provide a bridge between Web engineers and CG engineers**
 
-Why virtual DOM needs to be only for actual DOM?
-Logics like drawing formulas for canvas even needs DOM for easier way.
+There were big gap between the development flows used for each.
 
-* **DOM based** ・・・The way that Web engineers can work most effectively.
-* **jQuery like API** ・・・No more complex procedural WebGL logics, just operate attributes with the API.
-* **Web development friendly**・・・Use with the other Web front-end frameworks. Very easy to coop with them.
-* **No more redundant codes**・・・Include only `tag`s you actually need.
+Web engineers have typically used `event driven` javascript programs for daily works. And they mutate DOM APIs to make Web pages dynamic.
 
-## Download
+However, CG engineers haves typically used `loop based` programs for daily works. These are mostly build with a programming language with strong type like C++ or C#.  And recently CG engineers more like to use strongly structured engines like Unity.
 
-The file you might want to download is not included this repository since even set of WebGL operations are treated as plugins.  
-Basic set for using Grimoire.js is bundled and published here([unpkg](https://unpkg.com/grimoirejs-preset-basic@1.8.5/register/grimoire-preset-basic.min.js)).  
-This file includes `grimoirejs`,`grimoirejs-math` and `grimoirejs-fundamental`.
+This is why these 2 engineers have so much different flow for workings. This is why it is hard to learn CG stuff by Web engineers. And CG engineers are also hard to make suitable APIs for Web engineers working with.
 
-## First Interact
+**Grimoire.js is a javascript(Typescript) framework to solve this problem with strong architecture**
 
-**HTML file**
+## Features
 
-```xml
-<html>
-  <head>
-    <script src="grimoire-preset-basic.js"></script>
-  </head>
-  <body>
-    <script type="text/goml" src="./index.goml">
-  </body>
-</html>
-```
+This is several features that Grimoire provide. ** We strongly recommend to see our [top page](http://grimoire.gl) to learn these features.**
 
-**GOML file(Canvas DOM we defined)**
+### HTML like markup
+
+We provides XML like syntax to compose WebGL canvas. This is kind of HTML for Web engineers.
+You can create 360 degree image viewer on browser only by writing the code below.(See official page to see working example)
 
 ```xml
 <goml>
   <scene>
-    <camera>
-      <camera.components>
-        <!-- Attaching component to move the camera with mouse-->
-        <MouseCameraControl/>
-      </camera.components>
-    </camera>
-    <mesh geometry="cube" color="red"/>
+    <camera></camera>
+    <mesh geometry="sphere" scale="-1,1,1" texture="360.jpg">
+      <mesh.components>
+        <Rotate speed="0.1" />
+      </mesh.components>
+    </mesh>
   </scene>
 </goml>
 ```
 
-## Purpose
+### DOM operation API
 
-**WebGL is not only for games, but also for web services.**
+Web engineers typically write javascript to mutate DOM structures or attributes. All that kinds things are same at Grimoire. Web engineers can use query-based operation API to changing attributes, modifying structures of DOM or registering event handlers.
 
-After WebGL feature being implemented with modern browsers, many impressive Web3D libraries are appeared. However, most of them are just imported from 3D development culture that was grown in the environments very apart from web development culture.
+These are codes to co-work WebGL canvas and Web UIs that made with ordinal web development way. (You can see working example on our official top page)
 
-There should be good way of mixing these cultures. Grimoire.js is one of solution of that future.
+```xml
+<goml>
+  <scene>
+    <camera></camera>
+    <mesh texture="logo.png" geometry="cube">
+      <mesh.components>
+        <Rotate speed="0,0.1,0" />
+      </mesh.components>
+    </mesh>
+  </scene>
+</goml>
+```
+
+```js
+gr(function() {
+  var mesh = gr('#simple .canvas')('mesh')
+  $('#simple .red').on('click', function () {
+    mesh.setAttribute('color', 'red')
+  })
+  $('#simple .blue').on('click', function () {
+    mesh.setAttribute('color', 'blue')
+  })
+  mesh.on('mouseenter', function () {
+    mesh.setAttribute('scale', '2.0')
+    $("#simple .bigger").addClass("bold-label");
+    $("#simple .smaller").removeClass("bold-label");
+  })
+  mesh.on('mouseleave', function () {
+    mesh.setAttribute('scale', '1.0')
+    $("#simple .smaller").addClass("bold-label");
+    $("#simple .bigger").removeClass("bold-label");
+  })
+})
+```
+
+### Simple and powerful architecture, Typescript ready
+
+If you really want to make WebGL stuff on your page, it is hard to make only by Web engineers if that contents requires highly customized representation. In this situation, Web engineers and CG engineers need to co-work.
+
+CG engineers can write a component. And these are reusable.
+
+And these are able to be written by Typescript. Safe and effective environment for development.
+
+This is a sample to make objects waving movement. (You can see full comprehensive this sample at our top page)
+
+```ts
+import Component from "grimoirejs/ref/Node/Component";
+import ISceneUpdateArgument from "grimoirejs-fundamental/ref/SceneRenderer/ISceneUpdateArgument";
+import TransformComponent from "grimoirejs-fundamental/ref/Components/TransformComponent";
+import Vector3 from "grimoirejs-math/ref/Vector3";
+import gr from "grimoirejs";
+class Wave extends Component{
+  public static attributes = {
+    amp:{
+      default:1.0,
+      converter:"Number"
+    },
+    speed:{
+      default:1.0,
+      converter:"Number"
+    }
+  };
+
+  public amp:number;
+
+  public speed:number;
+
+  private transform: TransformComponent;
+
+  public $mount():void{
+    this.transform = this.node.getComponent(TransformComponent);
+    this.__bindAttributes(); // bind component attributes to fields
+  }
+  public $update(t:ISceneUpdateArgument):void{
+    this.transfrom.position = new Vector3(this.transform.position.X,Math.sin(this.speed * t.timer.timeInSecound) * this.amp,this.transform.position.Z);
+  }
+}
+gr.registerComponent("Wave",Wave);
+```
+
+## Download
+
+Please see official site and [Download page](https://grimoire.gl/guide/1_essentials/01_installation.html).
 
 ## Useful Links
 
 * **Official Site**・・・http://grimoire.gl
-
-## Extensions
-
-You can try these plugins with just downloading them. Or, If you are npm user, you can install them with `npm install` easily.
-
-### Major Plugins
-
-Plugin is a necessary feature to use Grimoire.js. Most of features are separated as plugin. This repo is core of Grimoire.js not containing any WebGL codes.
-
-|Name|Purpose|Dependency|
-|:-:|:-:|:-:|
-|grimoirejs-math| Defining math related class and converters| None|
-|grimoirejs-fundamental| Defining basement system for WebGL and defines basic tags|grimoirejs-math|
-|grimoirejs-gltf|glTF model loader plugin defines the tags to populate glTF model in the scene|grimoirejs-math,grimoirejs-fundamental|
-
-### Major Presets
-
-It is hard work to download all depends plugins and links with script tag. So, there are presets containing multiple plugins.
-
-* grimoirejs-preset-basic・・・containing grimoirejs,grimoirejs-fundamental,grimoirejs-math
 
 ## LICENSE
 
