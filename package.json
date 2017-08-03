@@ -34,7 +34,7 @@
     "regenerator-runtime": "^0.10.3",
     "remap-istanbul": "^0.9.5",
     "semantic-release": "^6.3.2",
-    "sinon": "^2.3.8",
+    "sinon": "^3.0.0",
     "trash-cli": "^1.4.0",
     "ts-loader": "^2.3.0",
     "tslint": "^5.5.0",
