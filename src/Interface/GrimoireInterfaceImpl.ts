@@ -191,6 +191,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
       throw new Error("scriptTag is not goml");
     }
   }
+  /**
+   * Add specified nodes as root node managed by Grimoire.js
+   * This method is typically used for internal.
+   * @param tag the script element containing GOML source
+   * @param rootNode root node of Goml
+   */
   public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
     if (!rootNode) {
       throw new Error("can not register null to rootNodes.");
@@ -208,6 +214,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
       ownerScriptTag: tag,
       id: rootNode.id
+    });
+    // send events to catch root node appended
+    this.emit("root-node-added",{
+      ownerScriptTag:tag,
+      rootNode:rootNode
     });
     return rootNode.id;
   }
