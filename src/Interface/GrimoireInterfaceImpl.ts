@@ -25,7 +25,7 @@ import NSIdentity from "../Base/NSIdentity";
 import Namespace from "../Base/Namespace";
 import NSDictionary from "../Base/NSDictionary";
 import Ensure from "../Base/Ensure";
-import {Name, Nullable, Ctor, ComponentRegistering} from "../Base/Types";
+import { Name, Nullable, Ctor, ComponentRegistering } from "../Base/Types";
 
 export default class GrimoireInterfaceImpl extends EEObject {
 
@@ -62,6 +62,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
     return GomlLoader.initializedEventHandlers;
+  }
+
+  public get callInitializedAlready(): boolean {
+    return GomlLoader.callInitializedAlready;
   }
 
   /**
@@ -191,6 +195,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
       throw new Error("scriptTag is not goml");
     }
   }
+  /**
+   * Add specified nodes as root node managed by Grimoire.js
+   * This method is typically used for internal.
+   * @param tag the script element containing GOML source
+   * @param rootNode root node of Goml
+   */
   public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
     if (!rootNode) {
       throw new Error("can not register null to rootNodes.");
@@ -208,6 +218,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
       ownerScriptTag: tag,
       id: rootNode.id
+    });
+    // send events to catch root node appended
+    this.emit("root-node-added", {
+      ownerScriptTag: tag,
+      rootNode: rootNode
     });
     return rootNode.id;
   }
@@ -358,7 +373,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity;
   private _ensureTobeNSIdentityOnRegister(name: null | undefined): null;
-  private _ensureTobeNSIdentityOnRegister(name: Name |null | undefined): Nullable<NSIdentity> {
+  private _ensureTobeNSIdentityOnRegister(name: Name | null | undefined): Nullable<NSIdentity> {
     if (!name) {
       return null;
     }
