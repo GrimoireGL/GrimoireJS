@@ -23,7 +23,8 @@ This is why these 2 engineers have so much different flow for workings. This is 
 
 ## Features
 
-This is several features that Grimoire provide. ** We strongly recommend to see our [top page](http://grimoire.gl) to learn these features.**
+This is several features that Grimoire provide. 
+**We strongly recommend to see our [top page](http://grimoire.gl) to learn these features.**
 
 ### HTML like markup
 
