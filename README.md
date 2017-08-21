@@ -137,6 +137,18 @@ Please see official site and [Download page](https://grimoire.gl/guide/1_essenti
 
 * **Official Site**・・・http://grimoire.gl
 
+### API Reference
+
+See [here](https://api.grimoire.gl/core).
+
+This document is automatically generated. 
+
+<!--DOCUMENT STAMP-->
+
+Make sure the API reference is only containing core stuff(Mutating goml stuff, operating attributes, methods being available on Component instance and so on).
+
+If you want to see WebGL related feature of API, you should see [renderer plugin page](https://api.grimoire.gl/grimoirejs-fundamental).
+
 ## LICENSE
 
 **MIT License**
