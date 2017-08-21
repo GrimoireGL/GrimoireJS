@@ -15,7 +15,7 @@ There were big gap between the development flows used for each.
 
 Web engineers have typically used `event driven` javascript programs for daily works. And they mutate DOM APIs to make Web pages dynamic.
 
-However, CG engineers haves typically used `loop based` programs for daily works. These are mostly build with a programming language with strong type like C++ or C#.  And recently CG engineers more like to use strongly structured engines like Unity.
+However, CG engineers has typically used `loop based` programs for daily works. These are mostly build with a programming language with strong type like C++ or C#.  And recently CG engineers more like to use strongly structured engines like Unity.
 
 This is why these 2 engineers have so much different flow for workings. This is why it is hard to learn CG stuff by Web engineers. And CG engineers are also hard to make suitable APIs for Web engineers working with.
 
@@ -23,19 +23,20 @@ This is why these 2 engineers have so much different flow for workings. This is 
 
 ## Features
 
-This is several features that Grimoire provide. 
-**We strongly recommend to see our [top page](http://grimoire.gl) to learn these features.**
+You can see several feature of Grimoire.js providing in this section.  
+
+**We strongly recommend to see our [top page](http://grimoire.gl) to learn these features. Most of written things are same as this README.md. But our samples on the top pages are working!!.**
 
 ### HTML like markup
 
-We provides XML like syntax to compose WebGL canvas. This is kind of HTML for Web engineers.
+We provides a syntax like XML to compose WebGL canvas. This is kind of HTML for Web engineers.
 You can create 360 degree image viewer on browser only by writing the code below.(See official page to see working example)
 
 ```xml
 <goml>
   <scene>
     <camera></camera>
-    <mesh geometry="sphere" scale="-1,1,1" texture="360.jpg">
+    <mesh geometry="sphere" cull="front" texture="360.jpg">
       <mesh.components>
         <Rotate speed="0.1" />
       </mesh.components>
