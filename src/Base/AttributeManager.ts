@@ -8,7 +8,7 @@ import {Name, Undef} from "./Types";
 
 type NameValPair<T> = { fqn: string, val: T };
 
-class AttributeBuffer<T>{
+class AttributeBuffer<T> {
 
   private _fqnList: NameValPair<T>[] = [];
 

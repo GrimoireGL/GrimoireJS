@@ -12,6 +12,7 @@ class GrimoireInitializer {
    */
   public static async initialize(): Promise<void> {
     try {
+      GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
       GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
@@ -70,6 +71,13 @@ class GrimoireInitializer {
     }
     log += `\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.`;
     console.log(log, "color:#44F;font-weight:bold;");
+  }
+
+  private static _notifyLibraryLoadingToWindow(): void {
+    window.postMessage({
+      $source: "grimoirejs",
+      $messageType: "library-loading"
+    }, "*");
   }
 }
 

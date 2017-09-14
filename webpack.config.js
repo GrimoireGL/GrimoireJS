@@ -65,41 +65,42 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
   }
 };
 
-module.exports = (env) => {
+module.exports = (env = {}) => {
+  // This line might need to be modified for each plugin build environment.
+  // If the plugin containing grimoirejs directly(calling require("grimoirejs/register")),
+  // browser build and production build should contain babel-polyfill.
+  // Make sure this is not require("grimoirejs")
   let includeCore = true;
-  // if this package was preset including core or core package,
-  // Script for browser needs babel-polyfill
-  let polyfills = includeCore ? [true, false, true] : [false, false, false];
-  env = env || {};
+  //
+  //
+  //
+  if(!env.browser && !env.npm && !env.prod){
+    env.browser = true;
+  }
+  const productPlugins = [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),new webpack.optimize.OccurrenceOrderPlugin(),new webpack.optimize.AggressiveMergingPlugin()];
   let buildTasks = [];
-  let isDefault = !env.browser && !env.npm && !env.prod;
   let skipIndex = false;
   let cauldron = new CauldronPlugin();
   if (env.browser || env.prod) {
-    const plugins = [cauldron];
+    const plugins = [];
     // if needs index also and it was not including core, index.js must be copied from fnPrefix.js
     // since these are completely same build task. Yeah, optimization.
     if (!includeCore && (env.prod || env.npm)) {
       plugins.push(new CopyPlugin(`./register/${fnPrefix}.js`, './register/index.js'));
       plugins.push(new CopyPlugin(`./register/${fnPrefix}.js.map`, './register/index.js.map'));
       skipIndex = true;
+      console.log(`${index}.js will be generated for NPM environment by copy`);      
     }
-    buildTasks.push(getBuildTask(`${fnPrefix}.js`, plugins, polyfills[0]));
+    buildTasks.push(getBuildTask(`${fnPrefix}.js`, [cauldron,...plugins], includeCore));
+    console.log(`${fnPrefix}.js will be generated for browser environment`);
   }
-  if (!skipIndex && (isDefault || env.npm || env.prod)) {
-    buildTasks.push(getBuildTask("index.js", [cauldron], polyfills[1]));
+  if (!skipIndex && (env.npm || env.prod)) {
+    buildTasks.push(getBuildTask("index.js", [cauldron], false));
+    console.log(`index.js will be generated for NPM environment`);          
   }
   if (env.prod) {
-    buildTasks.push(getBuildTask(fnPrefix + ".min.js", [
-      cauldron,
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      }),
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.AggressiveMergingPlugin()
-    ], polyfills[2]));
+    buildTasks.push(getBuildTask(fnPrefix + ".min.js", [cauldron,...productPlugins],includeCore));
+    console.log(`${fnPrefix}.min.js will be generated for browser environment`);          
   }
   return buildTasks;
 };
