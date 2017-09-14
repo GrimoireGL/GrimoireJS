@@ -57,3 +57,5 @@ function applyMixins(derivedCtor: any, baseCtors: any[]) {
 }
 
 applyMixins(EEObject, [EventEmitter]);
+
+export default EEObject;
