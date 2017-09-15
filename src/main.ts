@@ -1,5 +1,6 @@
 import GrimoireInterface from "./Core/GrimoireInterface";
 import GomlLoader from "./Core/GomlLoader";
+import XMLReader from "./Tools/XMLReader";
 
 /**
  * Provides procedures for initializing.
@@ -14,6 +15,7 @@ class GrimoireInitializer {
     try {
       GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
+      GrimoireInitializer._injectDependency();
       GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
       GrimoireInitializer._logVersions();
@@ -24,6 +26,10 @@ class GrimoireInitializer {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  private static _injectDependency(): void {
+    XMLReader.parser = new DOMParser();
   }
 
   /**
@@ -84,7 +90,7 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-export default function(): typeof GrimoireInterface {
+export default function (): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
   GrimoireInterface.noConflictPreserve = (window as any)["gr"];
   return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;

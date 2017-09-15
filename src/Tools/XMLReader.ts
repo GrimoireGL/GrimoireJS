@@ -1,14 +1,14 @@
-import {Nullable} from "./Types";
+import { Nullable } from "./Types";
 
 /**
  * Provides safe xml read feature.
  */
 export default class XMLReader {
 
-  private static _parser: DOMParser = new DOMParser();
+  public static parser: DOMParser;
 
   public static parseXML(doc: string, rootElementName?: string): Element[] {
-    const parsed = XMLReader._parser.parseFromString(doc as string, "text/xml");
+    const parsed = XMLReader.parser.parseFromString(doc as string, "text/xml");
     if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
       const err = new XMLSerializer().serializeToString(parsed);
       throw new Error(`Error parsing XML: ${err}`);
