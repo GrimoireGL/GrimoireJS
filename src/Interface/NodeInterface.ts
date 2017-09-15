@@ -4,8 +4,7 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import GomlNode from "../Node/GomlNode";
 import {Name, Nullable} from "../Base/Types";
-import ListenerFunction from "../Base/ListenerFunction";
-
+import { ListenerFn } from "eventemitter3";
 
 /**
  * interface for operate multicast nodes.
@@ -102,9 +101,9 @@ export default class NodeInterface {
   /**
    * 対象ノードにイベントリスナを追加します。
    * @param {string}   eventName [description]
-   * @param {ListenerFunction} listener  [description]
+   * @param {ListenerFn} listener  [description]
    */
-  public on(eventName: string, listener: ListenerFunction): NodeInterface {
+  public on(eventName: string, listener: ListenerFn): NodeInterface {
     this.forEach(node => {
       node.on(eventName, listener);
     });
@@ -114,9 +113,9 @@ export default class NodeInterface {
   /**
    * 対象ノードに指定したイベントリスナが登録されていれば削除します
    * @param {string}   eventName [description]
-   * @param {ListenerFunction} listener  [description]
+   * @param {ListenerFn} listener  [description]
    */
-  public off(eventName: string, listener: ListenerFunction): NodeInterface {
+  public off(eventName: string, listener: ListenerFn): NodeInterface {
     this.forEach(node => {
       node.removeListener(eventName, listener);
     });
