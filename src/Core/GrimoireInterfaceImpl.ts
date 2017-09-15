@@ -155,6 +155,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
       }
       name = obj.componentName;
     }
+
+    // argument validation
     name = this._ensureTobeNSIdentityOnRegister(name);
     if (this.componentDeclarations.get(name)) {
       throw new Error(`component ${name.fqn} is already registerd.`);
@@ -174,6 +176,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
     }
+
     const dec = new ComponentDeclaration(name, obj, superComponent);
     this.componentDeclarations.set(name, dec);
     return dec;

@@ -3,7 +3,7 @@ import {Nullable} from "./Types";
 /**
  * Provides safe xml read feature.
  */
-class XMLReader {
+export default class XMLReader {
 
   private static _parser: DOMParser = new DOMParser();
 
@@ -90,5 +90,3 @@ class XMLReader {
     return result;
   }
 }
-
-export default XMLReader;

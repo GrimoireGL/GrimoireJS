@@ -1,4 +1,4 @@
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import GrimoireInterface from "../src/Core/GrimoireInterface";
 import sinon from "sinon";
 
 export function testComponent1() {
