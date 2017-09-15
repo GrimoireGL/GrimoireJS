@@ -1,20 +1,20 @@
-import ITreeInitializedInfo from "./ITreeInitializedInfo";
-import AttributeManager from "../Base/AttributeManager";
-import Utility from "../Base/Utility";
-import Constants from "../Base/Constants";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import AttributeManager from "../Core/AttributeManager";
+import Utility from "../Tools/Utility";
+import Constants from "../Tools/Constants";
 import GomlParser from "./GomlParser";
-import XMLReader from "../Base/XMLReader";
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import XMLReader from "../Tools/XMLReader";
+import GrimoireInterface from "../Core/GrimoireInterface";
 import EEObject from "../Base/EEObject";
 import Component from "./Component";
 import NodeDeclaration from "./NodeDeclaration";
 import NodeUtility from "./NodeUtility";
 import Attribute from "./Attribute";
-import NSDictionary from "../Base/NSDictionary";
-import NSIdentity from "../Base/NSIdentity";
-import Ensure from "../Base/Ensure";
-import MessageException from "../Base/MessageException";
-import { Name, GomlInterface, Nullable, Ctor } from "../Base/Types";
+import NSDictionary from "../Tools/NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
+import Ensure from "../Tools/Ensure";
+import MessageException from "../Tools/MessageException";
+import { Name, GomlInterface, Nullable, Ctor } from "../Tools/Types";
 
 export default class GomlNode extends EEObject {
 
@@ -583,8 +583,8 @@ export default class GomlNode extends EEObject {
    */
   public getComponent<T>(name: Name | Ctor<T>): T {
     // 事情により<T extends Component>とはできない。
-    // これはref/Node/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
-    // src/Node/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
+    // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
+    // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
     if (!name) {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {

@@ -1,4 +1,4 @@
-import NSIdentity from "./NSIdentity";
+import NSIdentity from "../Core/NSIdentity";
 
 /**
  * set of NSIdentity

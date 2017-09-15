@@ -1,9 +1,9 @@
-import NSIdentity from "./NSIdentity";
-import GomlInterfaceImpl from "../Interface/GomlInterfaceImpl";
-import GomlNode from "../Node/GomlNode";
-import GrimoireInterfaceImpl from "../Interface/GrimoireInterfaceImpl";
-import NodeInterface from "../Interface/NodeInterface";
-import IAttributeDeclaration from "../Node/IAttributeDeclaration";
+import NSIdentity from "../Core/NSIdentity";
+import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
+import GomlNode from "../Core/GomlNode";
+import GrimoireInterfaceImpl from "../Core/GrimoireInterfaceImpl";
+import NodeInterface from "../Core/NodeInterface";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 
 export type Name = string | NSIdentity;
 export type GomlInterface = GomlInterfaceImpl & IGomlInterface;

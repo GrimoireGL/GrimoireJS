@@ -1,5 +1,5 @@
-import IAttributeDeclaration from "../Node/IAttributeDeclaration";
-import Component from "../Node/Component";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import Component from "../Core/Component";
 
 export default class GrimoireComponent extends Component {
   public static componentName = "GrimoireComponent";

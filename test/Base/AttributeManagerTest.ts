@@ -6,7 +6,7 @@ import NSDictionary from "../../src/Base/NSDictionary";
 import AttributeManager from "../../src/Base/AttributeManager";
 import NSIdentity from "../../src/Base/NSIdentity";
 import Constants from "../../src/Base/Constants";
-import Attribute from "../../src/Node/Attribute";
+import Attribute from "../../src/Core/Attribute";
 import sinon from "sinon";
 
 const genAttr: (name: NSIdentity, watch?: Function | undefined) => Attribute = (name, watch) => {

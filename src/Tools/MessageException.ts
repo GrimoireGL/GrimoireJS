@@ -1,5 +1,6 @@
-import GomlNode from "../Node/GomlNode";
-import Component from "../Node/Component";
+import GomlNode from "../Core/GomlNode";
+import Component from "../Core/Component";
+
 /**
  * Exception representing uncought error caused in message function.
  * Do not thorow this error manually.

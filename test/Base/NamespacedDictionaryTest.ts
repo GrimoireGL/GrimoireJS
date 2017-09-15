@@ -3,7 +3,7 @@ import "../XMLDomInit";
 import test from "ava";
 import sinon from "sinon";
 import xhrmock from "xhr-mock";
-import GomlLoader from "../../src/Node/GomlLoader";
+import GomlLoader from "../../src/Core/GomlLoader";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import NodeInterface from "../../src/Interface/NodeInterface";
 import NSIdentity from "../../src/Base/NSIdentity";

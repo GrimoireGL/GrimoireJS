@@ -1,5 +1,5 @@
 import NSIdentity from "./NSIdentity";
-import Utility from "./Utility";
+import Utility from "../Tools/Utility";
 
 export default class Namespace {
 

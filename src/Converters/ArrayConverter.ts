@@ -1,5 +1,5 @@
-import GrimoireInterface from "../Interface/GrimoireInterface";
-import Attribute from "../Node/Attribute";
+import GrimoireInterface from "../Core/GrimoireInterface";
+import Attribute from "../Core/Attribute";
 
 const splitter = " ";
 const escape = "\\";

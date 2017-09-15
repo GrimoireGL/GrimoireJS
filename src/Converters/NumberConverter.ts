@@ -1,4 +1,4 @@
-import {Nullable, Undef} from "../Base/Types";
+import {Nullable, Undef} from "../Tools/Types";
 
 /**
  * converter for number value.

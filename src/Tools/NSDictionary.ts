@@ -1,6 +1,6 @@
-import NSIdentity from "./NSIdentity";
+import NSIdentity from "../Core/NSIdentity";
 import IdResolver from "./IdResolver";
-import Namespace from "./Namespace";
+import Namespace from "../Core/Namespace";
 import Ensure from "./Ensure";
 import {Name, Nullable, Undef} from "./Types";
 

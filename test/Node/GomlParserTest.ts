@@ -2,7 +2,7 @@ require("babel-polyfill");
 import "../XMLDomInit";
 import test from "ava";
 import sinon from "sinon";
-import GomlParser from "../../src/Node/GomlParser";
+import GomlParser from "../../src/Core/GomlParser";
 import xmldom from "xmldom";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import NSIdentity from "../../src/Base/NSIdentity";

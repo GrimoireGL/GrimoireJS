@@ -21,10 +21,10 @@ import {
   conflictComponent1,
   conflictComponent2
 } from "./GomlParserTest_Registering";
-import GomlLoader from "../../src/Node/GomlLoader";
-import GomlNode from "../../src/Node/GomlNode";
-import Component from "../../src/Node/Component";
-import Attribute from "../../src/Node/Attribute";
+import GomlLoader from "../../src/Core/GomlLoader";
+import GomlNode from "../../src/Core/GomlNode";
+import Component from "../../src/Core/Component";
+import Attribute from "../../src/Core/Attribute";
 import NSIdentity from "../../src/Base/NSIdentity";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";

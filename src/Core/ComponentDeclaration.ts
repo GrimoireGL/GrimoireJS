@@ -1,13 +1,13 @@
-import Constants from "../Base/Constants";
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import Constants from "../Tools/Constants";
+import GrimoireInterface from "../Core/GrimoireInterface";
 import Attribute from "./Attribute";
-import NSDictionary from "../Base/NSDictionary";
-import IAttributeDeclaration from "./IAttributeDeclaration";
-import NSIdentity from "../Base/NSIdentity";
-import IdResolver from "../Base/IdResolver";
+import NSDictionary from "../Tools/NSDictionary";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import NSIdentity from "../Core/NSIdentity";
+import IdResolver from "../Tools/IdResolver";
 import Component from "./Component";
-import Ensure from "../Base/Ensure";
-import {Ctor, Name, ComponentRegistering} from "../Base/Types";
+import Ensure from "../Tools/Ensure";
+import {Ctor, Name, ComponentRegistering} from "../Tools/Types";
 
 export default class ComponentDeclaration {
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: NSIdentity }[] = [];

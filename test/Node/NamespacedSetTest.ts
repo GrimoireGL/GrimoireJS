@@ -1,6 +1,6 @@
 import "../XMLDomInit";
 import test from "ava";
-import GomlParser from "../../src/Node/GomlParser";
+import GomlParser from "../../src/Core/GomlParser";
 import xmldom from "xmldom";
 import NSSet from "../../src/Base/NSSet";
 import NSIdentity from "../../src/Base/NSIdentity";

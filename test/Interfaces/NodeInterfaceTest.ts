@@ -21,8 +21,8 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "../Node/GomlParserTest_Registering";
-import GomlLoader from "../../src/Node/GomlLoader";
+} from "../Core/GomlParserTest_Registering";
+import GomlLoader from "../../src/Core/GomlLoader";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import fs from "../fileHelper";
 

@@ -1,5 +1,5 @@
-import Namespace from "./Namespace";
-import NSIdentity from "./NSIdentity";
+import Namespace from "../Core/Namespace";
+import NSIdentity from "../Core/NSIdentity";
 
 
 /**

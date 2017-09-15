@@ -1,5 +1,5 @@
-import GrimoireInterface from "./Interface/GrimoireInterface";
-import GomlLoader from "./Node/GomlLoader";
+import GrimoireInterface from "./Core/GrimoireInterface";
+import GomlLoader from "./Core/GomlLoader";
 
 /**
  * Provides procedures for initializing.

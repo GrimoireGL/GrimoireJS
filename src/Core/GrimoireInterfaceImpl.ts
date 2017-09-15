@@ -1,31 +1,31 @@
 import EEObject from "../Base/EEObject";
-import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
-import GomlLoader from "../Node/GomlLoader";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import GomlLoader from "../Core/GomlLoader";
 import EnumConverter from "../Converters/EnumConverter";
 import NumberArrayConverter from "../Converters/NumberArrayConverter";
 import ComponentConverter from "../Converters/ComponentConverter";
 import NumberConverter from "../Converters/NumberConverter";
 import ObjectConverter from "../Converters/ObjectConverter";
 import ArrayConverter from "../Converters/ArrayConverter";
-import NodeInterface from "../Interface/NodeInterface";
-import Utility from "../Base/Utility";
-import GomlInterfaceImpl from "../Interface/GomlInterfaceImpl";
+import NodeInterface from "../Core/NodeInterface";
+import Utility from "../Tools/Utility";
+import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
 import BooleanConverter from "../Converters/BooleanConverter";
 import GrimoireComponent from "../Components/GrimoireComponent";
 import StringArrayConverter from "../Converters/StringArrayConverter";
 import StringConverter from "../Converters/StringConverter";
-import Attribute from "../Node/Attribute";
-import Constants from "../Base/Constants";
-import ITreeInitializedInfo from "../Node/ITreeInitializedInfo";
-import GomlNode from "../Node/GomlNode";
-import ComponentDeclaration from "../Node/ComponentDeclaration";
-import Component from "../Node/Component";
-import NodeDeclaration from "../Node/NodeDeclaration";
-import NSIdentity from "../Base/NSIdentity";
-import Namespace from "../Base/Namespace";
-import NSDictionary from "../Base/NSDictionary";
-import Ensure from "../Base/Ensure";
-import { Name, Nullable, Ctor, ComponentRegistering } from "../Base/Types";
+import Attribute from "../Core/Attribute";
+import Constants from "../Tools/Constants";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import GomlNode from "../Core/GomlNode";
+import ComponentDeclaration from "../Core/ComponentDeclaration";
+import Component from "../Core/Component";
+import NodeDeclaration from "../Core/NodeDeclaration";
+import NSIdentity from "../Core/NSIdentity";
+import Namespace from "../Core/Namespace";
+import NSDictionary from "../Tools/NSDictionary";
+import Ensure from "../Tools/Ensure";
+import { Name, Nullable, Ctor, ComponentRegistering } from "../Tools/Types";
 
 export default class GrimoireInterfaceImpl extends EEObject {
 

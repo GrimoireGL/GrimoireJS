@@ -1,7 +1,7 @@
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import GrimoireInterface from "../Core/GrimoireInterface";
 import GomlParser from "./GomlParser";
-import XMLReader from "../Base/XMLReader";
-import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
+import XMLReader from "../Tools/XMLReader";
+import XMLHttpRequestAsync from "../Tools/XMLHttpRequestAsync";
 
 /**
  * Provides the features to fetch Goml source.

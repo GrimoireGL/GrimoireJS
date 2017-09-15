@@ -1,5 +1,5 @@
 import GomlNode from "./GomlNode";
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import GrimoireInterface from "../Core/GrimoireInterface";
 
 /**
  * Parser of Goml to Node utilities.

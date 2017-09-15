@@ -1,5 +1,5 @@
-import GrimoireInterface from "../src/Interface/GrimoireInterface";
-import GomlLoader from "../src/Node/GomlLoader";
+import GrimoireInterface from "../src/Core/GrimoireInterface";
+import GomlLoader from "../src/Core/GomlLoader";
 import xhrmock from "xhr-mock";
 
 import {

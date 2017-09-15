@@ -1,12 +1,12 @@
-import IAttributeConverterDeclaration from "../Declaration/IAttributeConverterDeclaration";
-import NSDictionary from "../Base/NSDictionary";
-import Ensure from "../Base/Ensure";
-import IAttributeDeclaration from "./IAttributeDeclaration";
-import NSIdentity from "../Base/NSIdentity";
-import IdResolver from "../Base/IdResolver";
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import NSDictionary from "../Tools/NSDictionary";
+import Ensure from "../Tools/Ensure";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import NSIdentity from "../Core/NSIdentity";
+import IdResolver from "../Tools/IdResolver";
+import GrimoireInterface from "../Core/GrimoireInterface";
 import Component from "./Component";
-import {GomlInterface, Name, Nullable} from "../Base/Types";
+import {GomlInterface, Name, Nullable} from "../Tools/Types";
 
 /**
  * Manage a attribute attached to components.

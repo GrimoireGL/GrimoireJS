@@ -1,7 +1,7 @@
-import Ensure from "../Base/Ensure";
-import Component from "../Node/Component";
-import GomlNode from "../Node/GomlNode";
-import Attribute from "../Node/Attribute";
+import Ensure from "../Tools/Ensure";
+import Component from "../Core/Component";
+import GomlNode from "../Core/GomlNode";
+import Attribute from "../Core/Attribute";
 
 
 /**

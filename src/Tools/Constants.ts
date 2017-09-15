@@ -1,5 +1,3 @@
-// import NSIdentity from "./NSIdentity";
-
 export default class Constants {
   public static get defaultNamespace(): string {
     return "grimoirejs";

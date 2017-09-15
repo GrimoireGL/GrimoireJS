@@ -5,12 +5,12 @@ import test from "ava";
 import sinon from "sinon";
 import GrimoireInterface from "../../src/Interface/GrimoireInterface";
 import Constants from "../../src/Base/Constants";
-import Component from "../../src/Node/Component";
-import GomlParser from "../../src/Node/GomlParser";
-import GomlLoader from "../../src/Node/GomlLoader";
+import Component from "../../src/Core/Component";
+import GomlParser from "../../src/Core/GomlParser";
+import GomlLoader from "../../src/Core/GomlLoader";
 import NSIdentity from "../../src/Base/NSIdentity";
 import Namespace from "../../src/Base/Namespace";
-import GomlNode from "../../src/Node/GomlNode";
+import GomlNode from "../../src/Core/GomlNode";
 
 declare namespace global {
   let Node: any;

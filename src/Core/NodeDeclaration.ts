@@ -1,11 +1,11 @@
-import Ensure from "../Base/Ensure";
-import NSDictionary from "../Base/NSDictionary";
-import NSSet from "../Base/NSSet";
-import NSIdentity from "../Base/NSIdentity";
-import IdResolver from "../Base/IdResolver";
-import GrimoireInterface from "../Interface/GrimoireInterface";
-import Constants from "../Base/Constants";
-import {Name} from "../Base/Types";
+import Ensure from "../Tools/Ensure";
+import NSDictionary from "../Tools/NSDictionary";
+import NSSet from "../Tools/NSSet";
+import NSIdentity from "../Core/NSIdentity";
+import IdResolver from "../Tools/IdResolver";
+import GrimoireInterface from "../Core/GrimoireInterface";
+import Constants from "../Tools/Constants";
+import { Name } from "../Tools/Types";
 
 export default class NodeDeclaration {
   public defaultComponents: NSSet;

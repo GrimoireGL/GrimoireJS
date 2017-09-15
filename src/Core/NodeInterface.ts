@@ -1,9 +1,9 @@
-import Utility from "../Base/Utility";
-import XMLReader from "../Base/XMLReader";
-import GomlParser from "../Node/GomlParser";
-import Attribute from "../Node/Attribute";
-import GomlNode from "../Node/GomlNode";
-import {Name, Nullable} from "../Base/Types";
+import Utility from "../Tools/Utility";
+import XMLReader from "../Tools/XMLReader";
+import GomlParser from "../Core/GomlParser";
+import Attribute from "../Core/Attribute";
+import GomlNode from "../Core/GomlNode";
+import {Name, Nullable} from "../Tools/Types";
 import { ListenerFn } from "eventemitter3";
 
 /**

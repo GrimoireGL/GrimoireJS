@@ -1,7 +1,7 @@
-import Constants from "../Base/Constants";
-import GrimoireInterface from "../Interface/GrimoireInterface";
+import Constants from "../Tools/Constants";
+import GrimoireInterface from "../Core/GrimoireInterface";
 import NodeInterface from "./NodeInterface";
-import GomlNode from "../Node/GomlNode";
+import GomlNode from "../Core/GomlNode";
 /**
  * Provides interfaces to treat whole goml tree for each.
  */

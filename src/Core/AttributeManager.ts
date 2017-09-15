@@ -1,10 +1,10 @@
-import Utility from "./Utility";
-import Attribute from "../Node/Attribute";
-import IdResolver from "./IdResolver";
+import Utility from "../Tools/Utility";
+import Attribute from "../Core/Attribute";
+import IdResolver from "../Tools/IdResolver";
 import Namespace from "./Namespace";
 import NSIdentity from "./NSIdentity";
-import Ensure from "./Ensure";
-import {Name, Undef} from "./Types";
+import Ensure from "../Tools/Ensure";
+import {Name, Undef} from "../Tools/Types";
 
 type NameValPair<T> = { fqn: string, val: T };
 

@@ -1,6 +1,6 @@
 import Namespace from "./Namespace";
-import IdResolver from "./IdResolver";
-import Ensure from "./Ensure";
+import IdResolver from "../Tools/IdResolver";
+import Ensure from "../Tools/Ensure";
 
 /**
  * The class to identity with XML namespace feature.

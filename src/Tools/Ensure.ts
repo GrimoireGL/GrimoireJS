@@ -1,10 +1,10 @@
-import GrimoireInterface from "../Interface/GrimoireInterface";
-import NSIdentity from "./NSIdentity";
+import GrimoireInterface from "../Core/GrimoireInterface";
+import NSIdentity from "../Core/NSIdentity";
 // import Namespace from "./Namespace";
 import NSDictionary from "./NSDictionary";
 import {Name, Nullable, Ctor, ComponentRegistering} from "./Types";
-import ComponentDeclaration from "../Node/ComponentDeclaration";
-import Component from "../Node/Component";
+import ComponentDeclaration from "../Core/ComponentDeclaration";
+import Component from "../Core/Component";
 /**
  * Provides static methods to ensure arguments are valid type.
  */

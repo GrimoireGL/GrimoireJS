@@ -1,15 +1,15 @@
-import ITreeInitializedInfo from "./ITreeInitializedInfo";
-import Utility from "../Base/Utility";
-import Constants from "../Base/Constants";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Utility from "../Tools/Utility";
+import Constants from "../Tools/Constants";
 import NodeUtility from "./NodeUtility";
-import IAttributeDeclaration from "./IAttributeDeclaration";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Attribute from "./Attribute";
 import GomlNode from "./GomlNode";
-import NSDictionary from "../Base/NSDictionary";
-import NSIdentity from "../Base/NSIdentity";
+import NSDictionary from "../Tools/NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
 import IDObject from "../Base/IDObject";
-import Ensure from "../Base/Ensure";
-import {GomlInterface, Nullable, Name} from "../Base/Types";
+import Ensure from "../Tools/Ensure";
+import {GomlInterface, Nullable, Name} from "../Tools/Types";
 
 /**
  * Base class for any components
