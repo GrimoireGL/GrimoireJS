@@ -1,12 +1,11 @@
 require("babel-polyfill");
-import "../XMLDomInit";
 import test from "ava";
 import sinon from "sinon";
 import GomlParser from "../../src/Core/GomlParser";
 import xmldom from "xmldom";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import NSIdentity from "../../src/Base/NSIdentity";
-import Namespace from "../../src/Base/Namespace";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import NSIdentity from "../../src/Core/NSIdentity";
+import Namespace from "../../src/Core/Namespace";
 import fs from "../fileHelper";
 import {
   goml,
@@ -22,7 +21,7 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "./GomlParserTest_Registering";
+} from "../DummyObjectRegisterer";
 
 declare namespace global {
   let Node: any;
@@ -33,11 +32,10 @@ declare namespace global {
 
 // Get element from test case source which is located with relative path.
 function obtainElementTag(path) {
-  const DOMParser = xmldom.DOMParser;
   global.Node = {
     ELEMENT_NODE: 1
   };
-  const parser = new DOMParser();
+  const parser = new xmldom.DOMParser();
   return parser.parseFromString(fs.readFile(path), "text/xml").documentElement;
 }
 
@@ -51,7 +49,7 @@ let stringConverterSpy,
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  const parser = new DOMParser();
+  const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
   global.document = htmlDoc;
   goml();

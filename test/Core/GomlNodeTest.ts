@@ -1,14 +1,13 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
 import xmldom from "xmldom";
 import test from "ava";
 import sinon from "sinon";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import Constants from "../../src/Base/Constants";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
 import GomlParser from "../../src/Core/GomlParser";
 import GomlLoader from "../../src/Core/GomlLoader";
-import NSIdentity from "../../src/Base/NSIdentity";
+import NSIdentity from "../../src/Core/NSIdentity";
 import GomlNode from "../../src/Core/GomlNode";
 import Attribute from "../../src/Core/Attribute";
 
@@ -24,7 +23,7 @@ global.Node = {
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  const parser = new DOMParser();
+  const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
   global.document = htmlDoc;
   GrimoireInterface.registerNode("goml");

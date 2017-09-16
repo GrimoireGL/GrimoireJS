@@ -1,6 +1,7 @@
 import GrimoireInterface from "../src/Core/GrimoireInterface";
 import GomlLoader from "../src/Core/GomlLoader";
 import xhrmock from "xhr-mock";
+import xmldom from "xmldom";
 
 import {
   goml,
@@ -28,7 +29,7 @@ declare namespace global {
 export default class PageLoadingHelper {
   public static async reset(gr: typeof GrimoireInterface, html: string): Promise<any> {
     gr.clear();
-    const parser = new DOMParser();
+    const parser = new xmldom.DOMParser();
     const htmlDoc = parser.parseFromString(html, "text/html");
 
     global.document = htmlDoc;

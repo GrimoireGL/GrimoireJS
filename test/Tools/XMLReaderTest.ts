@@ -1,8 +1,10 @@
-import "../XMLDomInit";
 import test from "ava";
 import xmldom from "xmldom";
-import XMLReader from "../../src/Base/XMLReader";
+import XMLReader from "../../src/Tools/XMLReader";
 import fs from "../fileHelper";
+import TestEnvManager from "../TestEnvManager";
+
+TestEnvManager.init();
 
 const xml = fs.readFile("../_TestResource/XMLReader_Case1.xml");
 

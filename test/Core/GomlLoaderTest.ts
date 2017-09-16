@@ -1,14 +1,14 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
 import prequire from "proxyquire";
 import jsdomAsync from "../JsDOMAsync";
 import test from "ava";
 import sinon from "sinon";
 import xhrmock from "xhr-mock";
-import XMLReader from "../../src/Base/XMLReader";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import XMLReader from "../../src/Tools/XMLReader";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import GomlParser from "../../src/Core/GomlParser";
 import fs from "../fileHelper";
+import TestEnvManager from "../TestEnvManager";
 import {
   goml,
   stringConverter,
@@ -25,7 +25,9 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "./GomlParserTest_Registering";
+} from "../DummyObjectRegisterer";
+
+TestEnvManager.init();
 
 declare namespace global {
   let Node: any;
@@ -52,7 +54,7 @@ xhrmock.get("http://grimoire.gl/index3.goml", (req, res) => {
 
 function mockXMLParse(func) {
   return prequire("../../src/Core/GomlLoader", {
-    "../Base/XMLReader": {
+    "../Tools/XMLReader": {
       default: {
         parseXML: (srcHtml) => {
           func(srcHtml);

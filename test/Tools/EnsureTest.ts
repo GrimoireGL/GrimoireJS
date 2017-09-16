@@ -1,10 +1,9 @@
-import "../XMLDomInit";
 import test from "ava";
-import Ensure from "../../src/Base/Ensure";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import NSDictionary from "../../src/Base/NSDictionary";
-import NSIdentity from "../../src/Base/NSIdentity";
-import Namespace from "../../src/Base/Namespace";
+import Ensure from "../../src/Tools/Ensure";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import NSDictionary from "../../src/Tools/NSDictionary";
+import NSIdentity from "../../src/Core/NSIdentity";
+import Namespace from "../../src/Core/Namespace";
 
 test.beforeEach(() => {
   NSIdentity.clear();
@@ -58,9 +57,9 @@ test("Ensure passed object are transformed into NSDictionary", (t) => {
 
 test("Ensure name tobe fqn if name start with _", t => {
   t.truthy(Ensure.tobeFQN("aaa") == null);
-  t.truthy(Ensure.tobeFQN("_aaa") == "aaa");
+  t.truthy(Ensure.tobeFQN("_aaa") === "aaa");
   t.truthy(Ensure.tobeFQN("aaa.fff") == null);
-  t.truthy(Ensure.tobeFQN("_aaa.fff") == "aaa.fff");
-  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa.bbb")) == "aaa.bbb");
-  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa")) == "aaa");
-})
+  t.truthy(Ensure.tobeFQN("_aaa.fff") === "aaa.fff");
+  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa.bbb")) === "aaa.bbb");
+  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa")) === "aaa");
+});

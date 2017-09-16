@@ -1,10 +1,10 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
 import test from "ava";
 import sinon from "sinon";
 import xmldom from "xmldom";
 import xhrmock from "xhr-mock";
 import * as _ from "lodash";
+import TestEnvManager from "../TestEnvManager";
 import {
   goml,
   stringConverter,
@@ -21,10 +21,12 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "../Core/GomlParserTest_Registering";
+} from "../DummyObjectRegisterer";
 import GomlLoader from "../../src/Core/GomlLoader";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import fs from "../fileHelper";
+
+TestEnvManager.init();
 
 const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
@@ -60,7 +62,7 @@ declare namespace global {
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  const parser = new DOMParser();
+  const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString(testcase1_html, "text/html");
   global.document = htmlDoc;
   global.document.querySelectorAll = function(selector) {

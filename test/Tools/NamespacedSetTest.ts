@@ -1,9 +1,8 @@
-import "../XMLDomInit";
 import test from "ava";
 import GomlParser from "../../src/Core/GomlParser";
 import xmldom from "xmldom";
-import NSSet from "../../src/Base/NSSet";
-import NSIdentity from "../../src/Base/NSIdentity";
+import NSSet from "../../src/Tools/NSSet";
+import NSIdentity from "../../src/Core/NSIdentity";
 
 
 test("test parse for goml parser", (t) => {

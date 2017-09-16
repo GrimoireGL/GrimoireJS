@@ -1,9 +1,9 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
 import test from "ava";
 import sinon from "sinon";
 import xmldom from "xmldom";
 import * as _ from "lodash";
+import TestEnvManager from "../TestEnvManager";
 import {
   goml,
   stringConverter,
@@ -20,16 +20,18 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "./GomlParserTest_Registering";
+} from "../DummyObjectRegisterer";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import Component from "../../src/Core/Component";
 import Attribute from "../../src/Core/Attribute";
-import NSIdentity from "../../src/Base/NSIdentity";
+import NSIdentity from "../../src/Core/NSIdentity";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import fs from "../fileHelper";
 import PLH from "../PageLoadingHelper";
+
+TestEnvManager.init();
 
 const tc1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const tc1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");

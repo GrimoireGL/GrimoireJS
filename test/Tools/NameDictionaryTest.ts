@@ -1,13 +1,13 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
+import xmldom from "xmldom";
 import test from "ava";
 import sinon from "sinon";
 import xhrmock from "xhr-mock";
 import GomlLoader from "../../src/Core/GomlLoader";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import NodeInterface from "../../src/Interface/NodeInterface";
-import NSIdentity from "../../src/Base/NSIdentity";
-import NSDictionary from "../../src/Base/NSDictionary";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import NodeInterface from "../../src/Core/NodeInterface";
+import NSIdentity from "../../src/Core/NSIdentity";
+import NSDictionary from "../../src/Tools/NSDictionary";
 import fs from "../fileHelper";
 const xml = fs.readFile("../_TestResource/NSDictionary_QueryDOM.xml");
 
@@ -55,7 +55,7 @@ test("get element with strict name", async (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
-  const domParser = new DOMParser();
+  const domParser = new xmldom.DOMParser();
 
   const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test");
@@ -74,7 +74,7 @@ test("get element with shortened namespace prefix", async (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
-  const domParser = new DOMParser();
+  const domParser = new xmldom.DOMParser();
   const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
@@ -89,7 +89,7 @@ test("get element with shortened namespace prefix", async (t) => {
   const newKey = NSIdentity.fromFQN("test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test");
-  const domParser = new DOMParser();
+  const domParser = new xmldom.DOMParser();
   const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
@@ -101,7 +101,7 @@ test("get element with fuzzy name", async (t) => {
   const secoundKey = NSIdentity.fromFQN("grimoirejs.test");
   const theDict = new NSDictionary();
   theDict.set(secoundKey, "test2");
-  const domParser = new DOMParser();
+  const domParser = new xmldom.DOMParser();
   const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);
@@ -117,7 +117,7 @@ test("get element with ambiguous name should throw error", async (t) => {
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
-  const domParser = new DOMParser();
+  const domParser = new xmldom.DOMParser();
   const parsed = domParser.parseFromString(xml, "text/xml");
   const idElement = parsed.getElementById("test2");
   const attr = idElement.attributes.item(1);

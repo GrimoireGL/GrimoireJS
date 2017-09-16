@@ -1,15 +1,14 @@
-import "../AsyncSupport";
-import "../XMLDomInit";
+require("babel-polyfill");
 import xmldom from "xmldom";
 import test from "ava";
 import sinon from "sinon";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import Constants from "../../src/Base/Constants";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
 import GomlParser from "../../src/Core/GomlParser";
 import GomlLoader from "../../src/Core/GomlLoader";
-import NSIdentity from "../../src/Base/NSIdentity";
-import Namespace from "../../src/Base/Namespace";
+import NSIdentity from "../../src/Core/NSIdentity";
+import Namespace from "../../src/Core/Namespace";
 import GomlNode from "../../src/Core/GomlNode";
 
 declare namespace global {
@@ -20,7 +19,7 @@ declare namespace global {
 global.Node = {
   ELEMENT_NODE: 1
 };
-global.document = new DOMParser().parseFromString("<html></html>", "text/html");
+global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
 
 
 test.beforeEach(() => {

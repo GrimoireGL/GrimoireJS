@@ -1,16 +1,15 @@
 import test from "ava";
 import "../AsyncSupport";
-import "../XMLDomInit";
 import xmldom from "xmldom";
 import sinon from "sinon";
-import GrimoireInterface from "../../src/Interface/GrimoireInterface";
-import Constants from "../../src/Base/Constants";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
 import GomlParser from "../../src/Core/GomlParser";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 
-import NSIdentity from "../../src/Base/NSIdentity";
+import NSIdentity from "../../src/Core/NSIdentity";
 
 test.beforeEach(() => {
   NSIdentity.clear();

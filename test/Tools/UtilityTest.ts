@@ -1,6 +1,5 @@
-import "../XMLDomInit";
 import test from "ava";
-import Utility from "../../src/Base/Utility";
+import Utility from "../../src/Tools/Utility";
 
 test("isCamelCase works correctly.", t => {
   t.truthy(Utility.isCamelCase("NameName123"));
