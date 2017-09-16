@@ -1,5 +1,5 @@
 import test from "ava";
-import "../AsyncSupport";
+require("babel-polyfill");
 import xmldom from "xmldom";
 import sinon from "sinon";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";

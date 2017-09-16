@@ -29,8 +29,16 @@ test.beforeEach(async () => {
   GrimoireInterface.registerNode("goml");
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");
-  GrimoireInterface.registerComponent("Test", { attributes: {}, valueTest: "Test"});
-  GrimoireInterface.registerComponent("Test2", { attributes: {}, valueTest: "Test2"});
+  GrimoireInterface.registerComponent({
+    componentName: "Test",
+    attributes: {},
+    valueTest: "Test"
+  });
+  GrimoireInterface.registerComponent({
+    componentName: "Test2",
+    attributes: {},
+    valueTest: "Test2"
+  });
   await GrimoireInterface.resolvePlugins();
 });
 
