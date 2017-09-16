@@ -15,7 +15,7 @@ test.beforeEach(() => {
   NSIdentity.clear();
 });
 
-test("set element correctly", (t) => {
+test("set element correctly", t => {
   const newKey = NSIdentity.fromFQN("hoge.test");
   const value = "Grimoire";
   const theDict = new NSDictionary();

@@ -7,10 +7,9 @@ import Ensure from "../Tools/Ensure";
  */
 export default class NSIdentity {
 
-
   private static _instances: { [fqn: string]: NSIdentity } = {};
   private static _mapBackingField: IdResolver;
-  private static get _map(): IdResolver{
+  private static get _map(): IdResolver {
     if (this._mapBackingField === void 0) {
       this._mapBackingField = new IdResolver();
     }
@@ -26,11 +25,7 @@ export default class NSIdentity {
    * @param  {string}             fqn [description]
    * @return {NSIdentity}     [description]
    */
-  public static fromFQN(fqn: string): NSIdentity;
-  public static fromFQN(qn: Namespace, name: string): NSIdentity;
-  public static fromFQN(fqn: string | Namespace, name?: string): NSIdentity {
-    const hierarchy = NSIdentity._ensureQNTobeArray(fqn, name);
-    fqn = hierarchy.join(".");
+  public static fromFQN(fqn: string): NSIdentity {
     const inst = NSIdentity._instances[fqn];
     if (inst) {
       return inst;
@@ -62,19 +57,6 @@ export default class NSIdentity {
     }
 
     return NSIdentity.fromFQN(NSIdentity._map.resolve(Namespace.defineByArray(hierarchy)));
-  }
-
-  private static _ensureQNTobeArray(arg1: string | string[] | Namespace, name?: string): string[] {
-    if (name) {
-      return NSIdentity._ensureQNTobeArray((arg1 as Namespace).extend(name));
-    }
-    if (typeof arg1 === "string") {
-      return arg1.split(".");
-    }
-    if (Array.isArray(arg1)) {
-      return arg1;
-    }
-    return arg1.hierarchy;
   }
 
   public constructor(fqn: string | string[]);
