@@ -35,7 +35,7 @@ export default class NSIdentity {
   }
 
   public static guess(...hierarchy: string[]): NSIdentity {
-    return NSIdentity._from(hierarchy);
+    return NSIdentity._guess(hierarchy);
   }
 
   public static clear(): void {
@@ -49,7 +49,7 @@ export default class NSIdentity {
    * @param  {string[]}   hierarchy [description]
    * @return {NSIdentity}           [description]
    */
-  private static _from(hierarchy: string[]): NSIdentity {
+  private static _guess(hierarchy: string[]): NSIdentity {
     const fqn = hierarchy.join(".");
     const inst = NSIdentity._instances[fqn];
     if (inst) {
