@@ -18,7 +18,7 @@ import {
   conflictNode2,
   conflictComponent1,
   conflictComponent2
-} from "./Node/GomlParserTest_Registering";
+} from "./DummyObjectRegisterer";
 
 declare namespace global {
   let Node: any;
