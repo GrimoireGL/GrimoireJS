@@ -39,7 +39,7 @@ export default class IdResolver {
    * @param  {string | string[]}    name [description]
    * @return {string[]}    list of FQN
    */
-  public get(ns: Namespace | string): string[] {
+  public get(ns: Namespace | string): string[] { // TODO FQNstringに対応？
     if (typeof ns === "string") {
       return this.get(Namespace.defineByArray(ns.split(".")));
     }

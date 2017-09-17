@@ -93,7 +93,7 @@ export default class Attribute {
   }
 
 
-  public static convert(converter: Name, self: Attribute, val: any): any {
+  public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
     const cname = Ensure.tobeNSIdentity(converter);
     const conv = GrimoireInterface.converters.get(cname);
     if (!conv) {
