@@ -77,7 +77,7 @@ test("registerComponent by object works correctly", async (t) => {
       }
     },
     hoge: 0,
-    $test: function() {
+    $test: function () {
       this.hoge += 1;
     }
   });
@@ -110,7 +110,7 @@ test("registerComponent by object works correctly", async (t) => {
         default: "ccc"
       }
     },
-    $test2: function() {
+    $test2: function () {
       // do nothing.
     }
   }, "Aaa");
@@ -294,7 +294,8 @@ test("registerNode/Component works correctly.", async t => {
   GrimoireInterface.registerNode("a1");
   GrimoireInterface.registerNode("a2", ["Hoge"]);
   GrimoireInterface.registerNode("a3", [], { hoge: 7 }, "a2");
-  GrimoireInterface.registerComponent("Hoge", {
+  GrimoireInterface.registerComponent({
+    componentName: "Hoge",
     attributes: {
       hoge: {
         converter: "Number",
@@ -328,7 +329,7 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
 test("register and resolvePlugins works preperly", async () => {
   const spy1 = sinon.spy();
   const spy2 = sinon.spy();
-  const wrapPromise: any = function(spy) {
+  const wrapPromise: any = function (spy) {
     return () => {
       return new Promise(resolve => {
         spy();

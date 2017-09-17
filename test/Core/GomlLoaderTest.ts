@@ -1,4 +1,3 @@
-require("babel-polyfill");
 import prequire from "proxyquire";
 import jsdomAsync from "../JsDOMAsync";
 import test from "ava";

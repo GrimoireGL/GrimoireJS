@@ -31,5 +31,8 @@ export default class TestEnvManager {
     const testcase1_html = fs.readFile("../_TestResource/GomlLoaderTest_Case1.html");
     const window = await jsdomAsync(testcase1_html, []);
     global.document = window.document;
+    global.Node = {
+      ELEMENT_NODE: 1
+    };
   }
 }

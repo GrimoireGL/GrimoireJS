@@ -1,4 +1,3 @@
-require("babel-polyfill");
 import test from "ava";
 import sinon from "sinon";
 import xmldom from "xmldom";
