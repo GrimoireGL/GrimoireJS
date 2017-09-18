@@ -9,6 +9,11 @@ import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import Namespace from "../../src/Core/Namespace";
 
+test("define/for function works correctly.", (t) => { // TODO test
+  const g = Namespace.define("grimoire");
+  t.truthy(g.for("test").fqn === "grimoire.test");
+});
+
 test("constructor is works correctly.", t => {
   let ns = Namespace.define("a").extend("b");
   t.truthy(ns.qualifiedName === "a.b");

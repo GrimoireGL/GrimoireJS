@@ -80,6 +80,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @return {[type]}    the namespaced identity
    */
   public ns(ns: string): (name: string) => NSIdentity {
+    Utility.w("GrimoireInterface.ns is obsolete. please use `Namespace.define()` instead of.");
     return (name: string) => Namespace.define(ns).for(name);
   }
 
@@ -221,7 +222,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
     tag.setAttribute("x-rootNodeId", rootNode.id);
     this.rootNodes[rootNode.id] = rootNode;
-    rootNode.companion.set(this.ns(Constants.defaultNamespace)("scriptElement"), tag);
+    rootNode.companion.set(Namespace.define(Constants.defaultNamespace).for("scriptElement"), tag);
 
     // awake and mount tree.
     rootNode.setMounted(true);

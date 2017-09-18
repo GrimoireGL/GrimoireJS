@@ -10,26 +10,26 @@ import GomlLoader from "../../src/Core/GomlLoader";
 import NSIdentity from "../../src/Core/NSIdentity";
 import Namespace from "../../src/Core/Namespace";
 import GomlNode from "../../src/Core/GomlNode";
+import TestEnvManager from "../TestEnvManager";
+
+TestEnvManager.init();
 
 declare namespace global {
   let Node: any;
   let document: any;
 }
 
-global.Node = {
-  ELEMENT_NODE: 1
-};
-global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
-
+// global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
 
 test.beforeEach(() => {
   GrimoireInterface.clear();
   GrimoireInterface.resolvePlugins();
 });
 
-test("ns method should generate namespace generating function correctly", (t) => {
-  const g = Namespace.define("grimoire");
-  t.truthy(g.for("test").fqn === "grimoire.test");
+test("properties are initialized correctly", t => {
+  t.truthy(GrimoireInterface.nodeDeclarations.toArray().length === 1); // only grimoire-node-base
+  t.truthy(GrimoireInterface.converters.toArray().length > 0);
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === 1); // only GrimoireComponent
 });
 
 test("registerComponent works correctly", (t) => {
