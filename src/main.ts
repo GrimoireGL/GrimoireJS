@@ -1,6 +1,6 @@
 import GrimoireInterface from "./Core/GrimoireInterface";
 import GomlLoader from "./Core/GomlLoader";
-import XMLReader from "./Tools/XMLReader";
+import Environment from "./Core/Environment";
 
 /**
  * Provides procedures for initializing.
@@ -28,8 +28,13 @@ class GrimoireInitializer {
     }
   }
 
+  /**
+   * inject browser environment
+   */
   private static _injectDependency(): void {
-    XMLReader.parser = new DOMParser();
+    Environment.DomParser = new DOMParser();
+    Environment.document = document;
+    Environment.Node = Node;
   }
 
   /**

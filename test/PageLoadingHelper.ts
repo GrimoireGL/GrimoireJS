@@ -20,6 +20,7 @@ import {
   conflictComponent1,
   conflictComponent2
 } from "./DummyObjectRegisterer";
+import Environment from "../src/Core/Environment";
 
 declare namespace global {
   let Node: any;
@@ -32,12 +33,9 @@ export default class PageLoadingHelper {
     const parser = new xmldom.DOMParser();
     const htmlDoc = parser.parseFromString(html, "text/html");
 
-    global.document = htmlDoc;
-    global.document.querySelectorAll = function() {
-      return global.document.getElementsByTagName("script");
-    };
-    global.Node = {
-      ELEMENT_NODE: 1
+    Environment.document = htmlDoc;
+    Environment.document.querySelectorAll = function() {
+      return Environment.document.getElementsByTagName("script");
     };
     goml();
     testNode1();

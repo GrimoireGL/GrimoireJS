@@ -26,6 +26,7 @@ import Namespace from "../Core/Namespace";
 import NSDictionary from "../Tools/NSDictionary";
 import Ensure from "../Tools/Ensure";
 import { Name, Nullable, Ctor, ComponentRegistering } from "../Tools/Types";
+import Environment from "./Environment";
 
 export default class GrimoireInterfaceImpl extends EEObject {
 
@@ -260,7 +261,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   public queryRootNodes(query: string): GomlNode[] {
-    const scriptTags = document.querySelectorAll(query);
+    const scriptTags = Environment.document.querySelectorAll(query);
     const nodes: GomlNode[] = [];
     for (let i = 0; i < scriptTags.length; i++) {
       const node = this.getRootNode(scriptTags.item(i));

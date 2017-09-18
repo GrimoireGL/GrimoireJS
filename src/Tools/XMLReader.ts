@@ -1,14 +1,13 @@
 import { Nullable } from "./Types";
+import Environment from "../Core/Environment";
 
 /**
  * Provides safe xml read feature.
  */
 export default class XMLReader {
 
-  public static parser: DOMParser;
-
   public static parseXML(doc: string, rootElementName?: string): Element[] {
-    const parsed = XMLReader.parser.parseFromString(doc as string, "text/xml");
+    const parsed = Environment.DomParser.parseFromString(doc, "text/xml");
     if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
       const err = new XMLSerializer().serializeToString(parsed);
       throw new Error(`Error parsing XML: ${err}`);

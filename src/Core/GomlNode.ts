@@ -15,6 +15,7 @@ import NSIdentity from "../Core/NSIdentity";
 import Ensure from "../Tools/Ensure";
 import MessageException from "../Tools/MessageException";
 import { Name, GomlInterface, Nullable, Ctor } from "../Tools/Types";
+import Environment from "./Environment";
 
 export default class GomlNode extends EEObject {
 
@@ -150,8 +151,8 @@ export default class GomlNode extends EEObject {
       recipe.resolveDependency();
     }
     this.nodeDeclaration = recipe;
-    this.element = element ? element : document.createElementNS(recipe.name.ns.qualifiedName, recipe.name.name);
-    this.componentsElement = document.createElement("COMPONENTS");
+    this.element = element ? element : Environment.document.createElementNS(recipe.name.ns.qualifiedName, recipe.name.name);
+    this.componentsElement = Environment.document.createElement("COMPONENTS");
     this._root = this;
     this._components = [];
     this._attributeManager = new AttributeManager(recipe.name.name);

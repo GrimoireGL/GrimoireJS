@@ -2,6 +2,7 @@ import GrimoireInterface from "../Core/GrimoireInterface";
 import GomlParser from "./GomlParser";
 import XMLReader from "../Tools/XMLReader";
 import XMLHttpRequestAsync from "../Tools/XMLHttpRequestAsync";
+import Environment from "./Environment";
 
 /**
  * Provides the features to fetch Goml source.
@@ -39,7 +40,7 @@ export default class GomlLoader {
    * @return {Promise<void[]>}       [the promise to wait for all goml loading]
    */
   public static async loadFromQuery(query: string): Promise<void> {
-    const tags = document.querySelectorAll(query);
+    const tags = Environment.document.querySelectorAll(query);
     const pArray: Promise<void>[] = [];
     const elements: HTMLScriptElement[] = [];
     for (let i = 0; i < tags.length; i++) {

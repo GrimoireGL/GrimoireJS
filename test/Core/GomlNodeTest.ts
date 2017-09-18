@@ -2,6 +2,7 @@ require("babel-polyfill");
 import xmldom from "xmldom";
 import test from "ava";
 import sinon from "sinon";
+import TestEnvManager from "../TestEnvManager";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
@@ -10,22 +11,15 @@ import GomlLoader from "../../src/Core/GomlLoader";
 import NSIdentity from "../../src/Core/NSIdentity";
 import GomlNode from "../../src/Core/GomlNode";
 import Attribute from "../../src/Core/Attribute";
+import Environment from "../../src/Core/Environment";
 
-declare namespace global {
-  let Node: any;
-  let document: any;
-  let rootNode: any;
-}
-
-global.Node = {
-  ELEMENT_NODE: 1
-};
+TestEnvManager.init();
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
   const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
-  global.document = htmlDoc;
+  Environment.document = htmlDoc;
   GrimoireInterface.registerNode("goml");
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");

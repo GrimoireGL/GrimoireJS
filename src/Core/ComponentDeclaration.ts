@@ -8,6 +8,7 @@ import IdResolver from "../Tools/IdResolver";
 import Component from "./Component";
 import Ensure from "../Tools/Ensure";
 import {Ctor, Name, ComponentRegistering} from "../Tools/Types";
+import Environment from "./Environment";
 
 export default class ComponentDeclaration {
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: NSIdentity }[] = [];
@@ -43,7 +44,7 @@ export default class ComponentDeclaration {
     if (!this.isDependenyResolved) {
       this.resolveDependency();
     }
-    componentElement = componentElement ? componentElement : document.createElementNS(this.name.ns.qualifiedName, this.name.name);
+    componentElement = componentElement ? componentElement : Environment.document.createElementNS(this.name.ns.qualifiedName, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute(Constants.x_gr_id, component.id);
     GrimoireInterface.componentDictionary[component.id] = component;

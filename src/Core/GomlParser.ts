@@ -1,5 +1,6 @@
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../Core/GrimoireInterface";
+import Environment from "./Environment";
 
 /**
  * Parser of Goml to Node utilities.
@@ -93,7 +94,7 @@ class GomlParser {
   }
 
   private static _isElement(node: Node): node is Element {
-    return node.nodeType === Node.ELEMENT_NODE;
+    return node.nodeType === Environment.Node.ELEMENT_NODE;
   }
 
   private static _isComponentsTag(element: Element): boolean {

@@ -25,6 +25,7 @@ import {
   conflictComponent1,
   conflictComponent2
 } from "../DummyObjectRegisterer";
+import Environment from "../../src/Core/Environment";
 
 TestEnvManager.init();
 
@@ -66,9 +67,6 @@ function mockXMLParse(func) {
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  global.Node = {
-    ELEMENT_NODE: 1
-  };
   goml();
   testNode1();
   testNode2();
@@ -82,7 +80,7 @@ test.beforeEach(async () => {
 
 test("Processing script[type=\"text/goml\"] tag correctly when the text content was existing", async (t) => {
   const window = await jsdomAsync(testcase1_html, []);
-  global.document = window.document;
+  Environment.document = window.document;
   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
@@ -95,7 +93,7 @@ test("Processing script[type=\"text/goml\"] tag correctly when the text content 
 test("Processing script[type=\"text/goml\"] and call parse related methods in correct order", async (t) => {
   const src = testcase1_html;
   const window = await jsdomAsync(src, []);
-  global.document = window.document;
+  Environment.document = window.document;
   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
@@ -108,7 +106,7 @@ test("Processing script[type=\"text/goml\"] and call parse related methods in co
 test("Processing script[type=\"text/goml\"] tag correctly when the src attribute was existing", async (t) => {
   const src = testcase2_html;
   const window = await jsdomAsync(src, []);
-  global.document = window.document;
+  Environment.document = window.document;
   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
@@ -122,7 +120,7 @@ test("Processing script[type=\"text/goml\"] tag correctly when the src attribute
 test("Processing goml scripts from query", async (t) => {
   const src = testcase3_html;
   const window = await jsdomAsync(src, []);
-  global.document = window.document;
+  Environment.document = window.document;
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
     spy(xml.trim());
@@ -134,7 +132,7 @@ test("Processing goml scripts from query", async (t) => {
 test("Processing goml scripts for page", async (t) => {
   const src = testcase4_html;
   const window = await jsdomAsync(src, []);
-  global.document = window.document;
+  Environment.document = window.document;
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
     spy(xml.trim());

@@ -1,8 +1,9 @@
 require("babel-polyfill");
 import test from "ava";
 import sinon from "sinon";
-import GomlParser from "../../src/Core/GomlParser";
 import xmldom from "xmldom";
+import TestEnvManager from "../TestEnvManager";
+import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import NSIdentity from "../../src/Core/NSIdentity";
 import Namespace from "../../src/Core/Namespace";
@@ -22,6 +23,9 @@ import {
   conflictComponent1,
   conflictComponent2
 } from "../DummyObjectRegisterer";
+import Environment from "../../src/Core/Environment";
+
+TestEnvManager.init();
 
 declare namespace global {
   let Node: any;
@@ -32,9 +36,6 @@ declare namespace global {
 
 // Get element from test case source which is located with relative path.
 function obtainElementTag(path) {
-  global.Node = {
-    ELEMENT_NODE: 1
-  };
   const parser = new xmldom.DOMParser();
   return parser.parseFromString(fs.readFile(path), "text/xml").documentElement;
 }
@@ -51,7 +52,7 @@ test.beforeEach(async () => {
   GrimoireInterface.clear();
   const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString("<html></html>", "text/html");
-  global.document = htmlDoc;
+  Environment.document = htmlDoc;
   goml();
   testNode1();
   testNode2();

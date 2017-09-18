@@ -8,6 +8,9 @@ import IConverterRepository from "../src/Interface/Repository/IConverterReposito
 import NSDictionary from "../src/Tools/NSDictionary";
 import NSIdentity from "../src/Core/NSIdentity";
 import fs from "./fileHelper";
+import GomlLoader from "../src/Core/GomlLoader";
+import GrimoireInterface from "../src/Core/GrimoireInterface";
+import Environment from "../src/Core/Environment";
 
 declare namespace global {
   let Node: any;
@@ -26,13 +29,18 @@ export default class TestEnvManager {
   }
 
   public static async init() {
-    XMLReader.parser = new xmldom.DOMParser();
-    // Attribute.converterRepository = TestEnvManager.context;
+    Environment.DomParser = new xmldom.DOMParser();
     const testcase1_html = fs.readFile("../_TestResource/GomlLoaderTest_Case1.html");
     const window = await jsdomAsync(testcase1_html, []);
-    global.document = window.document;
-    global.Node = {
+    Environment.document = window.document;
+    Environment.Node = {
       ELEMENT_NODE: 1
     };
+  }
+
+  public static async loadPage(html: string) {
+    const window = await jsdomAsync(html, []);
+    Environment.document = window.document;
+    await GomlLoader.loadForPage();
   }
 }
