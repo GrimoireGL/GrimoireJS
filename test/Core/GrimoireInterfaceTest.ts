@@ -14,13 +14,6 @@ import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
-declare namespace global {
-  let Node: any;
-  let document: any;
-}
-
-// global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
-
 test.beforeEach(() => {
   GrimoireInterface.clear();
   GrimoireInterface.resolvePlugins();

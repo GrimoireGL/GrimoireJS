@@ -29,11 +29,6 @@ import Environment from "../../src/Core/Environment";
 
 TestEnvManager.init();
 
-declare namespace global {
-  let Node: any;
-  let document: any;
-}
-
 const testcase1_html = fs.readFile("../_TestResource/GomlLoaderTest_Case1.html");
 const testcase2_html = fs.readFile("../_TestResource/GomlLoaderTest_Case2.html");
 const testcase3_html = fs.readFile("../_TestResource/GomlLoaderTest_Case3.html");

@@ -11,11 +11,7 @@ import fs from "./fileHelper";
 import GomlLoader from "../src/Core/GomlLoader";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
 import Environment from "../src/Core/Environment";
-
-declare namespace global {
-  let Node: any;
-  let document: any;
-}
+import xhrmock from "xhr-mock";
 
 class TestEnvContext implements IConverterRepository {
   public converters: NSDictionary<IAttributeConverterDeclaration>;
@@ -30,17 +26,32 @@ export default class TestEnvManager {
 
   public static async init() {
     Environment.DomParser = new xmldom.DOMParser();
-    const testcase1_html = fs.readFile("../_TestResource/GomlLoaderTest_Case1.html");
-    const window = await jsdomAsync(testcase1_html, []);
+    // global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
+    const window = await jsdomAsync("<html></html>", []);
     Environment.document = window.document;
     Environment.Node = {
       ELEMENT_NODE: 1
     };
   }
 
+  public static mockSetup(): void {
+    xhrmock.setup();
+  }
+  public static mock(path: string, content: string): void {
+    xhrmock.get(path, (req, res) => {
+      return res.status(200).body(content);
+    });
+  }
+
+
   public static async loadPage(html: string) {
-    const window = await jsdomAsync(html, []);
-    Environment.document = window.document;
+    const parser = new xmldom.DOMParser();
+    const htmlDoc = parser.parseFromString(html, "text/html");
+
+    Environment.document = htmlDoc;
+    Environment.document.querySelectorAll = function () {
+      return Environment.document.getElementsByTagName("script");
+    };
     await GomlLoader.loadForPage();
   }
 }

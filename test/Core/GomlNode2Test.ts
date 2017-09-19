@@ -28,15 +28,14 @@ import NSIdentity from "../../src/Core/NSIdentity";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import fs from "../fileHelper";
-import PLH from "../PageLoadingHelper";
 
 TestEnvManager.init();
 
 const tc1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const tc1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
-PLH.mockSetup();
-PLH.mock("./GomlNodeTest_Case1.goml", tc1_goml);
+TestEnvManager.mockSetup();
+TestEnvManager.mock("./GomlNodeTest_Case1.goml", tc1_goml);
 
 let stringConverterSpy,
   testComponent1Spy,
@@ -60,7 +59,26 @@ function resetSpies() {
 let rootNode: GomlNode;
 
 test.beforeEach(async () => {
-  let spys = await PLH.reset(GrimoireInterface, tc1_html);
+  GrimoireInterface.clear();
+  goml();
+  testNode1();
+  testNode2();
+  testNode3();
+  testNodeBase();
+  conflictNode1();
+  conflictNode2();
+  const spys: any = {};
+  spys.stringConverterSpy = stringConverter();
+  spys.testComponent1Spy = testComponent1();
+  spys.testComponent2Spy = testComponent2();
+  spys.testComponent3Spy = testComponent3();
+  spys.testComponentBaseSpy = testComponentBase();
+  spys.testComponentOptionalSpy = testComponentOptional();
+  spys.conflictComponent1Spy = conflictComponent1();
+  spys.conflictComponent2Spy = conflictComponent2();
+  await GrimoireInterface.resolvePlugins();
+  await TestEnvManager.loadPage(tc1_html);
+
   stringConverterSpy = spys.stringConverterSpy;
   testComponent1Spy = spys.testComponent1Spy;
   testComponent2Spy = spys.testComponent2Spy;

@@ -24,6 +24,7 @@ import {
 import GomlLoader from "../../src/Core/GomlLoader";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import fs from "../fileHelper";
+import Environment from "../../src/Core/Environment";
 
 TestEnvManager.init();
 
@@ -54,22 +55,17 @@ function resetSpies() {
   conflictComponent1Spy.reset();
   conflictComponent2Spy.reset();
 }
-declare namespace global {
-  let document: any;
-  let Node: any;
-}
-
 test.beforeEach(async () => {
   GrimoireInterface.clear();
+  // const window = await jsdomAsync(html, []);
+  // Environment.document = window.document;
   const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString(testcase1_html, "text/html");
-  global.document = htmlDoc;
-  global.document.querySelectorAll = function(selector) {
-    return global.document.getElementsByTagName("script");
+  Environment.document = htmlDoc;
+  Environment.document.querySelectorAll = function(selector) {
+    return Environment.document.getElementsByTagName("script");
   };
-  global.Node = {
-    ELEMENT_NODE: 1
-  };
+
   goml();
   testNode1();
   testNode2();
@@ -87,8 +83,8 @@ test.beforeEach(async () => {
   conflictComponent2Spy = conflictComponent2();
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
-  global["rootNode"] = _.values(GrimoireInterface.rootNodes)[0];
-  global["rootNode"].element.ownerDocument = global["document"];
+  Environment["rootNode"] = _.values(GrimoireInterface.rootNodes)[0];
+  Environment["rootNode"].element.ownerDocument = Environment["document"];
 });
 
 test("count first single.", (t) => {
