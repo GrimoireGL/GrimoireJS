@@ -1,3 +1,5 @@
+import { Undef } from "../Tools/Types";
+
 
 /**
  * converter for booleam value.
@@ -7,7 +9,7 @@
  * @param  {Attribute} attr [description]
  * @return {any}            [description]
  */
-export default function BooleanConverter(val: any): boolean {
+export default function BooleanConverter(val: any): Undef<boolean> {
   if (typeof val === "boolean") {
     return val;
   } else if (typeof val === "string") {
@@ -18,4 +20,5 @@ export default function BooleanConverter(val: any): boolean {
         return false;
     }
   }
+  return void 0;
 }

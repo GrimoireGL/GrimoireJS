@@ -1,12 +1,13 @@
-import Utility from "../Tools/Utility";
 import Attribute from "../Core/Attribute";
+import Ensure from "../Tools/Ensure";
 import IdResolver from "../Tools/IdResolver";
+import { Name, Undef } from "../Tools/Types";
+import Utility from "../Tools/Utility";
 import Namespace from "./Namespace";
 import NSIdentity from "./NSIdentity";
-import Ensure from "../Tools/Ensure";
-import {Name, Undef} from "../Tools/Types";
 
 type NameValPair<T> = { fqn: string, val: T };
+
 
 class AttributeBuffer<T> {
 

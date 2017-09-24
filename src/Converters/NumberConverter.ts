@@ -1,4 +1,4 @@
-import { Nullable, Undef } from "../Tools/Types";
+import { Undef } from "../Tools/Types";
 
 /**
  * converter for number value.
@@ -7,7 +7,7 @@ import { Nullable, Undef } from "../Tools/Types";
  * @param  {any}    val [description]
  * @return {number}     [description]
  */
-export default function NumberConverter(val: any): number {
+export default function NumberConverter(val: any): Undef<number> {
   if (typeof val === "number") {
     return val;
   }
@@ -21,4 +21,5 @@ export default function NumberConverter(val: any): number {
   if (Array.isArray(val) && val.length === 1) {
     return val[0];
   }
+  return void 0;
 }

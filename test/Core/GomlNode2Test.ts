@@ -1,9 +1,20 @@
-import test from "ava";
-import sinon from "sinon";
-import xmldom from "xmldom";
 import * as _ from "lodash";
+import Attribute from "../../src/Core/Attribute";
+import Component from "../../src/Core/Component";
+import fs from "../fileHelper";
+import GomlLoader from "../../src/Core/GomlLoader";
+import GomlNode from "../../src/Core/GomlNode";
+import GrimoireComponent from "../../src/Components/GrimoireComponent";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import NSIdentity from "../../src/Core/NSIdentity";
+import sinon from "sinon";
+import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import {
+  conflictComponent1,
+  conflictComponent2,
+  conflictNode1,
+  conflictNode2,
   goml,
   stringConverter,
   testComponent1,
@@ -14,20 +25,8 @@ import {
   testNode1,
   testNode2,
   testNode3,
-  testNodeBase,
-  conflictNode1,
-  conflictNode2,
-  conflictComponent1,
-  conflictComponent2
-} from "../DummyObjectRegisterer";
-import GomlLoader from "../../src/Core/GomlLoader";
-import GomlNode from "../../src/Core/GomlNode";
-import Component from "../../src/Core/Component";
-import Attribute from "../../src/Core/Attribute";
-import NSIdentity from "../../src/Core/NSIdentity";
-import GrimoireComponent from "../../src/Components/GrimoireComponent";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import fs from "../fileHelper";
+  testNodeBase
+  } from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
 

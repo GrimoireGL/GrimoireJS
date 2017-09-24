@@ -1,14 +1,14 @@
-import TestEnvManager from "../TestEnvManager";
 import test from "ava";
+import sinon from "sinon";
+
+import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import Attribute from "../../src/Core/Attribute";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import TestUtil from "../TestUtil";
-import GrimoireComponent from "../../src/Components/GrimoireComponent";
-import sinon from "sinon";
 import NSIdentity from "../../src/Core/NSIdentity";
+import TestEnvManager from "../TestEnvManager";
+import TestUtil from "../TestUtil";
 
 TestEnvManager.init();
-
 
 const GOML = `<goml></goml>`;
 

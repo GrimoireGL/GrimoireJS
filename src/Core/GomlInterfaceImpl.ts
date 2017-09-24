@@ -1,11 +1,12 @@
 import Constants from "../Tools/Constants";
+import GomlNode from "../Core/GomlNode";
 import GrimoireInterface from "../Core/GrimoireInterface";
 import NodeInterface from "./NodeInterface";
-import GomlNode from "../Core/GomlNode";
+
 /**
  * Provides interfaces to treat whole goml tree for each.
  */
-class GomlInterface {
+export default class GomlInterface {
   constructor(public rootNodes: GomlNode[]) {
 
   }
@@ -14,6 +15,11 @@ class GomlInterface {
     return this.rootNodes.map(root => GomlNode.fromElement(root.element.ownerDocument.getElementById(id)!));
   }
 
+  /**
+   * This function is executed when GOMLInterface is called as a function.
+   * Return all nodes matching the query as NodeInterface from rootNodes.
+   * @param query query string
+   */
   public queryFunc(query: string): NodeInterface {
     return new NodeInterface(this._queryNodes(query));
   }
@@ -35,5 +41,3 @@ class GomlInterface {
     });
   }
 }
-
-export default GomlInterface;
