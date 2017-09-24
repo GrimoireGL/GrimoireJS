@@ -1,13 +1,13 @@
 
 /**
- * booleanのためのコンバータです。
- * booleanはそのまま通します。
- * 文字列は、`true`,`false`のみ通します。
+ * converter for booleam value.
+ * Pass through boolean value as it is.
+ * Pass through string value only 'true' or 'false'.
  * @param  {any}       val  [description]
  * @param  {Attribute} attr [description]
  * @return {any}            [description]
  */
-export default function BooleanConverter(val: any): any {
+export default function BooleanConverter(val: any): boolean {
   if (typeof val === "boolean") {
     return val;
   } else if (typeof val === "string") {

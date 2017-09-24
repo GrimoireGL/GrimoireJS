@@ -14,12 +14,12 @@ import Attribute from "../Core/Attribute";
  */
 export default {
   name: "Component",
-  verify: function(attr: Attribute) {
+  verify: function (attr: Attribute) {
     if (!attr.declaration["target"]) {
       throw new Error("Component converter require to be specified target");
     }
   },
-  convert: function(val: any, attr: Attribute) {
+  convert: function (val: any, attr: Attribute) {
     if (val === null) {
       return null;
     }

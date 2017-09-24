@@ -8,12 +8,15 @@ import Attribute from "../Core/Attribute";
  */
 export default {
   name: "Enum",
-  verify: function(attr: Attribute) {
+  verify: function (attr: Attribute) {
     if (!attr.declaration["table"]) {
       throw new Error("Enum converter needs to be specified table in attribute dictionary");
     }
   },
-  convert: function(val: any, attr: Attribute) {
+  convert: function (val: any, attr: Attribute) {
+    if (val === null) {
+      return null;
+    }
     if (typeof val === "number") {
       return val;
     }

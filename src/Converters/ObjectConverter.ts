@@ -1,6 +1,6 @@
 /**
- * オブジェクトのコンバータ。
- * 値をそのまま返します。
+ * converter for object
+ * Pass through any value as it is.
  * @param  {any} val [description]
  * @return {any}     [description]
  */
