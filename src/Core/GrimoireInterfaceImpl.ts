@@ -1,32 +1,38 @@
-import EEObject from "../Base/EEObject";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import GomlLoader from "../Core/GomlLoader";
-import EnumConverter from "../Converters/EnumConverter";
-import NumberArrayConverter from "../Converters/NumberArrayConverter";
+import ArrayConverter from "../Converters/ArrayConverter";
+import Attribute from "./Attribute";
+import BooleanConverter from "../Converters/BooleanConverter";
+import Component from "../Core/Component";
 import ComponentConverter from "../Converters/ComponentConverter";
+import ComponentDeclaration from "../Core/ComponentDeclaration";
+import Constants from "../Tools/Constants";
+import EEObject from "../Base/EEObject";
+import Ensure from "../Tools/Ensure";
+import EnumConverter from "../Converters/EnumConverter";
+import Environment from "./Environment";
+import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
+import GomlLoader from "../Core/GomlLoader";
+import GomlNode from "../Core/GomlNode";
+import GrimoireComponent from "../Components/GrimoireComponent";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Namespace from "../Core/Namespace";
+import NodeDeclaration from "../Core/NodeDeclaration";
+import NodeInterface from "./NodeInterface";
+import NSDictionary from "../Tools/NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
+import NumberArrayConverter from "../Converters/NumberArrayConverter";
 import NumberConverter from "../Converters/NumberConverter";
 import ObjectConverter from "../Converters/ObjectConverter";
-import ArrayConverter from "../Converters/ArrayConverter";
-import NodeInterface from "../Core/NodeInterface";
-import Utility from "../Tools/Utility";
-import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
-import BooleanConverter from "../Converters/BooleanConverter";
-import GrimoireComponent from "../Components/GrimoireComponent";
 import StringArrayConverter from "../Converters/StringArrayConverter";
 import StringConverter from "../Converters/StringConverter";
-import Attribute from "../Core/Attribute";
-import Constants from "../Tools/Constants";
-import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import GomlNode from "../Core/GomlNode";
-import ComponentDeclaration from "../Core/ComponentDeclaration";
-import Component from "../Core/Component";
-import NodeDeclaration from "../Core/NodeDeclaration";
-import NSIdentity from "../Core/NSIdentity";
-import Namespace from "../Core/Namespace";
-import NSDictionary from "../Tools/NSDictionary";
-import Ensure from "../Tools/Ensure";
-import { Name, Nullable, Ctor, ComponentRegistering } from "../Tools/Types";
-import Environment from "./Environment";
+import Utility from "../Tools/Utility";
+import {
+  ComponentRegistering,
+  Ctor,
+  Name,
+  Nullable
+  } from "../Tools/Types";
+
 
 export default class GrimoireInterfaceImpl extends EEObject {
 
@@ -221,7 +227,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (!rootNode) {
       throw new Error("can not register null to rootNodes.");
     }
-    tag.setAttribute("x-rootNodeId", rootNode.id);
+    if (tag) {
+      tag.setAttribute("x-rootNodeId", rootNode.id);
+    }
     this.rootNodes[rootNode.id] = rootNode;
     rootNode.companion.set(Namespace.define(Constants.defaultNamespace).for("scriptElement"), tag);
 
