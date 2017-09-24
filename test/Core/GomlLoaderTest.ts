@@ -1,14 +1,19 @@
-import prequire from "proxyquire";
+import Environment from "../../src/Core/Environment";
+import fs from "../fileHelper";
+import GomlParser from "../../src/Core/GomlParser";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import jsdomAsync from "../JsDOMAsync";
-import test from "ava";
+import prequire from "proxyquire";
 import sinon from "sinon";
+import test from "ava";
+import TestEnvManager from "../TestEnvManager";
 import xhrmock from "xhr-mock";
 import XMLReader from "../../src/Tools/XMLReader";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import GomlParser from "../../src/Core/GomlParser";
-import fs from "../fileHelper";
-import TestEnvManager from "../TestEnvManager";
 import {
+  conflictComponent1,
+  conflictComponent2,
+  conflictNode1,
+  conflictNode2,
   goml,
   stringConverter,
   testComponent1,
@@ -19,13 +24,8 @@ import {
   testNode1,
   testNode2,
   testNode3,
-  testNodeBase,
-  conflictNode1,
-  conflictNode2,
-  conflictComponent1,
-  conflictComponent2
-} from "../DummyObjectRegisterer";
-import Environment from "../../src/Core/Environment";
+  testNodeBase
+  } from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
 
@@ -72,6 +72,23 @@ test.beforeEach(async () => {
 
   await GrimoireInterface.resolvePlugins();
 });
+
+// test("loadForPage throw Error if goml is invalid.", async (t) => {
+//   const window = await jsdomAsync("<script type=\"text/goml\"><hoge></script>", []);
+//   Environment.document = window.document;
+//   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
+//   const spy = sinon.spy();
+//   const mockedParseXML = mockXMLParse(xml => {
+//     spy(xml.replace(/[\n\s]/g, ""));
+//   });
+//   t.throws(async () => {
+//     try {
+//       await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
+//     } catch (e) {
+//       t.truthy(false);
+//     }
+//   });
+// });
 
 test("Processing script[type=\"text/goml\"] tag correctly when the text content was existing", async (t) => {
   const window = await jsdomAsync(testcase1_html, []);

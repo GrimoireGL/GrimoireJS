@@ -1,10 +1,18 @@
-import test from "ava";
-import sinon from "sinon";
-import xmldom from "xmldom";
-import xhrmock from "xhr-mock";
 import * as _ from "lodash";
+import Environment from "../../src/Core/Environment";
+import fs from "../fileHelper";
+import GomlLoader from "../../src/Core/GomlLoader";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import sinon from "sinon";
+import test from "ava";
 import TestEnvManager from "../TestEnvManager";
+import xhrmock from "xhr-mock";
+import xmldom from "xmldom";
 import {
+  conflictComponent1,
+  conflictComponent2,
+  conflictNode1,
+  conflictNode2,
   goml,
   stringConverter,
   testComponent1,
@@ -15,16 +23,8 @@ import {
   testNode1,
   testNode2,
   testNode3,
-  testNodeBase,
-  conflictNode1,
-  conflictNode2,
-  conflictComponent1,
-  conflictComponent2
-} from "../DummyObjectRegisterer";
-import GomlLoader from "../../src/Core/GomlLoader";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import fs from "../fileHelper";
-import Environment from "../../src/Core/Environment";
+  testNodeBase
+  } from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
 
@@ -62,7 +62,7 @@ test.beforeEach(async () => {
   const parser = new xmldom.DOMParser();
   const htmlDoc = parser.parseFromString(testcase1_html, "text/html");
   Environment.document = htmlDoc;
-  Environment.document.querySelectorAll = function(selector) {
+  Environment.document.querySelectorAll = function (selector) {
     return Environment.document.getElementsByTagName("script");
   };
 
@@ -84,7 +84,6 @@ test.beforeEach(async () => {
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
   Environment["rootNode"] = _.values(GrimoireInterface.rootNodes)[0];
-  Environment["rootNode"].element.ownerDocument = Environment["document"];
 });
 
 test("count first single.", (t) => {
