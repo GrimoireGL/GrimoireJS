@@ -1,6 +1,6 @@
-import GrimoireInterface from "./Core/GrimoireInterface";
-import GomlLoader from "./Core/GomlLoader";
 import Environment from "./Core/Environment";
+import GomlLoader from "./Core/GomlLoader";
+import GrimoireInterface from "./Core/GrimoireInterface";
 
 /**
  * Provides procedures for initializing.
@@ -35,6 +35,7 @@ class GrimoireInitializer {
     Environment.DomParser = new DOMParser();
     Environment.document = document;
     Environment.Node = Node;
+    Environment.XMLSerializer = new XMLSerializer();
   }
 
   /**

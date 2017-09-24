@@ -1,14 +1,10 @@
 import test from "ava";
-import Ensure from "../../src/Tools/Ensure";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NSDictionary from "../../src/Tools/NSDictionary";
+import sinon from "sinon";
+
+import Attribute from "../../src/Core/Attribute";
 import AttributeManager from "../../src/Core/AttributeManager";
 import NSIdentity from "../../src/Core/NSIdentity";
-import Constants from "../../src/Tools/Constants";
-import Attribute from "../../src/Core/Attribute";
-import sinon from "sinon";
-import ComponentDeclaration from "../../src/Core/ComponentDeclaration";
-import TestUtil from "../TestUtil";
+
 
 const genAttr: (name: NSIdentity, watch?: Function | undefined) => Attribute = (name, watch) => {
   return { name: name, watch: watch, Value: "value of " + name } as Attribute;

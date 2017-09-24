@@ -1,17 +1,20 @@
-require("babel-polyfill");
-import XMLReader from "../src/Tools/XMLReader";
-import xmldom from "xmldom";
-import jsdomAsync from "./JsDOMAsync";
-import Attribute from "../src/Core/Attribute";
+import Environment from "../src/Core/Environment";
+import GomlLoader from "../src/Core/GomlLoader";
+import GomlParser from "../src/Core/GomlParser";
+import GrimoireInterface from "../src/Core/GrimoireInterface";
 import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
 import IConverterRepository from "../src/Interface/Repository/IConverterRepository";
+import jsdomAsync from "./JsDOMAsync";
 import NSDictionary from "../src/Tools/NSDictionary";
 import NSIdentity from "../src/Core/NSIdentity";
-import fs from "./fileHelper";
-import GomlLoader from "../src/Core/GomlLoader";
-import GrimoireInterface from "../src/Core/GrimoireInterface";
-import Environment from "../src/Core/Environment";
 import xhrmock from "xhr-mock";
+import xmldom from "xmldom";
+import XMLReader from "../src/Tools/XMLReader";
+import xmlserializer from "xmlserializer";
+import "babel-polyfill";
+
+
+
 
 class TestEnvContext implements IConverterRepository {
   public converters: NSDictionary<IAttributeConverterDeclaration>;
@@ -25,13 +28,14 @@ export default class TestEnvManager {
   }
 
   public static async init() {
-    Environment.DomParser = new xmldom.DOMParser();
-    // global.document = new xmldom.DOMParser().parseFromString("<html></html>", "text/html");
     const window = await jsdomAsync("<html></html>", []);
+    Environment.DomParser = new window.DOMParser();
+
     Environment.document = window.document;
     Environment.Node = {
       ELEMENT_NODE: 1
     };
+    Environment.XMLSerializer = xmlserializer;
   }
 
   public static mockSetup(): void {
@@ -45,13 +49,17 @@ export default class TestEnvManager {
 
 
   public static async loadPage(html: string) {
-    const parser = new xmldom.DOMParser();
-    const htmlDoc = parser.parseFromString(html, "text/html");
-
-    Environment.document = htmlDoc;
+    const window = await jsdomAsync(html, []);
+    Environment.document = window.document;
     Environment.document.querySelectorAll = function () {
       return Environment.document.getElementsByTagName("script");
     };
     await GomlLoader.loadForPage();
+  }
+
+  public static loadGoml(goml: string) {
+    const doc = XMLReader.parseXML(goml, "GOML");
+    const rootNode = GomlParser.parse(doc[0]);
+    GrimoireInterface.addRootNode(null, rootNode);
   }
 }

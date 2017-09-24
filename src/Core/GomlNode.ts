@@ -1,28 +1,32 @@
-import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Attribute from "./Attribute";
 import AttributeManager from "../Core/AttributeManager";
-import Utility from "../Tools/Utility";
-import Constants from "../Tools/Constants";
-import GomlParser from "./GomlParser";
-import XMLReader from "../Tools/XMLReader";
-import GrimoireInterface from "../Core/GrimoireInterface";
-import EEObject from "../Base/EEObject";
 import Component from "./Component";
+import Constants from "../Tools/Constants";
+import EEObject from "../Base/EEObject";
+import Ensure from "../Tools/Ensure";
+import Environment from "./Environment";
+import GomlParser from "./GomlParser";
+import GrimoireInterface from "../Core/GrimoireInterface";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import MessageException from "../Tools/MessageException";
 import NodeDeclaration from "./NodeDeclaration";
 import NodeUtility from "./NodeUtility";
-import Attribute from "./Attribute";
 import NSDictionary from "../Tools/NSDictionary";
 import NSIdentity from "../Core/NSIdentity";
-import Ensure from "../Tools/Ensure";
-import MessageException from "../Tools/MessageException";
-import { Name, GomlInterface, Nullable, Ctor } from "../Tools/Types";
-import Environment from "./Environment";
+import Utility from "../Tools/Utility";
+import XMLReader from "../Tools/XMLReader";
+import {
+  Ctor,
+  GomlInterface,
+  Name,
+  Nullable
+  } from "../Tools/Types";
 
 export default class GomlNode extends EEObject {
 
   public element: Element; // Dom Element
   public nodeDeclaration: NodeDeclaration;
   public children: GomlNode[] = [];
-  public componentsElement: Element; // <.components>
 
   private _parent: Nullable<GomlNode> = null;
   private _root: Nullable<GomlNode> = null;
@@ -152,7 +156,6 @@ export default class GomlNode extends EEObject {
     }
     this.nodeDeclaration = recipe;
     this.element = element ? element : Environment.document.createElementNS(recipe.name.ns.qualifiedName, recipe.name.name);
-    this.componentsElement = Environment.document.createElement("COMPONENTS");
     this._root = this;
     this._components = [];
     this._attributeManager = new AttributeManager(recipe.name.name);
@@ -498,8 +501,6 @@ export default class GomlNode extends EEObject {
 
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
-    let referenceElement = (this.componentsElement as any)[NodeUtility.getNodeListIndexByElementIndex(this.componentsElement, this._components.length)];
-    this.componentsElement.insertBefore(component.element, referenceElement);
 
     // bind this for message reciever.
     let propNames: string[] = [];
@@ -542,8 +543,8 @@ export default class GomlNode extends EEObject {
         removeTargets.push(c);
       }
     }
-    removeTargets.forEach(c  => {
-      let b =  this.removeComponent(c);
+    removeTargets.forEach(c => {
+      let b = this.removeComponent(c);
       result = result || b;
     });
     return result;
@@ -554,7 +555,6 @@ export default class GomlNode extends EEObject {
     if (index !== -1) {
       this._sendMessageForcedTo(component, "unmount");
       this._sendMessageForcedTo(component, "dispose");
-      this.componentsElement.removeChild(component.element);
       this._components.splice(index, 1);
       this._messageCache = {}; // TODO:optimize.
       delete component.node;
