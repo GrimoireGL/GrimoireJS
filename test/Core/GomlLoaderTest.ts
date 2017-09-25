@@ -1,5 +1,7 @@
 import Environment from "../../src/Core/Environment";
 import fs from "../fileHelper";
+import GomlLoader from "../../src/Core/GomlLoader";
+import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import jsdomAsync from "../JsDOMAsync";
@@ -73,22 +75,13 @@ test.beforeEach(async () => {
   await GrimoireInterface.resolvePlugins();
 });
 
-// test("loadForPage throw Error if goml is invalid.", async (t) => {
-//   const window = await jsdomAsync("<script type=\"text/goml\"><hoge></script>", []);
-//   Environment.document = window.document;
-//   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
-//   const spy = sinon.spy();
-//   const mockedParseXML = mockXMLParse(xml => {
-//     spy(xml.replace(/[\n\s]/g, ""));
-//   });
-//   t.throws(async () => {
-//     try {
-//       await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-//     } catch (e) {
-//       t.truthy(false);
-//     }
-//   });
-// });
+test("loadForPage throw Error if goml syntax is invalid.", async (t) => {
+  const window = await jsdomAsync("<script type=\"text/goml\"><hoge></script>", []);
+  Environment.document = window.document;
+  const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
+
+  await t.throws(GomlLoader.loadFromScriptTag(scriptTags.item(0)));
+});
 
 test("Processing script[type=\"text/goml\"] tag correctly when the text content was existing", async (t) => {
   const window = await jsdomAsync(testcase1_html, []);
@@ -102,22 +95,8 @@ test("Processing script[type=\"text/goml\"] tag correctly when the text content 
   t.truthy(spy.calledWith(`<goml><goml><goml></goml><goml/></goml></goml>`));
 });
 
-test("Processing script[type=\"text/goml\"] and call parse related methods in correct order", async (t) => {
-  const src = testcase1_html;
-  const window = await jsdomAsync(src, []);
-  Environment.document = window.document;
-  const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
-  const spy = sinon.spy();
-  const mockedParseXML = mockXMLParse(xml => {
-    spy(xml.replace(/[\n\s]/g, ""));
-  });
-  await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-  t.truthy(spy.calledWith(`<goml><goml><goml></goml><goml/></goml></goml>`));
-});
-
 test("Processing script[type=\"text/goml\"] tag correctly when the src attribute was existing", async (t) => {
-  const src = testcase2_html;
-  const window = await jsdomAsync(src, []);
+  const window = await jsdomAsync(testcase2_html, []);
   Environment.document = window.document;
   const scriptTags = window.document.querySelectorAll("script[type=\"text/goml\"]");
   const spy = sinon.spy();
@@ -130,8 +109,7 @@ test("Processing script[type=\"text/goml\"] tag correctly when the src attribute
 });
 
 test("Processing goml scripts from query", async (t) => {
-  const src = testcase3_html;
-  const window = await jsdomAsync(src, []);
+  const window = await jsdomAsync(testcase3_html, []);
   Environment.document = window.document;
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
@@ -142,8 +120,7 @@ test("Processing goml scripts from query", async (t) => {
 });
 
 test("Processing goml scripts for page", async (t) => {
-  const src = testcase4_html;
-  const window = await jsdomAsync(src, []);
+  const window = await jsdomAsync(testcase4_html, []);
   Environment.document = window.document;
   const spy = sinon.spy();
   const mockedParseXML = mockXMLParse(xml => {
@@ -152,3 +129,18 @@ test("Processing goml scripts for page", async (t) => {
   await mockedParseXML.loadForPage();
   t.truthy(spy.calledWith("<goml>\n</goml>"));
 });
+
+test("all text/goml scripts tags should be loaded on loadForPage", async (t) => {
+  const spy = sinon.spy();
+  const original = GrimoireInterface.addRootNode.bind(GrimoireInterface);
+  GrimoireInterface.addRootNode = (tag: HTMLScriptElement, rootNode: GomlNode) => {
+    spy(tag);
+    return original(tag, rootNode);
+  };
+
+  await TestEnvManager.loadPage(testcase4_html);
+  t.truthy(spy.callCount === 4);
+});
+
+
+
