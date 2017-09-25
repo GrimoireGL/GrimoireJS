@@ -1,15 +1,14 @@
-import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Utility from "../Tools/Utility";
-import Constants from "../Tools/Constants";
-import NodeUtility from "./NodeUtility";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Attribute from "./Attribute";
+import Constants from "../Tools/Constants";
+import Ensure from "../Tools/Ensure";
 import GomlNode from "./GomlNode";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import IDObject from "../Base/IDObject";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import NSDictionary from "../Tools/NSDictionary";
 import NSIdentity from "../Core/NSIdentity";
-import IDObject from "../Base/IDObject";
-import Ensure from "../Tools/Ensure";
-import {GomlInterface, Nullable, Name} from "../Tools/Types";
+import Utility from "../Tools/Utility";
+import { GomlInterface, Name, Nullable } from "../Tools/Types";
 
 /**
  * Base class for any components
@@ -126,12 +125,12 @@ export default class Component extends IDObject {
     return Utility.remove(this._handlers, observer);
   }
 
-  public resolveDefaultAttributes(nodeAttributes?: { [key: string]: string; } |null): any {
+  public resolveDefaultAttributes(nodeAttributes?: { [key: string]: string; } | null): any {
     const nodeAttr = nodeAttributes || {};
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
       this.attributes.forEach(attr => attr.resolveDefaultValue(nodeAttr));
     } else { // If not,the default value of attributes should be retrived from this element.
-      const attrs = NodeUtility.getAttributes(this.element);
+      const attrs = Utility.getAttributes(this.element);
       for (let key in attrs) {
         if (key === Constants.x_gr_id) {
           continue;
@@ -185,9 +184,9 @@ export default class Component extends IDObject {
     const attr = Attribute.generateAttributeForComponent(name, attribute, this);
     this.node.addAttribute(attr);
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
-      attr.resolveDefaultValue(NodeUtility.getAttributes(this.node.element));
+      attr.resolveDefaultValue(Utility.getAttributes(this.node.element));
     } else { // If not,the default value of attributes should be retrived from this element.
-      const attrs = NodeUtility.getAttributes(this.element);
+      const attrs = Utility.getAttributes(this.element);
       attr.resolveDefaultValue(attrs);
     }
     this._additionalAttributesNames.push(attr.name);

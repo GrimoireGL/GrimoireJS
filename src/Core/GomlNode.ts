@@ -10,7 +10,6 @@ import GrimoireInterface from "../Core/GrimoireInterface";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import MessageException from "../Tools/MessageException";
 import NodeDeclaration from "./NodeDeclaration";
-import NodeUtility from "./NodeUtility";
 import NSDictionary from "../Tools/NSDictionary";
 import NSIdentity from "../Core/NSIdentity";
 import Utility from "../Tools/Utility";
@@ -324,7 +323,7 @@ export default class GomlNode extends EEObject {
 
     // sync html
     if (elementSync) {
-      let referenceElement = (this.element as any)[NodeUtility.getNodeListIndexByElementIndex(this.element, insertIndex)];
+      let referenceElement = (this.element as any)[Utility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
 
@@ -518,7 +517,7 @@ export default class GomlNode extends EEObject {
     // attributes should be exposed on node
     component.attributes.forEach(p => this.addAttribute(p));
     if (this._defaultValueResolved) {
-      component.attributes.forEach(p => p.resolveDefaultValue(NodeUtility.getAttributes(this.element)));
+      component.attributes.forEach(p => p.resolveDefaultValue(Utility.getAttributes(this.element)));
     }
 
     if (this._mounted) {
@@ -645,7 +644,7 @@ export default class GomlNode extends EEObject {
    */
   public resolveAttributesValue(): void {
     this._defaultValueResolved = true;
-    const attrs = NodeUtility.getAttributes(this.element);
+    const attrs = Utility.getAttributes(this.element);
     for (let key in attrs) {
       if (key === Constants.x_gr_id) {
         continue;
