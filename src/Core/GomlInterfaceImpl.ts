@@ -11,10 +11,6 @@ export default class GomlInterface {
 
   }
 
-  public getNodeById(id: string): GomlNode[] {
-    return this.rootNodes.map(root => GomlNode.fromElement(root.element.ownerDocument.getElementById(id)!));
-  }
-
   /**
    * This function is executed when GOMLInterface is called as a function.
    * Return all nodes matching the query as NodeInterface from rootNodes.
