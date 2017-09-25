@@ -1,3 +1,4 @@
+import Utility from "../Tools/Utility";
 import { Undef } from "../Tools/Types";
 
 /**
@@ -19,7 +20,11 @@ export default function NumberConverter(val: any): Undef<number> {
     return null;
   }
   if (Array.isArray(val) && val.length === 1) {
-    return val[0];
+    Utility.w(`[Deprecated] converting from Array is deprecated in NumberConverter.`);
+    let ret = val[0];
+    if (typeof ret === "number") {
+      return ret;
+    }
   }
   return void 0;
 }
