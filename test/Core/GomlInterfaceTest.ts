@@ -1,3 +1,4 @@
+import Environment from "../../src/Core/Environment";
 import fs from "../fileHelper";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import test from "ava";
@@ -15,13 +16,7 @@ test.beforeEach(async () => {
 });
 
 test("rootNodes works correctly", (t) => {
-  // t.truthy(true);
-  let gomlInterface = GrimoireInterface("*");
-  t.truthy(gomlInterface.rootNodes.length === 3, "all nodes should be retrieved");
-
-  gomlInterface = GrimoireInterface("#first");
-  t.truthy(gomlInterface.rootNodes.length === 1, "parent node should be retrieved");
-
-  gomlInterface = GrimoireInterface(".child");
-  t.truthy(gomlInterface.rootNodes.length === 0, "all child nodes should be retrieved");
+  t.truthy(GrimoireInterface("*").rootNodes.length === 3, "all nodes should be retrieved");
+  t.truthy(GrimoireInterface("#first").rootNodes.length === 1, "parent node should be retrieved");
+  t.truthy(GrimoireInterface(".child").rootNodes.length === 0, "all child nodes should be retrieved");
 });

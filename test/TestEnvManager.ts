@@ -51,9 +51,6 @@ export default class TestEnvManager {
   public static async loadPage(html: string) {
     const window = await jsdomAsync(html, []);
     Environment.document = window.document;
-    Environment.document.querySelectorAll = function () {
-      return Environment.document.getElementsByTagName("script");
-    };
     await GomlLoader.loadForPage();
   }
 
