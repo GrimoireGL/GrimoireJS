@@ -11,21 +11,21 @@ import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import { assert, spy } from "sinon";
 import {
-  conflictComponent1,
-  conflictComponent2,
-  conflictNode1,
-  conflictNode2,
-  goml,
-  stringConverter,
-  testComponent1,
-  testComponent2,
-  testComponent3,
-  testComponentBase,
-  testComponentOptional,
-  testNode1,
-  testNode2,
-  testNode3,
-  testNodeBase
+  registerConflictComponent1,
+  registerConflictComponent2,
+  registerConflictNode1,
+  registerConflictNode2,
+  registerGoml,
+  registerStringConverter,
+  registerTestComponent1,
+  registerTestComponent2,
+  registerTestComponent3,
+  registerTestComponentBase,
+  registerTestComponentOptional,
+  registerTestNode1,
+  registerTestNode2,
+  registerTestNode3,
+  registerTestNodeBase
   } from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
@@ -59,22 +59,22 @@ let rootNode: GomlNode;
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  goml();
-  testNode1();
-  testNode2();
-  testNode3();
-  testNodeBase();
-  conflictNode1();
-  conflictNode2();
+  registerGoml();
+  registerTestNode1();
+  registerTestNode2();
+  registerTestNode3();
+  registerTestNodeBase();
+  registerConflictNode1();
+  registerConflictNode2();
   const spys: any = {};
-  spys.stringConverterSpy = stringConverter();
-  spys.testComponent1Spy = testComponent1();
-  spys.testComponent2Spy = testComponent2();
-  spys.testComponent3Spy = testComponent3();
-  spys.testComponentBaseSpy = testComponentBase();
-  spys.testComponentOptionalSpy = testComponentOptional();
-  spys.conflictComponent1Spy = conflictComponent1();
-  spys.conflictComponent2Spy = conflictComponent2();
+  spys.stringConverterSpy = registerStringConverter();
+  spys.testComponent1Spy = registerTestComponent1();
+  spys.testComponent2Spy = registerTestComponent2();
+  spys.testComponent3Spy = registerTestComponent3();
+  spys.testComponentBaseSpy = registerTestComponentBase();
+  spys.testComponentOptionalSpy = registerTestComponentOptional();
+  spys.conflictComponent1Spy = registerConflictComponent1();
+  spys.conflictComponent2Spy = registerConflictComponent2();
   await GrimoireInterface.resolvePlugins();
   await TestEnvManager.loadPage(tc1_html);
 

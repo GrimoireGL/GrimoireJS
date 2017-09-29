@@ -6,34 +6,32 @@ import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import xhrmock from "xhr-mock";
-import xmldom from "xmldom";
 import {
-  conflictComponent1,
-  conflictComponent2,
-  conflictNode1,
-  conflictNode2,
-  goml,
-  stringConverter,
-  testComponent1,
-  testComponent2,
-  testComponent3,
-  testComponentBase,
-  testComponentOptional,
-  testNode1,
-  testNode2,
-  testNode3,
-  testNodeBase
+  registerConflictComponent1,
+  registerConflictComponent2,
+  registerConflictNode1,
+  registerConflictNode2,
+  registerGoml,
+  registerStringConverter,
+  registerTestComponent1,
+  registerTestComponent2,
+  registerTestComponent3,
+  registerTestComponentBase,
+  registerTestComponentOptional,
+  registerTestNode1,
+  registerTestNode2,
+  registerTestNode3,
+  registerTestNodeBase
   } from "../DummyObjectRegisterer";
 
-TestEnvManager.init();
 
 const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 
-xhrmock.setup();
-xhrmock.get("./GomlNodeTest_Case1.goml", (req, res) => {
-  return res.status(200).body(testcase1_goml);
-});
+TestEnvManager.init(testcase1_html);
+TestEnvManager.mockSetup();
+TestEnvManager.mock("./GomlNodeTest_Case1.goml", testcase1_goml);
+
 
 let stringConverterSpy,
   testComponent1Spy,
@@ -56,33 +54,24 @@ function resetSpies() {
 }
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  // const window = await jsdomAsync(html, []);
-  // Environment.document = window.document;
-  const parser = new xmldom.DOMParser();
-  const htmlDoc = parser.parseFromString(testcase1_html, "text/html");
-  Environment.document = htmlDoc;
-  Environment.document.querySelectorAll = function (selector) {
-    return Environment.document.getElementsByTagName("script");
-  };
 
-  goml();
-  testNode1();
-  testNode2();
-  testNode3();
-  testNodeBase();
-  conflictNode1();
-  conflictNode2();
-  stringConverterSpy = stringConverter();
-  testComponent1Spy = testComponent1();
-  testComponent2Spy = testComponent2();
-  testComponent3Spy = testComponent3();
-  testComponentBaseSpy = testComponentBase();
-  testComponentOptionalSpy = testComponentOptional();
-  conflictComponent1Spy = conflictComponent1();
-  conflictComponent2Spy = conflictComponent2();
+  registerGoml();
+  registerTestNode1();
+  registerTestNode2();
+  registerTestNode3();
+  registerTestNodeBase();
+  registerConflictNode1();
+  registerConflictNode2();
+  stringConverterSpy = registerStringConverter();
+  testComponent1Spy = registerTestComponent1();
+  testComponent2Spy = registerTestComponent2();
+  testComponent3Spy = registerTestComponent3();
+  testComponentBaseSpy = registerTestComponentBase();
+  testComponentOptionalSpy = registerTestComponentOptional();
+  conflictComponent1Spy = registerConflictComponent1();
+  conflictComponent2Spy = registerConflictComponent2();
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
-  Environment["rootNode"] = _.values(GrimoireInterface.rootNodes)[0];
 });
 
 test("count first single.", (t) => {
@@ -91,5 +80,5 @@ test("count first single.", (t) => {
   // t.truthy(ni.count() === 1);
   // t.truthy(ni.first());
   t.truthy(true);
-
+  // TODO add test
 });

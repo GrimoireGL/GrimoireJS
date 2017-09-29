@@ -8,9 +8,9 @@ import IdResolver from "../../src/Tools/IdResolver";
 import Namespace from "../../src/Core/Namespace";
 import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
-import xmldom from "xmldom";
-require("babel-polyfill");
+import TestEnvManager from "../TestEnvManager";
 
+TestEnvManager.init();
 
 test("get() works correctly.", t => {
   let r = new IdResolver();

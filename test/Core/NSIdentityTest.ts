@@ -1,6 +1,9 @@
 import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
-require("babel-polyfill");
+import TestEnvManager from "../TestEnvManager";
+
+
+TestEnvManager.init();
 
 test.beforeEach(() => {
   NSIdentity.clear();

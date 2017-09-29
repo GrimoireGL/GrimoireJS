@@ -4,10 +4,15 @@ import NodeInterface from "../../src/Core/NodeInterface";
 import NSDictionary from "../../src/Tools/NSDictionary";
 import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
+import TestEnvManager from "../TestEnvManager";
 import xhrmock from "xhr-mock";
 import xmldom from "xmldom";
-require("babel-polyfill");
+
+
 const xml = fs.readFile("../_TestResource/NSDictionary_QueryDOM.xml");
+
+
+TestEnvManager.init();
 
 test.beforeEach(() => {
   NSIdentity.clear();

@@ -6,38 +6,34 @@ import Namespace from "../../src/Core/Namespace";
 import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import xmldom from "xmldom";
 import XMLReader from "../../src/Tools/XMLReader";
 import { assert, spy } from "sinon";
 import {
-  conflictComponent1,
-  conflictComponent2,
-  conflictNode1,
-  conflictNode2,
-  goml,
-  stringConverter,
-  testComponent1,
-  testComponent2,
-  testComponentBase,
-  testComponentOptional,
-  testNode1,
-  testNode2,
-  testNodeBase
+  registerConflictComponent1,
+  registerConflictComponent2,
+  registerConflictNode1,
+  registerConflictNode2,
+  registerGoml,
+  registerStringConverter,
+  registerTestComponent1,
+  registerTestComponent2,
+  registerTestComponentBase,
+  registerTestComponentOptional,
+  registerTestNode1,
+  registerTestNode2,
+  registerTestNodeBase
   } from "../DummyObjectRegisterer";
-require("babel-polyfill");
 
 TestEnvManager.init();
-
-declare namespace global {
-  let Node: any;
-  let document: any;
-  let rootNode: any;
-}
-
 
 // Get element from test case source which is located with relative path.
 function obtainElementTag(path) {
   return XMLReader.parseXML(fs.readFile(path));
+}
+
+function registerUserPlugin() {
+  GrimoireInterface.registerNode("scenes");
+  GrimoireInterface.registerNode("scene");
 }
 
 let stringConverterSpy,
@@ -47,39 +43,30 @@ let stringConverterSpy,
   testComponentOptionalSpy,
   conflictComponent1Spy,
   conflictComponent2Spy;
-
-test.beforeEach(async () => {
-  GrimoireInterface.clear();
-  const parser = new xmldom.DOMParser();
-  const htmlDoc = parser.parseFromString("<html></html>", "text/html");
-  Environment.document = htmlDoc;
-  goml();
-  testNode1();
-  testNode2();
-  testNodeBase();
-  conflictNode1();
-  conflictNode2();
-  stringConverterSpy = stringConverter();
-  testComponent1Spy = testComponent1();
-  testComponent2Spy = testComponent2();
-  testComponentBaseSpy = testComponentBase();
-  testComponentOptionalSpy = testComponentOptional();
-  conflictComponent1Spy = conflictComponent1();
-  conflictComponent2Spy = conflictComponent2();
-  registerUserPlugin();
-  await GrimoireInterface.resolvePlugins();
-});
-
 const gomlParserTestCasePath1 = "../_TestResource/GomlParserTest_Case1.goml";
 const gomlParserTestCasePath2 = "../_TestResource/GomlParserTest_Case2.goml";
 const gomlParserTestCasePath3 = "../_TestResource/GomlParserTest_Case3.goml";
 const gomlParserTestCasePath4 = "../_TestResource/GomlParserTest_Case4.goml";
 
+test.beforeEach(async () => {
+  GrimoireInterface.clear();
+  registerGoml();
+  registerTestNode1();
+  registerTestNode2();
+  registerTestNodeBase();
+  registerConflictNode1();
+  registerConflictNode2();
+  stringConverterSpy = registerStringConverter();
+  testComponent1Spy = registerTestComponent1();
+  testComponent2Spy = registerTestComponent2();
+  testComponentBaseSpy = registerTestComponentBase();
+  testComponentOptionalSpy = registerTestComponentOptional();
+  conflictComponent1Spy = registerConflictComponent1();
+  conflictComponent2Spy = registerConflictComponent2();
+  registerUserPlugin();
+  await GrimoireInterface.resolvePlugins();
+});
 
-function registerUserPlugin() {
-  GrimoireInterface.registerNode("scenes");
-  GrimoireInterface.registerNode("scene");
-}
 
 test("test for parsing node hierarchy.", (t) => {
   const element = obtainElementTag(gomlParserTestCasePath1);

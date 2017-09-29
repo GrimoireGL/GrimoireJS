@@ -3,32 +3,19 @@ import GomlLoader from "../src/Core/GomlLoader";
 import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
 import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
-import IConverterRepository from "../src/Interface/Repository/IConverterRepository";
 import jsdomAsync from "./JsDOMAsync";
 import NSDictionary from "../src/Tools/NSDictionary";
 import NSIdentity from "../src/Core/NSIdentity";
 import xhrmock from "xhr-mock";
-import xmldom from "xmldom";
 import XMLReader from "../src/Tools/XMLReader";
 import xmlserializer from "xmlserializer";
 import "babel-polyfill";
 
 
-
-
-class TestEnvContext implements IConverterRepository {
-  public converters: NSDictionary<IAttributeConverterDeclaration>;
-
-}
-
 export default class TestEnvManager {
-  public static context = new TestEnvContext();
-  public static addConverter(name: NSIdentity, converter: IAttributeConverterDeclaration) {
-    this.context.converters.set(name, converter);
-  }
 
-  public static async init() {
-    const window = await jsdomAsync("<html></html>", []);
+  public static async init(html = "<html></html>") {
+    const window = await jsdomAsync(html, []);
     Environment.DomParser = new window.DOMParser();
 
     Environment.document = window.document;

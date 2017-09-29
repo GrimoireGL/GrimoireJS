@@ -2,8 +2,6 @@ import NumberConverter from "../../src/Converters/NumberConverter";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 
-
-
 TestEnvManager.init();
 
 test("NumberConverter should convert collectly", t => {

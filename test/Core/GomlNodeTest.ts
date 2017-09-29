@@ -10,7 +10,6 @@ import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import xmldom from "xmldom";
-require("babel-polyfill");
 
 TestEnvManager.init();
 
@@ -36,7 +35,7 @@ test.beforeEach(async () => {
 });
 
 test("Add component works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   node.addComponent("Test");
   node.addComponent("Test2");
   node.addComponent("Test");
@@ -49,7 +48,7 @@ test("Add component works correctly", t => {
 });
 
 test("Remove component actually delete specified insatnce", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   node.addComponent("Test");
   node.addComponent("Test2");
   node.addComponent("Test");
@@ -60,7 +59,7 @@ test("Remove component actually delete specified insatnce", t => {
 });
 
 test("Remove components should delete specified all components in node", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   node.addComponent("Test");
   node.addComponent("Test");
   node.addComponent("Test");
@@ -70,8 +69,8 @@ test("Remove components should delete specified all components in node", t => {
 });
 
 test("addChild method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null, null);
   node.addChild(node2, null, null);
   t.truthy(node.children[0].id === node2.id);
@@ -79,9 +78,9 @@ test("addChild method works correctly", t => {
 });
 
 test("delete method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
+  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
   node2.remove();
@@ -93,9 +92,9 @@ test("delete method works correctly", t => {
 });
 
 test("removeChild method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
+  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
   node.removeChild(node2);
@@ -104,9 +103,9 @@ test("removeChild method works correctly", t => {
 });
 
 test("detachChild method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
+  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
   node.detachChild(node2);
@@ -117,9 +116,9 @@ test("detachChild method works correctly", t => {
 });
 
 test("detach method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
+  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
   node2.detach();
@@ -146,15 +145,15 @@ test("getComponents method works correctly", t => {
 
   });
   GrimoireInterface.registerNode("test-node", ["TestComponent"]);
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("test-node"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("test-node"));
   const components = node.getComponents();
   t.truthy(components.length === 2);
 });
 
 test("setMounted method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
-  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
+  const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
   node.addChild(node2, null, null);
   node2.addChild(node3, null, null);
   node.setMounted(true);
@@ -163,14 +162,14 @@ test("setMounted method works correctly", t => {
   t.truthy(node3.mounted === true);
 });
 test("index method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2);
   t.truthy(node2.index === 0);
 });
 test("addComponent method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null, null);
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",
@@ -189,8 +188,8 @@ test("addComponent method works correctly", t => {
   t.truthy(component.isDefaultComponent);
 });
 test("addComponent method works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null, null);
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",
@@ -209,8 +208,8 @@ test("addComponent method works correctly", t => {
   t.truthy(component.isDefaultComponent === false);
 });
 test("getComponent method overload works correctly", async t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null, null);
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",
@@ -237,8 +236,8 @@ test("getComponent method overload works correctly", async t => {
   t.truthy(node.getComponent<Component>("TestComponent1").name.name === "TestComponent2");
 });
 test("getComponents method overload works correctly", t => {
-  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"), null);
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null, null);
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",

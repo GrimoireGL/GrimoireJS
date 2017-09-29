@@ -10,21 +10,21 @@ import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import XMLReader from "../../src/Tools/XMLReader";
 import {
-  conflictComponent1,
-  conflictComponent2,
-  conflictNode1,
-  conflictNode2,
-  goml,
-  stringConverter,
-  testComponent1,
-  testComponent2,
-  testComponent3,
-  testComponentBase,
-  testComponentOptional,
-  testNode1,
-  testNode2,
-  testNode3,
-  testNodeBase
+  registerConflictComponent1,
+  registerConflictComponent2,
+  registerConflictNode1,
+  registerConflictNode2,
+  registerGoml,
+  registerStringConverter,
+  registerTestComponent1,
+  registerTestComponent2,
+  registerTestComponent3,
+  registerTestComponentBase,
+  registerTestComponentOptional,
+  registerTestNode1,
+  registerTestNode2,
+  registerTestNode3,
+  registerTestNodeBase
   } from "../DummyObjectRegisterer";
 import { spy } from "sinon";
 
@@ -55,13 +55,13 @@ function mockXMLParse(func) {
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  goml();
-  testNode1();
-  testNode2();
-  testComponent1();
-  testComponent2();
-  testNodeBase();
-  testComponentBase();
+  registerGoml();
+  registerTestNode1();
+  registerTestNode2();
+  registerTestComponent1();
+  registerTestComponent2();
+  registerTestNodeBase();
+  registerTestComponentBase();
 
   await GrimoireInterface.resolvePlugins();
 });
@@ -132,6 +132,3 @@ test("all text/goml scripts tags should be loaded on loadForPage", async (t) => 
   await TestEnvManager.loadPage(testcase4_html);
   t.truthy(s.callCount === 4);
 });
-
-
-

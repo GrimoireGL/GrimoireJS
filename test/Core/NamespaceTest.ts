@@ -6,7 +6,9 @@ import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Namespace from "../../src/Core/Namespace";
 import test from "ava";
-require("babel-polyfill");
+import TestEnvManager from "../TestEnvManager";
+
+TestEnvManager.init();
 
 test("define/for function works correctly.", (t) => { // TODO test
   const g = Namespace.define("grimoire");

@@ -1,7 +1,6 @@
 import fs from "../fileHelper";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import xmldom from "xmldom";
 import XMLReader from "../../src/Tools/XMLReader";
 
 TestEnvManager.init();

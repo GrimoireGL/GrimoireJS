@@ -2,7 +2,7 @@ import GrimoireInterface from "../src/Core/GrimoireInterface";
 import Namespace from "../src/Core/Namespace";
 import { spy } from "sinon";
 
-export function testComponent1() {
+export function registerTestComponent1() {
   const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",
@@ -32,7 +32,7 @@ export function testComponent1() {
   return s;
 }
 
-export function testComponent2() {
+export function registerTestComponent2() {
   const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent2",
@@ -58,7 +58,7 @@ export function testComponent2() {
   return s;
 }
 
-export function testComponent3() {
+export function registerTestComponent3() {
   const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent3",
@@ -92,7 +92,7 @@ export function testComponent3() {
   return s;
 }
 
-export function testComponentBase() {
+export function registerTestComponentBase() {
   const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponentBase",
@@ -118,7 +118,7 @@ export function testComponentBase() {
   return s;
 }
 
-export function testComponentOptional() {
+export function registerTestComponentOptional() {
   const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponentOptional",
@@ -144,7 +144,7 @@ export function testComponentOptional() {
   return s;
 }
 
-export function conflictComponent1() {
+export function registerConflictComponent1() {
   const s = spy();
   const ns = Namespace.define("test1");
   GrimoireInterface.registerComponent({
@@ -162,7 +162,7 @@ export function conflictComponent1() {
   return s;
 }
 
-export function conflictComponent2() {
+export function registerConflictComponent2() {
   const s = spy();
   const ns = Namespace.define("test2");
   GrimoireInterface.registerComponent({
@@ -183,34 +183,34 @@ export function conflictComponent2() {
 
 
 // Nodes
-export function goml() {
+export function registerGoml() {
   GrimoireInterface.registerNode("goml");
 }
 
-export function testNode1() {
+export function registerTestNode1() {
   GrimoireInterface.registerNode("test-node1", ["TestComponent1"]);
 }
 
-export function testNode2() {
+export function registerTestNode2() {
   GrimoireInterface.registerNode("test-node2", ["TestComponent2"], null, "test-node-base");
 }
 
-export function testNode3() {
+export function registerTestNode3() {
   GrimoireInterface.registerNode("test-node3", ["TestComponent3"], { hoge: "AAA" });
 }
 
-export function testNodeBase() {
+export function registerTestNodeBase() {
   GrimoireInterface.registerNode("test-node-base", ["TestComponentBase"]);
 }
 
-export function conflictNode1() {
+export function registerConflictNode1() {
   const ns = Namespace.define("test1");
   GrimoireInterface.registerNode(ns.for("conflict-node"), ["TestComponent2"], {
     attr1: "nodeA"
   }, null, null);
 }
 
-export function conflictNode2() {
+export function registerConflictNode2() {
   const ns = Namespace.define("test2");
   GrimoireInterface.registerNode(ns.for("conflict-node"), ["TestComponent2"], {
     attr1: "nodeB"
@@ -219,7 +219,7 @@ export function conflictNode2() {
 
 
 // Converters
-export function stringConverter() {
+export function registerStringConverter() {
   const s = spy();
   GrimoireInterface.registerConverter("Str", (arg) => {
     s(arg);

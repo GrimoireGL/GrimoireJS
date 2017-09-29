@@ -8,9 +8,7 @@ import Namespace from "../../src/Core/Namespace";
 import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import xmldom from "xmldom";
 import { assert, spy } from "sinon";
-require("babel-polyfill");
 
 TestEnvManager.init();
 
