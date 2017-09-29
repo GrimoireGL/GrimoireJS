@@ -3,7 +3,6 @@ import Environment from "../../src/Core/Environment";
 import fs from "../fileHelper";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import sinon from "sinon";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import xhrmock from "xhr-mock";

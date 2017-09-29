@@ -1,7 +1,6 @@
-require("babel-polyfill");
-import test from "ava";
-import sinon from "sinon";
 import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
+require("babel-polyfill");
 
 test.beforeEach(() => {
   NSIdentity.clear();

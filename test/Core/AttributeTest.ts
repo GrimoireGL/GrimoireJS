@@ -1,12 +1,12 @@
-import test from "ava";
-import sinon from "sinon";
-
-import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import Attribute from "../../src/Core/Attribute";
+import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import TestUtil from "../TestUtil";
+import { assert, spy } from "sinon";
+
 
 TestEnvManager.init();
 
@@ -46,22 +46,22 @@ test("watch/unwatch should works correctly", t => {
   let rootNode = TestUtil.DummyTreeInit(GOML);
   const idAttr = rootNode.getAttributeRaw("id");
   const baseComponent = rootNode.getComponent(GrimoireComponent);
-  const spy = sinon.spy();
+  const s = spy();
 
   const watcher = (n, o, a) => {
-    spy(n, o, a);
+    s(n, o, a);
   };
   idAttr.watch(watcher);
 
   idAttr.Value = "newValue";
-  t.truthy(spy.args[0][0] === "newValue");
-  t.truthy(spy.args[0][1] === null);
-  t.truthy(spy.args[0][2] === idAttr);
+  t.truthy(s.args[0][0] === "newValue");
+  t.truthy(s.args[0][1] === null);
+  t.truthy(s.args[0][2] === idAttr);
 
-  spy.reset();
+  s.reset();
   idAttr.unwatch(watcher);
   idAttr.Value = "newValue2";
-  sinon.assert.notCalled(spy);
+  assert.notCalled(s);
 });
 
 

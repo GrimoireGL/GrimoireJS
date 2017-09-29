@@ -1,6 +1,7 @@
-import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
+import Environment from "./Environment";
 import GomlInterfaceImpl from "./GomlInterfaceImpl";
 import GomlNode from "../Core/GomlNode";
+import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
 import { GomlInterface, GrimoireInterface } from "../Tools/Types";
 
 
@@ -29,4 +30,5 @@ function obtainGomlInterface(query: string | GomlNode[] | (() => void)): void | 
   }
 }
 Object.setPrototypeOf(obtainGomlInterface, context);
+Environment.GrimoireInterface = obtainGomlInterface as GrimoireInterface;
 export default obtainGomlInterface as GrimoireInterface;

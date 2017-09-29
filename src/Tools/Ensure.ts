@@ -1,10 +1,15 @@
-import GrimoireInterface from "../Core/GrimoireInterface";
-import NSIdentity from "../Core/NSIdentity";
-// import Namespace from "./Namespace";
-import NSDictionary from "./NSDictionary";
-import {Name, Nullable, Ctor, ComponentRegistering} from "./Types";
-import ComponentDeclaration from "../Core/ComponentDeclaration";
 import Component from "../Core/Component";
+import ComponentDeclaration from "../Core/ComponentDeclaration";
+import Environment from "../Core/Environment";
+import NSDictionary from "./NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
+import {
+  ComponentRegistering,
+  Ctor,
+  Name,
+  Nullable
+  } from "./Types";
+
 /**
  * Provides static methods to ensure arguments are valid type.
  */
@@ -117,7 +122,7 @@ export default class Ensure {
     if (typeof c === "function") {
       return c;
     } else {
-      const dec = GrimoireInterface.componentDeclarations.get(c);
+      const dec = Environment.GrimoireInterface.componentDeclarations.get(c);
       if (dec) {
         return dec.ctor as any as Ctor<T>;
       }

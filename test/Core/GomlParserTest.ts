@@ -1,14 +1,18 @@
-require("babel-polyfill");
-import test from "ava";
-import sinon from "sinon";
-import xmldom from "xmldom";
-import TestEnvManager from "../TestEnvManager";
+import Environment from "../../src/Core/Environment";
+import fs from "../fileHelper";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NSIdentity from "../../src/Core/NSIdentity";
 import Namespace from "../../src/Core/Namespace";
-import fs from "../fileHelper";
+import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
+import TestEnvManager from "../TestEnvManager";
+import xmldom from "xmldom";
+import { assert, spy } from "sinon";
 import {
+  conflictComponent1,
+  conflictComponent2,
+  conflictNode1,
+  conflictNode2,
   goml,
   stringConverter,
   testComponent1,
@@ -17,13 +21,9 @@ import {
   testComponentOptional,
   testNode1,
   testNode2,
-  testNodeBase,
-  conflictNode1,
-  conflictNode2,
-  conflictComponent1,
-  conflictComponent2
-} from "../DummyObjectRegisterer";
-import Environment from "../../src/Core/Environment";
+  testNodeBase
+  } from "../DummyObjectRegisterer";
+require("babel-polyfill");
 
 TestEnvManager.init();
 
@@ -111,7 +111,7 @@ test("test for send/broadcastMessage and component Attribute parsing.", (t) => {
   const element = obtainElementTag(gomlParserTestCasePath2);
   const node = GomlParser.parse(element);
   t.truthy(node.parent === null);
-  sinon.assert.notCalled(stringConverterSpy);
+  assert.notCalled(stringConverterSpy);
 });
 
 test("test for parse user-define component.", (t) => {
@@ -125,9 +125,9 @@ test("test for parse user-define component.", (t) => {
   t.truthy(node.children[0].children.length === 1);
   t.truthy(node.children[0].children[0].getAttribute("testAttr2") === "123");
   node.broadcastMessage("onTest", "testArg");
-  sinon.assert.neverCalledWith(testComponent1Spy, "testArg");
-  sinon.assert.neverCalledWith(testComponent2Spy, "testArg");
-  sinon.assert.neverCalledWith(testComponentOptionalSpy, "testArg");
+  assert.neverCalledWith(testComponent1Spy, "testArg");
+  assert.neverCalledWith(testComponent2Spy, "testArg");
+  assert.neverCalledWith(testComponentOptionalSpy, "testArg");
   t.truthy("testArg" === testComponentBaseSpy.args[2][1]);
 });
 
@@ -136,8 +136,8 @@ test("test for namespace parsing.", (t) => {
   const node = GomlParser.parse(element);
   node.setMounted(true);
   node.broadcastMessage("onTest", "testArg");
-  sinon.assert.calledWith(conflictComponent1Spy, "aaa");
-  sinon.assert.calledWith(conflictComponent2Spy, "bbb");
+  assert.calledWith(conflictComponent1Spy, "aaa");
+  assert.calledWith(conflictComponent2Spy, "bbb");
 });
 
 test("test for companion", (t) => {

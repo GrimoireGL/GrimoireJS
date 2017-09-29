@@ -1,9 +1,8 @@
-import GrimoireInterface from "../Core/GrimoireInterface";
-
+import Environment from "../Core/Environment";
 
 export default class Utility {
   public static w(message: string): void {
-    if (GrimoireInterface.debug) {
+    if (Environment.GrimoireInterface.debug) {
       console.warn(message);
     }
   }

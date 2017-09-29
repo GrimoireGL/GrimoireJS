@@ -1,14 +1,14 @@
-import Constants from "../Tools/Constants";
-import GrimoireInterface from "../Core/GrimoireInterface";
 import Attribute from "./Attribute";
-import NSDictionary from "../Tools/NSDictionary";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import NSIdentity from "../Core/NSIdentity";
-import IdResolver from "../Tools/IdResolver";
 import Component from "./Component";
+import Constants from "../Tools/Constants";
 import Ensure from "../Tools/Ensure";
-import {Ctor, Name, ComponentRegistering} from "../Tools/Types";
-import Environment from "./Environment";
+import Environment from "../Core/Environment";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import IdResolver from "../Tools/IdResolver";
+import NSDictionary from "../Tools/NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
+import { ComponentRegistering, Ctor, Name } from "../Tools/Types";
+
 
 export default class ComponentDeclaration {
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: NSIdentity }[] = [];
@@ -47,7 +47,7 @@ export default class ComponentDeclaration {
     componentElement = componentElement ? componentElement : Environment.document.createElementNS(this.name.ns.qualifiedName, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute(Constants.x_gr_id, component.id);
-    GrimoireInterface.componentDictionary[component.id] = component;
+    Environment.GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
     component.element = componentElement;
     component.attributes = new NSDictionary<Attribute>();
@@ -65,7 +65,7 @@ export default class ComponentDeclaration {
     let dec;
     if (this._super || this.superComponent) { // inherits
       const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
-      dec = GrimoireInterface.componentDeclarations.get(id);
+      dec = Environment.GrimoireInterface.componentDeclarations.get(id);
       dec.resolveDependency();
       for (let key in dec.attributes) {
         attr[key] = dec.attributes[key];
@@ -94,7 +94,7 @@ export default class ComponentDeclaration {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        const newCtor = function(this: any) {
+        const newCtor = function (this: any) {
           baseConstructor.call(this);
           obj.call(this);
         };
@@ -113,7 +113,7 @@ export default class ComponentDeclaration {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function(this: any) {
+      const newCtor = function (this: any) {
         ctor.call(this);
       };
       (obj as any).__proto__ = ctor.prototype;

@@ -1,9 +1,9 @@
 import GrimoireInterface from "../src/Core/GrimoireInterface";
-import sinon from "sinon";
 import Namespace from "../src/Core/Namespace";
+import { spy } from "sinon";
 
 export function testComponent1() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent1",
     attributes: {
@@ -17,23 +17,23 @@ export function testComponent1() {
       }
     },
     $onTest: function (arg) {
-      spy("onTest", arg);
+      s("onTest", arg);
     },
     $mount: function (arg) {
-      spy("mount", arg);
+      s("mount", arg);
     },
     $unmount: function (arg) {
-      spy("unmount", arg);
+      s("unmount", arg);
     },
     $awake: function (arg) {
-      spy("awake", arg);
+      s("awake", arg);
     }
   });
-  return spy;
+  return s;
 }
 
 export function testComponent2() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent2",
     attributes: {
@@ -43,23 +43,23 @@ export function testComponent2() {
       }
     },
     $onTest: function (arg) {
-      spy("onTest", arg);
+      s("onTest", arg);
     },
     $mount: function (arg) {
-      spy("mount", arg);
+      s("mount", arg);
     },
     $unmount: function (arg) {
-      spy("unmount", arg);
+      s("unmount", arg);
     },
     $awake: function (arg) {
-      spy("awake", arg);
+      s("awake", arg);
     }
   });
-  return spy;
+  return s;
 }
 
 export function testComponent3() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponent3",
     attributes: {
@@ -77,23 +77,23 @@ export function testComponent3() {
       }
     },
     $onTest: function (arg) {
-      spy("onTest", arg);
+      s("onTest", arg);
     },
     $mount: function (arg) {
-      spy("mount", arg);
+      s("mount", arg);
     },
     $unmount: function (arg) {
-      spy("unmount", arg);
+      s("unmount", arg);
     },
     $awake: function (arg) {
-      spy("awake", arg);
+      s("awake", arg);
     }
   });
-  return spy;
+  return s;
 }
 
 export function testComponentBase() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponentBase",
     attributes: {
@@ -103,23 +103,23 @@ export function testComponentBase() {
       }
     },
     $onTest: function (arg) {
-      spy("onTest", arg);
+      s("onTest", arg);
     },
     $mount: function (arg) {
-      spy("mount", arg);
+      s("mount", arg);
     },
     $unmount: function (arg) {
-      spy("unmount", arg);
+      s("unmount", arg);
     },
     $awake: function (arg) {
-      spy("awake", arg);
+      s("awake", arg);
     }
   });
-  return spy;
+  return s;
 }
 
 export function testComponentOptional() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerComponent({
     componentName: "TestComponentOptional",
     attributes: {
@@ -129,23 +129,23 @@ export function testComponentOptional() {
       }
     },
     $onTest: function (arg) {
-      spy("onTest", arg);
+      s("onTest", arg);
     },
     $mount: function (arg) {
-      spy("mount", arg);
+      s("mount", arg);
     },
     $unmount: function (arg) {
-      spy("unmount", arg);
+      s("unmount", arg);
     },
     $awake: function (arg) {
-      spy("awake", arg);
+      s("awake", arg);
     }
   });
-  return spy;
+  return s;
 }
 
 export function conflictComponent1() {
-  const spy = sinon.spy();
+  const s = spy();
   const ns = Namespace.define("test1");
   GrimoireInterface.registerComponent({
     componentName: ns.for("ConflictComponent"),
@@ -156,14 +156,14 @@ export function conflictComponent1() {
       }
     },
     $onTest: function () {
-      spy(this.attributes.get("value").Value);
+      s(this.attributes.get("value").Value);
     }
   });
-  return spy;
+  return s;
 }
 
 export function conflictComponent2() {
-  const spy = sinon.spy();
+  const s = spy();
   const ns = Namespace.define("test2");
   GrimoireInterface.registerComponent({
     componentName: ns.for("ConflictComponent"),
@@ -174,10 +174,10 @@ export function conflictComponent2() {
       }
     },
     $onTest: function () {
-      spy(this.attributes.get("value").Value);
+      s(this.attributes.get("value").Value);
     }
   });
-  return spy;
+  return s;
 }
 
 
@@ -220,13 +220,13 @@ export function conflictNode2() {
 
 // Converters
 export function stringConverter() {
-  const spy = sinon.spy();
+  const s = spy();
   GrimoireInterface.registerConverter("Str", (arg) => {
-    spy(arg);
+    s(arg);
     if (typeof arg === "string" || !arg) {
       return arg;
     }
     throw new Error("Not Implemented:" + arg);
   });
-  return spy;
+  return s;
 }

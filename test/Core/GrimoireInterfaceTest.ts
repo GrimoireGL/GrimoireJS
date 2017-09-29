@@ -1,16 +1,16 @@
-require("babel-polyfill");
-import xmldom from "xmldom";
-import test from "ava";
-import sinon from "sinon";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
-import GomlParser from "../../src/Core/GomlParser";
+import Constants from "../../src/Tools/Constants";
 import GomlLoader from "../../src/Core/GomlLoader";
-import NSIdentity from "../../src/Core/NSIdentity";
-import Namespace from "../../src/Core/Namespace";
 import GomlNode from "../../src/Core/GomlNode";
+import GomlParser from "../../src/Core/GomlParser";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import Namespace from "../../src/Core/Namespace";
+import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
 import TestEnvManager from "../TestEnvManager";
+import xmldom from "xmldom";
+import { assert, spy } from "sinon";
+require("babel-polyfill");
 
 TestEnvManager.init();
 
@@ -320,12 +320,12 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
 });
 
 test("register and resolvePlugins works preperly", async () => {
-  const spy1 = sinon.spy();
-  const spy2 = sinon.spy();
-  const wrapPromise: any = function (spy) {
+  const spy1 = spy();
+  const spy2 = spy();
+  const wrapPromise: any = function (s) {
     return () => {
       return new Promise(resolve => {
-        spy();
+        s();
         resolve(null);
       });
     };
@@ -335,5 +335,5 @@ test("register and resolvePlugins works preperly", async () => {
   GrimoireInterface.register(spyp);
   GrimoireInterface.register(spyp2);
   await GrimoireInterface.resolvePlugins();
-  sinon.assert.callOrder(spy1, spy2);
+  assert.callOrder(spy1, spy2);
 });

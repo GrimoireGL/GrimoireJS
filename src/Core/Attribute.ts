@@ -1,12 +1,12 @@
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import NSDictionary from "../Tools/NSDictionary";
-import Ensure from "../Tools/Ensure";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import NSIdentity from "../Core/NSIdentity";
-import IdResolver from "../Tools/IdResolver";
-import GrimoireInterface from "../Core/GrimoireInterface";
 import Component from "./Component";
-import {GomlInterface, Name, Nullable} from "../Tools/Types";
+import Ensure from "../Tools/Ensure";
+import Environment from "../Core/Environment";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import IdResolver from "../Tools/IdResolver";
+import NSDictionary from "../Tools/NSDictionary";
+import NSIdentity from "../Core/NSIdentity";
+import { GomlInterface, Name, Nullable } from "../Tools/Types";
 
 /**
  * Manage a attribute attached to components.
@@ -95,7 +95,7 @@ export default class Attribute {
 
   public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
     const cname = Ensure.tobeNSIdentity(converter);
-    const conv = GrimoireInterface.converters.get(cname);
+    const conv = Environment.GrimoireInterface.converters.get(cname);
     if (!conv) {
       throw new Error(`converter ${cname.name} is not defined.`);
     }
@@ -116,7 +116,7 @@ export default class Attribute {
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);
-    attr.converter = GrimoireInterface.converters.get(converterName);
+    attr.converter = Environment.GrimoireInterface.converters.get(converterName);
     if (attr.converter === void 0) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);

@@ -1,14 +1,12 @@
-require("babel-polyfill");
-import xmldom from "xmldom";
-import test from "ava";
-import sinon from "sinon";
-import xhrmock from "xhr-mock";
-import GomlLoader from "../../src/Core/GomlLoader";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NodeInterface from "../../src/Core/NodeInterface";
-import NSIdentity from "../../src/Core/NSIdentity";
-import NSDictionary from "../../src/Tools/NSDictionary";
 import fs from "../fileHelper";
+import GomlLoader from "../../src/Core/GomlLoader";
+import NodeInterface from "../../src/Core/NodeInterface";
+import NSDictionary from "../../src/Tools/NSDictionary";
+import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
+import xhrmock from "xhr-mock";
+import xmldom from "xmldom";
+require("babel-polyfill");
 const xml = fs.readFile("../_TestResource/NSDictionary_QueryDOM.xml");
 
 test.beforeEach(() => {

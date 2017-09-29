@@ -1,9 +1,12 @@
-import test from "ava";
-import sinon from "sinon";
-
 import Attribute from "../../src/Core/Attribute";
 import AttributeManager from "../../src/Core/AttributeManager";
 import NSIdentity from "../../src/Core/NSIdentity";
+import test from "ava";
+import TestEnvManager from "../TestEnvManager";
+import { assert, spy as sinonSpy } from "sinon";
+
+TestEnvManager.init();
+
 
 
 const genAttr: (name: NSIdentity, watch?: Function | undefined) => Attribute = (name, watch) => {
@@ -63,7 +66,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   t.truthy(attr.Value === "hogehoge");
 
   const fqn2 = "notregisterd.fqn.hoge2";
-  const spy = sinon.spy();
+  const spy = sinonSpy();
   const attrRaw = new Attribute();
   attrRaw.name = NSIdentity.fromFQN(fqn2);
   attrRaw.component = { isActive: true } as any;
@@ -73,7 +76,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   });
 
   am.setAttribute(attrRaw.name.fqn, "not called");
-  t.truthy(!sinon.called);
+  t.truthy(!spy.called);
   am.addAttribute(attrRaw);
   am.setAttribute(attrRaw.name.fqn, "called");
 
@@ -88,9 +91,9 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
 
 test("watch should works correctly", () => {
   const am = genAM();
-  const spy1 = sinon.spy();
-  const spy2 = sinon.spy();
-  const notCalledSpy = sinon.spy();
+  const spy1 = sinonSpy();
+  const spy2 = sinonSpy();
+  const notCalledSpy = sinonSpy();
   am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa"), () => {
     spy1("watch");
   }));
@@ -101,9 +104,9 @@ test("watch should works correctly", () => {
     notCalledSpy("watch");
   }));
   am.watch(NSIdentity.guess("hoge.aaa"), (a, b, c) => { /*do nothing*/ });
-  sinon.assert.called(spy1);
-  sinon.assert.called(spy2);
-  sinon.assert.notCalled(notCalledSpy);
+  assert.called(spy1);
+  assert.called(spy2);
+  assert.notCalled(notCalledSpy);
 });
 
 test("set/getAttribute should works correctly", (t) => {

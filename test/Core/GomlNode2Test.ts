@@ -7,9 +7,9 @@ import GomlNode from "../../src/Core/GomlNode";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import NSIdentity from "../../src/Core/NSIdentity";
-import sinon from "sinon";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
+import { assert, spy } from "sinon";
 import {
   conflictComponent1,
   conflictComponent2,
@@ -124,7 +124,7 @@ test("mount should be called in ideal timing", (t) => {
   const testNode3 = rootNode.children[0];
   testNode3.enabled = true;
   const order = [testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy];
-  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
+  assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
   order.forEach(v => {
     t.truthy(v.getCall(1).args[0] === "mount");
   });
@@ -151,37 +151,37 @@ test("attribute default value work correctly1", (t) => {
 
 test("attribute watch should work correctly", (t) => {
   const idAttr = rootNode.getAttributeRaw("id");
-  const spy = sinon.spy();
+  const s = spy();
 
   const watcher = (newValue, oldValue, attr) => {
     // spy("watch", { newValue: newValue, oldValue: oldValue, attr: attr });
-    spy(newValue);
+    s(newValue);
   };
   idAttr.watch(watcher);
   idAttr.Value = "id";
-  t.truthy(spy.getCall(0).args[0] === "id");
+  t.truthy(s.getCall(0).args[0] === "id");
 
-  spy.reset();
+  s.reset();
   rootNode.enabled = false;
   idAttr.Value = "id";
-  sinon.assert.notCalled(spy);
+  assert.notCalled(s);
 });
 test("attribute watch should work correctly2", (t) => {
   const idAttr = rootNode.getAttributeRaw("id");
-  const spy = sinon.spy();
+  const s = spy();
   const watcher = (newValue, oldValue, attr) => {
     // spy("watch", { newValue: newValue, oldValue: oldValue, attr: attr });
-    spy(newValue);
+    s(newValue);
   };
   idAttr.watch(watcher);
   idAttr.unwatch(watcher);
   idAttr.Value = "id";
-  sinon.assert.notCalled(spy);
+  assert.notCalled(s);
 
   idAttr.watch(watcher, false, true);
   rootNode.enabled = false;
   idAttr.Value = "idid";
-  t.truthy(spy.getCall(0).args[0] === "idid");
+  t.truthy(s.getCall(0).args[0] === "idid");
 });
 
 test("enabled should work correctly", (t) => {
@@ -211,7 +211,7 @@ test("enabled should work correctly", (t) => {
 });
 
 test("Broadcast message should call correct order", (t) => {
-  sinon.assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
+  assert.callOrder(testComponent3Spy, testComponent2Spy, testComponentOptionalSpy, testComponent1Spy);
 });
 
 test("Broadcast message with range should work correctly", (t) => {
@@ -219,10 +219,10 @@ test("Broadcast message with range should work correctly", (t) => {
   resetSpies();
   testNode3.enabled = true;
   rootNode.broadcastMessage(1, "onTest");
-  sinon.assert.called(testComponent3Spy);
-  sinon.assert.notCalled(testComponent2Spy);
-  sinon.assert.notCalled(testComponentOptionalSpy);
-  sinon.assert.notCalled(testComponent1Spy);
+  assert.called(testComponent3Spy);
+  assert.notCalled(testComponent2Spy);
+  assert.notCalled(testComponentOptionalSpy);
+  assert.notCalled(testComponent1Spy);
 });
 
 test("Broadcast message with enabled should work correctly", (t) => {
@@ -230,40 +230,40 @@ test("Broadcast message with enabled should work correctly", (t) => {
   const testNode2 = testNode3.children[0];
 
   resetSpies();
-  sinon.assert.notCalled(testComponent3Spy);
-  sinon.assert.notCalled(testComponent2Spy);
-  sinon.assert.notCalled(testComponentOptionalSpy);
-  sinon.assert.notCalled(testComponent1Spy);
+  assert.notCalled(testComponent3Spy);
+  assert.notCalled(testComponent2Spy);
+  assert.notCalled(testComponentOptionalSpy);
+  assert.notCalled(testComponent1Spy);
 
   resetSpies();
   rootNode.broadcastMessage("onTest");
-  sinon.assert.notCalled(testComponent3Spy);
-  sinon.assert.notCalled(testComponent2Spy);
-  sinon.assert.notCalled(testComponentOptionalSpy);
-  sinon.assert.notCalled(testComponent1Spy);
+  assert.notCalled(testComponent3Spy);
+  assert.notCalled(testComponent2Spy);
+  assert.notCalled(testComponentOptionalSpy);
+  assert.notCalled(testComponent1Spy);
 
   resetSpies();
   testNode3.enabled = true;
   testNode2.enabled = false;
   rootNode.broadcastMessage("onTest");
-  sinon.assert.called(testComponent3Spy);
-  sinon.assert.notCalled(testComponent2Spy);
-  sinon.assert.notCalled(testComponentOptionalSpy);
-  sinon.assert.called(testComponent1Spy);
+  assert.called(testComponent3Spy);
+  assert.notCalled(testComponent2Spy);
+  assert.notCalled(testComponentOptionalSpy);
+  assert.called(testComponent1Spy);
 
   resetSpies();
   testNode2.enabled = true;
   rootNode.broadcastMessage("onTest");
-  sinon.assert.called(testComponent3Spy);
-  sinon.assert.called(testComponent2Spy);
-  sinon.assert.called(testComponentOptionalSpy);
-  sinon.assert.called(testComponent1Spy);
+  assert.called(testComponent3Spy);
+  assert.called(testComponent2Spy);
+  assert.called(testComponentOptionalSpy);
+  assert.called(testComponent1Spy);
 });
 
 test("SendMessage should call correct order", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.sendMessage("onTest");
-  sinon.assert.callOrder(testComponent2Spy, testComponentOptionalSpy);
+  assert.callOrder(testComponent2Spy, testComponentOptionalSpy);
 });
 
 test("Detach node should invoke unmount before detaching", (t) => {
@@ -272,7 +272,7 @@ test("Detach node should invoke unmount before detaching", (t) => {
   resetSpies();
   testNode3.detach();
   const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
-  sinon.assert.callOrder.apply(sinon.assert, called);
+  assert.callOrder.apply(assert, called);
   called.forEach((v) => {
     t.truthy(v.getCall(0).args[0] === "unmount");
   });
@@ -284,7 +284,7 @@ test("Remove() should invoke unmount before deleting", (t) => {
   resetSpies();
   testNode3.remove();
   const called = [testComponent2Spy, testComponentOptionalSpy, testComponent1Spy, testComponent3Spy];
-  sinon.assert.callOrder.apply(sinon.assert, called);
+  assert.callOrder.apply(assert, called);
   called.forEach((v) => {
     t.truthy(v.getCall(0).args[0] === "unmount");
   });
@@ -304,8 +304,8 @@ test("broadcastMessage should not invoke message if the component is not enabled
   optionalComponent.enabled = false;
   rootNode.broadcastMessage("onTest");
   const called = [testComponent3Spy, testComponent2Spy, testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert, called);
-  sinon.assert.notCalled(testComponentOptionalSpy);
+  assert.callOrder.apply(assert, called);
+  assert.notCalled(testComponentOptionalSpy);
 });
 
 test("broadcastMessage should not invoke message if the node is not enabled", (t) => {
@@ -316,9 +316,9 @@ test("broadcastMessage should not invoke message if the node is not enabled", (t
   testNode2.enabled = false;
   rootNode.broadcastMessage("onTest");
   const called = [testComponent3Spy, testComponent1Spy];
-  sinon.assert.callOrder.apply(sinon.assert, called);
-  sinon.assert.notCalled(testComponentOptionalSpy);
-  sinon.assert.notCalled(testComponent2Spy);
+  assert.callOrder.apply(assert, called);
+  assert.notCalled(testComponentOptionalSpy);
+  assert.notCalled(testComponent2Spy);
 });
 
 test("class attribute can be obatined as default", (t) => {

@@ -1,13 +1,12 @@
-require("babel-polyfill");
-import test from "ava";
-import sinon from "sinon";
-import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import Constants from "../../src/Tools/Constants";
 import Component from "../../src/Core/Component";
-import GomlParser from "../../src/Core/GomlParser";
+import Constants from "../../src/Tools/Constants";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
+import GomlParser from "../../src/Core/GomlParser";
+import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Namespace from "../../src/Core/Namespace";
+import test from "ava";
+require("babel-polyfill");
 
 test("define/for function works correctly.", (t) => { // TODO test
   const g = Namespace.define("grimoire");

@@ -1,6 +1,10 @@
-import test from "ava";
-
 import NumberConverter from "../../src/Converters/NumberConverter";
+import test from "ava";
+import TestEnvManager from "../TestEnvManager";
+
+
+
+TestEnvManager.init();
 
 test("NumberConverter should convert collectly", t => {
   t.truthy(NumberConverter(123) === 123);

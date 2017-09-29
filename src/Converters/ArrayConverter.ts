@@ -1,5 +1,5 @@
-import GrimoireInterface from "../Core/GrimoireInterface";
 import Attribute from "../Core/Attribute";
+import GrimoireInterface from "../Core/GrimoireInterface";
 
 const splitter = " ";
 const escape = "\\";
@@ -14,12 +14,12 @@ const escape = "\\";
  */
 export default {
   name: "Array",
-  verify: function(attr: Attribute) {
+  verify: function (attr: Attribute) {
     if (!attr.declaration["type"]) {
       throw new Error("Array converter needs to be specified type in attribute declaration.");
     }
   },
-  convert: function(val: any, attr: Attribute) {
+  convert: function (val: any, attr: Attribute) {
     let converter = GrimoireInterface.converters.get(attr.declaration["type"]);
     if (!converter) {
       throw new Error(`converter ${attr.declaration["type"]} is not registerd.`);
