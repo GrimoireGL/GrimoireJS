@@ -2,10 +2,7 @@ import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 
-
-
 TestEnvManager.init();
-
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();

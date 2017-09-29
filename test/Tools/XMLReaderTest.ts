@@ -1,17 +1,17 @@
+import fs from "../fileHelper";
 import test from "ava";
+import TestEnvManager from "../TestEnvManager";
 import xmldom from "xmldom";
 import XMLReader from "../../src/Tools/XMLReader";
-import fs from "../fileHelper";
-import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
 const xml = fs.readFile("../_TestResource/XMLReader_Case1.xml");
 
 test("parseXML behaves correctly", t => {
-  const parsedDocument = XMLReader.parseXML(xml, "Goml");
-  t.truthy(parsedDocument[0].localName === "goml");
+  const parsedDocument = XMLReader.parseXML(xml);
+  t.truthy(parsedDocument.localName === "goml");
   t.throws(() => {
-    XMLReader.parseXML(">", "Goml");
+    XMLReader.parseXML(">");
   });
 });

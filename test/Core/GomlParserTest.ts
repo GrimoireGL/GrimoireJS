@@ -7,6 +7,7 @@ import NSIdentity from "../../src/Core/NSIdentity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import xmldom from "xmldom";
+import XMLReader from "../../src/Tools/XMLReader";
 import { assert, spy } from "sinon";
 import {
   conflictComponent1,
@@ -36,8 +37,7 @@ declare namespace global {
 
 // Get element from test case source which is located with relative path.
 function obtainElementTag(path) {
-  const parser = new xmldom.DOMParser();
-  return parser.parseFromString(fs.readFile(path), "text/xml").documentElement;
+  return XMLReader.parseXML(fs.readFile(path));
 }
 
 let stringConverterSpy,
@@ -80,18 +80,6 @@ function registerUserPlugin() {
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");
 }
-
-test("aaa", t => {
-  GrimoireInterface.nodeDeclarations.forEach(nm => {
-    t.truthy(nm.resolvedDependency);
-  });
-});
-test("bbb", async t => {
-  await GrimoireInterface.resolvePlugins();
-  GrimoireInterface.nodeDeclarations.forEach(nm => {
-    t.truthy(nm.resolvedDependency);
-  });
-});
 
 test("test for parsing node hierarchy.", (t) => {
   const element = obtainElementTag(gomlParserTestCasePath1);

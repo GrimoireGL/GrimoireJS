@@ -6,19 +6,14 @@ import { Nullable } from "./Types";
  */
 export default class XMLReader {
 
-  public static parseXML(doc: string, rootElementName?: string): Element[] {
+  public static parseXML(doc: string): Element {
     const parsed = Environment.DomParser.parseFromString(doc, "text/xml");
     if (!parsed || parsed.getElementsByTagName("parsererror").length > 0) {
       const err = Environment.XMLSerializer.serializeToString(parsed);
       throw new Error(`Error parsing XML: ${err}`);
     }
-    if (rootElementName) {
-      if (parsed.documentElement.tagName.toUpperCase() !== rootElementName.toUpperCase()) {
-        throw new Error("Specified document is invalid.");
-      }// TODO should throw more detail error
-    }
 
-    return [parsed.documentElement]; // TODO: implenent!
+    return parsed.documentElement; // TODO: implenent!
   }
 
   public static getElements(elem: Element, name: string): Element[] {

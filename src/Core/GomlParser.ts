@@ -1,6 +1,6 @@
+import Environment from "./Environment";
 import GomlNode from "./GomlNode";
 import GrimoireInterface from "../Core/GrimoireInterface";
-import Environment from "./Environment";
 
 /**
  * Parser of Goml to Node utilities.
@@ -13,7 +13,7 @@ class GomlParser {
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
    * @return {GomlNode}                    ルートノード
    */
-  public static parse(source: Element, parent?: GomlNode |null): GomlNode {
+  public static parse(source: Element, parent?: GomlNode | null): GomlNode {
     const newNode = GomlParser._createNode(source);
 
     // Parse children recursively

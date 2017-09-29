@@ -55,7 +55,7 @@ export default class TestEnvManager {
   }
 
   public static loadGoml(goml: string) {
-    const doc = XMLReader.parseXML(goml, "GOML");
+    const doc = XMLReader.parseXML(goml);
     const rootNode = GomlParser.parse(doc[0]);
     GrimoireInterface.addRootNode(null, rootNode);
   }

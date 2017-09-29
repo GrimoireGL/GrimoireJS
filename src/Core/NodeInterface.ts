@@ -1,10 +1,10 @@
-import Utility from "../Tools/Utility";
-import XMLReader from "../Tools/XMLReader";
-import GomlParser from "../Core/GomlParser";
 import Attribute from "../Core/Attribute";
 import GomlNode from "../Core/GomlNode";
-import {Name, Nullable} from "../Tools/Types";
+import GomlParser from "../Core/GomlParser";
+import Utility from "../Tools/Utility";
+import XMLReader from "../Tools/XMLReader";
 import { ListenerFn } from "eventemitter3";
+import { Name, Nullable } from "../Tools/Types";
 
 /**
  * interface for operate multicast nodes.
@@ -129,11 +129,9 @@ export default class NodeInterface {
    */
   public append(tag: string): NodeInterface {
     this.forEach(node => {
-      const elems = XMLReader.parseXML(tag);
-      elems.forEach(elem => {
-        let child = GomlParser.parse(elem);
-        node.addChild(child);
-      });
+      const elem = XMLReader.parseXML(tag);
+      let child = GomlParser.parse(elem);
+      node.addChild(child);
     });
     return this;
   }

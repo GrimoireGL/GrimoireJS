@@ -273,13 +273,11 @@ export default class GomlNode extends EEObject {
   }
 
   public append(tag: string): GomlNode[] {
-    const elems = XMLReader.parseXML(tag);
+    const elem = XMLReader.parseXML(tag);
     let ret: GomlNode[] = [];
-    elems.forEach(elem => {
-      let child = GomlParser.parse(elem);
-      this.addChild(child);
-      ret.push(child);
-    });
+    let child = GomlParser.parse(elem);
+    this.addChild(child);
+    ret.push(child);
     return ret;
   }
 

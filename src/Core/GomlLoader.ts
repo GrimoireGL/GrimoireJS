@@ -29,8 +29,8 @@ export default class GomlLoader {
     } else {
       source = scriptTag.text;
     }
-    const doc = XMLReader.parseXML(source, "GOML");
-    const rootNode = GomlParser.parse(doc[0]);
+    const doc = XMLReader.parseXML(source);
+    const rootNode = GomlParser.parse(doc);
     GrimoireInterface.addRootNode(scriptTag, rootNode);
   }
 

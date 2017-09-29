@@ -1,14 +1,14 @@
+import Attribute from "../src/Core/Attribute";
 import Component from "../src/Core/Component";
 import ComponentDeclaration from "../src/Core/ComponentDeclaration";
-import NSIdentity from "../src/Core/NSIdentity";
-import Attribute from "../src/Core/Attribute";
-import IAttributeDeclaration from "../src/Interface/IAttributeDeclaration";
 import Ensure from "../src/Tools/Ensure";
-import GrimoireInterface from "../src/Core/GrimoireInterface";
-import XMLReader from "../src/Tools/XMLReader";
-import GomlParser from "../src/Core/GomlParser";
-import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
 import GomlNode from "../src/Core/GomlNode";
+import GomlParser from "../src/Core/GomlParser";
+import GrimoireInterface from "../src/Core/GrimoireInterface";
+import IAttributeDeclaration from "../src/Interface/IAttributeDeclaration";
+import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
+import NSIdentity from "../src/Core/NSIdentity";
+import XMLReader from "../src/Tools/XMLReader";
 
 export default class TestUtil {
 
@@ -37,8 +37,8 @@ export default class TestUtil {
   }
 
   public static DummyTreeInit(goml: string): GomlNode {
-    const doc = XMLReader.parseXML(goml, "GOML");
-    const rootNode = GomlParser.parse(doc[0]);
+    const doc = XMLReader.parseXML(goml);
+    const rootNode = GomlParser.parse(doc);
 
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{

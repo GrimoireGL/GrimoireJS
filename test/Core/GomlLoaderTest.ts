@@ -36,9 +36,9 @@ const testcase3_html = fs.readFile("../_TestResource/GomlLoaderTest_Case3.html")
 const testcase4_html = fs.readFile("../_TestResource/GomlLoaderTest_Case4.html");
 
 TestEnvManager.mockSetup();
-TestEnvManager.mock("http://grimoire.gl/index.goml", "<goml>\n</goml>")
-TestEnvManager.mock("http://grimoire.gl/index2.goml", "<goml>\n</goml>")
-TestEnvManager.mock("http://grimoire.gl/index3.goml", "<goml>\n</goml>")
+TestEnvManager.mock("http://grimoire.gl/index.goml", "<goml>\n</goml>");
+TestEnvManager.mock("http://grimoire.gl/index2.goml", "<goml>\n</goml>");
+TestEnvManager.mock("http://grimoire.gl/index3.goml", "<goml>\n</goml>");
 
 function mockXMLParse(func) {
   return prequire("../../src/Core/GomlLoader", {
