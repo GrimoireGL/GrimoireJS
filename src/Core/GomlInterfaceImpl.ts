@@ -1,4 +1,4 @@
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import GomlNode from "../Core/GomlNode";
 import GrimoireInterface from "../Core/GrimoireInterface";
 import NodeInterface from "./NodeInterface";

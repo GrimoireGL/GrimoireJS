@@ -1,11 +1,11 @@
 import Component from "../../src/Core/Component";
-import Constants from "../../src/Tools/Constants";
+import Constants from "../../src/Core/Constants";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Namespace from "../../src/Core/Namespace";
-import NSIdentity from "../../src/Core/NSIdentity";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import { assert, spy } from "sinon";

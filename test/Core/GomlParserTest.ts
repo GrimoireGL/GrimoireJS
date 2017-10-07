@@ -3,7 +3,7 @@ import fs from "../fileHelper";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Namespace from "../../src/Core/Namespace";
-import NSIdentity from "../../src/Core/NSIdentity";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import XMLReader from "../../src/Tools/XMLReader";
@@ -22,7 +22,7 @@ import {
   registerTestNode1,
   registerTestNode2,
   registerTestNodeBase
-  } from "../DummyObjectRegisterer";
+} from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
 
@@ -119,8 +119,8 @@ test("test for companion", (t) => {
   const element = obtainElementTag(gomlParserTestCasePath4);
   const node = GomlParser.parse(element);
   const components = node.children[0].getComponents<any>();
-  const ns1 = NSIdentity.fromFQN("test1.ConflictComponent");
-  const ns2 = NSIdentity.fromFQN("test2.ConflictComponent");
+  const ns1 = Identity.fromFQN("test1.ConflictComponent");
+  const ns2 = Identity.fromFQN("test2.ConflictComponent");
   const compo1 = components.find((comp) => ns1.fqn === comp.name.fqn);
   const compo2 = components.find((comp) => ns2.fqn === comp.name.fqn);
   t.truthy(compo1.companion === compo2.companion);

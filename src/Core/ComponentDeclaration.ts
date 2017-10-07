@@ -1,17 +1,17 @@
 import Attribute from "./Attribute";
 import Component from "./Component";
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import Ensure from "../Tools/Ensure";
 import Environment from "../Core/Environment";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import IdResolver from "../Tools/IdResolver";
-import NSDictionary from "../Tools/NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "./IdentityMap";
+import Identity from "./Identity";
 import { ComponentRegistering, Ctor, Name } from "../Tools/Types";
 
 
 export default class ComponentDeclaration {
-  public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: NSIdentity }[] = [];
+  public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: Identity }[] = [];
 
   public superComponent: Ctor<Component>;
   public ctor: Ctor<Component>;
@@ -26,14 +26,14 @@ export default class ComponentDeclaration {
   }
 
   public constructor(
-    public name: NSIdentity,
+    public name: Identity,
     private _ctorOrObj: ComponentRegistering<Object | Ctor<Component>>,
     _super?: Name | Ctor<Component>) {
     if (!_super) {// no inherits.
       this.resolveDependency();
       return;
     }
-    if (_super instanceof NSIdentity || typeof _super === "string") {
+    if (_super instanceof Identity || typeof _super === "string") {
       this._super = _super;
     } else {
       this.superComponent = _super;
@@ -50,7 +50,7 @@ export default class ComponentDeclaration {
     Environment.GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
     component.element = componentElement;
-    component.attributes = new NSDictionary<Attribute>();
+    component.attributes = new IdentityMap<Attribute>();
     for (let key in this.attributes) {
       Attribute.generateAttributeForComponent(key, this.attributes[key], component);
     }
@@ -69,14 +69,14 @@ export default class ComponentDeclaration {
       dec.resolveDependency();
       for (let key in dec.attributes) {
         attr[key] = dec.attributes[key];
-        this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
+        this.idResolver.add(Identity.fromFQN(this.name.fqn + "." + key));
       }
       this.superComponent = dec.ctor;
     }
     this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec ? dec.ctor : void 0);
     for (let key in (this.ctor as any).attributes) {
       attr[key] = (this.ctor as any).attributes[key];
-      this.idResolver.add(NSIdentity.fromFQN(this.name.fqn + "." + key));
+      this.idResolver.add(Identity.fromFQN(this.name.fqn + "." + key));
     }
     this.attributes = attr;
 
@@ -90,7 +90,7 @@ export default class ComponentDeclaration {
    * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
    * @return {[type]}      [The constructor inherits Component]
    */
-  private _ensureTobeComponentConstructor(id: NSIdentity, obj: ComponentRegistering<Object> | ComponentRegistering<Ctor<Component>>, baseConstructor?: Ctor<Component>): Ctor<Component> {
+  private _ensureTobeComponentConstructor(id: Identity, obj: ComponentRegistering<Object> | ComponentRegistering<Ctor<Component>>, baseConstructor?: Ctor<Component>): Ctor<Component> {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits

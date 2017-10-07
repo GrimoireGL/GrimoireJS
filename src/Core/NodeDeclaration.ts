@@ -1,21 +1,21 @@
 import Ensure from "../Tools/Ensure";
-import NSDictionary from "../Tools/NSDictionary";
-import NSSet from "../Tools/NSSet";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "./IdentityMap";
+import IdentitySet from "./IdentitySet";
+import Identity from "./Identity";
 import IdResolver from "../Tools/IdResolver";
 import GrimoireInterface from "../Core/GrimoireInterface";
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import { Name } from "../Tools/Types";
 
 export default class NodeDeclaration {
-  public defaultComponents: NSSet;
-  public defaultAttributes: NSDictionary<any> = new NSDictionary();
-  public superNode?: NSIdentity;
-  public freezeAttributes: NSSet;
+  public defaultComponents: IdentitySet;
+  public defaultAttributes: IdentityMap<any> = new IdentityMap();
+  public superNode?: Identity;
+  public freezeAttributes: IdentitySet;
   public idResolver = new IdResolver();
 
-  private _defaultComponentsActual: NSSet;
-  private _defaultAttributesActual: NSDictionary<any>;
+  private _defaultComponentsActual: IdentitySet;
+  private _defaultAttributesActual: IdentityMap<any>;
   private _resolvedDependency = false;
 
 
@@ -23,14 +23,14 @@ export default class NodeDeclaration {
     return this._resolvedDependency;
   }
 
-  public get defaultComponentsActual(): NSSet {
+  public get defaultComponentsActual(): IdentitySet {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
     return this._defaultComponentsActual;
   }
 
-  public get defaultAttributesActual(): NSDictionary<any> {
+  public get defaultAttributesActual(): IdentityMap<any> {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
@@ -38,13 +38,13 @@ export default class NodeDeclaration {
   }
 
   constructor(
-    public name: NSIdentity,
+    public name: Identity,
     private _defaultComponents: Name[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     private _freezeAttributes: Name[] = []) {
     if (!this._superNode && this.name.fqn !== Constants.baseNodeName) {
-      this._superNode = NSIdentity.fromFQN(Constants.baseNodeName);
+      this._superNode = Identity.fromFQN(Constants.baseNodeName);
     }
     this._freezeAttributes = this._freezeAttributes || [];
   }
@@ -66,21 +66,21 @@ export default class NodeDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    this.defaultComponents = new NSSet(this._defaultComponents.map(name => Ensure.tobeNSIdentity(name)));
+    this.defaultComponents = new IdentitySet(this._defaultComponents.map(name => Ensure.tobeNSIdentity(name)));
 
     for (let key in this._defaultAttributes) {
       let value = this._defaultAttributes[key];
-      this.defaultAttributes.set(NSIdentity.fromFQN(key), value);
+      this.defaultAttributes.set(Identity.fromFQN(key), value);
     }
     this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : void 0;
     this._resolveInherites();
     this._defaultComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
       dec.idResolver.foreach(fqn => {
-        this.idResolver.add(NSIdentity.fromFQN(fqn));
+        this.idResolver.add(Identity.fromFQN(fqn));
       });
     });
-    this.freezeAttributes = new NSSet(this._freezeAttributes.map(name => Ensure.tobeNSIdentity(name)));
+    this.freezeAttributes = new IdentitySet(this._freezeAttributes.map(name => Ensure.tobeNSIdentity(name)));
     this._resolvedDependency = true;
     return true;
   }

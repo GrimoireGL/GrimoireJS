@@ -1,7 +1,7 @@
 import Attribute from "./Attribute";
 import AttributeManager from "../Core/AttributeManager";
 import Component from "./Component";
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import EEObject from "../Base/EEObject";
 import Ensure from "../Tools/Ensure";
 import Environment from "./Environment";
@@ -10,8 +10,8 @@ import GrimoireInterface from "../Core/GrimoireInterface";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import MessageException from "../Tools/MessageException";
 import NodeDeclaration from "./NodeDeclaration";
-import NSDictionary from "../Tools/NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "./IdentityMap";
+import Identity from "./Identity";
 import Utility from "../Tools/Utility";
 import XMLReader from "../Tools/XMLReader";
 import {
@@ -19,7 +19,7 @@ import {
   GomlInterface,
   Name,
   Nullable
-  } from "../Tools/Types";
+} from "../Tools/Types";
 
 export default class GomlNode extends EEObject {
 
@@ -31,7 +31,7 @@ export default class GomlNode extends EEObject {
   private _root: Nullable<GomlNode> = null;
   private _components: Component[];
   private _tree: GomlInterface = GrimoireInterface([this]);
-  private _companion: NSDictionary<any> = new NSDictionary<any>();
+  private _companion: IdentityMap<any> = new IdentityMap<any>();
   private _attributeManager: AttributeManager;
   private _isActive = false;
   private _messageCache: { [message: string]: Component[] } = {};
@@ -58,7 +58,7 @@ export default class GomlNode extends EEObject {
   /**
    * Tag name.
    */
-  public get name(): NSIdentity {
+  public get name(): Identity {
     return this.nodeDeclaration.name;
   }
 
@@ -106,9 +106,9 @@ export default class GomlNode extends EEObject {
 
   /**
    * the shared object by all nodes in tree.
-   * @return {NSDictionary<any>} [description]
+   * @return {IdentityMap<any>} [description]
    */
-  public get companion(): NSDictionary<any> {
+  public get companion(): IdentityMap<any> {
     return this._companion;
   }
 
@@ -283,7 +283,7 @@ export default class GomlNode extends EEObject {
 
   /**
    * add new instance created by given name and attributes for this node as child.
-   * @param {string |   NSIdentity} nodeName      [description]
+   * @param {string |   Identity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
   public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): GomlNode {
@@ -437,7 +437,7 @@ export default class GomlNode extends EEObject {
       this._sendMessageForced("unmount");
       this._isActive = false;
       this._tree = GrimoireInterface([this]);
-      this._companion = new NSDictionary<any>();
+      this._companion = new IdentityMap<any>();
       this._mounted = mounted;
     }
   }

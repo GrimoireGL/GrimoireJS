@@ -1,4 +1,4 @@
-import NSIdentity from "./NSIdentity";
+import Identity from "./Identity";
 import Utility from "../Tools/Utility";
 
 export default class Namespace {
@@ -53,12 +53,12 @@ export default class Namespace {
    * to NSIdentity with name
    * @param name name
    */
-  public for(name: string): NSIdentity {
+  public for(name: string): Identity {
     if (!name) {
       throw new Error("name must not be null");
     }
     const fqn = `${this.hierarchy.join(".")}.${name}`;
-    return NSIdentity.fromFQN(fqn);
+    return Identity.fromFQN(fqn);
   }
 
   public toString(): string {

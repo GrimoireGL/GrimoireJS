@@ -6,7 +6,7 @@ import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NSIdentity from "../../src/Core/NSIdentity";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import { assert, spy } from "sinon";
@@ -26,7 +26,7 @@ import {
   registerTestNode2,
   registerTestNode3,
   registerTestNodeBase
-  } from "../DummyObjectRegisterer";
+} from "../DummyObjectRegisterer";
 
 TestEnvManager.init();
 
@@ -415,7 +415,7 @@ test("attribute buffer is valid only last set value.", t => {
     converter: "String",
     default: "aaa"
   });
-  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".hoge"));
   t.truthy(att === "aaa");
 
   rootNode.setAttribute("ns2.aaa", "1");
@@ -425,7 +425,7 @@ test("attribute buffer is valid only last set value.", t => {
     converter: "String",
     default: "aaa"
   });
-  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".ns2.aaa"));
+  att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".ns2.aaa"));
   t.truthy(att === "3");
 });
 
@@ -462,7 +462,7 @@ test("get/setAttribute should work correctly 7", t => {
   });
   att = rootNode.getAttribute("ns2.hoge");
   t.truthy(att === "2");
-  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".hoge"));
   t.truthy(att === "3");
 });
 test("get/setAttribute should work correctly 8", t => {
@@ -490,7 +490,7 @@ test("get/setAttribute should work correctly 8", t => {
     converter: "String",
     default: "3"
   });
-  att = rootNode.getAttribute(NSIdentity.fromFQN(c.name.fqn + ".hoge"));
+  att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".hoge"));
   t.truthy(att === "3");
 });
 

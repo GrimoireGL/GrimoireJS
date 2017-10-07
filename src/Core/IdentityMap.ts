@@ -1,22 +1,22 @@
-import NSIdentity from "../Core/NSIdentity";
-import IdResolver from "./IdResolver";
+import Identity from "./Identity";
+import IdResolver from "../Tools/IdResolver";
 import Namespace from "../Core/Namespace";
-import Ensure from "./Ensure";
-import {Name, Nullable, Undef} from "./Types";
+import Ensure from "../Tools/Ensure";
+import { Name, Nullable, Undef } from "../Tools/Types";
 
 type Dict<V> = { [key: string]: V };
 
-export default class NSDictionary<V> {
+export default class IdentityMap<V> {
 
   private _fqnObjectMap: Dict<V> = {};
   private _idResolver: IdResolver = new IdResolver();
 
-  public set(key: NSIdentity, value: V): void {
+  public set(key: Identity, value: V): void {
     this._fqnObjectMap[key.fqn] = value;
     this._idResolver.add(key);
   }
 
-  public delete(key: NSIdentity): boolean {
+  public delete(key: Identity): boolean {
     if (this._fqnObjectMap[key.fqn] !== void 0) {
       delete this._fqnObjectMap[key.fqn];
       this._idResolver.remove(key);
@@ -28,7 +28,7 @@ export default class NSDictionary<V> {
   public get(name: Name): V;
   public get(element: Element): V;
   public get(attribute: Attr): V;
-  public get(arg1: string | Element | NSIdentity | Attr): Nullable<V> {
+  public get(arg1: string | Element | Identity | Attr): Nullable<V> {
     if (!arg1) {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
@@ -50,7 +50,7 @@ export default class NSDictionary<V> {
       }
 
     } else {
-      if (arg1 instanceof NSIdentity) {
+      if (arg1 instanceof Identity) {
         return this._fqnObjectMap[arg1.fqn];
       } else {
         if (arg1.namespaceURI) {
@@ -74,15 +74,15 @@ export default class NSDictionary<V> {
     return this._idResolver.get(Namespace.defineByArray(name.split("."))).length !== 0;
   }
 
-  public pushDictionary(dict: NSDictionary<V>): NSDictionary<V> {
+  public pushDictionary(dict: IdentityMap<V>): IdentityMap<V> {
     dict.forEach((value, keyFQN) => {
-      const id = NSIdentity.fromFQN(keyFQN);
+      const id = Identity.fromFQN(keyFQN);
       this.set(id, value);
     });
     return this;
   }
 
-  public hasMatchingValue(name: NSIdentity): Undef<V> {
+  public hasMatchingValue(name: Identity): Undef<V> {
     const resolver = new IdResolver();
     resolver.add(name);
     let match: string | undefined = void 0;
@@ -109,20 +109,20 @@ export default class NSDictionary<V> {
     });
     return ret;
   }
-  public clone(): NSDictionary<V> {
-    const dict = new NSDictionary<V>();
+  public clone(): IdentityMap<V> {
+    const dict = new IdentityMap<V>();
     return dict.pushDictionary(this);
   }
-  public forEach(callback: (value: V, fqn: string) => void): NSDictionary<V> {
+  public forEach(callback: (value: V, fqn: string) => void): IdentityMap<V> {
     Object.keys(this._fqnObjectMap).forEach(key => {
       callback(this._fqnObjectMap[key], key);
     });
     return this;
   }
-  public map<T>(callback: ((value: V, fqn: string) => T)): NSDictionary<T> {
-    const ret = new NSDictionary<T>();
+  public map<T>(callback: ((value: V, fqn: string) => T)): IdentityMap<T> {
+    const ret = new IdentityMap<T>();
     this.forEach((val, fqn) => {
-      const id = NSIdentity.fromFQN(fqn);
+      const id = Identity.fromFQN(fqn);
       ret.set(id, callback(val, fqn));
     });
     return ret;

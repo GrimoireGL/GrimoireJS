@@ -1,7 +1,7 @@
 import Attribute from "../../src/Core/Attribute";
 import GrimoireComponent from "../../src/Components/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NSIdentity from "../../src/Core/NSIdentity";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import TestUtil from "../TestUtil";
@@ -24,7 +24,7 @@ test("attibute poperties should be initialized correctly", (t) => {
 
   t.truthy(idAttr.name.fqn === "grimoirejs.GrimoireComponent.id");
   t.truthy(idAttr.declaration.default === null);
-  t.truthy((idAttr.converter.name as NSIdentity).fqn === "grimoirejs.String");
+  t.truthy((idAttr.converter.name as Identity).fqn === "grimoirejs.String");
   t.truthy(idAttr.component === baseComponent);
 });
 

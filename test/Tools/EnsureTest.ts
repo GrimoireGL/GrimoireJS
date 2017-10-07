@@ -1,16 +1,16 @@
 import test from "ava";
 import Ensure from "../../src/Tools/Ensure";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import NSDictionary from "../../src/Tools/NSDictionary";
-import NSIdentity from "../../src/Core/NSIdentity";
+import IdentityMap from "../../src/Core/IdentityMap";
+import Identity from "../../src/Core/Identity";
 import Namespace from "../../src/Core/Namespace";
 
 test.beforeEach(() => {
-  NSIdentity.clear();
+  Identity.clear();
 });
 
 test("Ensure passed argument should be transformed as NSIdentity", (t) => {
-  NSIdentity.fromFQN("grimoirejs.HELLO");
+  Identity.fromFQN("grimoirejs.HELLO");
   t.truthy(Ensure.tobeNSIdentity("HELLO").fqn === "grimoirejs.HELLO");
   t.truthy(Ensure.tobeNSIdentity(Namespace.define("test").for("WORLD")).fqn === "test.WORLD");
 });
@@ -33,8 +33,8 @@ test("Ensure passed array are transformed into NSIdentity[]", (t) => {
   let transformed = Ensure.tobeNSIdentityArray(undefined);
   const g = Namespace.define("test");
   t.truthy(transformed.length === 0);
-  NSIdentity.fromFQN("HELLO");
-  NSIdentity.fromFQN("grimoire.WORLD");
+  Identity.fromFQN("HELLO");
+  Identity.fromFQN("grimoire.WORLD");
   transformed = Ensure.tobeNSIdentityArray(["HELLO", "WORLD"]);
   t.truthy(transformed[0].fqn === "HELLO");
   t.truthy(transformed[1].fqn === "grimoire.WORLD");
@@ -45,12 +45,12 @@ test("Ensure passed array are transformed into NSIdentity[]", (t) => {
 
 test("Ensure passed object are transformed into NSDictionary", (t) => {
   let transformed = Ensure.tobeNSDictionary(void 0);
-  t.truthy(transformed instanceof NSDictionary);
+  t.truthy(transformed instanceof IdentityMap);
   let obj = {};
-  obj[NSIdentity.fromFQN("Hello").fqn] = "test1";
-  obj[NSIdentity.fromFQN("World").fqn] = "test2";
+  obj[Identity.fromFQN("Hello").fqn] = "test1";
+  obj[Identity.fromFQN("World").fqn] = "test2";
   transformed = Ensure.tobeNSDictionary(obj);
-  t.truthy(transformed instanceof NSDictionary);
+  t.truthy(transformed instanceof IdentityMap);
   t.truthy(transformed.get("Hello") === "test1");
   t.truthy(transformed.get("World") === "test2");
 });
@@ -60,6 +60,6 @@ test("Ensure name tobe fqn if name start with _", t => {
   t.truthy(Ensure.tobeFQN("_aaa") === "aaa");
   t.truthy(Ensure.tobeFQN("aaa.fff") == null);
   t.truthy(Ensure.tobeFQN("_aaa.fff") === "aaa.fff");
-  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa.bbb")) === "aaa.bbb");
-  t.truthy(Ensure.tobeFQN(NSIdentity.fromFQN("aaa")) === "aaa");
+  t.truthy(Ensure.tobeFQN(Identity.fromFQN("aaa.bbb")) === "aaa.bbb");
+  t.truthy(Ensure.tobeFQN(Identity.fromFQN("aaa")) === "aaa");
 });

@@ -5,9 +5,9 @@ import Ensure from "../Tools/Ensure";
 /**
  * The class to identity with XML namespace feature.
  */
-export default class NSIdentity {
+export default class Identity {
 
-  private static _instances: { [fqn: string]: NSIdentity } = {};
+  private static _instances: { [fqn: string]: Identity } = {};
   private static _mapBackingField: IdResolver;
   private static get _map(): IdResolver {
     if (this._mapBackingField === void 0) {
@@ -23,40 +23,40 @@ export default class NSIdentity {
   /**
    * Generate an instance from Full qualified name.
    * @param  {string}             fqn [description]
-   * @return {NSIdentity}     [description]
+   * @return {Identity}     [description]
    */
-  public static fromFQN(fqn: string): NSIdentity {
-    const inst = NSIdentity._instances[fqn];
+  public static fromFQN(fqn: string): Identity {
+    const inst = Identity._instances[fqn];
     if (inst) {
       return inst;
     }
     const splitted = fqn.split(".");
-    return new NSIdentity(splitted);
+    return new Identity(splitted);
   }
 
-  public static guess(...hierarchy: string[]): NSIdentity {
-    return NSIdentity._guess(hierarchy);
+  public static guess(...hierarchy: string[]): Identity {
+    return Identity._guess(hierarchy);
   }
 
   public static clear(): void {
-    NSIdentity._instances = {};
-    NSIdentity._mapBackingField = new IdResolver();
+    Identity._instances = {};
+    Identity._mapBackingField = new IdResolver();
   }
 
   /**
    * return instance if exists.
    * generate and return new instanse if not exist id has same fqn.
    * @param  {string[]}   hierarchy [description]
-   * @return {NSIdentity}           [description]
+   * @return {Identity}           [description]
    */
-  private static _guess(hierarchy: string[]): NSIdentity {
+  private static _guess(hierarchy: string[]): Identity {
     const fqn = hierarchy.join(".");
-    const inst = NSIdentity._instances[fqn];
+    const inst = Identity._instances[fqn];
     if (inst) {
       return inst;
     }
 
-    return NSIdentity.fromFQN(NSIdentity._map.resolve(Namespace.defineByArray(hierarchy)));
+    return Identity.fromFQN(Identity._map.resolve(Namespace.defineByArray(hierarchy)));
   }
 
   public constructor(fqn: string | string[]);
@@ -77,8 +77,8 @@ export default class NSIdentity {
 
     this._fqn = this.ns.hierarchy.concat([this.name]).join(".");
 
-    NSIdentity._instances[this._fqn] = this;
-    NSIdentity._map.add(qn.concat([this._name]));
+    Identity._instances[this._fqn] = this;
+    Identity._map.add(qn.concat([this._name]));
   }
 
   /**

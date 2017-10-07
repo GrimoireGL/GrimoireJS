@@ -7,13 +7,13 @@ import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
 import IAttributeDeclaration from "../src/Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
-import NSIdentity from "../src/Core/NSIdentity";
+import Identity from "../src/Core/Identity";
 import XMLReader from "../src/Tools/XMLReader";
 
 export default class TestUtil {
 
   public static DummyComponentDeclaration(): ComponentDeclaration {
-    return new ComponentDeclaration(NSIdentity.fromFQN("aaa"), {
+    return new ComponentDeclaration(Identity.fromFQN("aaa"), {
       attributes: {
 
       }
@@ -24,7 +24,7 @@ export default class TestUtil {
     return dec.generateInstance(null);
   }
 
-  public static DummyAttribute(name: NSIdentity, component: Component, declaration: IAttributeDeclaration): Attribute {
+  public static DummyAttribute(name: Identity, component: Component, declaration: IAttributeDeclaration): Attribute {
     const attr = new Attribute();
     attr.name = name;
     attr.component = component;

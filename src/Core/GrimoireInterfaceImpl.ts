@@ -4,7 +4,7 @@ import BooleanConverter from "../Converters/BooleanConverter";
 import Component from "../Core/Component";
 import ComponentConverter from "../Converters/ComponentConverter";
 import ComponentDeclaration from "../Core/ComponentDeclaration";
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import EEObject from "../Base/EEObject";
 import Ensure from "../Tools/Ensure";
 import EnumConverter from "../Converters/EnumConverter";
@@ -18,8 +18,8 @@ import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Namespace from "../Core/Namespace";
 import NodeDeclaration from "../Core/NodeDeclaration";
 import NodeInterface from "./NodeInterface";
-import NSDictionary from "../Tools/NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "./IdentityMap";
+import Identity from "./Identity";
 import NumberArrayConverter from "../Converters/NumberArrayConverter";
 import NumberConverter from "../Converters/NumberConverter";
 import ObjectConverter from "../Converters/ObjectConverter";
@@ -31,16 +31,16 @@ import {
   Ctor,
   Name,
   Nullable
-  } from "../Tools/Types";
+} from "../Tools/Types";
 
 
 export default class GrimoireInterfaceImpl extends EEObject {
 
-  public nodeDeclarations: NSDictionary<NodeDeclaration> = new NSDictionary<NodeDeclaration>();
+  public nodeDeclarations: IdentityMap<NodeDeclaration> = new IdentityMap<NodeDeclaration>();
 
-  public converters: NSDictionary<IAttributeConverterDeclaration> = new NSDictionary<IAttributeConverterDeclaration>();
+  public converters: IdentityMap<IAttributeConverterDeclaration> = new IdentityMap<IAttributeConverterDeclaration>();
 
-  public componentDeclarations: NSDictionary<ComponentDeclaration> = new NSDictionary<ComponentDeclaration>();
+  public componentDeclarations: IdentityMap<ComponentDeclaration> = new IdentityMap<ComponentDeclaration>();
 
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
@@ -85,8 +85,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * [obsolete] use `Namespace.define` instead of.
    * @param  {string} ns namespace URI to be used
    * @return {[type]}    the namespaced identity
+   * @deprecated
    */
-  public ns(ns: string): (name: string) => NSIdentity {
+  public ns(ns: string): (name: string) => Identity {
     Utility.w("GrimoireInterface.ns is obsolete. please use `Namespace.define()` instead of.");
     return (name: string) => Namespace.define(ns).for(name);
   }
@@ -139,7 +140,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   /**
    * register custom component
-   * @param  {string                |   NSIdentity} name          [description]
+   * @param  {string                |   Identity} name          [description]
    * @param  {IAttributeDeclaration }} attributes           [description]
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
@@ -150,7 +151,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     let name: Name;
     let obj: ComponentRegistering<Object | Ctor<Component>>;
     let superComponent: Name | Ctor<Component> | undefined;
-    if (typeof arg1 === "string" || arg1 instanceof NSIdentity) {
+    if (typeof arg1 === "string" || arg1 instanceof Identity) {
       Utility.w(` registerComponent() overload that call with name is deprecated. use other overload instead of.`);
       name = arg1;
       obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
@@ -209,7 +210,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.nodeDeclarations.set(registerId, declaration);
     return declaration;
   }
-  public getCompanion(scriptTag: Element): NSDictionary<any> {
+  public getCompanion(scriptTag: Element): IdentityMap<any> {
     const root = this.getRootNode(scriptTag);
     if (root) {
       return root.companion;
@@ -399,16 +400,16 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
   }
 
-  private _ensureTobeNSIdentityOnRegister(name: Name): NSIdentity;
+  private _ensureTobeNSIdentityOnRegister(name: Name): Identity;
   private _ensureTobeNSIdentityOnRegister(name: null | undefined): null;
-  private _ensureTobeNSIdentityOnRegister(name: Name | null | undefined): Nullable<NSIdentity> {
+  private _ensureTobeNSIdentityOnRegister(name: Name | null | undefined): Nullable<Identity> {
     if (!name) {
       return null;
     }
     if (typeof name === "string") {
       const fqn = Ensure.tobeFQN(name);
       if (fqn) {
-        return NSIdentity.fromFQN(fqn);
+        return Identity.fromFQN(fqn);
       }
       return Namespace.define(this._registrationContext).for(name);
     } else {

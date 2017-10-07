@@ -1,8 +1,8 @@
 import fs from "../fileHelper";
 import GomlLoader from "../../src/Core/GomlLoader";
 import NodeInterface from "../../src/Core/NodeInterface";
-import NSDictionary from "../../src/Tools/NSDictionary";
-import NSIdentity from "../../src/Core/NSIdentity";
+import NSDictionary from "../../src/Core/IdentityMap";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import xhrmock from "xhr-mock";
@@ -15,11 +15,11 @@ const xml = fs.readFile("../_TestResource/NSDictionary_QueryDOM.xml");
 TestEnvManager.init();
 
 test.beforeEach(() => {
-  NSIdentity.clear();
+  Identity.clear();
 });
 
 test("set element correctly", t => {
-  const newKey = NSIdentity.fromFQN("hoge.test");
+  const newKey = Identity.fromFQN("hoge.test");
   const value = "Grimoire";
   const theDict = new NSDictionary();
   theDict.set(newKey, value);
@@ -29,8 +29,8 @@ test("set element correctly", t => {
 });
 
 test("set element correctly when dupelicated name was given", (t) => {
-  const newKey = NSIdentity.fromFQN("test");
-  const secoundKey = NSIdentity.fromFQN("ns.test");
+  const newKey = Identity.fromFQN("test");
+  const secoundKey = Identity.fromFQN("ns.test");
   const v1 = "gr1";
   const v2 = "gr2";
   const theDict = new NSDictionary();
@@ -43,8 +43,8 @@ test("set element correctly when dupelicated name was given", (t) => {
 });
 
 test("element should be repalaced when dupelicated fqn was given", (t) => {
-  const newKey = NSIdentity.fromFQN("test");
-  const secoundKey = NSIdentity.fromFQN("Test");
+  const newKey = Identity.fromFQN("test");
+  const secoundKey = Identity.fromFQN("Test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
@@ -53,8 +53,8 @@ test("element should be repalaced when dupelicated fqn was given", (t) => {
 });
 
 test("get element with strict name", async (t) => {
-  const newKey = NSIdentity.fromFQN("test");
-  const secoundKey = NSIdentity.fromFQN("test.test");
+  const newKey = Identity.fromFQN("test");
+  const secoundKey = Identity.fromFQN("test.test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
@@ -72,8 +72,8 @@ test("get element with strict name", async (t) => {
 });
 
 test("get element with shortened namespace prefix", async (t) => {
-  const newKey = NSIdentity.fromFQN("test");
-  const secoundKey = NSIdentity.fromFQN("grimoirejs.test");
+  const newKey = Identity.fromFQN("test");
+  const secoundKey = Identity.fromFQN("grimoirejs.test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");
@@ -89,7 +89,7 @@ test("get element with shortened namespace prefix", async (t) => {
   });
 });
 test("get element with shortened namespace prefix", async (t) => {
-  const newKey = NSIdentity.fromFQN("test");
+  const newKey = Identity.fromFQN("test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test");
   const domParser = new xmldom.DOMParser();
@@ -101,7 +101,7 @@ test("get element with shortened namespace prefix", async (t) => {
 });
 
 test("get element with fuzzy name", async (t) => {
-  const secoundKey = NSIdentity.fromFQN("grimoirejs.test");
+  const secoundKey = Identity.fromFQN("grimoirejs.test");
   const theDict = new NSDictionary();
   theDict.set(secoundKey, "test2");
   const domParser = new xmldom.DOMParser();
@@ -115,8 +115,8 @@ test("get element with fuzzy name", async (t) => {
 });
 
 test("get element with ambiguous name should throw error", async (t) => {
-  const newKey = NSIdentity.fromFQN("AATEST.test");
-  const secoundKey = NSIdentity.fromFQN("AATEST2.test");
+  const newKey = Identity.fromFQN("AATEST.test");
+  const secoundKey = Identity.fromFQN("AATEST2.test");
   const theDict = new NSDictionary();
   theDict.set(newKey, "test1");
   theDict.set(secoundKey, "test2");

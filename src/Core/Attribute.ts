@@ -4,8 +4,8 @@ import Environment from "../Core/Environment";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import IdResolver from "../Tools/IdResolver";
-import NSDictionary from "../Tools/NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "../Core/IdentityMap";
+import Identity from "../Core/Identity";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
 
 /**
@@ -15,9 +15,9 @@ export default class Attribute {
 
   /**
    * The name of attribute.
-   * @type {NSIdentity}
+   * @type {Identity}
    */
-  public name: NSIdentity;
+  public name: Identity;
 
   /**
    * The declaration of attribute used for defining this attribute.
@@ -62,9 +62,9 @@ export default class Attribute {
 
   /**
    * Companion map which is bounding to the component this attribute bound to.
-   * @return {NSDictionary<any>} [description]
+   * @return {IdentityMap<any>} [description]
    */
-  public get companion(): Nullable<NSDictionary<any>> {
+  public get companion(): Nullable<IdentityMap<any>> {
     return this.component.companion;
   }
 
@@ -112,7 +112,7 @@ export default class Attribute {
    */
   public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
     const attr = new Attribute();
-    attr.name = NSIdentity.fromFQN(component.name.fqn + "." + name);
+    attr.name = Identity.fromFQN(component.name.fqn + "." + name);
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);

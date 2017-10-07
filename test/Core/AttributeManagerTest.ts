@@ -1,6 +1,6 @@
 import Attribute from "../../src/Core/Attribute";
 import AttributeManager from "../../src/Core/AttributeManager";
-import NSIdentity from "../../src/Core/NSIdentity";
+import Identity from "../../src/Core/Identity";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 import { assert, spy as sinonSpy } from "sinon";
@@ -9,13 +9,13 @@ TestEnvManager.init();
 
 
 
-const genAttr: (name: NSIdentity, watch?: Function | undefined) => Attribute = (name, watch) => {
+const genAttr: (name: Identity, watch?: Function | undefined) => Attribute = (name, watch) => {
   return { name: name, watch: watch, Value: "value of " + name } as Attribute;
 };
 
-const ns1 = NSIdentity.fromFQN("aaa");
-const ns2 = NSIdentity.fromFQN("ns.bbb");
-const ns3 = NSIdentity.fromFQN("ns.hoge.ccc");
+const ns1 = Identity.fromFQN("aaa");
+const ns2 = Identity.fromFQN("ns.bbb");
+const ns3 = Identity.fromFQN("ns.hoge.ccc");
 
 const genAM = () => {
   const am = new AttributeManager("tag");
@@ -60,7 +60,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   const am = genAM();
   am.setAttribute(fqn, "hogehoge");
   t.truthy(am.getAttribute(fqn) === "hogehoge");
-  let attr = genAttr(NSIdentity.fromFQN(fqn));
+  let attr = genAttr(Identity.fromFQN(fqn));
   am.addAttribute(attr);
   t.truthy(am.getAttribute(fqn) === "hogehoge");
   t.truthy(attr.Value === "hogehoge");
@@ -68,7 +68,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   const fqn2 = "notregisterd.fqn.hoge2";
   const spy = sinonSpy();
   const attrRaw = new Attribute();
-  attrRaw.name = NSIdentity.fromFQN(fqn2);
+  attrRaw.name = Identity.fromFQN(fqn2);
   attrRaw.component = { isActive: true } as any;
   attrRaw.converter = { convert: x => x } as any;
   am.watch(fqn2, (n, o, a) => {
@@ -94,16 +94,16 @@ test("watch should works correctly", () => {
   const spy1 = sinonSpy();
   const spy2 = sinonSpy();
   const notCalledSpy = sinonSpy();
-  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa"), () => {
+  am.addAttribute(genAttr(Identity.fromFQN("hoge.aaa"), () => {
     spy1("watch");
   }));
-  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa"), () => {
+  am.addAttribute(genAttr(Identity.fromFQN("hoge.aaa"), () => {
     spy2("watch");
   }));
-  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.bbbbbb"), () => {
+  am.addAttribute(genAttr(Identity.fromFQN("hoge.bbbbbb"), () => {
     notCalledSpy("watch");
   }));
-  am.watch(NSIdentity.guess("hoge.aaa"), (a, b, c) => { /*do nothing*/ });
+  am.watch(Identity.guess("hoge.aaa"), (a, b, c) => { /*do nothing*/ });
   assert.called(spy1);
   assert.called(spy2);
   assert.notCalled(notCalledSpy);
@@ -113,7 +113,7 @@ test("set/getAttribute should works correctly", (t) => {
   const am = genAM();
   am.setAttribute("aaa", "hoge");
   t.truthy(am.getAttribute("aaa") === "hoge");
-  am.addAttribute(genAttr(NSIdentity.fromFQN("hoge.aaa")));
+  am.addAttribute(genAttr(Identity.fromFQN("hoge.aaa")));
   t.throws(() => {
     am.getAttribute("aaa"); // ambiguous
   });

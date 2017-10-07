@@ -1,21 +1,21 @@
 import Component from "../Core/Component";
 import ComponentDeclaration from "../Core/ComponentDeclaration";
 import Environment from "../Core/Environment";
-import NSDictionary from "./NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "../Core/IdentityMap";
+import Identity from "../Core/Identity";
 import {
   ComponentRegistering,
   Ctor,
   Name,
   Nullable
-  } from "./Types";
+} from "./Types";
 
 /**
  * Provides static methods to ensure arguments are valid type.
  */
 export default class Ensure {
 
-  public static tobeComponentIdentity(component: Name | (new () => Component)): NSIdentity {
+  public static tobeComponentIdentity(component: Name | (new () => Component)): Identity {
     if (typeof component === "function") {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
@@ -61,40 +61,40 @@ export default class Ensure {
   /**
    * string or NSIdentity ensure to be NSIdentity.
    * @param  {Name}       name [description]
-   * @return {NSIdentity}      [description]
+   * @return {Identity}      [description]
    */
-  public static tobeNSIdentity(name: Name): NSIdentity {
+  public static tobeNSIdentity(name: Name): Identity {
     if (!name) {
       throw Error(`argument can not be null or undefined.`);
     }
     if (typeof name === "string") {
-      return NSIdentity.guess(name);
+      return Identity.guess(name);
     } else {
       return name;
     }
   }
 
-  public static tobeNSIdentityArray(names: Name[]): NSIdentity[] {
+  public static tobeNSIdentityArray(names: Name[]): Identity[] {
     if (!names) {
       return [];
     }
-    const newArr: NSIdentity[] = [];
+    const newArr: Identity[] = [];
     for (let i = 0; i < names.length; i++) {
       newArr.push(this.tobeNSIdentity(names[i]));
     }
     return newArr;
   }
 
-  public static tobeNSDictionary<T>(dict: NSDictionary<T> | { [key: string]: T }): NSDictionary<T> {
+  public static tobeNSDictionary<T>(dict: IdentityMap<T> | { [key: string]: T }): IdentityMap<T> {
     if (!dict) {
-      return new NSDictionary<T>();
+      return new IdentityMap<T>();
     }
-    if (dict instanceof NSDictionary) {
+    if (dict instanceof IdentityMap) {
       return dict;
     } else {
-      const newDict = new NSDictionary<T>();
+      const newDict = new IdentityMap<T>();
       for (let key in dict) {
-        newDict.set(NSIdentity.guess(key), dict[key]);
+        newDict.set(Identity.guess(key), dict[key]);
       }
       return newDict;
     }
@@ -157,7 +157,7 @@ export default class Ensure {
    * @return {[type]}                                                 [description]
    */
   public static tobeName<T>(name: Name | ComponentRegistering<T>): Name {
-    if (typeof name === "string" || name instanceof NSIdentity) {
+    if (typeof name === "string" || name instanceof Identity) {
       return name;
     }
     return name.componentName!;

@@ -4,7 +4,7 @@ import IdResolver from "../Tools/IdResolver";
 import { Name, Undef } from "../Tools/Types";
 import Utility from "../Tools/Utility";
 import Namespace from "./Namespace";
-import NSIdentity from "./NSIdentity";
+import Identity from "./Identity";
 
 type NameValPair<T> = { fqn: string, val: T };
 
@@ -211,13 +211,13 @@ export default class AttributeManager {
     return false;
   }
 
-  public guess(name: Name): NSIdentity[] {
-    if (name instanceof NSIdentity) {
+  public guess(name: Name): Identity[] {
+    if (name instanceof Identity) {
       return [name];
     }
     if (Ensure.checkFQNString(name)) {
-      return [NSIdentity.fromFQN(name)];
+      return [Identity.fromFQN(name)];
     }
-    return this._idResolver.get(name).map(fqn => NSIdentity.fromFQN(fqn));
+    return this._idResolver.get(name).map(fqn => Identity.fromFQN(fqn));
   }
 }

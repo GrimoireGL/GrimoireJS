@@ -1,12 +1,12 @@
 import Attribute from "./Attribute";
-import Constants from "../Tools/Constants";
+import Constants from "./Constants";
 import Ensure from "../Tools/Ensure";
 import GomlNode from "./GomlNode";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import IDObject from "../Base/IDObject";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import NSDictionary from "../Tools/NSDictionary";
-import NSIdentity from "../Core/NSIdentity";
+import IdentityMap from "./IdentityMap";
+import Identity from "./Identity";
 import Utility from "../Tools/Utility";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
 
@@ -17,14 +17,14 @@ import { GomlInterface, Name, Nullable } from "../Tools/Types";
 export default class Component extends IDObject {
   /**
    * Name of this component
-   * @type {NSIdentity}
+   * @type {Identity}
    */
-  public name: NSIdentity;
+  public name: Identity;
   /**
    * Attributes managed by this component
-   * @type {NSDictionary<Attribute>}
+   * @type {IdentityMap<Attribute>}
    */
-  public attributes: NSDictionary<Attribute>;
+  public attributes: IdentityMap<Attribute>;
   /**
    * Node this component is attached
    * @type {GomlNode}
@@ -51,7 +51,7 @@ export default class Component extends IDObject {
   private _enabled = true;
   private _awaked = false;
   private _handlers: ((component: Component) => void)[] = [];
-  private _additionalAttributesNames: NSIdentity[] = [];
+  private _additionalAttributesNames: Identity[] = [];
   private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
 
   public get enabled(): boolean {
@@ -68,9 +68,9 @@ export default class Component extends IDObject {
   }
   /**
    * The dictionary which is shared in entire tree.
-   * @return {NSDictionary<any>} [description]
+   * @return {IdentityMap<any>} [description]
    */
-  public get companion(): NSDictionary<any> {
+  public get companion(): IdentityMap<any> {
     return this.node.companion;
   }
   /**

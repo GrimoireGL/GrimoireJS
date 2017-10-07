@@ -1,5 +1,5 @@
 import Namespace from "../Core/Namespace";
-import NSIdentity from "../Core/NSIdentity";
+import Identity from "../Core/Identity";
 
 
 /**
@@ -18,14 +18,14 @@ export default class IdResolver {
 
   /**
    * add id to resolver context.
-   * @param  {NSIdentity} id [description]
+   * @param  {Identity} id [description]
    * @return {boolean}       true if succcess adding.
    */
-  public add(id: string[] | NSIdentity): boolean {
+  public add(id: string[] | Identity): boolean {
     if (!id) {
       throw new Error(`Argument ns is null or undefined.`);
     }
-    if (id instanceof NSIdentity) {
+    if (id instanceof Identity) {
       id = id.ns.hierarchy.concat([id.name]);
     }
     if (id.length === 0) {
@@ -75,7 +75,7 @@ export default class IdResolver {
   public has(name: string): boolean {
     return !!this._nameMap[name];
   }
-  public remove(name: NSIdentity): void {
+  public remove(name: Identity): void {
     const fqn = name.fqn.split(".");
     this._remove(fqn);
   }
