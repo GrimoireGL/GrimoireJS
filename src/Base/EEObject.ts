@@ -9,22 +9,26 @@ class EEObject extends IDObject implements EventEmitter {
    * Return an array listing the events for which the emitter has registered
    * listeners.
    */
-  public eventNames: () => Array<string | symbol>;
+  public eventNames: () => (string | symbol)[];
 
   /**
    * Return the listeners registered for a given event.
    */
-  public listeners: ((event: string | symbol, exists: boolean) => Array<ListenerFn> | boolean) & ((event: string | symbol) => Array<ListenerFn>);
+  public listeners: ((event: string | symbol, exists: boolean) => ListenerFn[] | boolean) & ((event: string | symbol) => ListenerFn[]);
 
   /**
    * Calls each of the listeners registered for a given event.
    */
-  public emit: (event: string | symbol, ...args: Array<any>) => boolean;
+  public emit: (event: string | symbol, ...args: any[]) => boolean;
 
   /**
    * Add a listener for a given event.
    */
   public on: (event: string | symbol, fn: ListenerFn, context?: any) => this;
+
+  /**
+   * add listener
+   */
   public addListener: (event: string | symbol, fn: ListenerFn, context?: any) => this;
 
   /**
@@ -36,6 +40,10 @@ class EEObject extends IDObject implements EventEmitter {
    * Remove the listeners of a given event.
    */
   public removeListener: (event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) => this;
+
+  /**
+   * remove listener.
+   */
   public off: (event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) => this;
 
   /**

@@ -1,61 +1,94 @@
-import ArrayConverter from "../Converters/ArrayConverter";
-import Attribute from "./Attribute";
-import BooleanConverter from "../Converters/BooleanConverter";
-import Component from "../Core/Component";
-import ComponentConverter from "../Converters/ComponentConverter";
-import ComponentDeclaration from "../Core/ComponentDeclaration";
-import Constants from "./Constants";
 import EEObject from "../Base/EEObject";
-import Ensure from "../Tools/Ensure";
-import EnumConverter from "../Converters/EnumConverter";
-import Environment from "./Environment";
-import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
-import GomlLoader from "../Core/GomlLoader";
-import GomlNode from "../Core/GomlNode";
 import GrimoireComponent from "../Components/GrimoireComponent";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Namespace from "../Core/Namespace";
-import NodeDeclaration from "../Core/NodeDeclaration";
-import NodeInterface from "./NodeInterface";
-import IdentityMap from "./IdentityMap";
-import Identity from "./Identity";
+import ArrayConverter from "../Converters/ArrayConverter";
+import BooleanConverter from "../Converters/BooleanConverter";
+import ComponentConverter from "../Converters/ComponentConverter";
+import EnumConverter from "../Converters/EnumConverter";
 import NumberArrayConverter from "../Converters/NumberArrayConverter";
 import NumberConverter from "../Converters/NumberConverter";
 import ObjectConverter from "../Converters/ObjectConverter";
 import StringArrayConverter from "../Converters/StringArrayConverter";
 import StringConverter from "../Converters/StringConverter";
-import Utility from "../Tools/Utility";
+import Component from "../Core/Component";
+import ComponentDeclaration from "../Core/ComponentDeclaration";
+import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
+import GomlLoader from "../Core/GomlLoader";
+import GomlNode from "../Core/GomlNode";
+import Namespace from "../Core/Namespace";
+import NodeDeclaration from "../Core/NodeDeclaration";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Ensure from "../Tools/Ensure";
 import {
   ComponentRegistering,
   Ctor,
   Name,
-  Nullable
+  Nullable,
 } from "../Tools/Types";
+import Utility from "../Tools/Utility";
+import Attribute from "./Attribute";
+import Constants from "./Constants";
+import Environment from "./Environment";
+import Identity from "./Identity";
+import IdentityMap from "./IdentityMap";
+import NodeInterface from "./NodeInterface";
 
-
+/**
+ * implementation of GrimoireInterface
+ */
 export default class GrimoireInterfaceImpl extends EEObject {
 
+  /**
+   * manage all node declarations.
+   */
   public nodeDeclarations: IdentityMap<NodeDeclaration> = new IdentityMap<NodeDeclaration>();
 
+  /**
+   * manage all converters
+   */
   public converters: IdentityMap<IAttributeConverterDeclaration> = new IdentityMap<IAttributeConverterDeclaration>();
 
+  /**
+   * manage all component declaration.
+   */
   public componentDeclarations: IdentityMap<ComponentDeclaration> = new IdentityMap<ComponentDeclaration>();
 
+  /**
+   * map rootNodeId to node.
+   */
   public rootNodes: { [rootNodeId: string]: GomlNode } = {};
 
-  public loadTasks: ({ ns: string, task: () => Promise<void> })[] = [];
+  /**
+   * manage all loadtasks.
+   */
+  public loadTasks: ({ ns: string, task(): Promise<void> })[] = [];
 
+  /**
+   * this property is version infomation for logging
+   */
   public lib: {
     [key: string]: {
       __VERSION__: string;
       __NAME__: string;
       [key: string]: any;
-    }
+    },
   } = {};
 
+  /**
+   * manage all node in this context
+   */
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
+
+  /**
+   * manage all components in this context
+   */
   public componentDictionary: { [componentId: string]: Component } = {};
+
+  /**
+   * debug-mode.
+   * if this property is true, some error/worning message will output to console.
+   * please disable this flag when you publish product application.
+   */
   public debug = true;
 
   /**
@@ -73,10 +106,16 @@ export default class GrimoireInterfaceImpl extends EEObject {
   private _registeringPluginNamespace: string;
   private _registrationContext: string = Constants.defaultNamespace;
 
+  /**
+   * initialized event handlers
+   */
   public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
     return GomlLoader.initializedEventHandlers;
   }
 
+  /**
+   * whether already initialized.
+   */
   public get callInitializedAlready(): boolean {
     return GomlLoader.callInitializedAlready;
   }
@@ -92,6 +131,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return (name: string) => Namespace.define(ns).for(name);
   }
 
+  /**
+   * initialize GrimoireInterface.
+   * register primitive coverters/nodes.
+   * if you want reset state. use GrimoireInterface.clear() instead of.
+   */
   public initialize(): void {
     this.registerConverter("String", StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
@@ -116,6 +160,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this._registeringPluginNamespace = Constants.defaultNamespace;
   }
 
+  /**
+   * call all plugin register functions.
+   */
   public async resolvePlugins(): Promise<void> {
     for (let i = 0; i < this.loadTasks.length; i++) {
       const obj = this.loadTasks[i];
@@ -152,12 +199,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
     let obj: ComponentRegistering<Object | Ctor<Component>>;
     let superComponent: Name | Ctor<Component> | undefined;
     if (typeof arg1 === "string" || arg1 instanceof Identity) {
-      Utility.w(` registerComponent() overload that call with name is deprecated. use other overload instead of.`);
+      Utility.w(" registerComponent() overload that call with name is deprecated. use other overload instead of.");
       name = arg1;
       obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
       superComponent = arg3;
     } else {
-      obj = arg1 as ComponentRegistering<Object | Ctor<Component>>;
+      obj = arg1;
       superComponent = arg2 as Name | Ctor<Component>;
       if (obj.componentName == null) {
         throw new Error(`registering component has not 'componentName': ${obj}`);
@@ -180,7 +227,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (!attrs) {
       throw new Error("component must has 'attributes'");
     }
-    for (let key in attrs) {
+    for (const key in attrs) {
       if (attrs[key].default === void 0) {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
@@ -191,6 +238,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return dec;
   }
 
+  /**
+   * register new node to context.
+   * throw error if already registerd.
+   * @param name
+   * @param requiredComponents
+   * @param defaults
+   * @param superNode
+   * @param freezeAttributes
+   */
   public registerNode(
     name: Name,
     requiredComponents: Name[] = [],
@@ -210,6 +266,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.nodeDeclarations.set(registerId, declaration);
     return declaration;
   }
+
+  /**
+   * get companion object from Element.
+   * @param scriptTag
+   */
   public getCompanion(scriptTag: Element): IdentityMap<any> {
     const root = this.getRootNode(scriptTag);
     if (root) {
@@ -236,28 +297,33 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
     // awake and mount tree.
     rootNode.setMounted(true);
-    rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
+    rootNode.broadcastMessage("treeInitialized", {
       ownerScriptTag: tag,
-      id: rootNode.id
-    });
-    rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
+      id: rootNode.id,
+    } as ITreeInitializedInfo);
+    rootNode.sendInitializedMessage({
       ownerScriptTag: tag,
-      id: rootNode.id
-    });
+      id: rootNode.id,
+    } as ITreeInitializedInfo);
     // send events to catch root node appended
     this.emit("root-node-added", {
       ownerScriptTag: tag,
-      rootNode: rootNode
+      rootNode,
     });
     return rootNode.id;
   }
 
+  /**
+   * get root node with script-tag element.
+   * return null if not exist.
+   * @param scriptTag
+   */
   public getRootNode(scriptTag: Element): Nullable<GomlNode> {
     const id = scriptTag.getAttribute("x-rootNodeId");
     if (id) {
-      let ret = this.rootNodes[id];
+      const ret = this.rootNodes[id];
       if (!ret) {
-        throw new Error(`threr is no rootNode has id ${id}`);
+        throw new Error(`threr is no rootNode has id ${id}`); // TODO
       }
       return ret;
     } else {
@@ -265,10 +331,17 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
   }
 
+  /**
+   * restore global 'gr' variable by original value.
+   */
   public noConflict(): void {
     (window as any)["gr"] = this.noConflictPreserve;
   }
 
+  /**
+   * Internal use!
+   * @param query
+   */
   public queryRootNodes(query: string): GomlNode[] {
     const scriptTags = Environment.document.querySelectorAll(query);
     const nodes: GomlNode[] = [];
@@ -281,6 +354,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
     return nodes;
   }
 
+  /**
+   * register converter to GrimoireInterface.
+   * converter must be function or IAttributeConverterDeclaration.
+   * @param name
+   * @param converter
+   */
   public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
   public registerConverter(declaration: IAttributeConverterDeclaration): void;
   public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
@@ -288,7 +367,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       this.registerConverter({
         name: this._ensureTobeNSIdentityOnRegister(arg1 as Name),
         verify: () => true,
-        convert: converter
+        convert: converter,
       });
       return;
     }
@@ -296,6 +375,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 
+  /**
+   * override node declaration.
+   * you can add default component or change default attributes.
+   * @param targetDeclaration
+   * @param additionalComponents
+   */
   public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[]): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: Name, defaults: { [attrName: string]: any }): NodeDeclaration;
   public overrideDeclaration(targetDeclaration: Name, additionalComponents: Name[], defaults: { [attrName: string]: any }): NodeDeclaration;
@@ -312,18 +397,16 @@ export default class GrimoireInterfaceImpl extends EEObject {
       for (let i = 0; i < additionalC.length; i++) {
         dec.addDefaultComponent(additionalC[i]);
       }
-      dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(defaults));
+      dec.defaultAttributes.pushDictionary(Ensure.tobeIdentityMap(defaults));
     } else if (Array.isArray(arg2)) { // only additiona components.
       for (let i = 0; i < arg2.length; i++) {
         dec.addDefaultComponent(arg2[i]);
       }
     } else {
-      dec.defaultAttributes.pushDictionary(Ensure.tobeNSDictionary(arg2));
+      dec.defaultAttributes.pushDictionary(Ensure.tobeIdentityMap(arg2));
     }
     return dec;
   }
-
-
 
   /**
    * This method is not for users.
@@ -335,13 +418,13 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.nodeDeclarations.clear();
     this.componentDeclarations.clear();
     this.converters.clear();
-    for (let key in this.rootNodes) {
+    for (const key in this.rootNodes) {
       delete this.rootNodes[key];
     }
-    for (let key in this.nodeDictionary) {
+    for (const key in this.nodeDictionary) {
       delete this.nodeDictionary[key];
     }
-    for (let key in this.componentDictionary) {
+    for (const key in this.componentDictionary) {
       delete this.componentDictionary[key];
     }
     this.loadTasks.splice(0, this.loadTasks.length);
@@ -349,18 +432,38 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.initialize();
   }
 
+  /**
+   * add method to GrimoireInterface.
+   * throw error if name has already exists.
+   * @param name
+   * @param func
+   */
   public extendGrimoireInterface(name: string, func: Function): void {
     if ((this as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
     (this as any)[name] = func.bind(this);
   }
+
+  /**
+   * add method to GomlInterface.
+   * throw error if name has already exists.
+   * @param name
+   * @param func
+   */
   public extendGomlInterface(name: string, func: Function): void {
     if ((GomlInterfaceImpl as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
     }
     (GomlInterfaceImpl as any)[name] = func.bind(this);
   }
+
+  /**
+   * add method to NodeInterface.
+   * throw error if name has already exists.
+   * @param name
+   * @param func
+   */
   public extendNodeInterface(name: string, func: Function): void {
     if ((NodeInterface as any)[name]) {
       throw new Error(`gr.${name} can not extend.it is already exist.`);
@@ -374,7 +477,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param {string} namespace namespace of plugin to be ragister.
    */
   public notifyRegisteringPlugin(namespace: string): void {
-    let res = /^[Gg]rimoire(?:js|JS)?-(.*)$/.exec(namespace);
+    const res = /^[Gg]rimoire(?:js|JS)?-(.*)$/.exec(namespace);
     if (res) {
       namespace = res[1];
     }
@@ -392,7 +495,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       return this._ensureNameTobeConstructor(Ensure.tobeNSIdentity(component));
     } else {
       // here NSIdentity.
-      let c = this.componentDeclarations.get(component);
+      const c = this.componentDeclarations.get(component);
       if (!c) {
         return null;
       }

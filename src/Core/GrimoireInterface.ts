@@ -1,9 +1,8 @@
+import GomlNode from "../Core/GomlNode";
+import { GomlInterface, GrimoireInterface } from "../Tools/Types";
 import Environment from "./Environment";
 import GomlInterfaceImpl from "./GomlInterfaceImpl";
-import GomlNode from "../Core/GomlNode";
 import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
-import { GomlInterface, GrimoireInterface } from "../Tools/Types";
-
 
 const context = new GrimoireInterfaceImpl();
 

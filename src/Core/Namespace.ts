@@ -1,9 +1,10 @@
-import Identity from "./Identity";
 import Utility from "../Tools/Utility";
+import Identity from "./Identity";
 
+/**
+ * Namespace is tail of FQN.
+ */
 export default class Namespace {
-
-  private _ns: string[];
 
   /**
    * create new Namespace instance.
@@ -15,8 +16,17 @@ export default class Namespace {
     return Namespace.defineByArray(name);
   }
 
+  /**
+   * create new Namespace instance.
+   * @param name
+   */
   public static defineByArray(name: string[]): Namespace {
     return new Namespace(Utility.flat(name.map(n => n.split(".").filter(s => s !== ""))));
+  }
+  private _ns: string[];
+
+  private constructor(names: string[]) {
+    this._ns = names;
   }
 
   /**
@@ -42,7 +52,7 @@ export default class Namespace {
       throw new Error("Namespace can not extend with null");
     }
 
-    let split = extension.split(".").filter(s => s !== "");
+    const split = extension.split(".").filter(s => s !== "");
     if (split.length === 1 && extension === "") {
       return new Namespace(this._ns);
     }
@@ -61,11 +71,10 @@ export default class Namespace {
     return Identity.fromFQN(fqn);
   }
 
+  /**
+   * to string
+   */
   public toString(): string {
     return this.qualifiedName;
-  }
-
-  private constructor(names: string[]) {
-    this._ns = names;
   }
 }

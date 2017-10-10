@@ -1,17 +1,40 @@
 import Environment from "../Core/Environment";
 
+/**
+ * implement utility functions
+ */
 export default class Utility {
+
+  /**
+   * write warning if in debug-mode
+   * @param message warning message
+   */
   public static w(message: string): void {
     if (Environment.GrimoireInterface.debug) {
       console.warn(message);
     }
   }
+
+  /**
+   * check string is CamelCase
+   * @param str string to check
+   */
   public static isCamelCase(str: string): boolean {
     return /^[A-Z][a-zA-Z0-9]*$/.test(str);
   }
+
+  /**
+   * check string is snake-case
+   * @param str string to check
+   */
   public static isSnakeCase(str: string): boolean {
     return /^[a-z0-9\-]+$/.test(str);
   }
+
+  /**
+   * array to be flat
+   * @param array array
+   */
   public static flat<T>(array: T[][]): T[] {
     let count = 0;
     for (let i = 0; i < array.length; i++) {
@@ -28,6 +51,12 @@ export default class Utility {
     }
     return ret;
   }
+
+  /**
+   * flatting result of map
+   * @param source array
+   * @param map map function
+   */
   public static flatMap<T>(source: T[], map: (a: T) => T[]): T[] {
     const c = new Array<T[]>(source.length);
     for (let i = 0; i < source.length; i++) {
@@ -35,6 +64,11 @@ export default class Utility {
     }
     return Utility.flat(c);
   }
+
+  /**
+   * calculate sum of array
+   * @param array array
+   */
   public static sum(array: number[]): number {
     let total = 0;
     for (let i = 0; i < array.length; i++) {
@@ -42,6 +76,13 @@ export default class Utility {
     }
     return total;
   }
+
+  /**
+   * remove element from array if exists
+   * @param array array
+   * @param target remove target
+   * @return success or not
+   */
   public static remove<T>(array: T[], target: T): boolean {
     let index = -1;
     for (let i = 0; i < array.length; i++) {
@@ -58,7 +99,8 @@ export default class Utility {
   }
 
   /**
-   * 重複がなければtrue
+   * return true if array contain multiple same object
+   * @param array array
    */
   public static checkOverlap<T>(array: T[]): boolean {
     const list = [];
@@ -72,15 +114,22 @@ export default class Utility {
     return true;
   }
 
+  /**
+   * get node index by element index
+   * @param targetElement element
+   * @param elementIndex index of target element
+   */
   public static getNodeListIndexByElementIndex(targetElement: Element, elementIndex: number): number {
     const nodeArray: Node[] = Array.prototype.slice.call(targetElement.childNodes);
-    const elementArray = nodeArray.filter((v) => {
-      return v.nodeType === 1;
-    });
-    elementIndex = elementIndex < 0 ? elementArray.length + elementIndex : elementIndex;
-    return nodeArray.indexOf(elementArray[elementIndex]);
+    const elementArray = nodeArray.filter((v) => v.nodeType === 1);
+    const updatedElementIndex = elementIndex < 0 ? elementArray.length + elementIndex : elementIndex;
+    return nodeArray.indexOf(elementArray[updatedElementIndex]);
   }
 
+  /**
+   * get all attributes of element
+   * @param element element
+   */
   public static getAttributes(element: Element): { [key: string]: string } {
     const attributes: { [key: string]: string } = {};
     const domAttr = element.attributes;
@@ -89,7 +138,7 @@ export default class Utility {
       if (attrNode.name.startsWith("xmlns")) {
         continue;
       }
-      const name = attrNode.namespaceURI ? attrNode.namespaceURI + "." + attrNode.localName! : attrNode.localName!;
+      const name = attrNode.namespaceURI ? `${attrNode.namespaceURI}.${attrNode.localName!}` : attrNode.localName!;
       attributes[name] = attrNode.value;
     }
     return attributes;

@@ -1,13 +1,13 @@
 import Component from "../Core/Component";
 import ComponentDeclaration from "../Core/ComponentDeclaration";
 import Environment from "../Core/Environment";
-import IdentityMap from "../Core/IdentityMap";
 import Identity from "../Core/Identity";
+import IdentityMap from "../Core/IdentityMap";
 import {
   ComponentRegistering,
   Ctor,
   Name,
-  Nullable
+  Nullable,
 } from "./Types";
 
 /**
@@ -15,13 +15,17 @@ import {
  */
 export default class Ensure {
 
+  /**
+   * name or constructor to be identity
+   * @param component
+   */
   public static tobeComponentIdentity(component: Name | (new () => Component)): Identity {
     if (typeof component === "function") {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
         component = obj.name;
       } else {
-        throw new Error(`Specified constructor have not registered to current context.`);
+        throw new Error("Specified constructor have not registered to current context.");
       }
     } else {
       component = Ensure.tobeNSIdentity(component);
@@ -65,7 +69,7 @@ export default class Ensure {
    */
   public static tobeNSIdentity(name: Name): Identity {
     if (!name) {
-      throw Error(`argument can not be null or undefined.`);
+      throw Error("argument can not be null or undefined.");
     }
     if (typeof name === "string") {
       return Identity.guess(name);
@@ -74,6 +78,11 @@ export default class Ensure {
     }
   }
 
+  /**
+   * Internal use!
+   * @param names
+   * @deprecated
+   */
   public static tobeNSIdentityArray(names: Name[]): Identity[] {
     if (!names) {
       return [];
@@ -85,7 +94,11 @@ export default class Ensure {
     return newArr;
   }
 
-  public static tobeNSDictionary<T>(dict: IdentityMap<T> | { [key: string]: T }): IdentityMap<T> {
+  /**
+   * object or IdentityMap to be IdentityMap
+   * @param dict
+   */
+  public static tobeIdentityMap<T>(dict: IdentityMap<T> | { [key: string]: T }): IdentityMap<T> {
     if (!dict) {
       return new IdentityMap<T>();
     }
@@ -93,13 +106,18 @@ export default class Ensure {
       return dict;
     } else {
       const newDict = new IdentityMap<T>();
-      for (let key in dict) {
+      for (const key in dict) {
         newDict.set(Identity.guess(key), dict[key]);
       }
       return newDict;
     }
   }
 
+  /**
+   * Internal use!
+   * Add '$$' to the beginning of the string if it does not start with '$$'
+   * @param message
+   */
   public static tobeMessage(message: string): string {
     if (message.startsWith("$")) {
       if (message.startsWith("$$")) {
@@ -130,6 +148,11 @@ export default class Ensure {
     }
   }
 
+  /**
+   * return fqn string if name is identity or fqn string.
+   * return null if name is string but is not start with '_'.
+   * @param name
+   */
   public static tobeFQN(name: Name): Nullable<string> {
     if (typeof name === "string") {
       if (Ensure.checkFQNString(name)) {

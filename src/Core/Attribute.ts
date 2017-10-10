@@ -1,17 +1,57 @@
-import Component from "./Component";
-import Ensure from "../Tools/Ensure";
 import Environment from "../Core/Environment";
+import Identity from "../Core/Identity";
+import IdentityMap from "../Core/IdentityMap";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import Ensure from "../Tools/Ensure";
 import IdResolver from "../Tools/IdResolver";
-import IdentityMap from "../Core/IdentityMap";
-import Identity from "../Core/Identity";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
+import Component from "./Component";
 
 /**
  * Manage a attribute attached to components.
  */
 export default class Attribute {
+
+  /**
+   * convert value by provided converter.
+   * @param converter
+   * @param self
+   * @param val
+   * @deprecated
+   */
+  public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
+    const cname = Ensure.tobeNSIdentity(converter);
+    const conv = Environment.GrimoireInterface.converters.get(cname);
+    if (!conv) {
+      throw new Error(`converter ${cname.name} is not defined.`);
+    }
+    return conv.convert(val, self);
+  }
+
+  /**
+   * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
+   * If converter is not served, string converter will be set as default.
+   * @param {string}        key       Key of this attribute.
+   * @param {any}           value     Value of this attribute.
+   * @param {ConverterBase} converter Converter of this attribute.
+   * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
+   */
+  public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
+    const attr = new Attribute();
+    attr.name = Identity.fromFQN(`${component.name.fqn}.${name}`);
+    attr.component = component;
+    attr.declaration = declaration;
+    const converterName = Ensure.tobeNSIdentity(declaration.converter);
+    attr.converter = Environment.GrimoireInterface.converters.get(converterName);
+    if (attr.converter === void 0) {
+      // When the specified converter was not found
+      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
+    }
+    attr.component.attributes.set(attr.name, attr);
+    attr.converter.verify(attr);
+    return attr;
+  }
 
   /**
    * The name of attribute.
@@ -37,6 +77,9 @@ export default class Attribute {
    */
   public component: Component;
 
+  /**
+   * Internal use!
+   */
   public convertContext: any = {};
   /**
    * Cache of attribute value.
@@ -92,40 +135,6 @@ export default class Attribute {
     this._notifyChange(val);
   }
 
-
-  public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
-    const cname = Ensure.tobeNSIdentity(converter);
-    const conv = Environment.GrimoireInterface.converters.get(cname);
-    if (!conv) {
-      throw new Error(`converter ${cname.name} is not defined.`);
-    }
-    return conv.convert(val, self);
-  }
-
-  /**
-   * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
-   * If converter is not served, string converter will be set as default.
-   * @param {string}        key       Key of this attribute.
-   * @param {any}           value     Value of this attribute.
-   * @param {ConverterBase} converter Converter of this attribute.
-   * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
-   */
-  public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
-    const attr = new Attribute();
-    attr.name = Identity.fromFQN(component.name.fqn + "." + name);
-    attr.component = component;
-    attr.declaration = declaration;
-    const converterName = Ensure.tobeNSIdentity(declaration.converter);
-    attr.converter = Environment.GrimoireInterface.converters.get(converterName);
-    if (attr.converter === void 0) {
-      // When the specified converter was not found
-      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
-    }
-    attr.component.attributes.set(attr.name, attr);
-    attr.converter.verify(attr);
-    return attr;
-  }
-
   /**
    * Add event handler to observe changing this attribute.
    * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
@@ -175,7 +184,7 @@ export default class Attribute {
         get: () => this.Value,
         set: (val) => { this.Value = val; },
         enumerable: true,
-        configurable: true
+        configurable: true,
       });
     } else {
       let backing: any;
@@ -186,7 +195,7 @@ export default class Attribute {
         get: () => backing,
         set: (val) => { this.Value = val; },
         enumerable: true,
-        configurable: true
+        configurable: true,
       });
     }
   }
@@ -204,7 +213,7 @@ export default class Attribute {
     const resolver = new IdResolver();
     resolver.add(this.name);
     let tagAttrKey;
-    for (let key in domValues) {
+    for (const key in domValues) {
       if (Ensure.checkFQNString(key)) {
         if (this.name.fqn === key.substring(1)) {
           this.Value = domValues[key];
@@ -212,7 +221,7 @@ export default class Attribute {
         }
         continue;
       }
-      let get = resolver.get(key);
+      const get = resolver.get(key);
       if (get.length > 0) {
         if (tagAttrKey === void 0) {
           tagAttrKey = key;
@@ -227,7 +236,7 @@ export default class Attribute {
     }
 
     // resolve by node defaults.
-    const nodeDefaultValue = this.component.node!.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
+    const nodeDefaultValue = this.component.node.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
     if (nodeDefaultValue !== void 0) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;

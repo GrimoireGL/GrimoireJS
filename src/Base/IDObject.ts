@@ -3,10 +3,6 @@
  * @type {[type]}
  */
 export default class IDObject {
-  /**
-   * ID related to this instance to identify.
-   */
-  public readonly id: string;
 
   /**
    * Generate random string
@@ -16,6 +12,11 @@ export default class IDObject {
   public static getUniqueRandom(length: number): string {
     return Math.random().toString(36).slice(-length);
   }
+
+  /**
+   * ID related to this instance to identify.
+   */
+  public readonly id: string;
 
   constructor() {
     this.id = IDObject.getUniqueRandom(10);

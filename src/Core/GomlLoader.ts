@@ -1,15 +1,22 @@
-import Environment from "./Environment";
-import GomlParser from "./GomlParser";
 import GrimoireInterface from "../Core/GrimoireInterface";
 import XMLHttpRequestAsync from "../Tools/XMLHttpRequestAsync";
 import XMLReader from "../Tools/XMLReader";
+import Environment from "./Environment";
+import GomlParser from "./GomlParser";
 
 /**
  * Provides the features to fetch Goml source.
  */
 export default class GomlLoader {
+
+  /**
+   * Internal use!
+   */
   public static callInitializedAlready = false;
 
+  /**
+   * Internal use!
+   */
   public static initializedEventHandlers: (() => void)[] = [];
 
   /**

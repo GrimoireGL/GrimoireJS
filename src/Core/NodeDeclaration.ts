@@ -1,28 +1,59 @@
+import GrimoireInterface from "../Core/GrimoireInterface";
 import Ensure from "../Tools/Ensure";
+import IdResolver from "../Tools/IdResolver";
+import { Name } from "../Tools/Types";
+import Constants from "./Constants";
+import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import IdentitySet from "./IdentitySet";
-import Identity from "./Identity";
-import IdResolver from "../Tools/IdResolver";
-import GrimoireInterface from "../Core/GrimoireInterface";
-import Constants from "./Constants";
-import { Name } from "../Tools/Types";
 
+/**
+ * node declaration for create GomlNode Instance.
+ */
 export default class NodeDeclaration {
+
+  /**
+   * Components attached to this node by default.
+   * this property is not consider inheritance.
+   */
   public defaultComponents: IdentitySet;
+
+  /**
+   * attributes set to this node by default.
+   * this property is not consider inheritance.
+   */
   public defaultAttributes: IdentityMap<any> = new IdentityMap();
+
+  /**
+   * super node id if exists.
+   * undefined if this node is not inherits any node.
+   */
   public superNode?: Identity;
+
+  /**
+   * identity set of freeze attributes.
+   */
   public freezeAttributes: IdentitySet;
+
+  /**
+   * Internal use!
+   */
   public idResolver = new IdResolver();
 
   private _defaultComponentsActual: IdentitySet;
   private _defaultAttributesActual: IdentityMap<any>;
   private _resolvedDependency = false;
 
-
+  /**
+   * Whether the dependency has already been resolved.
+   */
   public get resolvedDependency() {
     return this._resolvedDependency;
   }
 
+  /**
+   * get default components with inheritance in mind.
+   */
   public get defaultComponentsActual(): IdentitySet {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
@@ -30,6 +61,9 @@ export default class NodeDeclaration {
     return this._defaultComponentsActual;
   }
 
+  /**
+   * get default attributes with inheritance in mind.
+   */
   public get defaultAttributesActual(): IdentityMap<any> {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
@@ -49,6 +83,10 @@ export default class NodeDeclaration {
     this._freezeAttributes = this._freezeAttributes || [];
   }
 
+  /**
+   * add optional default component.
+   * @param componentName
+   */
   public addDefaultComponent(componentName: Name): void {
     const componentId = Ensure.tobeNSIdentity(componentName);
     this.defaultComponents.push(componentId);
@@ -68,8 +106,8 @@ export default class NodeDeclaration {
     }
     this.defaultComponents = new IdentitySet(this._defaultComponents.map(name => Ensure.tobeNSIdentity(name)));
 
-    for (let key in this._defaultAttributes) {
-      let value = this._defaultAttributes[key];
+    for (const key in this._defaultAttributes) {
+      const value = this._defaultAttributes[key];
       this.defaultAttributes.set(Identity.fromFQN(key), value);
     }
     this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : void 0;
@@ -84,7 +122,6 @@ export default class NodeDeclaration {
     this._resolvedDependency = true;
     return true;
   }
-
 
   private _resolveInherites(): void {
     if (!this.superNode) { // not inherit.

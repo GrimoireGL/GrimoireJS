@@ -1,6 +1,6 @@
-import Namespace from "./Namespace";
-import IdResolver from "../Tools/IdResolver";
 import Ensure from "../Tools/Ensure";
+import IdResolver from "../Tools/IdResolver";
+import Namespace from "./Namespace";
 
 /**
  * The class to identity with XML namespace feature.
@@ -9,16 +9,6 @@ export default class Identity {
 
   private static _instances: { [fqn: string]: Identity } = {};
   private static _mapBackingField: IdResolver;
-  private static get _map(): IdResolver {
-    if (this._mapBackingField === void 0) {
-      this._mapBackingField = new IdResolver();
-    }
-    return this._mapBackingField;
-  }
-
-  private _ns: Namespace;
-  private _name: string;
-  private _fqn: string;
 
   /**
    * Generate an instance from Full qualified name.
@@ -34,13 +24,27 @@ export default class Identity {
     return new Identity(splitted);
   }
 
+  /**
+   * guess FQN from name
+   * @param hierarchy
+   */
   public static guess(...hierarchy: string[]): Identity {
     return Identity._guess(hierarchy);
   }
 
+  /**
+   * clear context.
+   */
   public static clear(): void {
     Identity._instances = {};
     Identity._mapBackingField = new IdResolver();
+  }
+
+  private static get _map(): IdResolver {
+    if (this._mapBackingField === void 0) {
+      this._mapBackingField = new IdResolver();
+    }
+    return this._mapBackingField;
   }
 
   /**
@@ -58,6 +62,10 @@ export default class Identity {
 
     return Identity.fromFQN(Identity._map.resolve(Namespace.defineByArray(hierarchy)));
   }
+
+  private _ns: Namespace;
+  private _name: string;
+  private _fqn: string;
 
   public constructor(fqn: string | string[]);
   public constructor(qn: string[], n: string);
@@ -105,17 +113,25 @@ export default class Identity {
     return this._fqn;
   }
 
+  /**
+   * whether this identity fqn is match provided name.
+   * TODO: put url to document here
+   * @param name this
+   */
   public isMatch(name: string): boolean {
     if (Ensure.checkFQNString(name)) {
       return this._fqn === Ensure.tobeFQN(name);
     } else {
-      let resolver = new IdResolver();
+      const resolver = new IdResolver();
       resolver.add(this);
-      let get = resolver.get(name);
+      const get = resolver.get(name);
       return get.length === 1;
     }
   }
 
+  /**
+   * return fqn
+   */
   public toString(): string {
     return this.fqn;
   }

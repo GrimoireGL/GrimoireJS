@@ -1,6 +1,6 @@
+import GrimoireInterface from "../Core/GrimoireInterface";
 import Environment from "./Environment";
 import GomlNode from "./GomlNode";
-import GrimoireInterface from "../Core/GrimoireInterface";
 
 /**
  * Parser of Goml to Node utilities.
@@ -74,7 +74,7 @@ class GomlParser {
    * @param {Element}  componentsTag .COMPONENTSタグ
    */
   private static _parseComponents(node: GomlNode, componentsTag: Element): void {
-    let componentNodes = componentsTag.childNodes;
+    const componentNodes = componentsTag.childNodes;
     if (!componentNodes) {
       return;
     }

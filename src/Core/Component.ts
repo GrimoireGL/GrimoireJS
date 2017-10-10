@@ -1,14 +1,14 @@
+import IDObject from "../Base/IDObject";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Ensure from "../Tools/Ensure";
+import { GomlInterface, Name, Nullable } from "../Tools/Types";
+import Utility from "../Tools/Utility";
 import Attribute from "./Attribute";
 import Constants from "./Constants";
-import Ensure from "../Tools/Ensure";
 import GomlNode from "./GomlNode";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import IDObject from "../Base/IDObject";
-import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import IdentityMap from "./IdentityMap";
 import Identity from "./Identity";
-import Utility from "../Tools/Utility";
-import { GomlInterface, Name, Nullable } from "../Tools/Types";
+import IdentityMap from "./IdentityMap";
 
 /**
  * Base class for any components
@@ -42,6 +42,9 @@ export default class Component extends IDObject {
    */
   public isDefaultComponent = false;
 
+  /**
+   * this component has already disposed.
+   */
   public disposed = false;
 
   /**
@@ -54,6 +57,10 @@ export default class Component extends IDObject {
   private _additionalAttributesNames: Identity[] = [];
   private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
 
+  /**
+   * whether component enabled.
+   * if this component disable, all message is not sended to this component.
+   */
   public get enabled(): boolean {
     return this._enabled;
   }
@@ -66,6 +73,7 @@ export default class Component extends IDObject {
       handler(this);
     });
   }
+
   /**
    * The dictionary which is shared in entire tree.
    * @return {IdentityMap<any>} [description]
@@ -80,6 +88,11 @@ export default class Component extends IDObject {
   public get tree(): GomlInterface {
     return this.node.tree;
   }
+
+  /**
+   * whether component is active.
+   * component is active only when it is enabled and the node is active.
+   */
   public get isActive(): boolean {
     return this.enabled && !!this.node && this.node.isActive;
   }
@@ -91,7 +104,7 @@ export default class Component extends IDObject {
    */
   public setAttribute(name: Name, value: any): void {
     if (typeof name === "string" && Ensure.checkFQNString(name)) {
-      name = this.name.fqn + "." + name; // TODO: test
+      name = `${this.name.fqn}.${name}`; // TODO: test
     }
     const attr = this.attributes.get(name);
     if (attr) {
@@ -99,9 +112,13 @@ export default class Component extends IDObject {
     }
   }
 
+  /**
+   * get attribute value.
+   * @param name
+   */
   public getAttribute(name: Name): any {
     if (typeof name === "string" && Ensure.checkFQNString(name)) {
-      name = this.name.fqn + "." + name; // TODO: test
+      name = `${this.name.fqn}.${name}`; // TODO: test
     }
     const attr = this.getAttributeRaw(name);
     if (attr) {
@@ -110,58 +127,89 @@ export default class Component extends IDObject {
       throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
     }
   }
+
+  /**
+   * get attribute object instance.
+   * @param name
+   */
   public getAttributeRaw(name: Name): Attribute {
     if (typeof name === "string" && Ensure.checkFQNString(name)) {
-      name = this.name.fqn + "." + name; // TODO: test
+      name = `${this.name.fqn}.${name}`; // TODO: test
     }
     return this.attributes.get(name);
   }
 
+  /**
+   * add enabled observer.
+   * @param observer
+   */
   public addEnabledObserver(observer: (component: Component) => void): void {
     this._handlers.push(observer);
   }
 
+  /**
+   * remove enabled observer.
+   * @param observer
+   */
   public removeEnabledObserver(observer: (component: Component) => void): boolean {
     return Utility.remove(this._handlers, observer);
   }
 
+  /**
+   * Interal use!
+   * @param nodeAttributes
+   */
   public resolveDefaultAttributes(nodeAttributes?: { [key: string]: string; } | null): any {
     const nodeAttr = nodeAttributes || {};
     if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
-      this.attributes.forEach(attr => attr.resolveDefaultValue(nodeAttr));
+      this.attributes.forEach(attr => {
+        attr.resolveDefaultValue(nodeAttr);
+      });
     } else { // If not,the default value of attributes should be retrived from this element.
       const attrs = Utility.getAttributes(this.element);
-      for (let key in attrs) {
+      for (const key in attrs) {
         if (key === Constants.x_gr_id) {
           continue;
         }
       }
-      this.attributes.forEach(attr => attr.resolveDefaultValue(attrs));
+      this.attributes.forEach(attr => {
+        attr.resolveDefaultValue(attrs);
+      });
     }
   }
 
+  /**
+   * Interal use!
+   */
   public dispose(): void {
     this.node.removeComponent(this);
   }
 
+  /**
+   * Interal use!
+   */
   public awake(): boolean {
     if (this._awaked) {
       return false;
     }
     this._awaked = true;
-    let method = (this as any)["$$awake"];
+    const method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();
     }
     return true;
   }
 
+  /**
+   * Internal use!
+   * @param info
+   */
   public initialized(info: ITreeInitializedInfo): void {
     if (this._initializedInfo === info) {
       return;
     }
     this._initializedInfo = info;
-    let method = (this as any)["$$initialized"];
+    const method = (this as any)["$$initialized"];
     if (typeof method === "function") {
       method(info);
     }

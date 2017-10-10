@@ -1,7 +1,7 @@
-import Identity from "../Core/Identity";
 import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
 import GomlNode from "../Core/GomlNode";
 import GrimoireInterfaceImpl from "../Core/GrimoireInterfaceImpl";
+import Identity from "../Core/Identity";
 import NodeInterface from "../Core/NodeInterface";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 

@@ -1,26 +1,51 @@
+import Environment from "../Core/Environment";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import Ensure from "../Tools/Ensure";
+import IdResolver from "../Tools/IdResolver";
+import { ComponentRegistering, Ctor, Name } from "../Tools/Types";
 import Attribute from "./Attribute";
 import Component from "./Component";
 import Constants from "./Constants";
-import Ensure from "../Tools/Ensure";
-import Environment from "../Core/Environment";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import IdResolver from "../Tools/IdResolver";
-import IdentityMap from "./IdentityMap";
 import Identity from "./Identity";
-import { ComponentRegistering, Ctor, Name } from "../Tools/Types";
+import IdentityMap from "./IdentityMap";
 
-
+/**
+ * Declaration of component.
+ * manage inherits, dependency resolving.
+ */
 export default class ComponentDeclaration {
+
+  /**
+   * Internal use!
+   */
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: Identity }[] = [];
 
+  /**
+   * super component constructor.
+   */
   public superComponent: Ctor<Component>;
+
+  /**
+   * generated constructor considering inheritance.
+   */
   public ctor: Ctor<Component>;
+
+  /**
+   * Internal use!
+   */
   public idResolver: IdResolver = new IdResolver();
+
+  /**
+   * default attributes.
+   */
   public attributes: { [name: string]: IAttributeDeclaration }; // undefined until resolve dependency.
 
   private _resolvedDependency = false;
   private _super?: Name;
 
+  /**
+   * whether dependencies has already resolved.
+   */
   public get isDependenyResolved() {
     return this._resolvedDependency;
   }
@@ -40,6 +65,11 @@ export default class ComponentDeclaration {
     }
   }
 
+  /**
+   * Internal use!
+   * generate component instance.
+   * @param componentElement
+   */
   public generateInstance(componentElement?: Element): Component { // TODO: obsolete.make all operation on gomlnode
     if (!this.isDependenyResolved) {
       this.resolveDependency();
@@ -51,12 +81,15 @@ export default class ComponentDeclaration {
     component.name = this.name;
     component.element = componentElement;
     component.attributes = new IdentityMap<Attribute>();
-    for (let key in this.attributes) {
+    for (const key in this.attributes) {
       Attribute.generateAttributeForComponent(key, this.attributes[key], component);
     }
     return component;
   }
 
+  /**
+   * resolve dependency: inherits and default attributes.
+   */
   public resolveDependency(): boolean {
     if (this._resolvedDependency) {
       return false;
@@ -67,16 +100,16 @@ export default class ComponentDeclaration {
       const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
       dec = Environment.GrimoireInterface.componentDeclarations.get(id);
       dec.resolveDependency();
-      for (let key in dec.attributes) {
+      for (const key in dec.attributes) {
         attr[key] = dec.attributes[key];
-        this.idResolver.add(Identity.fromFQN(this.name.fqn + "." + key));
+        this.idResolver.add(Identity.fromFQN(`${this.name.fqn}.${key}`));
       }
       this.superComponent = dec.ctor;
     }
-    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec ? dec.ctor : void 0);
-    for (let key in (this.ctor as any).attributes) {
+    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec ? dec.ctor : undefined);
+    for (const key in (this.ctor as any).attributes) {
       attr[key] = (this.ctor as any).attributes[key];
-      this.idResolver.add(Identity.fromFQN(this.name.fqn + "." + key));
+      this.idResolver.add(Identity.fromFQN(`${this.name.fqn}.${key}`));
     }
     this.attributes = attr;
 
@@ -84,17 +117,21 @@ export default class ComponentDeclaration {
     return this._resolvedDependency = true;
   }
 
-
   /**
    * Ensure the given object or constructor to be an constructor inherits Component;
-   * @param  {Object | (new ()=> Component} obj [The variable need to be ensured.]
-   * @return {[type]}      [The constructor inherits Component]
+   * @param id
+   * @param obj
+   * @param baseConstructor
    */
-  private _ensureTobeComponentConstructor(id: Identity, obj: ComponentRegistering<Object> | ComponentRegistering<Ctor<Component>>, baseConstructor?: Ctor<Component>): Ctor<Component> {
+  private _ensureTobeComponentConstructor(
+    id: Identity,
+    obj: ComponentRegistering<Object | Ctor<Component>>,
+    baseConstructor?: Ctor<Component>,
+  ): Ctor<Component> {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        const newCtor = function (this: any) {
+        const newCtor = function(this: any) {
           baseConstructor.call(this);
           obj.call(this);
         };
@@ -113,7 +150,7 @@ export default class ComponentDeclaration {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function (this: any) {
+      const newCtor = function(this: any) {
         ctor.call(this);
       };
       (obj as any).__proto__ = ctor.prototype;
@@ -138,7 +175,7 @@ export default class ComponentDeclaration {
     }
     const atr: D = {};
     for (let i = attrs.length - 1; i >= 0; i--) {
-      for (let key in attrs[i]) {
+      for (const key in attrs[i]) {
         atr[key] = attrs[i][key];
       }
     }

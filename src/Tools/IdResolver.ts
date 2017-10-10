@@ -1,6 +1,5 @@
-import Namespace from "../Core/Namespace";
 import Identity from "../Core/Identity";
-
+import Namespace from "../Core/Namespace";
 
 /**
  * Internal use!
@@ -12,6 +11,9 @@ export default class IdResolver {
   private _FQNSet: Set<string> = new Set();
   private _isTerminal = false;
 
+  /**
+   * number of stored fqn
+   */
   public get count(): number {
     return this._FQNSet.size;
   }
@@ -23,7 +25,7 @@ export default class IdResolver {
    */
   public add(id: string[] | Identity): boolean {
     if (!id) {
-      throw new Error(`Argument ns is null or undefined.`);
+      throw new Error("Argument ns is null or undefined.");
     }
     if (id instanceof Identity) {
       id = id.ns.hierarchy.concat([id.name]);
@@ -44,26 +46,32 @@ export default class IdResolver {
       return this.get(Namespace.defineByArray(ns.split(".")));
     }
     const name = ns.hierarchy;
-    let current_name = name[name.length - 1];
+    const current_name = name[name.length - 1];
     if (!this._nameMap[current_name]) {
       return [];
     }
-    let pathes = this._nameMap[current_name]._get(name.slice(0, name.length - 1));
+    const pathes = this._nameMap[current_name]._get(name.slice(0, name.length - 1));
 
     const res = [];
 
     for (let i = 0; i < pathes.length; i++) {
-      let a = pathes[i];
+      const a = pathes[i];
       a.push(current_name);
       res.push(a.join("."));
     }
     return res;
   }
+
+  /**
+   * Internal use!
+   * return fqn if name is identified clealy
+   * @param name namespace or name
+   */
   public resolve(name: Namespace | string): string {
     if (typeof name === "string") {
       return this.resolve(Namespace.defineByArray(name.split(".")));
     }
-    let pathes = this.get(name);
+    const pathes = this.get(name);
     if (pathes.length === 0) {
       throw new Error(`${name} is not found in this context.`);
     }
@@ -72,13 +80,28 @@ export default class IdResolver {
     }
     return pathes[0];
   }
+
+  /**
+   * Internal use!
+   * @param name name
+   */
   public has(name: string): boolean {
     return !!this._nameMap[name];
   }
+
+  /**
+   * Internal use!
+   * @param name
+   */
   public remove(name: Identity): void {
     const fqn = name.fqn.split(".");
     this._remove(fqn);
   }
+
+  /**
+   * Internal use!
+   * @param callback
+   */
   public foreach(callback: (fqn: string) => void): void {
     this._FQNSet.forEach(callback);
   }
@@ -98,10 +121,10 @@ export default class IdResolver {
       if (this.count === 0) {
         return [[]];
       }
-      for (let key in this._nameMap) {
-        let match = this._nameMap[key]._get([])!;
+      for (const key in this._nameMap) {
+        const match = this._nameMap[key]._get([]);
         for (let i = 0; i < match.length; i++) {
-          let m = match[i];
+          const m = match[i];
           m.push(key);
           res.push(m);
         }
@@ -111,12 +134,12 @@ export default class IdResolver {
       }
       return res;
     }
-    let current_name = name[name.length - 1];
-    for (let key in this._nameMap) {
-      let match = key === current_name ? this._nameMap[key]._get(name.slice(0, name.length - 1)) : this._nameMap[key]._get(name);
+    const current_name = name[name.length - 1];
+    for (const key in this._nameMap) {
+      const match = key === current_name ? this._nameMap[key]._get(name.slice(0, name.length - 1)) : this._nameMap[key]._get(name);
       if (match.length !== 0) {
         for (let i = 0; i < match.length; i++) {
-          let m = match[i];
+          const m = match[i];
           m.push(key);
           res.push(m);
         }

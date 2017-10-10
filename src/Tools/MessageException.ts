@@ -1,5 +1,5 @@
-import GomlNode from "../Core/GomlNode";
 import Component from "../Core/Component";
+import GomlNode from "../Core/GomlNode";
 
 /**
  * Exception representing uncought error caused in message function.
@@ -44,6 +44,9 @@ export default class MessageException extends Error {
     proto.message = this.message;
   }
 
+  /**
+   * to string
+   */
   public toString(): string {
     return this.message;
   }

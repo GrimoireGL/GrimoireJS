@@ -14,13 +14,22 @@ const escape = "\\";
  */
 export default {
   name: "Array",
-  verify: function (attr: Attribute) {
+  /**
+   * verify
+   * @param attr
+   */
+  verify(attr: Attribute) {
     if (!attr.declaration["type"]) {
       throw new Error("Array converter needs to be specified type in attribute declaration.");
     }
   },
-  convert: function (val: any, attr: Attribute) {
-    let converter = GrimoireInterface.converters.get(attr.declaration["type"]);
+  /**
+   * convert
+   * @param val
+   * @param attr
+   */
+  convert(val: any, attr: Attribute) {
+    const converter = GrimoireInterface.converters.get(attr.declaration["type"]);
     if (!converter) {
       throw new Error(`converter ${attr.declaration["type"]} is not registerd.`);
     }
@@ -28,9 +37,9 @@ export default {
       return val.map(v => converter.convert(v, attr));
     }
     if (typeof val === "string") {
-      let ar = val.split(splitter);
+      const ar = val.split(splitter);
       for (let i = 0; i < ar.length; i++) {
-        let s = ar[i];
+        const s = ar[i];
         if (s[s.length - 1] === escape) {
           if (i === ar.length - 1) {
             ar[i] = s.substring(0, s.length - escape.length) + splitter;
@@ -44,5 +53,5 @@ export default {
       return ar.map(v => converter.convert(v, attr));
     }
     return null;
-  }
+  },
 };

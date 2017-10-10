@@ -1,25 +1,39 @@
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Component from "../Core/Component";
+import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 
+/**
+ * Basic Component for all node.
+ */
 export default class GrimoireComponent extends Component {
+
+  /**
+   * component name.
+   */
   public static componentName = "GrimoireComponent";
+
+  /**
+   * attributes
+   */
   public static attributes: { [key: string]: IAttributeDeclaration } = {
     id: {
       converter: "String",
-      default: null
+      default: null,
     },
     class: {
       converter: "StringArray",
-      default: null
+      default: null,
     },
     enabled: {
       converter: "Boolean",
-      default: true
-    }
+      default: true,
+    },
   };
 
+  /**
+   * awake
+   */
   public $awake(): void {
-    const node = this.node!;
+    const node = this.node;
     node.resolveAttributesValue();
     this.getAttributeRaw("id").watch((attr) => {
       node.element.id = attr ? attr : "";

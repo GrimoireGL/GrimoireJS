@@ -1,12 +1,12 @@
-import Constants from "./Constants";
 import GomlNode from "../Core/GomlNode";
 import GrimoireInterface from "../Core/GrimoireInterface";
+import Constants from "./Constants";
 import NodeInterface from "./NodeInterface";
 
 /**
  * Provides interfaces to treat whole goml tree for each.
  */
-export default class GomlInterface {
+export default class GomlInterfaceImpl {
   constructor(public rootNodes: GomlNode[]) {
 
   }

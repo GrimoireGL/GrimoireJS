@@ -1,30 +1,59 @@
-import Attribute from "./Attribute";
-import AttributeManager from "../Core/AttributeManager";
-import Component from "./Component";
-import Constants from "./Constants";
 import EEObject from "../Base/EEObject";
-import Ensure from "../Tools/Ensure";
-import Environment from "./Environment";
-import GomlParser from "./GomlParser";
+import AttributeManager from "../Core/AttributeManager";
 import GrimoireInterface from "../Core/GrimoireInterface";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Ensure from "../Tools/Ensure";
 import MessageException from "../Tools/MessageException";
-import NodeDeclaration from "./NodeDeclaration";
-import IdentityMap from "./IdentityMap";
-import Identity from "./Identity";
-import Utility from "../Tools/Utility";
-import XMLReader from "../Tools/XMLReader";
 import {
   Ctor,
   GomlInterface,
   Name,
-  Nullable
+  Nullable,
 } from "../Tools/Types";
+import Utility from "../Tools/Utility";
+import XMLReader from "../Tools/XMLReader";
+import Attribute from "./Attribute";
+import Component from "./Component";
+import Constants from "./Constants";
+import Environment from "./Environment";
+import GomlParser from "./GomlParser";
+import Identity from "./Identity";
+import IdentityMap from "./IdentityMap";
+import NodeDeclaration from "./NodeDeclaration";
 
+/**
+ * This class is the most primitive element constitute Tree.
+ * contain some Component, and send/recieve message to them.
+ */
 export default class GomlNode extends EEObject {
 
+  /**
+   * Get actual goml node from element of xml tree.
+   * @param  {Element}  elem [description]
+   * @return {GomlNode}      [description]
+   */
+  public static fromElement(elem: Element): GomlNode {
+    const id = elem.getAttribute(Constants.x_gr_id);
+    if (id) {
+      return GrimoireInterface.nodeDictionary[id];
+    } else {
+      throw new Error("element has not 'x-gr-id'");
+    }
+  }
+
+  /**
+   * Dom Element
+   */
   public element: Element; // Dom Element
+
+  /**
+   * declaration infomation.
+   */
   public nodeDeclaration: NodeDeclaration;
+
+  /**
+   * children nodes.
+   */
   public children: GomlNode[] = [];
 
   private _parent: Nullable<GomlNode> = null;
@@ -40,20 +69,6 @@ export default class GomlNode extends EEObject {
   private _enabled = true;
   private _defaultValueResolved = false;
   private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
-
-  /**
-   * Get actual goml node from element of xml tree.
-   * @param  {Element}  elem [description]
-   * @return {GomlNode}      [description]
-   */
-  public static fromElement(elem: Element): GomlNode {
-    const id = elem.getAttribute(Constants.x_gr_id);
-    if (id) {
-      return GrimoireInterface.nodeDictionary[id];
-    } else {
-      throw new Error("element has not 'x-gr-id'");
-    }
-  }
 
   /**
    * Tag name.
@@ -214,6 +229,9 @@ export default class GomlNode extends EEObject {
     return array;
   }
 
+  /**
+   * remove this node from tree.
+   */
   public remove(): void {
     this.children.forEach((c) => {
       c.remove();
@@ -262,7 +280,7 @@ export default class GomlNode extends EEObject {
     }
     if (typeof arg1 === "number") {
       const range = arg1;
-      const message = Ensure.tobeMessage(<string>arg2);
+      const message = Ensure.tobeMessage(arg2 as string);
       const args = arg3;
       this._broadcastMessage(message, args, range);
     } else {
@@ -272,10 +290,14 @@ export default class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * add child node.
+   * @param tag
+   */
   public append(tag: string): GomlNode[] {
     const elem = XMLReader.parseXML(tag);
-    let ret: GomlNode[] = [];
-    let child = GomlParser.parse(elem);
+    const ret: GomlNode[] = [];
+    const child = GomlParser.parse(elem);
     this.addChild(child);
     ret.push(child);
     return ret;
@@ -290,7 +312,7 @@ export default class GomlNode extends EEObject {
     const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
     const node = new GomlNode(nodeDec);
     if (attributes) {
-      for (let key in attributes) {
+      for (const key in attributes) {
         node.setAttribute(key, attributes[key]);
       }
     }
@@ -321,7 +343,7 @@ export default class GomlNode extends EEObject {
 
     // sync html
     if (elementSync) {
-      let referenceElement = (this.element as any)[Utility.getNodeListIndexByElementIndex(this.element, insertIndex)];
+      const referenceElement = (this.element as any)[Utility.getNodeListIndexByElementIndex(this.element, insertIndex)];
       this.element.insertBefore(child.element, referenceElement);
     }
 
@@ -336,7 +358,10 @@ export default class GomlNode extends EEObject {
     }
   }
 
-
+  /**
+   * Internal use!
+   * @param func
+   */
   public callRecursively<T>(func: (g: GomlNode) => T): T[] {
     return this._callRecursively(func, (n) => n.children);
   }
@@ -385,21 +410,35 @@ export default class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * get attribute value.
+   * @param attrName
+   */
   public getAttribute(attrName: Name): any {
     return this._attributeManager.getAttribute(attrName);
   }
 
+  /**
+   * get attribute object instance.
+   * @param attrName
+   */
   public getAttributeRaw(attrName: Name): Attribute {
     return this._attributeManager.getAttributeRaw(attrName);
   }
 
+  /**
+   * set attribute value
+   * @param attrName
+   * @param value
+   * @param ignoireFreeze set value ignorering attribute freeze.
+   */
   public setAttribute(attrName: Name, value: any, ignoireFreeze = false): void {
-    let attrIds = this._attributeManager.guess(attrName);
+    const attrIds = this._attributeManager.guess(attrName);
     if (attrIds.length === 0) { // such attribute is not exists. set to Attribute buffer.
       this._attributeManager.setAttribute(typeof attrName === "string" ? attrName : attrName.fqn, value);
     }
     for (let i = 0; i < attrIds.length; i++) {
-      let id = attrIds[i];
+      const id = attrIds[i];
       if (!ignoireFreeze && this.isFreezeAttribute(id.fqn)) {
         throw new Error(`attribute ${id.fqn} can not set. Attribute is frozen. `);
       }
@@ -442,7 +481,6 @@ export default class GomlNode extends EEObject {
     }
   }
 
-
   /**
    * Get index of this node from parent.
    * @return {number} number of index.
@@ -475,7 +513,7 @@ export default class GomlNode extends EEObject {
     const instance = declaration.generateInstance();
     attributes = attributes || {};
 
-    for (let key in attributes) {
+    for (const key in attributes) {
       instance.setAttribute(key, attributes[key]);
     }
     this._addComponentDirectly(instance, isDefaultComponent);
@@ -506,8 +544,8 @@ export default class GomlNode extends EEObject {
       propNames = propNames.concat(Object.getOwnPropertyNames(o));
       o = Object.getPrototypeOf(o);
     }
-    propNames.filter(name => name.startsWith("$") && typeof (<any>component)[name] === "function").forEach(method => {
-      (<any>component)["$" + method] = (<any>component)[method].bind(component);
+    propNames.filter(name => name.startsWith("$") && typeof (component as any)[name] === "function").forEach(method => {
+      (component as any)["$" + method] = (component as any)[method].bind(component);
     });
 
     this._components.push(component);
@@ -515,7 +553,9 @@ export default class GomlNode extends EEObject {
     // attributes should be exposed on node
     component.attributes.forEach(p => this.addAttribute(p));
     if (this._defaultValueResolved) {
-      component.attributes.forEach(p => p.resolveDefaultValue(Utility.getAttributes(this.element)));
+      component.attributes.forEach(p => {
+        p.resolveDefaultValue(Utility.getAttributes(this.element));
+      });
     }
 
     if (this._mounted) {
@@ -530,6 +570,11 @@ export default class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * remove all component if exists.
+   * @param component
+   * @return remove one or more components.
+   */
   public removeComponents(component: Name | (new () => Component)): boolean {
     let result = false;
     const removeTargets = [];
@@ -541,12 +586,17 @@ export default class GomlNode extends EEObject {
       }
     }
     removeTargets.forEach(c => {
-      let b = this.removeComponent(c);
+      const b = this.removeComponent(c);
       result = result || b;
     });
     return result;
   }
 
+  /**
+   * remove component if exists.
+   * @param component
+   * @return success or not.
+   */
   public removeComponent(component: Component): boolean {
     const index = this._components.indexOf(component);
     if (index !== -1) {
@@ -562,6 +612,10 @@ export default class GomlNode extends EEObject {
     return false;
   }
 
+  /**
+   * get components
+   * @param filter
+   */
   public getComponents<T>(filter?: Name | Ctor<T>): T[] {
     if (!filter) {
       return this._components as any as T[];
@@ -596,6 +650,10 @@ export default class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * get all components for chilcren recursively.
+   * @param name
+   */
   public getComponentsInChildren<T>(name: Name | Ctor<T>): T[] {
     if (name == null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
@@ -620,21 +678,24 @@ export default class GomlNode extends EEObject {
     return null;
   }
 
+  /**
+   * Internal use!
+   * @param info
+   */
   public sendInitializedMessage(info: ITreeInitializedInfo) {
     if (this._initializedInfo === info) {
       return;
     }
-    let components = this._components.concat(); // copy
+    const components = this._components.concat(); // copy
     for (let i = 0; i < components.length; i++) {
       components[i].initialized(info);
     }
     this._initializedInfo = info;
-    let children = this.children.concat();
+    const children = this.children.concat();
     children.forEach(child => {
       child.sendInitializedMessage(info);
     });
   }
-
 
   /**
    * resolve default attribute value for all component.
@@ -643,7 +704,7 @@ export default class GomlNode extends EEObject {
   public resolveAttributesValue(): void {
     this._defaultValueResolved = true;
     const attrs = Utility.getAttributes(this.element);
-    for (let key in attrs) {
+    for (const key in attrs) {
       if (key === Constants.x_gr_id) {
         continue;
       }
@@ -656,10 +717,18 @@ export default class GomlNode extends EEObject {
     });
   }
 
+  /**
+   * whether provided name is freeze attribute.
+   * @param attributeName
+   */
   public isFreezeAttribute(attributeName: string): boolean {
     return !!this.nodeDeclaration.freezeAttributes.toArray().find(name => attributeName === name.fqn);
   }
 
+  /**
+   * Internal use!
+   * @param activeness
+   */
   public notifyActivenessUpdate(activeness: boolean): void {
     if (this.isActive !== activeness) {
       this._isActive = activeness;
@@ -669,17 +738,26 @@ export default class GomlNode extends EEObject {
     }
   }
 
+  /**
+   * watch attribute.
+   * @param attrName
+   * @param watcher
+   * @param immediate
+   */
   public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
   }
 
+  /**
+   * to string
+   */
   public toString(): string {
     let name = this.name.fqn;
-    let id = this.getAttribute("id");
+    const id = this.getAttribute("id");
     if (id !== null) {
       name += ` id: ${id}`;
     }
-    let classValue = this.getAttribute("class");
+    const classValue = this.getAttribute("class");
     if (classValue !== null) {
       name += ` class: ${classValue}`;
     }
@@ -692,7 +770,10 @@ export default class GomlNode extends EEObject {
    */
   public toStructualString(message = ""): string {
     if (this.parent) {
-      return "\n" + this.parent._openTreeString() + this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true, message) + this.parent._closeTreeString();
+      const open = this.parent._openTreeString();
+      const content = this._currentSiblingsString(this._layer * 2, `<${this.toString()}/>`, true, message);
+      const close = this.parent._closeTreeString();
+      return `\n${open}${content} ${close}}`;
     } else {
       return "\n" + this._currentSiblingsString(0, `<${this.toString()}/>`, true, message);
     }
@@ -757,7 +838,7 @@ export default class GomlNode extends EEObject {
         emphasisStr += "^";
       }
     }
-    let targets: string[] = [];
+    const targets: string[] = [];
     if (!this.parent) {
       targets.push(`${spaces}${current}`);
       if (emphasis) {
@@ -812,8 +893,6 @@ export default class GomlNode extends EEObject {
     }
   }
 
-
-
   private _getComponentInAncestor<T>(name: Name | (new () => T)): Nullable<T> {
     const ret = this.getComponent(name);
     if (ret) {
@@ -838,7 +917,7 @@ export default class GomlNode extends EEObject {
     if (!targetComponent.enabled) {
       return false;
     }
-    let method = (targetComponent as any)[message];
+    const method = (targetComponent as any)[message];
     if (typeof method === "function") {
       try {
         method(args);
@@ -858,9 +937,9 @@ export default class GomlNode extends EEObject {
   }
 
   private _sendMessageForced(message: string): void {
-    let componentsBuffer = this._components.concat();
+    const componentsBuffer = this._components.concat();
     for (let i = 0; i < componentsBuffer.length; i++) {
-      let target = componentsBuffer[i];
+      const target = componentsBuffer[i];
       if (target.disposed) {
         continue;
       }
@@ -875,7 +954,7 @@ export default class GomlNode extends EEObject {
    */
   private _sendMessageForcedTo(target: Component, message: string): void {
     message = Ensure.tobeMessage(message);
-    let method = (target as any)[message];
+    const method = (target as any)[message];
     if (typeof method === "function") {
       method();
     }
@@ -886,9 +965,9 @@ export default class GomlNode extends EEObject {
    */
   private _mount(): void {
     this._mounted = true;
-    let componentsBuffer = this._components.concat();
+    const componentsBuffer = this._components.concat();
     for (let i = 0; i < componentsBuffer.length; i++) {
-      let target = componentsBuffer[i];
+      const target = componentsBuffer[i];
       if (target.disposed) {
         continue;
       }

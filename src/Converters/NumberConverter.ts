@@ -1,5 +1,5 @@
-import Utility from "../Tools/Utility";
 import { Undef } from "../Tools/Types";
+import Utility from "../Tools/Utility";
 
 /**
  * converter for number value.
@@ -13,15 +13,15 @@ export default function NumberConverter(val: any): Undef<number> {
     return val;
   }
   if (typeof val === "string") {
-    let parsed = Number.parseFloat(val);
+    const parsed = Number.parseFloat(val);
     return Number.isNaN(parsed) ? void 0 : parsed;
   }
   if (val === null) {
     return null;
   }
   if (Array.isArray(val) && val.length === 1) {
-    Utility.w(`[Deprecated] converting from Array is deprecated in NumberConverter.`);
-    let ret = val[0];
+    Utility.w("[Deprecated] converting from Array is deprecated in NumberConverter.");
+    const ret = val[0];
     if (typeof ret === "number") {
       return ret;
     }

@@ -1,6 +1,9 @@
 import Attribute from "../Core/Attribute";
-import {Name} from "../Tools/Types";
+import { Name } from "../Tools/Types";
 
+/**
+ * interface for converter declaration
+ */
 export default interface IAttributeConverterDeclaration {
   name: Name;
   [params: string]: any;

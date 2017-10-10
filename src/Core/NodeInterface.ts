@@ -1,10 +1,10 @@
+import { ListenerFn } from "eventemitter3";
 import Attribute from "../Core/Attribute";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
+import { Name, Nullable } from "../Tools/Types";
 import Utility from "../Tools/Utility";
 import XMLReader from "../Tools/XMLReader";
-import { ListenerFn } from "eventemitter3";
-import { Name, Nullable } from "../Tools/Types";
 
 /**
  * interface for operate multicast nodes.
@@ -35,6 +35,9 @@ export default class NodeInterface {
     return Utility.sum(counts);
   }
 
+  /**
+   * check count is 0.
+   */
   public get isEmpty(): boolean {
     return this.count === 0;
   }
@@ -85,6 +88,11 @@ export default class NodeInterface {
     }
   }
 
+  /**
+   * get attribute of first node.
+   * throw error if this NodeInterface is empty.
+   * @param attrName
+   */
   public getAttribute(attrName: Name): any {
     const first = this.first();
     if (!first) {
@@ -92,6 +100,12 @@ export default class NodeInterface {
     }
     return first.getAttribute(attrName);
   }
+
+  /**
+   * set attribute to all target node.
+   * @param attrName
+   * @param value
+   */
   public setAttribute(attrName: Name, value: any): void {
     this.forEach(node => {
       node.setAttribute(attrName, value, false);
@@ -99,7 +113,7 @@ export default class NodeInterface {
   }
 
   /**
-   * 対象ノードにイベントリスナを追加します。
+   * add event listener to all target node.
    * @param {string}   eventName [description]
    * @param {ListenerFn} listener  [description]
    */
@@ -111,7 +125,7 @@ export default class NodeInterface {
   }
 
   /**
-   * 対象ノードに指定したイベントリスナが登録されていれば削除します
+   * remove event listener from all node if exists.
    * @param {string}   eventName [description]
    * @param {ListenerFn} listener  [description]
    */
@@ -123,21 +137,20 @@ export default class NodeInterface {
   }
 
   /**
-   * このノードインタフェースが対象とするノードそれぞれに、
-   * タグで指定したノードを子要素として追加します。
+   * add node as child to all nodes.
    * @param {string} tag [description]
    */
   public append(tag: string): NodeInterface {
     this.forEach(node => {
       const elem = XMLReader.parseXML(tag);
-      let child = GomlParser.parse(elem);
+      const child = GomlParser.parse(elem);
       node.addChild(child);
     });
     return this;
   }
 
   /**
-   * このノードインタフェースが対象とするノードをツリーから削除します。s
+   * remove all nodes from tree.
    * @param {GomlNode} child [description]
    */
   public remove(): NodeInterface {
@@ -170,6 +183,10 @@ export default class NodeInterface {
     return this;
   }
 
+  /**
+   * map all nodes to the results of provided function.
+   * @param func
+   */
   public map<T>(func: (node: GomlNode, gomlIndex: number, nodeIndex: number) => T): T[][] {
     return this.nodes.map((array, gomlIndex) => {
       return array.map((node, nodeIndex) => {
@@ -177,6 +194,12 @@ export default class NodeInterface {
       });
     });
   }
+
+  /**
+   * find first node that satisfies the provided testing function.
+   * otherwise null is returned.
+   * @param predicate
+   */
   public find(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): Nullable<GomlNode> {
     const nodes = this.nodes;
     for (let i = 0; i < nodes.length; i++) {
@@ -190,6 +213,13 @@ export default class NodeInterface {
     }
     return null;
   }
+
+  /**
+   * watch all nodes attribute.
+   * @param attrName
+   * @param watcher
+   * @param immediate
+   */
   public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this.forEach(node => {
       node.watch(attrName, watcher, immediate);
@@ -197,7 +227,7 @@ export default class NodeInterface {
   }
 
   /**
-   * このノードインタフェースが対象とするノードを有効、または無効にします。
+   * set enabled all nodes.
    * @param {boolean} enable [description]
    */
   public setEnable(enable: boolean): NodeInterface {
@@ -208,8 +238,7 @@ export default class NodeInterface {
   }
 
   /**
-   * このノードインタフェースが対象とするノードのそれぞれの子ノードを対象とする、
-   * 新しいノードインタフェースを取得します。
+   * create new NodeInterface with children of all nodes.
    * @return {NodeInterface} [description]
    */
   public children(): NodeInterface {
@@ -222,7 +251,7 @@ export default class NodeInterface {
   }
 
   /**
-   * 対象ノードにコンポーネントをアタッチします。
+   * add component to all nodes.
    * @param {Component} component [description]
    */
   public addComponent(componentId: Name, attributes: { [key: string]: any } = {}): NodeInterface {
@@ -233,8 +262,8 @@ export default class NodeInterface {
   }
 
   /**
-   * 最初の対象ノードを取得する
-   * ひとつもなければnull
+   * return the first node.
+   * return null if this NodeInterface is empty.
    * @return {GomlNode} [description]
    */
   public first(): Nullable<GomlNode> {
@@ -242,8 +271,8 @@ export default class NodeInterface {
   }
 
   /**
-   * 対象となる唯一のノードを取得する。
-   * 対象が存在しない、あるいは複数存在するときは例外を投げる。
+   * return the first node.
+   * throw error if this NodeInterface count is not exactly 1.
    * @return {GomlNode} [description]
    */
   public single(): GomlNode {
@@ -257,6 +286,10 @@ export default class NodeInterface {
     return first;
   }
 
+  /**
+   * create new NodeInterface with filterd nodes.
+   * @param predicate
+   */
   public filter(predicate: (node: GomlNode, gomlIndex: number, nodeIndex: number) => boolean): NodeInterface {
     const newNodes: GomlNode[][] = [];
     for (let i = 0; i < this.nodes.length; i++) {
@@ -271,20 +304,40 @@ export default class NodeInterface {
     }
     return new NodeInterface(newNodes);
   }
+
+  /**
+   * convert to array.
+   */
   public toArray(): GomlNode[] {
     return Utility.flat(this.nodes);
   }
 
+  /**
+   * add child node by name to all nodes.
+   * @param nodeName
+   * @param attributes
+   */
   public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): NodeInterface {
     return new NodeInterface(this.map(node => {
       return node.addChildByName(nodeName, attributes);
     }));
   }
+
+  /**
+   * send message to all nodes.
+   */
   public sendMessage(message: string, args?: any): void {
     this.forEach(node => {
       node.sendMessage(message, args);
     });
   }
+
+  /**
+   * broadcast message to all nodes.
+   * @param range
+   * @param name
+   * @param args
+   */
   public broadcastMessage(range: number, name: string, args?: any): void;
   public broadcastMessage(name: string, args?: any): void;
   public broadcastMessage(arg1: number | string, arg2?: any, arg3?: any): void {

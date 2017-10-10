@@ -1,8 +1,7 @@
-import Ensure from "../Tools/Ensure";
+import Attribute from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
-import Attribute from "../Core/Attribute";
-
+import Ensure from "../Tools/Ensure";
 
 /**
  * コンポーネントのためのコンバータです。
@@ -14,17 +13,27 @@ import Attribute from "../Core/Attribute";
  */
 export default {
   name: "Component",
-  verify: function (attr: Attribute) {
+
+  /**
+   * verify
+   * @param attr
+   */
+  verify(attr: Attribute) {
     if (!attr.declaration["target"]) {
       throw new Error("Component converter require to be specified target");
     }
   },
-  convert: function (val: any, attr: Attribute) {
+  /**
+   * convert
+   * @param val
+   * @param attr
+   */
+  convert(val: any, attr: Attribute) {
     if (val === null) {
       return null;
     }
     if (val instanceof GomlNode) {
-      return val.getComponent(attr.declaration["target"]);
+      return val.getComponent<Component>(attr.declaration["target"]);
     } else if (val instanceof Component) {
       if (val.name.fqn === Ensure.tobeNSIdentity(attr.declaration["target"]).fqn) {
         return val;
@@ -34,9 +43,9 @@ export default {
     } else {
       const n = attr.tree!(val).first();
       if (n) {
-        return n.getComponent(attr.declaration["target"]);
+        return n.getComponent<Component>(attr.declaration["target"]);
       }
       return null;
     }
-  }
+  },
 };

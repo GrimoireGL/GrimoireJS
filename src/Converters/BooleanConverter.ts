@@ -1,6 +1,5 @@
 import { Undef } from "../Tools/Types";
 
-
 /**
  * converter for booleam value.
  * Pass through boolean value as it is.
