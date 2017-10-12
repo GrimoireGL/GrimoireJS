@@ -154,7 +154,7 @@ test("registerComponent by class works correctly", async (t) => {
       },
       testOverride: {
         converter: "String",
-        default: "ccc"
+        default: "ccc",
       }
     };
     public fuga = 7;
@@ -295,12 +295,12 @@ test("registerNode/Component works correctly.", async t => {
     }
   });
   await GrimoireInterface.resolvePlugins();
-  let a1 = GrimoireInterface.nodeDeclarations.get("a1");
+  const a1 = GrimoireInterface.nodeDeclarations.get("a1");
   let a2 = GrimoireInterface.nodeDeclarations.get("a2");
-  let a3 = GrimoireInterface.nodeDeclarations.get("a3");
-  t.truthy(a1.defaultComponentsActual.toArray().length === 1); // grimoireCompone
-  t.truthy(a2.defaultComponentsActual.toArray().length === 2); // grimoireCompone
-  t.truthy(a3.defaultComponentsActual.toArray().length === 2); // grimoireCompone
+  const a3 = GrimoireInterface.nodeDeclarations.get("a3");
+  t.truthy(a1.requiredComponentsActual.toArray().length === 1); // grimoireCompone
+  t.truthy(a2.requiredComponentsActual.toArray().length === 2); // grimoireCompone
+  t.truthy(a3.requiredComponentsActual.toArray().length === 2); // grimoireCompone
 
   // console.log(a2.idResolver)
   t.truthy(a2.idResolver.resolve(Namespace.define("hoge")) === "grimoirejs.Hoge.hoge");
@@ -317,10 +317,10 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
   });
 });
 
-test("register and resolvePlugins works preperly", async () => {
+test("register and resolvePlugins works preperly", async() => {
   const spy1 = spy();
   const spy2 = spy();
-  const wrapPromise: any = function (s) {
+  const wrapPromise: any = function(s) {
     return () => {
       return new Promise(resolve => {
         s();

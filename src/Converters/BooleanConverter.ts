@@ -19,5 +19,5 @@ export default function BooleanConverter(val: any): Undef<boolean> {
         return false;
     }
   }
-  return void 0;
+  return undefined;
 }

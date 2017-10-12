@@ -228,7 +228,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       throw new Error("component must has 'attributes'");
     }
     for (const key in attrs) {
-      if (attrs[key].default === void 0) {
+      if (attrs[key].default === undefined) {
         throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
       }
     }
@@ -322,13 +322,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     const id = scriptTag.getAttribute("x-rootNodeId");
     if (id) {
       const ret = this.rootNodes[id];
-      if (!ret) {
-        throw new Error(`threr is no rootNode has id ${id}`); // TODO
+      if (ret) {
+        return ret;
       }
-      return ret;
-    } else {
-      return null;
     }
+    return null;
   }
 
   /**

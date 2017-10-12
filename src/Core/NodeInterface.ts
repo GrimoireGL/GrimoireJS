@@ -60,14 +60,14 @@ export default class NodeInterface {
   public get(nodeIndex: number): GomlNode;
   public get(treeIndex: number, nodeIndex: number): GomlNode;
   public get(i1?: number, i2?: number): GomlNode {
-    if (i1 === void 0) {
+    if (i1 === undefined) {
       const first = this.first();
       if (!first) {
         throw new Error("this NodeInterface is empty.");
       } else {
         return first;
       }
-    } else if (i2 === void 0) {
+    } else if (i2 === undefined) {
       if (this.count <= i1) {
         throw new Error("index out of range.");
       }

@@ -11,14 +11,14 @@ const mockAttrDec = {
       "second": 2,
       "third": 3
     }
-  }
+  },
 } as any;
 
 const invalidMockAttrDec = {
   declaration: {
     coverter: "Enum",
     default: "Hoge"
-  }
+  },
 } as any;
 
 test("verify works correctly", t => {
@@ -39,8 +39,8 @@ test("EnumConverter should convert collectly", t => {
   t.truthy(EnumConverter.convert(3, mockAttrDec) === 3);
   t.truthy(EnumConverter.convert(4, mockAttrDec) === 4);
   t.truthy(EnumConverter.convert(null, mockAttrDec) === null);
-  t.truthy(EnumConverter.convert({}, mockAttrDec) === void 0);
-  t.truthy(EnumConverter.convert(false, mockAttrDec) === void 0);
+  t.truthy(EnumConverter.convert({}, mockAttrDec) === undefined);
+  t.truthy(EnumConverter.convert(false, mockAttrDec) === undefined);
 
   t.throws(() => {
     EnumConverter.convert("false", mockAttrDec);

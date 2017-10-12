@@ -41,7 +41,7 @@ class AttributeBuffer<T> {
    */
   public resolve(fqn: string, remove: boolean): Undef<T> {
     const guess = this.guess(fqn, remove);
-    return guess.length === 0 ? void 0 : guess[guess.length - 1];
+    return guess.length === 0 ? undefined : guess[guess.length - 1];
   }
 
   /**
@@ -92,7 +92,7 @@ export default class AttributeManager {
     if (this._idResolver.has(fqn)) { // already exists
       Utility.w(`attribute ${attr.name} is already exist in ${this.tag}`);
     }
-    if (this._attributesFQNMap[fqn] === void 0) {
+    if (this._attributesFQNMap[fqn] === undefined) {
       this._attributesFQNMap[fqn] = [];
     }
     this._attributesFQNMap[fqn].push(attr);
@@ -100,7 +100,7 @@ export default class AttributeManager {
 
     // check buffer value.
     const attrBuf = this._attrBuffer.resolve(attr.name.fqn, true);
-    if (attrBuf !== void 0) {
+    if (attrBuf !== undefined) {
       attr.Value = attrBuf;
     }
 
@@ -121,7 +121,7 @@ export default class AttributeManager {
     const fqn = Ensure.tobeFQN(attrName);
     if (fqn) {
       const attrs = this._attributesFQNMap[fqn];
-      if (attrs === void 0 || attrs.length === 0) {
+      if (attrs === undefined || attrs.length === 0) {
         this._watchBuffer.add(fqn, watcher);
         return;
       }
@@ -151,7 +151,7 @@ export default class AttributeManager {
    */
   public setAttribute(attrFQN: string, value: any): void {
     const attrs = this._attributesFQNMap[attrFQN];
-    if (attrs === void 0 || attrs.length === 0) {
+    if (attrs === undefined || attrs.length === 0) {
       this._attrBuffer.add(attrFQN, value);
       return;
     }
@@ -204,7 +204,7 @@ export default class AttributeManager {
       const attrs = this._attributesFQNMap[fqn] || [];
       if (attrs.length === 0) {
         const attrBuf = this._attrBuffer.resolve(fqn, false);
-        if (attrBuf !== void 0) {
+        if (attrBuf !== undefined) {
           return attrBuf;
         }
         throw new Error(`attribute ${attrName} is not found.`);
@@ -217,7 +217,7 @@ export default class AttributeManager {
       const res = this._idResolver.get(attrName);
       if (res.length === 0) {
         const attrBuf = this._attrBuffer.resolve(attrName, false);
-        if (attrBuf !== void 0) {
+        if (attrBuf !== undefined) {
           return attrBuf;
         }
         throw new Error(`attribute ${attrName} is not found.`);

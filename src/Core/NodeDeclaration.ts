@@ -16,7 +16,7 @@ export default class NodeDeclaration {
    * Components attached to this node by default.
    * this property is not consider inheritance.
    */
-  public defaultComponents: IdentitySet;
+  public requiredComponents: IdentitySet;
 
   /**
    * attributes set to this node by default.
@@ -40,7 +40,7 @@ export default class NodeDeclaration {
    */
   public idResolver = new IdResolver();
 
-  private _defaultComponentsActual: IdentitySet;
+  private _requiredComponentsActual: IdentitySet;
   private _defaultAttributesActual: IdentityMap<any>;
   private _resolvedDependency = false;
 
@@ -52,13 +52,13 @@ export default class NodeDeclaration {
   }
 
   /**
-   * get default components with inheritance in mind.
+   * get required components with inheritance in mind.
    */
-  public get defaultComponentsActual(): IdentitySet {
+  public get requiredComponentsActual(): IdentitySet {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
-    return this._defaultComponentsActual;
+    return this._requiredComponentsActual;
   }
 
   /**
@@ -73,7 +73,7 @@ export default class NodeDeclaration {
 
   constructor(
     public name: Identity,
-    private _defaultComponents: Name[],
+    private _requiredComponents: Name[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     private _freezeAttributes: Name[] = []) {
@@ -89,9 +89,9 @@ export default class NodeDeclaration {
    */
   public addDefaultComponent(componentName: Name): void {
     const componentId = Ensure.tobeNSIdentity(componentName);
-    this.defaultComponents.push(componentId);
-    if (this._defaultComponentsActual) {
-      this._defaultComponentsActual.push(componentId);
+    this.requiredComponents.push(componentId);
+    if (this._requiredComponentsActual) {
+      this._requiredComponentsActual.push(componentId);
     }
   }
 
@@ -104,15 +104,15 @@ export default class NodeDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    this.defaultComponents = new IdentitySet(this._defaultComponents.map(name => Ensure.tobeNSIdentity(name)));
+    this.requiredComponents = new IdentitySet(this._requiredComponents.map(name => Ensure.tobeNSIdentity(name)));
 
     for (const key in this._defaultAttributes) {
       const value = this._defaultAttributes[key];
       this.defaultAttributes.set(Identity.fromFQN(key), value);
     }
-    this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : void 0;
+    this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : undefined;
     this._resolveInherites();
-    this._defaultComponentsActual.forEach(id => {
+    this._requiredComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
       dec.idResolver.foreach(fqn => {
         this.idResolver.add(Identity.fromFQN(fqn));
@@ -125,15 +125,15 @@ export default class NodeDeclaration {
 
   private _resolveInherites(): void {
     if (!this.superNode) { // not inherit.
-      this._defaultComponentsActual = this.defaultComponents;
+      this._requiredComponentsActual = this.requiredComponents;
       this._defaultAttributesActual = this.defaultAttributes;
       return;
     }
     const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
     superNode.resolveDependency();
-    const inheritedDefaultComponents = superNode.defaultComponentsActual;
+    const inheritedDefaultComponents = superNode.requiredComponentsActual;
     const inheritedDefaultAttribute = superNode.defaultAttributesActual;
-    this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this.defaultComponents);
+    this._requiredComponentsActual = inheritedDefaultComponents.clone().merge(this.requiredComponents);
     this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this.defaultAttributes);
   }
 }

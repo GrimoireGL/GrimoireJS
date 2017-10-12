@@ -49,7 +49,7 @@ export default class GomlNode extends EEObject {
   /**
    * declaration infomation.
    */
-  public nodeDeclaration: NodeDeclaration;
+  public declaration: NodeDeclaration;
 
   /**
    * children nodes.
@@ -74,7 +74,7 @@ export default class GomlNode extends EEObject {
    * Tag name.
    */
   public get name(): Identity {
-    return this.nodeDeclaration.name;
+    return this.declaration.name;
   }
 
   /**
@@ -156,26 +156,26 @@ export default class GomlNode extends EEObject {
 
   /**
    * create new instance.
-   * @param  {NodeDeclaration} recipe  作成するノードのDeclaration
+   * @param  {NodeDeclaration} declaration  作成するノードのDeclaration
    * @param  {Element}         element 対応するDomElement
    * @return {[type]}                  [description]
    */
-  constructor(recipe: NodeDeclaration, element?: Element) {
+  constructor(declaration: NodeDeclaration, element?: Element) {
     super();
-    if (!recipe) {
-      throw new Error("recipe must not be null");
+    if (!declaration) {
+      throw new Error("declaration must not be null");
     }
-    if (!recipe.resolvedDependency) {
-      recipe.resolveDependency();
+    if (!declaration.resolvedDependency) {
+      declaration.resolveDependency();
     }
-    this.nodeDeclaration = recipe;
-    this.element = element ? element : Environment.document.createElementNS(recipe.name.ns.qualifiedName, recipe.name.name);
+    this.declaration = declaration;
+    this.element = element ? element : Environment.document.createElementNS(declaration.name.ns.qualifiedName, declaration.name.name);
     this._root = this;
     this._components = [];
-    this._attributeManager = new AttributeManager(recipe.name.name);
+    this._attributeManager = new AttributeManager(declaration.name.name);
 
     this.element.setAttribute(Constants.x_gr_id, this.id);
-    const defaultComponentNames = recipe.defaultComponentsActual;
+    const defaultComponentNames = declaration.requiredComponentsActual;
 
     // instanciate default components
     defaultComponentNames.forEach(id => {
@@ -722,7 +722,7 @@ export default class GomlNode extends EEObject {
    * @param attributeName
    */
   public isFreezeAttribute(attributeName: string): boolean {
-    return !!this.nodeDeclaration.freezeAttributes.toArray().find(name => attributeName === name.fqn);
+    return !!this.declaration.freezeAttributes.toArray().find(name => attributeName === name.fqn);
   }
 
   /**
@@ -867,7 +867,7 @@ export default class GomlNode extends EEObject {
   }
 
   private _sendMessage(message: string, args?: any): void {
-    if (this._messageCache[message] === void 0) {
+    if (this._messageCache[message] === undefined) {
       this._messageCache[message] = this._components.filter(c => typeof (c as any)[message] === "function");
     }
     const targetList = this._messageCache[message];

@@ -30,7 +30,7 @@ export default class IdentityMap<V> {
    * @return success or not
    */
   public delete(key: Identity): boolean {
-    if (this._fqnObjectMap[key.fqn] !== void 0) {
+    if (this._fqnObjectMap[key.fqn] !== undefined) {
       delete this._fqnObjectMap[key.fqn];
       this._idResolver.remove(key);
       return true;
@@ -118,11 +118,11 @@ export default class IdentityMap<V> {
   public hasMatchingValue(name: Identity): Undef<V> {
     const resolver = new IdResolver();
     resolver.add(name);
-    let match: string | undefined = void 0;
+    let match: string | undefined;
     for (const key in this._fqnObjectMap) {
       const v = resolver.get(Namespace.defineByArray(key.split(".")));
       if (v.length === 1) {
-        if (match === void 0) {
+        if (match === undefined) {
           match = key;
         } else {
           throw new Error(`matching attribute is ambiguous. It has following possibilities ${match} ${key}`);
@@ -132,7 +132,7 @@ export default class IdentityMap<V> {
     if (match) {
       return this._fqnObjectMap[match];
     }
-    return void 0;
+    return undefined;
   }
 
   /**

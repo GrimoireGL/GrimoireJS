@@ -28,7 +28,7 @@ const genAM = () => {
 test("check init for attribute manager", (t) => {
   const am = genAM();
   let count = 0;
-  for (let key in am["_attributesFQNMap"]) {
+  for (const key in am["_attributesFQNMap"]) {
     count += am["_attributesFQNMap"][key].length;
   }
   t.truthy(count === 3);
@@ -38,18 +38,18 @@ test("check init for attribute manager", (t) => {
 test("simple addAttribute should works correctly", (t) => {
   const am = genAM();
   let l = 0;
-  for (let key in am["_attributesFQNMap"]) {
+  for (const key in am["_attributesFQNMap"]) {
     l += am["_attributesFQNMap"][key].length;
   }
   am.addAttribute(genAttr(ns1));
   let count = 0;
-  for (let key in am["_attributesFQNMap"]) {
+  for (const key in am["_attributesFQNMap"]) {
     count += am["_attributesFQNMap"][key].length;
   }
   t.truthy(count === l + 1);
   am.addAttribute(genAttr(ns1));
   count = 0;
-  for (let key in am["_attributesFQNMap"]) {
+  for (const key in am["_attributesFQNMap"]) {
     count += am["_attributesFQNMap"][key].length;
   }
   t.truthy(count === l + 2);
@@ -60,7 +60,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   const am = genAM();
   am.setAttribute(fqn, "hogehoge");
   t.truthy(am.getAttribute(fqn) === "hogehoge");
-  let attr = genAttr(Identity.fromFQN(fqn));
+  const attr = genAttr(Identity.fromFQN(fqn));
   am.addAttribute(attr);
   t.truthy(am.getAttribute(fqn) === "hogehoge");
   t.truthy(attr.Value === "hogehoge");
@@ -81,7 +81,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   am.setAttribute(attrRaw.name.fqn, "called");
 
   t.truthy("not called" === spy.args[0][0]);
-  t.truthy(void 0 === spy.args[0][1]);
+  t.truthy(undefined === spy.args[0][1]);
   t.truthy(attrRaw === spy.args[0][2]);
 
   t.truthy("called" === spy.args[1][0]);

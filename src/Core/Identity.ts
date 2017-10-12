@@ -41,7 +41,7 @@ export default class Identity {
   }
 
   private static get _map(): IdResolver {
-    if (this._mapBackingField === void 0) {
+    if (this._mapBackingField === undefined) {
       this._mapBackingField = new IdResolver();
     }
     return this._mapBackingField;

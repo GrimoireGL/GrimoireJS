@@ -14,7 +14,7 @@ export default function NumberConverter(val: any): Undef<number> {
   }
   if (typeof val === "string") {
     const parsed = Number.parseFloat(val);
-    return Number.isNaN(parsed) ? void 0 : parsed;
+    return Number.isNaN(parsed) ? undefined : parsed;
   }
   if (val === null) {
     return null;
@@ -26,5 +26,5 @@ export default function NumberConverter(val: any): Undef<number> {
       return ret;
     }
   }
-  return void 0;
+  return undefined;
 }

@@ -145,7 +145,7 @@ test("Nodes should be mounted after loading", (t) => {
   });
 });
 test("attribute default value work correctly1", (t) => {
-  t.truthy(rootNode.getAttribute("id") !== void 0);
+  t.truthy(rootNode.getAttribute("id") !== undefined);
   t.truthy(rootNode.getAttribute("id") === null);
 });
 
@@ -453,7 +453,7 @@ test("get/setAttribute should work correctly 7", t => {
   });
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "3"
+    default: "3",
   });
   let att = rootNode.getAttribute("ns1.hoge");
   t.truthy(att === "1");
@@ -471,14 +471,14 @@ test("get/setAttribute should work correctly 8", t => {
   rootNode.setAttribute("ns2.hoge", "ccc");
   (c as any).__addAttribute("ns1.hoge", { // matchs hoge but not matchs ns2.hoge.
     converter: "String",
-    default: "1"
+    default: "1",
   });
   let att = rootNode.getAttribute("ns1.hoge");
   t.truthy(att === "bbb");
 
   (c as any).__addAttribute("ns2.hoge", {
     converter: "String",
-    default: "2"
+    default: "2",
   });
   t.throws(() => {
     rootNode.getAttribute("hoge");
@@ -488,7 +488,7 @@ test("get/setAttribute should work correctly 8", t => {
 
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "3"
+    default: "3",
   });
   att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".hoge"));
   t.truthy(att === "3");
@@ -498,7 +498,7 @@ test("addNode works correctly", (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
-    id: "idtest"
+    id: "idtest",
   });
   const child = testNode2.children[0];
   t.truthy(child.name.name === "test-node2");
@@ -513,7 +513,7 @@ test("null should be \"\" as id and classname", async (t) => {
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
     id: null,
-    class: null
+    class: null,
   });
   const child = testNode2.children[0];
   t.truthy(child.name.name === "test-node2");
@@ -531,7 +531,7 @@ test("null should be \"\" as id and classname", async (t) => {
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
     id: null,
-    class: null
+    class: null,
   });
   const child = testNode2.children[0];
   t.truthy(child.name.name === "test-node2");

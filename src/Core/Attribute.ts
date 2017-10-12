@@ -44,7 +44,7 @@ export default class Attribute {
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);
     attr.converter = Environment.GrimoireInterface.converters.get(converterName);
-    if (attr.converter === void 0) {
+    if (attr.converter === undefined) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
@@ -116,7 +116,7 @@ export default class Attribute {
    * @return {any} value with specified type.
    */
   public get Value(): any {
-    if (this._value === void 0) {
+    if (this._value === undefined) {
       const node = this.component.node;
       throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
     }
@@ -147,7 +147,7 @@ export default class Attribute {
       this._observers.push(watcher);
     }
     if (immedateCalls) {
-      watcher(this.Value, void 0, this);
+      watcher(this.Value, undefined, this);
     }
   }
 
@@ -175,7 +175,7 @@ export default class Attribute {
    * @param {string} variableName [description]
    * @param {any} targetObject [description]
    */
-  public boundTo(variableName: string, targetObject: any = this.component): void {
+  public bindTo(variableName: string, targetObject: any = this.component): void {
     if (targetObject[variableName]) {
       console.warn(`component field ${variableName} is already defined.`);
     }
@@ -205,7 +205,7 @@ export default class Attribute {
    * @param {string }} domValues [description]
    */
   public resolveDefaultValue(domValues: { [key: string]: string }): void {
-    if (this._value !== void 0) {// value is already exist.
+    if (this._value !== undefined) {// value is already exist.
       return;
     }
 
@@ -223,21 +223,21 @@ export default class Attribute {
       }
       const get = resolver.get(key);
       if (get.length > 0) {
-        if (tagAttrKey === void 0) {
+        if (tagAttrKey === undefined) {
           tagAttrKey = key;
         } else {
           throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
         }
       }
     }
-    if (tagAttrKey !== void 0) {
+    if (tagAttrKey !== undefined) {
       this.Value = domValues[tagAttrKey];
       return;
     }
 
     // resolve by node defaults.
-    const nodeDefaultValue = this.component.node.nodeDeclaration.defaultAttributesActual.hasMatchingValue(this.name);
-    if (nodeDefaultValue !== void 0) {
+    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.name);
+    if (nodeDefaultValue !== undefined) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;
     }
@@ -248,7 +248,7 @@ export default class Attribute {
 
   private _valuate(raw: any): any {
     const v = this.converter.convert(raw, this);
-    if (v === void 0) {
+    if (v === undefined) {
       const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
       throw new Error(errorMessage);
     }

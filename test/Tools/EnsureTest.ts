@@ -1,9 +1,9 @@
 import test from "ava";
-import Ensure from "../../src/Tools/Ensure";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import IdentityMap from "../../src/Core/IdentityMap";
 import Identity from "../../src/Core/Identity";
+import IdentityMap from "../../src/Core/IdentityMap";
 import Namespace from "../../src/Core/Namespace";
+import Ensure from "../../src/Tools/Ensure";
 
 test.beforeEach(() => {
   Identity.clear();
@@ -44,7 +44,7 @@ test("Ensure passed array are transformed into NSIdentity[]", (t) => {
 });
 
 test("Ensure passed object are transformed into NSDictionary", (t) => {
-  let transformed = Ensure.tobeIdentityMap(void 0);
+  let transformed = Ensure.tobeIdentityMap(undefined);
   t.truthy(transformed instanceof IdentityMap);
   const obj = {};
   obj[Identity.fromFQN("Hello").fqn] = "test1";

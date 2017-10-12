@@ -38,7 +38,7 @@ test("get/set value should works correctly.", t => {
   idAttr.Value = 123;
   t.truthy(idAttr.Value === "123");
   t.throws(() => {
-    idAttr.Value = void 0;
+    idAttr.Value = undefined;
   });
 });
 
@@ -90,7 +90,7 @@ test("generateAttributeForComponent should works correctly", t => {
   t.notThrows(() => { // default value undefined is OK.
     Attribute.generateAttributeForComponent("fuga", {
       converter: "Number",
-      default: void 0
+      default: undefined
     }, baseComponent);
   });
 });
@@ -99,7 +99,7 @@ test("boundTo should works correctly", t => {
   const idAttr = rootNode.getAttributeRaw("id");
   const baseComponent = rootNode.getComponent(GrimoireComponent);
   const obj = { id: "hoge" };
-  idAttr.boundTo("id", obj);
+  idAttr.bindTo("id", obj);
   t.truthy(obj.id === idAttr.Value);
   idAttr.Value = "value";
   t.truthy(obj.id === idAttr.Value);
@@ -113,7 +113,7 @@ test("generateAttributeForComponent should works correctly (use dom value)", t =
 
   const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
-    default: 42
+    default: 42,
   }, baseComponent);
 
   t.throws(() => {
@@ -126,17 +126,17 @@ test("generateAttributeForComponent should works correctly (use dom value)", t =
 
 test("generateAttributeForComponent should works correctly (use node value)", t => {
   GrimoireInterface.registerNode("node1", [], { "ns1.hoge": 52 });
-  let rootNode = TestUtil.DummyTreeInit(`<goml><node1/></goml>`);
-  let node = rootNode.children[0];
+  const rootNode = TestUtil.DummyTreeInit(`<goml><node1/></goml>`);
+  const node = rootNode.children[0];
   const baseComponent = node.getComponent(GrimoireComponent);
 
   const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
-    default: 42
+    default: 42,
   }, baseComponent);
   const attr2 = Attribute.generateAttributeForComponent("ns2.hoge", {
     converter: "Number",
-    default: 42
+    default: 42,
   }, baseComponent);
 
   attr1.resolveDefaultValue({});
@@ -145,17 +145,17 @@ test("generateAttributeForComponent should works correctly (use node value)", t 
 
 test("generateAttributeForComponent should works correctly (use declaration default value)", t => {
   GrimoireInterface.registerNode("node1");
-  let rootNode = TestUtil.DummyTreeInit(`<goml><node1/></goml>`);
-  let node = rootNode.children[0];
+  const rootNode = TestUtil.DummyTreeInit("<goml><node1/></goml>");
+  const node = rootNode.children[0];
   const baseComponent = node.getComponent(GrimoireComponent);
 
   const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
-    default: 42
+    default: 42,
   }, baseComponent);
   const attr2 = Attribute.generateAttributeForComponent("ns2.hoge", {
     converter: "Number",
-    default: 42
+    default: 42,
   }, baseComponent);
 
   attr1.resolveDefaultValue({});
