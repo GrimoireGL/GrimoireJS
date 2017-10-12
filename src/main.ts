@@ -15,7 +15,7 @@ class GrimoireInitializer {
     try {
       GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
-      GrimoireInitializer._injectDependency();
+      GrimoireInitializer._injectEnvironment();
       GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
       GrimoireInitializer._logVersions();
@@ -31,7 +31,7 @@ class GrimoireInitializer {
   /**
    * inject browser environment
    */
-  private static _injectDependency(): void {
+  private static _injectEnvironment(): void {
     Environment.DomParser = new DOMParser();
     Environment.document = document;
     Environment.Node = Node;
@@ -49,7 +49,7 @@ class GrimoireInitializer {
       return;
     }
     // Otherwise like ""Safari""
-    for (let propName in WebGLRenderingContext.prototype) {
+    for (const propName in WebGLRenderingContext.prototype) {
       if (/^[A-Z]/.test(propName)) {
         const property = (WebGLRenderingContext.prototype as any)[propName];
         (WebGLRenderingContext as any)[propName] = property;
@@ -76,7 +76,7 @@ class GrimoireInitializer {
     }
     let log = `%cGrimoire.js v${(gr as any)["__VERSION__"]}\nplugins:\n\n`;
     let i = 1;
-    for (let key in gr.lib) {
+    for (const key in gr.lib) {
       const plugin = gr.lib[key];
       log += `  ${i} : ${plugin.__NAME__ || key}@${plugin.__VERSION__}\n`;
       i++;
@@ -88,7 +88,7 @@ class GrimoireInitializer {
   private static _notifyLibraryLoadingToWindow(): void {
     window.postMessage({
       $source: "grimoirejs",
-      $messageType: "library-loading"
+      $messageType: "library-loading",
     }, "*");
   }
 }
@@ -96,7 +96,7 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-export default function (): typeof GrimoireInterface {
+export default function(): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
   GrimoireInterface.noConflictPreserve = (window as any)["gr"];
   return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;
