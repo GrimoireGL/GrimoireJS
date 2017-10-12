@@ -32,7 +32,7 @@ export default class GrimoireComponent extends Component {
   /**
    * awake
    */
-  public $awake(): void {
+  protected $awake(): void {
     const node = this.node;
     node.resolveAttributesValue();
     this.getAttributeRaw("id").watch((attr) => {
