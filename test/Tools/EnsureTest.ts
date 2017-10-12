@@ -18,14 +18,14 @@ test("Ensure passed argument should be transformed as NSIdentity", (t) => {
 test("Ensure passed argument are transformed into number", (t) => {
   t.truthy(Ensure.tobeNumber("9") === 9);
   t.truthy(Ensure.tobeNumber(9) === 9);
-  let a: any = () => {/*do nothing*/ };
+  const a: any = () => {/*do nothing*/ };
   t.throws(() => Ensure.tobeNumber(a));
 });
 
 test("Ensure passed argument are transformed into string", (t) => {
   t.truthy(Ensure.tobeString("9") === "9");
   t.truthy(Ensure.tobeString(9) === "9");
-  let a: any = () => {/*do nothing*/ };
+  const a: any = () => {/*do nothing*/ };
   t.throws(() => Ensure.tobeString(a));
 });
 
@@ -44,12 +44,12 @@ test("Ensure passed array are transformed into NSIdentity[]", (t) => {
 });
 
 test("Ensure passed object are transformed into NSDictionary", (t) => {
-  let transformed = Ensure.tobeNSDictionary(void 0);
+  let transformed = Ensure.tobeIdentityMap(void 0);
   t.truthy(transformed instanceof IdentityMap);
-  let obj = {};
+  const obj = {};
   obj[Identity.fromFQN("Hello").fqn] = "test1";
   obj[Identity.fromFQN("World").fqn] = "test2";
-  transformed = Ensure.tobeNSDictionary(obj);
+  transformed = Ensure.tobeIdentityMap(obj);
   t.truthy(transformed instanceof IdentityMap);
   t.truthy(transformed.get("Hello") === "test1");
   t.truthy(transformed.get("World") === "test2");
