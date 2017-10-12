@@ -24,10 +24,10 @@ export default class Utility {
   }
 
   /**
-   * check string is snake-case
+   * check string is kebab-case
    * @param str string to check
    */
-  public static isSnakeCase(str: string): boolean {
+  public static isKebabCase(str: string): boolean {
     return /^[a-z0-9\-]+$/.test(str);
   }
 

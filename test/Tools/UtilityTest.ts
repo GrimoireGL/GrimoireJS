@@ -10,10 +10,10 @@ test("isCamelCase works correctly.", t => {
 });
 
 test("isSnakeCase works correctly.", t => {
-  t.truthy(Utility.isSnakeCase("name-name-123"));
-  t.truthy(Utility.isSnakeCase("nm"));
-  t.truthy(Utility.isSnakeCase("--"));
-  t.truthy(!Utility.isSnakeCase("nameName"));
-  t.truthy(!Utility.isSnakeCase("Name_Name"));
-  t.truthy(!Utility.isSnakeCase("1nameName"));
+  t.truthy(Utility.isKebabCase("name-name-123"));
+  t.truthy(Utility.isKebabCase("nm"));
+  t.truthy(Utility.isKebabCase("--"));
+  t.truthy(!Utility.isKebabCase("nameName"));
+  t.truthy(!Utility.isKebabCase("Name_Name"));
+  t.truthy(!Utility.isKebabCase("1nameName"));
 });

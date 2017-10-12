@@ -258,7 +258,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (this.nodeDeclarations.get(registerId)) {
       throw new Error(`gomlnode ${registerId.fqn} is already registerd.`);
     }
-    if (this.debug && !Utility.isSnakeCase(registerId.name)) {
+    if (this.debug && !Utility.isKebabCase(registerId.name)) {
       console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
 
