@@ -132,8 +132,8 @@ export default class Component extends IDObject {
    * get attribute object instance.
    * @param name
    */
-  public getAttributeRaw(name: Name): Attribute {
-    if (typeof name === "string" && Ensure.checkFQNString(name)) {
+  public getAttributeRaw(name: Name): Nullable<Attribute> {
+    if (typeof name === "string" && !Ensure.checkFQNString(name)) {
       name = `${this.name.fqn}.${name}`; // TODO: test
     }
     return this.attributes.get(name);
@@ -242,7 +242,7 @@ export default class Component extends IDObject {
         throw new Error("can not remove attributes :" + name);
       }
       const attrId = this._additionalAttributesNames[index];
-      this.node.removeAttribute(this.attributes.get(attrId));
+      this.node.removeAttribute(this.attributes.get(attrId)!);
       this.attributes.delete(attrId);
       this._additionalAttributesNames.splice(index, 1);
     } else {

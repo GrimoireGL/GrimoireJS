@@ -44,17 +44,17 @@ export default class IdentityMap<V> {
    * return null if key is not exists.
    * @param name
    */
-  public get(name: Name): V;
-  public get(element: Element): V;
-  public get(attribute: Attr): V;
-  public get(arg1: string | Element | Identity | Attr): Nullable<V> {
+  public get<T extends V = V>(name: Name): Nullable<T>;
+  public get<T extends V = V>(element: Element): Nullable<T>;
+  public get<T extends V = V>(attribute: Attr): Nullable<T>;
+  public get<T extends V = V>(arg1: string | Element | Identity | Attr): Nullable<T> {
     if (!arg1) {
       throw new Error("NSDictionary.get() can not recieve args null or undefined.");
     }
     if (typeof arg1 === "string") {
       const fqn = Ensure.tobeFQN(arg1);
       if (fqn) {
-        return this._fqnObjectMap[fqn];
+        return this._fqnObjectMap[fqn] as T;
       }
       const name = arg1.split(".");
       const res = this._idResolver.get(Namespace.defineByArray(name));
@@ -63,14 +63,14 @@ export default class IdentityMap<V> {
         return null; // not exist.
       }
       if (res.length === 1) {
-        return this._fqnObjectMap[res[0]];
+        return this._fqnObjectMap[res[0]] as T;
       } else {
         throw new Error(`Specified tag name ${arg1} is ambiguous to identify.`);
       }
 
     } else {
       if (arg1 instanceof Identity) {
-        return this._fqnObjectMap[arg1.fqn];
+        return this._fqnObjectMap[arg1.fqn] as T;
       } else {
         if (arg1.namespaceURI) {
           return this.get(`${arg1.namespaceURI}.${arg1.localName!}`);

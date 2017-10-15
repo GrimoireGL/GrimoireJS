@@ -43,11 +43,12 @@ export default class Attribute {
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeNSIdentity(declaration.converter);
-    attr.converter = Environment.GrimoireInterface.converters.get(converterName);
-    if (attr.converter === undefined) {
+    const converter = Environment.GrimoireInterface.converters.get(converterName);
+    if (!converter) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
+    attr.converter = converter;
     attr.component.attributes.set(attr.name, attr);
     attr.converter.verify(attr);
     return attr;

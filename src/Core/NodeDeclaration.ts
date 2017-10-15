@@ -114,6 +114,9 @@ export default class NodeDeclaration {
     this._resolveInherites();
     this._requiredComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
+      if (!dec) {
+        throw new Error(`require component ${id} has not registerd. this node is ${this.name}.`);
+      }
       dec.idResolver.foreach(fqn => {
         this.idResolver.add(Identity.fromFQN(fqn));
       });
@@ -130,6 +133,9 @@ export default class NodeDeclaration {
       return;
     }
     const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
+    if (!superNode) {
+      throw new Error(`In node '${this.name.fqn}': super node ${this.superNode.fqn} is not found when resolving inherits, it has registerd correctry?`);
+    }
     superNode.resolveDependency();
     const inheritedDefaultComponents = superNode.requiredComponentsActual;
     const inheritedDefaultAttribute = superNode.defaultAttributesActual;

@@ -20,7 +20,7 @@ test("component poperties should be initialized correctly", (t) => {
         converter: "String",
         default: "super"
       }
-    }
+    },
   });
   GrimoireInterface.registerComponent({
     componentName: "Hoge",
@@ -33,7 +33,7 @@ test("component poperties should be initialized correctly", (t) => {
         converter: "String",
         default: "hoge"
       }
-    }
+    },
   }, "Super");
   const superComponentDec = GrimoireInterface.componentDeclarations.get("Super");
   const hogeComponentDec = GrimoireInterface.componentDeclarations.get("Hoge");
@@ -55,26 +55,26 @@ test("get/set attribute should works correctly", (t) => {
     attributes: {
       superAttr1: {
         converter: "String",
-        default: "hoge"
+        default: "hoge",
       },
       overrideAttr1: {
         converter: "String",
-        default: "super"
-      }
-    }
+        default: "super",
+      },
+    },
   });
   GrimoireInterface.registerComponent({
     componentName: "Hoge",
     attributes: {
       attr1: {
         converter: "String",
-        default: "hoge"
+        default: "hoge",
       },
       overrideAttr1: {
         converter: "String",
-        default: "hoge"
-      }
-    }
+        default: "hoge",
+      },
+    },
   }, "Super");
   const superComponentDec = GrimoireInterface.componentDeclarations.get("Super");
   const hogeComponentDec = GrimoireInterface.componentDeclarations.get("Hoge");
