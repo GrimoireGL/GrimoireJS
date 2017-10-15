@@ -215,11 +215,6 @@ export default class Component extends IDObject {
     }
   }
 
-  protected __addAtribute(name: string, attribute: IAttributeDeclaration): void {
-    console.warn(`${this.name.fqn} is using '__addAtribute()'.\nthis method is deprecated because typo.\nplease use '__addAttribute() instead of.'`);
-    this.__addAttribute(name, attribute);
-  }
-
   /**
    * Add additional attribute to this component.
    * @param {string}                name      [description]
