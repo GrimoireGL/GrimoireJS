@@ -258,4 +258,13 @@ export default class Component extends IDObject {
       attr.bindTo(name);
     });
   }
+
+  /**
+   * set object to companion with identity that has same namespace as this component, and provided name.
+   * @param name
+   * @param value
+   */
+  protected __setCompanionWithSelfNS(name: string, value: any) {
+    this.companion.set(this.name.ns.for(name), value);
+  }
 }
