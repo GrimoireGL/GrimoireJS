@@ -414,7 +414,7 @@ export default class GomlNode extends EEObject {
    * get attribute value.
    * @param attrName
    */
-  public getAttribute(attrName: Name): any {
+  public getAttribute<T = any>(attrName: Name): T {
     return this._attributeManager.getAttribute(attrName);
   }
 

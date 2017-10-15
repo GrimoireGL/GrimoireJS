@@ -116,7 +116,7 @@ export default class Component extends IDObject {
    * get attribute value.
    * @param name
    */
-  public getAttribute(name: Name): any {
+  public getAttribute<T = any>(name: Name): T {
     if (typeof name === "string" && Ensure.checkFQNString(name)) {
       name = `${this.name.fqn}.${name}`; // TODO: test
     }
