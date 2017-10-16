@@ -36,7 +36,7 @@
     "semantic-release": "^7.0.2",
     "sinon": "^3.2.1",
     "trash-cli": "^1.4.0",
-    "ts-loader": "^2.3.3",
+    "ts-loader": "^3.0.0",
     "tslint": "^5.6.0",
     "typedoc": "^0.8.0",
     "typedoc-md-theme": "^1.0.1",
