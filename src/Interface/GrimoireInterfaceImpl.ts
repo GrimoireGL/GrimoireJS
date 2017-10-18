@@ -49,6 +49,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   public nodeDictionary: { [nodeId: string]: GomlNode } = {};
   public componentDictionary: { [componentId: string]: Component } = {};
+  public libraryPreference?: { [preference: string]: any };
   public debug = true;
 
   /**
