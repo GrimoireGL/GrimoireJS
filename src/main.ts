@@ -15,7 +15,9 @@ class GrimoireInitializer {
       GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
       GrimoireInterface.initialize();
-      await GrimoireInitializer._waitForDOMLoading();
+      if (document.readyState === "loading") {
+        await GrimoireInitializer._waitForDOMLoading();
+      }
       GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();
@@ -82,7 +84,7 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-export default function(): typeof GrimoireInterface {
+export default function (): typeof GrimoireInterface {
   GrimoireInitializer.initialize();
   GrimoireInterface.noConflictPreserve = (window as any)["gr"];
   return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;

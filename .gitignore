@@ -128,3 +128,5 @@ yarn.lock
 docs
 test-lib
 test-lib-es5
+package-lock.json
+.vscode
