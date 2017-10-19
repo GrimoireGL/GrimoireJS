@@ -92,7 +92,7 @@ class GrimoireInitializer {
     if (!GrimoireInterface.libraryPreference) {
       return;
     }
-    await (GrimoireInterface.libraryPreference["suspendForLoading"] as Promise<void>);
+    await (GrimoireInterface.libraryPreference["postponeLoading"] as Promise<void>);
   }
 }
 
@@ -104,8 +104,8 @@ export default function (): typeof GrimoireInterface {
   if (gwin.GrimoireJS) {
     GrimoireInterface.libraryPreference = gwin.GrimoireJS;
   }
+  GrimoireInterface.noConflictPreserve = gwin.gr;
   gwin.gr = gwin.GrimoireJS = GrimoireInterface;
   GrimoireInitializer.initialize();
-  GrimoireInterface.noConflictPreserve = gwin.gr;
   return GrimoireInterface;
 }
