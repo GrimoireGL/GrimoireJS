@@ -1,6 +1,11 @@
 import GrimoireInterface from "./Interface/GrimoireInterface";
 import GomlLoader from "./Node/GomlLoader";
 
+interface IGrimoireWindow extends Window {
+  GrimoireJS: typeof GrimoireInterface;
+  gr?: typeof GrimoireInterface;
+}
+
 /**
  * Provides procedures for initializing.
  */
@@ -15,9 +20,8 @@ class GrimoireInitializer {
       GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
       GrimoireInterface.initialize();
-      if (document.readyState === "loading") {
-        await GrimoireInitializer._waitForDOMLoading();
-      }
+      await GrimoireInitializer._waitForDOMLoading();
+      await GrimoireInitializer._waitForPluginLoadingSuspendPromise();
       GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
       await GomlLoader.loadForPage();
@@ -51,9 +55,13 @@ class GrimoireInitializer {
    */
   private static _waitForDOMLoading(): Promise<void> {
     return new Promise<void>((resolve) => {
-      window.addEventListener("DOMContentLoaded", () => {
+      if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", () => {
+          resolve();
+        });
+      } else {
         resolve();
-      });
+      }
     });
   }
 
@@ -79,13 +87,25 @@ class GrimoireInitializer {
       $messageType: "library-loading"
     }, "*");
   }
+
+  private static async _waitForPluginLoadingSuspendPromise(): Promise<void> {
+    if (!GrimoireInterface.libraryPreference) {
+      return;
+    }
+    await (GrimoireInterface.libraryPreference["postponeLoading"] as Promise<void>);
+  }
 }
 
 /**
  * Just start the process.
  */
 export default function (): typeof GrimoireInterface {
+  const gwin = window as IGrimoireWindow;
+  if (gwin.GrimoireJS) {
+    GrimoireInterface.libraryPreference = gwin.GrimoireJS;
+  }
+  GrimoireInterface.noConflictPreserve = gwin.gr;
+  gwin.gr = gwin.GrimoireJS = GrimoireInterface;
   GrimoireInitializer.initialize();
-  GrimoireInterface.noConflictPreserve = (window as any)["gr"];
-  return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;
+  return GrimoireInterface;
 }
