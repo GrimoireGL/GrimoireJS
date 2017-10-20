@@ -1,7 +1,8 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
 import Ensure from "../Tools/Ensure";
 import IdResolver from "../Tools/IdResolver";
-import { Name } from "../Tools/Types";
+import { Ctor, Name } from "../Tools/Types";
+import Component from "./Component";
 import Constants from "./Constants";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
@@ -73,7 +74,7 @@ export default class NodeDeclaration {
 
   constructor(
     public name: Identity,
-    private _requiredComponents: Name[],
+    private _requiredComponents: (Name | Ctor<Component>)[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     private _freezeAttributes: Name[] = []) {
@@ -104,7 +105,7 @@ export default class NodeDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    this.requiredComponents = new IdentitySet(this._requiredComponents.map(name => Ensure.tobeNSIdentity(name)));
+    this.requiredComponents = new IdentitySet(this._requiredComponents.map(name => Ensure.tobeComponentIdentity(name)));
 
     for (const key in this._defaultAttributes) {
       const value = this._defaultAttributes[key];

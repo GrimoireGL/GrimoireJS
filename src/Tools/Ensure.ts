@@ -23,14 +23,13 @@ export default class Ensure {
     if (typeof component === "function") {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
-        component = obj.name;
+        return obj.name;
       } else {
         throw new Error("Specified constructor have not registered to current context.");
       }
     } else {
-      component = Ensure.tobeNSIdentity(component);
+      return Ensure.tobeNSIdentity(component);
     }
-    return component;
   }
   /**
    * Ensure specified str being string
