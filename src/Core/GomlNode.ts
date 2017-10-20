@@ -308,7 +308,7 @@ export default class GomlNode extends EEObject {
    * @param {string |   Identity} nodeName      [description]
    * @param {any    }} attributes   [description]
    */
-  public addChildByName(nodeName: Name, attributes: { [attrName: string]: any }): GomlNode {
+  public addChildByName(nodeName: Name, attributes: { [attrName: string]: any } = {}): GomlNode {
     const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
     if (!nodeDec) {
       throw new Error(`In node ${this.name}: the node that attempted to add to child is not found.`);
