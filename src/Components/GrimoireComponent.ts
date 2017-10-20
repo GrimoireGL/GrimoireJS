@@ -35,13 +35,13 @@ export default class GrimoireComponent extends Component {
   protected $awake(): void {
     const node = this.node;
     node.resolveAttributesValue();
-    this.getAttributeRaw("id").watch((attr) => {
+    this.getAttributeRaw("id")!.watch((attr) => {
       node.element.id = attr ? attr : "";
     }, true, true);
-    this.getAttributeRaw("class").watch((attr) => {
+    this.getAttributeRaw("class")!.watch((attr) => {
       node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
     }, true, true);
-    this.getAttributeRaw("enabled").watch(attr => {
+    this.getAttributeRaw("enabled")!.watch(attr => {
       node["_enabled"] = attr;
       const p = node.parent;
       node.notifyActivenessUpdate(p ? p.isActive && node.enabled : node.enabled);

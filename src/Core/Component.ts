@@ -1,7 +1,6 @@
 import IDObject from "../Base/IDObject";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Ensure from "../Tools/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
 import Utility from "../Tools/Utility";
 import Attribute from "./Attribute";
@@ -103,12 +102,11 @@ export default class Component extends IDObject {
    * @param {any}    value [description]
    */
   public setAttribute(name: Name, value: any): void {
-    if (typeof name === "string" && Ensure.checkFQNString(name)) {
-      name = `${this.name.fqn}.${name}`; // TODO: test
-    }
     const attr = this.attributes.get(name);
     if (attr) {
       attr.Value = value;
+    } else {
+      throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
     }
   }
 
@@ -117,9 +115,6 @@ export default class Component extends IDObject {
    * @param name
    */
   public getAttribute<T = any>(name: Name): T {
-    if (typeof name === "string" && Ensure.checkFQNString(name)) {
-      name = `${this.name.fqn}.${name}`; // TODO: test
-    }
     const attr = this.getAttributeRaw(name);
     if (attr) {
       return attr.Value;
@@ -133,9 +128,6 @@ export default class Component extends IDObject {
    * @param name
    */
   public getAttributeRaw(name: Name): Nullable<Attribute> {
-    if (typeof name === "string" && !Ensure.checkFQNString(name)) {
-      name = `${this.name.fqn}.${name}`; // TODO: test
-    }
     return this.attributes.get(name);
   }
 

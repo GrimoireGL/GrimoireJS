@@ -1,6 +1,6 @@
 import test from "ava";
-import TestEnvManager from "../TestEnvManager";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
+import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
@@ -14,12 +14,12 @@ test("component poperties should be initialized correctly", (t) => {
     attributes: {
       superAttr1: {
         converter: "String",
-        default: "hoge"
+        default: "hoge",
       },
       overrideAttr1: {
         converter: "String",
-        default: "super"
-      }
+        default: "super",
+      },
     },
   });
   GrimoireInterface.registerComponent({
@@ -27,12 +27,12 @@ test("component poperties should be initialized correctly", (t) => {
     attributes: {
       attr1: {
         converter: "String",
-        default: "hoge"
+        default: "hoge",
       },
       overrideAttr1: {
         converter: "String",
-        default: "hoge"
-      }
+        default: "hoge",
+      },
     },
   }, "Super");
   const superComponentDec = GrimoireInterface.componentDeclarations.get("Super");
@@ -84,7 +84,15 @@ test("get/set attribute should works correctly", (t) => {
 
   t.truthy(!hogeComponent.getAttributeRaw("notfound"));
   t.truthy(hogeComponent.getAttributeRaw("attr1"));
-  t.truthy(hogeComponent.getAttributeRaw("grimoirejs.attr1"));
   t.truthy(hogeComponent.getAttributeRaw("grimoirejs.Hoge.attr1"));
+  t.truthy(hogeComponent.getAttributeRaw("grimoirejs.attr1"));
+  t.truthy(hogeComponent.getAttributeRaw("_grimoirejs.Hoge.attr1"));
+  t.truthy(!hogeComponent.getAttributeRaw("_grimoirejs.attr1"));
   t.truthy(hogeComponent.getAttributeRaw("Hoge.attr1"));
+
+  hogeComponent.setAttribute("attr1", "some value");
+  t.truthy(hogeComponent.getAttribute("attr1") === "some value")
+  t.throws(() => {
+    hogeComponent.setAttribute("notfound", "some value");
+  });
 });
