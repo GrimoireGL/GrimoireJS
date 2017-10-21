@@ -5,10 +5,10 @@ import TestEnvManager from "../TestEnvManager";
 TestEnvManager.init();
 
 test("NumberConverter should convert collectly", t => {
-  t.truthy(NumberConverter(123) === 123);
-  t.truthy(NumberConverter("123") === 123);
-  t.truthy(NumberConverter(null) === null);
-  t.truthy(NumberConverter([123]) === 123);
-  t.truthy(NumberConverter("this string can not convert to number") === undefined);
-  t.truthy(NumberConverter([123, 456]) === undefined);
+  t.truthy(NumberConverter.convert(123) === 123);
+  t.truthy(NumberConverter.convert("123") === 123);
+  t.truthy(NumberConverter.convert(null) === null);
+  t.truthy(NumberConverter.convert([123]) === 123);
+  t.truthy(NumberConverter.convert("this string can not convert to number") === undefined);
+  t.truthy(NumberConverter.convert([123, 456]) === undefined);
 });

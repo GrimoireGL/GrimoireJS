@@ -1,5 +1,8 @@
+import BooleanConverter from "../Converters/BooleanConverter";
 import Component from "../Core/Component";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import Identity from "../Core/Identity";
+import Namespace from "../Core/Namespace";
+import { __NAMESPACE__ } from "../metaInfo";
 
 /**
  * Basic Component for all node.
@@ -9,12 +12,12 @@ export default class GrimoireComponent extends Component {
   /**
    * component name.
    */
-  public static componentName = "GrimoireComponent";
+  public static componentName = Namespace.define(__NAMESPACE__).for("GrimoireComponent") as Identity;
 
   /**
    * attributes
    */
-  public static attributes: { [key: string]: IAttributeDeclaration } = {
+  public static attributes = {
     id: {
       converter: "String",
       default: null,
@@ -24,7 +27,7 @@ export default class GrimoireComponent extends Component {
       default: null,
     },
     enabled: {
-      converter: "Boolean",
+      converter: BooleanConverter,
       default: true,
     },
   };

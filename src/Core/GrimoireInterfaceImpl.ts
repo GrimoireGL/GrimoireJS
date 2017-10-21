@@ -137,11 +137,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * if you want reset state. use GrimoireInterface.clear() instead of.
    */
   public initialize(): void {
-    this.registerConverter("String", StringConverter);
+    this.registerConverter(StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
-    this.registerConverter("Boolean", BooleanConverter);
-    this.registerConverter("Object", ObjectConverter);
-    this.registerConverter("Number", NumberConverter);
+    this.registerConverter(BooleanConverter);
+    this.registerConverter(ObjectConverter);
+    this.registerConverter(NumberConverter);
     this.registerConverter("NumberArray", NumberArrayConverter);
     this.registerConverter(ArrayConverter);
     this.registerConverter(EnumConverter);

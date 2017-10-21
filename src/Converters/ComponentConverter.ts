@@ -2,6 +2,7 @@ import Attribute from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import Ensure from "../Tools/Ensure";
+import { Undef } from "../Tools/Types";
 
 /**
  * コンポーネントのためのコンバータです。
@@ -28,7 +29,7 @@ export default {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: Attribute) {
+  convert(val: any, attr: Attribute): Undef<Component> {
     if (val === null) {
       return null;
     }
