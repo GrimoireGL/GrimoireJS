@@ -5,14 +5,14 @@ import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDecl
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tools/Ensure";
 import IdResolver from "../Tools/IdResolver";
-import { GomlInterface, Name, Nullable } from "../Tools/Types";
+import { GomlInterface, Name, Nullable, Undef } from "../Tools/Types";
 import Utility from "../Tools/Utility";
 import Component from "./Component";
 
 /**
  * Manage a attribute attached to components.
  */
-export default class Attribute {
+export default class Attribute<T = any> {
 
   /**
    * convert value by provided converter.
@@ -38,20 +38,22 @@ export default class Attribute {
    * @param {ConverterBase} converter Converter of this attribute.
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
-  public static generateAttributeForComponent(name: string, declaration: IAttributeDeclaration, component: Component): Attribute {
-    const attr = new Attribute();
+  public static generateAttributeForComponent<T>(name: string, declaration: IAttributeDeclaration<T>, component: Component): Attribute<T> {
+    const attr = new Attribute<T>();
     attr.name = Identity.fromFQN(`${component.name.fqn}.${name}`);
     attr.component = component;
     attr.declaration = declaration;
-    const converterName = Ensure.tobeNSIdentity(declaration.converter);
+    const converterName = Ensure.tobeCnverterIdentity(declaration.converter);
     const converter = Environment.GrimoireInterface.converters.get(converterName);
     if (!converter) {
       // When the specified converter was not found
       throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
-    attr.converter = converter;
+    attr.converter = converter as IAttributeConverterDeclaration<T>;
     attr.component.attributes.set(attr.name, attr);
-    attr.converter.verify(attr);
+    if (attr.converter.verify) {
+      attr.converter.verify(attr);
+    }
     return attr;
   }
 
@@ -71,7 +73,7 @@ export default class Attribute {
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: IAttributeConverterDeclaration;
+  public converter: IAttributeConverterDeclaration<T>;
 
   /**
    * A component reference that this attribute is bound to.
@@ -89,13 +91,13 @@ export default class Attribute {
    */
   private _value: any;
 
-  private _lastValuete: any;
+  private _lastValuete: T;
 
   /**
    * List of functions that is listening changing values.
    */
-  private _observers: ((newValue: any, oldValue: any, attr: Attribute) => void)[] = [];
-  private _ignoireActivenessObservers: ((newValue: any, oldValue: any, attr: Attribute) => void)[] = [];
+  private _observers: ((newValue: T, oldValue: Undef<T>, attr: Attribute) => void)[] = [];
+  private _ignoireActivenessObservers: ((newValue: T, oldValue: Undef<T>, attr: Attribute) => void)[] = [];
 
   /**
    * Goml tree interface which contains the component this attribute bound to.
@@ -142,7 +144,7 @@ export default class Attribute {
    * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
    * @param {boolean = false} callFirst whether that handler should be called first time.
    */
-  public watch(watcher: (newValue: any, oldValue: any, attr: Attribute) => void, immedateCalls = false, ignoireActiveness = false): void {
+  public watch(watcher: (newValue: T, oldValue: Undef<T>, attr: Attribute) => void, immedateCalls = false, ignoireActiveness = false): void {
     if (ignoireActiveness) {
       this._ignoireActivenessObservers.push(watcher);
     } else {
@@ -250,7 +252,7 @@ export default class Attribute {
     this.Value = this.declaration.default;
   }
 
-  private _valuate(raw: any): any {
+  private _valuate(raw: any): T {
     const v = this.converter.convert(raw, this);
     if (v === undefined) {
       const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;

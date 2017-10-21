@@ -1,13 +1,13 @@
 import Attribute from "../src/Core/Attribute";
 import Component from "../src/Core/Component";
 import ComponentDeclaration from "../src/Core/ComponentDeclaration";
-import Ensure from "../src/Tools/Ensure";
 import GomlNode from "../src/Core/GomlNode";
 import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
+import Identity from "../src/Core/Identity";
 import IAttributeDeclaration from "../src/Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
-import Identity from "../src/Core/Identity";
+import Ensure from "../src/Tools/Ensure";
 import XMLReader from "../src/Tools/XMLReader";
 
 export default class TestUtil {
@@ -16,7 +16,7 @@ export default class TestUtil {
     return new ComponentDeclaration(Identity.fromFQN("aaa"), {
       attributes: {
 
-      }
+      },
     });
   }
   public static DummyComponent(): Component {
@@ -29,7 +29,7 @@ export default class TestUtil {
     attr.name = name;
     attr.component = component;
     attr.declaration = declaration;
-    const converterName = Ensure.tobeNSIdentity(declaration.converter);
+    const converterName = Ensure.tobeCnverterIdentity(declaration.converter);
     attr.converter = GrimoireInterface.converters.get(converterName);
     attr.component.attributes.set(attr.name, attr);
     attr.converter.verify(attr);
@@ -41,14 +41,14 @@ export default class TestUtil {
     const rootNode = GomlParser.parse(doc);
 
     rootNode.setMounted(true);
-    rootNode.broadcastMessage("treeInitialized", <ITreeInitializedInfo>{
+    rootNode.broadcastMessage("treeInitialized", {
       ownerScriptTag: null,
-      id: rootNode.id
-    });
-    rootNode.sendInitializedMessage(<ITreeInitializedInfo>{
+      id: rootNode.id,
+    } as ITreeInitializedInfo);
+    rootNode.sendInitializedMessage({
       ownerScriptTag: null,
-      id: rootNode.id
-    });
+      id: rootNode.id,
+    } as ITreeInitializedInfo);
     return rootNode;
   }
 }

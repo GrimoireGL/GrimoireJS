@@ -1,10 +1,11 @@
 import { Name } from "../Tools/Types";
+import IAttributeConverterDeclaration from "./IAttributeConverterDeclaration";
 
 /**
  * interface for attribute declaration
  */
-export default interface IAttributeDeclaration {
-  converter: Name;
+export default interface IAttributeDeclaration<T = any> {
+  converter: Name | IAttributeConverterDeclaration<T>;
   default: any;
   [parameters: string]: any;
 }

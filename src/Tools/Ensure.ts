@@ -3,6 +3,7 @@ import ComponentDeclaration from "../Core/ComponentDeclaration";
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import {
   ComponentRegistering,
   Ctor,
@@ -75,6 +76,26 @@ export default class Ensure {
     } else {
       return name;
     }
+  }
+
+  /**
+   * check argument is Name.
+   * that is argument is string or instance of Identity.
+   * @param obj
+   */
+  public static isName(obj: any): obj is Name {
+    return typeof obj === "string" || obj instanceof Identity;
+  }
+
+  /**
+   * Internal use!
+   * @param identity
+   */
+  public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Identity {
+    if (Ensure.isName(identity)) {
+      return Ensure.tobeNSIdentity(identity);
+    }
+    return Ensure.tobeNSIdentity(identity.name);
   }
 
   /**

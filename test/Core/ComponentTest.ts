@@ -91,8 +91,48 @@ test("get/set attribute should works correctly", (t) => {
   t.truthy(hogeComponent.getAttributeRaw("Hoge.attr1"));
 
   hogeComponent.setAttribute("attr1", "some value");
-  t.truthy(hogeComponent.getAttribute("attr1") === "some value")
+  t.truthy(hogeComponent.getAttribute("attr1") === "some value");
   t.throws(() => {
     hogeComponent.setAttribute("notfound", "some value");
   });
+});
+
+test("get/set attribute should works correctly", (t) => {
+  const fugaConverterDec = {
+    name: "FugaConverter",
+    convert(val): number {
+      return 123;
+    },
+  };
+  const hogeComponentDec = {
+    componentName: "Hoge",
+    attributes: {
+      attr1: {
+        converter: fugaConverterDec,
+        default: "hoge",
+      },
+    },
+  };
+  GrimoireInterface.registerConverter(fugaConverterDec);
+  GrimoireInterface.registerComponent(hogeComponentDec);
+
+  const hogeComponent = GrimoireInterface.componentDeclarations.get("Hoge").generateInstance();
+
+  t.truthy(hogeComponent.getAttributeRaw(hogeComponentDec.attributes.attr1));
+  hogeComponent.setAttribute("attr1", "some value");
+  t.truthy(hogeComponent.getAttribute(hogeComponentDec.attributes.attr1) === 123);
+
+  const otherConverterDec = {
+    name: "FugaConverter",
+    convert(val): number {
+      return 123;
+    },
+  };
+
+  t.throws(() => {
+    hogeComponent.getAttribute({
+      converter: otherConverterDec,
+      default: "hoge",
+    });
+  }, null, "get attribute throw if differet object reference.");
 });

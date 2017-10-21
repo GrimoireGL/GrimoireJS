@@ -147,7 +147,7 @@ export default class Utility {
   /**
    * Internal use!
    * throw error message if first argument is not TRUE.
-   * @param shouldTrue 
+   * @param shouldTrue
    * @param errorMessage
    */
   public static assert(shouldTrue: boolean, errorMessage: string) {

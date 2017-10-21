@@ -11,7 +11,6 @@ import XMLReader from "../src/Tools/XMLReader";
 import xmlserializer from "xmlserializer";
 import "babel-polyfill";
 
-
 export default class TestEnvManager {
 
   public static async init(html = "<html></html>") {
@@ -20,7 +19,7 @@ export default class TestEnvManager {
 
     Environment.document = window.document;
     Environment.Node = {
-      ELEMENT_NODE: 1
+      ELEMENT_NODE: 1,
     };
     Environment.XMLSerializer = xmlserializer;
   }
@@ -33,7 +32,6 @@ export default class TestEnvManager {
       return res.status(200).body(content);
     });
   }
-
 
   public static async loadPage(html: string) {
     const window = await jsdomAsync(html, []);

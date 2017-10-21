@@ -81,6 +81,7 @@ export default class ComponentDeclaration {
     component.name = this.name;
     component.element = componentElement;
     component.attributes = new IdentityMap<Attribute>();
+    component.declaration = this;
     for (const key in this.attributes) {
       Attribute.generateAttributeForComponent(key, this.attributes[key], component);
     }

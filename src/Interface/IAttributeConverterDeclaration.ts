@@ -4,9 +4,9 @@ import { Name } from "../Tools/Types";
 /**
  * interface for converter declaration
  */
-export default interface IAttributeConverterDeclaration {
+export default interface IAttributeConverterDeclaration<T = any> {
   name: Name;
   [params: string]: any;
-  verify(attr: Attribute): void; // throw error if attribute is not satisfy condition converter needed.
-  convert(val: any, attr: Attribute): any;
+  verify?(attr: Attribute): void; // throw error if attribute is not satisfy condition converter needed.
+  convert(val: any, attr: Attribute): T | undefined;
 }

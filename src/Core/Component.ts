@@ -1,9 +1,11 @@
 import IDObject from "../Base/IDObject";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
+import Ensure from "../Tools/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
 import Utility from "../Tools/Utility";
 import Attribute from "./Attribute";
+import ComponentDeclaration from "./ComponentDeclaration";
 import Constants from "./Constants";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
@@ -45,6 +47,11 @@ export default class Component extends IDObject {
    * this component has already disposed.
    */
   public disposed = false;
+
+  /**
+   * component declaration object.
+   */
+  public declaration: ComponentDeclaration;
 
   /**
    * Flag that this component is activated or not.
@@ -114,7 +121,7 @@ export default class Component extends IDObject {
    * get attribute value.
    * @param name
    */
-  public getAttribute<T = any>(name: Name): T {
+  public getAttribute<T = any>(name: Name | IAttributeDeclaration<T>): T {
     const attr = this.getAttributeRaw(name);
     if (attr) {
       return attr.Value;
@@ -127,8 +134,16 @@ export default class Component extends IDObject {
    * get attribute object instance.
    * @param name
    */
-  public getAttributeRaw(name: Name): Nullable<Attribute> {
-    return this.attributes.get(name);
+  public getAttributeRaw<T = any>(name: Name | IAttributeDeclaration<T>): Nullable<Attribute<T>> {
+    if (Ensure.isName(name)) {
+      return this.attributes.get(name);
+    }
+    for (const key in this.declaration.attributes) {
+      if (this.declaration.attributes[key] === name) {
+        return this.getAttributeRaw(key);
+      }
+    }
+    return null;
   }
 
   /**
