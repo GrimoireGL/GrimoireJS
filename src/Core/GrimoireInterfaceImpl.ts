@@ -86,6 +86,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public componentDictionary: { [componentId: string]: Component } = {};
 
   /**
+   * TODO
+   */
+  public libraryPreference?: { [preference: string]: any };
+
+  /**
    * debug-mode.
    * if this property is true, some error/worning message will output to console.
    * please disable this flag when you publish product application.

@@ -50,6 +50,7 @@ class EEObject extends IDObject implements EventEmitter {
    * Remove all listeners, or those of the specified event.
    */
   public removeAllListeners: (event?: string | symbol) => this;
+
   constructor() {
     super();
     EventEmitter.call(this);
