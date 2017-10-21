@@ -6,6 +6,7 @@ import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tools/Ensure";
 import IdResolver from "../Tools/IdResolver";
 import { GomlInterface, Name, Nullable } from "../Tools/Types";
+import Utility from "../Tools/Utility";
 import Component from "./Component";
 
 /**
@@ -177,6 +178,8 @@ export default class Attribute {
    * @param {any} targetObject [description]
    */
   public bindTo(variableName: string, targetObject: any = this.component): void {
+    Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
+    Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
     if (targetObject[variableName]) {
       console.warn(`component field ${variableName} is already defined.`);
     }
