@@ -1,4 +1,5 @@
 import BooleanConverter from "../Converters/BooleanConverter";
+import StringConverter from "../Converters/StringConverter";
 import Component from "../Core/Component";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
@@ -12,14 +13,14 @@ export default class GrimoireComponent extends Component {
   /**
    * component name.
    */
-  public static componentName = Namespace.define(__NAMESPACE__).for("GrimoireComponent") as Identity;
+  public static componentName: Identity = Namespace.define(__NAMESPACE__).for("GrimoireComponent");
 
   /**
    * attributes
    */
   public static attributes = {
     id: {
-      converter: "String",
+      converter: StringConverter,
       default: null,
     },
     class: {

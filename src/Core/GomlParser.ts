@@ -1,4 +1,9 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
+import IGrimoireComponentModel from "../Interface/IGrimoireComponentModel";
+import IGrimoireNodeModel from "../Interface/IGrimoireNodeModel";
+import Utility from "../Tools/Utility";
+import XMLReader from "../Tools/XMLReader";
+import Component from "./Component";
 import Environment from "./Environment";
 import GomlNode from "./GomlNode";
 
@@ -6,91 +11,113 @@ import GomlNode from "./GomlNode";
  * Parser of Goml to Node utilities.
  * This class do not store any nodes and goml properties.
  */
-class GomlParser {
+export default class GomlParser {
+
+  /**
+   * parsing XML-DOM to Grimoire object model.
+   * @param source XML-DOM
+   */
+  public static parseToGOM(source: Element): IGrimoireNodeModel {
+    Utility.assert(!!source, "source cannot be null");
+    return parseNode(source);
+
+    function parseNode(elem: Element): IGrimoireNodeModel {
+      const name = elem.namespaceURI ? `${elem.namespaceURI}.${elem.localName!}` : elem.localName!;
+      const attributes = Utility.getAttributes(elem);
+      const childrenElement = Array.from(elem.childNodes);
+      const optionalComponents: IGrimoireComponentModel[] = [];
+      const childNodeElements: Element[] = [];
+      childrenElement.forEach(child => {
+        if (!GomlParser._isElement(child)) {
+          return;
+        }
+        if (GomlParser._isComponentsTag(child)) {
+          const parsed = parseComponents(child);
+          optionalComponents.push(...parsed);
+        } else {
+          childNodeElements.push(child);
+        }
+      });
+      const children = childNodeElements.map(parseNode);
+      const ret = { name } as IGrimoireNodeModel;
+      if (Object.keys(attributes).length !== 0) {
+        ret.attributes = attributes;
+      }
+      if (optionalComponents.length !== 0) {
+        ret.optionalComponents = optionalComponents;
+      }
+      if (children.length !== 0) {
+        ret.children = children;
+      }
+      return ret;
+    }
+    function parseComponents(elem: Element): IGrimoireComponentModel[] {
+      const componentNodes = Array.from(elem.childNodes);
+      return componentNodes.filter(GomlParser._isElement).map(it => {
+        const name = it.namespaceURI ? `${it.namespaceURI}.${it.localName!}` : it.localName!;
+        const attributes = Utility.getAttributes(it);
+        const ret = {
+          name,
+        } as IGrimoireComponentModel;
+        if (Object.keys(attributes).length !== 0) {
+          ret.attributes = attributes;
+        }
+        return ret;
+      });
+    }
+  }
+
+  /**
+   * parsing GOM to GomlNode tree strucure.
+   * @param gom
+   */
+  public static parseGOMToGomlNode(gom: IGrimoireNodeModel): GomlNode {
+    const namespace = gom.name.substr(0, gom.name.lastIndexOf("."));
+    const name = gom.name.substr(gom.name.lastIndexOf(".") + 1);
+    const rootElement = XMLReader.parseXML(namespace === "" ? `<${name}/>` : `<ns:${name} xmlns:ns="${namespace}"/>`);
+    return createNode(gom, undefined, rootElement);
+
+    function createNode(source: IGrimoireNodeModel, parent?: GomlNode, element?: Element): GomlNode {
+      const declaration = GrimoireInterface.nodeDeclarations.get(source.name);
+      if (!declaration) {
+        throw new Error(`Tag "${source.name}" is not found.`);
+      }
+      const node = new GomlNode(declaration, element);
+      if (parent) {
+        parent.addChild(node); // 先に親を設定するのはパフォーマンス上の理由
+      }
+
+      const components = source.optionalComponents ? createComponents(source.optionalComponents) : [];
+      (source.children || []).forEach(it => createNode(it, node));
+      components.forEach(c => {
+        node._addComponentDirectly(c, false);
+      });
+      node.gomAttribute = source.attributes || {};
+      node.resolveAttributesValue(source.attributes || {});
+      return node;
+    }
+    function createComponents(components: IGrimoireComponentModel[]): Component[] {
+      return components.map(it => {
+        const componentDecl = GrimoireInterface.componentDeclarations.get(it.name);
+        if (!componentDecl) {
+          throw new Error(`Component ${it.name} is not found.`);
+        }
+        const instance = componentDecl.generateInstance();
+        instance.gomAttribute = it.attributes || {};
+        return instance;
+      });
+    }
+  }
+
   /**
    * Domをパースする
    * @param  {Element}           source    [description]
    * @param  {GomlNode}          parent    あればこのノードにaddChildされる
    * @return {GomlNode}                    ルートノード
    */
-  public static parse(source: Element, parent?: GomlNode | null): GomlNode {
-    const newNode = GomlParser._createNode(source);
-
-    // Parse children recursively
-    const children = source.childNodes;
-    const childNodeElements: Element[] = []; // for parse after .Components has resolved.
-    if (children && children.length !== 0) { // When there is children
-      const removeTarget: Node[] = [];
-      for (let i = 0; i < children.length; i++) {
-        const child = children.item(i);
-        if (!GomlParser._isElement(child)) {
-          removeTarget.push(child);
-          continue;
-        }
-        if (this._isComponentsTag(child)) {
-          // parse as components
-          GomlParser._parseComponents(newNode, child);
-          removeTarget.push(child);
-        } else {
-          // parse as child node.
-          childNodeElements.push(child);
-        }
-      }
-      // remove unused elements
-      for (let i = 0; i < removeTarget.length; i++) {
-        source.removeChild(removeTarget[i]);
-      }
-    }
-
-    // generate tree
-    if (parent) {
-      parent.addChild(newNode, null, false);
-    }
-
-    childNodeElements.forEach((child) => {
-      GomlParser.parse(child, newNode);
-    });
-    return newNode;
-  }
-
-  /**
-   * GomlNodeのインスタンス化。GrimoireInterfaceへの登録
-   * @param  {HTMLElement}      elem         [description]
-   * @param  {GomlConfigurator} configurator [description]
-   * @return {GomlTreeNodeBase}              [description]
-   */
-  private static _createNode(elem: Element): GomlNode {
-    const tagName = elem.localName;
-    const recipe = GrimoireInterface.nodeDeclarations.get(elem);
-    if (!recipe) {
-      throw new Error(`Tag "${tagName}" is not found.`);
-    }
-    return new GomlNode(recipe, elem);
-  }
-
-  /**
-   * .COMPONENTSのパース。
-   * @param {GomlNode} node          アタッチされるコンポーネント
-   * @param {Element}  componentsTag .COMPONENTSタグ
-   */
-  private static _parseComponents(node: GomlNode, componentsTag: Element): void {
-    const componentNodes = componentsTag.childNodes;
-    if (!componentNodes) {
-      return;
-    }
-    for (let i = 0; i < componentNodes.length; i++) {
-      const componentNode = componentNodes.item(i) as Element;
-      if (!GomlParser._isElement(componentNode)) {
-        continue; // Skip if the node was not element
-      }
-      const componentDecl = GrimoireInterface.componentDeclarations.get(componentNode);
-      if (!componentDecl) { // Verify specified component is actual existing.
-        throw new Error(`Component ${componentNode.tagName} is not found.`);
-      }
-
-      const component = componentDecl.generateInstance(componentNode);
-      node._addComponentDirectly(component, false);
-    }
+  public static parse(source: Element): GomlNode {
+    const gom = GomlParser.parseToGOM(source);
+    return GomlParser.parseGOMToGomlNode(gom);
   }
 
   private static _isElement(node: Node): node is Element {
@@ -103,5 +130,3 @@ class GomlParser {
   }
 
 }
-
-export default GomlParser;

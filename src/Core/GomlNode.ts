@@ -47,6 +47,11 @@ export default class GomlNode extends EEObject {
   public element: Element; // Dom Element
 
   /**
+   * default attribute defined in GOML
+   */
+  public gomAttribute: { [key: string]: string };
+
+  /**
    * declaration infomation.
    */
   public declaration: NodeDeclaration;
@@ -169,7 +174,7 @@ export default class GomlNode extends EEObject {
       declaration.resolveDependency();
     }
     this.declaration = declaration;
-    this.element = element ? element : Environment.document.createElementNS(declaration.name.ns.qualifiedName, declaration.name.name);
+    this.element = element || Environment.document.createElementNS(declaration.name.ns.qualifiedName, declaration.name.name);
     this._root = this;
     this._components = [];
     this._attributeManager = new AttributeManager(declaration.name.name);
@@ -327,9 +332,8 @@ export default class GomlNode extends EEObject {
    * Add child for this node.
    * @param {GomlNode} child            child node to add.
    * @param {number}   index            index for insert.なければ末尾に追加
-   * @param {[type]}   elementSync=true trueのときはElementのツリーを同期させる。（Elementからパースするときはfalseにする）
    */
-  public addChild(child: GomlNode, index?: number | null, elementSync = true): void {
+  public addChild(child: GomlNode, index?: number | null): void {
     if (child._deleted) {
       throw new Error("deleted node never use.");
     }
@@ -341,14 +345,12 @@ export default class GomlNode extends EEObject {
     const insertIndex = index == null ? this.children.length : index;
     this.children.splice(insertIndex, 0, child);
     child._parent = this;
-    child._tree = this._tree;
-    child._companion = this._companion;
+    child._tree = this._tree; // TODO これは問題がある。再帰的に設定しなければ。
+    child._companion = this._companion; // TODO これは問題がある。再帰的に設定しなければ。
 
     // sync html
-    if (elementSync) {
-      const referenceElement = (this.element as any)[Utility.getNodeListIndexByElementIndex(this.element, insertIndex)];
-      this.element.insertBefore(child.element, referenceElement);
-    }
+    const referenceElement = (this.element as any)[Utility.getNodeListIndexByElementIndex(this.element, insertIndex)];
+    this.element.insertBefore(child.element, referenceElement);
 
     // mounting
     if (this.mounted) {
@@ -541,7 +543,7 @@ export default class GomlNode extends EEObject {
     component.node = this;
 
     // bind this for message reciever.
-    let propNames: string[] = [];
+    let propNames: string[] = []; // TODOこの６行はgenerateComponentInstanceでやっていいのでは？
     let o = component;
     while (o) {
       propNames = propNames.concat(Object.getOwnPropertyNames(o));
@@ -557,12 +559,12 @@ export default class GomlNode extends EEObject {
     component.attributes.forEach(p => this.addAttribute(p));
     if (this._defaultValueResolved) {
       component.attributes.forEach(p => {
-        p.resolveDefaultValue(Utility.getAttributes(this.element));
+        p.resolveDefaultValue(this.gomAttribute);
       });
     }
 
     if (this._mounted) {
-      component.resolveDefaultAttributes(null); // here must be optional component.should not use node element attributes.
+      component.resolveDefaultAttributes(); // here must be optional component.should not use node element attributes.
       this._sendMessageForcedTo(component, "awake");
       this._sendMessageForcedTo(component, "mount");
     }
@@ -704,13 +706,12 @@ export default class GomlNode extends EEObject {
    * resolve default attribute value for all component.
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
-  public resolveAttributesValue(): void {
+  public resolveAttributesValue(attrs?: { [key: string]: string }): void {
+    if (this._defaultValueResolved) {
+      return;
+    }
     this._defaultValueResolved = true;
-    const attrs = Utility.getAttributes(this.element);
-    for (const key in attrs) {
-      if (key === Constants.x_gr_id) {
-        continue;
-      }
+    for (const key in (attrs || {})) {
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
       }

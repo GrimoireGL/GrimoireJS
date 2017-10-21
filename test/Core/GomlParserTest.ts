@@ -1,13 +1,11 @@
+import test from "ava";
+import { assert, spy } from "sinon";
 import Environment from "../../src/Core/Environment";
-import fs from "../fileHelper";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import Namespace from "../../src/Core/Namespace";
 import Identity from "../../src/Core/Identity";
-import test from "ava";
-import TestEnvManager from "../TestEnvManager";
+import Namespace from "../../src/Core/Namespace";
 import XMLReader from "../../src/Tools/XMLReader";
-import { assert, spy } from "sinon";
 import {
   registerConflictComponent1,
   registerConflictComponent2,
@@ -21,8 +19,10 @@ import {
   registerTestComponentOptional,
   registerTestNode1,
   registerTestNode2,
-  registerTestNodeBase
+  registerTestNodeBase,
 } from "../DummyObjectRegisterer";
+import fs from "../fileHelper";
+import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
@@ -48,7 +48,7 @@ const gomlParserTestCasePath2 = "../_TestResource/GomlParserTest_Case2.goml";
 const gomlParserTestCasePath3 = "../_TestResource/GomlParserTest_Case3.goml";
 const gomlParserTestCasePath4 = "../_TestResource/GomlParserTest_Case4.goml";
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   registerGoml();
   registerTestNode1();
@@ -66,7 +66,6 @@ test.beforeEach(async () => {
   registerUserPlugin();
   await GrimoireInterface.resolvePlugins();
 });
-
 
 test("test for parsing node hierarchy.", (t) => {
   const element = obtainElementTag(gomlParserTestCasePath1);
@@ -132,5 +131,90 @@ test("treeInterface must be same if the node is included in same tree", (t) => {
   const original = node["_treeInterface"];
   node.callRecursively(v => {
     t.truthy(original === v["_treeInterface"]);
+  });
+});
+
+const testcases = [
+  {
+    source: gomlParserTestCasePath1,
+    expected: {
+      name: "goml",
+      children: [{
+        name: "goml",
+        children: [
+          { name: "goml" },
+          { name: "goml" },
+        ],
+      }],
+    },
+  },
+  {
+    source: gomlParserTestCasePath2,
+    expected: {
+      name: "goml",
+      attributes: { testAttr: "node default Value" },
+      children: [
+        {
+          name: "goml",
+          attributes: { testAttr: "hogehoge" },
+        },
+        {
+          name: "goml",
+        },
+      ],
+    },
+  },
+  {
+    source: gomlParserTestCasePath3,
+    expected: {
+      name: "goml",
+      children: [
+        {
+          name: "test-node1",
+          attributes: { testAttr1: "hugahuga" },
+          children: [
+            {
+              name: "test-node2",
+              attributes: { testAttr2: "123", inheritAttr: "hogehoge" },
+              optionalComponents: [
+                {
+                  name: "TestComponentOptional",
+                  attributes: { value: "999" },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    source: gomlParserTestCasePath4,
+    expected: {
+      name: "goml",
+      children: [
+        {
+          name: "test1.conflict-node",
+          optionalComponents: [
+            {
+              name: "test1.ConflictComponent",
+            },
+            {
+              name: "test2.ConflictComponent",
+            },
+          ],
+        },
+        {
+          name: "test2.conflict-node",
+        },
+      ],
+    },
+  },
+];
+
+testcases.forEach((testcase, i) => {
+  test(`parseToGOM works correctly (${i})`, (t) => {
+    const result = GomlParser.parseToGOM(obtainElementTag(testcase.source));
+    t.deepEqual(result, testcase.expected);
   });
 });

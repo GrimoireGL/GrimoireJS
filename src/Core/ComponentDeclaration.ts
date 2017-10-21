@@ -70,11 +70,11 @@ export default class ComponentDeclaration {
    * generate component instance.
    * @param componentElement
    */
-  public generateInstance(componentElement?: Element): Component { // TODO: obsolete.make all operation on gomlnode
+  public generateInstance(): Component {
     if (!this.isDependenyResolved) {
       this.resolveDependency();
     }
-    componentElement = componentElement ? componentElement : Environment.document.createElementNS(this.name.ns.qualifiedName, this.name.name);
+    const componentElement = Environment.document.createElementNS(this.name.ns.qualifiedName, this.name.name);
     const component = new this.ctor();
     componentElement.setAttribute(Constants.x_gr_id, component.id);
     Environment.GrimoireInterface.componentDictionary[component.id] = component;

@@ -413,7 +413,7 @@ test("attribute buffer is valid only last set value.", t => {
   // both buffer are resolved in above __addAttribute.
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".hoge"));
   t.truthy(att === "aaa");
@@ -423,7 +423,7 @@ test("attribute buffer is valid only last set value.", t => {
   rootNode.setAttribute("ns2.aaa", "3");
   (c as any).__addAttribute("ns2.aaa", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   att = rootNode.getAttribute(Identity.fromFQN(c.name.fqn + ".ns2.aaa"));
   t.truthy(att === "3");
@@ -435,7 +435,7 @@ test("get/setAttribute should work correctly 6", t => {
   rootNode.setAttribute("hoge", "ccc");
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   const att = rootNode.getAttribute("hoge");
   t.truthy(att === "ccc");
@@ -445,11 +445,11 @@ test("get/setAttribute should work correctly 7", t => {
   const c = rootNode.getComponent<Component>("GrimoireComponent");
   (c as any).__addAttribute("ns1.hoge", {
     converter: "String",
-    default: "1"
+    default: "1",
   });
   (c as any).__addAttribute("ns2.hoge", {
     converter: "String",
-    default: "2"
+    default: "2",
   });
   (c as any).__addAttribute("hoge", {
     converter: "String",

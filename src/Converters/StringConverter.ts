@@ -4,7 +4,7 @@ import { __NAMESPACE__ } from "../metaInfo";
 import { Undef } from "../Tools/Types";
 
 export default {
-  name: Namespace.define(__NAMESPACE__).for("String") as Identity,
+  name: Namespace.define(__NAMESPACE__).for("String"),
   /**
    * convert to string
    * @param val

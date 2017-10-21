@@ -21,7 +21,7 @@ export default class TestUtil {
   }
   public static DummyComponent(): Component {
     const dec = TestUtil.DummyComponentDeclaration();
-    return dec.generateInstance(null);
+    return dec.generateInstance();
   }
 
   public static DummyAttribute(name: Identity, component: Component, declaration: IAttributeDeclaration): Attribute {

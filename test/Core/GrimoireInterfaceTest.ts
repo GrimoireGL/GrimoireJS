@@ -1,18 +1,22 @@
+import test from "ava";
+import { assert, spy } from "sinon";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import Namespace from "../../src/Core/Namespace";
 import Identity from "../../src/Core/Identity";
-import test from "ava";
+import Namespace from "../../src/Core/Namespace";
+import fs from "../fileHelper";
+import jsdomAsync from "../JsDOMAsync";
 import TestEnvManager from "../TestEnvManager";
-import { assert, spy } from "sinon";
 
 TestEnvManager.init();
 
-test.beforeEach(() => {
+const tc1_html = fs.readFile("../_TestResource/GrimoireInterfaceTest_Case1.html");
+
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   GrimoireInterface.resolvePlugins();
 });
@@ -23,13 +27,39 @@ test("properties are initialized correctly", t => {
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === 1); // only GrimoireComponent
 });
 
+test("call as function works correctly", async t => {
+  GrimoireInterface.registerNode("goml");
+  GrimoireInterface.resolvePlugins();
+  await TestEnvManager.loadPage(tc1_html);
+  t.truthy(GrimoireInterface("*")("*").count === 3);
+  t.truthy(GrimoireInterface("*")("#testId1").count === 1);
+  t.truthy(GrimoireInterface("*")(".class").count === 0);
+});
+
+test("call as function works correctly", async t => {
+  GrimoireInterface.registerNode("goml");
+  GrimoireInterface.resolvePlugins();
+  await TestEnvManager.loadPage('<html><body><script type="text/goml"><goml/></script></body></html>');
+  t.truthy(GrimoireInterface("*")("*").count === 1);
+  t.truthy(GrimoireInterface("*")("goml").count === 1);
+});
+
+test("call as function works correctly", async t => {
+  GrimoireInterface.clear();
+  GrimoireInterface.registerNode("_grimoirejs.goml");
+  GrimoireInterface.resolvePlugins();
+  await TestEnvManager.loadPage('<html><body><script type="text/goml"><core:goml xmlns:core="grimoirejs"/></script></body></html>');
+  t.truthy(GrimoireInterface("*")("*").count === 1);
+  // t.truthy(GrimoireInterface("*")("goml").count === 1);// TODO fix?
+});
+
 test("registerComponent works correctly", (t) => {
   const l = GrimoireInterface.componentDeclarations.toArray().length;
   const dec = GrimoireInterface.registerComponent({
     componentName: "Name",
     attributes: {
-      attr: { converter: "String", default: "aaa" }
-    }
+      attr: { converter: "String", default: "aaa" },
+    },
   });
   t.truthy(dec.attributes["attr"].default === "aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === l + 1);
@@ -37,8 +67,8 @@ test("registerComponent works correctly", (t) => {
     GrimoireInterface.registerComponent({
       componentName: "Name",
       attributes: {
-        attr: { converter: "String", default: undefined }
-      }
+        attr: { converter: "String", default: undefined },
+      },
     });
   });
 
@@ -60,17 +90,17 @@ test("registerComponent by object works correctly", async (t) => {
     attributes: {
       testValue: {
         converter: "String",
-        default: "bbb"
+        default: "bbb",
       },
       testOverride: {
         converter: "String",
-        default: "bbb"
-      }
+        default: "bbb",
+      },
     },
     hoge: 0,
-    $test: function () {
+    $test() {
       this.hoge += 1;
-    }
+    },
   });
 
   const aaa = GrimoireInterface.componentDeclarations.get("Aaa");
@@ -94,16 +124,16 @@ test("registerComponent by object works correctly", async (t) => {
     attributes: {
       testValue2: {
         converter: "String",
-        default: "ccc"
+        default: "ccc",
       },
       testOverride: {
         converter: "String",
-        default: "ccc"
-      }
+        default: "ccc",
+      },
     },
-    $test2: function () {
+    $test2() {
       // do nothing.
-    }
+    },
   }, "Aaa");
   t.truthy(GrimoireInterface.componentDeclarations.toArray().length === defaultComponentCount + 2);
   const bbb = GrimoireInterface.componentDeclarations.get("Bbb");
@@ -130,12 +160,12 @@ test("registerComponent by class works correctly", async (t) => {
     public static attributes = {
       testValue: {
         converter: "String",
-        default: "bbb"
+        default: "bbb",
       },
       testOverride: {
         converter: "String",
-        default: "bbb"
-      }
+        default: "bbb",
+      },
     };
     public hoge = 0;
     public $test() {
@@ -150,12 +180,12 @@ test("registerComponent by class works correctly", async (t) => {
     public static attributes = {
       testValue2: {
         converter: "String",
-        default: "ccc"
+        default: "ccc",
       },
       testOverride: {
         converter: "String",
         default: "ccc",
-      }
+      },
     };
     public fuga = 7;
     public $test2() {
@@ -215,12 +245,12 @@ test("registerComponent works correctly4", async (t) => {
     public static attributes: { [key: string]: any } = {
       testValue: {
         converter: "String",
-        default: "bbb"
+        default: "bbb",
       },
       testOverride: {
         converter: "String",
-        default: "bbb"
-      }
+        default: "bbb",
+      },
     };
     public hoge = 0;
     public $test() {
@@ -232,12 +262,12 @@ test("registerComponent works correctly4", async (t) => {
     public static attributes = {
       testValue2: {
         converter: "String",
-        default: "bbb"
+        default: "bbb",
       },
       testOverride: {
         converter: "String",
-        default: "ccc"
-      }
+        default: "ccc",
+      },
     };
     public fuga = 7;
     public $test2() {
@@ -290,13 +320,13 @@ test("registerNode/Component works correctly.", async t => {
     attributes: {
       hoge: {
         converter: "Number",
-        default: 9
-      }
-    }
+        default: 9,
+      },
+    },
   });
   await GrimoireInterface.resolvePlugins();
   const a1 = GrimoireInterface.nodeDeclarations.get("a1");
-  let a2 = GrimoireInterface.nodeDeclarations.get("a2");
+  const a2 = GrimoireInterface.nodeDeclarations.get("a2");
   const a3 = GrimoireInterface.nodeDeclarations.get("a3");
   t.truthy(a1.requiredComponentsActual.toArray().length === 1); // grimoireCompone
   t.truthy(a2.requiredComponentsActual.toArray().length === 2); // grimoireCompone
@@ -317,10 +347,10 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
   });
 });
 
-test("register and resolvePlugins works preperly", async() => {
+test("register and resolvePlugins works preperly", async () => {
   const spy1 = spy();
   const spy2 = spy();
-  const wrapPromise: any = function(s) {
+  const wrapPromise: any = function (s) {
     return () => {
       return new Promise(resolve => {
         s();

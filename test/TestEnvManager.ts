@@ -1,15 +1,15 @@
+import "babel-polyfill";
+import xhrmock from "xhr-mock";
+import xmlserializer from "xmlserializer";
 import Environment from "../src/Core/Environment";
 import GomlLoader from "../src/Core/GomlLoader";
 import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
-import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
-import jsdomAsync from "./JsDOMAsync";
-import IdentityMap from "../src/Core/IdentityMap";
 import Identity from "../src/Core/Identity";
-import xhrmock from "xhr-mock";
+import IdentityMap from "../src/Core/IdentityMap";
+import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
 import XMLReader from "../src/Tools/XMLReader";
-import xmlserializer from "xmlserializer";
-import "babel-polyfill";
+import jsdomAsync from "./JsDOMAsync";
 
 export default class TestEnvManager {
 
@@ -41,7 +41,7 @@ export default class TestEnvManager {
 
   public static loadGoml(goml: string) {
     const doc = XMLReader.parseXML(goml);
-    const rootNode = GomlParser.parse(doc[0]);
+    const rootNode = GomlParser.parse(doc);
     GrimoireInterface.addRootNode(null, rootNode);
   }
 }
