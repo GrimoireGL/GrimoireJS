@@ -7,7 +7,9 @@ import XMLHttpRequestAsync from "../Base/XMLHttpRequestAsync";
  * Provides the features to fetch Goml source.
  */
 export default class GomlLoader {
-  public static initializedEventHandlers: ((scriptTags: HTMLScriptElement[]) => void)[] = [];
+  public static callInitializedAlready = false;
+
+  public static initializedEventHandlers: (() => void)[] = [];
 
   /**
    * Obtain the Goml source from specified tag.
@@ -50,8 +52,9 @@ export default class GomlLoader {
     }
     await Promise.all<void>(pArray);
     GomlLoader.initializedEventHandlers.forEach(handler => {
-      handler(elements);
+      handler();
     });
+    this.callInitializedAlready = true;
   }
 
   /**

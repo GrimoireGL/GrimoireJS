@@ -4,6 +4,7 @@ import GomlParser from "../Node/GomlParser";
 import Attribute from "../Node/Attribute";
 import GomlNode from "../Node/GomlNode";
 import {Name, Nullable} from "../Base/Types";
+import ListenerFunction from "../Base/ListenerFunction";
 
 
 /**
@@ -101,9 +102,9 @@ export default class NodeInterface {
   /**
    * 対象ノードにイベントリスナを追加します。
    * @param {string}   eventName [description]
-   * @param {Function} listener  [description]
+   * @param {ListenerFunction} listener  [description]
    */
-  public on(eventName: string, listener: Function): NodeInterface {
+  public on(eventName: string, listener: ListenerFunction): NodeInterface {
     this.forEach(node => {
       node.on(eventName, listener);
     });
@@ -113,9 +114,9 @@ export default class NodeInterface {
   /**
    * 対象ノードに指定したイベントリスナが登録されていれば削除します
    * @param {string}   eventName [description]
-   * @param {Function} listener  [description]
+   * @param {ListenerFunction} listener  [description]
    */
-  public off(eventName: string, listener: Function): NodeInterface {
+  public off(eventName: string, listener: ListenerFunction): NodeInterface {
     this.forEach(node => {
       node.removeListener(eventName, listener);
     });

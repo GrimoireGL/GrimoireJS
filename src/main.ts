@@ -1,6 +1,11 @@
 import GrimoireInterface from "./Interface/GrimoireInterface";
 import GomlLoader from "./Node/GomlLoader";
 
+interface IGrimoireWindow extends Window {
+  GrimoireJS: typeof GrimoireInterface;
+  gr?: typeof GrimoireInterface;
+}
+
 /**
  * Provides procedures for initializing.
  */
@@ -12,9 +17,11 @@ class GrimoireInitializer {
    */
   public static async initialize(): Promise<void> {
     try {
+      GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
       GrimoireInterface.initialize();
       await GrimoireInitializer._waitForDOMLoading();
+      await GrimoireInitializer._waitForPluginLoadingSuspendPromise();
       GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
       if (GrimoireInterface.autoLoading) {
@@ -50,9 +57,13 @@ class GrimoireInitializer {
    */
   private static _waitForDOMLoading(): Promise<void> {
     return new Promise<void>((resolve) => {
-      window.addEventListener("DOMContentLoaded", () => {
+      if (document.readyState === "loading") {
+        window.addEventListener("DOMContentLoaded", () => {
+          resolve();
+        });
+      } else {
         resolve();
-      });
+      }
     });
   }
 
@@ -71,13 +82,32 @@ class GrimoireInitializer {
     log += `\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.`;
     console.log(log, "color:#44F;font-weight:bold;");
   }
+
+  private static _notifyLibraryLoadingToWindow(): void {
+    window.postMessage({
+      $source: "grimoirejs",
+      $messageType: "library-loading"
+    }, "*");
+  }
+
+  private static async _waitForPluginLoadingSuspendPromise(): Promise<void> {
+    if (!GrimoireInterface.libraryPreference) {
+      return;
+    }
+    await (GrimoireInterface.libraryPreference["postponeLoading"] as Promise<void>);
+  }
 }
 
 /**
  * Just start the process.
  */
-export default function(): typeof GrimoireInterface {
+export default function (): typeof GrimoireInterface {
+  const gwin = window as IGrimoireWindow;
+  if (gwin.GrimoireJS) {
+    GrimoireInterface.libraryPreference = gwin.GrimoireJS;
+  }
+  GrimoireInterface.noConflictPreserve = gwin.gr;
+  gwin.gr = gwin.GrimoireJS = GrimoireInterface;
   GrimoireInitializer.initialize();
-  GrimoireInterface.noConflictPreserve = (window as any)["gr"];
-  return (window as any)["gr"] = (window as any)["GrimoireJS"] = GrimoireInterface;
+  return GrimoireInterface;
 }
