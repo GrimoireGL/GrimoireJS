@@ -1,7 +1,6 @@
-import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
-import { Undef } from "../Tools/Types";
 
 export default {
   name: Namespace.define(__NAMESPACE__).for("Boolean"),
@@ -14,7 +13,7 @@ export default {
    * @param  {Attribute} attr [description]
    * @return {any}            [description]
    */
-  convert(val: any): Undef<boolean> {
+  convert(val: any): boolean | undefined {
     if (typeof val === "boolean") {
       return val;
     } else if (typeof val === "string") {
@@ -27,4 +26,4 @@ export default {
     }
     return undefined;
   },
-};
+} as IAttributeConverterDeclaration<boolean>;

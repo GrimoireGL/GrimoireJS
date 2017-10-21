@@ -3,7 +3,10 @@ import StringConverter from "../Converters/StringConverter";
 import Component from "../Core/Component";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
+
+export { IAttributeConverterDeclaration };
 
 /**
  * Basic Component for all node.

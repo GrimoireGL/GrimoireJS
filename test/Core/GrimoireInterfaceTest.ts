@@ -16,15 +16,15 @@ TestEnvManager.init();
 
 const tc1_html = fs.readFile("../_TestResource/GrimoireInterfaceTest_Case1.html");
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   GrimoireInterface.resolvePlugins();
 });
 
 test("properties are initialized correctly", t => {
-  t.truthy(GrimoireInterface.nodeDeclarations.toArray().length === 1); // only grimoire-node-base
+  t.truthy(GrimoireInterface.nodeDeclarations.toArray().length > 0); // grimoire-node-base, template,,,
   t.truthy(GrimoireInterface.converters.toArray().length > 0);
-  t.truthy(GrimoireInterface.componentDeclarations.toArray().length === 1); // only GrimoireComponent
+  t.truthy(GrimoireInterface.componentDeclarations.toArray().length > 0); // GrimoireComponent and more
 });
 
 test("call as function works correctly", async t => {
@@ -83,7 +83,7 @@ test("registerComponent works correctly", (t) => {
   });
 });
 
-test("registerComponent by object works correctly", async (t) => {
+test("registerComponent by object works correctly", async(t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   GrimoireInterface.registerComponent({
     componentName: "Aaa",
@@ -152,7 +152,7 @@ test("registerComponent by object works correctly", async (t) => {
   t.truthy((bbb2 as any).$test);
   t.truthy((bbb2 as any).$test2);
 });
-test("registerComponent by class works correctly", async (t) => {
+test("registerComponent by class works correctly", async(t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
 
   class Aaa extends Component {
@@ -238,7 +238,7 @@ test("registerComponent by class works correctly", async (t) => {
 
   t.truthy((bbb2 as any).overridedFunc() === 7);
 });
-test("registerComponent works correctly4", async (t) => {
+test("registerComponent works correctly4", async(t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   class Aaa extends Component {
     public static componentName = "Aaa";
@@ -347,10 +347,10 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
   });
 });
 
-test("register and resolvePlugins works preperly", async () => {
+test("register and resolvePlugins works preperly", async() => {
   const spy1 = spy();
   const spy2 = spy();
-  const wrapPromise: any = function (s) {
+  const wrapPromise: any = function(s) {
     return () => {
       return new Promise(resolve => {
         s();

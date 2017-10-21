@@ -1,5 +1,6 @@
 import EEObject from "../Base/EEObject";
 import GrimoireComponent from "../Components/GrimoireComponent";
+import TemplateComponent from "../Components/TemplateComponent";
 import ArrayConverter from "../Converters/ArrayConverter";
 import BooleanConverter from "../Converters/BooleanConverter";
 import ComponentConverter from "../Converters/ComponentConverter";
@@ -147,7 +148,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.registerConverter(EnumConverter);
     this.registerConverter(ComponentConverter);
     this.registerComponent(GrimoireComponent);
+    this.registerComponent(TemplateComponent);
     this.registerNode("grimoire-node-base", ["GrimoireComponent"]);
+    this.registerNode("template", [TemplateComponent]);
   }
 
   /**

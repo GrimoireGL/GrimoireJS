@@ -1,5 +1,5 @@
-import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
+import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 import { Undef } from "../Tools/Types";
 
@@ -19,4 +19,4 @@ export default {
     }
     return undefined;
   },
-};
+} as IAttributeConverterDeclaration<string | null>;
