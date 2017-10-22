@@ -19,6 +19,9 @@ export default class ComponentDeclaration {
    */
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: Identity }[] = [];
 
+  /**
+   * clear constructor map
+   */
   public static clear() {
     ComponentDeclaration.ctorMap = [];
   }

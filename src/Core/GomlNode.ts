@@ -21,7 +21,7 @@ import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import NodeDeclaration from "./NodeDeclaration";
 
-type SystemMessage = "$$awake" | "$$mount" | "$$unmount" | "$$dispose";
+type SystemMessage = "$$awake" | "$$mount" | "$$unmount" | "$$dispose" | "$$mounted" | "$$preunmount";
 
 /**
  * This class is the most primitive element constitute Tree.
@@ -251,12 +251,6 @@ export default class GomlNode extends EEObject {
    * remove this node from tree.
    */
   public remove(): void {
-    this.children.forEach((c) => {
-      c.remove();
-    });
-    this._sendMessageForced("$$dispose");
-    this.removeAllListeners();
-    delete GrimoireInterface.nodeDictionary[this.id];
     if (this._parent) {
       this._parent.detachChild(this);
     } else {
@@ -265,6 +259,13 @@ export default class GomlNode extends EEObject {
         this.element.parentNode.removeChild(this.element);
       }
     }
+
+    this.children.forEach((c) => {
+      c.remove();
+    });
+    this._sendMessageForced("$$dispose");
+    this.removeAllListeners();
+    delete GrimoireInterface.nodeDictionary[this.id];
     this._deleted = true;
   }
 
@@ -503,17 +504,15 @@ export default class GomlNode extends EEObject {
       const temp = this._components.concat();
       for (let i = 0; i < temp.length; i++) {
         const target = temp[i];
-        if (target.disposed) {
-          continue;
-        }
         target.awake();
         this._sendMessageForcedTo(target, "$$mount");
       }
       for (let i = 0; i < this.children.length; i++) {
         this.children[i].setMounted(true);
       }
+      this._sendMessageForced("$$mounted");
     } else {
-      // TODOここでpreunmount
+      this._sendMessageForced("$$preunmount");
       for (let i = 0; i < this.children.length; i++) {
         this.children[i].setMounted(false);
       }
@@ -650,7 +649,7 @@ export default class GomlNode extends EEObject {
   public getComponent<T>(name: Name | Ctor<T>): T {
     // 事情により<T extends Component>とはできない。
     // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
-    // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるからである。
+    // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるらである。
     if (!name) {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
@@ -759,6 +758,14 @@ export default class GomlNode extends EEObject {
    */
   public watch(attrName: Name, watcher: ((newValue: any, oldValue: any, attr: Attribute) => void), immediate = false) {
     this._attributeManager.watch(attrName, watcher, immediate);
+  }
+
+  /**
+   * clear message cache.
+   * call if dynamic change message reciever.
+   */
+  public clearMessageRecieverCache() {
+    this._messageCache = {};
   }
 
   /**

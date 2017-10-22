@@ -39,6 +39,10 @@ import NodeInterface from "./NodeInterface";
  * implementation of GrimoireInterface
  */
 export default class GrimoireInterfaceImpl extends EEObject {
+  /**
+   * constant for emitting event.
+   * added goml in ducument.
+   */
   public EVENT_GOML_WILL_ADD = "gomlWillAdd";
 
   /**

@@ -14,7 +14,7 @@ import TestUtil from "../TestUtil";
 
 TestEnvManager.init();
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   TestEnvManager.loadPage("<html></html>");
   GrimoireInterface.registerNode("goml");
@@ -76,7 +76,7 @@ test("addChild method works correctly", t => {
   t.truthy(node.children.length === 2);
 });
 
-test("delete method works correctly", t => {
+test("remove method works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   const node3 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scene"));
@@ -262,49 +262,125 @@ test("getComponents method overload works correctly", t => {
   t.truthy(components.length === 3);
 });
 
-// test("async message reciever called with await", async t => { // this is experimental feature!!
-//   const gr = Environment.GrimoireInterface;
-//   let res1;
-//   const promise1 = new Promise(resolve => {
-//     res1 = resolve;
-//   });
-//   let res2;
-//   const promise2 = new Promise(resolve => {
-//     res2 = resolve;
-//   });
-//   const spy1 = spy();
-//   const spy2 = spy();
+test("async message reciever called with await", async t => {
+  const gr = Environment.GrimoireInterface;
+  const spy1 = spy();
 
-//   gr.registerComponent({
-//     componentName: "hoge1",
-//     attributes: {},
-//     async $messsage(arg) {
-//       spy1(arg);
-//       return promise1;
-//     },
-//   });
-//   gr.registerComponent({
-//     componentName: "hoge2",
-//     attributes: {},
-//     async $messsage(arg) {
-//       spy1(arg);
-//       return promise2;
-//     },
-//   });
-//   gr.registerNode("a", ["hoge1"]);
-//   gr.registerNode("b", ["hoge2"]);
+  gr.registerComponent({
+    componentName: "Aaa",
+    attributes: {},
+    $awake() {
+      spy1("awake:" + this.node.getAttribute("id"));
+    },
+    $mount() {
+      spy1("mount:" + this.node.getAttribute("id"));
+    },
+    $mounted() {
+      spy1("mounted:" + this.node.getAttribute("id"));
+    },
+    $preunmount() {
+      spy1("preunmount:" + this.node.getAttribute("id"));
+    },
+    $unmount() {
+      spy1("unmount:" + this.node.getAttribute("id"));
+    },
+    $dispose() {
+      spy1("dispose:" + this.node.getAttribute("id"));
+    },
+  });
+  gr.registerNode("a", ["Aaa"]);
 
-//   await TestEnvManager.loadPage(TestUtil.GenerateGomlEmbeddedHtml("<a><b/></a>"));
+  await TestEnvManager.loadPage(TestUtil.GenerateGomlEmbeddedHtml('<a id="parent"><a id="middle"><a id="child"></a></a></a>'));
 
-//   const root = gr("*")("a").first();
-//   const arg = 42;
+  const root = gr("*")("#parent").first();
+  const middle = gr("*")("#middle").first();
+  t.deepEqual(spy1.args, [
+    ["awake:parent"],
+    ["mount:parent"],
+    ["awake:middle"],
+    ["mount:middle"],
+    ["awake:child"],
+    ["mount:child"],
+    ["mounted:child"],
+    ["mounted:middle"],
+    ["mounted:parent"],
+  ]);
 
-//   t.truthy(spy1.notCalled);
-//   t.truthy(spy2.notCalled);
-//   root.broadcastMessage("message", arg);
-//   t.truthy(spy1.calledWith(arg));
-//   t.truthy(spy2.notCalled);
-//   res1();
-//   t.truthy(spy2.calledWith(arg));
+  spy1.reset();
 
-// });
+  middle.detach();
+  t.deepEqual(spy1.args, [
+    ["preunmount:middle"],
+    ["preunmount:child"],
+    ["unmount:child"],
+    ["unmount:middle"],
+  ]);
+
+  spy1.reset();
+  root.remove();
+  t.deepEqual(spy1.args, [
+    ["preunmount:parent"],
+    ["unmount:parent"],
+    ["dispose:parent"],
+  ]);
+});
+
+test("async message reciever called with await", async t => {
+  const gr = Environment.GrimoireInterface;
+  const spy1 = spy();
+
+  gr.registerComponent({
+    componentName: "Aaa",
+    attributes: {},
+    $awake() {
+      spy1("awake:" + this.node.getAttribute("id"));
+    },
+    $mount() {
+      spy1("mount:" + this.node.getAttribute("id"));
+    },
+    $mounted() {
+      spy1("mounted:" + this.node.getAttribute("id"));
+    },
+    $preunmount() {
+      spy1("preunmount:" + this.node.getAttribute("id"));
+    },
+    $unmount() {
+      spy1("unmount:" + this.node.getAttribute("id"));
+    },
+    $dispose() {
+      spy1("dispose:" + this.node.getAttribute("id"));
+    },
+  });
+  gr.registerNode("a", ["Aaa"]);
+
+  await TestEnvManager.loadPage(TestUtil.GenerateGomlEmbeddedHtml('<a id="parent"><a id="middle"><a id="child"></a></a></a>'));
+
+  const root = gr("*")("#parent").first();
+  const middle = gr("*")("#middle").first();
+  t.deepEqual(spy1.args, [
+    ["awake:parent"],
+    ["mount:parent"],
+    ["awake:middle"],
+    ["mount:middle"],
+    ["awake:child"],
+    ["mount:child"],
+    ["mounted:child"],
+    ["mounted:middle"],
+    ["mounted:parent"],
+  ]);
+
+  spy1.reset();
+
+  root.remove();
+  t.deepEqual(spy1.args, [
+    ["preunmount:parent"],
+    ["preunmount:middle"],
+    ["preunmount:child"],
+    ["unmount:child"],
+    ["unmount:middle"],
+    ["unmount:parent"],
+    ["dispose:child"],
+    ["dispose:middle"],
+    ["dispose:parent"],
+  ]);
+});
