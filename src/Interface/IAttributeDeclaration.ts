@@ -1,4 +1,4 @@
-import { Name } from "../Tools/Types";
+import { Name } from "../Tool/Types";
 import IAttributeConverterDeclaration from "./IAttributeConverterDeclaration";
 
 /**

@@ -1,7 +1,7 @@
-import fs from "../fileHelper";
 import test from "ava";
+import XMLReader from "../../src/Tool/XMLReader";
+import fs from "../fileHelper";
 import TestEnvManager from "../TestEnvManager";
-import XMLReader from "../../src/Tools/XMLReader";
 
 TestEnvManager.init();
 

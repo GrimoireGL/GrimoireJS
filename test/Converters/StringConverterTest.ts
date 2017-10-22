@@ -1,5 +1,5 @@
 import test from "ava";
-import StringConverter from "../../src/Converters/StringConverter";
+import StringConverter from "../../src/Converter/StringConverter";
 
 test("StringConverter should convert collectly", t => {
   t.truthy(StringConverter.convert("HELLO", null as any) === "HELLO");

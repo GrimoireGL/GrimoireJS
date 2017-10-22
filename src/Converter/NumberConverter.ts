@@ -1,5 +1,5 @@
-import { Undef } from "../Tools/Types";
-import Utility from "../Tools/Utility";
+import { Undef } from "../Tool/Types";
+import Utility from "../Tool/Utility";
 
 export default {
   name: "Number",

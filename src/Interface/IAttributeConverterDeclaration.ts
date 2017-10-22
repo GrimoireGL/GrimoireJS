@@ -1,5 +1,5 @@
 import Attribute from "../Core/Attribute";
-import { Name } from "../Tools/Types";
+import { Name } from "../Tool/Types";
 
 /**
  * interface for converter declaration

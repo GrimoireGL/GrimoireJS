@@ -1,13 +1,13 @@
 import test from "ava";
 
-import ComponentConverter from "../../src/Converters/ComponentConverter";
+import ComponentConverter from "../../src/Converter/ComponentConverter";
 
 test("verify works correctly", t => {
   t.notThrows(() => {
     ComponentConverter.verify({
       declaration: {
-        target: "hoge"
-      }
+        target: "hoge",
+      },
     } as any);
   });
   t.throws(() => {

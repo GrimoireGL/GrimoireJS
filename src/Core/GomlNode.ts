@@ -2,16 +2,16 @@ import EEObject from "../Base/EEObject";
 import AttributeManager from "../Core/AttributeManager";
 import GrimoireInterface from "../Core/GrimoireInterface";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Ensure from "../Tools/Ensure";
-import MessageException from "../Tools/MessageException";
+import Ensure from "../Tool/Ensure";
+import MessageException from "../Tool/MessageException";
 import {
   Ctor,
   GomlInterface,
   Name,
   Nullable,
-} from "../Tools/Types";
-import Utility from "../Tools/Utility";
-import XMLReader from "../Tools/XMLReader";
+} from "../Tool/Types";
+import Utility from "../Tool/Utility";
+import XMLReader from "../Tool/XMLReader";
 import Attribute from "./Attribute";
 import Component from "./Component";
 import Constants from "./Constants";

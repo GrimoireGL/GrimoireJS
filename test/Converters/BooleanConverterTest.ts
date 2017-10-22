@@ -1,5 +1,5 @@
 import test from "ava";
-import BooleanConverter from "../../src/Converters/BooleanConverter";
+import BooleanConverter from "../../src/Converter/BooleanConverter";
 
 test("BooleanConverter should convert collectly", t => {
   t.truthy(BooleanConverter.convert(true, null as any) === true);

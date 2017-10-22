@@ -1,6 +1,6 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
-import XMLHttpRequestAsync from "../Tools/XMLHttpRequestAsync";
-import XMLReader from "../Tools/XMLReader";
+import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
+import XMLReader from "../Tool/XMLReader";
 import Environment from "./Environment";
 import GomlParser from "./GomlParser";
 

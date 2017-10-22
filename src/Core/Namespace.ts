@@ -1,4 +1,4 @@
-import Utility from "../Tools/Utility";
+import Utility from "../Tool/Utility";
 import Identity from "./Identity";
 
 /**

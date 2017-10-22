@@ -2,9 +2,9 @@ import { ListenerFn } from "eventemitter3";
 import Attribute from "../Core/Attribute";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
-import { Name, Nullable } from "../Tools/Types";
-import Utility from "../Tools/Utility";
-import XMLReader from "../Tools/XMLReader";
+import { Name, Nullable } from "../Tool/Types";
+import Utility from "../Tool/Utility";
+import XMLReader from "../Tool/XMLReader";
 
 /**
  * interface for operate multicast nodes.

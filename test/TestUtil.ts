@@ -7,8 +7,8 @@ import GrimoireInterface from "../src/Core/GrimoireInterface";
 import Identity from "../src/Core/Identity";
 import IAttributeDeclaration from "../src/Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
-import Ensure from "../src/Tools/Ensure";
-import XMLReader from "../src/Tools/XMLReader";
+import Ensure from "../src/Tool/Ensure";
+import XMLReader from "../src/Tool/XMLReader";
 
 export default class TestUtil {
 

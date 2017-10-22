@@ -1,5 +1,5 @@
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
 import Namespace from "./Namespace";
 
 /**

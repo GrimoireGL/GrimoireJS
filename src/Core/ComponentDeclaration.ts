@@ -1,8 +1,8 @@
 import Environment from "../Core/Environment";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
-import { ComponentRegistering, Ctor, Name } from "../Tools/Types";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
+import { ComponentRegistering, Ctor, Name } from "../Tool/Types";
 import Attribute from "./Attribute";
 import Component from "./Component";
 import Constants from "./Constants";
@@ -132,7 +132,7 @@ export default class ComponentDeclaration {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        const newCtor = function(this: any) {
+        const newCtor = function (this: any) {
           baseConstructor.call(this);
           obj.call(this);
         };
@@ -151,7 +151,7 @@ export default class ComponentDeclaration {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function(this: any) {
+      const newCtor = function (this: any) {
         ctor.call(this);
       };
       (obj as any).__proto__ = ctor.prototype;

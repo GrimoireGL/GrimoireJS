@@ -3,7 +3,7 @@ import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
 import IdentityMap from "../../src/Core/IdentityMap";
 import Namespace from "../../src/Core/Namespace";
-import Ensure from "../../src/Tools/Ensure";
+import Ensure from "../../src/Tool/Ensure";
 
 test.beforeEach(() => {
   Identity.clear();

@@ -1,8 +1,8 @@
 import Attribute from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
-import Ensure from "../Tools/Ensure";
-import { Undef } from "../Tools/Types";
+import Ensure from "../Tool/Ensure";
+import { Undef } from "../Tool/Types";
 
 /**
  * コンポーネントのためのコンバータです。

@@ -3,10 +3,10 @@ import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
-import { GomlInterface, Name, Nullable, Undef } from "../Tools/Types";
-import Utility from "../Tools/Utility";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
+import { GomlInterface, Name, Nullable, Undef } from "../Tool/Types";
+import Utility from "../Tool/Utility";
 import Component from "./Component";
 
 /**

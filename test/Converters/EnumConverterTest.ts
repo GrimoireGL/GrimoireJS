@@ -1,6 +1,6 @@
 import test from "ava";
 
-import EnumConverter from "../../src/Converters/EnumConverter";
+import EnumConverter from "../../src/Converter/EnumConverter";
 
 const mockAttrDec = {
   declaration: {
@@ -9,15 +9,15 @@ const mockAttrDec = {
     table: {
       "first": 1,
       "second": 2,
-      "third": 3
-    }
+      "third": 3,
+    },
   },
 } as any;
 
 const invalidMockAttrDec = {
   declaration: {
     coverter: "Enum",
-    default: "Hoge"
+    default: "Hoge",
   },
 } as any;
 

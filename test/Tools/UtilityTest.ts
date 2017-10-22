@@ -1,5 +1,5 @@
 import test from "ava";
-import Utility from "../../src/Tools/Utility";
+import Utility from "../../src/Tool/Utility";
 
 test("isCamelCase works correctly.", t => {
   t.truthy(Utility.isCamelCase("NameName123"));

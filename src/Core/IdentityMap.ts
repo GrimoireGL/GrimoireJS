@@ -1,7 +1,7 @@
 import Namespace from "../Core/Namespace";
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
-import { Name, Nullable, Undef } from "../Tools/Types";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
+import { Name, Nullable, Undef } from "../Tool/Types";
 import Identity from "./Identity";
 
 type Dict<V> = { [key: string]: V };

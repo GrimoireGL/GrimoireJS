@@ -1,9 +1,9 @@
 import IDObject from "../Base/IDObject";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Ensure from "../Tools/Ensure";
-import { GomlInterface, Name, Nullable } from "../Tools/Types";
-import Utility from "../Tools/Utility";
+import Ensure from "../Tool/Ensure";
+import { GomlInterface, Name, Nullable } from "../Tool/Types";
+import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";

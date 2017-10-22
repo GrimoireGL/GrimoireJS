@@ -1,15 +1,15 @@
 import EEObject from "../Base/EEObject";
-import GrimoireComponent from "../Components/GrimoireComponent";
-import TemplateComponent from "../Components/TemplateComponent";
-import ArrayConverter from "../Converters/ArrayConverter";
-import BooleanConverter from "../Converters/BooleanConverter";
-import ComponentConverter from "../Converters/ComponentConverter";
-import EnumConverter from "../Converters/EnumConverter";
-import NumberArrayConverter from "../Converters/NumberArrayConverter";
-import NumberConverter from "../Converters/NumberConverter";
-import ObjectConverter from "../Converters/ObjectConverter";
-import StringArrayConverter from "../Converters/StringArrayConverter";
-import StringConverter from "../Converters/StringConverter";
+import GrimoireComponent from "../Component/GrimoireComponent";
+import TemplateComponent from "../Component/TemplateComponent";
+import ArrayConverter from "../Converter/ArrayConverter";
+import BooleanConverter from "../Converter/BooleanConverter";
+import ComponentConverter from "../Converter/ComponentConverter";
+import EnumConverter from "../Converter/EnumConverter";
+import NumberArrayConverter from "../Converter/NumberArrayConverter";
+import NumberConverter from "../Converter/NumberConverter";
+import ObjectConverter from "../Converter/ObjectConverter";
+import StringArrayConverter from "../Converter/StringArrayConverter";
+import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import ComponentDeclaration from "../Core/ComponentDeclaration";
 import GomlInterfaceImpl from "../Core/GomlInterfaceImpl";
@@ -19,14 +19,14 @@ import Namespace from "../Core/Namespace";
 import NodeDeclaration from "../Core/NodeDeclaration";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
-import Ensure from "../Tools/Ensure";
+import Ensure from "../Tool/Ensure";
 import {
   ComponentRegistering,
   Ctor,
   Name,
   Nullable,
-} from "../Tools/Types";
-import Utility from "../Tools/Utility";
+} from "../Tool/Types";
+import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
 import Constants from "./Constants";
 import Environment from "./Environment";

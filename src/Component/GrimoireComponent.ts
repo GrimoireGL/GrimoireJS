@@ -1,5 +1,5 @@
-import BooleanConverter from "../Converters/BooleanConverter";
-import StringConverter from "../Converters/StringConverter";
+import BooleanConverter from "../Converter/BooleanConverter";
+import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";

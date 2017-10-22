@@ -1,8 +1,8 @@
 import Attribute from "../Core/Attribute";
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
-import { Name, Undef } from "../Tools/Types";
-import Utility from "../Tools/Utility";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
+import { Name, Undef } from "../Tool/Types";
+import Utility from "../Tool/Utility";
 import Identity from "./Identity";
 import Namespace from "./Namespace";
 

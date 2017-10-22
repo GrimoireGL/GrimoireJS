@@ -8,7 +8,7 @@ import GrimoireInterface from "../src/Core/GrimoireInterface";
 import Identity from "../src/Core/Identity";
 import IdentityMap from "../src/Core/IdentityMap";
 import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
-import XMLReader from "../src/Tools/XMLReader";
+import XMLReader from "../src/Tool/XMLReader";
 import jsdomAsync from "./JsDOMAsync";
 
 export default class TestEnvManager {

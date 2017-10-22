@@ -4,7 +4,7 @@ import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import IdResolver from "../../src/Tools/IdResolver";
+import IdResolver from "../../src/Tool/IdResolver";
 import Namespace from "../../src/Core/Namespace";
 import Identity from "../../src/Core/Identity";
 import test from "ava";
@@ -13,7 +13,7 @@ import TestEnvManager from "../TestEnvManager";
 TestEnvManager.init();
 
 test("get() works correctly.", t => {
-  let r = new IdResolver();
+  const r = new IdResolver();
   r.add(Identity.fromFQN("c.b.a"));
   t.truthy(r.get(Namespace.define("a")).length === 1);
   t.truthy(r.get(Namespace.define("b.a")).length === 1);
@@ -50,7 +50,7 @@ test("Not accept to get invalid name or namespace", (t) => {
 });
 
 test("Not accept to get invalid name or namespace", (t) => {
-  let r = new IdResolver();
+  const r = new IdResolver();
   // console.log(r);
   r.add(Identity.fromFQN("a"));
   r.add(Identity.fromFQN("hoge.b"));
@@ -61,7 +61,7 @@ test("Not accept to get invalid name or namespace", (t) => {
 });
 
 test("resolve works correctly", (t) => {
-  let r = new IdResolver();
+  const r = new IdResolver();
   r.add(Identity.fromFQN("hoge.a"));
   r.add(Identity.fromFQN("hoge.b"));
   r.add(Identity.fromFQN("hage.huga.c"));

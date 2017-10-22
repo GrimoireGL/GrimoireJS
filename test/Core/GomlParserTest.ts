@@ -5,7 +5,7 @@ import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
 import Namespace from "../../src/Core/Namespace";
-import XMLReader from "../../src/Tools/XMLReader";
+import XMLReader from "../../src/Tool/XMLReader";
 import {
   registerConflictComponent1,
   registerConflictComponent2,

@@ -1,6 +1,6 @@
 import test from "ava";
 import { assert, spy } from "sinon";
-import GrimoireComponent from "../../src/Components/GrimoireComponent";
+import GrimoireComponent from "../../src/Component/GrimoireComponent";
 import Attribute from "../../src/Core/Attribute";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
@@ -11,7 +11,7 @@ TestEnvManager.init();
 
 const GOML = "<goml></goml>";
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   GrimoireInterface.registerNode("goml");
 });

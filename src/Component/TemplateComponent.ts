@@ -1,10 +1,10 @@
-import BooleanConverter from "../Converters/BooleanConverter";
-import StringConverter from "../Converters/StringConverter";
+import BooleanConverter from "../Converter/BooleanConverter";
+import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import XMLReader from "../Tools/XMLReader";
+import XMLReader from "../Tool/XMLReader";
 
 export { IAttributeConverterDeclaration };
 

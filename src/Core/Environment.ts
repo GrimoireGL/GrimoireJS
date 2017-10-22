@@ -1,4 +1,4 @@
-import { GrimoireInterface } from "../Tools/Types";
+import { GrimoireInterface } from "../Tool/Types";
 
 /**
  * Environment manager

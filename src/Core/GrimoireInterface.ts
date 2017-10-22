@@ -1,5 +1,5 @@
 import GomlNode from "../Core/GomlNode";
-import { GomlInterface, GrimoireInterface } from "../Tools/Types";
+import { GomlInterface, GrimoireInterface } from "../Tool/Types";
 import Environment from "./Environment";
 import GomlInterfaceImpl from "./GomlInterfaceImpl";
 import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";

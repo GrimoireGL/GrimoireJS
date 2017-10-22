@@ -1,7 +1,7 @@
 import Namespace from "../Core/Namespace";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
-import { Undef } from "../Tools/Types";
+import { Undef } from "../Tool/Types";
 
 export default {
   name: Namespace.define(__NAMESPACE__).for("String"),

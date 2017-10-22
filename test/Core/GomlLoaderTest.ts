@@ -8,7 +8,7 @@ import jsdomAsync from "../JsDOMAsync";
 import prequire from "proxyquire";
 import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import XMLReader from "../../src/Tools/XMLReader";
+import XMLReader from "../../src/Tool/XMLReader";
 import {
   registerConflictComponent1,
   registerConflictComponent2,
@@ -42,7 +42,7 @@ TestEnvManager.mock("http://grimoire.gl/index3.goml", "<goml>\n</goml>");
 
 function mockXMLParse(func) {
   return prequire("../../src/Core/GomlLoader", {
-    "../Tools/XMLReader": {
+    "../Tool/XMLReader": {
       default: {
         parseXML: (srcHtml) => {
           func(srcHtml);
@@ -53,7 +53,7 @@ function mockXMLParse(func) {
   }).default;
 }
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   registerGoml();
   registerTestNode1();
@@ -83,7 +83,7 @@ test("Processing script[type=\"text/goml\"] tag correctly when the text content 
     s(xml.replace(/[\n\s]/g, ""));
   });
   await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-  t.truthy(s.calledWith(`<goml><goml><goml></goml><goml/></goml></goml>`));
+  t.truthy(s.calledWith("<goml><goml><goml></goml><goml/></goml></goml>"));
 });
 
 test("Processing script[type=\"text/goml\"] tag correctly when the src attribute was existing", async (t) => {
@@ -96,10 +96,10 @@ test("Processing script[type=\"text/goml\"] tag correctly when the src attribute
   });
 
   await mockedParseXML.loadFromScriptTag(scriptTags.item(0));
-  t.truthy(s.calledWith(`<goml></goml>`));
+  t.truthy(s.calledWith("<goml></goml>"));
 });
 
-test("Processing goml scripts from query", async (t) => {
+test("Processing goml scripts from query", async(t) => {
   const window = await jsdomAsync(testcase3_html, []);
   Environment.document = window.document;
   const s = spy();
@@ -110,7 +110,7 @@ test("Processing goml scripts from query", async (t) => {
   t.truthy(s.calledWith("<goml>\n</goml>"));
 });
 
-test("Processing goml scripts for page", async (t) => {
+test("Processing goml scripts for page", async(t) => {
   const window = await jsdomAsync(testcase4_html, []);
   Environment.document = window.document;
   const s = spy();
@@ -121,7 +121,7 @@ test("Processing goml scripts for page", async (t) => {
   t.truthy(s.calledWith("<goml>\n</goml>"));
 });
 
-test("all text/goml scripts tags should be loaded on loadForPage", async (t) => {
+test("all text/goml scripts tags should be loaded on loadForPage", async(t) => {
   const s = spy();
   const original = GrimoireInterface.addRootNode.bind(GrimoireInterface);
   GrimoireInterface.addRootNode = (tag: HTMLScriptElement, rootNode: GomlNode) => {

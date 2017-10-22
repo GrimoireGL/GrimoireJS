@@ -4,7 +4,7 @@ import Component from "../../src/Core/Component";
 import fs from "../fileHelper";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
-import GrimoireComponent from "../../src/Components/GrimoireComponent";
+import GrimoireComponent from "../../src/Component/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
 import test from "ava";
@@ -323,7 +323,7 @@ test("broadcastMessage should not invoke message if the node is not enabled", (t
 
 test("class attribute can be obatined as default", (t) => {
   const testNode3 = rootNode.children[0];
-  let classes = testNode3.getAttribute("class");
+  const classes = testNode3.getAttribute("class");
   t.truthy(classes.length === 1);
   t.truthy(classes[0] === "classTest");
 });
@@ -371,7 +371,7 @@ test("get/setAttribute should work correctly 2", t => {
   const c = rootNode.getComponent<Component>("GrimoireComponent");
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   const att = rootNode.getAttribute("hoge");
   t.truthy(att === "aaa");
@@ -382,7 +382,7 @@ test("get/setAttribute should work correctly 3", t => {
   rootNode.setAttribute("hoge", "bbb");
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   const att = rootNode.getAttribute("hoge");
   t.truthy(att === "bbb");
@@ -393,7 +393,7 @@ test("get/setAttribute should work correctly 4", t => {
   rootNode.setAttribute("ns1.hoge", "bbb");
   (c as any).__addAttribute("hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   const att = rootNode.getAttribute("hoge");
   t.truthy(att === "aaa");
@@ -405,7 +405,7 @@ test("attribute buffer is valid only last set value.", t => {
   rootNode.setAttribute("ns1.hoge", "ccc");
   (c as any).__addAttribute("ns1.hoge", {
     converter: "String",
-    default: "aaa"
+    default: "aaa",
   });
   let att = rootNode.getAttribute("ns1.hoge");
   t.truthy(att === "ccc");
@@ -508,7 +508,7 @@ test("addNode works correctly", (t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === "idtest");
 });
 
-test("null should be \"\" as id and classname", async (t) => {
+test("null should be \"\" as id and classname", async(t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
@@ -526,7 +526,7 @@ test("null should be \"\" as id and classname", async (t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
 });
 
-test("null should be \"\" as id and classname", async (t) => {
+test("null should be \"\" as id and classname", async(t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",

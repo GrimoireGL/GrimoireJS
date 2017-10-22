@@ -1,7 +1,7 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
-import Ensure from "../Tools/Ensure";
-import IdResolver from "../Tools/IdResolver";
-import { Ctor, Name } from "../Tools/Types";
+import Ensure from "../Tool/Ensure";
+import IdResolver from "../Tool/IdResolver";
+import { Ctor, Name } from "../Tool/Types";
 import Component from "./Component";
 import Constants from "./Constants";
 import Identity from "./Identity";

@@ -1,5 +1,5 @@
 import test from "ava";
-import ObjectConverter from "../../src/Converters/ObjectConverter";
+import ObjectConverter from "../../src/Converter/ObjectConverter";
 
 test("ObjectConverter should convert collectly", t => {
   t.truthy(ObjectConverter.convert("HELLO") === "HELLO");

@@ -1,5 +1,5 @@
 import test from "ava";
-import NumberConverter from "../../src/Converters/NumberConverter";
+import NumberConverter from "../../src/Converter/NumberConverter";
 import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
