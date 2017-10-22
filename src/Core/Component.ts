@@ -30,16 +30,11 @@ export default class Component extends IDObject {
    * @type {GomlNode}
    */
   public node: GomlNode;
-  /**
-   * XMLElement of this component
-   * @type {Element}
-   */
-  public element: Element;
 
   /**
    * default attribute defined in GOML
    */
-  public gomAttribute: { [key: string]: string };
+  public gomAttribute: { [key: string]: string } = {};
 
   /**
    * Whether this component was created by nodeDeclaration
@@ -74,6 +69,7 @@ export default class Component extends IDObject {
   public get enabled(): boolean {
     return this._enabled;
   }
+
   public set enabled(val) {
     if (this._enabled === val) {
       return;
@@ -170,10 +166,9 @@ export default class Component extends IDObject {
    * Interal use!
    * @param nodeAttributes
    */
-  public resolveDefaultAttributes(specifiedValue?: { [key: string]: string; }): void {
-    specifiedValue = specifiedValue || {};
+  public resolveDefaultAttributes(): void {
     this.attributes.forEach(attr => {
-      attr.resolveDefaultValue(specifiedValue || {});
+      attr.resolveDefaultValue();
     });
   }
 
@@ -225,12 +220,7 @@ export default class Component extends IDObject {
     }
     const attr = Attribute.generateAttributeForComponent(name, attribute, this);
     this.node.addAttribute(attr);
-    if (this.isDefaultComponent) { // If this is default component, the default attribute values should be retrived from node DOM.
-      attr.resolveDefaultValue(this.node.gomAttribute);
-    } else { // If not,the default value of attributes should be retrived from this element.
-      const attrs = this.gomAttribute;
-      attr.resolveDefaultValue(attrs);
-    }
+    attr.resolveDefaultValue();
     this._additionalAttributesNames.push(attr.name);
     return attr;
   }

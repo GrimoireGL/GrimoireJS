@@ -21,6 +21,8 @@ import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import NodeDeclaration from "./NodeDeclaration";
 
+type SystemMessage = "$$awake" | "$$mount" | "$$unmount" | "$$dispose";
+
 /**
  * This class is the most primitive element constitute Tree.
  * contain some Component, and send/recieve message to them.
@@ -49,7 +51,7 @@ export default class GomlNode extends EEObject {
   /**
    * default attribute defined in GOML
    */
-  public gomAttribute: { [key: string]: string };
+  public gomAttribute: { [key: string]: string } = {};
 
   /**
    * declaration infomation.
@@ -157,6 +159,17 @@ export default class GomlNode extends EEObject {
    */
   public get mounted(): boolean {
     return this._mounted;
+  }
+
+  /**
+   * Get index of this node from parent.
+   * @return {number} number of index.
+   */
+  public get index(): number {
+    if (!this._parent) {
+      return -1;
+    }
+    return this._parent.children.indexOf(this);
   }
 
   /**
@@ -368,7 +381,16 @@ export default class GomlNode extends EEObject {
    * @param func
    */
   public callRecursively<T>(func: (g: GomlNode) => T): T[] {
-    return this._callRecursively(func, (n) => n.children);
+    return _callRecursively(this, func, (n) => n.children);
+
+    function _callRecursively(self: GomlNode, f: (g: GomlNode) => T, nextGenerator: (n: GomlNode) => GomlNode[]): T[] {
+      const val = f(self);
+      const nexts = nextGenerator(self);
+      const nextVals = nexts.map(c => _callRecursively(c, f, nextGenerator));
+      const list = Utility.flat(nextVals);
+      list.unshift(val);
+      return list;
+    }
   }
 
   /**
@@ -389,7 +411,6 @@ export default class GomlNode extends EEObject {
    * @return {GomlNode}       detached node.
    */
   public detachChild(target: GomlNode): Nullable<GomlNode> {
-    // search child.
     const index = this.children.indexOf(target);
     if (index === -1) {
       return null;
@@ -461,6 +482,14 @@ export default class GomlNode extends EEObject {
   }
 
   /**
+   * remove attribute from this node.
+   * @param {Attribute} attr [description]
+   */
+  public removeAttribute(attr: Attribute): boolean {
+    return this._attributeManager.removeAttribute(attr);
+  }
+
+  /**
    * Internal use!
    * Update mounted status and emit events
    * @param {boolean} mounted Mounted status.
@@ -470,39 +499,30 @@ export default class GomlNode extends EEObject {
       return;
     }
     if (mounted) {
-      this._mount();
+      this._mounted = true;
+      const temp = this._components.concat();
+      for (let i = 0; i < temp.length; i++) {
+        const target = temp[i];
+        if (target.disposed) {
+          continue;
+        }
+        target.awake();
+        this._sendMessageForcedTo(target, "$$mount");
+      }
       for (let i = 0; i < this.children.length; i++) {
-        this.children[i].setMounted(mounted);
+        this.children[i].setMounted(true);
       }
     } else {
+      // TODOここでpreunmount
       for (let i = 0; i < this.children.length; i++) {
-        this.children[i].setMounted(mounted);
+        this.children[i].setMounted(false);
       }
-      this._sendMessageForced("unmount");
+      this._sendMessageForced("$$unmount");
       this._isActive = false;
       this._tree = GrimoireInterface([this]);
       this._companion = new IdentityMap<any>();
-      this._mounted = mounted;
+      this._mounted = false;
     }
-  }
-
-  /**
-   * Get index of this node from parent.
-   * @return {number} number of index.
-   */
-  public get index(): number {
-    if (!this._parent) {
-      return -1;
-    }
-    return this._parent.children.indexOf(this);
-  }
-
-  /**
-   * remove attribute from this node.
-   * @param {Attribute} attr [description]
-   */
-  public removeAttribute(attr: Attribute): boolean {
-    return this._attributeManager.removeAttribute(attr);
   }
 
   /**
@@ -542,31 +562,17 @@ export default class GomlNode extends EEObject {
     component.isDefaultComponent = !!isDefaultComponent;
     component.node = this;
 
-    // bind this for message reciever.
-    let propNames: string[] = []; // TODOこの６行はgenerateComponentInstanceでやっていいのでは？
-    let o = component;
-    while (o) {
-      propNames = propNames.concat(Object.getOwnPropertyNames(o));
-      o = Object.getPrototypeOf(o);
-    }
-    propNames.filter(name => name.startsWith("$") && typeof (component as any)[name] === "function").forEach(method => {
-      (component as any)["$" + method] = (component as any)[method].bind(component);
-    });
-
     this._components.push(component);
 
     // attributes should be exposed on node
     component.attributes.forEach(p => this.addAttribute(p));
     if (this._defaultValueResolved) {
-      component.attributes.forEach(p => {
-        p.resolveDefaultValue(this.gomAttribute);
-      });
+      component.resolveDefaultAttributes();
     }
 
     if (this._mounted) {
-      component.resolveDefaultAttributes(); // here must be optional component.should not use node element attributes.
-      this._sendMessageForcedTo(component, "awake");
-      this._sendMessageForcedTo(component, "mount");
+      this._sendMessageForcedTo(component, "$$awake");
+      this._sendMessageForcedTo(component, "$$mount");
     }
 
     // sending `initialized` message if needed.
@@ -582,14 +588,14 @@ export default class GomlNode extends EEObject {
    */
   public removeComponents(component: Name | (new () => Component)): boolean {
     let result = false;
-    const removeTargets = [];
-    component = Ensure.tobeComponentIdentity(component);
-    for (let i = 0; i < this._components.length; i++) {
-      const c = this._components[i];
-      if (c.name.fqn === component.fqn) {
-        removeTargets.push(c);
-      }
-    }
+    const removeTargets = this.getComponents(component);
+    // component = Ensure.tobeComponentIdentity(component);
+    // for (let i = 0; i < this._components.length; i++) {
+    //   const c = this._components[i];
+    //   if (c.name.fqn === component.fqn) {
+    //     removeTargets.push(c);
+    //   }
+    // }
     removeTargets.forEach(c => {
       const b = this.removeComponent(c);
       result = result || b;
@@ -605,8 +611,11 @@ export default class GomlNode extends EEObject {
   public removeComponent(component: Component): boolean {
     const index = this._components.indexOf(component);
     if (index !== -1) {
-      this._sendMessageForcedTo(component, "unmount");
-      this._sendMessageForcedTo(component, "dispose");
+      this._sendMessageForcedTo(component, "$$unmount");
+      this._sendMessageForcedTo(component, "$$dispose");
+      component.attributes.forEach(attr => {
+        this.removeAttribute(attr);
+      });
       this._components.splice(index, 1);
       this._messageCache = {}; // TODO:optimize.
       delete component.node;
@@ -706,18 +715,18 @@ export default class GomlNode extends EEObject {
    * resolve default attribute value for all component.
    * すべてのコンポーネントの属性をエレメントかデフォルト値で初期化
    */
-  public resolveAttributesValue(attrs?: { [key: string]: string }): void {
+  public resolveAttributesValue(): void {
     if (this._defaultValueResolved) {
       return;
     }
     this._defaultValueResolved = true;
-    for (const key in (attrs || {})) {
+    for (const key in (this.gomAttribute || {})) {
       if (this.isFreezeAttribute(key)) {
         throw new Error(`attribute ${key} can not change from GOML. Attribute is frozen. `);
       }
     }
     this._components.forEach((component) => {
-      component.resolveDefaultAttributes(attrs);
+      component.resolveDefaultAttributes();
     });
   }
 
@@ -940,7 +949,7 @@ export default class GomlNode extends EEObject {
     return false;
   }
 
-  private _sendMessageForced(message: string): void {
+  private _sendMessageForced(message: SystemMessage): void {
     const componentsBuffer = this._components.concat();
     for (let i = 0; i < componentsBuffer.length; i++) {
       const target = componentsBuffer[i];
@@ -956,36 +965,10 @@ export default class GomlNode extends EEObject {
    * @param {Component} target  [description]
    * @param {string}    message [description]
    */
-  private _sendMessageForcedTo(target: Component, message: string): void {
-    message = Ensure.tobeMessage(message);
+  private _sendMessageForcedTo(target: Component, message: SystemMessage): void {
     const method = (target as any)[message];
     if (typeof method === "function") {
       method();
     }
-  }
-
-  /**
-   * sending mount and awake message if needed to all components.
-   */
-  private _mount(): void {
-    this._mounted = true;
-    const componentsBuffer = this._components.concat();
-    for (let i = 0; i < componentsBuffer.length; i++) {
-      const target = componentsBuffer[i];
-      if (target.disposed) {
-        continue;
-      }
-      target.awake();
-      this._sendMessageForcedTo(target, "$$mount");
-    }
-  }
-
-  private _callRecursively<T>(func: (g: GomlNode) => T, nextGenerator: (n: GomlNode) => GomlNode[]): T[] {
-    const val = func(this);
-    const nexts = nextGenerator(this);
-    const nextVals = nexts.map(c => c.callRecursively(func));
-    const list = Utility.flat(nextVals);
-    list.unshift(val);
-    return list;
   }
 }

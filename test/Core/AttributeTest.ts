@@ -11,7 +11,7 @@ TestEnvManager.init();
 
 const GOML = "<goml></goml>";
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   GrimoireInterface.registerNode("goml");
 });
@@ -74,7 +74,7 @@ test("generateAttributeForComponent should works correctly", t => {
   t.throws(() => { // not resolve default value yet
     baseComponent.getAttribute("hoge");
   });
-  hogeAttr.resolveDefaultValue({});
+  hogeAttr.resolveDefaultValue();
   t.truthy(baseComponent.getAttribute("hoge") === 42);
   hogeAttr.Value = 43;
   t.truthy(baseComponent.getAttribute("hoge") === 43);
@@ -115,10 +115,12 @@ test("generateAttributeForComponent should works correctly (use dom value)", t =
   }, baseComponent);
 
   t.throws(() => {
-    attr1.resolveDefaultValue({ hoge: "43", "ns1.hoge": "44" }); // ambiguous
+    node.gomAttribute = { hoge: "43", "ns1.hoge": "44" };
+    attr1.resolveDefaultValue(); // ambiguous
   });
 
-  attr1.resolveDefaultValue({ "ns1.hoge": "43" });
+  node.gomAttribute = { "ns1.hoge": "43" };
+  attr1.resolveDefaultValue();
   t.truthy(attr1.Value === 43);
 });
 
@@ -137,7 +139,7 @@ test("generateAttributeForComponent should works correctly (use node value)", t 
     default: 42,
   }, baseComponent);
 
-  attr1.resolveDefaultValue({});
+  attr1.resolveDefaultValue();
   t.truthy(attr1.Value === 52);
 });
 
@@ -156,6 +158,6 @@ test("generateAttributeForComponent should works correctly (use declaration defa
     default: 42,
   }, baseComponent);
 
-  attr1.resolveDefaultValue({});
+  attr1.resolveDefaultValue();
   t.truthy(attr1.Value === 42);
 });

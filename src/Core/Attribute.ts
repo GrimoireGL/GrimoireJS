@@ -39,8 +39,12 @@ export default class Attribute<T = any> {
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
   public static generateAttributeForComponent<T>(name: string, declaration: IAttributeDeclaration<T>, component: Component): Attribute<T> {
+    const identity = Identity.fromFQN(`${component.name.fqn}.${name}`);
+    if (component.attributes.get(identity)) {
+      throw new Error(`attribute ${identity} is already exists in component`);
+    }
     const attr = new Attribute<T>();
-    attr.name = Identity.fromFQN(`${component.name.fqn}.${name}`);
+    attr.name = identity;
     attr.component = component;
     attr.declaration = declaration;
     const converterName = Ensure.tobeCnverterIdentity(declaration.converter);
@@ -210,9 +214,15 @@ export default class Attribute<T = any> {
    * Apply default value to attribute from DOM values.
    * @param {string }} domValues [description]
    */
-  public resolveDefaultValue(domValues: { [key: string]: string }): void {
+  public resolveDefaultValue(): void {
     if (this._value !== undefined) {// value is already exist.
       return;
+    }
+    let domValues;
+    if (!this.component.isDefaultComponent) {
+      domValues = this.component.gomAttribute;
+    } else {// node is exists because this is default component.
+      domValues = this.component.node.gomAttribute;
     }
 
     // resolve by goml value

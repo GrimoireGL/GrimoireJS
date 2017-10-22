@@ -5,7 +5,6 @@ import IdResolver from "../Tool/IdResolver";
 import { ComponentRegistering, Ctor, Name } from "../Tool/Types";
 import Attribute from "./Attribute";
 import Component from "./Component";
-import Constants from "./Constants";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 
@@ -19,6 +18,10 @@ export default class ComponentDeclaration {
    * Internal use!
    */
   public static ctorMap: { ctor: ComponentRegistering<Object | Ctor<Component>>, name: Identity }[] = [];
+
+  public static clear() {
+    ComponentDeclaration.ctorMap = [];
+  }
 
   /**
    * super component constructor.
@@ -74,17 +77,25 @@ export default class ComponentDeclaration {
     if (!this.isDependenyResolved) {
       this.resolveDependency();
     }
-    const componentElement = Environment.document.createElementNS(this.name.ns.qualifiedName, this.name.name);
     const component = new this.ctor();
-    componentElement.setAttribute(Constants.x_gr_id, component.id);
     Environment.GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
-    component.element = componentElement;
     component.attributes = new IdentityMap<Attribute>();
     component.declaration = this;
     for (const key in this.attributes) {
       Attribute.generateAttributeForComponent(key, this.attributes[key], component);
     }
+
+    // bind this for message reciever.
+    let propNames: string[] = [];
+    let o = component;
+    while (o) {
+      propNames = propNames.concat(Object.getOwnPropertyNames(o));
+      o = Object.getPrototypeOf(o);
+    }
+    propNames.filter(name => name.startsWith("$") && typeof (component as any)[name] === "function").forEach(method => {
+      (component as any)["$" + method] = (component as any)[method].bind(component);
+    });
     return component;
   }
 

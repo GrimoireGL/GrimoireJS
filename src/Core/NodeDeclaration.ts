@@ -45,6 +45,8 @@ export default class NodeDeclaration {
   private _defaultAttributesActual: IdentityMap<any>;
   private _resolvedDependency = false;
 
+  private _freezeAttributes: Name[];
+
   /**
    * Whether the dependency has already been resolved.
    */
@@ -77,11 +79,11 @@ export default class NodeDeclaration {
     private _requiredComponents: (Name | Ctor<Component>)[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
-    private _freezeAttributes: Name[] = []) {
+    freezeAttributes?: Name[]) {
     if (!this._superNode && this.name.fqn !== Constants.baseNodeName) {
       this._superNode = Identity.fromFQN(Constants.baseNodeName);
     }
-    this._freezeAttributes = this._freezeAttributes || [];
+    this._freezeAttributes = freezeAttributes || [];
   }
 
   /**

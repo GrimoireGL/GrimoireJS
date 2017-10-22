@@ -87,12 +87,12 @@ export default class GomlParser {
       }
 
       const components = source.optionalComponents ? createComponents(source.optionalComponents) : [];
-      (source.children || []).forEach(it => createNode(it, node));
       components.forEach(c => {
         node._addComponentDirectly(c, false);
       });
       node.gomAttribute = source.attributes || {};
-      node.resolveAttributesValue(source.attributes || {});
+      node.resolveAttributesValue();
+      (source.children || []).forEach(it => createNode(it, node));
       return node;
     }
     function createComponents(components: IGrimoireComponentModel[]): Component[] {

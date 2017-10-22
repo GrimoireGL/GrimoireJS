@@ -22,7 +22,7 @@ import {
   registerTestNode2,
   registerTestNode3,
   registerTestNodeBase
-  } from "../DummyObjectRegisterer";
+} from "../DummyObjectRegisterer";
 
 
 const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
@@ -73,6 +73,7 @@ test.beforeEach(async () => {
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
 });
+
 
 test("count first single.", (t) => {
   const ni = GrimoireInterface("script")("goml");

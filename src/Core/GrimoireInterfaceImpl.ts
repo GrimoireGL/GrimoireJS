@@ -464,6 +464,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * Clear all configuration that GrimoireInterface contain.
    */
   public clear(): void {
+    ComponentDeclaration.clear();
     this.nodeDeclarations.clear();
     this.componentDeclarations.clear();
     this.converters.clear();

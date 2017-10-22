@@ -1,3 +1,5 @@
+import test from "ava";
+import { spy } from "sinon";
 import Attribute from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
@@ -7,29 +9,26 @@ import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
-import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import xmldom from "xmldom";
+import TestUtil from "../TestUtil";
 
 TestEnvManager.init();
 
 test.beforeEach(async () => {
   GrimoireInterface.clear();
-  const parser = new xmldom.DOMParser();
-  const htmlDoc = parser.parseFromString("<html></html>", "text/html");
-  Environment.document = htmlDoc;
+  TestEnvManager.loadPage("<html></html>");
   GrimoireInterface.registerNode("goml");
   GrimoireInterface.registerNode("scenes");
   GrimoireInterface.registerNode("scene");
   GrimoireInterface.registerComponent({
     componentName: "Test",
     attributes: {},
-    valueTest: "Test"
+    valueTest: "Test",
   });
   GrimoireInterface.registerComponent({
     componentName: "Test2",
     attributes: {},
-    valueTest: "Test2"
+    valueTest: "Test2",
   });
   await GrimoireInterface.resolvePlugins();
 });
@@ -139,9 +138,9 @@ test("getComponents method works correctly", t => {
     attributes: {
       attr1: {
         converter: "String",
-        default: "testAttr"
-      }
-    }
+        default: "testAttr",
+      },
+    },
 
   });
   GrimoireInterface.registerNode("test-node", ["TestComponent"]);
@@ -177,7 +176,7 @@ test("addComponent method works correctly", t => {
       testAttr1: {
         converter: "String",
         default: "thisistest",
-      }
+      },
     },
   });
   const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
@@ -262,19 +261,50 @@ test("getComponents method overload works correctly", t => {
   const components = node.getComponents();
   t.truthy(components.length === 3);
 });
-// test("addAttribute method works correctly", t => {
-//   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"), null);
-//   GrimoireInterface.registerComponent("TestComponent1", {
-//     attributes: {
-//       testAttr1: {
-//         converter: "String",
-//         default: "thisistest"
-//       }
-//     }
+
+// test("async message reciever called with await", async t => { // this is experimental feature!!
+//   const gr = Environment.GrimoireInterface;
+//   let res1;
+//   const promise1 = new Promise(resolve => {
+//     res1 = resolve;
 //   });
-//   const component = GrimoireInterface.componentDeclarations.get("TestComponent1").generateInstance();
-//   const attr = new Attribute("testAttr", {
-//     converter: "String",
-//     default: "thisistest"
-//   }, component);
+//   let res2;
+//   const promise2 = new Promise(resolve => {
+//     res2 = resolve;
+//   });
+//   const spy1 = spy();
+//   const spy2 = spy();
+
+//   gr.registerComponent({
+//     componentName: "hoge1",
+//     attributes: {},
+//     async $messsage(arg) {
+//       spy1(arg);
+//       return promise1;
+//     },
+//   });
+//   gr.registerComponent({
+//     componentName: "hoge2",
+//     attributes: {},
+//     async $messsage(arg) {
+//       spy1(arg);
+//       return promise2;
+//     },
+//   });
+//   gr.registerNode("a", ["hoge1"]);
+//   gr.registerNode("b", ["hoge2"]);
+
+//   await TestEnvManager.loadPage(TestUtil.GenerateGomlEmbeddedHtml("<a><b/></a>"));
+
+//   const root = gr("*")("a").first();
+//   const arg = 42;
+
+//   t.truthy(spy1.notCalled);
+//   t.truthy(spy2.notCalled);
+//   root.broadcastMessage("message", arg);
+//   t.truthy(spy1.calledWith(arg));
+//   t.truthy(spy2.notCalled);
+//   res1();
+//   t.truthy(spy2.calledWith(arg));
+
 // });

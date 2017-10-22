@@ -62,7 +62,6 @@ export default class GomlLoader {
     GomlLoader.initializedEventHandlers.forEach(handler => {
       handler();
     });
-    this.callInitializedAlready = true;
   }
 
   /**
@@ -71,5 +70,6 @@ export default class GomlLoader {
    */
   public static async loadForPage(): Promise<void> {
     await GomlLoader.loadFromQuery('script[type="text/goml"]');
+    this.callInitializedAlready = true;
   }
 }
