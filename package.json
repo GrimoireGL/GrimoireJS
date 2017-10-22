@@ -53,7 +53,7 @@
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
     "coverage": "trash coverage && nyc --reporter=lcov --reporter=text --reporter=json --reporter=html npm run test",
-    "test": "trash test-lib && tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava ./test-lib/**/*Test.js --verbose --serial",
+    "test": "trash test-lib && tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts",
     "lint:fix": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts --fix",
     "prepublish": "webpack --progress --env.prod && npm test",
@@ -78,6 +78,9 @@
   },
   "ava": {
     "failWithoutAssertions": false,
+    "files": [
+      "./test-lib/**/*Test.js"
+    ],
     "require": [
       "babel-register"
     ],

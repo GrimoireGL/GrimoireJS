@@ -27,6 +27,7 @@ class GrimoireInitializer {
       GrimoireInitializer._logVersions();
       await GrimoireInterface.resolvePlugins();
       if (GrimoireInterface.autoLoading) {
+        GrimoireInterface.startObservation();
         await GomlLoader.loadForPage();
       }
     } catch (e) {
@@ -91,7 +92,7 @@ class GrimoireInitializer {
       log += `  ${i} : ${plugin.__NAME__ || key}@${plugin.__VERSION__}\n`;
       i++;
     }
-    log += `\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.`;
+    log += '\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.';
     console.log(log, "color:#44F;font-weight:bold;");
   }
 
@@ -113,7 +114,7 @@ class GrimoireInitializer {
 /**
  * Just start the process.
  */
-export default function (): typeof GrimoireInterface {
+export default function(): typeof GrimoireInterface {
   const gwin = window as IGrimoireWindow;
   if (gwin.GrimoireJS) {
     GrimoireInterface.libraryPreference = gwin.GrimoireJS;

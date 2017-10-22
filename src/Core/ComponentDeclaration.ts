@@ -132,7 +132,7 @@ export default class ComponentDeclaration {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        const newCtor = function (this: any) {
+        const newCtor = function(this: any) {
           baseConstructor.call(this);
           obj.call(this);
         };
@@ -151,7 +151,7 @@ export default class ComponentDeclaration {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function (this: any) {
+      const newCtor = function(this: any) {
         ctor.call(this);
       };
       (obj as any).__proto__ = ctor.prototype;

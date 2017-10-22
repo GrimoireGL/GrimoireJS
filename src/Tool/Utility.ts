@@ -155,4 +155,12 @@ export default class Utility {
       throw new Error(errorMessage);
     }
   }
+
+  /**
+   * chack node is Element
+   * @param node
+   */
+  public static isElement(node: Node): node is Element {
+    return node.nodeType === Environment.Node.ELEMENT_NODE;
+  }
 }

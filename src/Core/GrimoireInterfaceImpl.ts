@@ -30,6 +30,7 @@ import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
 import Constants from "./Constants";
 import Environment from "./Environment";
+import GomlMutationObserver from "./GomlMutationObserver";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import NodeInterface from "./NodeInterface";
@@ -38,6 +39,7 @@ import NodeInterface from "./NodeInterface";
  * implementation of GrimoireInterface
  */
 export default class GrimoireInterfaceImpl extends EEObject {
+  public EVENT_GOML_WILL_ADD = "gomlWillAdd";
 
   /**
    * manage all node declarations.
@@ -104,6 +106,12 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public autoLoading = true;
 
   /**
+   * auto loading goml if added.
+   * and remove GomlNode if goml is removed from DOM.
+   */
+  public shouldObserveGoml = true;
+
+  /**
    * The object assigned to gr before loading grimoire.js
    * @type {any}
    */
@@ -111,6 +119,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   private _registeringPluginNamespace: string;
   private _registrationContext: string = Constants.defaultNamespace;
+
+  private _gomlMutationObserber = new GomlMutationObserver();
 
   /**
    * initialized event handlers
@@ -135,6 +145,40 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public ns(ns: string): (name: string) => Identity {
     Utility.w("GrimoireInterface.ns is obsolete. please use `Namespace.define()` instead of.");
     return (name: string) => Namespace.define(ns).for(name);
+  }
+
+  /**
+   * start observation goml mutation.
+   */
+  public startObservation() {
+    if (this._gomlMutationObserber.isObserving) {
+      return;
+    }
+    this._gomlMutationObserber.startObservation(async added => {
+      if (!this.shouldObserveGoml) {
+        return;
+      }
+      this.emit(this.EVENT_GOML_WILL_ADD, added);
+      await GomlLoader.loadFromScriptTag(added as HTMLScriptElement);
+      this.emit("gomlDidAdded", added);
+    }, removed => {
+      if (!this.shouldObserveGoml) {
+        return;
+      }
+      const root = this.getRootNode(removed);
+      if (root) {
+        this.emit("gomlWillRemove", removed);
+        root.remove();
+        this.emit("gomlDidRemove", removed);
+      }
+    });
+  }
+
+  /**
+   * stop observation
+   */
+  public stopObservation() {
+    this._gomlMutationObserber.stopObservation();
   }
 
   /**

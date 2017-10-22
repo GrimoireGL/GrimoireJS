@@ -4,7 +4,6 @@ import IGrimoireNodeModel from "../Interface/IGrimoireNodeModel";
 import Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
 import Component from "./Component";
-import Environment from "./Environment";
 import GomlNode from "./GomlNode";
 
 /**
@@ -28,7 +27,7 @@ export default class GomlParser {
       const optionalComponents: IGrimoireComponentModel[] = [];
       const childNodeElements: Element[] = [];
       childrenElement.forEach(child => {
-        if (!GomlParser._isElement(child)) {
+        if (!Utility.isElement(child)) {
           return;
         }
         if (GomlParser._isComponentsTag(child)) {
@@ -53,7 +52,7 @@ export default class GomlParser {
     }
     function parseComponents(elem: Element): IGrimoireComponentModel[] {
       const componentNodes = Array.from(elem.childNodes);
-      return componentNodes.filter(GomlParser._isElement).map(it => {
+      return componentNodes.filter(Utility.isElement).map(it => {
         const name = it.namespaceURI ? `${it.namespaceURI}.${it.localName!}` : it.localName!;
         const attributes = Utility.getAttributes(it);
         const ret = {
@@ -118,10 +117,6 @@ export default class GomlParser {
   public static parse(source: Element): GomlNode {
     const gom = GomlParser.parseToGOM(source);
     return GomlParser.parseGOMToGomlNode(gom);
-  }
-
-  private static _isElement(node: Node): node is Element {
-    return node.nodeType === Environment.Node.ELEMENT_NODE;
   }
 
   private static _isComponentsTag(element: Element): boolean {

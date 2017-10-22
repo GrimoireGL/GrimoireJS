@@ -51,4 +51,8 @@ export default class TestUtil {
     } as ITreeInitializedInfo);
     return rootNode;
   }
+
+  public static GenerateGomlEmbeddedHtml(goml: string): string {
+    return `<html><body><script type="text/goml">${goml}</script></body></html>`;
+  }
 }
