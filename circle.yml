@@ -1,18 +1,20 @@
 machine:
   node:
     version: 6.9.5
-
 test:
   post:
     - sh release.sh
-    - aws s3 cp ./coverage/ s3://coverage.grimoire.gl/core/$CIRCLE_BRANCH --recursive --region ap-northeast-1 --acl public-read
+    - >-
+      aws s3 cp ./coverage/ s3://coverage.grimoire.gl/core/$CIRCLE_BRANCH
+      --recursive --region ap-northeast-1 --acl public-read
   override:
     - npm run lint && npm run build && npm run coverage
-    - aws s3 cp ./register/ s3://ci.grimoire.gl/js/grimoirejs/${CIRCLE_BRANCH}_${CIRCLE_BUILD_NUM} --recursive --region ap-northeast-1 --acl public-read
-
+    - sh -x shell/e2e.sh
 deployment:
   deploy:
     branch: master
     commands:
       - npm run doc
-      - aws s3 cp ./docs/ s3://api.grimoire.gl/core --recursive --region ap-northeast-1 --acl public-read
+      - >-
+        aws s3 cp ./docs/ s3://api.grimoire.gl/core --recursive --region
+        ap-northeast-1 --acl public-read
