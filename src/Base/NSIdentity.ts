@@ -9,7 +9,7 @@ export default class NSIdentity {
 
   private static _instances: { [fqn: string]: NSIdentity } = {};
   private static _mapBackingField: IdResolver;
-  private static get _map(): IdResolver{
+  private static get _map(): IdResolver {
     if (this._mapBackingField === void 0) {
       this._mapBackingField = new IdResolver();
     }
