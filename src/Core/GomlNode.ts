@@ -64,7 +64,6 @@ export default class GomlNode extends EEObject {
   public children: GomlNode[] = [];
 
   private _parent: Nullable<GomlNode> = null;
-  private _root: Nullable<GomlNode> = null;
   private _components: Component[];
   private _tree: GomlInterface = GrimoireInterface([this]);
   private _companion: IdentityMap<any> = new IdentityMap<any>();
@@ -188,7 +187,6 @@ export default class GomlNode extends EEObject {
     }
     this.declaration = declaration;
     this.element = element || Environment.document.createElementNS(declaration.name.ns.qualifiedName, declaration.name.name);
-    this._root = this;
     this._components = [];
     this._attributeManager = new AttributeManager(declaration.name.name);
 

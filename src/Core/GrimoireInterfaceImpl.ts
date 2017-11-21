@@ -538,25 +538,6 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this._registeringPluginNamespace = namespace;
   }
 
-  private _ensureNameTobeConstructor(component: Name | Ctor<Component>): Nullable<Ctor<Component>> {
-    if (!component) {
-      return null;
-    }
-
-    if (typeof component === "function") {
-      return component;
-    } else if (typeof component === "string") {
-      return this._ensureNameTobeConstructor(Ensure.tobeNSIdentity(component));
-    } else {
-      // here NSIdentity.
-      const c = this.componentDeclarations.get(component);
-      if (!c) {
-        return null;
-      }
-      return c.ctor;
-    }
-  }
-
   private _ensureTobeNSIdentityOnRegister(name: Name): Identity;
   private _ensureTobeNSIdentityOnRegister(name: null | undefined): null;
   private _ensureTobeNSIdentityOnRegister(name: Name | null | undefined): Nullable<Identity> {
