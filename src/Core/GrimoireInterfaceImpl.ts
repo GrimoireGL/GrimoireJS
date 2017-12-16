@@ -298,14 +298,14 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * register new node to context.
    * throw error if already registerd.
    * @param name
-   * @param requiredComponents
+   * @param defaultComponents
    * @param defaults
    * @param superNode
    * @param freezeAttributes
    */
   public registerNode(
     name: Name,
-    requiredComponents: (Name | Ctor<Component>)[] = [],
+    defaultComponents: (Name | Ctor<Component>)[] = [],
     defaults?: { [key: string]: any },
     superNode?: Name,
     freezeAttributes?: Name[]): NodeDeclaration {
@@ -317,7 +317,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (this.debug && !Utility.isKebabCase(registerId.name)) {
       console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
-    const declaration = new NodeDeclaration(registerId, requiredComponents || [], defaults || {}, superNode, freezeAttributes);
+    const declaration = new NodeDeclaration(registerId, defaultComponents || [], defaults || {}, superNode, freezeAttributes);
     this.nodeDeclarations.set(registerId, declaration);
     return declaration;
   }

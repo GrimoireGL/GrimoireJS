@@ -191,7 +191,7 @@ export default class GomlNode extends EEObject {
     this._attributeManager = new AttributeManager(declaration.name.name);
 
     this.element.setAttribute(Constants.x_gr_id, this.id);
-    const defaultComponentNames = declaration.requiredComponentsActual;
+    const defaultComponentNames = declaration.defaultComponentsActual;
 
     // instanciate default components
     defaultComponentNames.forEach(id => {

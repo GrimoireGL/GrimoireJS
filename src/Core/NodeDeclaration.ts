@@ -57,7 +57,7 @@ export default class NodeDeclaration {
   /**
    * get required components with inheritance in mind.
    */
-  public get requiredComponentsActual(): IdentitySet {
+  public get defaultComponentsActual(): IdentitySet {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
@@ -140,7 +140,7 @@ export default class NodeDeclaration {
       throw new Error(`In node '${this.name.fqn}': super node ${this.superNode.fqn} is not found when resolving inherits, it has registerd correctry?`);
     }
     superNode.resolveDependency();
-    const inheritedDefaultComponents = superNode.requiredComponentsActual;
+    const inheritedDefaultComponents = superNode.defaultComponentsActual;
     const inheritedDefaultAttribute = superNode.defaultAttributesActual;
     this._requiredComponentsActual = inheritedDefaultComponents.clone().merge(this.requiredComponents);
     this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this.defaultAttributes);

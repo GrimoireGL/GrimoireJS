@@ -328,9 +328,9 @@ test("registerNode/Component works correctly.", async t => {
   const a1 = GrimoireInterface.nodeDeclarations.get("a1");
   const a2 = GrimoireInterface.nodeDeclarations.get("a2");
   const a3 = GrimoireInterface.nodeDeclarations.get("a3");
-  t.truthy(a1.requiredComponentsActual.toArray().length === 1); // grimoireCompone
-  t.truthy(a2.requiredComponentsActual.toArray().length === 2); // grimoireCompone
-  t.truthy(a3.requiredComponentsActual.toArray().length === 2); // grimoireCompone
+  t.truthy(a1.defaultComponentsActual.toArray().length === 1); // grimoireCompone
+  t.truthy(a2.defaultComponentsActual.toArray().length === 2); // grimoireCompone
+  t.truthy(a3.defaultComponentsActual.toArray().length === 2); // grimoireCompone
 
   // console.log(a2.idResolver)
   t.truthy(a2.idResolver.resolve(Namespace.define("hoge")) === "grimoirejs.Hoge.hoge");
