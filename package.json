@@ -56,7 +56,7 @@
     "test": "trash test-lib && tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava --verbose --serial",
     "lint": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts",
     "lint:fix": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts --fix",
-    "prepublish": "webpack --progress --env.prod && npm test",
+    "prepare": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
     "generate-expose": "cauldron generate-exposure --src ./src --dest ./src/index.ts --ts --main ./src/main.ts --core",
