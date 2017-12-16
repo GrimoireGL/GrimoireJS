@@ -129,3 +129,4 @@ docs
 test-lib
 test-lib-es5
 src/metaInfo.ts
+package-lock.json
