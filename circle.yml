@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6.9.5
+    version: 9.3.0
 test:
   post:
     - sh release.sh
@@ -10,6 +10,10 @@ test:
   override:
     - npm run lint && npm run build && npm run coverage
     - sh -x shell/e2e.sh
+checkout:
+  post:
+    - git submodule init
+    - git submodule update
 deployment:
   deploy:
     branch: master
