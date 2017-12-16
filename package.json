@@ -30,7 +30,7 @@
     "grimoirejs-cauldron": "beta",
     "jsdom": "^11.3.0",
     "lodash": "^4.17.2",
-    "nyc": "^11.3.0",
+    "nyc": "^11.4.1",
     "proxyquire": "^1.7.11",
     "regenerator-runtime": "^0.11.0",
     "remap-istanbul": "^0.9.5",
