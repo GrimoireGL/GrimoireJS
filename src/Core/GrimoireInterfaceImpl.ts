@@ -340,7 +340,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param tag the script element containing GOML source
    * @param rootNode root node of Goml
    */
-  public addRootNode(tag: HTMLScriptElement, rootNode: GomlNode): string {
+  public addRootNode(tag: Nullable<HTMLScriptElement>, rootNode: GomlNode): string {
     if (!rootNode) {
       throw new Error("can not register null to rootNodes.");
     }

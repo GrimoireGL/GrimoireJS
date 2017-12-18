@@ -4,6 +4,7 @@ import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 
 export { IAttributeConverterDeclaration };
@@ -25,6 +26,10 @@ export default class TemplateComponent extends Component { // TODO test
       converter: StringConverter,
       default: null,
     },
+    src: {
+      converter: StringConverter,
+      default: null,
+    },
     auto: {
       converter: BooleanConverter,
       default: true,
@@ -41,7 +46,14 @@ export default class TemplateComponent extends Component { // TODO test
   /**
    * replace self with goml
    */
-  public inflate() {
+  public async inflate() {
+    const src = this.getAttribute(TemplateComponent.attributes.src);
+    if (src) {
+      const req = new XMLHttpRequest();
+      req.open("GET", src);
+      await XMLHttpRequestAsync.send(req);
+      this.setAttribute(TemplateComponent.attributes.goml, req.responseText);
+    }
     const goml = this.getAttribute(TemplateComponent.attributes.goml);
     if (goml) {
       const doc = XMLReader.parseXML(goml);
@@ -50,9 +62,9 @@ export default class TemplateComponent extends Component { // TODO test
     }
   }
 
-  protected $awake() {
+  protected async $awake() {
     if (this.getAttribute(TemplateComponent.attributes.auto)) {
-      this.inflate();
+      await this.inflate();
     }
   }
 }
