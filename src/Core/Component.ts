@@ -108,8 +108,8 @@ export default class Component extends IDObject {
    * @param {string} name  [description]
    * @param {any}    value [description]
    */
-  public setAttribute(name: Name, value: any): void {
-    const attr = this.attributes.get(name);
+  public setAttribute<T = any>(name: Name | IAttributeDeclaration<T>, value: any): void {
+    const attr = this.getAttributeRaw(name);
     if (attr) {
       attr.Value = value;
     } else {
