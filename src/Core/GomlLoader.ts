@@ -2,6 +2,7 @@ import GrimoireInterface from "../Core/GrimoireInterface";
 import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 import Environment from "./Environment";
+import GomlNode from "./GomlNode";
 import GomlParser from "./GomlParser";
 
 /**
@@ -18,6 +19,13 @@ export default class GomlLoader {
    * Internal use!
    */
   public static initializedEventHandlers: (() => void)[] = [];
+
+  public static loadFromGOML(goml: string): GomlNode {
+    const doc = XMLReader.parseXML(goml);
+    const rootNode = GomlParser.parse(doc);
+    GrimoireInterface.addRootNode(null, rootNode);
+    return rootNode;
+  }
 
   /**
    * Obtain the Goml source from specified tag.
