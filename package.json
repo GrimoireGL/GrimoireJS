@@ -54,8 +54,8 @@
   "scripts": {
     "coverage": "trash coverage && nyc --reporter=lcov --reporter=text --reporter=json --reporter=html npm run test",
     "test": "trash test-lib && tsc -p tsconfig.test.json && cpx test/_TestResource/**/* test-lib/_TestResource && ava --verbose --serial",
-    "lint": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts",
-    "lint:fix": "tslint -c tslint.json ./src/**/*.ts --project ./ --type-check --exclude ./src/index.ts --fix",
+    "lint": "tslint -c tslint.json ./src/**/*.ts --project ./ --exclude ./src/index.ts",
+    "lint:fix": "tslint -c tslint.json ./src/**/*.ts --project ./ --exclude ./src/index.ts --fix",
     "prepare": "webpack --progress --env.prod && npm test",
     "start": "webpack --progress --watch",
     "build": "webpack --progress",
