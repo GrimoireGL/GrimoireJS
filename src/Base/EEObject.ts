@@ -16,6 +16,9 @@ class EEObject extends IDObject implements EventEmitter {
    */
   public listeners: ((event: string | symbol, exists: boolean) => ListenerFn[] | boolean) & ((event: string | symbol) => ListenerFn[]);
 
+  /**
+   * Return the numbers of listeners.
+   */
   public listenerCount: (event: string | symbol) => number;
 
   /**

@@ -1,6 +1,7 @@
 import EEObject from "../Base/EEObject";
 import AttributeManager from "../Core/AttributeManager";
 import GrimoireInterface from "../Core/GrimoireInterface";
+import IGrimoireNodeModel from "../Interface/IGrimoireNodeModel";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import MessageException from "../Tool/MessageException";
@@ -311,10 +312,10 @@ export default class GomlNode extends EEObject {
    * add child node.
    * @param tag
    */
-  public append(tag: string): GomlNode[] {
-    const elem = XMLReader.parseXML(tag);
+  public append(tag: string | IGrimoireNodeModel): GomlNode[] {
+    const gom = typeof tag === "string" ? GomlParser.parseToGOM(XMLReader.parseXML(tag)) : tag;
     const ret: GomlNode[] = [];
-    const child = GomlParser.parse(elem);
+    const child = GomlParser.parseGOMToGomlNode(gom);
     this.addChild(child);
     ret.push(child);
     return ret;

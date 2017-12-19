@@ -18,20 +18,21 @@ TestEnvManager.mockSetup();
 TestEnvManager.mock("template.goml", "<scene/>");
 
 test.beforeEach(async() => {
+    GrimoireInterface.debug = false;
     GrimoireInterface.clear();
     TestEnvManager.loadPage("<html></html>");
     GrimoireInterface.registerNode("goml");
     GrimoireInterface.registerNode("scenes");
     GrimoireInterface.registerNode("scene");
     GrimoireInterface.registerComponent({
-      componentName: "Test",
-      attributes: {},
-      valueTest: "Test",
+        componentName: "Test",
+        attributes: {},
+        valueTest: "Test",
     });
     GrimoireInterface.registerComponent({
-      componentName: "Test2",
-      attributes: {},
-      valueTest: "Test2",
+        componentName: "Test2",
+        attributes: {},
+        valueTest: "Test2",
     });
     await GrimoireInterface.resolvePlugins();
 });

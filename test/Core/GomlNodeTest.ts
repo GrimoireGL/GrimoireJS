@@ -15,6 +15,7 @@ import TestUtil from "../TestUtil";
 TestEnvManager.init();
 
 test.beforeEach(async() => {
+  GrimoireInterface.debug = false;
   GrimoireInterface.clear();
   TestEnvManager.loadPage("<html></html>");
   GrimoireInterface.registerNode("goml");
@@ -74,6 +75,22 @@ test("addChild method works correctly", t => {
   node.addChild(node2, null);
   t.truthy(node.children[0].id === node2.id);
   t.truthy(node.children.length === 2);
+});
+
+test("append works correctly with string argument", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  t.truthy(node.children.length === 0);
+  node.append("<goml/>");
+  t.truthy(node.children.length === 1);
+  t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
+});
+
+test("append works correctly with gom argument", t => {
+  const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
+  t.truthy(node.children.length === 0);
+  node.append({name: "goml"});
+  t.truthy(node.children.length === 1);
+  t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
 });
 
 test("remove method works correctly", t => {

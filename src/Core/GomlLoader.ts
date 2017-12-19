@@ -1,4 +1,5 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
+import Utility from "../Tool/Utility";
 import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 import Environment from "./Environment";
@@ -20,6 +21,10 @@ export default class GomlLoader {
    */
   public static initializedEventHandlers: (() => void)[] = [];
 
+  /**
+   * parse and add given goml to GrimoireInterface as root node.
+   * @param goml goml source
+   */
   public static loadFromGOML(goml: string): GomlNode {
     const doc = XMLReader.parseXML(goml);
     const rootNode = GomlParser.parse(doc);
@@ -63,8 +68,8 @@ export default class GomlLoader {
       elements.push(element);
       pArray[i] = GomlLoader.loadFromScriptTag(element);
     }
-    if (pArray.length === 0 && GrimoireInterface.debug) {
-      console.warn("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?");
+    if (pArray.length === 0) {
+      Utility.w("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?");
     }
     await Promise.all<void>(pArray);
     GomlLoader.initializedEventHandlers.forEach(handler => {
