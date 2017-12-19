@@ -237,45 +237,18 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
-  public registerComponent(name: Name, obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
-  public registerComponent(arg1: Name | ComponentRegistering<Object | Ctor<Component>>, arg2?: Name | Ctor<Component> | ComponentRegistering<Object | Ctor<Component>>, arg3?: Name | Ctor<Component>): ComponentDeclaration {
-    let name: Name;
-    let obj: ComponentRegistering<Object | Ctor<Component>>;
-    let superComponent: Name | Ctor<Component> | undefined;
-    if (typeof arg1 === "string" || arg1 instanceof Identity) {
-      Utility.w(" registerComponent() overload that call with name is deprecated. use other overload instead of.");
-      name = arg1;
-      obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
-      superComponent = arg3;
-    } else {
-      obj = arg1;
-      superComponent = arg2 as Name | Ctor<Component>;
-      if (obj.componentName == null) {
-        throw new Error(`registering component has not 'componentName': ${obj}`);
-      }
-      name = obj.componentName;
+  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration {
+    Utility.assert(obj.componentName != null, `registering component has not 'componentName': ${obj}`);
+    const name = this._ensureTobeNSIdentityOnRegister(obj.componentName);
+    Utility.assert(!this.componentDeclarations.get(name), `component ${name.fqn} is already registerd.`);
+    Utility.assert(typeof obj !== "function" || obj.prototype instanceof Component, `component constructor ${name.fqn} must be inherits Component`);
+    if (this.debug && !Utility.isCamelCase(name.name)) {
+      Utility.w(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
 
-    // argument validation
-    name = this._ensureTobeNSIdentityOnRegister(name);
-    if (this.componentDeclarations.get(name)) {
-      throw new Error(`component ${name.fqn} is already registerd.`);
-    }
-    if (typeof obj === "function" && !(obj.prototype instanceof Component)) {
-      throw new Error(`component constructor ${name.fqn} must be inherits Component`);
-    }
-    if (this.debug && !Utility.isCamelCase(name.name)) {
-      console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
-    }
-    const attrs = obj.attributes;
-    if (!attrs) {
-      throw new Error("component must has 'attributes'");
-    }
+    const attrs = obj.attributes || {};
     for (const key in attrs) {
-      if (attrs[key].default === undefined) {
-        throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
-      }
+      Utility.assert(attrs[key].default !== undefined, `default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
     }
 
     const dec = new ComponentDeclaration(name, obj, superComponent);

@@ -10,6 +10,7 @@ import {
   Name,
   Nullable,
 } from "./Types";
+import Utility from "./Utility";
 
 /**
  * Provides static methods to ensure arguments are valid type.
@@ -20,16 +21,16 @@ export default class Ensure {
    * name or constructor to be identity
    * @param component
    */
-  public static tobeComponentIdentity(component: Name | (new () => Component)): Identity {
-    if (typeof component === "function") {
+  public static tobeComponentIdentity(component: Name | ComponentRegistering<Object | Ctor<Component>>): Identity {
+    if (Utility.isName(component)) {
+      return Ensure.tobeNSIdentity(component);
+    } else {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
         return obj.name;
       } else {
         throw new Error("Specified constructor have not registered to current context.");
       }
-    } else {
-      return Ensure.tobeNSIdentity(component);
     }
   }
   /**
