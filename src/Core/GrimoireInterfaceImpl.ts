@@ -141,17 +141,6 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
-   * [obsolete] use `Namespace.define` instead of.
-   * @param  {string} ns namespace URI to be used
-   * @return {[type]}    the namespaced identity
-   * @deprecated
-   */
-  public ns(ns: string): (name: string) => Identity {
-    Utility.w("GrimoireInterface.ns is obsolete. please use `Namespace.define()` instead of.");
-    return (name: string) => Namespace.define(ns).for(name);
-  }
-
-  /**
    * start observation goml mutation.
    */
   public startObservation() {
