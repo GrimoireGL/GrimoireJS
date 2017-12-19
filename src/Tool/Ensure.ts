@@ -21,7 +21,7 @@ export default class Ensure {
    * name or constructor to be identity
    * @param component
    */
-  public static tobeComponentIdentity(component: Name | ComponentRegistering<Object | Ctor<Component>>): Identity {
+  public static tobeComponentIdentity(component: Name | Ctor<Component> | ComponentRegistering<Object | Ctor<Component>>): Identity {
     if (Utility.isName(component)) {
       return Ensure.tobeIdentity(component);
     } else {
