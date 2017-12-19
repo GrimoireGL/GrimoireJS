@@ -462,6 +462,7 @@ export default class GomlNode extends EEObject {
     const attrIds = this._attributeManager.guess(attrName);
     if (attrIds.length === 0) { // such attribute is not exists. set to Attribute buffer.
       this._attributeManager.setAttribute(typeof attrName === "string" ? attrName : attrName.fqn, value);
+      return;
     }
     for (let i = 0; i < attrIds.length; i++) {
       const id = attrIds[i];

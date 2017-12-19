@@ -24,5 +24,6 @@ export type ComponentRegistering<T> = T & {
   componentName: Name;
   [key: string]: any;
 };
+export type ComponentIdentifier<T = any> = Name | ComponentRegistering<T>;
 
 export default null;

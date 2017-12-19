@@ -21,6 +21,7 @@ import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDecl
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import {
+  ComponentIdentifier,
   ComponentRegistering,
   Ctor,
   Name,
@@ -237,7 +238,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | ComponentRegistering<Object | Ctor<Component>>): ComponentDeclaration {
+  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: ComponentIdentifier): ComponentDeclaration {
     Utility.assert(obj.componentName != null, `registering component has not 'componentName': ${obj}`);
     const name = this._ensureTobeNSIdentityOnRegister(obj.componentName);
     Utility.assert(!this.componentDeclarations.get(name), `component ${name.fqn} is already registerd.`);
@@ -267,17 +268,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public registerNode(
     name: Name,
-    defaultComponents: (Name | Ctor<Component>)[] = [],
+    defaultComponents: ComponentIdentifier[] = [],
     defaults?: { [key: string]: any },
     superNode?: Name,
     freezeAttributes?: Name[]): NodeDeclaration {
 
     const registerId = this._ensureTobeNSIdentityOnRegister(name);
-    if (this.nodeDeclarations.get(registerId)) {
-      throw new Error(`gomlnode ${registerId.fqn} is already registerd.`);
-    }
-    if (this.debug && !Utility.isKebabCase(registerId.name)) {
-      console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
+    Utility.assert(!this.nodeDeclarations.get(registerId), `gomlnode ${registerId.fqn} is already registerd.`);
+    if (!Utility.isKebabCase(registerId.name)) {
+      Utility.w(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
     const declaration = new NodeDeclaration(registerId, defaultComponents || [], defaults || {}, superNode, freezeAttributes);
     this.nodeDeclarations.set(registerId, declaration);

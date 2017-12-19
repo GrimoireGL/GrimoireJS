@@ -5,6 +5,7 @@ import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import {
+  ComponentIdentifier,
   ComponentRegistering,
   Ctor,
   Name,
@@ -21,7 +22,7 @@ export default class Ensure {
    * name or constructor to be identity
    * @param component
    */
-  public static tobeComponentIdentity(component: Name | Ctor<Component> | ComponentRegistering<Object | Ctor<Component>>): Identity {
+  public static tobeComponentIdentity(component: Ctor<Component> | ComponentIdentifier): Identity {
     if (Utility.isName(component)) {
       return Ensure.tobeIdentity(component);
     } else {
