@@ -1,4 +1,7 @@
+import { AsyncResource } from "async_hooks";
 import Environment from "../Core/Environment";
+import Identity from "../Core/Identity";
+import { Name } from "./Types";
 
 /**
  * implement utility functions
@@ -162,5 +165,13 @@ export default class Utility {
    */
   public static isElement(node: Node): node is Element {
     return node.nodeType === Environment.Node.ELEMENT_NODE;
+  }
+
+  /**
+   * check obj is string or Identity
+   * @param obj
+   */
+  public static isName(obj: any): obj is Name {
+    return typeof obj === "string" || obj instanceof Identity;
   }
 }
