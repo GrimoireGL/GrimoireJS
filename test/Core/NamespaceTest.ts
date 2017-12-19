@@ -1,3 +1,4 @@
+import test from "ava";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
 import GomlLoader from "../../src/Core/GomlLoader";
@@ -5,12 +6,11 @@ import GomlNode from "../../src/Core/GomlNode";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Namespace from "../../src/Core/Namespace";
-import test from "ava";
 import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
-test("define/for function works correctly.", (t) => { // TODO test
+test("define/for function works correctly.", (t) => {
   const g = Namespace.define("grimoire");
   t.truthy(g.for("test").fqn === "grimoire.test");
 });
@@ -24,7 +24,7 @@ test("constructor is works correctly.", t => {
   t.truthy(ns.hierarchy.length === 3);
   t.truthy(ns.qualifiedName === "a.b.c");
 
-  let ns2 = ns.for("name");
+  const ns2 = ns.for("name");
   t.truthy(ns2.fqn === "a.b.c.name");
 });
 
@@ -41,15 +41,15 @@ test("check some edge cases.", t => {
   ];
 
   edgeTestCase.forEach(element => {
-    let ns = element[0] as Namespace;
-    let expected = element[1];
+    const ns = element[0] as Namespace;
+    const expected = element[1];
     t.truthy(ns.qualifiedName === expected);
   });
   for (let i = 0; i < edgeTestCase.length; i++) {
-    let element = edgeTestCase[i];
-    let ns = element[0] as Namespace;
-    let expected = element[1];
-    t.truthy(ns.qualifiedName === expected, `$testcase: {i}`);
+    const element = edgeTestCase[i];
+    const ns = element[0] as Namespace;
+    const expected = element[1];
+    t.truthy(ns.qualifiedName === expected, "$testcase: {i}");
   }
 
   const raiseExceptionTestCase = [

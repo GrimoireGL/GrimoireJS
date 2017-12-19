@@ -209,6 +209,6 @@ export default class Ensure {
     if (typeof name === "string" || name instanceof Identity) {
       return name;
     }
-    return name.componentName!;
+    return name.componentName;
   }
 }

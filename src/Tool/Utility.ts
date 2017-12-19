@@ -1,4 +1,3 @@
-import { AsyncResource } from "async_hooks";
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import { Name } from "./Types";

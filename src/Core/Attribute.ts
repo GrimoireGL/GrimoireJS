@@ -5,7 +5,7 @@ import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDecl
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
-import { GomlInterface, Name, Nullable, Undef } from "../Tool/Types";
+import { GomlInterface, Nullable, Undef } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import Component from "./Component";
 
@@ -13,22 +13,6 @@ import Component from "./Component";
  * Manage a attribute attached to components.
  */
 export default class Attribute<T = any> {
-
-  /**
-   * convert value by provided converter.
-   * @param converter
-   * @param self
-   * @param val
-   * @deprecated
-   */
-  public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
-    const cname = Ensure.tobeIdentity(converter);
-    const conv = Environment.GrimoireInterface.converters.get(cname);
-    if (!conv) {
-      throw new Error(`converter ${cname.name} is not defined.`);
-    }
-    return conv.convert(val, self);
-  }
 
   /**
    * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.

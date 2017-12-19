@@ -111,7 +111,6 @@ export default class Identity {
 
   /**
    * whether this identity fqn is match provided name.
-   * TODO: put url to document here
    * @param name this
    */
   public isMatch(name: string): boolean {

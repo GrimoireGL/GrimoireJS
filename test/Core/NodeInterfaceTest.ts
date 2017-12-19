@@ -21,9 +21,8 @@ import {
   registerTestNode1,
   registerTestNode2,
   registerTestNode3,
-  registerTestNodeBase
+  registerTestNodeBase,
 } from "../DummyObjectRegisterer";
-
 
 const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
@@ -31,7 +30,6 @@ const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
 TestEnvManager.init(testcase1_html);
 TestEnvManager.mockSetup();
 TestEnvManager.mock("./GomlNodeTest_Case1.goml", testcase1_goml);
-
 
 let stringConverterSpy,
   testComponent1Spy,
@@ -52,7 +50,7 @@ function resetSpies() {
   conflictComponent1Spy.reset();
   conflictComponent2Spy.reset();
 }
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
 
   registerGoml();
@@ -73,7 +71,6 @@ test.beforeEach(async () => {
   await GrimoireInterface.resolvePlugins();
   await GomlLoader.loadForPage();
 });
-
 
 test("count first single.", (t) => {
   const ni = GrimoireInterface("script")("goml");

@@ -50,7 +50,6 @@ test("call as function works correctly", async t => {
   GrimoireInterface.resolvePlugins();
   await TestEnvManager.loadPage('<html><body><script type="text/goml"><core:goml xmlns:core="grimoirejs"/></script></body></html>');
   t.truthy(GrimoireInterface("*")("*").count === 1);
-  // t.truthy(GrimoireInterface("*")("goml").count === 1);// TODO fix?
 });
 
 test("registerComponent works correctly", (t) => {

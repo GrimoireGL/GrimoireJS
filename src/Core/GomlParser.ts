@@ -120,7 +120,7 @@ export default class GomlParser {
   }
 
   private static _isComponentsTag(element: Element): boolean {
-    const regexToFindComponent = /\.COMPONENTS$/mi; // TODO might needs to fix
+    const regexToFindComponent = /\.COMPONENTS$/mi;
     return regexToFindComponent.test(element.nodeName);
   }
 
