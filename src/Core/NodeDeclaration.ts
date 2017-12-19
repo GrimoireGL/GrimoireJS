@@ -91,7 +91,7 @@ export default class NodeDeclaration {
    * @param componentName
    */
   public addDefaultComponent(componentName: Name): void {
-    const componentId = Ensure.tobeNSIdentity(componentName);
+    const componentId = Ensure.tobeIdentity(componentName);
     this.requiredComponents.push(componentId);
     if (this._requiredComponentsActual) {
       this._requiredComponentsActual.push(componentId);
@@ -113,7 +113,7 @@ export default class NodeDeclaration {
       const value = this._defaultAttributes[key];
       this.defaultAttributes.set(Identity.fromFQN(key), value);
     }
-    this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : undefined;
+    this.superNode = this._superNode ? Ensure.tobeIdentity(this._superNode) : undefined;
     this._resolveInherites();
     this._requiredComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
@@ -124,7 +124,7 @@ export default class NodeDeclaration {
         this.idResolver.add(Identity.fromFQN(fqn));
       });
     });
-    this.freezeAttributes = new IdentitySet(this._freezeAttributes.map(name => Ensure.tobeNSIdentity(name)));
+    this.freezeAttributes = new IdentitySet(this._freezeAttributes.map(name => Ensure.tobeIdentity(name)));
     this._resolvedDependency = true;
     return true;
   }

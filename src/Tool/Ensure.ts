@@ -23,7 +23,7 @@ export default class Ensure {
    */
   public static tobeComponentIdentity(component: Name | ComponentRegistering<Object | Ctor<Component>>): Identity {
     if (Utility.isName(component)) {
-      return Ensure.tobeNSIdentity(component);
+      return Ensure.tobeIdentity(component);
     } else {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
@@ -64,15 +64,19 @@ export default class Ensure {
   }
 
   /**
-   * string or NSIdentity ensure to be NSIdentity.
+   * string or Identity ensure to be Identity.
    * @param  {Name}       name [description]
    * @return {Identity}      [description]
    */
-  public static tobeNSIdentity(name: Name): Identity {
+  public static tobeIdentity(name: Name): Identity {
     if (!name) {
       throw Error("argument can not be null or undefined.");
     }
     if (typeof name === "string") {
+      const fqn = Ensure.tobeFQN(name);
+      if (fqn) {
+        return Identity.fromFQN(fqn);
+      }
       return Identity.guess(name);
     } else {
       return name;
@@ -94,9 +98,9 @@ export default class Ensure {
    */
   public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Identity {
     if (Ensure.isName(identity)) {
-      return Ensure.tobeNSIdentity(identity);
+      return Ensure.tobeIdentity(identity);
     }
-    return Ensure.tobeNSIdentity(identity.name);
+    return Ensure.tobeIdentity(identity.name);
   }
 
   /**
@@ -110,7 +114,7 @@ export default class Ensure {
     }
     const newArr: Identity[] = [];
     for (let i = 0; i < names.length; i++) {
-      newArr.push(this.tobeNSIdentity(names[i]));
+      newArr.push(this.tobeIdentity(names[i]));
     }
     return newArr;
   }

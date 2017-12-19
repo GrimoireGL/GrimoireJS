@@ -237,7 +237,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration {
+  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | ComponentRegistering<Object | Ctor<Component>>): ComponentDeclaration {
     Utility.assert(obj.componentName != null, `registering component has not 'componentName': ${obj}`);
     const name = this._ensureTobeNSIdentityOnRegister(obj.componentName);
     Utility.assert(!this.componentDeclarations.get(name), `component ${name.fqn} is already registerd.`);
@@ -402,7 +402,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public overrideDeclaration(targetDeclaration: Name, arg2: Name[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
-      throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
+      throw new Error(`attempt not-exist node declaration : ${Ensure.tobeIdentity(targetDeclaration).name}`);
     }
     if (!dec.resolvedDependency) {
       dec.resolveDependency();

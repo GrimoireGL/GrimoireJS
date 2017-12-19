@@ -25,7 +25,9 @@ export default class Identity {
   }
 
   /**
-   * guess FQN from name
+   * return instance if exists.
+   * generate and return new instanse if not exist id has same fqn.
+   * throw error if hierarchy is ambiguous or not found.
    * @param hierarchy
    */
   public static guess(...hierarchy: string[]): Identity {
@@ -47,12 +49,6 @@ export default class Identity {
     return this._mapBackingField;
   }
 
-  /**
-   * return instance if exists.
-   * generate and return new instanse if not exist id has same fqn.
-   * @param  {string[]}   hierarchy [description]
-   * @return {Identity}           [description]
-   */
   private static _guess(hierarchy: string[]): Identity {
     const fqn = hierarchy.join(".");
     const inst = Identity._instances[fqn];

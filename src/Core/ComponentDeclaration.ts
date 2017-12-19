@@ -47,7 +47,6 @@ export default class ComponentDeclaration {
   public attributes: { [name: string]: IAttributeDeclaration }; // undefined until resolve dependency.
 
   private _resolvedDependency = false;
-  private _super?: Name;
 
   /**
    * whether dependencies has already resolved.
@@ -59,15 +58,9 @@ export default class ComponentDeclaration {
   public constructor(
     public name: Identity,
     private _ctorOrObj: ComponentRegistering<Object | Ctor<Component>>,
-    _super?: Name | Ctor<Component>) {
-    if (!_super) {// no inherits.
+    private _super?: Name | ComponentRegistering<Object | Ctor<Component>>) {
+    if (!_super) {// if no inherits, then resolve immediately.
       this.resolveDependency();
-      return;
-    }
-    if (_super instanceof Identity || typeof _super === "string") {
-      this._super = _super;
-    } else {
-      this.superComponent = _super;
     }
   }
 
@@ -110,18 +103,18 @@ export default class ComponentDeclaration {
       return false;
     }
     const attr: { [name: string]: IAttributeDeclaration } = {};
-    let dec;
-    if (this._super || this.superComponent) { // inherits
-      const id = this._super ? Ensure.tobeNSIdentity(this._super) : this.superComponent["name"];
-      dec = Environment.GrimoireInterface.componentDeclarations.get(id);
-      dec.resolveDependency();
-      for (const key in dec.attributes) {
-        attr[key] = dec.attributes[key];
+    let superDec;
+    if (this._super && !this.superComponent) { // unresolve inherits
+      const id = Ensure.tobeComponentIdentity(this._super);
+      superDec = Environment.GrimoireInterface.componentDeclarations.get(id);
+      superDec.resolveDependency();
+      for (const key in superDec.attributes) {
+        attr[key] = superDec.attributes[key];
         this.idResolver.add(Identity.fromFQN(`${this.name.fqn}.${key}`));
       }
-      this.superComponent = dec.ctor;
+      this.superComponent = superDec.ctor;
     }
-    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, dec ? dec.ctor : undefined);
+    this.ctor = this._ensureTobeComponentConstructor(this.name, this._ctorOrObj, superDec ? superDec.ctor : undefined);
     for (const key in (this.ctor as any).attributes) {
       attr[key] = (this.ctor as any).attributes[key];
       this.idResolver.add(Identity.fromFQN(`${this.name.fqn}.${key}`));

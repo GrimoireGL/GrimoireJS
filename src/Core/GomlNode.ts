@@ -531,7 +531,7 @@ export default class GomlNode extends EEObject {
     component = Ensure.tobeComponentIdentity(component);
     const declaration = GrimoireInterface.componentDeclarations.get(component);
     if (!declaration) {
-      throw new Error(`component '${Ensure.tobeNSIdentity(component).fqn}' is not defined.`);
+      throw new Error(`component '${Ensure.tobeIdentity(component).fqn}' is not defined.`);
     }
     const instance = declaration.generateInstance();
     attributes = attributes || {};

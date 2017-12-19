@@ -22,7 +22,7 @@ export default class Attribute<T = any> {
    * @deprecated
    */
   public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
-    const cname = Ensure.tobeNSIdentity(converter);
+    const cname = Ensure.tobeIdentity(converter);
     const conv = Environment.GrimoireInterface.converters.get(cname);
     if (!conv) {
       throw new Error(`converter ${cname.name} is not defined.`);
