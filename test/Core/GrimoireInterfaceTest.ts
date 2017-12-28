@@ -364,3 +364,22 @@ test("register and resolvePlugins works preperly", async() => {
   await GrimoireInterface.resolvePlugins();
   assert.callOrder(spy1, spy2);
 });
+
+test("assert works preperly", t => {
+  GrimoireInterface.lib.plugin = {
+    __NAME__: "grimoirejs-plugin",
+    __VERSION__: "1.2.3",
+  };
+  t.notThrows(() => {
+    GrimoireInterface.assertPlugin("plugin");
+  });
+  t.throws(() => {
+    GrimoireInterface.assertPlugin("notfound");
+  });
+
+  const errorMessage = "this is an error message";
+  const err = t.throws(() => {
+    GrimoireInterface.assertPlugin("notfound", errorMessage);
+  });
+  t.truthy(err.message === errorMessage);
+});
