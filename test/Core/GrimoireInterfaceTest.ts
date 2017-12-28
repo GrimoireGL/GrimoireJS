@@ -382,8 +382,10 @@ test("import works preperly", async t => {
   };
   GrimoireInterface.lib.hoge.Component = component;
   GrimoireInterface.lib.hoge.Converter = converter;
+  (GrimoireInterface as any).Core = { GomlNode: 7 };
 
   t.truthy(GrimoireInterface.import("grimoirejs-hoge/ref/Component/ComponentA") === 1);
+  t.truthy(GrimoireInterface.import("grimoirejs/ref/Core/GomlNode") === 7);
   let err = t.throws(() => {
     GrimoireInterface.import("invalidpath");
   });

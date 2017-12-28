@@ -146,6 +146,17 @@ export default class GrimoireInterfaceImpl extends EEObject {
     Utility.assert(pathes.length > 2 && pathes[1] === "ref", `invalid import path: ${path}`);
     const pluginName = pathes[0];
     const importPath = pathes.slice(2);
+    if (pluginName === "grimoirejs") {
+      let target = this as any;
+      for (let i = 0; i < importPath.length; i++) {
+        if (target[importPath[i]]) {
+          target = target[importPath[i]];
+        } else {
+          throw new Error(`import path ${path} is not found in ${pluginName}`);
+        }
+      }
+      return target;
+    }
     for (const key in this.lib) {
       let target = this.lib[key];
       if (target.__NAME__ === pluginName) {
