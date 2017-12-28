@@ -122,24 +122,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public noConflictPreserve: any;
 
-  private _registeringPluginNamespace: string;
-  private _registrationContext: string = Constants.defaultNamespace;
-
-  private _gomlMutationObserber = new GomlMutationObserver();
+  /**
+   * whether already initialized.
+   */
+  public callInitializedAlready = false;
 
   /**
    * initialized event handlers
    */
-  public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
-    return GomlLoader.initializedEventHandlers;
-  }
+  public initializedEventHandlers: (() => void)[];
 
-  /**
-   * whether already initialized.
-   */
-  public get callInitializedAlready(): boolean {
-    return GomlLoader.callInitializedAlready;
-  }
+  private _registeringPluginNamespace: string;
+  private _registrationContext: string = Constants.defaultNamespace;
+
+  private _gomlMutationObserber = new GomlMutationObserver();
 
   /**
    * start observation goml mutation.
