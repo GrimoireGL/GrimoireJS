@@ -182,7 +182,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param message error message used when plugin is not registerd.
    */
   public assertPlugin(pluginName: string, message?: string) {
-    message = message || `required plugin ${pluginName} is not registerd.`;
+    message = message || `required plugin '${pluginName}' is not registered.`;
     Utility.assert(!!this.lib[pluginName], message);
   }
 
