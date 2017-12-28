@@ -130,7 +130,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   /**
    * initialized event handlers
    */
-  public initializedEventHandlers: (() => void)[];
+  public initializedEventHandlers: (() => void)[] = [];
 
   private _registeringPluginNamespace: string;
   private _registrationContext: string = Constants.defaultNamespace;
