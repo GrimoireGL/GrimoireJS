@@ -18,6 +18,7 @@ import GomlNode from "../Core/GomlNode";
 import Namespace from "../Core/Namespace";
 import NodeDeclaration from "../Core/NodeDeclaration";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import ILibraryPreference from "../Interface/ILibraryPreference";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import {
@@ -89,7 +90,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   /**
    * TODO
    */
-  public libraryPreference?: { [preference: string]: any };
+  public libraryPreference?: ILibraryPreference;
 
   /**
    * debug-mode.

@@ -117,7 +117,7 @@ class GrimoireInitializer {
     if (!GrimoireInterface.libraryPreference) {
       return;
     }
-    await (GrimoireInterface.libraryPreference["postponeLoading"] as Promise<void>);
+    await GrimoireInterface.libraryPreference.postponeLoading;
   }
 }
 
