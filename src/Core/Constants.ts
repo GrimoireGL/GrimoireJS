@@ -25,7 +25,10 @@ export const EVENT_MESSAGE_ERROR = "messageerror";
 export const EVENT_GOML_DID_ADDED = "gomlDidAdded";
 export const EVENT_GOML_WILL_REMOVE = "gomlWillRemove";
 export const EVENT_GOML_DID_REMOVE = "gomlDidRemove";
-export const EVENT_ROOT_NODE_ADDED = "root-node-added";
+export const EVENT_ROOT_NODE_WILL_ADD = "root-node-added";
+export const EVENT_ROOT_NODE_DID_ADDED = "root-node-added";
+
+export const EVENT_ROOT_NODE_ADDED = "root-node-added"; // deprecated
 
 export default {
   DEFAULT_NAMESPACE,

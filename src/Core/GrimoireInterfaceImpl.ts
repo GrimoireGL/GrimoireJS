@@ -30,7 +30,7 @@ import {
 } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
-import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_ROOT_NODE_ADDED, X_ROOT_NODE_ID } from "./Constants";
+import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_ROOT_NODE_ADDED, EVENT_ROOT_NODE_DID_ADDED, EVENT_ROOT_NODE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
 import Identity from "./Identity";
@@ -188,6 +188,27 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
+   * internal use!
+   * this called immediately afterwards settle `window.gr`.
+   */
+  public handlePreservedPreference() {
+    if (!this.libraryPreference) {
+      return;
+    }
+    const pref = this.libraryPreference.listen;
+
+    const grEvents = [
+      EVENT_ROOT_NODE_WILL_ADD,
+      EVENT_ROOT_NODE_DID_ADDED,
+    ];
+    grEvents.forEach(event => {
+      if (pref[event]) {
+        this.on(event, pref[event]);
+      }
+    });
+  }
+
+  /**
    * Register plugins
    * @param  {(}      loadTask [description]
    * @return {[type]}          [description]
@@ -293,9 +314,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param rootNode root node of Goml
    */
   public addRootNode(tag: Nullable<HTMLScriptElement>, rootNode: GomlNode): string {
-    if (!rootNode) {
-      throw new Error("can not register null to rootNodes.");
-    }
+    Utility.assert(!!rootNode, "can not register null to rootNodes.");
+    Utility.assert(rootNode instanceof GomlNode, "rootNode must be instance of `GomlNode`");
+    Utility.assert(!this.rootNodes[rootNode.id], "this node is already registered.");
+
+    this.emit(EVENT_ROOT_NODE_WILL_ADD, {
+      ownerScriptTag: tag,
+      rootNode,
+    });
+
     if (tag) {
       tag.setAttribute(X_ROOT_NODE_ID, rootNode.id);
     }
@@ -312,8 +339,13 @@ export default class GrimoireInterfaceImpl extends EEObject {
       ownerScriptTag: tag,
       id: rootNode.id,
     } as ITreeInitializedInfo);
+
     // send events to catch root node appended
-    this.emit(EVENT_ROOT_NODE_ADDED, {
+    this.emit(EVENT_ROOT_NODE_ADDED, { // deprecated
+      ownerScriptTag: tag,
+      rootNode,
+    });
+    this.emit(EVENT_ROOT_NODE_DID_ADDED, {
       ownerScriptTag: tag,
       rootNode,
     });

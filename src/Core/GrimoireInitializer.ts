@@ -21,6 +21,7 @@ export default class GrimoireInitializer {
     public static async initialize(gr: GrimoireInterface): Promise<void> {
         try {
             GrimoireInitializer.setGlobalObject(gr);
+            gr.handlePreservedPreference();
 
             GrimoireInitializer.notifyLibraryLoadingToWindow(window);
 

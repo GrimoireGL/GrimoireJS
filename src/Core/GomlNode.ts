@@ -198,8 +198,6 @@ export default class GomlNode extends EEObject {
     defaultComponentNames.forEach(id => {
       this.addComponent(id, null, true);
     });
-    // register to GrimoireInterface.
-    GrimoireInterface.nodeDictionary[this.id] = this;
   }
 
   /**
@@ -501,6 +499,10 @@ export default class GomlNode extends EEObject {
     }
     if (mounted) {
       this._mounted = true;
+
+      // register to GrimoireInterface.
+      GrimoireInterface.nodeDictionary[this.id] = this;
+
       const temp = this._components.concat();
       for (let i = 0; i < temp.length; i++) {
         const target = temp[i];

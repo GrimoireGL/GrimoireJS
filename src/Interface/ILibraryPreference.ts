@@ -11,6 +11,6 @@ export default interface ILibraryPreference {
     /**
      * listen event before loading.
      */
-    listen: { [event: string]: Function };
+    listen: { [event: string]: (...args: any[]) => any };
     [otherPreference: string]: any;
 }
