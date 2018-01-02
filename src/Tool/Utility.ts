@@ -11,12 +11,16 @@ export default class Utility {
    * write warning if in debug-mode
    * @param message warning message
    */
-  public static w(message: string): void {
+  public static w(...message: string[]): void {
     if (Environment.GrimoireInterface.debug) {
-      console.warn(message);
+      console.warn(...message);
     }
   }
-
+  public static log(...message: string[]): void {
+    if (Environment.GrimoireInterface.debug) {
+      console.debug(...message);
+    }
+  }
   /**
    * check string is CamelCase
    * @param str string to check

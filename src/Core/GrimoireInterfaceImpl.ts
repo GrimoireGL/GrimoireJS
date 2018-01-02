@@ -171,7 +171,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * register primitive coverters/nodes.
    * if you want reset state. use GrimoireInterface.clear() instead of.
    */
-  public initialize(): void {
+  public registerBuiltinModule(): void {
     this.registerConverter(StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter(BooleanConverter);
@@ -435,7 +435,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     }
     this.loadTasks.splice(0, this.loadTasks.length);
     this._registeringPluginNamespace = DEFAULT_NAMESPACE;
-    this.initialize();
+    this.registerBuiltinModule();
   }
 
   /**
