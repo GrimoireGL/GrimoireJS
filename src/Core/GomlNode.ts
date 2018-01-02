@@ -15,7 +15,7 @@ import Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
 import Attribute from "./Attribute";
 import Component from "./Component";
-import Constants from "./Constants";
+import { EVENT_MESSAGE_ERROR, X_GR_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlParser from "./GomlParser";
 import Identity from "./Identity";
@@ -36,7 +36,7 @@ export default class GomlNode extends EEObject {
    * @return {GomlNode}      [description]
    */
   public static fromElement(elem: Element): GomlNode {
-    const id = elem.getAttribute(Constants.x_gr_id);
+    const id = elem.getAttribute(X_GR_ID);
     if (id) {
       return GrimoireInterface.nodeDictionary[id];
     } else {
@@ -191,7 +191,7 @@ export default class GomlNode extends EEObject {
     this._components = [];
     this._attributeManager = new AttributeManager(declaration.name.name);
 
-    this.element.setAttribute(Constants.x_gr_id, this.id);
+    this.element.setAttribute(X_GR_ID, this.id);
     const defaultComponentNames = declaration.defaultComponentsActual;
 
     // instanciate default components
@@ -943,9 +943,9 @@ export default class GomlNode extends EEObject {
         method(args);
       } catch (e) {
         const wrappedError = new MessageException(this, targetComponent, message.substr(1), e);
-        this.emit("messageerror", wrappedError);
+        this.emit(EVENT_MESSAGE_ERROR, wrappedError);
         if (!wrappedError.handled) {
-          GrimoireInterface.emit("messageerror", wrappedError);
+          GrimoireInterface.emit(EVENT_MESSAGE_ERROR, wrappedError);
           if (!wrappedError.handled) {
             throw wrappedError;
           }

@@ -25,7 +25,7 @@ export default class GomlInterfaceImpl {
       const nodelist = root.element.ownerDocument.querySelectorAll(query);
       const nodes: GomlNode[] = [];
       for (let i = 0; i < nodelist.length; i++) {
-        const id = nodelist.item(i).getAttribute(Constants.x_gr_id);
+        const id = nodelist.item(i).getAttribute(Constants.X_GR_ID);
         if (id) {
           const node = GrimoireInterface.nodeDictionary[id];
           if (node) {

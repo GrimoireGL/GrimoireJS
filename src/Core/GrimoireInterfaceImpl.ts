@@ -29,7 +29,7 @@ import {
 } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
-import Constants from "./Constants";
+import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_ROOT_NODE_ADDED, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
 import Identity from "./Identity";
@@ -40,12 +40,6 @@ import NodeInterface from "./NodeInterface";
  * implementation of GrimoireInterface
  */
 export default class GrimoireInterfaceImpl extends EEObject {
-  /**
-   * constant for emitting event.
-   * added goml in ducument.
-   */
-  public EVENT_GOML_WILL_ADD = "gomlWillAdd";
-
   /**
    * manage all node declarations.
    */
@@ -133,7 +127,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public initializedEventHandlers: (() => void)[] = [];
 
   private _registeringPluginNamespace: string;
-  private _registrationContext: string = Constants.defaultNamespace;
+  private _registrationContext: string = DEFAULT_NAMESPACE;
 
   private _gomlMutationObserber = new GomlMutationObserver();
 
@@ -148,18 +142,18 @@ export default class GrimoireInterfaceImpl extends EEObject {
       if (!this.shouldObserveGoml) {
         return;
       }
-      this.emit(this.EVENT_GOML_WILL_ADD, added);
+      this.emit(EVENT_GOML_WILL_ADD, added);
       await GomlLoader.loadFromScriptTag(added as HTMLScriptElement);
-      this.emit("gomlDidAdded", added);
+      this.emit(EVENT_GOML_DID_ADDED, added);
     }, removed => {
       if (!this.shouldObserveGoml) {
         return;
       }
       const root = this.getRootNode(removed);
       if (root) {
-        this.emit("gomlWillRemove", removed);
+        this.emit(EVENT_GOML_WILL_REMOVE, removed);
         root.remove();
-        this.emit("gomlDidRemove", removed);
+        this.emit(EVENT_GOML_DID_REMOVE, removed);
       }
     });
   }
@@ -199,7 +193,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public register(loadTask: () => Promise<void>): void {
     this.loadTasks.push({ ns: this._registeringPluginNamespace, task: loadTask });
-    this._registeringPluginNamespace = Constants.defaultNamespace;
+    this._registeringPluginNamespace = DEFAULT_NAMESPACE;
   }
 
   /**
@@ -216,7 +210,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
         console.error(e);
       }
     }
-    this._registrationContext = Constants.defaultNamespace;
+    this._registrationContext = DEFAULT_NAMESPACE;
 
     // resolveDependency
     this.componentDeclarations.forEach(dec => {
@@ -302,10 +296,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
       throw new Error("can not register null to rootNodes.");
     }
     if (tag) {
-      tag.setAttribute("x-rootNodeId", rootNode.id);
+      tag.setAttribute(X_ROOT_NODE_ID, rootNode.id);
     }
     this.rootNodes[rootNode.id] = rootNode;
-    rootNode.companion.set(Namespace.define(Constants.defaultNamespace).for("scriptElement"), tag);
+    rootNode.companion.set(Namespace.define(DEFAULT_NAMESPACE).for("scriptElement"), tag);
 
     // awake and mount tree.
     rootNode.setMounted(true);
@@ -318,7 +312,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       id: rootNode.id,
     } as ITreeInitializedInfo);
     // send events to catch root node appended
-    this.emit("root-node-added", {
+    this.emit(EVENT_ROOT_NODE_ADDED, {
       ownerScriptTag: tag,
       rootNode,
     });
@@ -331,7 +325,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param scriptTag
    */
   public getRootNode(scriptTag: Element): Nullable<GomlNode> {
-    const id = scriptTag.getAttribute("x-rootNodeId");
+    const id = scriptTag.getAttribute(X_ROOT_NODE_ID);
     if (id) {
       const ret = this.rootNodes[id];
       if (ret) {
@@ -439,7 +433,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       delete this.componentDictionary[key];
     }
     this.loadTasks.splice(0, this.loadTasks.length);
-    this._registeringPluginNamespace = Constants.defaultNamespace;
+    this._registeringPluginNamespace = DEFAULT_NAMESPACE;
     this.initialize();
   }
 

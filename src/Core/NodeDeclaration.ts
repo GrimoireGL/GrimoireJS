@@ -79,8 +79,8 @@ export default class NodeDeclaration {
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     freezeAttributes?: Name[]) {
-    if (!this._superNode && this.name.fqn !== Constants.baseNodeName) {
-      this._superNode = Identity.fromFQN(Constants.baseNodeName);
+    if (!this._superNode && this.name.fqn !== Constants.BASE_NODE_NAME) {
+      this._superNode = Identity.fromFQN(Constants.BASE_NODE_NAME);
     }
     this._freezeAttributes = freezeAttributes || [];
   }
