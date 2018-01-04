@@ -19,7 +19,7 @@ function obtainGomlInterface(query: string | GomlNode[] | (() => void)): void | 
     if (context.callInitializedAlready) {
       query();
     } else {
-      context.initializedEventHandler.push(query);
+      context.initializedEventHandlers.push(query);
     }
   } else {
     const gomlContext = new GomlInterfaceImpl(query);

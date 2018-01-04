@@ -383,3 +383,51 @@ test("assert works preperly", t => {
   });
   t.truthy(err.message === errorMessage);
 });
+
+test("import works preperly", async t => {
+  GrimoireInterface.lib.hoge = {
+    __NAME__: "grimoirejs-hoge",
+    __VERSION__: "1.2.3",
+  };
+  const component = {
+    ComponentA: 1,
+    ComponentB: 2,
+    ComponentC: 3,
+  };
+  const converter = {
+    ConverterA: 4,
+    ConverterB: 5,
+    ConverterC: 6,
+  };
+  GrimoireInterface.lib.hoge.Component = component;
+  GrimoireInterface.lib.hoge.Converter = converter;
+  (GrimoireInterface as any).Core = { GomlNode: 7 };
+
+  t.truthy(GrimoireInterface.import("grimoirejs-hoge/ref/Component/ComponentA") === 1);
+  t.truthy(GrimoireInterface.import("grimoirejs/ref/Core/GomlNode") === 7);
+  let err = t.throws(() => {
+    GrimoireInterface.import("invalidpath");
+  });
+  t.truthy(err.message.includes("invalid"));
+
+  err = t.throws(() => {
+    GrimoireInterface.import("notfound/ref/Component/HogeComponent");
+  });
+  t.truthy(err.message.includes("is not registered."));
+
+  err = t.throws(() => {
+    GrimoireInterface.import("grimoirejs-hoge/ref/notfound/ComponentA");
+  });
+  t.truthy(err.message.includes("not found"));
+
+  err = t.throws(() => {
+    GrimoireInterface.import("grimoirejs-hoge/ref/Component/Component");
+  });
+  t.truthy(err.message.includes("not found"));
+
+  err = t.throws(() => {
+    GrimoireInterface.import("grimoirejs-hoge/ref/Component/ComponentA/Component");
+  });
+  t.truthy(err.message.includes("not found"));
+
+});

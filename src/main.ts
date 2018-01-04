@@ -18,6 +18,11 @@ class GrimoireInitializer {
    */
   public static async initialize(): Promise<void> {
     try {
+      const gwin = window as IGrimoireWindow;
+      GrimoireInterface.libraryPreference = gwin.GrimoireJS;
+      GrimoireInterface.noConflictPreserve = gwin.gr;
+      gwin.gr = gwin.GrimoireJS = GrimoireInterface;
+
       GrimoireInitializer._notifyLibraryLoadingToWindow();
       GrimoireInitializer._copyGLConstants();
       GrimoireInitializer._injectEnvironment();
@@ -29,6 +34,11 @@ class GrimoireInitializer {
       if (GrimoireInterface.autoLoading) {
         GrimoireInterface.startObservation();
         await GomlLoader.loadForPage();
+        GrimoireInterface.callInitializedAlready = true;
+        GrimoireInterface.initializedEventHandlers.forEach(handler => {
+          handler();
+        });
+
       }
     } catch (e) {
       console.error(e);
@@ -115,12 +125,6 @@ class GrimoireInitializer {
  * Just start the process.
  */
 export default function(): typeof GrimoireInterface {
-  const gwin = window as IGrimoireWindow;
-  if (gwin.GrimoireJS) {
-    GrimoireInterface.libraryPreference = gwin.GrimoireJS;
-  }
-  GrimoireInterface.noConflictPreserve = gwin.gr;
-  gwin.gr = gwin.GrimoireJS = GrimoireInterface;
   GrimoireInitializer.initialize();
   return GrimoireInterface;
 }
