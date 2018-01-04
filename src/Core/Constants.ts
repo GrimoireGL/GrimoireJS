@@ -1,3 +1,10 @@
+import MessageException from "../Tool/MessageException";
+import GomlNode from "./GomlNode";
+
+type GomlNodeAddEventArgs = {
+  ownerScriptTag: HTMLScriptElement,
+  rootNode: GomlNode,
+};
 
 /**
  * default namespace in core module
@@ -20,15 +27,13 @@ export const BASE_NODE_NAME = DEFAULT_NAMESPACE + ".grimoire-node-base";
  * constant for emitting event.
  * added goml in ducument.
  */
-export const EVENT_GOML_WILL_ADD = "gomlWillAdd";
-export const EVENT_MESSAGE_ERROR = "messageerror";
-export const EVENT_GOML_DID_ADDED = "gomlDidAdded";
-export const EVENT_GOML_WILL_REMOVE = "gomlWillRemove";
-export const EVENT_GOML_DID_REMOVE = "gomlDidRemove";
-export const EVENT_ROOT_NODE_WILL_ADD = "root-node-added";
-export const EVENT_ROOT_NODE_DID_ADDED = "root-node-added";
-
-export const EVENT_ROOT_NODE_ADDED = "root-node-added"; // deprecated
+export const EVENT_GOML_WILL_ADD = "gomlWillAdd" as EventID<Element>;
+export const EVENT_GOML_DID_ADDED = "gomlDidAdded" as EventID<Element>;
+export const EVENT_GOML_WILL_REMOVE = "gomlWillRemove" as EventID<Element>;
+export const EVENT_GOML_DID_REMOVE = "gomlDidRemove" as EventID<Element>;
+export const EVENT_MESSAGE_ERROR = "messageerror" as EventID<MessageException>;
+export const EVENT_ROOT_NODE_WILL_ADD = "root-node-added" as EventID<GomlNodeAddEventArgs>;
+export const EVENT_ROOT_NODE_DID_ADDED = "root-node-added" as EventID<GomlNodeAddEventArgs>;
 
 export default {
   DEFAULT_NAMESPACE,
@@ -36,3 +41,7 @@ export default {
   BASE_NODE_NAME,
   EVENT_GOML_WILL_ADD,
 };
+
+export interface IEvent<T> { }
+
+export type EventID<T> = string & IEvent<T>;

@@ -628,7 +628,8 @@ export default class GomlNode extends EEObject {
   }
 
   /**
-   * get components
+   * Get list of components in this node.
+   * If you omit the parameter, return all component.
    * @param filter
    */
   public getComponents<T>(filter?: Name | Ctor<T>): T[] {
