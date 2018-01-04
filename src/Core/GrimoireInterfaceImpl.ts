@@ -146,7 +146,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
           throw new Error(`import path ${path} is not found in ${pluginName}`);
         }
       }
-      return target;
+      return target.default ? target.default : target;
     }
     for (const key in this.lib) {
       let target = this.lib[key];
