@@ -204,6 +204,17 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
+   * assert that specified plugin is registerd.
+   * if not, throw an error.
+   * @param pluginName namespace of plugin, e.g. 'fundamental','math'.
+   * @param message error message used when plugin is not registerd.
+   */
+  public assertPlugin(pluginName: string, message?: string) {
+    message = message || `required plugin '${pluginName}' is not registered.`;
+    Utility.assert(!!this.lib[pluginName], message);
+  }
+
+  /**
    * initialize GrimoireInterface.
    * register primitive coverters/nodes.
    * if you want reset state. use GrimoireInterface.clear() instead of.
