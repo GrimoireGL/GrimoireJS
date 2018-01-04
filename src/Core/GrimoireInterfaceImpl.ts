@@ -33,6 +33,7 @@ import Attribute from "./Attribute";
 import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_ROOT_NODE_DID_ADDED, EVENT_ROOT_NODE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
+import GrimoireInterface from "./GrimoireInterface";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import NodeInterface from "./NodeInterface";
@@ -73,6 +74,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     [key: string]: {
       __VERSION__: string;
       __NAME__: string;
+      __NAMESPACE__: string;
       [key: string]: any;
     },
   } = {};
@@ -133,35 +135,50 @@ export default class GrimoireInterfaceImpl extends EEObject {
   private _gomlMutationObserber = new GomlMutationObserver();
 
   public import(path: string): any {
+    Utility.assert(!!path, "import path must be string");
     const pathes = path.split("/");
+
+    // import plugin itself.
+    if (pathes.length === 1 || (pathes.length === 2 && pathes[1] === "ref")) {
+      const p = pathes[0];
+      if (p === "grimoirejs") {
+        return Environment.GrimoireInterface;
+      }
+      const obj = findLib(p, this.lib);
+      Utility.assert(!!obj, `invalid import path: ${path}`);
+      return obj;
+    }
+
+    // import module
     Utility.assert(pathes.length > 2 && pathes[1] === "ref", `invalid import path: ${path}`);
     const pluginName = pathes[0];
     const importPath = pathes.slice(2);
     if (pluginName === "grimoirejs") {
-      let target = this as any;
-      for (let i = 0; i < importPath.length; i++) {
-        if (target[importPath[i]]) {
-          target = target[importPath[i]];
+      return findModule(importPath, this.lib["core"], pluginName);
+    }
+    return findModule(importPath, findLib(pluginName, this.lib), pluginName);
+
+    function findLib(pluginFullName: string, lib: typeof GrimoireInterface.lib) {
+      for (const key in lib) {
+        const target = lib[key];
+        if (target.__NAME__ !== pluginFullName) {
+          continue;
+        }
+        return target;
+      }
+      throw new Error(`plugin ${pluginFullName} is not registered.`);
+    }
+    function findModule(_importPath: string[], lib: any, _pluginName: string) {
+      let target = lib;
+      for (let i = 0; i < _importPath.length; i++) {
+        if (target[_importPath[i]]) {
+          target = target[_importPath[i]];
         } else {
-          throw new Error(`import path ${path} is not found in ${pluginName}`);
+          throw new Error(`import path ${path} is not found in ${_pluginName}`);
         }
       }
       return target.default ? target.default : target;
     }
-    for (const key in this.lib) {
-      let target = this.lib[key];
-      if (target.__NAME__ === pluginName) {
-        for (let i = 0; i < importPath.length; i++) {
-          if (target[importPath[i]]) {
-            target = target[importPath[i]];
-          } else {
-            throw new Error(`import path ${path} is not found in ${pluginName}`);
-          }
-        }
-        return target;
-      }
-    }
-    throw new Error(`plugin ${pluginName} is not registered.`);
   }
 
   /**

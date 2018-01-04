@@ -369,6 +369,7 @@ test("assert works preperly", t => {
   GrimoireInterface.lib.plugin = {
     __NAME__: "grimoirejs-plugin",
     __VERSION__: "1.2.3",
+    __NAMESPACE__: "plugin",
   };
   t.notThrows(() => {
     GrimoireInterface.assertPlugin("plugin");
@@ -388,6 +389,7 @@ test("import works preperly", async t => {
   GrimoireInterface.lib.hoge = {
     __NAME__: "grimoirejs-hoge",
     __VERSION__: "1.2.3",
+    __NAMESPACE__: "hoge",
   };
   const component = {
     ComponentA: 1,
@@ -401,14 +403,27 @@ test("import works preperly", async t => {
   };
   GrimoireInterface.lib.hoge.Component = component;
   GrimoireInterface.lib.hoge.Converter = converter;
-  (GrimoireInterface as any).Core = { GomlNode: 7 };
+
+  GrimoireInterface.lib.core = {} as any;
+  (GrimoireInterface as any).lib.core.Core = { GomlNode: 7 };
+
+  t.truthy(GrimoireInterface.import("grimoirejs") === GrimoireInterface);
+  t.truthy(GrimoireInterface.import("grimoirejs/ref") === GrimoireInterface);
+  t.truthy(GrimoireInterface.import("grimoirejs-hoge") === GrimoireInterface.lib.hoge);
+  t.truthy(GrimoireInterface.import("grimoirejs-hoge/ref") === GrimoireInterface.lib.hoge);
 
   t.truthy(GrimoireInterface.import("grimoirejs-hoge/ref/Component/ComponentA") === 1);
   t.truthy(GrimoireInterface.import("grimoirejs/ref/Core/GomlNode") === 7);
+
   let err = t.throws(() => {
     GrimoireInterface.import("invalidpath");
   });
   t.truthy(err.message.includes("invalid"));
+
+  err = t.throws(() => {
+    GrimoireInterface.import("hoge");
+  });
+  t.truthy(err.message.includes("is not registered."), "gr.import throw error for short name");
 
   err = t.throws(() => {
     GrimoireInterface.import("notfound/ref/Component/HogeComponent");
