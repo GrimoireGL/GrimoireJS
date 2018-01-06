@@ -1,6 +1,7 @@
 // import GrimoireInterface from "./GrimoireInterface";
 import { GrimoireInterface } from "../Tool/Types";
 import Utility from "../Tool/Utility";
+import { EVENT_NOTIFY_LIBRARY_LOADING, EVENT_SOURCE } from "./Constants";
 import Environment from "./Environment";
 import GomlLoader from "./GomlLoader";
 
@@ -68,8 +69,8 @@ export default class GrimoireInitializer {
 
     public static notifyLibraryLoadingToWindow(window: Window): void {
         window.postMessage({
-            $source: "grimoirejs",
-            $messageType: "library-loading",
+            $source: EVENT_SOURCE,
+            $messageType: EVENT_NOTIFY_LIBRARY_LOADING,
         }, "*");
     }
 

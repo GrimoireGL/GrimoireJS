@@ -27,6 +27,8 @@ export const BASE_NODE_NAME = DEFAULT_NAMESPACE + ".grimoire-node-base";
  * constant for emitting event.
  * added goml in ducument.
  */
+export const EVENT_SOURCE = "grimoirejs";
+export const EVENT_NOTIFY_LIBRARY_LOADING = "library-loading";
 export const EVENT_GOML_WILL_ADD = "gomlWillAdd" as EventID<Element>;
 export const EVENT_GOML_DID_ADDED = "gomlDidAdded" as EventID<Element>;
 export const EVENT_GOML_WILL_REMOVE = "gomlWillRemove" as EventID<Element>;
