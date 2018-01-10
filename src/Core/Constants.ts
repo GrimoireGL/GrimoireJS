@@ -34,8 +34,8 @@ export const EVENT_GOML_DID_ADDED = "gomlDidAdded" as EventID<Element>;
 export const EVENT_GOML_WILL_REMOVE = "gomlWillRemove" as EventID<Element>;
 export const EVENT_GOML_DID_REMOVE = "gomlDidRemove" as EventID<Element>;
 export const EVENT_MESSAGE_ERROR = "messageerror" as EventID<MessageException>;
-export const EVENT_ROOT_NODE_WILL_ADD = "root-node-added" as EventID<GomlNodeAddEventArgs>;
-export const EVENT_ROOT_NODE_DID_ADDED = "root-node-added" as EventID<GomlNodeAddEventArgs>;
+export const EVENT_TREE_WILL_ADD = "treeWillAdd" as EventID<GomlNodeAddEventArgs>;
+export const EVENT_TREE_DID_ADDED = "root-node-added" as EventID<GomlNodeAddEventArgs>;
 
 export default {
   DEFAULT_NAMESPACE,

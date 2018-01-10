@@ -30,7 +30,7 @@ import {
 } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import Attribute from "./Attribute";
-import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_ROOT_NODE_DID_ADDED, EVENT_ROOT_NODE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
+import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_TREE_DID_ADDED, EVENT_TREE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
 import GrimoireInterface from "./GrimoireInterface";
@@ -256,10 +256,13 @@ export default class GrimoireInterfaceImpl extends EEObject {
       return;
     }
     const pref = this.libraryPreference.listen;
+    if (!pref) {
+      return;
+    }
 
     const grEvents = [
-      EVENT_ROOT_NODE_WILL_ADD,
-      EVENT_ROOT_NODE_DID_ADDED,
+      EVENT_TREE_WILL_ADD,
+      EVENT_TREE_DID_ADDED,
     ];
     grEvents.forEach(event => {
       if (pref[event]) {
@@ -378,7 +381,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     Utility.assert(rootNode instanceof GomlNode, "rootNode must be instance of `GomlNode`");
     Utility.assert(!this.rootNodes[rootNode.id], "this node is already registered.");
 
-    this.emit(EVENT_ROOT_NODE_WILL_ADD, {
+    this.emit(EVENT_TREE_WILL_ADD, {
       ownerScriptTag: tag,
       rootNode,
     });
@@ -402,7 +405,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
     // send events to catch root node appended
 
-    this.emit(EVENT_ROOT_NODE_DID_ADDED, {
+    this.emit(EVENT_TREE_DID_ADDED, {
       ownerScriptTag: tag,
       rootNode,
     });
