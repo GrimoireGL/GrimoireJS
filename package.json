@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@types/sinon": "^4.1.2",
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
