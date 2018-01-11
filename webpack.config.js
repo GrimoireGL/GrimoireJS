@@ -54,7 +54,7 @@ const getBuildTask = (fileName, plugins, needPolyfill) => {
       loaders: [{
         test: /\.ts$/,
         exclude: /node_modules/,
-        loader: "babel-loader?presets[]=es2015,presets[]=stage-2!ts-loader"
+        loader: "babel-loader?presets[]=env,presets[]=stage-2!ts-loader"
       }]
     },
     resolve: {
@@ -74,10 +74,10 @@ module.exports = (env = {}) => {
   //
   //
   //
-  if(!env.browser && !env.npm && !env.prod){
+  if (!env.browser && !env.npm && !env.prod) {
     env.browser = true;
   }
-  const productPlugins = [new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),new webpack.optimize.OccurrenceOrderPlugin(),new webpack.optimize.AggressiveMergingPlugin()];
+  const productPlugins = [new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }), new webpack.optimize.OccurrenceOrderPlugin(), new webpack.optimize.AggressiveMergingPlugin()];
   let buildTasks = [];
   let skipIndex = false;
   let cauldron = new CauldronPlugin();
@@ -89,18 +89,18 @@ module.exports = (env = {}) => {
       plugins.push(new CopyPlugin(`./register/${fnPrefix}.js`, './register/index.js'));
       plugins.push(new CopyPlugin(`./register/${fnPrefix}.js.map`, './register/index.js.map'));
       skipIndex = true;
-      console.log(`${index}.js will be generated for NPM environment by copy`);      
+      console.log(`${index}.js will be generated for NPM environment by copy`);
     }
-    buildTasks.push(getBuildTask(`${fnPrefix}.js`, [cauldron,...plugins], includeCore));
+    buildTasks.push(getBuildTask(`${fnPrefix}.js`, [cauldron, ...plugins], includeCore));
     console.log(`${fnPrefix}.js will be generated for browser environment`);
   }
   if (!skipIndex && (env.npm || env.prod)) {
     buildTasks.push(getBuildTask("index.js", [cauldron], false));
-    console.log(`index.js will be generated for NPM environment`);          
+    console.log(`index.js will be generated for NPM environment`);
   }
   if (env.prod) {
-    buildTasks.push(getBuildTask(fnPrefix + ".min.js", [cauldron,...productPlugins],includeCore));
-    console.log(`${fnPrefix}.min.js will be generated for browser environment`);          
+    buildTasks.push(getBuildTask(fnPrefix + ".min.js", [cauldron, ...productPlugins], includeCore));
+    console.log(`${fnPrefix}.min.js will be generated for browser environment`);
   }
   return buildTasks;
 };

@@ -1,0 +1,5 @@
+<goml id="parent">
+  <goml id="child_1" class="child"/>
+  <goml id="child_2" class="child"/>
+</goml>
+
