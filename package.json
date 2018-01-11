@@ -16,7 +16,7 @@
     "eventemitter3": "^3.0.0"
   },
   "devDependencies": {
-    "@types/sinon": "^2.3.5",
+    "@types/sinon": "^4.1.2",
     "ava": "^0.22.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -42,13 +42,11 @@
     "typedoc": "^0.8.0",
     "typedoc-md-theme": "^1.0.1",
     "typescript": "^2.6.1",
-    "typescript-awaiter": "^1.0.0",
     "webpack": "^3.8.1",
     "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.9.1",
     "xmldom": "^0.1.27",
-    "xmlserializer": "^0.6.1",
-    "yargs": "^8.0.2"
+    "xmlserializer": "^0.6.1"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
