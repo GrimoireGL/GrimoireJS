@@ -97,7 +97,7 @@ And these are able to be written by Typescript. Safe and effective environment f
 This is a sample to make objects waving movement. (You can see full comprehensive this sample at our top page)
 
 ```ts
-import Component from "grimoirejs/ref/Node/Component";
+import Component from "grimoirejs/ref/Core/Component";
 import ISceneUpdateArgument from "grimoirejs-fundamental/ref/SceneRenderer/ISceneUpdateArgument";
 import TransformComponent from "grimoirejs-fundamental/ref/Components/TransformComponent";
 import Vector3 from "grimoirejs-math/ref/Vector3";
