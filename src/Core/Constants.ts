@@ -44,6 +44,9 @@ export default {
   EVENT_GOML_WILL_ADD,
 };
 
+/**
+ * Interface for EventEmitter
+ */
 export interface IEvent<T> { }
 
 export type EventID<T> = string & IEvent<T>;

@@ -16,6 +16,11 @@ export default class Utility {
       console.warn(...message);
     }
   }
+
+  /**
+   * Output debugging log to console if gr.debug is true.
+   * @param message
+   */
   public static log(...message: string[]): void {
     if (Environment.GrimoireInterface.debug) {
       console.debug(...message);

@@ -5,10 +5,10 @@ import { EVENT_NOTIFY_LIBRARY_LOADING, EVENT_SOURCE } from "./Constants";
 import Environment from "./Environment";
 import GomlLoader from "./GomlLoader";
 
-interface IGrimoireWindow extends Window {
+type IGrimoireWindow = Window & {
     GrimoireJS: GrimoireInterface;
     gr?: GrimoireInterface;
-}
+};
 
 /**
  * Provides procedures for initializing.
@@ -67,6 +67,10 @@ export default class GrimoireInitializer {
         gwin.gr = gwin.GrimoireJS = gr;
     }
 
+    /**
+     * Post EVENT_NOTIFY_LIBRARY_LOADING message to window.
+     * @param window
+     */
     public static notifyLibraryLoadingToWindow(window: Window): void {
         window.postMessage({
             $source: EVENT_SOURCE,
@@ -107,7 +111,7 @@ export default class GrimoireInitializer {
      * Obtain the promise object which will be resolved when DOMContentLoaded event was rised.
      * @return {Promise<void>} the promise
      */
-    public static waitForDOMLoading(): Promise<void> {
+    public static async waitForDOMLoading(): Promise<void> {
         return new Promise<void>((resolve) => {
             if (document.readyState === "loading") {
                 window.addEventListener("DOMContentLoaded", () => {
@@ -118,6 +122,11 @@ export default class GrimoireInitializer {
             }
         });
     }
+
+    /**
+     * wait for Promise `postponeLoading` in gr.libraryPreference.
+     * @param gr
+     */
     public static async waitForPluginLoadingSuspendPromise(gr: GrimoireInterface): Promise<void> {
         if (!gr.libraryPreference) {
             return;
@@ -125,10 +134,15 @@ export default class GrimoireInitializer {
         await gr.libraryPreference.postponeLoading;
     }
 
+    /**
+     * logging version infomations of core and plugins.
+     * @param gr
+     */
     public static logVersions(gr: GrimoireInterface): void {
         if (!gr.debug) {
             return;
         }
+
         let log = `%cGrimoire.js v${(gr as any)["__VERSION__"]}\nplugins:\n\n`;
         let i = 1;
         for (const key in gr.lib) {
@@ -139,5 +153,4 @@ export default class GrimoireInitializer {
         log += '\nTo suppress this message,please inject a line "gr.debug = false;" on the initializing timing.';
         Utility.log(log, "color:#44F;font-weight:bold;");
     }
-
 }

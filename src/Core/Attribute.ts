@@ -21,7 +21,7 @@ export default class Attribute<T = any> {
    * @param val
    * @deprecated
    */
-  public static convert(converter: Name, self: Attribute, val: any): any { // TODO unuse?
+  public static convert(converter: Name, self: Attribute, val: any): any {
     const cname = Ensure.tobeIdentity(converter);
     const conv = Environment.GrimoireInterface.converters.get(cname);
     if (!conv) {

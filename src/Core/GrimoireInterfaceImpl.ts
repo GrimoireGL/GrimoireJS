@@ -90,7 +90,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public componentDictionary: { [componentId: string]: Component } = {};
 
   /**
-   * TODO
+   * An object for specifying global settings, which is set before GR is loaded.
    */
   public libraryPreference?: ILibraryPreference;
 
@@ -134,6 +134,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
 
   private _gomlMutationObserber = new GomlMutationObserver();
 
+  /**
+   * Import core and plugin modules.
+   * @param path The same import path as TypeScript import.
+   */
   public import(path: string): any {
     Utility.assert(!!path, "import path must be string");
     const pathes = path.split("/");
