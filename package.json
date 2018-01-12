@@ -33,7 +33,7 @@
     "nyc": "^11.4.1",
     "proxyquire": "^1.7.11",
     "regenerator-runtime": "^0.11.0",
-    "remap-istanbul": "^0.9.5",
+    "remap-istanbul": "^0.10.0",
     "semantic-release": "^11.0.2",
     "sinon": "^4.1.4",
     "trash-cli": "^1.4.0",
