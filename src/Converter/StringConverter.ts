@@ -1,5 +1,5 @@
 import Namespace from "../Core/Namespace";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IAttributeConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 import { Undef } from "../Tool/Types";
 

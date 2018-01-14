@@ -17,7 +17,7 @@ import GomlLoader from "../Core/GomlLoader";
 import GomlNode from "../Core/GomlNode";
 import Namespace from "../Core/Namespace";
 import NodeDeclaration from "../Core/NodeDeclaration";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import ILibraryPreference from "../Interface/ILibraryPreference";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
@@ -50,7 +50,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   /**
    * manage all converters
    */
-  public converters: IdentityMap<IAttributeConverterDeclaration> = new IdentityMap<IAttributeConverterDeclaration>();
+  public converters = new IdentityMap<IConverterDeclaration>();
 
   /**
    * manage all component declaration.
@@ -462,8 +462,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param converter
    */
   public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
-  public registerConverter(declaration: IAttributeConverterDeclaration): void;
-  public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+  public registerConverter(declaration: IConverterDeclaration): void;
+  public registerConverter(arg1: Name | IConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
     if (converter) {
       this.registerConverter({
         name: this._ensureTobeNSIdentityOnRegister(arg1 as Name),
@@ -472,7 +472,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       });
       return;
     }
-    const dec = arg1 as IAttributeConverterDeclaration;
+    const dec = arg1 as IConverterDeclaration;
     this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 

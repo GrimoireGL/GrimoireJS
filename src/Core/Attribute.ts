@@ -1,6 +1,7 @@
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
+import { IConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
@@ -84,7 +85,7 @@ export default class Attribute<T = any> {
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: IAttributeConverterDeclaration<T>;
+  public converter: IConverterDeclaration<T>;
 
   /**
    * A component reference that this attribute is bound to.
@@ -102,7 +103,7 @@ export default class Attribute<T = any> {
    */
   private _value: any;
 
-  private _lastValuete: Nullable<T>;
+  private _lastValuete: null | T | (() => T);
 
   private _isLazy = false;
 
@@ -278,7 +279,7 @@ export default class Attribute<T = any> {
     this.Value = this.declaration.default;
   }
 
-  private _valuate(raw: any): Nullable<T> {
+  private _valuate(raw: any): null | T | (() => T) {
     if (raw !== null) {
       const v = this.converter.convert(raw, this);
       if (v === undefined) {

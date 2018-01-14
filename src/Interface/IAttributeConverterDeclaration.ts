@@ -6,7 +6,7 @@ import { Name } from "../Tool/Types";
  */
 export interface IAttributeConverterDeclaration<T = any> {
   name: Name;
-  lazy: false | undefined;
+  lazy?: false;
   [params: string]: any;
   verify?(attr: Attribute): void; // throw error if attribute is not satisfy condition converter needed.
   convert(val: any, attr: Attribute): T | undefined;
