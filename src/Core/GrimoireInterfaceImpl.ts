@@ -29,7 +29,7 @@ import {
   Nullable,
 } from "../Tool/Types";
 import Utility from "../Tool/Utility";
-import Attribute from "./Attribute";
+import {StandardAttribute} from "./Attribute";
 import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_TREE_DID_ADDED, EVENT_TREE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
@@ -461,9 +461,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param name
    * @param converter
    */
-  public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
+  public registerConverter(name: Name, converter: ((val: any, attr: StandardAttribute) => any)): void;
   public registerConverter(declaration: IConverterDeclaration): void;
-  public registerConverter(arg1: Name | IConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+  public registerConverter(arg1: Name | IConverterDeclaration, converter?: ((val: any, attr: StandardAttribute) => any)): void {
     if (converter) {
       this.registerConverter({
         name: this._ensureTobeNSIdentityOnRegister(arg1 as Name),

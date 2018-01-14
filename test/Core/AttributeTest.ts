@@ -1,7 +1,7 @@
 import test from "ava";
 import { assert, spy } from "sinon";
 import GrimoireComponent from "../../src/Component/GrimoireComponent";
-import Attribute from "../../src/Core/Attribute";
+import {StandardAttribute} from "../../src/Core/Attribute";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
@@ -45,7 +45,7 @@ test("get/set value should works correctly.", t => {
 
 test("watch/unwatch should works correctly", t => {
   const rootNode = TestUtil.DummyTreeInit(GOML);
-  const idAttr = rootNode.getAttributeRaw("id");
+  const idAttr = rootNode.getAttributeRaw("id") as StandardAttribute;
   const baseComponent = rootNode.getComponent(GrimoireComponent);
   const s = spy();
 
@@ -69,12 +69,11 @@ test("generateAttributeForComponent should works correctly", t => {
   const rootNode = TestUtil.DummyTreeInit(GOML);
   const idAttr = rootNode.getAttributeRaw("id");
   const baseComponent = rootNode.getComponent(GrimoireComponent);
-  const hogeAttr = Attribute.generateAttributeForComponent("hoge", {
+  const hogeAttr = StandardAttribute.generateAttributeForComponent("hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
   t.throws(() => { // not resolve default value yet
-    console.debug(hogeAttr["_value"]);
     baseComponent.getAttribute("hoge");
   });
   hogeAttr.resolveDefaultValue();
@@ -83,13 +82,13 @@ test("generateAttributeForComponent should works correctly", t => {
   t.truthy(baseComponent.getAttribute("hoge") === 43);
 
   t.throws(() => { // converter can not resolve.
-    Attribute.generateAttributeForComponent("fuga", {
+    StandardAttribute.generateAttributeForComponent("fuga", {
       converter: "False",
       default: 42,
     }, baseComponent);
   });
   t.notThrows(() => { // default value undefined is OK.
-    Attribute.generateAttributeForComponent("fuga", {
+    StandardAttribute.generateAttributeForComponent("fuga", {
       converter: "Number",
       default: undefined,
     }, baseComponent);
@@ -112,7 +111,7 @@ test("generateAttributeForComponent should works correctly (use dom value)", t =
   const node = rootNode.children[0];
   const baseComponent = node.getComponent(GrimoireComponent);
 
-  const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
+  const attr1 = StandardAttribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
@@ -133,11 +132,11 @@ test("generateAttributeForComponent should works correctly (use node value)", t 
   const node = rootNode.children[0];
   const baseComponent = node.getComponent(GrimoireComponent);
 
-  const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
+  const attr1 = StandardAttribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
-  const attr2 = Attribute.generateAttributeForComponent("ns2.hoge", {
+  const attr2 = StandardAttribute.generateAttributeForComponent("ns2.hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
@@ -152,11 +151,11 @@ test("generateAttributeForComponent should works correctly (use declaration defa
   const node = rootNode.children[0];
   const baseComponent = node.getComponent(GrimoireComponent);
 
-  const attr1 = Attribute.generateAttributeForComponent("ns1.hoge", {
+  const attr1 = StandardAttribute.generateAttributeForComponent("ns1.hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
-  const attr2 = Attribute.generateAttributeForComponent("ns2.hoge", {
+  const attr2 = StandardAttribute.generateAttributeForComponent("ns2.hoge", {
     converter: "Number",
     default: 42,
   }, baseComponent);
@@ -200,21 +199,57 @@ test("Normal attribute should evaluated correct timing.", t => {
 
 test("Lazy attribute should evaluated correct timing.", t => {
   GrimoireInterface.registerConverter({
-    name: "normal",
-    convert() {
-      return 4;
-    },
-  });
-  GrimoireInterface.registerConverter({
     name: "lazy",
     lazy: true,
-    convert() {
-      return () => Math.random();
+    convert(a) {
+      return () => {
+        return {
+          arg: a,
+          random: Math.random(),
+        };
+      };
     },
   });
+  GrimoireInterface.registerComponent({
+    componentName: "Test",
+    attributes: {
+      lazy: {
+        converter: "lazy",
+        default: null,
+      },
+    },
+  });
+  GrimoireInterface.registerNode("node", ["Test"]);
+
+  let node = TestUtil.DummyTreeInit("<node/>");
+  t.truthy(node.getAttribute("lazy") === null); // null should not use converter.
+
+  node = TestUtil.DummyTreeInit("<node lazy=\"2\"/>");
+
+  t.truthy(node.getAttribute("lazy") !== node.getAttribute("lazy"));
+
+  node.watch("lazy", (v) => {
+    t.truthy(typeof v === "function");
+    const v1 = v();
+    const v2 = v();
+    t.truthy(v1.random !== v2.random);
+    t.truthy(v1.arg === v2.arg);
+  }, true);
+
+  node.setAttribute("lazy", "5");
+  node.watch("lazy", (v) => {
+    t.truthy(typeof v === "function");
+    const v1 = v();
+    const v2 = v();
+    t.truthy(v1.random !== v2.random);
+    t.truthy(v1.arg === v2.arg);
+    t.truthy(v1.arg === "5");
+  }, true);
+});
+
+test("promise attribute should evaluated correct timing.", async t => {
   GrimoireInterface.registerConverter({
     name: "promise",
-    lazy: true,
     convert(v) {
       return v;
     },
@@ -223,14 +258,6 @@ test("Lazy attribute should evaluated correct timing.", t => {
   GrimoireInterface.registerComponent({
     componentName: "Test",
     attributes: {
-      normal: {
-        converter: "normal",
-        default: null,
-      },
-      lazy: {
-        converter: "lazy",
-        default: null,
-      },
       promise: {
         converter: "promise",
         default: null,
@@ -241,20 +268,19 @@ test("Lazy attribute should evaluated correct timing.", t => {
   const node = TestUtil.DummyTreeInit("<node/>");
   node.resolveAttributesValue();
 
-  t.truthy(node.getAttribute("lazy") !== node.getAttribute("lazy"));
   t.truthy(node.getAttribute("promise") === null);
-  node.setAttribute("promise", Promise.resolve(4));
+  const p1 = Promise.resolve(4);
+  node.setAttribute("promise", p1);
+  await p1;
   t.truthy(node.getAttribute("promise") === 4);
+
   let resolver;
-  node.setAttribute("promise", new Promise((resolve, reject) => {
+  const p2 = new Promise((resolve, reject) => {
     resolver = resolve;
-  }));
+  });
+  node.setAttribute("promise", p2);
   t.truthy(node.getAttribute("promise") === 4);
   resolver(5);
+  await p2;
   t.truthy(node.getAttribute("promise") === 5);
-
-  node.watch("lazy", (v) => {
-    t.truthy(typeof v === "function");
-    t.truthy(v() === 4);
-  }, true);
 });

@@ -1,15 +1,13 @@
+import test from "ava";
 import * as _ from "lodash";
-import Attribute from "../../src/Core/Attribute";
+import { assert, spy } from "sinon";
+import GrimoireComponent from "../../src/Component/GrimoireComponent";
+import {StandardAttribute} from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
-import fs from "../fileHelper";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
-import GrimoireComponent from "../../src/Component/GrimoireComponent";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
-import test from "ava";
-import TestEnvManager from "../TestEnvManager";
-import { assert, spy } from "sinon";
 import {
   registerConflictComponent1,
   registerConflictComponent2,
@@ -25,8 +23,10 @@ import {
   registerTestNode1,
   registerTestNode2,
   registerTestNode3,
-  registerTestNodeBase
+  registerTestNodeBase,
 } from "../DummyObjectRegisterer";
+import fs from "../fileHelper";
+import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
@@ -57,7 +57,7 @@ function resetSpies() {
 }
 let rootNode: GomlNode;
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   registerGoml();
   registerTestNode1();
@@ -150,7 +150,7 @@ test("attribute default value work correctly1", (t) => {
 });
 
 test("attribute watch should work correctly", (t) => {
-  const idAttr = rootNode.getAttributeRaw("id");
+  const idAttr = rootNode.getAttributeRaw("id") as StandardAttribute;
   const s = spy();
 
   const watcher = (newValue, oldValue, attr) => {
@@ -167,7 +167,7 @@ test("attribute watch should work correctly", (t) => {
   assert.notCalled(s);
 });
 test("attribute watch should work correctly2", (t) => {
-  const idAttr = rootNode.getAttributeRaw("id");
+  const idAttr = rootNode.getAttributeRaw("id") as StandardAttribute;
   const s = spy();
   const watcher = (newValue, oldValue, attr) => {
     // spy("watch", { newValue: newValue, oldValue: oldValue, attr: attr });

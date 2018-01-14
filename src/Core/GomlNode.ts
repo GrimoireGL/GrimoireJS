@@ -13,7 +13,7 @@ import {
 } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
-import Attribute from "./Attribute";
+import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import Component from "./Component";
 import { EVENT_MESSAGE_ERROR, X_GR_ID } from "./Constants";
 import Environment from "./Environment";
@@ -482,7 +482,7 @@ export default class GomlNode extends EEObject {
 
   /**
    * remove attribute from this node.
-   * @param {Attribute} attr [description]
+   * @param {StandardAttribute} attr [description]
    */
   public removeAttribute(attr: Attribute): boolean {
     return this._attributeManager.removeAttribute(attr);

@@ -1,4 +1,4 @@
-import Attribute from "../Core/Attribute";
+import {StandardAttribute} from "../Core/Attribute";
 import GrimoireInterface from "../Core/GrimoireInterface";
 
 const splitter = " ";
@@ -18,7 +18,7 @@ export default {
    * verify
    * @param attr
    */
-  verify(attr: Attribute) {
+  verify(attr: StandardAttribute) {
     if (!attr.declaration["type"]) {
       throw new Error("Array converter needs to be specified type in attribute declaration.");
     }
@@ -28,13 +28,14 @@ export default {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: Attribute) {
-    const converter = GrimoireInterface.converters.get(attr.declaration["type"]);
-    if (!converter) {
-      throw new Error(`converter ${attr.declaration["type"]} is not registerd.`);
-    }
+  convert(val: any, attr: StandardAttribute) {
+
+    // const converter = GrimoireInterface.converters.get(attr.declaration["type"]);
+    // if (!converter) {
+    //   throw new Error(`converter ${attr.declaration["type"]} is not registerd.`);
+    // }
     if (Array.isArray(val)) {
-      return val.map(v => converter.convert(v, attr));
+      return val.map(v => StandardAttribute.convert(attr.declaration["type"], attr, v));
     }
     if (typeof val === "string") {
       const ar = val.split(splitter);
@@ -50,7 +51,7 @@ export default {
         }
       }
 
-      return ar.map(v => converter.convert(v, attr));
+      return ar.map(v => StandardAttribute.convert(attr.declaration["type"], attr, v));
     }
     return null;
   },

@@ -1,5 +1,5 @@
 import Namespace from "../Core/Namespace";
-import { IAttributeConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
+import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 
 export default {
@@ -26,4 +26,4 @@ export default {
     }
     return undefined;
   },
-} as IAttributeConverterDeclaration<boolean>;
+} as IStandardConverterDeclaration<boolean>;

@@ -1,4 +1,4 @@
-import Attribute from "../Core/Attribute";
+import {StandardAttribute} from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import Ensure from "../Tool/Ensure";
@@ -19,7 +19,7 @@ export default {
    * verify
    * @param attr
    */
-  verify(attr: Attribute) {
+  verify(attr: StandardAttribute) {
     if (!attr.declaration["target"]) {
       throw new Error("Component converter require to be specified target");
     }
@@ -29,7 +29,7 @@ export default {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: Attribute): Undef<Component> {
+  convert(val: any, attr: StandardAttribute): Undef<Component> {
     if (val === null) {
       return null;
     }

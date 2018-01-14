@@ -1,6 +1,6 @@
 import test from "ava";
 import { spy } from "sinon";
-import Attribute from "../../src/Core/Attribute";
+import {StandardAttribute} from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
 import Environment from "../../src/Core/Environment";

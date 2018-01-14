@@ -3,10 +3,10 @@ import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
-import { IAttributeConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
+import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 
-export { IAttributeConverterDeclaration };
+export { IStandardConverterDeclaration };
 
 /**
  * Basic Component for all node.
@@ -49,7 +49,7 @@ export default class GrimoireComponent extends Component {
       node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
     }, true, true);
     this.getAttributeRaw(GrimoireComponent.attributes.enabled)!.watch(attr => {
-      node["_enabled"] = attr;
+      node["_enabled"] = !!attr;
       const p = node.parent;
       node.notifyActivenessUpdate(p ? p.isActive && node.enabled : node.enabled);
     }, false, true);
