@@ -13,7 +13,7 @@ TestEnvManager.init();
 
 const GOML = "<goml></goml>";
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   GrimoireInterface.registerNode("goml");
 });
@@ -214,14 +214,14 @@ test("getAttribute", t => {
     name: "lazy",
     lazy: true,
     convert() {
-      return () => 4;
+      return () => Math.random();
     },
   });
   GrimoireInterface.registerConverter({
     name: "promise",
     lazy: true,
-    convert() {
-      return Promise.resolve(4);
+    convert(v) {
+      return v;
     },
   });
 
@@ -250,5 +250,26 @@ test("getAttribute", t => {
   const node = TestUtil.DummyTreeInit("<node/>");
   node.resolveAttributesValue();
 
-  t.truthy(node.getAttribute("normal") === 4);
+  t.truthy(node.getAttribute("lazy") !== node.getAttribute("lazy"));
+  t.truthy(node.getAttribute("promise") === null);
+  node.setAttribute("promise", Promise.resolve(4));
+  t.truthy(node.getAttribute("promise") === 4);
+  let resolver;
+  node.setAttribute("promise", new Promise((resolve, reject) => {
+    resolver = resolve;
+  }));
+  t.truthy(node.getAttribute("promise") === 4);
+  resolver(5);
+  t.truthy(node.getAttribute("promise") === 5);
+
+
+  node.watch("lazy", (v) => {
+    t.truthy(typeof v === "function");
+    t.truthy(v() === 4);
+  }, true);
+  t.throws(() => {
+    node.setAttribute("invalid-lazy", "AAA");
+    // should throw an error since the converter is not returning a function
+  });
 });
+
