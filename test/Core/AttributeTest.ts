@@ -165,7 +165,7 @@ test("generateAttributeForComponent should works correctly (use declaration defa
   t.truthy(attr1.Value === 42);
 });
 
-test("normal attribute should evaluated correct timing.", t => {
+test("Normal attribute should evaluated correct timing.", t => {
   const s = spy();
   GrimoireInterface.registerConverter({
     name: "normal",
@@ -194,5 +194,67 @@ test("normal attribute should evaluated correct timing.", t => {
   t.truthy(node.getAttribute("attr") === 6);
   node.setAttribute("attr", 5);
   t.truthy(s.args[1][0] === 5);
+
   t.truthy(node.getAttribute("attr") === 10);
+});
+
+test("Lazy attribute should evaluated correct timing.", t => {
+  GrimoireInterface.registerConverter({
+    name: "normal",
+    convert() {
+      return 4;
+    },
+  });
+  GrimoireInterface.registerConverter({
+    name: "lazy",
+    lazy: true,
+    convert() {
+      return () => Math.random();
+    },
+  });
+  GrimoireInterface.registerConverter({
+    name: "promise",
+    lazy: true,
+    convert(v) {
+      return v;
+    },
+  });
+
+  GrimoireInterface.registerComponent({
+    componentName: "Test",
+    attributes: {
+      normal: {
+        converter: "normal",
+        default: null,
+      },
+      lazy: {
+        converter: "lazy",
+        default: null,
+      },
+      promise: {
+        converter: "promise",
+        default: null,
+      },
+    },
+  });
+  GrimoireInterface.registerNode("node", ["Test"]);
+  const node = TestUtil.DummyTreeInit("<node/>");
+  node.resolveAttributesValue();
+
+  t.truthy(node.getAttribute("lazy") !== node.getAttribute("lazy"));
+  t.truthy(node.getAttribute("promise") === null);
+  node.setAttribute("promise", Promise.resolve(4));
+  t.truthy(node.getAttribute("promise") === 4);
+  let resolver;
+  node.setAttribute("promise", new Promise((resolve, reject) => {
+    resolver = resolve;
+  }));
+  t.truthy(node.getAttribute("promise") === 4);
+  resolver(5);
+  t.truthy(node.getAttribute("promise") === 5);
+
+  node.watch("lazy", (v) => {
+    t.truthy(typeof v === "function");
+    t.truthy(v() === 4);
+  }, true);
 });
