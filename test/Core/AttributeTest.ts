@@ -204,13 +204,6 @@ test("getAttribute", t => {
     },
   });
   GrimoireInterface.registerConverter({
-    name: "invalid-lazy",
-    lazy: true,
-    convert() {
-      return 4;
-    },
-  });
-  GrimoireInterface.registerConverter({
     name: "lazy",
     lazy: true,
     convert() {
@@ -219,7 +212,6 @@ test("getAttribute", t => {
   });
   GrimoireInterface.registerConverter({
     name: "promise",
-    lazy: true,
     convert() {
       return Promise.resolve(4);
     },

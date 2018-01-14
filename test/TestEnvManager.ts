@@ -1,13 +1,12 @@
 import "babel-polyfill";
+
 import xhrmock from "xhr-mock";
 import xmlserializer from "xmlserializer";
+
 import Environment from "../src/Core/Environment";
 import GomlLoader from "../src/Core/GomlLoader";
 import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
-import Identity from "../src/Core/Identity";
-import IdentityMap from "../src/Core/IdentityMap";
-import IAttributeConverterDeclaration from "../src/Interface/IAttributeConverterDeclaration";
 import XMLReader from "../src/Tool/XMLReader";
 import jsdomAsync from "./JsDOMAsync";
 
