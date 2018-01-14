@@ -2,8 +2,10 @@ import test from "ava";
 import { assert, spy } from "sinon";
 import GrimoireComponent from "../../src/Component/GrimoireComponent";
 import Attribute from "../../src/Core/Attribute";
+import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
+import XMLReader from "../../src/Tool/XMLReader";
 import TestEnvManager from "../TestEnvManager";
 import TestUtil from "../TestUtil";
 
@@ -11,7 +13,7 @@ TestEnvManager.init();
 
 const GOML = "<goml></goml>";
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   GrimoireInterface.registerNode("goml");
 });
@@ -160,4 +162,93 @@ test("generateAttributeForComponent should works correctly (use declaration defa
 
   attr1.resolveDefaultValue();
   t.truthy(attr1.Value === 42);
+});
+
+test("normal attribute should evaluated correct timing.", t => {
+  const s = spy();
+  GrimoireInterface.registerConverter({
+    name: "normal",
+    convert(a: number) {
+      s(a);
+      return a * 2;
+    },
+  });
+  GrimoireInterface.registerComponent({
+    componentName: "Test",
+    attributes: {
+      attr: {
+        converter: "normal",
+        default: 3,
+      },
+    },
+  });
+  GrimoireInterface.registerNode("node", ["Test"]);
+  const doc = XMLReader.parseXML("<node/>");
+  const node = GomlParser.parse(doc);
+
+  t.truthy(s.notCalled);
+  GrimoireInterface.addRootNode(null, node);
+  t.truthy(s.args[0][0] === 3);
+
+  t.truthy(node.getAttribute("normal") === 6);
+  node.setAttribute("attr", 5);
+  t.truthy(s.args[1][0] === 5);
+  t.truthy(node.getAttribute("normal") === 10);
+});
+
+test("getAttribute", t => {
+  GrimoireInterface.registerConverter({
+    name: "normal",
+    convert() {
+      return 4;
+    },
+  });
+  GrimoireInterface.registerConverter({
+    name: "invalid-lazy",
+    lazy: true,
+    convert() {
+      return 4;
+    },
+  });
+  GrimoireInterface.registerConverter({
+    name: "lazy",
+    lazy: true,
+    convert() {
+      return () => 4;
+    },
+  });
+  GrimoireInterface.registerConverter({
+    name: "promise",
+    lazy: true,
+    convert() {
+      return Promise.resolve(4);
+    },
+  });
+
+  GrimoireInterface.registerComponent({
+    componentName: "Test",
+    attributes: {
+      normal: {
+        converter: "normal",
+        default: null,
+      },
+      "invalid-lazy": {
+        converter: "invalid-lazy",
+        default: null,
+      },
+      lazy: {
+        converter: "lazy",
+        default: null,
+      },
+      promise: {
+        converter: "promise",
+        default: null,
+      },
+    },
+  });
+  GrimoireInterface.registerNode("node", ["Test"]);
+  const node = TestUtil.DummyTreeInit("<node/>");
+  node.resolveAttributesValue();
+
+  t.truthy(node.getAttribute("normal") === 4);
 });

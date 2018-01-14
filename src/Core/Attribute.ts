@@ -1,13 +1,16 @@
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { GomlInterface, Name, Nullable, Undef } from "../Tool/Types";
 import Utility from "../Tool/Utility";
 import Component from "./Component";
+
+export type Subscription = {
+  unsubscribe(): void,
+};
 
 /**
  * Manage a attribute attached to components.
@@ -51,9 +54,13 @@ export default class Attribute<T = any> {
     const converter = Environment.GrimoireInterface.converters.get(converterName);
     if (!converter) {
       // When the specified converter was not found
-      throw new Error(`Specified converter ${converterName.name} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
+      const cn = typeof converterName === "string" ? converterName : converterName.name;
+      throw new Error(`Specified converter ${cn} was not found from registered converters.\n Component: ${attr.component.name.fqn}\n Attribute: ${attr.name.name}`);
     }
-    attr.converter = converter as IAttributeConverterDeclaration<T>;
+    if (converter.lazy) {
+      attr._isLazy = true;
+    }
+    attr.converter = converter;
     attr.component.attributes.set(attr.name, attr);
     if (attr.converter.verify) {
       attr.converter.verify(attr);
@@ -95,7 +102,9 @@ export default class Attribute<T = any> {
    */
   private _value: any;
 
-  private _lastValuete: T;
+  private _lastValuete: Nullable<T>;
+
+  private _isLazy = false;
 
   /**
    * List of functions that is listening changing values.
@@ -124,11 +133,10 @@ export default class Attribute<T = any> {
    * @return {any} value with specified type.
    */
   public get Value(): any {
-    if (this._value === undefined) {
-      const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+    if (this._isLazy) {
+      return (this._lastValuete as any)();
     }
-    return this._valuate(this._value);
+    return this._lastValuete;
   }
 
   /**
@@ -136,11 +144,26 @@ export default class Attribute<T = any> {
    * @param {any} val Value with string or specified type.
    */
   public set Value(val: any) {
+    if (val === undefined) {
+      const node = this.component.node;
+      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+    }
     if (this._value === val) {
       return;
     }
+
     this._value = val;
-    this._notifyChange(val);
+    const old = this._lastValuete;
+    const evaluated = this._valuate(val);
+    if (evaluated instanceof Promise) {
+      evaluated.then(v => {
+        this._lastValuete = v;
+        this._notifyChange(old, v);
+      });
+    } else {
+      this._lastValuete = evaluated;
+      this._notifyChange(old, evaluated);
+    }
   }
 
   /**
@@ -148,7 +171,7 @@ export default class Attribute<T = any> {
    * @param  {(attr: Attribute) => void} handler handler the handler you want to add.
    * @param {boolean = false} callFirst whether that handler should be called first time.
    */
-  public watch(watcher: (newValue: T, oldValue: Undef<T>, attr: Attribute) => void, immedateCalls = false, ignoireActiveness = false): void {
+  public watch(watcher: (newValue: T, oldValue: Undef<T>, attr: Attribute) => void, immedateCalls = false, ignoireActiveness = false): Subscription {
     if (ignoireActiveness) {
       this._ignoireActivenessObservers.push(watcher);
     } else {
@@ -157,6 +180,12 @@ export default class Attribute<T = any> {
     if (immedateCalls) {
       watcher(this.Value, undefined, this);
     }
+
+    return {
+      unsubscribe: () => {
+        this.unwatch(watcher);
+      },
+    };
   }
 
   /**
@@ -189,25 +218,12 @@ export default class Attribute<T = any> {
     if (targetObject[variableName]) {
       console.warn(`component field ${variableName} is already defined.`);
     }
-    if (this.converter["lazy"]) {
-      Object.defineProperty(targetObject, variableName, {
-        get: () => this.Value,
-        set: (val) => { this.Value = val; },
-        enumerable: true,
-        configurable: true,
-      });
-    } else {
-      let backing: any;
-      this.watch(v => {
-        backing = v;
-      }, true);
-      Object.defineProperty(targetObject, variableName, {
-        get: () => backing,
-        set: (val) => { this.Value = val; },
-        enumerable: true,
-        configurable: true,
-      });
-    }
+    Object.defineProperty(targetObject, variableName, {
+      get: () => this.Value,
+      set: (val) => { this.Value = val; },
+      enumerable: true,
+      configurable: true,
+    });
   }
 
   /**
@@ -262,33 +278,35 @@ export default class Attribute<T = any> {
     this.Value = this.declaration.default;
   }
 
-  private _valuate(raw: any): T {
-    const v = this.converter.convert(raw, this);
-    if (v === undefined) {
-      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
-      throw new Error(errorMessage);
+  private _valuate(raw: any): Nullable<T> {
+    if (raw !== null) {
+      const v = this.converter.convert(raw, this);
+      if (v === undefined) {
+        const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+        throw new Error(errorMessage);
+      }
+      if (this._isLazy && typeof v !== "function") {
+        throw new Error("lazy converter returns value must be function");
+      }
+      return v;
     }
-    this._lastValuete = v;
-    return v;
+    return null;
   }
 
-  private _notifyChange(newValue: any): void {
-    const lastvalue = this._lastValuete;
+  private _notifyChange(old: any, newValue: any): void {
     if (!this.component.isActive) {
       if (this._ignoireActivenessObservers.length === 0) {
         return;
       }
-      const convertedNewValue = this._valuate(newValue);
       this._ignoireActivenessObservers.forEach((watcher) => {
-        watcher(convertedNewValue, lastvalue, this);
+        watcher(newValue, old, this);
       });
     } else {
-      const convertedNewValue = this._valuate(newValue);
       this._observers.forEach((watcher) => {
-        watcher(convertedNewValue, lastvalue, this);
+        watcher(newValue, old, this);
       });
       this._ignoireActivenessObservers.forEach((watcher) => {
-        watcher(convertedNewValue, lastvalue, this);
+        watcher(newValue, old, this);
       });
     }
   }

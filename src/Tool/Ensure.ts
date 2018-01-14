@@ -97,11 +97,11 @@ export default class Ensure {
    * Internal use!
    * @param identity
    */
-  public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Identity {
+  public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Name {
     if (Ensure.isName(identity)) {
-      return Ensure.tobeIdentity(identity);
+      return identity;
     }
-    return Ensure.tobeIdentity(identity.name);
+    return identity.name;
   }
 
   /**
