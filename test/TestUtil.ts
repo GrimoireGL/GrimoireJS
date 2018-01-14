@@ -17,6 +17,7 @@ export default class TestUtil {
       attributes: {
 
       },
+      componentName: Identity.fromFQN("aaa"),
     });
   }
   public static DummyComponent(): Component {

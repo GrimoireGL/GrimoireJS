@@ -21,6 +21,7 @@ import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDecl
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import {
+  ComponentIdentifier,
   ComponentRegistering,
   Ctor,
   Name,
@@ -141,17 +142,6 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
-   * [obsolete] use `Namespace.define` instead of.
-   * @param  {string} ns namespace URI to be used
-   * @return {[type]}    the namespaced identity
-   * @deprecated
-   */
-  public ns(ns: string): (name: string) => Identity {
-    Utility.w("GrimoireInterface.ns is obsolete. please use `Namespace.define()` instead of.");
-    return (name: string) => Namespace.define(ns).for(name);
-  }
-
-  /**
    * start observation goml mutation.
    */
   public startObservation() {
@@ -248,45 +238,18 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param  {Object                |   (new                 (}           obj           [description]
    * @return {[type]}                       [description]
    */
-  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
-  public registerComponent(name: Name, obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: Name | Ctor<Component>): ComponentDeclaration;
-  public registerComponent(arg1: Name | ComponentRegistering<Object | Ctor<Component>>, arg2?: Name | Ctor<Component> | ComponentRegistering<Object | Ctor<Component>>, arg3?: Name | Ctor<Component>): ComponentDeclaration {
-    let name: Name;
-    let obj: ComponentRegistering<Object | Ctor<Component>>;
-    let superComponent: Name | Ctor<Component> | undefined;
-    if (typeof arg1 === "string" || arg1 instanceof Identity) {
-      Utility.w(" registerComponent() overload that call with name is deprecated. use other overload instead of.");
-      name = arg1;
-      obj = arg2 as ComponentRegistering<Object | Ctor<Component>>;
-      superComponent = arg3;
-    } else {
-      obj = arg1;
-      superComponent = arg2 as Name | Ctor<Component>;
-      if (obj.componentName == null) {
-        throw new Error(`registering component has not 'componentName': ${obj}`);
-      }
-      name = obj.componentName;
+  public registerComponent(obj: ComponentRegistering<Object | Ctor<Component>>, superComponent?: ComponentIdentifier): ComponentDeclaration {
+    Utility.assert(obj.componentName != null, `registering component has not 'componentName': ${obj}`);
+    const name = this._ensureTobeNSIdentityOnRegister(obj.componentName);
+    Utility.assert(!this.componentDeclarations.get(name), `component ${name.fqn} is already registerd.`);
+    Utility.assert(typeof obj !== "function" || obj.prototype instanceof Component, `component constructor ${name.fqn} must be inherits Component`);
+    if (this.debug && !Utility.isCamelCase(name.name)) {
+      Utility.w(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
     }
 
-    // argument validation
-    name = this._ensureTobeNSIdentityOnRegister(name);
-    if (this.componentDeclarations.get(name)) {
-      throw new Error(`component ${name.fqn} is already registerd.`);
-    }
-    if (typeof obj === "function" && !(obj.prototype instanceof Component)) {
-      throw new Error(`component constructor ${name.fqn} must be inherits Component`);
-    }
-    if (this.debug && !Utility.isCamelCase(name.name)) {
-      console.warn(`component ${name.name} is registerd. but,it should be 'CamelCase'.`);
-    }
-    const attrs = obj.attributes;
-    if (!attrs) {
-      throw new Error("component must has 'attributes'");
-    }
+    const attrs = obj.attributes || {};
     for (const key in attrs) {
-      if (attrs[key].default === undefined) {
-        throw new Error(`default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
-      }
+      Utility.assert(attrs[key].default !== undefined, `default value of attribute ${key} in ${name.fqn} must be not 'undefined'.`);
     }
 
     const dec = new ComponentDeclaration(name, obj, superComponent);
@@ -305,17 +268,15 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public registerNode(
     name: Name,
-    defaultComponents: (Name | Ctor<Component>)[] = [],
+    defaultComponents: ComponentIdentifier[] = [],
     defaults?: { [key: string]: any },
     superNode?: Name,
     freezeAttributes?: Name[]): NodeDeclaration {
 
     const registerId = this._ensureTobeNSIdentityOnRegister(name);
-    if (this.nodeDeclarations.get(registerId)) {
-      throw new Error(`gomlnode ${registerId.fqn} is already registerd.`);
-    }
-    if (this.debug && !Utility.isKebabCase(registerId.name)) {
-      console.warn(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
+    Utility.assert(!this.nodeDeclarations.get(registerId), `gomlnode ${registerId.fqn} is already registerd.`);
+    if (!Utility.isKebabCase(registerId.name)) {
+      Utility.w(`node ${registerId.name} is registerd. but,it should be 'snake-case'.`);
     }
     const declaration = new NodeDeclaration(registerId, defaultComponents || [], defaults || {}, superNode, freezeAttributes);
     this.nodeDeclarations.set(registerId, declaration);
@@ -440,7 +401,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public overrideDeclaration(targetDeclaration: Name, arg2: Name[] | { [attrName: string]: any }, defaults?: { [attrName: string]: any }): NodeDeclaration {
     const dec = this.nodeDeclarations.get(targetDeclaration);
     if (!dec) {
-      throw new Error(`attempt not-exist node declaration : ${Ensure.tobeNSIdentity(targetDeclaration).name}`);
+      throw new Error(`attempt not-exist node declaration : ${Ensure.tobeIdentity(targetDeclaration).name}`);
     }
     if (!dec.resolvedDependency) {
       dec.resolveDependency();

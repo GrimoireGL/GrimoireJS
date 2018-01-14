@@ -11,9 +11,9 @@ export { IAttributeConverterDeclaration };
 
 /**
  * template component
- * TODO add document
+ * This component is intended to treat the structured node structure as a single node.
  */
-export default class TemplateComponent extends Component { // TODO test
+export default class TemplateComponent extends Component {
   /**
    * name
    */
@@ -22,6 +22,9 @@ export default class TemplateComponent extends Component { // TODO test
    * attributes
    */
   public static attributes = {
+    /**
+     * this attribute is expanded as child element on inflate() is called.
+     */
     goml: {
       converter: StringConverter,
       default: null,

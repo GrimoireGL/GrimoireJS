@@ -5,11 +5,13 @@ import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
 import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import {
+  ComponentIdentifier,
   ComponentRegistering,
   Ctor,
   Name,
   Nullable,
 } from "./Types";
+import Utility from "./Utility";
 
 /**
  * Provides static methods to ensure arguments are valid type.
@@ -20,16 +22,16 @@ export default class Ensure {
    * name or constructor to be identity
    * @param component
    */
-  public static tobeComponentIdentity(component: Name | (new () => Component)): Identity {
-    if (typeof component === "function") {
+  public static tobeComponentIdentity(component: Ctor<Component> | ComponentIdentifier): Identity {
+    if (Utility.isName(component)) {
+      return Ensure.tobeIdentity(component);
+    } else {
       const obj = ComponentDeclaration.ctorMap.find(o => o.ctor === component);
       if (obj) {
         return obj.name;
       } else {
         throw new Error("Specified constructor have not registered to current context.");
       }
-    } else {
-      return Ensure.tobeNSIdentity(component);
     }
   }
   /**
@@ -63,15 +65,19 @@ export default class Ensure {
   }
 
   /**
-   * string or NSIdentity ensure to be NSIdentity.
+   * string or Identity ensure to be Identity.
    * @param  {Name}       name [description]
    * @return {Identity}      [description]
    */
-  public static tobeNSIdentity(name: Name): Identity {
+  public static tobeIdentity(name: Name): Identity {
     if (!name) {
       throw Error("argument can not be null or undefined.");
     }
     if (typeof name === "string") {
+      const fqn = Ensure.tobeFQN(name);
+      if (fqn) {
+        return Identity.fromFQN(fqn);
+      }
       return Identity.guess(name);
     } else {
       return name;
@@ -93,9 +99,9 @@ export default class Ensure {
    */
   public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Identity {
     if (Ensure.isName(identity)) {
-      return Ensure.tobeNSIdentity(identity);
+      return Ensure.tobeIdentity(identity);
     }
-    return Ensure.tobeNSIdentity(identity.name);
+    return Ensure.tobeIdentity(identity.name);
   }
 
   /**
@@ -109,7 +115,7 @@ export default class Ensure {
     }
     const newArr: Identity[] = [];
     for (let i = 0; i < names.length; i++) {
-      newArr.push(this.tobeNSIdentity(names[i]));
+      newArr.push(this.tobeIdentity(names[i]));
     }
     return newArr;
   }
@@ -203,6 +209,6 @@ export default class Ensure {
     if (typeof name === "string" || name instanceof Identity) {
       return name;
     }
-    return name.componentName!;
+    return name.componentName;
   }
 }

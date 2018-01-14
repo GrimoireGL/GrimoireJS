@@ -20,9 +20,10 @@ export type Nullable<T> = T | null;
 export type Undef<T> = Nullable<T> | undefined;
 export type Ctor<T> = (new () => T);
 export type ComponentRegistering<T> = T & {
-  attributes: { [key: string]: IAttributeDeclaration };
-  componentName?: Name;
+  attributes?: { [key: string]: IAttributeDeclaration };
+  componentName: Name;
   [key: string]: any;
 };
+export type ComponentIdentifier<T = any> = Name | ComponentRegistering<T>;
 
 export default null;

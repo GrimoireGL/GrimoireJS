@@ -36,7 +36,7 @@ export default {
     if (val instanceof GomlNode) {
       return val.getComponent<Component>(attr.declaration["target"]);
     } else if (val instanceof Component) {
-      if (val.name.fqn === Ensure.tobeNSIdentity(attr.declaration["target"]).fqn) {
+      if (val.name.fqn === Ensure.tobeIdentity(attr.declaration["target"]).fqn) {
         return val;
       } else {
         throw new Error(`Specified component must be ${attr.declaration["target"]}`);

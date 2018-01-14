@@ -462,6 +462,7 @@ export default class GomlNode extends EEObject {
     const attrIds = this._attributeManager.guess(attrName);
     if (attrIds.length === 0) { // such attribute is not exists. set to Attribute buffer.
       this._attributeManager.setAttribute(typeof attrName === "string" ? attrName : attrName.fqn, value);
+      return;
     }
     for (let i = 0; i < attrIds.length; i++) {
       const id = attrIds[i];
@@ -531,7 +532,7 @@ export default class GomlNode extends EEObject {
     component = Ensure.tobeComponentIdentity(component);
     const declaration = GrimoireInterface.componentDeclarations.get(component);
     if (!declaration) {
-      throw new Error(`component '${Ensure.tobeNSIdentity(component).fqn}' is not defined.`);
+      throw new Error(`component '${Ensure.tobeIdentity(component).fqn}' is not defined.`);
     }
     const instance = declaration.generateInstance();
     attributes = attributes || {};

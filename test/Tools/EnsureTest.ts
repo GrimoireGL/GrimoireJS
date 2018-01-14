@@ -11,8 +11,8 @@ test.beforeEach(() => {
 
 test("Ensure passed argument should be transformed as NSIdentity", (t) => {
   Identity.fromFQN("grimoirejs.HELLO");
-  t.truthy(Ensure.tobeNSIdentity("HELLO").fqn === "grimoirejs.HELLO");
-  t.truthy(Ensure.tobeNSIdentity(Namespace.define("test").for("WORLD")).fqn === "test.WORLD");
+  t.truthy(Ensure.tobeIdentity("HELLO").fqn === "grimoirejs.HELLO");
+  t.truthy(Ensure.tobeIdentity(Namespace.define("test").for("WORLD")).fqn === "test.WORLD");
 });
 
 test("Ensure passed argument are transformed into number", (t) => {

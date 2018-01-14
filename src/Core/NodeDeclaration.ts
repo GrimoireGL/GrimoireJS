@@ -1,8 +1,7 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
-import { Ctor, Name } from "../Tool/Types";
-import Component from "./Component";
+import { ComponentIdentifier, Name } from "../Tool/Types";
 import Constants from "./Constants";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
@@ -17,7 +16,7 @@ export default class NodeDeclaration {
    * Components attached to this node by default.
    * this property is not consider inheritance.
    */
-  public requiredComponents: IdentitySet;
+  public defaultComponents: IdentitySet;
 
   /**
    * attributes set to this node by default.
@@ -41,7 +40,7 @@ export default class NodeDeclaration {
    */
   public idResolver = new IdResolver();
 
-  private _requiredComponentsActual: IdentitySet;
+  private _defaultComponentsActual: IdentitySet;
   private _defaultAttributesActual: IdentityMap<any>;
   private _resolvedDependency = false;
 
@@ -61,7 +60,7 @@ export default class NodeDeclaration {
     if (!this._resolvedDependency) {
       throw new Error(`${this.name.fqn} is not resolved dependency!`);
     }
-    return this._requiredComponentsActual;
+    return this._defaultComponentsActual;
   }
 
   /**
@@ -76,7 +75,7 @@ export default class NodeDeclaration {
 
   constructor(
     public name: Identity,
-    private _requiredComponents: (Name | Ctor<Component>)[],
+    private _defaultComponents: ComponentIdentifier[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     freezeAttributes?: Name[]) {
@@ -91,10 +90,10 @@ export default class NodeDeclaration {
    * @param componentName
    */
   public addDefaultComponent(componentName: Name): void {
-    const componentId = Ensure.tobeNSIdentity(componentName);
-    this.requiredComponents.push(componentId);
-    if (this._requiredComponentsActual) {
-      this._requiredComponentsActual.push(componentId);
+    const componentId = Ensure.tobeIdentity(componentName);
+    this.defaultComponents.push(componentId);
+    if (this._defaultComponentsActual) {
+      this._defaultComponentsActual.push(componentId);
     }
   }
 
@@ -107,15 +106,15 @@ export default class NodeDeclaration {
     if (this._resolvedDependency) {
       return false;
     }
-    this.requiredComponents = new IdentitySet(this._requiredComponents.map(name => Ensure.tobeComponentIdentity(name)));
+    this.defaultComponents = new IdentitySet(this._defaultComponents.map(name => Ensure.tobeComponentIdentity(name)));
 
     for (const key in this._defaultAttributes) {
       const value = this._defaultAttributes[key];
       this.defaultAttributes.set(Identity.fromFQN(key), value);
     }
-    this.superNode = this._superNode ? Ensure.tobeNSIdentity(this._superNode) : undefined;
+    this.superNode = this._superNode ? Ensure.tobeIdentity(this._superNode) : undefined;
     this._resolveInherites();
-    this._requiredComponentsActual.forEach(id => {
+    this._defaultComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
       if (!dec) {
         throw new Error(`require component ${id} has not registerd. this node is ${this.name}.`);
@@ -124,14 +123,14 @@ export default class NodeDeclaration {
         this.idResolver.add(Identity.fromFQN(fqn));
       });
     });
-    this.freezeAttributes = new IdentitySet(this._freezeAttributes.map(name => Ensure.tobeNSIdentity(name)));
+    this.freezeAttributes = new IdentitySet(this._freezeAttributes.map(name => Ensure.tobeIdentity(name)));
     this._resolvedDependency = true;
     return true;
   }
 
   private _resolveInherites(): void {
     if (!this.superNode) { // not inherit.
-      this._requiredComponentsActual = this.requiredComponents;
+      this._defaultComponentsActual = this.defaultComponents;
       this._defaultAttributesActual = this.defaultAttributes;
       return;
     }
@@ -142,7 +141,7 @@ export default class NodeDeclaration {
     superNode.resolveDependency();
     const inheritedDefaultComponents = superNode.defaultComponentsActual;
     const inheritedDefaultAttribute = superNode.defaultAttributesActual;
-    this._requiredComponentsActual = inheritedDefaultComponents.clone().merge(this.requiredComponents);
+    this._defaultComponentsActual = inheritedDefaultComponents.clone().merge(this.defaultComponents);
     this._defaultAttributesActual = inheritedDefaultAttribute.clone().pushDictionary(this.defaultAttributes);
   }
 }
