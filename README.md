@@ -1,20 +1,21 @@
 <h1 align="center">Grimoire.js</h1>
-<center><img src="./.github/symbol-logo.png" width="256" /></center>
+<p align="center"><img src="./.github/symbol-logo.png" width="256" align="center" /></p>
 
-<center><strong>A WebGL framework for building bridge between CG and Web engineers.</strong></center>
+<p align="center"><strong>A WebGL framework for building bridge between CG and Web engineers.</strong></p>
 
-<center>
+<br/>
+<p align="center">
 <a href="https://circleci.com/gh/GrimoireGL/GrimoireJS"><img src="https://circleci.com/gh/GrimoireGL/GrimoireJS.svg?style=svg"/></a>
 <a href="https://github.com/GrimoireGL/GrimoireJS/blob/develop/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
 <a href="https://david-dm.org/GrimoireGL/GrimoireJS.svg"><img src="https://david-dm.org/GrimoireGL/GrimoireJS.svg"/></a>
 <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/GrimoireGL/GrimoireJS.svg"/></a>
-</center>
+</p>
 
 # Examples
-<center>
+<p align="center">
 <a href="http://sushi.grimoire.gl"><img src="https://i.gyazo.com/ec1045e07300351fa1f964e975f71369.gif"/></a>
 <a href="http://jsdo.it/cx20/iKjH"><img height="174" src="https://i.gyazo.com/8dd870e0a2f94e89744f52f3063cdcd2.gif"/></a>
-</center>
+</p>
 
 # Features
 
