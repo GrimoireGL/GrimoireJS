@@ -103,7 +103,7 @@ export default class Attribute<T = any> {
    */
   private _value: any;
 
-  private _lastValuete: null | T | (() => T);
+  private _lastValuete: null | T | (() => Nullable<T>);
 
   private _isLazy = false;
 
@@ -136,6 +136,10 @@ export default class Attribute<T = any> {
   public get Value(): any {
     if (this._isLazy) {
       return (this._lastValuete as any)();
+    }
+    if (this._lastValuete === undefined) {
+      const node = this.component.node;
+      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
     }
     return this._lastValuete;
   }
@@ -279,7 +283,7 @@ export default class Attribute<T = any> {
     this.Value = this.declaration.default;
   }
 
-  private _valuate(raw: any): null | T | (() => T) {
+  private _valuate(raw: any): null | T | (() => Nullable<T>) {
     if (raw !== null) {
       const v = this.converter.convert(raw, this);
       if (v === undefined) {
@@ -290,6 +294,9 @@ export default class Attribute<T = any> {
         throw new Error("lazy converter returns value must be function");
       }
       return v;
+    }
+    if (this._isLazy) {
+      return () => null;
     }
     return null;
   }

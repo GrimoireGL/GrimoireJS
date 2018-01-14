@@ -74,6 +74,7 @@ test("generateAttributeForComponent should works correctly", t => {
     default: 42,
   }, baseComponent);
   t.throws(() => { // not resolve default value yet
+    console.debug(hogeAttr["_value"]);
     baseComponent.getAttribute("hoge");
   });
   hogeAttr.resolveDefaultValue();
@@ -186,61 +187,12 @@ test("normal attribute should evaluated correct timing.", t => {
   const doc = XMLReader.parseXML("<node/>");
   const node = GomlParser.parse(doc);
 
-  t.truthy(s.notCalled);
+  t.truthy(s.args.length === 1);
   GrimoireInterface.addRootNode(null, node);
   t.truthy(s.args[0][0] === 3);
 
-  t.truthy(node.getAttribute("normal") === 6);
+  t.truthy(node.getAttribute("attr") === 6);
   node.setAttribute("attr", 5);
   t.truthy(s.args[1][0] === 5);
-  t.truthy(node.getAttribute("normal") === 10);
-});
-
-test("getAttribute", t => {
-  GrimoireInterface.registerConverter({
-    name: "normal",
-    convert() {
-      return 4;
-    },
-  });
-  GrimoireInterface.registerConverter({
-    name: "lazy",
-    lazy: true,
-    convert() {
-      return () => 4;
-    },
-  });
-  GrimoireInterface.registerConverter({
-    name: "promise",
-    convert() {
-      return Promise.resolve(4);
-    },
-  });
-
-  GrimoireInterface.registerComponent({
-    componentName: "Test",
-    attributes: {
-      normal: {
-        converter: "normal",
-        default: null,
-      },
-      "invalid-lazy": {
-        converter: "invalid-lazy",
-        default: null,
-      },
-      lazy: {
-        converter: "lazy",
-        default: null,
-      },
-      promise: {
-        converter: "promise",
-        default: null,
-      },
-    },
-  });
-  GrimoireInterface.registerNode("node", ["Test"]);
-  const node = TestUtil.DummyTreeInit("<node/>");
-  node.resolveAttributesValue();
-
-  t.truthy(node.getAttribute("normal") === 4);
+  t.truthy(node.getAttribute("attr") === 10);
 });
