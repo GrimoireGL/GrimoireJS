@@ -13,6 +13,9 @@ export type Subscription = {
   unsubscribe(): void,
 };
 
+/**
+ * internal use!
+ */
 export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends IConverterDeclaration<T>, A extends StandardAttribute<T> | LazyAttribute<T>> {
   /**
    * The name of attribute.
@@ -74,6 +77,193 @@ export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends ICon
       });
     }
   }
+}
+
+/**
+ * lazy attribute is lazy-evaluated attribute.
+ */
+export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, ILazyAttributeDeclaration, ILazyConverterDeclaration<T>, LazyAttribute<T>> {
+
+  /**
+   * Cache of attribute value.
+   * @type {any}
+   */
+  private _value: any;
+
+  private _lastValuete: () => Nullable<T>;
+
+  /**
+   * Get a value with specified type.
+   * @return {any} value with specified type.
+   */
+  public get Value(): T {
+    if (this._lastValuete === undefined) {
+      const node = this.component.node;
+      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+    }
+    return (this._lastValuete as any)();
+  }
+
+  /**
+   * Set a value with specified type.
+   * @param {any} val Value with string or specified type.
+   */
+  public set Value(val: T) {
+    this.setValue(val);
+  }
+
+  /**
+   * Set a value with any type.
+   * @param val
+   */
+  public setValue(val: any) {
+    if (val === undefined) {
+      const node = this.component.node;
+      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+    }
+    if (this._value === val) {
+      return;
+    }
+
+    this._value = val;
+    const old = this._lastValuete;
+    const evaluated = this._valuate(val);
+    if (evaluated instanceof Promise) {
+      evaluated.then(v => {
+        this._lastValuete = v;
+        this.__notifyChange(old, v, this);
+      });
+    } else {
+      this._lastValuete = evaluated;
+      this.__notifyChange(old, evaluated, this);
+    }
+
+  }
+
+  /**
+   * Add event handler to observe changing this attribute.
+   * @param  {(attr: StandardAttribute) => void} handler handler the handler you want to add.
+   * @param {boolean = false} callFirst whether that handler should be called first time.
+   */
+  public watch(watcher: (newValue: () => Nullable<T>, oldValue: Undef<() => Nullable<T>>, attr: LazyAttribute) => void, immedateCalls = false, ignoireActiveness = false): Subscription {
+    if (ignoireActiveness) {
+      this.__ignoireActivenessObservers.push(watcher);
+    } else {
+      this.__observers.push(watcher);
+    }
+    if (immedateCalls) {
+      watcher(this._lastValuete, undefined, this);
+    }
+
+    return {
+      unsubscribe: () => {
+        this.unwatch(watcher);
+      },
+    };
+  }
+
+  /**
+   * Remove event handler you added.
+   * @param  {StandardAttribute} handler [description]
+   * @return {[type]}            [description]
+   */
+  public unwatch(target: (newValue: () => Nullable<T>, oldValue: Undef<() => Nullable<T>>, attr: LazyAttribute) => void): void {
+    let index = this.__observers.findIndex(f => f === target);
+    if (index >= 0) {
+      this.__observers.splice(index, 1);
+      return;
+    }
+    index = this.__ignoireActivenessObservers.findIndex(f => f === target);
+    if (index >= 0) {
+      this.__ignoireActivenessObservers.splice(index, 1);
+      return;
+    }
+  }
+
+  /**
+   * Bind converted value to specified field.
+   * When target object was not specified, field of owner component would be assigned.
+   * @param {string} variableName [description]
+   * @param {any} targetObject [description]
+   */
+  public bindTo(variableName: string, targetObject: any = this.component): void {
+    Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
+    Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
+    if (targetObject[variableName]) {
+      console.warn(`component field ${variableName} is already defined.`);
+    }
+    Object.defineProperty(targetObject, variableName, {
+      get: () => this.Value,
+      set: (val) => { this.Value = val; },
+      enumerable: true,
+      configurable: true,
+    });
+  }
+
+  /**
+   * Apply default value to attribute from DOM values.
+   * @param {string }} domValues [description]
+   */
+  public resolveDefaultValue(): void {
+    if (this._value !== undefined) {// value is already exist.
+      return;
+    }
+    let domValues;
+    if (!this.component.isDefaultComponent) {
+      domValues = this.component.gomAttribute;
+    } else {// node is exists because this is default component.
+      domValues = this.component.node.gomAttribute;
+    }
+
+    // resolve by goml value
+    const resolver = new IdResolver();
+    resolver.add(this.name);
+    let tagAttrKey;
+    for (const key in domValues) {
+      if (Ensure.checkFQNString(key)) {
+        if (this.name.fqn === key.substring(1)) {
+          this.setValue(domValues[key]);
+          return;
+        }
+        continue;
+      }
+      const get = resolver.get(key);
+      if (get.length > 0) {
+        if (tagAttrKey === undefined) {
+          tagAttrKey = key;
+        } else {
+          throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
+        }
+      }
+    }
+    if (tagAttrKey !== undefined) {
+      this.setValue(domValues[tagAttrKey]);
+      return;
+    }
+
+    // resolve by node defaults.
+    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.name);
+    if (nodeDefaultValue !== undefined) {
+      this.Value = nodeDefaultValue; // Node指定値で解決
+      return;
+    }
+
+    // resolve by component defaults.
+    this.Value = this.declaration.default;
+  }
+
+  private _valuate(raw: any): () => Nullable<T> {
+    if (raw === null) {
+      return () => null;
+    }
+    const v = this.converter.convert(raw, this);
+    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
+    if (typeof v !== "function") {
+      throw new Error("lazy converter returns value must be function");
+    }
+    return v;
+  }
+
 }
 
 /**
@@ -322,186 +512,6 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     }
     return v;
   }
-}
-
-export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, ILazyAttributeDeclaration, ILazyConverterDeclaration<T>, LazyAttribute<T>> {
-
-  /**
-   * Cache of attribute value.
-   * @type {any}
-   */
-  private _value: any;
-
-  private _lastValuete: () => Nullable<T>;
-
-  /**
-   * Get a value with specified type.
-   * @return {any} value with specified type.
-   */
-  public get Value(): T {
-    if (this._lastValuete === undefined) {
-      const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
-    }
-    return (this._lastValuete as any)();
-  }
-
-  /**
-   * Set a value with any type.
-   * @param {any} val Value with string or specified type.
-   */
-  public set Value(val: T) {
-    this.setValue(val);
-  }
-
-  public setValue(val: any) {
-    if (val === undefined) {
-      const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
-    }
-    if (this._value === val) {
-      return;
-    }
-
-    this._value = val;
-    const old = this._lastValuete;
-    const evaluated = this._valuate(val);
-    if (evaluated instanceof Promise) {
-      evaluated.then(v => {
-        this._lastValuete = v;
-        this.__notifyChange(old, v, this);
-      });
-    } else {
-      this._lastValuete = evaluated;
-      this.__notifyChange(old, evaluated, this);
-    }
-
-  }
-
-  /**
-   * Add event handler to observe changing this attribute.
-   * @param  {(attr: StandardAttribute) => void} handler handler the handler you want to add.
-   * @param {boolean = false} callFirst whether that handler should be called first time.
-   */
-  public watch(watcher: (newValue: () => Nullable<T>, oldValue: Undef<() => Nullable<T>>, attr: LazyAttribute) => void, immedateCalls = false, ignoireActiveness = false): Subscription {
-    if (ignoireActiveness) {
-      this.__ignoireActivenessObservers.push(watcher);
-    } else {
-      this.__observers.push(watcher);
-    }
-    if (immedateCalls) {
-      watcher(this._lastValuete, undefined, this);
-    }
-
-    return {
-      unsubscribe: () => {
-        this.unwatch(watcher);
-      },
-    };
-  }
-
-  /**
-   * Remove event handler you added.
-   * @param  {StandardAttribute} handler [description]
-   * @return {[type]}            [description]
-   */
-  public unwatch(target: (newValue: () => Nullable<T>, oldValue: Undef<() => Nullable<T>>, attr: LazyAttribute) => void): void {
-    let index = this.__observers.findIndex(f => f === target);
-    if (index >= 0) {
-      this.__observers.splice(index, 1);
-      return;
-    }
-    index = this.__ignoireActivenessObservers.findIndex(f => f === target);
-    if (index >= 0) {
-      this.__ignoireActivenessObservers.splice(index, 1);
-      return;
-    }
-  }
-
-  /**
-   * Bind converted value to specified field.
-   * When target object was not specified, field of owner component would be assigned.
-   * @param {string} variableName [description]
-   * @param {any} targetObject [description]
-   */
-  public bindTo(variableName: string, targetObject: any = this.component): void {
-    Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
-    Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
-    if (targetObject[variableName]) {
-      console.warn(`component field ${variableName} is already defined.`);
-    }
-    Object.defineProperty(targetObject, variableName, {
-      get: () => this.Value,
-      set: (val) => { this.Value = val; },
-      enumerable: true,
-      configurable: true,
-    });
-  }
-
-  /**
-   * Apply default value to attribute from DOM values.
-   * @param {string }} domValues [description]
-   */
-  public resolveDefaultValue(): void {
-    if (this._value !== undefined) {// value is already exist.
-      return;
-    }
-    let domValues;
-    if (!this.component.isDefaultComponent) {
-      domValues = this.component.gomAttribute;
-    } else {// node is exists because this is default component.
-      domValues = this.component.node.gomAttribute;
-    }
-
-    // resolve by goml value
-    const resolver = new IdResolver();
-    resolver.add(this.name);
-    let tagAttrKey;
-    for (const key in domValues) {
-      if (Ensure.checkFQNString(key)) {
-        if (this.name.fqn === key.substring(1)) {
-          this.setValue(domValues[key]);
-          return;
-        }
-        continue;
-      }
-      const get = resolver.get(key);
-      if (get.length > 0) {
-        if (tagAttrKey === undefined) {
-          tagAttrKey = key;
-        } else {
-          throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
-        }
-      }
-    }
-    if (tagAttrKey !== undefined) {
-      this.setValue(domValues[tagAttrKey]);
-      return;
-    }
-
-    // resolve by node defaults.
-    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.name);
-    if (nodeDefaultValue !== undefined) {
-      this.Value = nodeDefaultValue; // Node指定値で解決
-      return;
-    }
-
-    // resolve by component defaults.
-    this.Value = this.declaration.default;
-  }
-
-  private _valuate(raw: any): () => Nullable<T> {
-    if (raw === null) {
-      return () => null;
-    }
-    const v = this.converter.convert(raw, this);
-    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
-    if (typeof v !== "function") {
-      throw new Error("lazy converter returns value must be function");
-    }
-    return v;
-  }
-
 }
 
 export type Attribute<T= any> = StandardAttribute<T> | LazyAttribute<T>;

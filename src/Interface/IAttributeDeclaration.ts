@@ -10,6 +10,9 @@ export interface IStandardAttributeDeclaration<T = any> {
   [parameters: string]: any;
 }
 
+/**
+ * interface for lazy attribute declaration
+ */
 export interface ILazyAttributeDeclaration<T = any> {
   converter: Name | ILazyConverterDeclaration<T>;
   default: any;

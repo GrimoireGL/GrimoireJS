@@ -12,6 +12,9 @@ export interface IStandardConverterDeclaration<T = any> {
   convert(val: any, attr: StandardAttribute): T | undefined;
 }
 
+/**
+ * interface for lazy converter declaration
+ */
 export interface ILazyConverterDeclaration<T = any> {
   name: Name;
   lazy: true;
