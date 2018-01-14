@@ -204,13 +204,6 @@ test("getAttribute", t => {
     },
   });
   GrimoireInterface.registerConverter({
-    name: "invalid-lazy",
-    lazy: true,
-    convert() {
-      return 4;
-    },
-  });
-  GrimoireInterface.registerConverter({
     name: "lazy",
     lazy: true,
     convert() {
@@ -230,10 +223,6 @@ test("getAttribute", t => {
     attributes: {
       normal: {
         converter: "normal",
-        default: null,
-      },
-      "invalid-lazy": {
-        converter: "invalid-lazy",
         default: null,
       },
       lazy: {
@@ -267,9 +256,5 @@ test("getAttribute", t => {
     t.truthy(typeof v === "function");
     t.truthy(v() === 4);
   }, true);
-  t.throws(() => {
-    node.setAttribute("invalid-lazy", "AAA");
-    // should throw an error since the converter is not returning a function
-  });
 });
 
