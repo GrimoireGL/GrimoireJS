@@ -19,7 +19,7 @@ export default class GrimoireInitializer {
      * Start initializing
      * @return {Promise<void>} The promise which will be resolved when all of the Goml script was loaded.
      */
-    public static async initialize(gr: GrimoireInterface): Promise<void> {
+    public static initialize(gr: GrimoireInterface) {
         try {
             GrimoireInitializer.setGlobalObject(gr);
             gr.handlePreservedPreference();
@@ -31,24 +31,27 @@ export default class GrimoireInitializer {
             GrimoireInitializer.copyGLConstants();
             gr.registerBuiltinModule();
 
-            // waite content and plugin loading
-            await GrimoireInitializer.waitForDOMLoading();
-            await GrimoireInitializer.waitForPluginLoadingSuspendPromise(gr);
+            (async() => {
+                // waite content and plugin loading
+                await GrimoireInitializer.waitForDOMLoading();
+                await GrimoireInitializer.waitForPluginLoadingSuspendPromise(gr);
 
-            GrimoireInitializer.logVersions(gr);
+                GrimoireInitializer.logVersions(gr);
 
-            // waiting plugin dependency resolving
-            await gr.resolvePlugins();
+                // waiting plugin dependency resolving
+                await gr.resolvePlugins();
 
-            // loading goml content.
-            if (gr.autoLoading) {
-                gr.startObservation();
-                await GomlLoader.loadForPage();
-                gr.callInitializedAlready = true;
-                gr.initializedEventHandlers.forEach(handler => {
-                    handler();
-                });
-            }
+                // loading goml content.
+                if (gr.autoLoading) {
+                    gr.startObservation();
+                    await GomlLoader.loadForPage();
+                    gr.callInitializedAlready = true;
+                    gr.initializedEventHandlers.forEach(handler => {
+                        handler();
+                    });
+                }
+            })();
+
         } catch (e) {
             console.error(e);
         }
