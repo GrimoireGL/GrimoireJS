@@ -3,11 +3,11 @@ import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IAttributeConverterDeclaration, IConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 
-export { IAttributeConverterDeclaration };
+export { IConverterDeclaration, IAttributeConverterDeclaration };
 
 /**
  * template component

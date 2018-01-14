@@ -3,7 +3,7 @@ import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IAttributeConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 
 export { IAttributeConverterDeclaration };
