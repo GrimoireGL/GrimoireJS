@@ -302,7 +302,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     if (component.attributes.get(identity)) {
       throw new Error(`attribute ${identity} is already exists in component`);
     }
-    const converterName = Ensure.tobeCnverterIdentity(declaration.converter);
+    const converterName = Ensure.tobeCnverterName(declaration.converter);
     const converter = Environment.GrimoireInterface.converters.get(converterName);
     if (!converter) {
       // When the specified converter was not found

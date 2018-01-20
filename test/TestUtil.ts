@@ -1,11 +1,11 @@
-import {StandardAttribute} from "../src/Core/Attribute";
+import { StandardAttribute } from "../src/Core/Attribute";
 import Component from "../src/Core/Component";
 import ComponentDeclaration from "../src/Core/ComponentDeclaration";
 import GomlNode from "../src/Core/GomlNode";
 import GomlParser from "../src/Core/GomlParser";
 import GrimoireInterface from "../src/Core/GrimoireInterface";
 import Identity from "../src/Core/Identity";
-import {IAttributeDeclaration, IStandardAttributeDeclaration} from "../src/Interface/IAttributeDeclaration";
+import { IAttributeDeclaration, IStandardAttributeDeclaration } from "../src/Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../src/Interface/ITreeInitializedInfo";
 import Ensure from "../src/Tool/Ensure";
 import XMLReader from "../src/Tool/XMLReader";
@@ -30,7 +30,7 @@ export default class TestUtil {
     attr.name = name;
     attr.component = component;
     attr.declaration = declaration as IStandardAttributeDeclaration;
-    const converterName = Ensure.tobeCnverterIdentity(declaration.converter);
+    const converterName = Ensure.tobeCnverterName(declaration.converter);
     attr.converter = GrimoireInterface.converters.get(converterName);
     attr.component.attributes.set(attr.name, attr);
     attr.converter.verify(attr);

@@ -97,7 +97,7 @@ export default class Ensure {
    * Internal use!
    * @param identity
    */
-  public static tobeCnverterIdentity(identity: Name | IConverterDeclaration): Name {
+  public static tobeCnverterName(identity: Name | IConverterDeclaration): Name {
     if (Ensure.isName(identity)) {
       return identity;
     }
