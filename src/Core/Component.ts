@@ -3,7 +3,7 @@ import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDec
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import {Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";

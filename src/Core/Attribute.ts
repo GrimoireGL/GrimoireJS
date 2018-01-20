@@ -6,7 +6,7 @@ import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDec
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { GomlInterface, Name, Nullable, Undef } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import Component from "./Component";
 
 export type Subscription = {

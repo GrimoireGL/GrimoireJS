@@ -11,7 +11,7 @@ import {
   Name,
   Nullable,
 } from "./Types";
-import Utility from "./Utility";
+import * as Utility from "./Utility";
 
 /**
  * Provides static methods to ensure arguments are valid type.

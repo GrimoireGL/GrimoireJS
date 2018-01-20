@@ -28,7 +28,7 @@ import {
   Name,
   Nullable,
 } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import {StandardAttribute} from "./Attribute";
 import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_TREE_DID_ADDED, EVENT_TREE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";

@@ -3,7 +3,7 @@ import {Attribute, StandardAttribute} from "../Core/Attribute";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
 import { Name, Nullable } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
 
 /**

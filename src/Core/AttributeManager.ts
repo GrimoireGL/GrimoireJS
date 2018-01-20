@@ -2,7 +2,7 @@ import { Attribute, LazyAttribute, StandardAttribute } from "../Core/Attribute";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { Name, Undef } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import Identity from "./Identity";
 import Namespace from "./Namespace";
 

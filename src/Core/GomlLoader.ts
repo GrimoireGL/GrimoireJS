@@ -1,5 +1,5 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 import Environment from "./Environment";

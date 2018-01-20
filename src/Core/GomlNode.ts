@@ -11,7 +11,7 @@ import {
   Name,
   Nullable,
 } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
 import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import Component from "./Component";
