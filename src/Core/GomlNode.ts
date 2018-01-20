@@ -646,17 +646,19 @@ export default class GomlNode extends EEObject {
 
   /**
    * search component by name from this node.
+   * return null if component was not found.
    * @param  {Name}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(name: Name | Ctor<T>): T {
+  public getComponent<T>(name: Name | Ctor<T>): Nullable<T> {
     // 事情により<T extends Component>とはできない。
     // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるらである。
     if (!name) {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
-      return this._components.find(c => c instanceof name) as any as T || null;
+      const component = this._components.find(c => c instanceof name) as any as (T | undefined);
+      return component || null;
     } else {
       const ctor = Ensure.tobeComponentConstructor(name);
       if (!ctor) {
@@ -674,7 +676,7 @@ export default class GomlNode extends EEObject {
     if (name == null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
     }
-    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
+    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c) as any;
   }
 
   /**
