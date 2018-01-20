@@ -12,7 +12,7 @@ import { Undef } from "../Tool/Types";
  * `Component`に対しては、`target`パラメータと型が一致していればそのまま返します。そうでなければ、例外を投げます。
  * 文字列の場合、ノードに対するクエリとして解釈され、取得されたノードに対して`getComponent`されます。
  */
-export default {
+export const ComponentConverter = {
   name: "Component",
 
   /**
@@ -50,3 +50,5 @@ export default {
     }
   },
 };
+
+export default ComponentConverter;

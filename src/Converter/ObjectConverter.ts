@@ -1,4 +1,4 @@
-export default {
+export const ObjectConverter = {
   name: "Object",
   /**
    * converter for object
@@ -10,3 +10,5 @@ export default {
     return val;
   },
 };
+
+export default ObjectConverter;

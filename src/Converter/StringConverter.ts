@@ -3,7 +3,7 @@ import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterD
 import { __NAMESPACE__ } from "../metaInfo";
 import { Undef } from "../Tool/Types";
 
-export default {
+export const StringConverter = {
   name: Namespace.define(__NAMESPACE__).for("String"),
   /**
    * convert to string
@@ -18,3 +18,5 @@ export default {
     return undefined;
   },
 } as IStandardConverterDeclaration<string>;
+
+export default StringConverter;

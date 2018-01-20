@@ -6,7 +6,7 @@ import {StandardAttribute} from "../Core/Attribute";
  * 数値の場合、そのまま返します。
  * 文字列の場合、テーブルの対応する値を返します。
  */
-export default {
+export const EnumConverter = {
   name: "Enum",
   /**
    * verify
@@ -38,3 +38,5 @@ export default {
     }
   },
 };
+
+export default EnumConverter;

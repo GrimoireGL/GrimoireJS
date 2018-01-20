@@ -1,4 +1,4 @@
-import {StandardAttribute} from "../Core/Attribute";
+import { StandardAttribute } from "../Core/Attribute";
 import GrimoireInterface from "../Core/GrimoireInterface";
 
 const splitter = " ";
@@ -12,7 +12,7 @@ const escape = "\\";
  * 文字列が与えられたとき、*半角スペース*で区切られた文字列ごとに配列に分割して同様の処理を行います。
  * ただし、`\`(バックスラッシュ)で*半角スペースをエスケープできます*
  */
-export default {
+export const ArrayConverter = {
   name: "Array",
   /**
    * verify
@@ -56,3 +56,5 @@ export default {
     return null;
   },
 };
+
+export default ArrayConverter;

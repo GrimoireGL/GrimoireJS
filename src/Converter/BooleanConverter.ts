@@ -2,7 +2,7 @@ import Namespace from "../Core/Namespace";
 import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 
-export default {
+export const BooleanConverter =  {
   name: Namespace.define(__NAMESPACE__).for("Boolean"),
 
   /**
@@ -27,3 +27,5 @@ export default {
     return undefined;
   },
 } as IStandardConverterDeclaration<boolean>;
+
+export default BooleanConverter;
