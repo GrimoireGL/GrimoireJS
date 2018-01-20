@@ -1,10 +1,11 @@
 import IDObject from "../Base/IDObject";
+import { IStandardConverterDeclaration } from "../Component/GrimoireComponent";
 import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
-import {Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
+import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
@@ -217,6 +218,8 @@ export default class Component extends IDObject {
    * @param {string}                name      [description]
    * @param {IAttributeDeclaration} attribute [description]
    */
+  protected __addAttribute(name: string, attribute: IStandardAttributeDeclaration): StandardAttribute;
+  protected __addAttribute(name: string, attribute: ILazyAttributeDeclaration): LazyAttribute;
   protected __addAttribute(name: string, attribute: IAttributeDeclaration): Attribute {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");
