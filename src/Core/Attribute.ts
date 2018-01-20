@@ -18,6 +18,70 @@ export type Subscription = {
  */
 export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends IConverterDeclaration<T>, A extends StandardAttribute<T> | LazyAttribute<T>> {
   /**
+   * convert value by provided converter.
+   * @param converter
+   * @param self
+   * @param val
+   * @deprecated
+   */
+  public static convert(converter: Name, self: StandardAttribute, val: any): any;
+  public static convert(converter: Name, self: LazyAttribute, val: any): any;
+  public static convert(converter: Name, self: Attribute, val: any): any {
+    const cname = Ensure.tobeIdentity(converter);
+    const conv = Environment.GrimoireInterface.converters.get(cname);
+    if (!conv) {
+      throw new Error(`converter ${cname.name} is not defined.`);
+    }
+
+    return (conv.convert as any)(val, self, self.converterContext);
+  }
+
+  /**
+   * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
+   * If converter is not served, string converter will be set as default.
+   * @param {string}        key       Key of this attribute.
+   * @param {any}           value     Value of this attribute.
+   * @param {ConverterBase} converter Converter of this attribute.
+   * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
+   */
+  public static generateAttributeForComponent<T>(name: string, declaration: IAttributeDeclaration<T>, component: Component): StandardAttribute<T> | LazyAttribute<T> {
+    const identity = Identity.fromFQN(`${component.name.fqn}.${name}`);
+    if (component.attributes.get(identity)) {
+      throw new Error(`attribute ${identity} is already exists in component`);
+    }
+    const converterName = Ensure.tobeCnverterName(declaration.converter);
+    const converter = Environment.GrimoireInterface.converters.get(converterName);
+    if (!converter) {
+      // When the specified converter was not found
+      const cn = typeof converterName === "string" ? converterName : converterName.name;
+      throw new Error(`Specified converter ${cn} was not found from registered converters.\n Component: ${component.name.fqn}\n Attribute: ${identity.name}`);
+    }
+    if (converter.lazy) {
+      const attr = new LazyAttribute<T>();
+      attr.name = identity;
+      attr.component = component;
+      attr.declaration = declaration as ILazyAttributeDeclaration<T>;
+      attr.converter = converter;
+      attr.component.attributes.set(attr.name, attr);
+      if (attr.converter.verify) {
+        attr.converter.verify(attr);
+      }
+      return attr;
+    } else {
+      const attr = new StandardAttribute<T>();
+      attr.name = identity;
+      attr.component = component;
+      attr.declaration = declaration as IStandardAttributeDeclaration<T>;
+      attr.converter = converter as IStandardConverterDeclaration<T>;
+      attr.component.attributes.set(attr.name, attr);
+      if (attr.converter.verify) {
+        attr.converter.verify(attr);
+      }
+      return attr;
+    }
+  }
+
+  /**
    * The name of attribute.
    * @type {Identity}
    */
@@ -34,6 +98,8 @@ export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends ICon
    * @type {IAttributeDeclaration}
    */
   public declaration: D;
+
+  public converterContext: any = {};
 
   /**
    * A function to convert any values into ideal type.
@@ -256,7 +322,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
     if (raw === null) {
       return () => null;
     }
-    const v = this.converter.convert(raw, this);
+    const v = this.converter.convert(raw, this, this.converterContext);
     Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
     if (typeof v !== "function") {
       throw new Error("lazy converter returns value must be function");
@@ -270,70 +336,6 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
  * Manage a attribute attached to components.
  */
 export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAttributeDeclaration, IStandardConverterDeclaration<T>, StandardAttribute<T>> {
-
-  /**
-   * convert value by provided converter.
-   * @param converter
-   * @param self
-   * @param val
-   * @deprecated
-   */
-  public static convert(converter: Name, self: StandardAttribute, val: any): any;
-  public static convert(converter: Name, self: LazyAttribute, val: any): any;
-  public static convert(converter: Name, self: Attribute, val: any): any {
-    const cname = Ensure.tobeIdentity(converter);
-    const conv = Environment.GrimoireInterface.converters.get(cname);
-    if (!conv) {
-      throw new Error(`converter ${cname.name} is not defined.`);
-    }
-    return (conv.convert as any)(val, self);
-  }
-
-  /**
-   * Construct a new attribute with name of key and any value with specified type. If constant flag is true, This attribute will be immutable.
-   * If converter is not served, string converter will be set as default.
-   * @param {string}        key       Key of this attribute.
-   * @param {any}           value     Value of this attribute.
-   * @param {ConverterBase} converter Converter of this attribute.
-   * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
-   */
-  public static generateAttributeForComponent<T>(name: string, declaration: IAttributeDeclaration<T>, component: Component): StandardAttribute<T> | LazyAttribute<T> {
-    const identity = Identity.fromFQN(`${component.name.fqn}.${name}`);
-    if (component.attributes.get(identity)) {
-      throw new Error(`attribute ${identity} is already exists in component`);
-    }
-    const converterName = Ensure.tobeCnverterName(declaration.converter);
-    const converter = Environment.GrimoireInterface.converters.get(converterName);
-    if (!converter) {
-      // When the specified converter was not found
-      const cn = typeof converterName === "string" ? converterName : converterName.name;
-      throw new Error(`Specified converter ${cn} was not found from registered converters.\n Component: ${component.name.fqn}\n Attribute: ${identity.name}`);
-    }
-    if (converter.lazy) {
-      const attr = new LazyAttribute<T>();
-      attr.name = identity;
-      attr.component = component;
-      attr.declaration = declaration as ILazyAttributeDeclaration<T>;
-      attr.converter = converter;
-      attr.component.attributes.set(attr.name, attr);
-      if (attr.converter.verify) {
-        attr.converter.verify(attr);
-      }
-      return attr;
-    } else {
-      const attr = new StandardAttribute<T>();
-      attr.name = identity;
-      attr.component = component;
-      attr.declaration = declaration as IStandardAttributeDeclaration<T>;
-      attr.converter = converter as IStandardConverterDeclaration<T>;
-      attr.component.attributes.set(attr.name, attr);
-      if (attr.converter.verify) {
-        attr.converter.verify(attr);
-      }
-      return attr;
-    }
-
-  }
 
   /**
    * Cache of set attribute value.
@@ -380,8 +382,14 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     const evaluated = this._valuate(val);
     if (evaluated instanceof Promise) {
       evaluated.then(v => {
+        if (v === undefined) {
+          const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+          throw new Error(errorMessage);
+        }
         this._lastValuete = v;
         this.__notifyChange(old, v, this);
+      }).catch(e => {
+        throw e;
       });
     } else {
       this._lastValuete = evaluated;
@@ -505,7 +513,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     if (raw === null) {
       return null;
     }
-    const v = this.converter.convert(raw, this);
+    const v = this.converter.convert(raw, this, this.converterContext);
     if (v === undefined) {
       const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
       throw new Error(errorMessage);
@@ -515,3 +523,4 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
 }
 
 export type Attribute<T= any> = StandardAttribute<T> | LazyAttribute<T>;
+export default Attribute;

@@ -1,6 +1,6 @@
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
-import { Name } from "./Types";
+import { Name, Undef } from "./Types";
 
 /**
  * write warning if in debug-mode
@@ -160,6 +160,13 @@ export function assert(shouldTrue: boolean, errorMessage: string | (() => string
   if (!shouldTrue) {
     throw new Error(typeof errorMessage === "string" ? errorMessage : errorMessage());
   }
+}
+
+export function assertNotNullOrUndefined<T>(obj: Undef<T>, errorMessage: string | (() => string) = "object must not be null or undefined."): T {
+  if (obj == null) {
+    throw new Error(typeof errorMessage === "string" ? errorMessage : errorMessage());
+  }
+  return obj;
 }
 
 /**

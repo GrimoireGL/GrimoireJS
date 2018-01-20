@@ -9,7 +9,7 @@ export interface IStandardConverterDeclaration<T = any> {
   lazy?: false;
   [params: string]: any;
   verify?(attr: StandardAttribute): void; // throw error if attribute is not satisfy condition converter needed.
-  convert(val: any, attr: StandardAttribute): T | undefined;
+  convert(val: any, attr: StandardAttribute, converterContext: any): T | undefined;
 }
 
 /**
@@ -20,7 +20,8 @@ export interface ILazyConverterDeclaration<T = any> {
   lazy: true;
   [params: string]: any;
   verify?(attr: LazyAttribute): void; // throw error if attribute is not satisfy condition converter needed.
-  convert(val: any, attr: LazyAttribute): (() => T) | undefined;
+  convert(val: any, attr: LazyAttribute, converterContext: any): (() => T) | undefined;
 }
 
 export type IConverterDeclaration<T = any> = IStandardConverterDeclaration<T> | ILazyConverterDeclaration<T>;
+export default IConverterDeclaration;
