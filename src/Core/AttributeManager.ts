@@ -1,4 +1,4 @@
-import Attribute from "../Core/Attribute";
+import { Attribute, LazyAttribute, StandardAttribute } from "../Core/Attribute";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { Name, Undef } from "../Tool/Types";
@@ -69,7 +69,7 @@ class AttributeBuffer<T> {
   }
 }
 
-type observer = (newValue: any, oldValue: any, attr: Attribute) => void;
+type observer = (newValue: any, oldValue: any, attr: StandardAttribute) => void;
 
 /**
  * internal use!
@@ -106,7 +106,7 @@ export default class AttributeManager {
 
     const watchBuf = this._watchBuffer.guess(attr.name.fqn, true);
     for (let i = 0; i < watchBuf.length; i++) {
-      attr.watch(watchBuf[i], true);
+      (attr as any).watch(watchBuf[i], true);
     }
     return attr;
   }
@@ -126,7 +126,7 @@ export default class AttributeManager {
         return;
       }
       for (let i = 0; i < attrs.length; i++) {
-        attrs[i].watch(watcher, immediate);
+        (attrs[i] as any).watch(watcher, immediate);
       }
     } else {
       attrName = attrName as string;
@@ -139,7 +139,7 @@ export default class AttributeManager {
         throw new Error(`attribute ${attrName} is ambiguous`);
       }
       for (let i = 0; i < this._attributesFQNMap[res[0]].length; i++) {
-        this._attributesFQNMap[res[0]][i].watch(watcher, immediate);
+        (this._attributesFQNMap[res[0]][i] as any).watch(watcher, immediate);
       }
     }
   }
@@ -166,7 +166,7 @@ export default class AttributeManager {
    * NSIdentityはfqnで。
    * 指定されたFQNの属性が複数の場合エラー。
    * @param  {Name}      attrName [description]
-   * @return {Attribute}          [description]
+   * @return {StandardAttribute}          [description]
    */
   public getAttributeRaw(attrName: Name): Attribute {
     const fqn = Ensure.tobeFQN(attrName);

@@ -1,5 +1,5 @@
 import { ListenerFn } from "eventemitter3";
-import Attribute from "../Core/Attribute";
+import {Attribute, StandardAttribute} from "../Core/Attribute";
 import GomlNode from "../Core/GomlNode";
 import GomlParser from "../Core/GomlParser";
 import { Name, Nullable } from "../Tool/Types";

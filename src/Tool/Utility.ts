@@ -161,9 +161,9 @@ export default class Utility {
    * @param shouldTrue
    * @param errorMessage
    */
-  public static assert(shouldTrue: boolean, errorMessage: string) {
+  public static assert(shouldTrue: boolean, errorMessage: string | (() => string)) {
     if (!shouldTrue) {
-      throw new Error(errorMessage);
+      throw new Error(typeof errorMessage === "string" ? errorMessage : errorMessage());
     }
   }
 

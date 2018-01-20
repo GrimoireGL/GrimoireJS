@@ -1,5 +1,5 @@
 import Namespace from "../Core/Namespace";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
 import { Undef } from "../Tool/Types";
 
@@ -12,11 +12,9 @@ export default {
   convert(val: any): Undef<string> {
     if (typeof val === "string") {
       return val;
-    } else if (!val) {
-      return val;
     } else if (typeof val.toString === "function") {
       return val.toString();
     }
     return undefined;
   },
-} as IAttributeConverterDeclaration<string | null>;
+} as IStandardConverterDeclaration<string>;

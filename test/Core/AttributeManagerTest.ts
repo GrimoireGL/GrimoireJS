@@ -1,16 +1,14 @@
-import Attribute from "../../src/Core/Attribute";
+import test from "ava";
+import { assert, spy as sinonSpy } from "sinon";
+import {StandardAttribute} from "../../src/Core/Attribute";
 import AttributeManager from "../../src/Core/AttributeManager";
 import Identity from "../../src/Core/Identity";
-import test from "ava";
 import TestEnvManager from "../TestEnvManager";
-import { assert, spy as sinonSpy } from "sinon";
 
 TestEnvManager.init();
 
-
-
-const genAttr: (name: Identity, watch?: Function | undefined) => Attribute = (name, watch) => {
-  return { name: name, watch: watch, Value: "value of " + name } as Attribute;
+const genAttr: (name: Identity, watch?: Function | undefined) => StandardAttribute = (name, watch) => {
+  return { name, watch, Value: "value of " + name } as StandardAttribute;
 };
 
 const ns1 = Identity.fromFQN("aaa");
@@ -67,7 +65,7 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
 
   const fqn2 = "notregisterd.fqn.hoge2";
   const spy = sinonSpy();
-  const attrRaw = new Attribute();
+  const attrRaw = new StandardAttribute();
   attrRaw.name = Identity.fromFQN(fqn2);
   attrRaw.component = { isActive: true } as any;
   attrRaw.converter = { convert: x => x } as any;

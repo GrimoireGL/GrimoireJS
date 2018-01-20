@@ -2,6 +2,7 @@
   "extends": "./common/tslint.json",
   "rulesDirectory": [],
   "rules": {
-    "no-unused-variable": false
+    "no-unused-variable": false,
+    "no-floating-promises":false
   }
 }

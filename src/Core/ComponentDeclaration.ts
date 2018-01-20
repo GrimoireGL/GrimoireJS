@@ -1,9 +1,9 @@
 import Environment from "../Core/Environment";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import { IAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { ComponentIdentifier, ComponentRegistering, Ctor } from "../Tool/Types";
-import Attribute from "./Attribute";
+import {StandardAttribute} from "./Attribute";
 import Component from "./Component";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
@@ -76,10 +76,10 @@ export default class ComponentDeclaration {
     const component = new this.ctor();
     Environment.GrimoireInterface.componentDictionary[component.id] = component;
     component.name = this.name;
-    component.attributes = new IdentityMap<Attribute>();
+    component.attributes = new IdentityMap<StandardAttribute>();
     component.declaration = this;
     for (const key in this.attributes) {
-      Attribute.generateAttributeForComponent(key, this.attributes[key], component);
+      StandardAttribute.generateAttributeForComponent<any>(key, this.attributes[key], component);
     }
 
     // bind this for message reciever.

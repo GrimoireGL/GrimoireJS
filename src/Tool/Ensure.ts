@@ -3,7 +3,7 @@ import ComponentDeclaration from "../Core/ComponentDeclaration";
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import {
   ComponentIdentifier,
   ComponentRegistering,
@@ -97,11 +97,11 @@ export default class Ensure {
    * Internal use!
    * @param identity
    */
-  public static tobeCnverterIdentity(identity: Name | IAttributeConverterDeclaration): Identity {
+  public static tobeCnverterName(identity: Name | IConverterDeclaration): Name {
     if (Ensure.isName(identity)) {
-      return Ensure.tobeIdentity(identity);
+      return identity;
     }
-    return Ensure.tobeIdentity(identity.name);
+    return identity.name;
   }
 
   /**
