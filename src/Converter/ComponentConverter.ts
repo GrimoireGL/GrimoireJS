@@ -1,8 +1,18 @@
-import {StandardAttribute} from "../Core/Attribute";
+import { StandardAttribute } from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import Ensure from "../Tool/Ensure";
 import { Undef } from "../Tool/Types";
+
+export interface IComponentConverter<T> {
+  name: "Component";
+  verify(attr: StandardAttribute): void;
+  convert(val: any, attr: StandardAttribute): Undef<T>;
+}
+
+export function getGenericComponentConverter<T>(): IComponentConverter<T> {
+  return ComponentConverter as IComponentConverter<T>;
+}
 
 /**
  * コンポーネントのためのコンバータです。
@@ -30,9 +40,6 @@ export const ComponentConverter = {
    * @param attr
    */
   convert(val: any, attr: StandardAttribute): Undef<Component> {
-    if (val === null) {
-      return null;
-    }
     if (val instanceof GomlNode) {
       return val.getComponent<Component>(attr.declaration["target"]);
     } else if (val instanceof Component) {
