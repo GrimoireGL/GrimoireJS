@@ -1,8 +1,10 @@
+import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
 import { IStandardConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
 import { __NAMESPACE__ } from "../metaInfo";
+import { Name } from "../Tool/Types";
 
-export const BooleanConverter =  {
+export const BooleanConverter = {
   name: Namespace.define(__NAMESPACE__).for("Boolean"),
 
   /**
@@ -26,6 +28,6 @@ export const BooleanConverter =  {
     }
     return undefined;
   },
-} as IStandardConverterDeclaration<boolean>;
+};
 
 export default BooleanConverter;

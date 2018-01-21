@@ -1,5 +1,4 @@
 import IDObject from "../Base/IDObject";
-import { IStandardConverterDeclaration } from "../Component/GrimoireComponent";
 import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
