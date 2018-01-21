@@ -5,19 +5,18 @@ import Ensure from "../Tool/Ensure";
 import { Undef } from "../Tool/Types";
 
 export interface IComponentConverter<T> {
-  name: "Component";
+  name: string;
   verify(attr: StandardAttribute): void;
   convert(val: any, attr: StandardAttribute): Undef<T>;
 }
 
 export function getGenericComponentConverter<T>(): IComponentConverter<T> {
-  return ComponentConverter as IComponentConverter<T>;
+  return ComponentConverter as any; // `as any` is needed on non-strict compile.
 }
 
 /**
  * コンポーネントのためのコンバータです。
  * 属性宣言に`target`パラメータの指定が必要です。
- * nullに対してはnullを返します。
  * `gomlnode`に対しては、`target`パラメータの値で`getComponent`した結果を返します。
  * `Component`に対しては、`target`パラメータと型が一致していればそのまま返します。そうでなければ、例外を投げます。
  * 文字列の場合、ノードに対するクエリとして解釈され、取得されたノードに対して`getComponent`されます。
