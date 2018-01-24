@@ -11,7 +11,7 @@ export interface IComponentConverter<T> {
 }
 
 export function getGenericComponentConverter<T>(): IComponentConverter<T> {
-  return ComponentConverter as IComponentConverter<T>;
+  return ComponentConverter as any as IComponentConverter<T>;
 }
 
 /**

@@ -27,7 +27,7 @@
     "babel-register": "^6.26.0",
     "condition-circle": "^2.0.1",
     "cpx": "^1.5.0",
-    "grimoirejs-cauldron": "^4.1.5-beta2",
+    "grimoirejs-cauldron": "^4.1.6-beta",
     "jsdom": "^11.3.0",
     "lodash": "^4.17.2",
     "nyc": "^11.4.1",
