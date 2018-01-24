@@ -1,5 +1,5 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLHttpRequestAsync from "../Tool/XMLHttpRequestAsync";
 import XMLReader from "../Tool/XMLReader";
 import Environment from "./Environment";
@@ -10,16 +10,6 @@ import GomlParser from "./GomlParser";
  * Provides the features to fetch Goml source.
  */
 export default class GomlLoader {
-
-  /**
-   * Internal use!
-   */
-  public static callInitializedAlready = false;
-
-  /**
-   * Internal use!
-   */
-  public static initializedEventHandlers: (() => void)[] = [];
 
   /**
    * parse and add given goml to GrimoireInterface as root node.
@@ -72,9 +62,6 @@ export default class GomlLoader {
       Utility.w("There was no goml file detected. Have you specified `type='text/goml'` to the script tag?");
     }
     await Promise.all<void>(pArray);
-    GomlLoader.initializedEventHandlers.forEach(handler => {
-      handler();
-    });
   }
 
   /**
@@ -83,6 +70,5 @@ export default class GomlLoader {
    */
   public static async loadForPage(): Promise<void> {
     await GomlLoader.loadFromQuery('script[type="text/goml"]');
-    this.callInitializedAlready = true;
   }
 }

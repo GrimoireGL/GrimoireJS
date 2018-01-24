@@ -1,4 +1,4 @@
-import Attribute from "../Core/Attribute";
+import {StandardAttribute} from "../Core/Attribute";
 /**
  * 列挙のためのコンバータ。
  * 属性宣言に`table`パラメータが必要です。
@@ -6,13 +6,13 @@ import Attribute from "../Core/Attribute";
  * 数値の場合、そのまま返します。
  * 文字列の場合、テーブルの対応する値を返します。
  */
-export default {
+export const EnumConverter = {
   name: "Enum",
   /**
    * verify
    * @param attr
    */
-  verify(attr: Attribute) {
+  verify(attr: StandardAttribute) {
     if (!attr.declaration["table"]) {
       throw new Error("Enum converter needs to be specified table in attribute dictionary");
     }
@@ -22,7 +22,7 @@ export default {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: Attribute) {
+  convert(val: any, attr: StandardAttribute) {
     if (val === null) {
       return null;
     }
@@ -38,3 +38,5 @@ export default {
     }
   },
 };
+
+export default EnumConverter;

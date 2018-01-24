@@ -11,11 +11,11 @@ import {
   Name,
   Nullable,
 } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
-import Attribute from "./Attribute";
+import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import Component from "./Component";
-import Constants from "./Constants";
+import { EVENT_MESSAGE_ERROR, X_GR_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlParser from "./GomlParser";
 import Identity from "./Identity";
@@ -36,7 +36,7 @@ export default class GomlNode extends EEObject {
    * @return {GomlNode}      [description]
    */
   public static fromElement(elem: Element): GomlNode {
-    const id = elem.getAttribute(Constants.x_gr_id);
+    const id = elem.getAttribute(X_GR_ID);
     if (id) {
       return GrimoireInterface.nodeDictionary[id];
     } else {
@@ -191,15 +191,13 @@ export default class GomlNode extends EEObject {
     this._components = [];
     this._attributeManager = new AttributeManager(declaration.name.name);
 
-    this.element.setAttribute(Constants.x_gr_id, this.id);
+    this.element.setAttribute(X_GR_ID, this.id);
     const defaultComponentNames = declaration.defaultComponentsActual;
 
     // instanciate default components
     defaultComponentNames.forEach(id => {
       this.addComponent(id, null, true);
     });
-    // register to GrimoireInterface.
-    GrimoireInterface.nodeDictionary[this.id] = this;
   }
 
   /**
@@ -484,7 +482,7 @@ export default class GomlNode extends EEObject {
 
   /**
    * remove attribute from this node.
-   * @param {Attribute} attr [description]
+   * @param {StandardAttribute} attr [description]
    */
   public removeAttribute(attr: Attribute): boolean {
     return this._attributeManager.removeAttribute(attr);
@@ -501,6 +499,10 @@ export default class GomlNode extends EEObject {
     }
     if (mounted) {
       this._mounted = true;
+
+      // register to GrimoireInterface.
+      GrimoireInterface.nodeDictionary[this.id] = this;
+
       const temp = this._components.concat();
       for (let i = 0; i < temp.length; i++) {
         const target = temp[i];
@@ -626,7 +628,8 @@ export default class GomlNode extends EEObject {
   }
 
   /**
-   * get components
+   * Get list of components in this node.
+   * If you omit the parameter, return all component.
    * @param filter
    */
   public getComponents<T>(filter?: Name | Ctor<T>): T[] {
@@ -643,17 +646,19 @@ export default class GomlNode extends EEObject {
 
   /**
    * search component by name from this node.
+   * return null if component was not found.
    * @param  {Name}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(name: Name | Ctor<T>): T {
+  public getComponent<T>(name: Name | Ctor<T>): Nullable<T> {
     // 事情により<T extends Component>とはできない。
     // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるらである。
     if (!name) {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
-      return this._components.find(c => c instanceof name) as any as T || null;
+      const component = this._components.find(c => c instanceof name) as any as (T | undefined);
+      return component || null;
     } else {
       const ctor = Ensure.tobeComponentConstructor(name);
       if (!ctor) {
@@ -671,7 +676,7 @@ export default class GomlNode extends EEObject {
     if (name == null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
     }
-    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c);
+    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c) as any;
   }
 
   /**
@@ -943,9 +948,9 @@ export default class GomlNode extends EEObject {
         method(args);
       } catch (e) {
         const wrappedError = new MessageException(this, targetComponent, message.substr(1), e);
-        this.emit("messageerror", wrappedError);
+        this.emit(EVENT_MESSAGE_ERROR, wrappedError);
         if (!wrappedError.handled) {
-          GrimoireInterface.emit("messageerror", wrappedError);
+          GrimoireInterface.emit(EVENT_MESSAGE_ERROR, wrappedError);
           if (!wrappedError.handled) {
             throw wrappedError;
           }

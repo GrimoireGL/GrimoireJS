@@ -17,7 +17,8 @@ import GomlLoader from "../Core/GomlLoader";
 import GomlNode from "../Core/GomlNode";
 import Namespace from "../Core/Namespace";
 import NodeDeclaration from "../Core/NodeDeclaration";
-import IAttributeConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
+import { IConverterDeclaration } from "../Interface/IAttributeConverterDeclaration";
+import ILibraryPreference from "../Interface/ILibraryPreference";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import {
@@ -27,11 +28,12 @@ import {
   Name,
   Nullable,
 } from "../Tool/Types";
-import Utility from "../Tool/Utility";
-import Attribute from "./Attribute";
-import Constants from "./Constants";
+import * as Utility from "../Tool/Utility";
+import {StandardAttribute} from "./Attribute";
+import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_TREE_DID_ADDED, EVENT_TREE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
+import GrimoireInterface from "./GrimoireInterface";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
 import NodeInterface from "./NodeInterface";
@@ -41,12 +43,6 @@ import NodeInterface from "./NodeInterface";
  */
 export default class GrimoireInterfaceImpl extends EEObject {
   /**
-   * constant for emitting event.
-   * added goml in ducument.
-   */
-  public EVENT_GOML_WILL_ADD = "gomlWillAdd";
-
-  /**
    * manage all node declarations.
    */
   public nodeDeclarations: IdentityMap<NodeDeclaration> = new IdentityMap<NodeDeclaration>();
@@ -54,7 +50,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   /**
    * manage all converters
    */
-  public converters: IdentityMap<IAttributeConverterDeclaration> = new IdentityMap<IAttributeConverterDeclaration>();
+  public converters = new IdentityMap<IConverterDeclaration>();
 
   /**
    * manage all component declaration.
@@ -78,6 +74,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     [key: string]: {
       __VERSION__: string;
       __NAME__: string;
+      __NAMESPACE__: string;
       [key: string]: any;
     },
   } = {};
@@ -93,9 +90,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public componentDictionary: { [componentId: string]: Component } = {};
 
   /**
-   * TODO
+   * An object for specifying global settings, which is set before GR is loaded.
    */
-  public libraryPreference?: { [preference: string]: any };
+  public libraryPreference?: ILibraryPreference;
 
   /**
    * debug-mode.
@@ -122,23 +119,70 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public noConflictPreserve: any;
 
-  private _registeringPluginNamespace: string;
-  private _registrationContext: string = Constants.defaultNamespace;
-
-  private _gomlMutationObserber = new GomlMutationObserver();
+  /**
+   * whether already initialized.
+   */
+  public callInitializedAlready = false;
 
   /**
    * initialized event handlers
    */
-  public get initializedEventHandler(): ((scriptTags: HTMLScriptElement[]) => void)[] {
-    return GomlLoader.initializedEventHandlers;
-  }
+  public initializedEventHandlers: (() => void)[] = [];
+
+  private _registeringPluginNamespace: string;
+  private _registrationContext: string = DEFAULT_NAMESPACE;
+
+  private _gomlMutationObserber = new GomlMutationObserver();
 
   /**
-   * whether already initialized.
+   * Import core and plugin modules.
+   * @param path The same import path as TypeScript import.
    */
-  public get callInitializedAlready(): boolean {
-    return GomlLoader.callInitializedAlready;
+  public import(path: string): any {
+    Utility.assert(!!path, "import path must be string");
+    const pathes = path.split("/");
+
+    // import plugin itself.
+    if (pathes.length === 1 || (pathes.length === 2 && pathes[1] === "ref")) {
+      const p = pathes[0];
+      if (p === "grimoirejs") {
+        return Environment.GrimoireInterface;
+      }
+      const obj = findLib(p, this.lib);
+      Utility.assert(!!obj, `invalid import path: ${path}`);
+      return obj;
+    }
+
+    // import module
+    Utility.assert(pathes.length > 2 && pathes[1] === "ref", `invalid import path: ${path}`);
+    const pluginName = pathes[0];
+    const importPath = pathes.slice(2);
+    if (pluginName === "grimoirejs") {
+      return findModule(importPath, this.lib["core"], pluginName);
+    }
+    return findModule(importPath, findLib(pluginName, this.lib), pluginName);
+
+    function findLib(pluginFullName: string, lib: typeof GrimoireInterface.lib) {
+      for (const key in lib) {
+        const target = lib[key];
+        if (target.__NAME__ !== pluginFullName) {
+          continue;
+        }
+        return target;
+      }
+      throw new Error(`plugin ${pluginFullName} is not registered.`);
+    }
+    function findModule(_importPath: string[], lib: any, _pluginName: string) {
+      let target = lib;
+      for (let i = 0; i < _importPath.length; i++) {
+        if (target[_importPath[i]]) {
+          target = target[_importPath[i]];
+        } else {
+          throw new Error(`import path ${path} is not found in ${_pluginName}`);
+        }
+      }
+      return target.default ? target.default : target;
+    }
   }
 
   /**
@@ -152,18 +196,18 @@ export default class GrimoireInterfaceImpl extends EEObject {
       if (!this.shouldObserveGoml) {
         return;
       }
-      this.emit(this.EVENT_GOML_WILL_ADD, added);
+      this.emit(EVENT_GOML_WILL_ADD, added);
       await GomlLoader.loadFromScriptTag(added as HTMLScriptElement);
-      this.emit("gomlDidAdded", added);
+      this.emit(EVENT_GOML_DID_ADDED, added);
     }, removed => {
       if (!this.shouldObserveGoml) {
         return;
       }
       const root = this.getRootNode(removed);
       if (root) {
-        this.emit("gomlWillRemove", removed);
+        this.emit(EVENT_GOML_WILL_REMOVE, removed);
         root.remove();
-        this.emit("gomlDidRemove", removed);
+        this.emit(EVENT_GOML_DID_REMOVE, removed);
       }
     });
   }
@@ -176,11 +220,22 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
+   * assert that specified plugin is registerd.
+   * if not, throw an error.
+   * @param pluginName namespace of plugin, e.g. 'fundamental','math'.
+   * @param message error message used when plugin is not registerd.
+   */
+  public assertPlugin(pluginName: string, message?: string) {
+    message = message || `required plugin '${pluginName}' is not registered.`;
+    Utility.assert(!!this.lib[pluginName], message);
+  }
+
+  /**
    * initialize GrimoireInterface.
    * register primitive coverters/nodes.
    * if you want reset state. use GrimoireInterface.clear() instead of.
    */
-  public initialize(): void {
+  public registerBuiltinModule(): void {
     this.registerConverter(StringConverter);
     this.registerConverter("StringArray", StringArrayConverter);
     this.registerConverter(BooleanConverter);
@@ -197,13 +252,37 @@ export default class GrimoireInterfaceImpl extends EEObject {
   }
 
   /**
+   * internal use!
+   * this called immediately afterwards settle `window.gr`.
+   */
+  public handlePreservedPreference() {
+    if (!this.libraryPreference) {
+      return;
+    }
+    const pref = this.libraryPreference.listen;
+    if (!pref) {
+      return;
+    }
+
+    const grEvents = [
+      EVENT_TREE_WILL_ADD,
+      EVENT_TREE_DID_ADDED,
+    ];
+    grEvents.forEach(event => {
+      if (pref[event]) {
+        this.on(event, pref[event]);
+      }
+    });
+  }
+
+  /**
    * Register plugins
    * @param  {(}      loadTask [description]
    * @return {[type]}          [description]
    */
   public register(loadTask: () => Promise<void>): void {
     this.loadTasks.push({ ns: this._registeringPluginNamespace, task: loadTask });
-    this._registeringPluginNamespace = Constants.defaultNamespace;
+    this._registeringPluginNamespace = DEFAULT_NAMESPACE;
   }
 
   /**
@@ -220,7 +299,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
         console.error(e);
       }
     }
-    this._registrationContext = Constants.defaultNamespace;
+    this._registrationContext = DEFAULT_NAMESPACE;
 
     // resolveDependency
     this.componentDeclarations.forEach(dec => {
@@ -302,14 +381,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param rootNode root node of Goml
    */
   public addRootNode(tag: Nullable<HTMLScriptElement>, rootNode: GomlNode): string {
-    if (!rootNode) {
-      throw new Error("can not register null to rootNodes.");
-    }
+    Utility.assert(!!rootNode, "can not register null to rootNodes.");
+    Utility.assert(rootNode instanceof GomlNode, "rootNode must be instance of `GomlNode`");
+    Utility.assert(!this.rootNodes[rootNode.id], "this node is already registered.");
+
+    this.emit(EVENT_TREE_WILL_ADD, {
+      ownerScriptTag: tag,
+      rootNode,
+    });
+
     if (tag) {
-      tag.setAttribute("x-rootNodeId", rootNode.id);
+      tag.setAttribute(X_ROOT_NODE_ID, rootNode.id);
     }
     this.rootNodes[rootNode.id] = rootNode;
-    rootNode.companion.set(Namespace.define(Constants.defaultNamespace).for("scriptElement"), tag);
+    rootNode.companion.set(Namespace.define(DEFAULT_NAMESPACE).for("scriptElement"), tag);
 
     // awake and mount tree.
     rootNode.setMounted(true);
@@ -321,8 +406,10 @@ export default class GrimoireInterfaceImpl extends EEObject {
       ownerScriptTag: tag,
       id: rootNode.id,
     } as ITreeInitializedInfo);
+
     // send events to catch root node appended
-    this.emit("root-node-added", {
+
+    this.emit(EVENT_TREE_DID_ADDED, {
       ownerScriptTag: tag,
       rootNode,
     });
@@ -335,7 +422,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param scriptTag
    */
   public getRootNode(scriptTag: Element): Nullable<GomlNode> {
-    const id = scriptTag.getAttribute("x-rootNodeId");
+    const id = scriptTag.getAttribute(X_ROOT_NODE_ID);
     if (id) {
       const ret = this.rootNodes[id];
       if (ret) {
@@ -374,9 +461,9 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * @param name
    * @param converter
    */
-  public registerConverter(name: Name, converter: ((val: any, attr: Attribute) => any)): void;
-  public registerConverter(declaration: IAttributeConverterDeclaration): void;
-  public registerConverter(arg1: Name | IAttributeConverterDeclaration, converter?: ((val: any, attr: Attribute) => any)): void {
+  public registerConverter(name: Name, converter: ((val: any, attr: StandardAttribute) => any)): void;
+  public registerConverter(declaration: IConverterDeclaration): void;
+  public registerConverter(arg1: Name | IConverterDeclaration, converter?: ((val: any, attr: StandardAttribute) => any)): void {
     if (converter) {
       this.registerConverter({
         name: this._ensureTobeNSIdentityOnRegister(arg1 as Name),
@@ -385,7 +472,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       });
       return;
     }
-    const dec = arg1 as IAttributeConverterDeclaration;
+    const dec = arg1 as IConverterDeclaration;
     this.converters.set(this._ensureTobeNSIdentityOnRegister(dec.name), dec);
   }
 
@@ -443,8 +530,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
       delete this.componentDictionary[key];
     }
     this.loadTasks.splice(0, this.loadTasks.length);
-    this._registeringPluginNamespace = Constants.defaultNamespace;
-    this.initialize();
+    this._registeringPluginNamespace = DEFAULT_NAMESPACE;
+    this.registerBuiltinModule();
   }
 
   /**

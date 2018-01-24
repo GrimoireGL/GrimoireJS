@@ -1,8 +1,18 @@
-import Attribute from "../Core/Attribute";
+import { StandardAttribute } from "../Core/Attribute";
 import Component from "../Core/Component";
 import GomlNode from "../Core/GomlNode";
 import Ensure from "../Tool/Ensure";
 import { Undef } from "../Tool/Types";
+
+export interface IComponentConverter<T> {
+  name: "Component";
+  verify(attr: StandardAttribute): void;
+  convert(val: any, attr: StandardAttribute): Undef<T>;
+}
+
+export function getGenericComponentConverter<T>(): IComponentConverter<T> {
+  return ComponentConverter as IComponentConverter<T>;
+}
 
 /**
  * コンポーネントのためのコンバータです。
@@ -12,14 +22,14 @@ import { Undef } from "../Tool/Types";
  * `Component`に対しては、`target`パラメータと型が一致していればそのまま返します。そうでなければ、例外を投げます。
  * 文字列の場合、ノードに対するクエリとして解釈され、取得されたノードに対して`getComponent`されます。
  */
-export default {
+export const ComponentConverter = {
   name: "Component",
 
   /**
    * verify
    * @param attr
    */
-  verify(attr: Attribute) {
+  verify(attr: StandardAttribute) {
     if (!attr.declaration["target"]) {
       throw new Error("Component converter require to be specified target");
     }
@@ -29,10 +39,7 @@ export default {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: Attribute): Undef<Component> {
-    if (val === null) {
-      return null;
-    }
+  convert(val: any, attr: StandardAttribute): Undef<Component> {
     if (val instanceof GomlNode) {
       return val.getComponent<Component>(attr.declaration["target"]);
     } else if (val instanceof Component) {
@@ -50,3 +57,5 @@ export default {
     }
   },
 };
+
+export default ComponentConverter;

@@ -1,7 +1,7 @@
 import GrimoireInterface from "../Core/GrimoireInterface";
 import IGrimoireComponentModel from "../Interface/IGrimoireComponentModel";
 import IGrimoireNodeModel from "../Interface/IGrimoireNodeModel";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
 import Component from "./Component";
 import GomlNode from "./GomlNode";

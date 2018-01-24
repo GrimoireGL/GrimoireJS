@@ -1,10 +1,10 @@
 import IDObject from "../Base/IDObject";
-import IAttributeDeclaration from "../Interface/IAttributeDeclaration";
+import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tool/Types";
-import Utility from "../Tool/Utility";
-import Attribute from "./Attribute";
+import * as Utility from "../Tool/Utility";
+import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
@@ -22,7 +22,7 @@ export default class Component extends IDObject {
   public name: Identity;
   /**
    * Attributes managed by this component
-   * @type {IdentityMap<Attribute>}
+   * @type {IdentityMap<StandardAttribute>}
    */
   public attributes: IdentityMap<Attribute>;
   /**
@@ -109,7 +109,7 @@ export default class Component extends IDObject {
    * @param {any}    value [description]
    */
   public setAttribute<T = any>(name: Name | IAttributeDeclaration<T>, value: any): void {
-    const attr = this.getAttributeRaw(name);
+    const attr = this.getAttributeRaw(name as any);
     if (attr) {
       attr.Value = value;
     } else {
@@ -122,7 +122,7 @@ export default class Component extends IDObject {
    * @param name
    */
   public getAttribute<T = any>(name: Name | IAttributeDeclaration<T>): T {
-    const attr = this.getAttributeRaw(name);
+    const attr = this.getAttributeRaw(name as any);
     if (attr) {
       return attr.Value;
     } else {
@@ -134,13 +134,16 @@ export default class Component extends IDObject {
    * get attribute object instance.
    * @param name
    */
-  public getAttributeRaw<T = any>(name: Name | IAttributeDeclaration<T>): Nullable<Attribute<T>> {
+  public getAttributeRaw<T = any>(name: IStandardAttributeDeclaration<T>): Nullable<StandardAttribute<T>>;
+  public getAttributeRaw<T = any>(name: ILazyAttributeDeclaration<T>): Nullable<LazyAttribute<T>>;
+  public getAttributeRaw<T = any>(name: Name): Nullable<StandardAttribute<T> | LazyAttribute<T>>;
+  public getAttributeRaw<T = any>(name: Name | IAttributeDeclaration<T>): Nullable<StandardAttribute<T> | LazyAttribute<T>> {
     if (Ensure.isName(name)) {
       return this.attributes.get(name);
     }
     for (const key in this.declaration.attributes) {
       if (this.declaration.attributes[key] === name) {
-        return this.getAttributeRaw(key);
+        return this.getAttributeRaw<T>(key);
       }
     }
     return null;
@@ -214,11 +217,13 @@ export default class Component extends IDObject {
    * @param {string}                name      [description]
    * @param {IAttributeDeclaration} attribute [description]
    */
+  protected __addAttribute(name: string, attribute: IStandardAttributeDeclaration): StandardAttribute;
+  protected __addAttribute(name: string, attribute: ILazyAttributeDeclaration): LazyAttribute;
   protected __addAttribute(name: string, attribute: IAttributeDeclaration): Attribute {
     if (!attribute) {
       throw new Error("can not add attribute null or undefined.");
     }
-    const attr = Attribute.generateAttributeForComponent(name, attribute, this);
+    const attr = StandardAttribute.generateAttributeForComponent(name, attribute, this);
     this.node.addAttribute(attr);
     attr.resolveDefaultValue();
     this._additionalAttributesNames.push(attr.name);

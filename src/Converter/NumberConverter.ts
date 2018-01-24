@@ -1,7 +1,7 @@
 import { Undef } from "../Tool/Types";
-import Utility from "../Tool/Utility";
+import * as Utility from "../Tool/Utility";
 
-export default {
+export const NumberConverter = {
   name: "Number",
   /**
    * converter for number value.
@@ -31,3 +31,5 @@ export default {
     return undefined;
   },
 };
+
+export default NumberConverter;

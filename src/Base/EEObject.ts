@@ -1,10 +1,11 @@
 import { EventEmitter, ListenerFn } from "eventemitter3";
+import { EventID } from "../Core/Constants";
 import IDObject from "./IDObject";
 
 /**
  * EventEmitterをmixinしたIDObject
  */
-class EEObject extends IDObject implements EventEmitter {
+class EEObject extends IDObject {
   /**
    * Return an array listing the events for which the emitter has registered
    * listeners.
@@ -20,16 +21,6 @@ class EEObject extends IDObject implements EventEmitter {
    * Return the numbers of listeners.
    */
   public listenerCount: (event: string | symbol) => number;
-
-  /**
-   * Calls each of the listeners registered for a given event.
-   */
-  public emit: (event: string | symbol, ...args: any[]) => boolean;
-
-  /**
-   * Add a listener for a given event.
-   */
-  public on: (event: string | symbol, fn: ListenerFn, context?: any) => this;
 
   /**
    * add listener
@@ -60,6 +51,21 @@ class EEObject extends IDObject implements EventEmitter {
     super();
     EventEmitter.call(this);
   }
+
+  /**
+   * Calls each of the listeners registered for a given event.
+   */
+  public emit<T>(event: EventID<T> | string | symbol, args: T): boolean {
+    return !!{ event, args };
+  }
+
+  /**
+   * Add a listener for a given event.
+   */
+  public on<T= any>(event: EventID<T> | string | symbol, fn: (args: T) => void, context?: any): EEObject {
+    return { event, fn, context } as any;
+  }
+
 }
 
 function applyMixins(derivedCtor: any, baseCtors: any[]) {
