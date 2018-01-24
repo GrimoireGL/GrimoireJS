@@ -146,7 +146,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (pathes.length === 1 || (pathes.length === 2 && pathes[1] === "ref")) {
       const p = pathes[0];
       if (p === "grimoirejs") {
-        return Environment.GrimoireInterface;
+        return requireDefault ? Environment.GrimoireInterface : { default: Environment.GrimoireInterface };
       }
       const obj = findLib(p, this.lib);
       Utility.assert(!!obj, `invalid import path: ${path}`);

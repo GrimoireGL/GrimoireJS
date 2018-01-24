@@ -16,7 +16,7 @@ TestEnvManager.init();
 
 const tc1_html = fs.readFile("../_TestResource/GrimoireInterfaceTest_Case1.html");
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   GrimoireInterface.resolvePlugins();
 });
@@ -82,7 +82,7 @@ test("registerComponent works correctly", (t) => {
   });
 });
 
-test("registerComponent by object works correctly", async(t) => {
+test("registerComponent by object works correctly", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   GrimoireInterface.registerComponent({
     componentName: "Aaa",
@@ -151,7 +151,7 @@ test("registerComponent by object works correctly", async(t) => {
   t.truthy((bbb2 as any).$test);
   t.truthy((bbb2 as any).$test2);
 });
-test("registerComponent by class works correctly", async(t) => {
+test("registerComponent by class works correctly", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
 
   class Aaa extends Component {
@@ -237,7 +237,7 @@ test("registerComponent by class works correctly", async(t) => {
 
   t.truthy((bbb2 as any).overridedFunc() === 7);
 });
-test("registerComponent works correctly4", async(t) => {
+test("registerComponent works correctly4", async (t) => {
   const defaultComponentCount = GrimoireInterface.componentDeclarations.toArray().length;
   class Aaa extends Component {
     public static componentName = "Aaa";
@@ -346,10 +346,10 @@ test("throw error on attempt registerComponent/Node by duplicate name.", t => {
   });
 });
 
-test("register and resolvePlugins works preperly", async() => {
+test("register and resolvePlugins works preperly", async () => {
   const spy1 = spy();
   const spy2 = spy();
-  const wrapPromise: any = function(s) {
+  const wrapPromise: any = function (s) {
     return () => {
       return new Promise(resolve => {
         s();
@@ -407,8 +407,8 @@ test("import works preperly", async t => {
   GrimoireInterface.lib.core = {} as any;
   (GrimoireInterface as any).lib.core.Core = { GomlNode: 7 };
 
-  t.truthy(GrimoireInterface.import("grimoirejs") === GrimoireInterface);
-  t.truthy(GrimoireInterface.import("grimoirejs/ref") === GrimoireInterface);
+  t.truthy(GrimoireInterface.import("grimoirejs").default === GrimoireInterface);
+  t.truthy(GrimoireInterface.import("grimoirejs/ref", true) === GrimoireInterface);
   t.truthy(GrimoireInterface.import("grimoirejs-hoge") === GrimoireInterface.lib.hoge);
   t.truthy(GrimoireInterface.import("grimoirejs-hoge/ref") === GrimoireInterface.lib.hoge);
 

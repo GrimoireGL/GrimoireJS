@@ -1,6 +1,6 @@
 {
   "name": "grimoirejs",
-  "version": "1.0.9-beta18",
+  "version": "1.0.9-beta23",
   "description": "A service-oriented WebGL framework.",
   "main": "./ref/index.js",
   "typings": "./ref/index.d.ts",
@@ -27,7 +27,7 @@
     "babel-register": "^6.26.0",
     "condition-circle": "^2.0.1",
     "cpx": "^1.5.0",
-    "grimoirejs-cauldron": "^4.1.6-beta",
+    "grimoirejs-cauldron": "^4.2.0-beta1",
     "jsdom": "^11.3.0",
     "lodash": "^4.17.2",
     "nyc": "^11.4.1",

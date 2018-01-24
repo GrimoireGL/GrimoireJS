@@ -530,6 +530,8 @@ export default class GomlNode extends EEObject {
    * attach component to this node.
    * @param {Component} component [description]
    */
+  public addComponent<T extends Component = Component>(component: (new () => T), attributes?: { [key: string]: any } | null, isDefaultComponent?: boolean): T;
+  public addComponent<T extends Component = Component>(component: Name, attributes?: { [key: string]: any } | null, isDefaultComponent?: boolean): T;
   public addComponent(component: Name | (new () => Component), attributes?: { [key: string]: any } | null, isDefaultComponent = false): Component {
     component = Ensure.tobeComponentIdentity(component);
     const declaration = GrimoireInterface.componentDeclarations.get(component);
