@@ -83,6 +83,20 @@ export default class IdentityMap<V> extends EEObject {
     }
   }
 
+  public waitFor<T extends V = V>(arg1: string): Promise<Nullable<T>> {
+    if (this.has(arg1)) {
+      return Promise.resolve<Nullable<T>>(this.get(arg1) as any);
+    } else {
+      return new Promise((resolve, reject) => {
+        this.once(EVENT_SET_VALUE<any>(), (obj) => {
+          if (obj.key === arg1) {
+            resolve(obj.value);
+          }
+        });
+      })
+    }
+  }
+
   /**
    * Check if name has possibility of multiple values.
    * @param  {string}  name [description]
