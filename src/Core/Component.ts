@@ -134,17 +134,26 @@ export default class Component extends IDObject {
    * get attribute object instance.
    * @param name
    */
-  public getAttributeRaw<T = any>(name: IStandardAttributeDeclaration<T>): Nullable<StandardAttribute<T>>;
-  public getAttributeRaw<T = any>(name: ILazyAttributeDeclaration<T>): Nullable<LazyAttribute<T>>;
-  public getAttributeRaw<T = any>(name: Name): Nullable<StandardAttribute<T> | LazyAttribute<T>>;
-  public getAttributeRaw<T = any>(name: Name | IAttributeDeclaration<T>): Nullable<StandardAttribute<T> | LazyAttribute<T>> {
+  public getAttributeRaw<T = any>(name: IStandardAttributeDeclaration<T>, mandatory?: true): StandardAttribute<T>;
+  public getAttributeRaw<T = any>(name: IStandardAttributeDeclaration<T>, mandatory: false): Nullable<StandardAttribute<T>>;
+  public getAttributeRaw<T = any>(name: ILazyAttributeDeclaration<T>, mandatory?: true): LazyAttribute<T>;
+  public getAttributeRaw<T = any>(name: ILazyAttributeDeclaration<T>, mandatory: false): Nullable<LazyAttribute<T>>;
+  public getAttributeRaw<T = any>(name: Name, mandatory?: true): StandardAttribute<T> | LazyAttribute<T>;
+  public getAttributeRaw<T = any>(name: Name, mandatory: false): Nullable<StandardAttribute<T> | LazyAttribute<T>>;
+  public getAttributeRaw<T = any>(name: Name | IAttributeDeclaration<T>, mandatory = true): Nullable<StandardAttribute<T> | LazyAttribute<T>> {
     if (Ensure.isName(name)) {
-      return this.attributes.get(name);
+      const ret = this.attributes.get(name);
+      if (mandatory && !ret) {
+        throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified attribute don't exist.`);
+      }
     }
     for (const key in this.declaration.attributes) {
       if (this.declaration.attributes[key] === name) {
-        return this.getAttributeRaw<T>(key);
+        return this.getAttributeRaw<T>(key, mandatory as any);
       }
+    }
+    if (mandatory) {
+      throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified attribute don't exist.`);
     }
     return null;
   }
