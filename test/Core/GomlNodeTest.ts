@@ -11,10 +11,13 @@ import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
 import TestEnvManager from "../TestEnvManager";
 import TestUtil from "../TestUtil";
+import IParametricObject from "../../src/Interface/IParametricObject";
+import IAttributeDeclaration from "../../src/Interface/IAttributeDeclaration";
+import ParametricObjectContext from "../../src/Core/ParametricObjectContext";
 
 TestEnvManager.init();
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.debug = false;
   GrimoireInterface.clear();
   TestEnvManager.loadPage("<html></html>");
@@ -88,7 +91,7 @@ test("append works correctly with string argument", t => {
 test("append works correctly with gom argument", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   t.truthy(node.children.length === 0);
-  node.append({name: "goml"});
+  node.append({ name: "goml" });
   t.truthy(node.children.length === 1);
   t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
 });
@@ -277,6 +280,54 @@ test("getComponents method overload works correctly", t => {
   node.addComponent("TestComponent2");
   const components = node.getComponents();
   t.truthy(components.length === 3);
+});
+
+test("attach ParametricObject should work", async (t) => {
+  const gr = Environment.GrimoireInterface;
+  class TestParametric implements IParametricObject {
+    constructor(private params: { [key: string]: IParametricObject | IAttributeDeclaration<any>; }, private spy: () => void) {
+
+    }
+    owner?: Component;
+    getAttributeDeclarations(): { [key: string]: IParametricObject | IAttributeDeclaration<any>; } {
+      return this.params;
+    }
+    onAttachComponent(component: Component, ctx: ParametricObjectContext): void {
+      this.spy()
+    }
+    onDetachComponent(lastComponent: Component, ctx: ParametricObjectContext): void {
+      this.spy();
+    }
+  }
+  const spy1 = spy();
+  const spy2 = spy();
+  gr.registerComponent({
+    componentName: "Aaa",
+    attributes: {},
+    $mount() {
+      this.__attachParametricObject(new TestParametric({
+        attr1: {
+          converter: "String",
+          default: "HELLO"
+        },
+        attr2: new TestParametric({
+          attr3: {
+            converter: "String",
+            default: "WORLD"
+          }
+        }, spy2)
+      }, spy1), "test");
+    }
+  });
+  gr.registerNode("a", ["Aaa"]);
+  await TestEnvManager.loadPage(TestUtil.GenerateGomlEmbeddedHtml('<a id="parent"></a>'));
+  const parent = gr("*")("#parent").first();
+  t.true(parent.getAttribute("attr1") === "HELLO");
+  t.true(parent.getAttribute("test.attr1") === "HELLO");
+  t.true(parent.getAttribute("attr3") === "WORLD");
+  t.true(parent.getAttribute("test.attr2.attr3") === "WORLD");
+  spy1.calledAfter(spy2);
+  t.true(spy1.calledOnce)
 });
 
 test("async message reciever called with await", async t => {

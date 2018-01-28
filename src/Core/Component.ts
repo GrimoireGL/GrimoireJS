@@ -9,6 +9,9 @@ import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
+import IParametricObject from "../Interface/IParametricObject";
+import Namespace from "./Namespace";
+import ParametricObjectContext from "./ParametricObjectContext";
 
 /**
  * Base class for any components
@@ -61,6 +64,7 @@ export default class Component extends IDObject {
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: Identity[] = [];
   private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
+  private _parametricContextMap: { [key: string]: ParametricObjectContext } = {};
 
   /**
    * whether component enabled.
@@ -270,5 +274,62 @@ export default class Component extends IDObject {
    */
   protected __setCompanionWithSelfNS(name: string, value: any) {
     this.companion.set(this.name.ns.for(name), value);
+  }
+
+  /**
+   * 
+   * @param obj Parametric object that is managed in this component
+   * @param baseName namespace base of this parametric object. Used for determining fqn.
+   */
+  protected __attachParametricObject(obj: IParametricObject, baseName: string): ParametricObjectContext {
+    const decls = obj.getAttributeDeclarations();
+    if (obj.owner) {
+      throw new Error(`Parametric object is not attachable for multiple component.`);
+    }
+    if (this._parametricContextMap[baseName]) {
+      throw new Error(`Parametric object for ${baseName} is already registered`);
+    }
+    obj.owner = this;
+    const ns = Namespace.define(baseName);
+    const nsMap: { [key: string]: string | ParametricObjectContext } = {};
+    for (let key in decls) {
+      const decl = decls[key];
+      if (this._isParametricObject(decl)) {
+        const poc = this.__attachParametricObject(decl, `${baseName}.${key}`);
+        nsMap[key] = poc;
+      } else {
+        const identity = ns.for(key);
+        this.__addAttribute(identity.fqn, decl);
+        nsMap[key] = identity.fqn;
+      }
+    }
+    const poc = new ParametricObjectContext(obj, this, baseName, nsMap);
+    this._parametricContextMap[baseName] = poc;
+    obj.onAttachComponent(this, poc);
+    return poc;
+  }
+
+  /**
+   * Remove specified parametric object if exists
+   * @param baseName parametric object base name
+   */
+  protected __detachParametricObject(baseName: string): void {
+    const poc = this._parametricContextMap[baseName];
+    if (!poc) {
+      return;
+    }
+    for (let name in poc.nameToKey) {
+      const key = poc.nameToKey[name];
+      if (typeof key === "string") {
+        this.__removeAttributes(key);
+      } else {
+        this.__detachParametricObject(poc.baseName);
+      }
+    }
+    poc.target.onDetachComponent(this, poc);
+  }
+
+  private _isParametricObject(obj: any): obj is IParametricObject {
+    return obj && typeof obj.getAttributeDeclarations === "function";
   }
 }
