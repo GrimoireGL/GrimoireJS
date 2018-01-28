@@ -266,7 +266,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
    * @param {string} variableName [description]
    * @param {any} targetObject [description]
    */
-  public bindTo(variableName: string, targetObject: any = this.component): void {
+  public bindTo(variableName: string = this.name.name, targetObject: any = this.component): void {
     Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
     Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
     if (targetObject[variableName]) {
