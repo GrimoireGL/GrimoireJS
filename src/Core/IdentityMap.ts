@@ -1,7 +1,9 @@
+import EEObject from "../Base/EEObject";
 import Namespace from "../Core/Namespace";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { Name, Nullable, Undef } from "../Tool/Types";
+import { EVENT_SET_VALUE } from "./Constants";
 import Identity from "./Identity";
 
 type Dict<V> = { [key: string]: V };
@@ -9,7 +11,7 @@ type Dict<V> = { [key: string]: V };
 /**
  * map identity to value.
  */
-export default class IdentityMap<V> {
+export default class IdentityMap<V> extends EEObject {
 
   private _fqnObjectMap: Dict<V> = {};
   private _idResolver: IdResolver = new IdResolver();
@@ -22,6 +24,7 @@ export default class IdentityMap<V> {
   public set(key: Identity, value: V): void {
     this._fqnObjectMap[key.fqn] = value;
     this._idResolver.add(key);
+    this.emit(EVENT_SET_VALUE<V>(), { key, value });
   }
 
   /**

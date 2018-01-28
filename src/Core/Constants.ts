@@ -1,5 +1,6 @@
 import MessageException from "../Tool/MessageException";
 import GomlNode from "./GomlNode";
+import Identity from "./Identity";
 
 type GomlNodeAddEventArgs = {
   ownerScriptTag: HTMLScriptElement,
@@ -39,6 +40,9 @@ export const EVENT_TREE_DID_ADDED = "root-node-added" as EventID<GomlNodeAddEven
 
 export function EVENT_SET_PROMISE_ATTRIBUTE<T>(): EventID<Promise<T>> {
   return "EVENT_SET_PROMISE_ATTRIBUTE";
+}
+export function EVENT_SET_VALUE<T>(): EventID<{ key: Identity, value: T }> {
+  return "EVENT_SET_VALUE";
 }
 
 export default {
