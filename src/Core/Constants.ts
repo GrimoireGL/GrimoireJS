@@ -37,6 +37,10 @@ export const EVENT_MESSAGE_ERROR = "messageerror" as EventID<MessageException>;
 export const EVENT_TREE_WILL_ADD = "treeWillAdd" as EventID<GomlNodeAddEventArgs>;
 export const EVENT_TREE_DID_ADDED = "root-node-added" as EventID<GomlNodeAddEventArgs>;
 
+export function EVENT_SET_PROMISE_ATTRIBUTE<T>(): EventID<Promise<T>> {
+  return "EVENT_SET_PROMISE_ATTRIBUTE";
+}
+
 export default {
   DEFAULT_NAMESPACE,
   X_GR_ID,
@@ -49,4 +53,4 @@ export default {
  */
 export interface IEvent<T> { }
 
-export type EventID<T> = string & IEvent<T>;
+export type EventID<T= any> = string & IEvent<T>;

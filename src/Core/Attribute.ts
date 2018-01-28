@@ -1,3 +1,4 @@
+import EEObject from "../Base/EEObject";
 import Environment from "../Core/Environment";
 import Identity from "../Core/Identity";
 import IdentityMap from "../Core/IdentityMap";
@@ -8,6 +9,7 @@ import IdResolver from "../Tool/IdResolver";
 import { GomlInterface, Name, Nullable, Undef } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
 import Component from "./Component";
+import { EVENT_SET_PROMISE_ATTRIBUTE } from "./Constants";
 
 export type Subscription = {
   unsubscribe(): void,
@@ -16,7 +18,7 @@ export type Subscription = {
 /**
  * internal use!
  */
-export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends IConverterDeclaration<T>, A extends StandardAttribute<T> | LazyAttribute<T>> {
+export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends IConverterDeclaration<T>, A extends StandardAttribute<T> | LazyAttribute<T>> extends EEObject {
   /**
    * convert value by provided converter.
    * @param converter
@@ -94,6 +96,11 @@ export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends ICon
   public component: Component;
 
   /**
+   * Indicates that waiting for the converter returned promise.
+   */
+  public isPending = false;
+
+  /**
    * The declaration of attribute used for defining this attribute.
    * @type {IAttributeDeclaration}
    */
@@ -142,6 +149,10 @@ export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends ICon
         watcher(newValue, old, self);
       });
     }
+  }
+
+  protected __notifySetPromise<P>(promise: Promise<P>) {
+    this.emit(EVENT_SET_PROMISE_ATTRIBUTE<P>(), promise);
   }
 }
 
@@ -195,7 +206,10 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
     const old = this._lastValuete;
     const evaluated = this._valuate(val);
     if (evaluated instanceof Promise) {
+      this.isPending = true;
+      this.__notifySetPromise(evaluated);
       evaluated.then(v => {
+        this.isPending = false;
         this._lastValuete = v;
         this.__notifyChange(old, v, this);
       });
@@ -384,7 +398,10 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     const old = this._lastValuete;
     const evaluated = this._valuate(val);
     if (evaluated instanceof Promise) {
+      this.isPending = true;
+      this.__notifySetPromise(evaluated);
       evaluated.then(v => {
+        this.isPending = false;
         if (v === undefined) {
           const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
           throw new Error(errorMessage);

@@ -6,11 +6,11 @@ import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
 import MessageException from "../Tool/MessageException";
 import {
+  ComponentIdentifier,
   Ctor,
   GomlInterface,
   Name,
   Nullable,
-  ComponentIdentifier,
 } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
@@ -656,9 +656,6 @@ export default class GomlNode extends EEObject {
   public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory?: true): T;
   public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory: false): Nullable<T>;
   public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory = true): Nullable<T> {
-    // 事情により<T extends Component>とはできない。
-    // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
-    // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるらである。
     if (!name) {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
