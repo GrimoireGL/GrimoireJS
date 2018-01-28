@@ -10,6 +10,7 @@ import {
   GomlInterface,
   Name,
   Nullable,
+  ComponentIdentifier,
 } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
 import XMLReader from "../Tool/XMLReader";
@@ -652,7 +653,9 @@ export default class GomlNode extends EEObject {
    * @param  {Name}  name [description]
    * @return {Component}   component found first.
    */
-  public getComponent<T>(name: Name | Ctor<T>): Nullable<T> {
+  public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory?: true): T;
+  public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory: false): Nullable<T>;
+  public getComponent<T extends Component = Component>(name: Name | Ctor<T>, mandatory = true): Nullable<T> {
     // 事情により<T extends Component>とはできない。
     // これはref/Core/Componentによって参照されるのが外部ライブラリにおけるコンポーネントであるが、
     // src/Core/Componentがこのプロジェクトにおけるコンポーネントのため、別のコンポーネントとみなされ、型の制約をみたさなくなるらである。
@@ -660,13 +663,16 @@ export default class GomlNode extends EEObject {
       throw new Error("name must not be null or undefined");
     } else if (typeof name === "function") {
       const component = this._components.find(c => c instanceof name) as any as (T | undefined);
+      if (mandatory && !component) {
+        throw new Error(`getComponent for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified component don't exist.`);
+      }
       return component || null;
     } else {
       const ctor = Ensure.tobeComponentConstructor(name);
       if (!ctor) {
-        throw new Error(`component ${name} is not exist`);
+        throw new Error(`component ${name} haven't been registered`);
       }
-      return this.getComponent<T>(ctor as any as Ctor<T>);
+      return this.getComponent<T>(ctor as any as Ctor<T>, mandatory as any);
     }
   }
 
@@ -674,11 +680,11 @@ export default class GomlNode extends EEObject {
    * get all components for chilcren recursively.
    * @param name
    */
-  public getComponentsInChildren<T>(name: Name | Ctor<T>): T[] {
+  public getComponentsInChildren<T extends Component = Component>(name: Name | Ctor<T>): T[] {
     if (name == null) {
       throw new Error("getComponentsInChildren recieve null or undefined");
     }
-    return this.callRecursively(node => node.getComponent<T>(name)).filter(c => !!c) as any;
+    return this.callRecursively(node => node.getComponent<T>(name, false)).filter(c => !!c) as any;
   }
 
   /**
@@ -688,12 +694,18 @@ export default class GomlNode extends EEObject {
    * @param  {[type]} name==null [description]
    * @return {[type]}            [description]
    */
-  public getComponentInAncestor<T>(name: Name | Ctor<T>): Nullable<T> {
+  public getComponentInAncestor<T extends Component = Component>(name: Name | Ctor<T>, mandatory?: true): T;
+  public getComponentInAncestor<T extends Component = Component>(name: Name | Ctor<T>, mandatory: false): Nullable<T>;
+  public getComponentInAncestor<T extends Component = Component>(name: Name | Ctor<T>, mandatory = true): Nullable<T> {
     if (name == null) {
       throw new Error("getComponentInAncestor recieve null or undefined");
     }
     if (this.parent) {
-      return this.parent._getComponentInAncestor(name);
+      const parentComponent = this.parent._getComponentInAncestor(name);
+      if (mandatory && !parentComponent) {
+        throw new Error(`getComponentInAncestor for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified component don't exist in ancestor.`);
+      }
+      return parentComponent;
     }
     return null;
   }
@@ -920,8 +932,8 @@ export default class GomlNode extends EEObject {
     }
   }
 
-  private _getComponentInAncestor<T>(name: Name | (new () => T)): Nullable<T> {
-    const ret = this.getComponent(name);
+  private _getComponentInAncestor<T extends Component>(name: Name | (new () => T)): Nullable<T> {
+    const ret = this.getComponent(name, false);
     if (ret) {
       return ret;
     }
