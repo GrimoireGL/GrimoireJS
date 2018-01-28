@@ -146,6 +146,7 @@ export default class Component extends IDObject {
       if (mandatory && !ret) {
         throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified attribute don't exist.`);
       }
+      return ret;
     }
     for (const key in this.declaration.attributes) {
       if (this.declaration.attributes[key] === name) {

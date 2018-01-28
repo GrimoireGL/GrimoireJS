@@ -56,14 +56,14 @@ class EEObject extends IDObject {
    * Calls each of the listeners registered for a given event.
    */
   public emit<T>(event: EventID<T> | string | symbol, args: T): boolean {
-    throw new Error("this method will be override.");
+    throw new Error(`this method will be override.${event}${args}`);
   }
 
   /**
    * Add a listener for a given event.
    */
   public on<T= any>(event: EventID<T> | string | symbol, fn: (args: T) => void, context?: any): this {
-    throw new Error("this method will be override.");
+    throw new Error(`this method will be override.${event}${fn}${context}`);
   }
 
 }

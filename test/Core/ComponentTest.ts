@@ -4,7 +4,7 @@ import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
 });
 
@@ -82,12 +82,17 @@ test("get/set attribute should works correctly", (t) => {
   const superComponent = superComponentDec.generateInstance();
   const hogeComponent = hogeComponentDec.generateInstance();
 
-  t.truthy(!hogeComponent.getAttributeRaw("notfound"));
+  t.truthy(!hogeComponent.getAttributeRaw("notfound", false));
+  t.throws(() => {
+    hogeComponent.getAttributeRaw("notfound");
+  });
   t.truthy(hogeComponent.getAttributeRaw("attr1"));
   t.truthy(hogeComponent.getAttributeRaw("grimoirejs.Hoge.attr1"));
   t.truthy(hogeComponent.getAttributeRaw("grimoirejs.attr1"));
   t.truthy(hogeComponent.getAttributeRaw("_grimoirejs.Hoge.attr1"));
-  t.truthy(!hogeComponent.getAttributeRaw("_grimoirejs.attr1"));
+  t.throws(() => {
+    hogeComponent.getAttributeRaw("_grimoirejs.attr1");
+  });
   t.truthy(hogeComponent.getAttributeRaw("Hoge.attr1"));
 
   hogeComponent.setAttribute("attr1", "some value");

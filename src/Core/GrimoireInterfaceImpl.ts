@@ -1,11 +1,9 @@
 import EEObject from "../Base/EEObject";
 import GrimoireComponent from "../Component/GrimoireComponent";
 import TemplateComponent from "../Component/TemplateComponent";
-import ArrayConverter from "../Converter/ArrayConverter";
 import BooleanConverter from "../Converter/BooleanConverter";
 import ComponentConverter from "../Converter/ComponentConverter";
 import EnumConverter from "../Converter/EnumConverter";
-import NumberArrayConverter from "../Converter/NumberArrayConverter";
 import NumberConverter from "../Converter/NumberConverter";
 import ObjectConverter from "../Converter/ObjectConverter";
 import StringArrayConverter from "../Converter/StringArrayConverter";
@@ -241,8 +239,6 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.registerConverter(BooleanConverter);
     this.registerConverter(ObjectConverter);
     this.registerConverter(NumberConverter);
-    this.registerConverter("NumberArray", NumberArrayConverter);
-    this.registerConverter(ArrayConverter);
     this.registerConverter(EnumConverter);
     this.registerConverter(ComponentConverter);
     this.registerComponent(GrimoireComponent);
