@@ -29,7 +29,7 @@ import {
   Nullable,
 } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
-import {StandardAttribute} from "./Attribute";
+import { StandardAttribute } from "./Attribute";
 import { DEFAULT_NAMESPACE, EVENT_GOML_DID_ADDED, EVENT_GOML_DID_REMOVE, EVENT_GOML_WILL_ADD, EVENT_GOML_WILL_REMOVE, EVENT_TREE_DID_ADDED, EVENT_TREE_WILL_ADD, X_ROOT_NODE_ID } from "./Constants";
 import Environment from "./Environment";
 import GomlMutationObserver from "./GomlMutationObserver";
@@ -138,7 +138,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    * Import core and plugin modules.
    * @param path The same import path as TypeScript import.
    */
-  public import(path: string): any {
+  public import(path: string, requireDefault = false): any {
     Utility.assert(!!path, "import path must be string");
     const pathes = path.split("/");
 
@@ -146,11 +146,11 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (pathes.length === 1 || (pathes.length === 2 && pathes[1] === "ref")) {
       const p = pathes[0];
       if (p === "grimoirejs") {
-        return Environment.GrimoireInterface;
+        return requireDefault ? Environment.GrimoireInterface : { default: Environment.GrimoireInterface };
       }
       const obj = findLib(p, this.lib);
       Utility.assert(!!obj, `invalid import path: ${path}`);
-      return obj;
+      return requireDefault ? obj.default : obj;
     }
 
     // import module
@@ -181,7 +181,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
           throw new Error(`import path ${path} is not found in ${_pluginName}`);
         }
       }
-      return target.default ? target.default : target;
+      return target;
     }
   }
 
