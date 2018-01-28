@@ -320,6 +320,9 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
 
   private _valuate(raw: any): () => Nullable<T> {
     if (raw === null) {
+      if (this.declaration.notNull) {
+        throw new Error("this Attribute must not be null");
+      }
       return () => null;
     }
     const v = this.converter.convert(raw, this, this.converterContext);
@@ -511,6 +514,9 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
 
   private _valuate(raw: any): null | T {
     if (raw === null) {
+      if (this.declaration.notNull) {
+        throw new Error("this Attribute must not be null");
+      }
       return null;
     }
     const v = this.converter.convert(raw, this, this.converterContext);
