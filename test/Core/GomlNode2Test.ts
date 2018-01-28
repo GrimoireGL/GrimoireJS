@@ -2,7 +2,7 @@ import test from "ava";
 import * as _ from "lodash";
 import { assert, spy } from "sinon";
 import GrimoireComponent from "../../src/Component/GrimoireComponent";
-import {StandardAttribute} from "../../src/Core/Attribute";
+import { StandardAttribute } from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GomlNode from "../../src/Core/GomlNode";
@@ -57,7 +57,7 @@ function resetSpies() {
 }
 let rootNode: GomlNode;
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   registerGoml();
   registerTestNode1();
@@ -292,7 +292,9 @@ test("Remove() should invoke unmount before deleting", (t) => {
 
 test("Get component return value correctly", (t) => {
   const testNode2 = rootNode.children[0].children[0];
-  t.truthy(!testNode2.getComponent("TestComponent1"));
+  t.throws(() => testNode2.getComponent("TestComponent1"));
+  t.notThrows(() => testNode2.getComponent("TestComponent1", false));
+  t.falsy(testNode2.getComponent("TestComponent1", false));
   t.truthy(testNode2.getComponent("TestComponent2")); // Must check actually the instance being same.
 });
 
@@ -508,7 +510,7 @@ test("addNode works correctly", (t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === "idtest");
 });
 
-test("null should be \"\" as id and classname", async(t) => {
+test("null should be \"\" as id and classname", async (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
@@ -526,7 +528,7 @@ test("null should be \"\" as id and classname", async(t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
 });
 
-test("null should be \"\" as id and classname", async(t) => {
+test("null should be \"\" as id and classname", async (t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
