@@ -1,5 +1,5 @@
 import IConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import { Name } from "../Tool/Types";
+import { Name, Nullable } from "../Tool/Types";
 import Component from "./Component";
 
 /**
@@ -8,17 +8,18 @@ import Component from "./Component";
  * @param defaults default value
  * @param options addtional attribute params
  */
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, options?: Object) {
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: Nullable<string> = null, options?: Object) {
     options = options || {};
     return function decolator(target: Component, name: string) {
+        const _attributeName = attributeName || name;
         if (!(target.constructor as any).hasOwnProperty("attributes")) {
             (target.constructor as any)["attributes"] = {};
         }
         const attrs = (target.constructor as any)["attributes"];
-        if (attrs[name]) {
-            throw Error(`attribute ${name} is already defined in ${target.constructor.name}`);
+        if (attrs[_attributeName]) {
+            throw Error(`attribute ${_attributeName} is already defined in ${target.constructor.name}`);
         }
-        attrs[name] = {
+        attrs[_attributeName] = {
             converter,
             default: defaults,
             ...options,
@@ -28,8 +29,7 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
             target.hooks = [];
         }
         target.hooks!.push((self: Component) => {
-            const a = self.getAttributeRaw(name);
-            a.bindTo(name, self);
+            self.getAttributeRaw(_attributeName).bindTo(name, self);
         });
     };
 }

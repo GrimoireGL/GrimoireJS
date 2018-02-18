@@ -201,15 +201,14 @@ export default class Component extends IDObject {
     this.node.removeComponent(this);
   }
 
-  public callHooks(me: any) {
-    const self = Object.getPrototypeOf(this);
-    const parent = Object.getPrototypeOf(self);
-    if (self["callHooks"]) {
-      self.callHooks(me);
+  public callHooks(instance: Component) {
+    const parent = Object.getPrototypeOf(this);
+    if (parent["callHooks"]) {
+      parent.callHooks(instance);
     }
-    if (self.hooks) {
-      for (let i = 0; i < self.hooks.length; i++) {
-        self.hooks[i](me);
+    if (this.hooks) {
+      for (let i = 0; i < this.hooks.length; i++) {
+        this.hooks[i](instance);
       }
     }
   }
@@ -222,7 +221,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    this.callHooks(this);
+    Object.getPrototypeOf(this).callHooks(this);
     const method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();
