@@ -1,30 +1,30 @@
 import { EventEmitter, ListenerFn } from "eventemitter3";
+import { EventID } from "../Core/Constants";
 import IDObject from "./IDObject";
 
 /**
  * EventEmitterをmixinしたIDObject
  */
-class EEObject extends IDObject implements EventEmitter {
+class EEObject extends IDObject {
   /**
    * Return an array listing the events for which the emitter has registered
    * listeners.
    */
-  public eventNames: () => Array<string | symbol>;
+  public eventNames: () => (string | symbol)[];
 
   /**
    * Return the listeners registered for a given event.
    */
-  public listeners: ((event: string | symbol, exists: boolean) => Array<ListenerFn> | boolean) & ((event: string | symbol) => Array<ListenerFn>);
+  public listeners: ((event: string | symbol, exists: boolean) => ListenerFn[] | boolean) & ((event: string | symbol) => ListenerFn[]);
 
   /**
-   * Calls each of the listeners registered for a given event.
+   * Return the numbers of listeners.
    */
-  public emit: (event: string | symbol, ...args: Array<any>) => boolean;
+  public listenerCount: (event: string | symbol) => number;
 
   /**
-   * Add a listener for a given event.
+   * add listener
    */
-  public on: (event: string | symbol, fn: ListenerFn, context?: any) => this;
   public addListener: (event: string | symbol, fn: ListenerFn, context?: any) => this;
 
   /**
@@ -36,16 +36,36 @@ class EEObject extends IDObject implements EventEmitter {
    * Remove the listeners of a given event.
    */
   public removeListener: (event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) => this;
+
+  /**
+   * remove listener.
+   */
   public off: (event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) => this;
 
   /**
    * Remove all listeners, or those of the specified event.
    */
   public removeAllListeners: (event?: string | symbol) => this;
+
   constructor() {
     super();
     EventEmitter.call(this);
   }
+
+  /**
+   * Calls each of the listeners registered for a given event.
+   */
+  public emit<T>(event: EventID<T> | string | symbol, args: T): boolean {
+    throw new Error(`this method will be override.${event}${args}`);
+  }
+
+  /**
+   * Add a listener for a given event.
+   */
+  public on<T= any>(event: EventID<T> | string | symbol, fn: (args: T) => void, context?: any): this {
+    throw new Error(`this method will be override.${event}${fn}${context}`);
+  }
+
 }
 
 function applyMixins(derivedCtor: any, baseCtors: any[]) {
