@@ -87,12 +87,14 @@ export default class IdentityMap<V> extends EEObject {
     if (this.has(arg1)) {
       return Promise.resolve<Nullable<T>>(this.get(arg1) as any);
     } else {
-      return new Promise((resolve, reject) => {
-        this.once(EVENT_SET_VALUE<any>(), (obj) => {
-          if (obj.key === arg1) {
+      return new Promise((resolve) => {
+        const handler = (obj: { key: Identity, value: any }) => {
+          if (obj.key.isMatch(arg1)) {
             resolve(obj.value);
+            this.removeListener(EVENT_SET_VALUE<any>(), handler);
           }
-        });
+        };
+        this.on(EVENT_SET_VALUE<any>(), handler);
       })
     }
   }

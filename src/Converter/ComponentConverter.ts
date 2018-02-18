@@ -38,19 +38,20 @@ export const ComponentConverter = {
    * @param val
    * @param attr
    */
-  convert(val: any, attr: StandardAttribute): Undef<Component> {
+  async convert(val: any, attr: StandardAttribute): Promise<Component | null> {
     if (val instanceof GomlNode) {
       return val.getComponent<Component>(attr.declaration["target"]);
     } else if (val instanceof Component) {
       if (val.name.fqn === Ensure.tobeIdentity(attr.declaration["target"]).fqn) {
         return val;
       } else {
-        throw new Error(`Specified component must be ${attr.declaration["target"]}`);
+        throw new Error(`Specified component mupst be ${attr.declaration["target"]}`);
       }
     } else {
+      await attr.companion!.waitFor("gl"); //TODO: this is a hack to wait initializing
       const n = attr.tree!(val).first();
       if (n) {
-        return n.getComponent<Component>(attr.declaration["target"]);
+        return n.getComponent<Component>(attr.declaration["target"], false);
       }
       return null;
     }
