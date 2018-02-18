@@ -186,7 +186,7 @@ test("Normal attribute should evaluated correct timing.", t => {
   const doc = XMLReader.parseXML("<node/>");
   const node = GomlParser.parse(doc);
 
-  t.truthy(s.args.length === 1);
+  t.truthy(s.args.length === 0);
   GrimoireInterface.addRootNode(null, node);
   t.truthy(s.args[0][0] === 3);
 

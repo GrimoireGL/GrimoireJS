@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "es6",
     "module": "es6",
-    "outDir":"./test-lib",
+    "outDir": "./test-lib",
     "moduleResolution": "node",
+    "experimentalDecorators": true,
     "inlineSourceMap": true
   },
   "include": [

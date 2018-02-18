@@ -505,6 +505,7 @@ export default class GomlNode extends EEObject {
       GrimoireInterface.nodeDictionary[this.id] = this;
 
       const temp = this._components.concat();
+      this.resolveAttributesValue();
       for (let i = 0; i < temp.length; i++) {
         const target = temp[i];
         target.awake();

@@ -55,6 +55,11 @@ export default class Component extends IDObject {
   public declaration: ComponentDeclaration;
 
   /**
+   * called just before awake.
+   */
+  public hooks?: ((self: Component) => void)[];
+
+  /**
    * Flag that this component is activated or not.
    * @type {boolean}
    */
@@ -203,6 +208,11 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
+    if (this.hooks !== undefined) {
+      for (let i = 0; i < this.hooks.length; i++) {
+        this.hooks[i](this);
+      }
+    }
     const method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();

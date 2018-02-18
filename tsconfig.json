@@ -9,6 +9,7 @@
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": false,
+    "experimentalDecorators": true,
     "strict": true
   },
   "include": [

@@ -38,7 +38,6 @@ export default class GrimoireComponent extends Component {
    */
   protected $awake(): void {
     const node = this.node;
-    node.resolveAttributesValue();
     this.getAttributeRaw(GrimoireComponent.attributes.id).watch((attr) => {
       node.element.id = attr ? attr : "";
     }, true, true);
