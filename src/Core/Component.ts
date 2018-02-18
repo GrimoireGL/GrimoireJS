@@ -1,3 +1,4 @@
+import { deprecate } from "util";
 import IDObject from "../Base/IDObject";
 import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
@@ -269,7 +270,12 @@ export default class Component extends IDObject {
       });
     }
   }
+
+  /**
+   * @deprecated
+   */
   protected __bindAttributes(): void {
+    Utility.w("Deprecated warning: Component#__bindAttributes() is deprecated. use @attribute decorator instead of.");
     this.attributes.forEach(attr => {
       const name = attr.name.name;
       attr.bindTo(name);

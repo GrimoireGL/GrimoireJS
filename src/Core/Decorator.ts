@@ -1,6 +1,14 @@
+import { IAttributeDeclaration } from "../Interface/IAttributeDeclaration";
+import { Name } from "../Tool/Types";
 import Component from "./Component";
 
-export function attribute(converter: any, defaults: any, options?: Object) {
+/**
+ * Annotate that the property is Attribute.
+ * @param converter converter
+ * @param defaults default value
+ * @param options addtional attribute params
+ */
+export function attribute(converter: Name | IAttributeDeclaration, defaults: any, options?: Object) {
     options = options || {};
     return function decolator(target: Component, name: string) {
         let attrs = (target.constructor as any)["attributes"];
@@ -28,14 +36,26 @@ export function attribute(converter: any, defaults: any, options?: Object) {
     };
 }
 
+/**
+ * Annotate that the property binds to companion value.
+ * the property
+ * @param key
+ */
 export function companion(key: string) {
     return function decolator(target: Component, name: string) {
         if (target.hooks === undefined) {
             target.hooks = [];
         }
-        target.hooks.push(async(self: Component) => {
-            const v = await self.companion.waitFor(key);
-            (self as any)[name] = v;
+        target.hooks.push((self: Component) => {
+            const a = self.companion.get(key);
+            if (a == null) {
+                (async function() {
+                    const v = await self.companion.waitFor(key);
+                    (self as any)[name] = v;
+                })();
+            } else {
+                (self as any)[name] = a;
+            }
         });
     };
 }
