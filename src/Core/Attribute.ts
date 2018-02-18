@@ -18,7 +18,13 @@ export type Subscription = {
 /**
  * internal use!
  */
-export class AttributeBase<T, V, D extends IAttributeDeclaration, C extends IConverterDeclaration<T>, A extends StandardAttribute<T> | LazyAttribute<T>> extends EEObject {
+export class AttributeBase<
+  T,
+  V,
+  D extends IAttributeDeclaration,
+  C extends IConverterDeclaration<T>,
+  A extends StandardAttribute<T> | LazyAttribute<T>
+  > extends EEObject {
   /**
    * convert value by provided converter.
    * @param converter

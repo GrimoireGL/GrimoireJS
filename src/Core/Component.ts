@@ -5,7 +5,7 @@ import Ensure from "../Tool/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
 import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
-import { AttributeNamespace } from "./AttributeNamespace";
+import AttributeNamespace from "./AttributeNamespace";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
@@ -280,7 +280,7 @@ export default class Component extends IDObject {
       throw new Error(`AttributeNamespace for ${baseName} is already exists`);
     }
 
-    const poc = new AttributeNamespace(this, baseName);
+    const poc = new AttributeNamespace(this, baseName, this.__addAttribute);
     this._parametricContextMap[baseName] = poc;
     return poc;
   }

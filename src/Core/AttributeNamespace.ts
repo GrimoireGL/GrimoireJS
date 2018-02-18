@@ -3,7 +3,7 @@ import Attribute, { LazyAttribute, StandardAttribute } from "./Attribute";
 import Component from "./Component";
 import Namespace from "./Namespace";
 
-export default class AttributeNamespace {
+export class AttributeNamespace {
     public ns: Namespace;
     public children: AttributeNamespace[] = [];
     public attributes: Attribute[] = [];
@@ -58,3 +58,5 @@ export default class AttributeNamespace {
     }
 
 }
+
+export default AttributeNamespace;
