@@ -218,3 +218,11 @@ testcases.forEach((testcase, i) => {
     t.deepEqual(result, testcase.expected);
   });
 });
+
+test("ensure resolveAttributes do not colled on parsing.", (t) => {
+  const gom = testcases[0].expected;
+  const node = GomlParser.parseGOMToGomlNode(gom);
+  t.truthy(!node["_defaultValueResolved"]);
+  Environment.GrimoireInterface.addRootNode(undefined, node);
+  t.truthy(node["_defaultValueResolved"]);
+});

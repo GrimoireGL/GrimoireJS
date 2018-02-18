@@ -91,7 +91,6 @@ export default class GomlParser {
         node._addComponentDirectly(c, false);
       });
       node.gomAttribute = source.attributes || {};
-      node.resolveAttributesValue();
       (source.children || []).forEach(it => createNode(it, node));
       return node;
     }
