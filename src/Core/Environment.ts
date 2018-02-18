@@ -8,7 +8,7 @@ export class Environment {
   /**
    * global document object
    */
-  public document: Document;
+  public document!: Document;
 
   /**
    * Node object.
@@ -17,17 +17,17 @@ export class Environment {
   /**
    * DomParser
    */
-  public DomParser: DOMParser;
+  public DomParser!: DOMParser;
 
   /**
    * XMLSerializer.
    */
-  public XMLSerializer: XMLSerializer;
+  public XMLSerializer!: XMLSerializer;
 
   /**
    * GrimoireInterface
    */
-  public GrimoireInterface: GrimoireInterface;
+  public GrimoireInterface!: GrimoireInterface;
 }
 
 export default new Environment();

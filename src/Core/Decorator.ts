@@ -3,7 +3,6 @@ import Component from "./Component";
 export function attribute(converter: any, defaults: any, options?: Object) {
     options = options || {};
     return function decolator(target: Component, name: string) {
-        // debugger;
         let attrs = (target.constructor as any)["attributes"];
         if (!attrs) {
             attrs = {};
@@ -31,7 +30,6 @@ export function attribute(converter: any, defaults: any, options?: Object) {
 
 export function companion(key: string) {
     return function decolator(target: Component, name: string) {
-        // debugger;
         if (target.hooks === undefined) {
             target.hooks = [];
         }

@@ -21,17 +21,17 @@ export default class Component extends IDObject {
    * Name of this component
    * @type {Identity}
    */
-  public name: Identity;
+  public name!: Identity;
   /**
    * Attributes managed by this component
    * @type {IdentityMap<StandardAttribute>}
    */
-  public attributes: IdentityMap<Attribute>;
+  public attributes!: IdentityMap<Attribute>;
   /**
    * Node this component is attached
    * @type {GomlNode}
    */
-  public node: GomlNode;
+  public node!: GomlNode;
 
   /**
    * default attribute defined in GOML
@@ -52,7 +52,7 @@ export default class Component extends IDObject {
   /**
    * component declaration object.
    */
-  public declaration: ComponentDeclaration;
+  public declaration!: ComponentDeclaration;
 
   /**
    * called just before awake.

@@ -16,7 +16,7 @@ export default class NodeDeclaration {
    * Components attached to this node by default.
    * this property is not consider inheritance.
    */
-  public defaultComponents: IdentitySet;
+  public defaultComponents!: IdentitySet;
 
   /**
    * attributes set to this node by default.
@@ -33,15 +33,15 @@ export default class NodeDeclaration {
   /**
    * identity set of freeze attributes.
    */
-  public freezeAttributes: IdentitySet;
+  public freezeAttributes!: IdentitySet;
 
   /**
    * Internal use!
    */
   public idResolver = new IdResolver();
 
-  private _defaultComponentsActual: IdentitySet;
-  private _defaultAttributesActual: IdentityMap<any>;
+  private _defaultComponentsActual!: IdentitySet;
+  private _defaultAttributesActual!: IdentityMap<any>;
   private _resolvedDependency = false;
 
   private _freezeAttributes: Name[];
