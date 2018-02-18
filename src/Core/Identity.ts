@@ -1,5 +1,6 @@
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
+import { Name } from "../Tool/Types";
 import Namespace from "./Namespace";
 
 /**
@@ -113,15 +114,20 @@ export default class Identity {
    * whether this identity fqn is match provided name.
    * @param name this
    */
-  public isMatch(name: string): boolean {
-    if (Ensure.checkFQNString(name)) {
-      return this._fqn === Ensure.tobeFQN(name);
+  public isMatch(name: Name): boolean {
+    if (typeof name === "string") {
+      if (Ensure.checkFQNString(name)) {
+        return this._fqn === Ensure.tobeFQN(name);
+      } else {
+        const resolver = new IdResolver();
+        resolver.add(this);
+        const get = resolver.get(name);
+        return get.length === 1;
+      }
     } else {
-      const resolver = new IdResolver();
-      resolver.add(this);
-      const get = resolver.get(name);
-      return get.length === 1;
+      return this._fqn === name._fqn;
     }
+
   }
 
   /**

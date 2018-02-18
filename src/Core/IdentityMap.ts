@@ -83,7 +83,7 @@ export default class IdentityMap<V> extends EEObject {
     }
   }
 
-  public waitFor<T extends V = V>(arg1: string): Promise<Nullable<T>> {
+  public waitFor<T extends V = V>(arg1: Name): Promise<Nullable<T>> {
     if (this.has(arg1)) {
       return Promise.resolve<Nullable<T>>(this.get(arg1) as any);
     } else {
@@ -95,7 +95,7 @@ export default class IdentityMap<V> extends EEObject {
           }
         };
         this.on(EVENT_SET_VALUE<any>(), handler);
-      })
+      });
     }
   }
 
@@ -112,8 +112,12 @@ export default class IdentityMap<V> extends EEObject {
    * check key is exists in this map.
    * @param name
    */
-  public has(name: string): boolean {
-    return this._idResolver.get(Namespace.defineByArray(name.split("."))).length !== 0;
+  public has(name: Name): boolean {
+    if (typeof name === "string") {
+      return this._idResolver.get(Namespace.defineByArray(name.split("."))).length !== 0;
+    } else {
+      return this._idResolver.get(name.fqn).length !== 0;
+    }
   }
 
   /**

@@ -1,4 +1,4 @@
-import { IAttributeDeclaration } from "../Interface/IAttributeDeclaration";
+import IConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { Name } from "../Tool/Types";
 import Component from "./Component";
 
@@ -8,7 +8,7 @@ import Component from "./Component";
  * @param defaults default value
  * @param options addtional attribute params
  */
-export function attribute(converter: Name | IAttributeDeclaration, defaults: any, options?: Object) {
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, options?: Object) {
     options = options || {};
     return function decolator(target: Component, name: string) {
         let attrs = (target.constructor as any)["attributes"];
@@ -16,8 +16,13 @@ export function attribute(converter: Name | IAttributeDeclaration, defaults: any
             attrs = {};
             (target.constructor as any)["attributes"] = attrs;
         } else {
-            if (attrs[name]) {
-                throw Error(`attribute ${name} is already defined in ${target.constructor.name}`);
+            if (!(target.constructor as any).hasOwnProperty("attributes")) {
+                attrs = {};
+                (target.constructor as any)["attributes"] = attrs;
+            } else {
+                if (attrs[name]) {
+                    throw Error(`attribute ${name} is already defined in ${target.constructor.name}`);
+                }
             }
         }
 
@@ -38,10 +43,10 @@ export function attribute(converter: Name | IAttributeDeclaration, defaults: any
 
 /**
  * Annotate that the property binds to companion value.
- * the property
- * @param key
+ * the property will be set on value is set to companion.
+ * @param key companion key
  */
-export function companion(key: string) {
+export function companion(key: Name) {
     return function decolator(target: Component, name: string) {
         if (target.hooks === undefined) {
             target.hooks = [];
@@ -60,7 +65,13 @@ export function companion(key: string) {
     };
 }
 
-export function watch(attributeName: string, immedateCalls = false, ignoireActiveness = false) {
+/**
+ * Annotate that function called when change attribute values.
+ * @param attributeName attribute name or identity
+ * @param immedateCalls
+ * @param ignoireActiveness
+ */
+export function watch(attributeName: Name, immedateCalls = false, ignoireActiveness = false) {
     return function decorator(target: Component, name: string) {
         if (target.hooks === undefined) {
             target.hooks = [];
