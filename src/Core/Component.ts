@@ -5,10 +5,12 @@ import Ensure from "../Tool/Ensure";
 import { GomlInterface, Name, Nullable } from "../Tool/Types";
 import * as Utility from "../Tool/Utility";
 import { Attribute, LazyAttribute, StandardAttribute } from "./Attribute";
+import AttributeNamespace from "./AttributeNamespace";
 import ComponentDeclaration from "./ComponentDeclaration";
 import GomlNode from "./GomlNode";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
+import Namespace from "./Namespace";
 
 /**
  * Base class for any components
@@ -61,6 +63,7 @@ export default class Component extends IDObject {
   private _handlers: ((component: Component) => void)[] = [];
   private _additionalAttributesNames: Identity[] = [];
   private _initializedInfo: Nullable<ITreeInitializedInfo> = null;
+  private _parametricContextMap: { [key: string]: AttributeNamespace } = {};
 
   /**
    * whether component enabled.
@@ -271,4 +274,15 @@ export default class Component extends IDObject {
   protected __setCompanionWithSelfNS(name: string, value: any) {
     this.companion.set(this.name.ns.for(name), value);
   }
+
+  protected __createParametricObject(baseName: string): AttributeNamespace {
+    if (this._parametricContextMap[baseName]) {
+      throw new Error(`AttributeNamespace for ${baseName} is already exists`);
+    }
+
+    const poc = new AttributeNamespace(this, baseName, this.__addAttribute);
+    this._parametricContextMap[baseName] = poc;
+    return poc;
+  }
+
 }
