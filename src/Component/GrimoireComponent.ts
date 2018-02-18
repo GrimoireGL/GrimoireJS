@@ -1,6 +1,7 @@
 import BooleanConverter from "../Converter/BooleanConverter";
 import StringConverter from "../Converter/StringConverter";
 import Component from "../Core/Component";
+import { attribute } from "../Core/Decorator";
 import Identity from "../Core/Identity";
 import Namespace from "../Core/Namespace";
 import { __NAMESPACE__ } from "../metaInfo";
@@ -32,6 +33,12 @@ export default class GrimoireComponent extends Component {
       default: true,
     },
   };
+
+  // @attribute("S", null)
+  // public id = "aaa";
+
+  // @attribute("S", null)
+  // public class = "aaa";
 
   /**
    * awake

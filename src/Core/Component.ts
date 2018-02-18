@@ -58,7 +58,7 @@ export default class Component extends IDObject {
   /**
    * called just before awake.
    */
-  public hooks?: ((self: Component) => void)[];
+  public hooks: ((self: Component) => void)[] = [];
 
   /**
    * Flag that this component is activated or not.
@@ -201,6 +201,19 @@ export default class Component extends IDObject {
     this.node.removeComponent(this);
   }
 
+  public callHooks(me: any) {
+    const self = Object.getPrototypeOf(this);
+    const parent = Object.getPrototypeOf(self);
+    if (self["callHooks"]) {
+      self.callHooks(me);
+    }
+    if (self.hooks) {
+      for (let i = 0; i < self.hooks.length; i++) {
+        self.hooks[i](me);
+      }
+    }
+  }
+
   /**
    * Interal use!
    */
@@ -209,11 +222,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    if (this.hooks !== undefined) {
-      for (let i = 0; i < this.hooks.length; i++) {
-        this.hooks[i](this);
-      }
-    }
+    this.callHooks(this);
     const method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();

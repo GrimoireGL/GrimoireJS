@@ -11,30 +11,23 @@ import Component from "./Component";
 export function attribute(converter: Name | IConverterDeclaration, defaults: any, options?: Object) {
     options = options || {};
     return function decolator(target: Component, name: string) {
-        let attrs = (target.constructor as any)["attributes"];
-        if (!attrs) {
-            attrs = {};
-            (target.constructor as any)["attributes"] = attrs;
-        } else {
-            if (!(target.constructor as any).hasOwnProperty("attributes")) {
-                attrs = {};
-                (target.constructor as any)["attributes"] = attrs;
-            } else {
-                if (attrs[name]) {
-                    throw Error(`attribute ${name} is already defined in ${target.constructor.name}`);
-                }
-            }
+        if (!(target.constructor as any).hasOwnProperty("attributes")) {
+            (target.constructor as any)["attributes"] = {};
         }
-
+        const attrs = (target.constructor as any)["attributes"];
+        if (attrs[name]) {
+            throw Error(`attribute ${name} is already defined in ${target.constructor.name}`);
+        }
         attrs[name] = {
             converter,
             default: defaults,
             ...options,
         };
-        if (target.hooks === undefined) {
+
+        if (!target.hasOwnProperty("hooks")) {
             target.hooks = [];
         }
-        target.hooks.push((self: Component) => {
+        target.hooks!.push((self: Component) => {
             const a = self.getAttributeRaw(name);
             a.bindTo(name, self);
         });
@@ -48,10 +41,10 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
  */
 export function companion(key: Name) {
     return function decolator(target: Component, name: string) {
-        if (target.hooks === undefined) {
+        if (!target.hasOwnProperty("hooks")) {
             target.hooks = [];
         }
-        target.hooks.push((self: Component) => {
+        target.hooks!.push((self: Component) => {
             const a = self.companion.get(key);
             if (a == null) {
                 (async function() {
@@ -73,10 +66,10 @@ export function companion(key: Name) {
  */
 export function watch(attributeName: Name, immedateCalls = false, ignoireActiveness = false) {
     return function decorator(target: Component, name: string) {
-        if (target.hooks === undefined) {
+        if (!target.hasOwnProperty("hooks")) {
             target.hooks = [];
         }
-        target.hooks.push((self: Component) => {
+        target.hooks!.push((self: Component) => {
             (self.getAttributeRaw(attributeName) as any).watch((newValue: any, oldValue: any, attr: any) => {
                 (self as any)[name](newValue, oldValue, attr);
             }, immedateCalls, ignoireActiveness);
