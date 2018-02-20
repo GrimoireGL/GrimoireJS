@@ -221,7 +221,7 @@ export default class Component extends IDObject {
       return false;
     }
     this._awaked = true;
-    Object.getPrototypeOf(this).callHooks(this);
+    this._resolveHooks();
     const method = (this as any)["$$awake"];
     if (typeof method === "function") {
       method();
@@ -307,6 +307,13 @@ export default class Component extends IDObject {
     const poc = new AttributeNamespace(this, baseName, this.__addAttribute);
     this._parametricContextMap[baseName] = poc;
     return poc;
+  }
+
+  /**
+   * Call hooks before awaking
+   */
+  private _resolveHooks(): void {
+    Object.getPrototypeOf(this).callHooks(this);
   }
 
 }

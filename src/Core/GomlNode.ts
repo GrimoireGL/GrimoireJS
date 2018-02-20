@@ -576,7 +576,8 @@ export default class GomlNode extends EEObject {
     }
 
     if (this._mounted) {
-      this._sendMessageForcedTo(component, "$$awake");
+      component.awake();
+      // this._sendMessageForcedTo(component, "$$awake");
       this._sendMessageForcedTo(component, "$$mount");
     }
 
