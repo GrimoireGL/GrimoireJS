@@ -1,5 +1,5 @@
 import IConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
-import { Name, Nullable } from "../Tool/Types";
+import { Ctor, Name, Nullable } from "../Tool/Types";
 import Component from "./Component";
 
 /**
@@ -66,13 +66,45 @@ export function companion(key: Name) {
  */
 export function watch(attributeName: Name, immedateCalls = false, ignoireActiveness = false) {
     return function decorator(target: Component, name: string) {
-        if (!target.hasOwnProperty("hooks")) {
-            target.hooks = [];
-        }
+        ensureHooks(target);
         target.hooks!.push((self: Component) => {
             (self.getAttributeRaw(attributeName) as any).watch((newValue: any, oldValue: any, attr: any) => {
                 (self as any)[name](newValue, oldValue, attr);
             }, immedateCalls, ignoireActiveness);
         });
     };
+}
+
+/**
+ * Decorator for fetching component included in current node automatically.
+ * @param componentName name to identify component. String or constructor of a component
+ * @param mandatory flag to note this component must be existing
+ */
+export function component(componentName: string | Ctor<Component>, mandatory = true) {
+    return function decorator(target: Component, name: string) {
+        ensureHooks(target);
+        target.hooks!.push((self: Component) => {
+            (self as any)[name] = self.node.getComponent(componentName, mandatory as any);
+        });
+    };
+}
+
+/**
+ * Decorator for fetching component included in ancestor node automatically.
+ * @param componentName name to identify component. String or constructor of a component
+ * @param mandatory flag to note this component must be existing
+ */
+export function componentInAncestor(componentName: string | Ctor<Component>, mandatory = true) {
+    return function decorator(target: Component, name: string) {
+        ensureHooks(target);
+        target.hooks!.push((self: Component) => {
+            (self as any)[name] = self.node.getComponentInAncestor(componentName, mandatory as any);
+        });
+    };
+}
+
+function ensureHooks(target: Component) {
+    if (!target.hasOwnProperty("hooks")) {
+        target.hooks = [];
+    }
 }

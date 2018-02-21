@@ -6,6 +6,8 @@ import { attribute, companion, watch } from "../../src/Core/Decorator";
 import Environment from "../../src/Core/Environment";
 import Identity from "../../src/Core/Identity";
 import TestEnvManager from "../TestEnvManager";
+import { NumberConverter } from "../../src/Converter/NumberConverter";
+import { BooleanConverter } from "../../src/Converter/BooleanConverter";
 
 TestEnvManager.init();
 
@@ -121,8 +123,23 @@ test("@attribute works correctly with inheritance", async(t) => {
         public fuga = "";
     }
 
+    class C extends Component {
+        public static componentName = "Foo2";
+
+        @attribute(NumberConverter,10)
+        public foo2:number;
+    }
+
+    class D extends C {
+        public static componentName = "Hoge";
+
+        @attribute(BooleanConverter,false)
+        public hoge2:boolean;
+    }
+
     gr.registerComponent(A);
     gr.registerComponent(B);
+    gr.registerComponent(D);
     gr.registerNode("a", [A]);
     gr.registerNode("b", [B]);
 
@@ -143,6 +160,7 @@ test("@attribute works correctly with inheritance", async(t) => {
 
     const a = node.getComponent(A);
     const b = node2.getComponent(B);
+    const d:D = node2.addComponent(D);
 
     t.truthy(a.hoge === "base");
     t.truthy(b.hoge === "base");
@@ -150,6 +168,14 @@ test("@attribute works correctly with inheritance", async(t) => {
     b.hoge = "change";
     t.truthy(a.hoge === "base");
     t.truthy(b.hoge === "change");
+    t.truthy(D["attributes"]);
+    t.truthy(D["attributes"]["hoge2"]);
+    t.truthy(D["attributes"]["hoge2"].default === false);
+    t.truthy(C["attributes"]);
+    t.truthy(C["attributes"]["foo2"]);
+    t.truthy(C["attributes"]["foo2"].default === 10);
+    t.truthy(d.hoge2 === false);
+    t.truthy(d.foo2 === 10);
 });
 
 test("@companion works correctly", async(t) => {
