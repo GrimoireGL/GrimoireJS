@@ -1,7 +1,7 @@
 import test from "ava";
 import { assert, spy } from "sinon";
 import GrimoireComponent from "../../src/Component/GrimoireComponent";
-import {StandardAttribute} from "../../src/Core/Attribute";
+import { StandardAttribute } from "../../src/Core/Attribute";
 import GomlParser from "../../src/Core/GomlParser";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
 import Identity from "../../src/Core/Identity";
@@ -283,4 +283,16 @@ test("promise attribute should evaluated correct timing.", async t => {
   resolver(5);
   await p2;
   t.truthy(node.getAttribute("promise") === 5);
+  // For checking exceptions of promise attributes
+
+  const node2 = TestUtil.DummyTreeInit("<node/>");
+  let resolver2;
+  const p3 = new Promise((resolve) => {
+    resolver2 = resolve;
+  });
+  node2.setAttribute("promise", p3);
+  t.notThrows(() => node2.getAttribute("promise"));
+  t.truthy(node2.getAttribute("promise") === void 0);
+  resolver2(6);
+  t.truthy(node2.getAttribute("promise") === 6);
 });
