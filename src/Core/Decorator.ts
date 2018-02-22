@@ -25,7 +25,7 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
     } else if (typeof attributeName === "object" && attributeName !== null) {// 3rd overload
         _options = attributeName;
     } else { // 2nd overload
-        _attributeName = attributeName;
+        _attributeName = attributeName as string;
     }
     return function decolator(target: Component, name: string) {
         const __attributeName = _attributeName || name; // if attributeName is not given, use `name`

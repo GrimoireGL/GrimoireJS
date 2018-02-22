@@ -53,7 +53,7 @@ export class AttributeBase<
    * @param {boolean}       constant  Whether this attribute is immutable or not. False as default.
    */
   public static generateAttributeForComponent<T>(name: string, declaration: IAttributeDeclaration<T>, component: Component): StandardAttribute<T> | LazyAttribute<T> {
-    const identity = Identity.fromFQN(`${component.name.fqn}.${name}`);
+    const identity = Identity.fromFQN(`${component.identity.fqn}.${name}`);
     if (component.attributes.get(identity)) {
       throw new Error(`attribute ${identity} is already exists in component`);
     }
@@ -62,7 +62,7 @@ export class AttributeBase<
     if (!converter) {
       // When the specified converter was not found
       const cn = typeof converterName === "string" ? converterName : converterName.name;
-      throw new Error(`Specified converter ${cn} was not found from registered converters.\n Component: ${component.name.fqn}\n Attribute: ${identity.name}`);
+      throw new Error(`Specified converter ${cn} was not found from registered converters.\n Component: ${component.identity.fqn}\n Attribute: ${identity.name}`);
     }
     if (converter.lazy) {
       const attr = new LazyAttribute<T>();
@@ -346,7 +346,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
       return () => null;
     }
     const v = this.converter.convert(raw, this, this.converterContext);
-    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
+    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
     if (typeof v !== "function") {
       throw new Error("lazy converter returns value must be function");
     }
@@ -409,7 +409,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
       evaluated.then(v => {
         this.isPending = false;
         if (v === undefined) {
-          const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+          const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
           throw new Error(errorMessage);
         }
         this._lastValuete = v;
@@ -544,7 +544,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     }
     const v = this.converter.convert(raw, this, this.converterContext);
     if (v === undefined) {
-      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.name.name}(${this.component.name.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
       throw new Error(errorMessage);
     }
     return v;

@@ -323,7 +323,7 @@ test("async message reciever called with await", async t => {
     ["mounted:parent"],
   ]);
 
-  spy1.reset();
+  spy1.resetHistory();
 
   middle.detach();
   t.deepEqual(spy1.args, [
@@ -333,7 +333,7 @@ test("async message reciever called with await", async t => {
     ["unmount:middle"],
   ]);
 
-  spy1.reset();
+  spy1.resetHistory();
   root.remove();
   t.deepEqual(spy1.args, [
     ["preunmount:parent"],
@@ -386,7 +386,7 @@ test("async message reciever called with await", async t => {
     ["mounted:parent"],
   ]);
 
-  spy1.reset();
+  spy1.resetHistory();
 
   root.remove();
   t.deepEqual(spy1.args, [

@@ -1,11 +1,9 @@
+import test from "ava";
 import * as _ from "lodash";
+import xhrmock from "xhr-mock";
 import Environment from "../../src/Core/Environment";
-import fs from "../fileHelper";
 import GomlLoader from "../../src/Core/GomlLoader";
 import GrimoireInterface from "../../src/Core/GrimoireInterface";
-import test from "ava";
-import TestEnvManager from "../TestEnvManager";
-import xhrmock from "xhr-mock";
 import {
   registerConflictComponent1,
   registerConflictComponent2,
@@ -23,6 +21,8 @@ import {
   registerTestNode3,
   registerTestNodeBase,
 } from "../DummyObjectRegisterer";
+import fs from "../fileHelper";
+import TestEnvManager from "../TestEnvManager";
 
 const testcase1_goml = fs.readFile("../_TestResource/GomlNodeTest_Case1.goml");
 const testcase1_html = fs.readFile("../_TestResource/GomlNodeTest_Case1.html");
@@ -41,14 +41,14 @@ let stringConverterSpy,
   conflictComponent2Spy;
 
 function resetSpies() {
-  stringConverterSpy.reset();
-  testComponent1Spy.reset();
-  testComponent2Spy.reset();
-  testComponent3Spy.reset();
-  testComponentBaseSpy.reset();
-  testComponentOptionalSpy.reset();
-  conflictComponent1Spy.reset();
-  conflictComponent2Spy.reset();
+  stringConverterSpy.resetHistory();
+  testComponent1Spy.resetHistory();
+  testComponent2Spy.resetHistory();
+  testComponent3Spy.resetHistory();
+  testComponentBaseSpy.resetHistory();
+  testComponentOptionalSpy.resetHistory();
+  conflictComponent1Spy.resetHistory();
+  conflictComponent2Spy.resetHistory();
 }
 test.beforeEach(async() => {
   GrimoireInterface.clear();

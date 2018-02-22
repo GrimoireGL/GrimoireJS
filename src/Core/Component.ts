@@ -22,7 +22,7 @@ export default class Component extends IDObject {
    * Name of this component
    * @type {Identity}
    */
-  public name!: Identity;
+  public identity!: Identity;
   /**
    * Attributes managed by this component
    * @type {IdentityMap<StandardAttribute>}
@@ -122,7 +122,7 @@ export default class Component extends IDObject {
     if (attr) {
       attr.Value = value;
     } else {
-      throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
+      throw new Error(`attribute ${name} is not defined in ${this.identity.fqn}`);
     }
   }
 
@@ -135,7 +135,7 @@ export default class Component extends IDObject {
     if (attr) {
       return attr.Value;
     } else {
-      throw new Error(`attribute ${name} is not defined in ${this.name.fqn}`);
+      throw new Error(`attribute ${name} is not defined in ${this.identity.fqn}`);
     }
   }
 
@@ -153,7 +153,7 @@ export default class Component extends IDObject {
     if (Ensure.isName(name)) {
       const ret = this.attributes.get(name);
       if (mandatory && !ret) {
-        throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified attribute don't exist.`);
+        throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.identity.name}(${this.identity.fqn}) but specified attribute don't exist.`);
       }
       return ret;
     }
@@ -163,7 +163,7 @@ export default class Component extends IDObject {
       }
     }
     if (mandatory) {
-      throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified attribute don't exist.`);
+      throw new Error(`getAttributeRaw for attribute "${name}" with mandatory flag was called on ${this.identity.name}(${this.identity.fqn}) but specified attribute don't exist.`);
     }
     return null;
   }
@@ -216,15 +216,19 @@ export default class Component extends IDObject {
   /**
    * Interal use!
    */
-  public awake(): boolean {
+  public internalMount(): boolean {
     if (this._awaked) {
       return false;
     }
     this._awaked = true;
     this._resolveHooks();
-    const method = (this as any)["$$awake"];
-    if (typeof method === "function") {
-      method();
+    const methodAwake = (this as any)["$$awake"];
+    if (typeof methodAwake === "function") {
+      methodAwake();
+    }
+    const methodMount = (this as any)["$$mount"];
+    if (typeof methodMount === "function") {
+      methodMount();
     }
     return true;
   }
@@ -296,7 +300,7 @@ export default class Component extends IDObject {
    * @param value
    */
   protected __setCompanionWithSelfNS(name: string, value: any) {
-    this.companion.set(this.name.ns.for(name), value);
+    this.companion.set(this.identity.ns.for(name), value);
   }
 
   protected __createParametricObject(baseName: string): AttributeNamespace {

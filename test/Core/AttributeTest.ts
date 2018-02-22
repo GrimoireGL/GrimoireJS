@@ -59,7 +59,7 @@ test("watch/unwatch should works correctly", t => {
   t.truthy(s.args[0][1] === null);
   t.truthy(s.args[0][2] === idAttr);
 
-  s.reset();
+  s.resetHistory();
   idAttr.unwatch(watcher);
   idAttr.Value = "newValue2";
   assert.notCalled(s);

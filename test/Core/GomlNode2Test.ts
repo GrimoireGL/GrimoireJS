@@ -46,18 +46,18 @@ let stringConverterSpy,
   conflictComponent2Spy;
 
 function resetSpies() {
-  stringConverterSpy.reset();
-  testComponent1Spy.reset();
-  testComponent2Spy.reset();
-  testComponent3Spy.reset();
-  testComponentBaseSpy.reset();
-  testComponentOptionalSpy.reset();
-  conflictComponent1Spy.reset();
-  conflictComponent2Spy.reset();
+  stringConverterSpy.resetHistory();
+  testComponent1Spy.resetHistory();
+  testComponent2Spy.resetHistory();
+  testComponent3Spy.resetHistory();
+  testComponentBaseSpy.resetHistory();
+  testComponentOptionalSpy.resetHistory();
+  conflictComponent1Spy.resetHistory();
+  conflictComponent2Spy.resetHistory();
 }
 let rootNode: GomlNode;
 
-test.beforeEach(async () => {
+test.beforeEach(async() => {
   GrimoireInterface.clear();
   registerGoml();
   registerTestNode1();
@@ -161,7 +161,7 @@ test("attribute watch should work correctly", (t) => {
   idAttr.Value = "id";
   t.truthy(s.getCall(0).args[0] === "id");
 
-  s.reset();
+  s.resetHistory();
   rootNode.enabled = false;
   idAttr.Value = "id";
   assert.notCalled(s);
@@ -510,7 +510,7 @@ test("addNode works correctly", (t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("id") === "idtest");
 });
 
-test("null should be \"\" as id and classname", async (t) => {
+test("null should be \"\" as id and classname", async(t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",
@@ -528,7 +528,7 @@ test("null should be \"\" as id and classname", async (t) => {
   t.truthy(child.getComponent(GrimoireComponent).getAttribute("class") === null);
 });
 
-test("null should be \"\" as id and classname", async (t) => {
+test("null should be \"\" as id and classname", async(t) => {
   const testNode2 = rootNode.children[0].children[0];
   testNode2.addChildByName("test-node2", {
     testAttr2: "ADDEDNODE",

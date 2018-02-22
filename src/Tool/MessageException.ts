@@ -24,7 +24,7 @@ export default class MessageException extends Error {
         if (this.component === singleComponent) {
           marker = "<<<<<<<<< This component";
         }
-        componentMessage += `  (${i})  <${singleComponent.name.fqn}>  ${marker}\n\n   Attributes:\n`;
+        componentMessage += `  (${i})  <${singleComponent.identity.fqn}>  ${marker}\n\n   Attributes:\n`;
         singleComponent.attributes.forEach(a => {
           try {
             componentMessage += `    ${a.name.fqn} --- ${a.Value}\n`;
@@ -34,9 +34,9 @@ export default class MessageException extends Error {
         });
         componentMessage += "\n\n";
       }
-      this.message = `[${error.name}]: ${error.message}\n\nThis exception was thrown in message function. Following information are snapshot of GOML tree status.\n\n* Node:  <${node.toString()}>\n* Component:  <${component.name.fqn}>\n* Message:  ${messageName} \n\n* Node map:\n ${node.toStructualString(`--------(Error was thrown from ${component.name.fqn} component of this node.)`)}\n\n* Components of this node:\n${componentMessage}\n\n`;
+      this.message = `[${error.name}]: ${error.message}\n\nThis exception was thrown in message function. Following information are snapshot of GOML tree status.\n\n* Node:  <${node.toString()}>\n* Component:  <${component.identity.fqn}>\n* Message:  ${messageName} \n\n* Node map:\n ${node.toStructualString(`--------(Error was thrown from ${component.identity.fqn} component of this node.)`)}\n\n* Components of this node:\n${componentMessage}\n\n`;
     } else {
-      this.message = `${error.message}\n [Message stack]: ${this.messageName} at <${this.component.name.fqn}> on <${this.node.toString()}>\n`;
+      this.message = `${error.message}\n [Message stack]: ${this.messageName} at <${this.component.identity.fqn}> on <${this.node.toString()}>\n`;
     }
     this.stack = error.stack;
     const proto = Object.getPrototypeOf(this);

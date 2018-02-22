@@ -75,7 +75,7 @@ export default class ComponentDeclaration {
     }
     const component = new this.ctor();
     Environment.GrimoireInterface.componentDictionary[component.id] = component;
-    component.name = this.name;
+    component.identity = this.name;
     component.attributes = new IdentityMap<StandardAttribute>();
     component.declaration = this;
     for (const key in this.attributes) {

@@ -504,12 +504,11 @@ export default class GomlNode extends EEObject {
       // register to GrimoireInterface.
       GrimoireInterface.nodeDictionary[this.id] = this;
 
-      const temp = this._components.concat();
       this.resolveAttributesValue();
+      const temp = this._components.concat();
       for (let i = 0; i < temp.length; i++) {
         const target = temp[i];
-        target.awake();
-        this._sendMessageForcedTo(target, "$$mount");
+        target.internalMount();
       }
       for (let i = 0; i < this.children.length; i++) {
         this.children[i].setMounted(true);
@@ -576,9 +575,7 @@ export default class GomlNode extends EEObject {
     }
 
     if (this._mounted) {
-      component.awake();
-      // this._sendMessageForcedTo(component, "$$awake");
-      this._sendMessageForcedTo(component, "$$mount");
+      component.internalMount();
     }
 
     // sending `initialized` message if needed.
