@@ -41,10 +41,10 @@ test("component poperties should be initialized correctly", (t) => {
   const superComponent = superComponentDec.generateInstance();
   const hogeComponent = hogeComponentDec.generateInstance();
 
-  t.truthy(hogeComponent.name.fqn === "grimoirejs.Hoge");
-  t.truthy(superComponent.name.fqn === "grimoirejs.Super");
+  t.truthy(hogeComponent.identity.fqn === "grimoirejs.Hoge");
+  t.truthy(superComponent.identity.fqn === "grimoirejs.Super");
   t.truthy(hogeComponent.node === superComponent.node);
-  t.truthy(hogeComponent.name.fqn === "grimoirejs.Hoge");
+  t.truthy(hogeComponent.identity.fqn === "grimoirejs.Hoge");
   t.truthy(!hogeComponent.disposed);
   t.truthy(!superComponent.disposed);
 });

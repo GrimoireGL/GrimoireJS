@@ -2,7 +2,18 @@ import IConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { Ctor, Name, Nullable } from "../Tool/Types";
 import Component from "./Component";
 
-export type Decorator = (target: Component, name: string) => void;
+export type ComponentPropertyDecorator = (target: Component, name: string) => void;
+
+function addHook(target: Component, message: string, callback: (self: Component) => void) {
+    if (!target.hasOwnProperty("hooks")) {
+        target.hooks = {};
+    }
+    if (!target.hooks[message]) {
+        target.hooks[message] = [];
+    }
+    const hooks = target.hooks[message];
+    hooks.push(callback);
+}
 
 /**
  * Annotate that the property is Attribute.
@@ -10,11 +21,11 @@ export type Decorator = (target: Component, name: string) => void;
  * @param defaults default value
  * @param options addtional attribute params
  */
-export function attribute(converter: Name | IConverterDeclaration, defaults: any): Decorator;
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string): Decorator;
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, options: Object): Decorator;
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string, options: Object): Decorator;
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName?: string | Object, options?: Object) {
+export function attribute(converter: Name | IConverterDeclaration, defaults: any): ComponentPropertyDecorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string): ComponentPropertyDecorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, options: Object): ComponentPropertyDecorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string, options: Object): ComponentPropertyDecorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName?: string | Object, options?: Object): ComponentPropertyDecorator {
     let _options: Object = {};
     let _attributeName: string | null = null;
     if (options != null) {// 4th overload
@@ -42,10 +53,7 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
             ..._options,
         };
 
-        if (!target.hasOwnProperty("hooks")) {
-            target.hooks = [];
-        }
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             self.getAttributeRaw(__attributeName).bindTo(name, self);
         });
     };
@@ -58,10 +66,8 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
  */
 export function companion(key: Name) {
     return function decolator(target: Component, name: string) {
-        if (!target.hasOwnProperty("hooks")) {
-            target.hooks = [];
-        }
-        target.hooks!.push((self: Component) => {
+
+        addHook(target, "awake", (self: Component) => {
             const a = self.companion.get(key);
             if (a == null) {
                 (async function() {
@@ -83,8 +89,7 @@ export function companion(key: Name) {
  */
 export function watch(attributeName: Name, immedateCalls = false, ignoireActiveness = false) {
     return function decorator(target: Component, name: string) {
-        ensureHooks(target);
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             (self.getAttributeRaw(attributeName) as any).watch((newValue: any, oldValue: any, attr: any) => {
                 (self as any)[name](newValue, oldValue, attr);
             }, immedateCalls, ignoireActiveness);
@@ -99,8 +104,7 @@ export function watch(attributeName: Name, immedateCalls = false, ignoireActiven
  */
 export function component(componentName: string | Ctor<Component>, mandatory = true) {
     return function decorator(target: Component, name: string) {
-        ensureHooks(target);
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             (self as any)[name] = self.node.getComponent(componentName, mandatory as any);
         });
     };
@@ -113,15 +117,8 @@ export function component(componentName: string | Ctor<Component>, mandatory = t
  */
 export function componentInAncestor(componentName: string | Ctor<Component>, mandatory = true) {
     return function decorator(target: Component, name: string) {
-        ensureHooks(target);
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             (self as any)[name] = self.node.getComponentInAncestor(componentName, mandatory as any);
         });
     };
-}
-
-function ensureHooks(target: Component) {
-    if (!target.hasOwnProperty("hooks")) {
-        target.hooks = [];
-    }
 }

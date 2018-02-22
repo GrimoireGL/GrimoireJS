@@ -58,7 +58,7 @@ export default class Component extends IDObject {
   /**
    * called just before awake.
    */
-  public hooks: ((self: Component) => void)[] = [];
+  public hooks: { [message: string]: ((self: Component) => void)[] } = {};
 
   /**
    * Flag that this component is activated or not.
@@ -197,40 +197,21 @@ export default class Component extends IDObject {
   /**
    * Interal use!
    */
-  public dispose(): void {
-    this.node.removeComponent(this);
-  }
-
-  public callHooks(instance: Component) {
-    const parent = Object.getPrototypeOf(this);
-    if (parent["callHooks"]) {
-      parent.callHooks(instance);
-    }
-    if (this.hooks) {
-      for (let i = 0; i < this.hooks.length; i++) {
-        this.hooks[i](instance);
-      }
-    }
-  }
-
-  /**
-   * Interal use!
-   */
   public internalMount(): boolean {
-    if (this._awaked) {
-      return false;
-    }
-    this._awaked = true;
-    this._resolveHooks();
-    const methodAwake = (this as any)["$$awake"];
-    if (typeof methodAwake === "function") {
-      methodAwake();
+    const awakeCalled = !this._awaked;
+    if (!this._awaked) {
+      this._awaked = true;
+      this._resolveHooks("awake");
+      const methodAwake = (this as any)["$$awake"];
+      if (typeof methodAwake === "function") {
+        methodAwake();
+      }
     }
     const methodMount = (this as any)["$$mount"];
     if (typeof methodMount === "function") {
       methodMount();
     }
-    return true;
+    return awakeCalled;
   }
 
   /**
@@ -316,8 +297,23 @@ export default class Component extends IDObject {
   /**
    * Call hooks before awaking
    */
-  private _resolveHooks(): void {
-    Object.getPrototypeOf(this).callHooks(this);
+  private _resolveHooks(hookMessage: string): void {
+    Object.getPrototypeOf(this)._callHooks(this, hookMessage);
+  }
+
+  private _callHooks(instance: Component, hookMessage: string) {
+    const parent = Object.getPrototypeOf(this);
+    if (parent["_callHooks"]) {
+      parent._callHooks(instance, hookMessage);
+    }
+    if (this.hooks) {
+      const hooks = this.hooks[hookMessage];
+      if (hooks) {
+        for (let i = 0; i < hooks.length; i++) {
+          hooks[i](instance);
+        }
+      }
+    }
   }
 
 }

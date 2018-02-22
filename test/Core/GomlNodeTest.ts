@@ -200,7 +200,7 @@ test("addComponent method works correctly", t => {
   node._addComponentDirectly(component, true);
   const components = node.getComponents<Component>();
   t.truthy(components.length === 2);
-  t.truthy(components[1].name.name === "TestComponent1");
+  t.truthy(components[1].identity.name === "TestComponent1");
   t.truthy(component.isDefaultComponent);
 });
 test("addComponent method works correctly", t => {
@@ -219,7 +219,7 @@ test("addComponent method works correctly", t => {
   const component = node.addComponent("TestComponent1", { testAttr1: "testValue" });
   const components = node.getComponents<Component>();
   t.truthy(components.length === 2);
-  t.truthy(components[1].name.name === "TestComponent1");
+  t.truthy(components[1].identity.name === "TestComponent1");
   t.truthy(components[1].getAttribute("testAttr1") === "testValue");
   t.truthy(component.isDefaultComponent === false);
 });
@@ -248,8 +248,8 @@ test("getComponent method overload works correctly", async t => {
   await GrimoireInterface.resolvePlugins();
 
   node.addComponent("TestComponent2");
-  t.truthy(node.getComponent<Component>("TestComponent2").name.name === "TestComponent2");
-  t.truthy(node.getComponent<Component>("TestComponent1").name.name === "TestComponent2");
+  t.truthy(node.getComponent<Component>("TestComponent2").identity.name === "TestComponent2");
+  t.truthy(node.getComponent<Component>("TestComponent1").identity.name === "TestComponent2");
 });
 test("getComponents method overload works correctly", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
