@@ -48,7 +48,7 @@ export function overrideGetter(func: (value: any) => any) {
             const descriptor = Object.getOwnPropertyDescriptor(self, name);
             Object.defineProperty(self, name, {
                 ...descriptor,
-                get: func(descriptor.get()),
+                get: () => func.call(self, descriptor.get()),
             });
         });
     };

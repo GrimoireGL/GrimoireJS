@@ -1,23 +1,23 @@
 import test from "ava";
 import { spy } from "sinon";
+import { BooleanConverter } from "../../src/Converter/BooleanConverter";
+import { NumberConverter } from "../../src/Converter/NumberConverter";
 import StringConverter from "../../src/Converter/StringConverter";
 import Component from "../../src/Core/Component";
-import { attribute, companion, watch } from "../../src/Core/Decorator";
+import { attribute, companion, overrideGetter, watch } from "../../src/Core/Decorator";
 import Environment from "../../src/Core/Environment";
 import Identity from "../../src/Core/Identity";
 import TestEnvManager from "../TestEnvManager";
-import { NumberConverter } from "../../src/Converter/NumberConverter";
-import { BooleanConverter } from "../../src/Converter/BooleanConverter";
 
 TestEnvManager.init();
 
 const gr = Environment.GrimoireInterface;
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
     gr.clear();
 });
 
-test("@attribute generate static attributes property, and binding correctly.", async(t) => {
+test("@attribute generate static attributes property, and binding correctly.", async (t) => {
     class A extends Component {
         public static componentName = "Hoo";
 
@@ -50,7 +50,7 @@ test("@attribute generate static attributes property, and binding correctly.", a
     t.truthy(c.getAttribute("hoge") === "other value");
 });
 
-test("attributes merging correctly", async(t) => {
+test("attributes merging correctly", async (t) => {
     class A extends Component {
         public static componentName = "hoo";
         public static attributes = {};
@@ -97,6 +97,35 @@ test("attributes merging correctly", async(t) => {
 
 });
 
+test("@attribute works correctly with @overrideGetter", async (t) => {
+    class A extends Component {
+        public static componentName = "Hoo";
+
+        @overrideGetter((v) => v + " overwritten")
+        @attribute(StringConverter, "default value")
+        public hoge = "";
+    }
+
+    t.truthy((A as any).attributes.hoge);
+    t.truthy((A as any).attributes.hoge.default === "default value");
+
+    gr.registerComponent(A);
+    gr.registerNode("a", [A]);
+
+    await gr.resolvePlugins();
+
+    TestEnvManager.loadGoml("<a/>");
+
+    let node;
+    for (const a in gr.rootNodes) {
+        node = gr.rootNodes[a];
+        break;
+    }
+    const comp: A = node.getComponent(A);
+    t.truthy(comp.hoge === "default value overwritten");
+
+});
+
 test("@attribute works correctly with altanative name and additional parameters.", async(t) => {
     class A extends Component {
         public static componentName = "Hoo";
@@ -126,15 +155,15 @@ test("@attribute works correctly with inheritance", async(t) => {
     class C extends Component {
         public static componentName = "Foo2";
 
-        @attribute(NumberConverter,10)
-        public foo2:number;
+        @attribute(NumberConverter, 10)
+        public foo2: number;
     }
 
     class D extends C {
         public static componentName = "Hoge";
 
-        @attribute(BooleanConverter,false)
-        public hoge2:boolean;
+        @attribute(BooleanConverter, false)
+        public hoge2: boolean;
     }
 
     gr.registerComponent(A);
@@ -160,7 +189,7 @@ test("@attribute works correctly with inheritance", async(t) => {
 
     const a = node.getComponent(A);
     const b = node2.getComponent(B);
-    const d:D = node2.addComponent(D);
+    const d: D = node2.addComponent(D);
 
     t.truthy(a.hoge === "base");
     t.truthy(b.hoge === "base");
