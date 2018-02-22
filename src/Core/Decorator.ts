@@ -2,34 +2,51 @@ import IConverterDeclaration from "../Interface/IAttributeConverterDeclaration";
 import { Ctor, Name, Nullable } from "../Tool/Types";
 import Component from "./Component";
 
+export type Decorator = (target: Component, name: string) => void;
+
 /**
  * Annotate that the property is Attribute.
  * @param converter converter
  * @param defaults default value
  * @param options addtional attribute params
  */
-export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: Nullable<string> = null, options?: Object) {
-    options = options || {};
+export function attribute(converter: Name | IConverterDeclaration, defaults: any): Decorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string): Decorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, options: Object): Decorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName: string, options: Object): Decorator;
+export function attribute(converter: Name | IConverterDeclaration, defaults: any, attributeName?: string | Object, options?: Object) {
+    let _options: Object = {};
+    let _attributeName: string | null = null;
+    if (options != null) {// 4th overload
+        _options = options;
+        _attributeName = attributeName as string;
+    } else if (attributeName == null) {// 1st overload
+        _attributeName = null;
+    } else if (typeof attributeName === "object" && attributeName !== null) {// 3rd overload
+        _options = attributeName;
+    } else { // 2nd overload
+        _attributeName = attributeName;
+    }
     return function decolator(target: Component, name: string) {
-        const _attributeName = attributeName || name;
+        const __attributeName = _attributeName || name; // if attributeName is not given, use `name`
         if (!(target.constructor as any).hasOwnProperty("attributes")) {
             (target.constructor as any)["attributes"] = {};
         }
         const attrs = (target.constructor as any)["attributes"];
-        if (attrs[_attributeName]) {
-            throw Error(`attribute ${_attributeName} is already defined in ${target.constructor.name}`);
+        if (attrs[__attributeName]) {
+            throw Error(`attribute ${__attributeName} is already defined in ${target.constructor.name}`);
         }
-        attrs[_attributeName] = {
+        attrs[__attributeName] = {
             converter,
             default: defaults,
-            ...options,
+            ..._options,
         };
 
         if (!target.hasOwnProperty("hooks")) {
             target.hooks = [];
         }
         target.hooks!.push((self: Component) => {
-            self.getAttributeRaw(_attributeName).bindTo(name, self);
+            self.getAttributeRaw(__attributeName).bindTo(name, self);
         });
     };
 }
