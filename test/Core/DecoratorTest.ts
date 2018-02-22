@@ -4,7 +4,7 @@ import { BooleanConverter } from "../../src/Converter/BooleanConverter";
 import { NumberConverter } from "../../src/Converter/NumberConverter";
 import StringConverter from "../../src/Converter/StringConverter";
 import Component from "../../src/Core/Component";
-import { attribute, companion, watch } from "../../src/Core/Decorator";
+import { attribute, companion, overrideGetter, watch } from "../../src/Core/Decorator";
 import Environment from "../../src/Core/Environment";
 import Identity from "../../src/Core/Identity";
 import TestEnvManager from "../TestEnvManager";
@@ -13,11 +13,11 @@ TestEnvManager.init();
 
 const gr = Environment.GrimoireInterface;
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
     gr.clear();
 });
 
-test("@attribute generate static attributes property, and binding correctly.", async(t) => {
+test("@attribute generate static attributes property, and binding correctly.", async (t) => {
     class A extends Component {
         public static componentName = "Hoo";
 
@@ -50,7 +50,7 @@ test("@attribute generate static attributes property, and binding correctly.", a
     t.truthy(c.getAttribute("hoge") === "other value");
 });
 
-test("attributes merging correctly", async(t) => {
+test("attributes merging correctly", async (t) => {
     class A extends Component {
         public static componentName = "hoo";
         public static attributes = {};
@@ -94,6 +94,35 @@ test("attributes merging correctly", async(t) => {
             public hoge = "";
         }
     });
+
+});
+
+test("@attribute works correctly with @overrideGetter", async (t) => {
+    class A extends Component {
+        public static componentName = "Hoo";
+
+        @overrideGetter((v) => v + " overwritten")
+        @attribute(StringConverter, "default value")
+        public hoge = "";
+    }
+
+    t.truthy((A as any).attributes.hoge);
+    t.truthy((A as any).attributes.hoge.default === "default value");
+
+    gr.registerComponent(A);
+    gr.registerNode("a", [A]);
+
+    await gr.resolvePlugins();
+
+    TestEnvManager.loadGoml("<a/>");
+
+    let node;
+    for (const a in gr.rootNodes) {
+        node = gr.rootNodes[a];
+        break;
+    }
+    const comp: A = node.getComponent(A);
+    t.truthy(comp.hoge === "default value overwritten");
 
 });
 
