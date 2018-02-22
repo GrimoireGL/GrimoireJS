@@ -45,10 +45,32 @@ export function overrideGetter(func: (value: any) => any) {
             target.hooks = [];
         }
         target.hooks!.push((self: Component) => {
-            const descriptor = Object.getOwnPropertyDescriptor(self, name);
+            const descriptor = Object.getOwnPropertyDescriptor(self, name)!;
             Object.defineProperty(self, name, {
                 ...descriptor,
-                get: () => func.call(self, descriptor.get()),
+                get: () => func.call(self, descriptor.get!()),
+            });
+        });
+    };
+}
+
+/**
+ * Readonly decorator for attribute.
+ */
+export function readonly(attributeName: Nullable<string> = null) {
+    return function decolator(target: Component, name: string) {
+        const _attributeName = attributeName || name;
+        if (!target.hasOwnProperty("hooks")) {
+            target.hooks = [];
+        }
+        target.hooks!.push((self: Component) => {
+            const descriptor = Object.getOwnPropertyDescriptor(self, name)!;
+            Object.defineProperty(self, name, {
+                ...descriptor,
+                set: () => console.warn(`Attribute ${_attributeName} is readonly. This change will make no sence.`),
+            });
+            (self.getAttributeRaw(_attributeName) as any).watch(() => {
+                console.warn(`Attribute ${_attributeName} is readonly. This change will make no sence.`);
             });
         });
     };
@@ -67,7 +89,7 @@ export function companion(key: Name) {
         target.hooks!.push((self: Component) => {
             const a = self.companion.get(key);
             if (a == null) {
-                (async function () {
+                (async function() {
                     const v = await self.companion.waitFor(key);
                     (self as any)[name] = v;
                 })();
