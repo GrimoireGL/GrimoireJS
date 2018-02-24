@@ -8,6 +8,7 @@ import { IAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 export type Name = string | Identity;
 export type GomlInterface = GomlInterfaceImpl & IGomlInterface;
 export type IGrimoireInterface = {
+  (): Promise<void>;
   (query: string): GomlInterface;
   (query: GomlNode[]): GomlInterface;
   (callback: (scriptTags: HTMLScriptElement[]) => void): void;

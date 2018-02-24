@@ -127,10 +127,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public initializedEventHandlers: (() => void)[] = [];
 
+  /**
+   * Promise for waiting plugin resolution
+   * All gr.import for plugins should be performed after resolving this promise.
+   */
+  public pluginResolutionPromise: Promise<void> = new Promise((resolve) => this._pluginResolutionPromiseResolver = resolve);
+
   private _registeringPluginNamespace!: string;
   private _registrationContext: string = DEFAULT_NAMESPACE;
-
   private _gomlMutationObserber = new GomlMutationObserver();
+  /**
+   * Internally use.
+   * Plugin resolution plugin resolver.
+   */
+  private _pluginResolutionPromiseResolver!: () => void;
 
   /**
    * Import core and plugin modules.
@@ -304,6 +314,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
     this.nodeDeclarations.forEach(dec => {
       dec.resolveDependency();
     });
+    // Notify plugin resolution completed
+    this._pluginResolutionPromiseResolver();
   }
 
   /**

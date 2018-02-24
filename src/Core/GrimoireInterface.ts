@@ -6,10 +6,11 @@ import GrimoireInterfaceImpl from "./GrimoireInterfaceImpl";
 
 const context = new GrimoireInterfaceImpl();
 
+function obtainGomlInterface(): Promise<void>;
 function obtainGomlInterface(query: string): GomlInterface;
 function obtainGomlInterface(query: GomlNode[]): GomlInterface;
 function obtainGomlInterface(callback: () => void): void;
-function obtainGomlInterface(this: GrimoireInterface, query: string | GomlNode[] | (() => void)): void | GomlInterface {
+function obtainGomlInterface(this: GrimoireInterface, query?: string | GomlNode[] | (() => void)): void | GomlInterface | Promise<void> {
   if (typeof query === "string") {
     const gomlContext = new GomlInterfaceImpl(context.queryRootNodes(query));
     const queryFunc = gomlContext.queryFunc.bind(gomlContext);
@@ -21,6 +22,10 @@ function obtainGomlInterface(this: GrimoireInterface, query: string | GomlNode[]
     } else {
       (obtainGomlInterface as any as GrimoireInterface).initializedEventHandlers.push(query);
     }
+  } else if (query === undefined) {
+    return new Promise((resolver) => {
+      obtainGomlInterface(resolver);
+    });
   } else {
     const gomlContext = new GomlInterfaceImpl(query);
     const queryFunc = gomlContext.queryFunc.bind(gomlContext);
