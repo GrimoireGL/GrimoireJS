@@ -1,5 +1,5 @@
 import { deprecate } from "util";
-import IDObject from "../Base/IDObject";
+import IdentifiableObject from "../Base/IdentifiableObject";
 import { IAttributeDeclaration, ILazyAttributeDeclaration, IStandardAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import ITreeInitializedInfo from "../Interface/ITreeInitializedInfo";
 import Ensure from "../Tool/Ensure";
@@ -17,7 +17,7 @@ import Namespace from "./Namespace";
  * Base class for any components
  * component must be attach to node before any operation.
  */
-export default class Component extends IDObject {
+export default class Component extends IdentifiableObject {
   /**
    * Name of this component
    * @type {Identity}

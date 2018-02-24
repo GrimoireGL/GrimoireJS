@@ -66,10 +66,7 @@ export function attribute(converter: Name | IConverterDeclaration, defaults: any
  */
 export function overrideGetter(func: (value: any) => any) {
     return function decolator(target: Component, name: string) {
-        if (!target.hasOwnProperty("hooks")) {
-            target.hooks = [];
-        }
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             const descriptor = Object.getOwnPropertyDescriptor(self, name)!;
             Object.defineProperty(self, name, {
                 ...descriptor,
@@ -85,10 +82,7 @@ export function overrideGetter(func: (value: any) => any) {
 export function readonly(attributeName: Nullable<string> = null) {
     return function decolator(target: Component, name: string) {
         const _attributeName = attributeName || name;
-        if (!target.hasOwnProperty("hooks")) {
-            target.hooks = [];
-        }
-        target.hooks!.push((self: Component) => {
+        addHook(target, "awake", (self: Component) => {
             const descriptor = Object.getOwnPropertyDescriptor(self, name)!;
             Object.defineProperty(self, name, {
                 ...descriptor,
@@ -108,7 +102,6 @@ export function readonly(attributeName: Nullable<string> = null) {
  */
 export function companion(key: Name) {
     return function decolator(target: Component, name: string) {
-
         addHook(target, "awake", (self: Component) => {
             const a = self.companion.get(key);
             if (a == null) {
@@ -159,8 +152,11 @@ export function component(componentName: string | Ctor<Component>, mandatory = t
  */
 export function componentInAncestor(componentName: string | Ctor<Component>, mandatory = true) {
     return function decorator(target: Component, name: string) {
-        addHook(target, "awake", (self: Component) => {
+        addHook(target, "mount", (self: Component) => {
             (self as any)[name] = self.node.getComponentInAncestor(componentName, mandatory as any);
+        });
+        addHook(target, "unmount", (self: Component) => {
+            (self as any)[name] = null;
         });
     };
 }

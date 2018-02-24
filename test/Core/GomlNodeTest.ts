@@ -1,6 +1,6 @@
 import test from "ava";
 import { spy } from "sinon";
-import {StandardAttribute} from "../../src/Core/Attribute";
+import { StandardAttribute } from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
 import Environment from "../../src/Core/Environment";
@@ -73,7 +73,7 @@ test("addChild method works correctly", t => {
   const node2 = new GomlNode(GrimoireInterface.nodeDeclarations.get("scenes"));
   node.addChild(node2, null);
   node.addChild(node2, null);
-  t.truthy(node.children[0].id === node2.id);
+  t.truthy(node.children[0].uniqueKey === node2.uniqueKey);
   t.truthy(node.children.length === 2);
 });
 
@@ -88,7 +88,7 @@ test("append works correctly with string argument", t => {
 test("append works correctly with gom argument", t => {
   const node = new GomlNode(GrimoireInterface.nodeDeclarations.get("goml"));
   t.truthy(node.children.length === 0);
-  node.append({name: "goml"});
+  node.append({ name: "goml" });
   t.truthy(node.children.length === 1);
   t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
 });
@@ -127,7 +127,7 @@ test("detachChild method works correctly", t => {
   node.detachChild(node2);
   t.truthy(node.children.length === 0);
   t.truthy(node2.deleted === false);
-  t.truthy(node3.parent.id === node2.id);
+  t.truthy(node3.parent.uniqueKey === node2.uniqueKey);
   t.truthy(node3.deleted === false);
 });
 
@@ -145,7 +145,7 @@ test("detach method works correctly", t => {
   }
   t.truthy(node.children.length === 0);
   t.truthy(node2.deleted === false);
-  t.truthy(node3.parent.id === node2.id);
+  t.truthy(node3.parent.uniqueKey === node2.uniqueKey);
   t.truthy(node3.deleted === false);
 });
 

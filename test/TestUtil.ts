@@ -44,11 +44,11 @@ export default class TestUtil {
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", {
       ownerScriptTag: null,
-      id: rootNode.id,
+      id: rootNode.uniqueKey,
     } as ITreeInitializedInfo);
     rootNode.sendInitializedMessage({
       ownerScriptTag: null,
-      id: rootNode.id,
+      id: rootNode.uniqueKey,
     } as ITreeInitializedInfo);
     return rootNode;
   }

@@ -2,7 +2,7 @@
  * Most based object for any Grimoire.js related classes.
  * @type {[type]}
  */
-export default class IDObject {
+export default class IdentifiableObject {
 
   /**
    * Generate random string
@@ -16,10 +16,10 @@ export default class IDObject {
   /**
    * ID related to this instance to identify.
    */
-  public readonly id: string;
+  public readonly uniqueKey: string;
 
   constructor() {
-    this.id = IDObject.getUniqueRandom(10);
+    this.uniqueKey = IdentifiableObject.getUniqueRandom(10);
   }
   /**
    * Obtain stringfied object.

@@ -1,11 +1,11 @@
 import { EventEmitter, ListenerFn } from "eventemitter3";
 import { EventID } from "../Core/Constants";
-import IDObject from "./IDObject";
+import IdentifiableObject from "./IdentifiableObject";
 
 /**
- * EventEmitterをmixinしたIDObject
+ * EventEmitterをmixinしたIdentifiableObject
  */
-class EEObject extends IDObject {
+class EEObject extends IdentifiableObject {
   /**
    * Return an array listing the events for which the emitter has registered
    * listeners.
@@ -62,7 +62,7 @@ class EEObject extends IDObject {
   /**
    * Add a listener for a given event.
    */
-  public on <T= any>(event: EventID<T> | string | symbol, fn: (args: T) => void, context?: any): this {
+  public on<T= any>(event: EventID<T> | string | symbol, fn: (args: T) => void, context?: any): this {
     throw new Error(`this method will be override.${event}${fn}${context}`);
   }
 

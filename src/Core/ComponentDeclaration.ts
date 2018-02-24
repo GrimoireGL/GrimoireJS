@@ -3,7 +3,7 @@ import { IAttributeDeclaration } from "../Interface/IAttributeDeclaration";
 import Ensure from "../Tool/Ensure";
 import IdResolver from "../Tool/IdResolver";
 import { ComponentIdentifier, ComponentRegistering, Ctor } from "../Tool/Types";
-import {StandardAttribute} from "./Attribute";
+import { StandardAttribute } from "./Attribute";
 import Component from "./Component";
 import Identity from "./Identity";
 import IdentityMap from "./IdentityMap";
@@ -74,7 +74,7 @@ export default class ComponentDeclaration {
       this.resolveDependency();
     }
     const component = new this.ctor();
-    Environment.GrimoireInterface.componentDictionary[component.id] = component;
+    Environment.GrimoireInterface.componentDictionary[component.uniqueKey] = component;
     component.identity = this.name;
     component.attributes = new IdentityMap<StandardAttribute>();
     component.declaration = this;
@@ -139,7 +139,7 @@ export default class ComponentDeclaration {
     if (typeof obj === "function") { // obj is constructor
       const inheritsAttr = this._extractInheritsAttributes(obj);
       if (baseConstructor) { // inherits
-        const newCtor = function(this: any) {
+        const newCtor = function (this: any) {
           baseConstructor.call(this);
           obj.call(this);
         };
@@ -158,7 +158,7 @@ export default class ComponentDeclaration {
         throw new Error("Base component comstructor must extends Compoent class.");
       }
       const ctor = baseConstructor || Component;
-      const newCtor = function(this: any) {
+      const newCtor = function (this: any) {
         ctor.call(this);
       };
       (obj as any).__proto__ = ctor.prototype;

@@ -192,7 +192,7 @@ export default class GomlNode extends EEObject {
     this._components = [];
     this._attributeManager = new AttributeManager(declaration.name.name);
 
-    this.element.setAttribute(X_GR_ID, this.id);
+    this.element.setAttribute(X_GR_ID, this.uniqueKey);
     const defaultComponentNames = declaration.defaultComponentsActual;
 
     // instanciate default components
@@ -263,7 +263,7 @@ export default class GomlNode extends EEObject {
     });
     this._sendMessageForced("$$dispose");
     this.removeAllListeners();
-    delete GrimoireInterface.nodeDictionary[this.id];
+    delete GrimoireInterface.nodeDictionary[this.uniqueKey];
     this._deleted = true;
   }
 
@@ -502,7 +502,7 @@ export default class GomlNode extends EEObject {
       this._mounted = true;
 
       // register to GrimoireInterface.
-      GrimoireInterface.nodeDictionary[this.id] = this;
+      GrimoireInterface.nodeDictionary[this.uniqueKey] = this;
 
       this.resolveAttributesValue();
       const temp = this._components.concat();
@@ -623,7 +623,7 @@ export default class GomlNode extends EEObject {
       this._messageCache = {}; // TODO:optimize.
       delete component.node;
       component.disposed = true;
-      delete GrimoireInterface.componentDictionary[component.id];
+      delete GrimoireInterface.componentDictionary[component.uniqueKey];
       return true;
     }
     return false;

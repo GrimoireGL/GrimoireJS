@@ -379,7 +379,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
   public addRootNode(tag: Nullable<HTMLScriptElement>, rootNode: GomlNode): string {
     Utility.assert(!!rootNode, "can not register null to rootNodes.");
     Utility.assert(rootNode instanceof GomlNode, "rootNode must be instance of `GomlNode`");
-    Utility.assert(!this.rootNodes[rootNode.id], "this node is already registered.");
+    Utility.assert(!this.rootNodes[rootNode.uniqueKey], "this node is already registered.");
 
     this.emit(EVENT_TREE_WILL_ADD, {
       ownerScriptTag: tag,
@@ -387,20 +387,20 @@ export default class GrimoireInterfaceImpl extends EEObject {
     });
 
     if (tag) {
-      tag.setAttribute(X_ROOT_NODE_ID, rootNode.id);
+      tag.setAttribute(X_ROOT_NODE_ID, rootNode.uniqueKey);
     }
-    this.rootNodes[rootNode.id] = rootNode;
+    this.rootNodes[rootNode.uniqueKey] = rootNode;
     rootNode.companion.set(Namespace.define(DEFAULT_NAMESPACE).for("scriptElement"), tag);
 
     // awake and mount tree.
     rootNode.setMounted(true);
     rootNode.broadcastMessage("treeInitialized", {
       ownerScriptTag: tag,
-      id: rootNode.id,
+      id: rootNode.uniqueKey,
     } as ITreeInitializedInfo);
     rootNode.sendInitializedMessage({
       ownerScriptTag: tag,
-      id: rootNode.id,
+      id: rootNode.uniqueKey,
     } as ITreeInitializedInfo);
 
     // send events to catch root node appended
@@ -409,7 +409,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
       ownerScriptTag: tag,
       rootNode,
     });
-    return rootNode.id;
+    return rootNode.uniqueKey;
   }
 
   /**

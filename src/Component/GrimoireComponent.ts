@@ -8,7 +8,8 @@ import Namespace from "../Core/Namespace";
 import { __NAMESPACE__ } from "../metaInfo";
 
 /**
- * Basic Component for all node.
+ * Default component for all nodes.
+ * GrimoireComponent provides mandatory features for all nodes like enabled handling, class Names for querying and so on.
  */
 export default class GrimoireComponent extends Component {
 
@@ -17,36 +18,45 @@ export default class GrimoireComponent extends Component {
    */
   public static componentName: Identity = Namespace.define(__NAMESPACE__).for("GrimoireComponent");
 
-  @attribute(StringConverter, null, "id", undefined)
-  public idAttr!: string;
+  /**
+   * ID of node.
+   * By using query beginning with #, you can fetch the node.
+   */
+  @attribute(StringConverter, null)
+  public id!: string;
 
+  /**
+   * Class of node.
+   * By using query beginning with ., you can fetch the nodes.
+   */
   @attribute("StringArray", null)
   public class!: string;
 
-  @attribute(BooleanConverter, true, "enabled", undefined)
-  public enabledAttr!: boolean;
+  /**
+   * Enabled flag of this node.
+   * If this node was disabled, every components included in this node or children nodes of this node will not receive any messages until re-enabled.
+   */
+  @attribute(BooleanConverter, true, "enabled")
+  public nodeEnabled!: boolean;
 
   @watch("id", true, true)
-  protected idWatch(attr: string) {
+  protected __onIDChanged(attr: string) {
     this.node.element.id = attr ? attr : "";
   }
 
   @watch("class", true, true)
-  protected classWatch(attr: string) {
+  protected __onClassChanged(attr: string) {
     this.node.element.className = Array.isArray(attr) ? attr.join(" ") : "";
   }
 
   @watch("enabled", false, true)
-  protected enabledWatch(attr: string) {
+  protected __onEnabledChanged(attr: string) {
     const node = this.node;
     node["_enabled"] = !!attr;
     const p = node.parent;
     node.notifyActivenessUpdate(p ? p.isActive && node.enabled : node.enabled);
   }
 
-  /**
-   * awake
-   */
   protected $awake(): void {
     const node = this.node;
     node["_enabled"] = this.getAttribute("enabled");
