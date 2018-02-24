@@ -207,6 +207,7 @@ export default class Component extends IdentifiableObject {
         methodAwake();
       }
     }
+    this._resolveHooks("mount");
     const methodMount = (this as any)["$$mount"];
     if (typeof methodMount === "function") {
       methodMount();
