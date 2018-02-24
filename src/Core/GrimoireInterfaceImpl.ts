@@ -168,8 +168,8 @@ export default class GrimoireInterfaceImpl extends EEObject {
     if (pluginName === "grimoirejs") {
       return findModule(importPath, this.lib["core"], pluginName);
     }
-    return findModule(importPath, findLib(pluginName, this.lib), pluginName);
-
+    const moduleRef = findModule(importPath, findLib(pluginName, this.lib), pluginName);
+    return requireDefault ? moduleRef.default : moduleRef;
     function findLib(pluginFullName: string, lib: typeof GrimoireInterface.lib) {
       for (const key in lib) {
         const target = lib[key];
