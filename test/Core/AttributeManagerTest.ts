@@ -1,14 +1,14 @@
 import test from "ava";
 import { assert, spy as sinonSpy } from "sinon";
-import {StandardAttribute} from "../../src/Core/Attribute";
+import { StandardAttribute } from "../../src/Core/Attribute";
 import AttributeManager from "../../src/Core/AttributeManager";
 import Identity from "../../src/Core/Identity";
 import TestEnvManager from "../TestEnvManager";
 
 TestEnvManager.init();
 
-const genAttr: (name: Identity, watch?: Function | undefined) => StandardAttribute = (name, watch) => {
-  return { name, watch, Value: "value of " + name } as StandardAttribute;
+const genAttr: (identity: Identity, watch?: Function | undefined) => StandardAttribute = (identity, watch) => {
+  return { identity, watch, Value: "value of " + identity } as StandardAttribute;
 };
 
 const ns1 = Identity.fromFQN("aaa");
@@ -66,17 +66,17 @@ test("addAttribute with value/watch buffers should works correctly", (t) => {
   const fqn2 = "notregisterd.fqn.hoge2";
   const spy = sinonSpy();
   const attrRaw = new StandardAttribute();
-  attrRaw.name = Identity.fromFQN(fqn2);
+  attrRaw.identity = Identity.fromFQN(fqn2);
   attrRaw.component = { isActive: true } as any;
   attrRaw.converter = { convert: x => x } as any;
   am.watch(fqn2, (n, o, a) => {
     spy(n, o, a);
   });
 
-  am.setAttribute(attrRaw.name.fqn, "not called");
+  am.setAttribute(attrRaw.identity.fqn, "not called");
   t.truthy(!spy.called);
   am.addAttribute(attrRaw);
-  am.setAttribute(attrRaw.name.fqn, "called");
+  am.setAttribute(attrRaw.identity.fqn, "called");
 
   t.truthy("not called" === spy.args[0][0]);
   t.truthy(undefined === spy.args[0][1]);

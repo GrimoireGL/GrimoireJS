@@ -81,8 +81,8 @@ export default class GomlNode extends EEObject {
   /**
    * Tag name.
    */
-  public get name(): Identity {
-    return this.declaration.name;
+  public get identity(): Identity {
+    return this.declaration.identity;
   }
 
   /**
@@ -188,9 +188,9 @@ export default class GomlNode extends EEObject {
       declaration.resolveDependency();
     }
     this.declaration = declaration;
-    this.element = element || Environment.document.createElementNS(declaration.name.ns.qualifiedName, declaration.name.name);
+    this.element = element || Environment.document.createElementNS(declaration.identity.ns.qualifiedName, declaration.identity.name);
     this._components = [];
-    this._attributeManager = new AttributeManager(declaration.name.name);
+    this._attributeManager = new AttributeManager(declaration.identity.name);
 
     this.element.setAttribute(X_GR_ID, this.uniqueKey);
     const defaultComponentNames = declaration.defaultComponentsActual;
@@ -328,7 +328,7 @@ export default class GomlNode extends EEObject {
   public addChildByName(nodeName: Name, attributes: { [attrName: string]: any } = {}): GomlNode {
     const nodeDec = GrimoireInterface.nodeDeclarations.get(nodeName);
     if (!nodeDec) {
-      throw new Error(`In node ${this.name}: the node that attempted to add to child is not found.`);
+      throw new Error(`In node ${this.identity}: the node that attempted to add to child is not found.`);
     }
     const node = new GomlNode(nodeDec);
     if (attributes) {
@@ -660,7 +660,7 @@ export default class GomlNode extends EEObject {
     } else if (typeof name === "function") {
       const component = this._components.find(c => c instanceof name) as any as (T | undefined);
       if (mandatory && !component) {
-        throw new Error(`getComponent for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified component don't exist.`);
+        throw new Error(`getComponent for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.identity.name}(${this.identity.fqn}) but specified component don't exist.`);
       }
       return component || null;
     } else {
@@ -699,7 +699,7 @@ export default class GomlNode extends EEObject {
     if (this.parent) {
       const parentComponent = this.parent._getComponentInAncestor(name);
       if (mandatory && !parentComponent) {
-        throw new Error(`getComponentInAncestor for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.name.name}(${this.name.fqn}) but specified component don't exist in ancestor.`);
+        throw new Error(`getComponentInAncestor for component "${(name as ComponentIdentifier).componentName}" with mandatory flag was called on ${this.identity.name}(${this.identity.fqn}) but specified component don't exist in ancestor.`);
       }
       return parentComponent;
     }
@@ -787,7 +787,7 @@ export default class GomlNode extends EEObject {
    * to string
    */
   public toString(): string {
-    let name = this.name.fqn;
+    let name = this.identity.fqn;
     const id = this.getAttribute("id");
     if (id !== null) {
       name += ` id: ${id}`;
@@ -855,7 +855,7 @@ export default class GomlNode extends EEObject {
         abbr = `${spaces}...\n`;
       }
     }
-    return `${spaces}</${this.name.fqn}>\n${abbr}${ancestor}`;
+    return `${spaces}</${this.identity.fqn}>\n${abbr}${ancestor}`;
   }
 
   /**

@@ -58,7 +58,7 @@ export default class NodeDeclaration {
    */
   public get defaultComponentsActual(): IdentitySet {
     if (!this._resolvedDependency) {
-      throw new Error(`${this.name.fqn} is not resolved dependency!`);
+      throw new Error(`${this.identity.fqn} is not resolved dependency!`);
     }
     return this._defaultComponentsActual;
   }
@@ -68,18 +68,18 @@ export default class NodeDeclaration {
    */
   public get defaultAttributesActual(): IdentityMap<any> {
     if (!this._resolvedDependency) {
-      throw new Error(`${this.name.fqn} is not resolved dependency!`);
+      throw new Error(`${this.identity.fqn} is not resolved dependency!`);
     }
     return this._defaultAttributesActual;
   }
 
   constructor(
-    public name: Identity,
+    public identity: Identity,
     private _defaultComponents: ComponentIdentifier[],
     private _defaultAttributes: { [key: string]: any },
     private _superNode?: Name,
     freezeAttributes?: Name[]) {
-    if (!this._superNode && this.name.fqn !== Constants.BASE_NODE_NAME) {
+    if (!this._superNode && this.identity.fqn !== Constants.BASE_NODE_NAME) {
       this._superNode = Identity.fromFQN(Constants.BASE_NODE_NAME);
     }
     this._freezeAttributes = freezeAttributes || [];
@@ -117,7 +117,7 @@ export default class NodeDeclaration {
     this._defaultComponentsActual.forEach(id => {
       const dec = GrimoireInterface.componentDeclarations.get(id);
       if (!dec) {
-        throw new Error(`require component ${id} has not registerd. this node is ${this.name}.`);
+        throw new Error(`require component ${id} has not registerd. this node is ${this.identity}.`);
       }
       dec.idResolver.foreach(fqn => {
         this.idResolver.add(Identity.fromFQN(fqn));
@@ -136,7 +136,7 @@ export default class NodeDeclaration {
     }
     const superNode = GrimoireInterface.nodeDeclarations.get(this.superNode);
     if (!superNode) {
-      throw new Error(`In node '${this.name.fqn}': super node ${this.superNode.fqn} is not found when resolving inherits, it has registerd correctry?`);
+      throw new Error(`In node '${this.identity.fqn}': super node ${this.superNode.fqn} is not found when resolving inherits, it has registerd correctry?`);
     }
     superNode.resolveDependency();
     const inheritedDefaultComponents = superNode.defaultComponentsActual;

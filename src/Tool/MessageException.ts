@@ -27,9 +27,9 @@ export default class MessageException extends Error {
         componentMessage += `  (${i})  <${singleComponent.identity.fqn}>  ${marker}\n\n   Attributes:\n`;
         singleComponent.attributes.forEach(a => {
           try {
-            componentMessage += `    ${a.name.fqn} --- ${a.Value}\n`;
+            componentMessage += `    ${a.identity.fqn} --- ${a.Value}\n`;
           } catch (e) {
-            componentMessage += `    ${a.name.fqn} --- Failed to fetch\n`;
+            componentMessage += `    ${a.identity.fqn} --- Failed to fetch\n`;
           }
         });
         componentMessage += "\n\n";

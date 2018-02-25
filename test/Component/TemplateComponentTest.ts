@@ -1,7 +1,7 @@
 import test from "ava";
 import { spy } from "sinon";
 import TemplateComponent from "../../src/Component/TemplateComponent";
-import {StandardAttribute} from "../../src/Core/Attribute";
+import { StandardAttribute } from "../../src/Core/Attribute";
 import Component from "../../src/Core/Component";
 import Constants from "../../src/Core/Constants";
 import Environment from "../../src/Core/Environment";
@@ -17,7 +17,7 @@ TestEnvManager.init();
 TestEnvManager.mockSetup();
 TestEnvManager.mock("template.goml", "<scene/>");
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
     GrimoireInterface.debug = false;
     GrimoireInterface.clear();
     TestEnvManager.loadPage("<html></html>");
@@ -40,7 +40,7 @@ test.beforeEach(async() => {
 test("template component inflate correctly in awake", t => {
     const root = GomlLoader.loadFromGOML('<template goml="<goml/>"/>');
     t.truthy(root.children.length === 1);
-    t.truthy(root.children[0].declaration.name.fqn === "grimoirejs.goml");
+    t.truthy(root.children[0].declaration.identity.fqn === "grimoirejs.goml");
 });
 
 test("template component inflate correctly in awake", async t => {
@@ -50,5 +50,5 @@ test("template component inflate correctly in awake", async t => {
     template.setAttribute(TemplateComponent.attributes.src, "template.goml");
     await template.inflate();
     t.truthy(node.children.length === 1);
-    t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.scene");
+    t.truthy(node.children[0].declaration.identity.fqn === "grimoirejs.scene");
 });

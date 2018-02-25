@@ -244,10 +244,18 @@ export default class Component extends IdentifiableObject {
     const attr = StandardAttribute.generateAttributeForComponent(name, attribute, this);
     this.node.addAttribute(attr);
     attr.resolveDefaultValue();
-    this._additionalAttributesNames.push(attr.name);
+    this._additionalAttributesNames.push(attr.identity);
     return attr;
   }
+
+  protected __removeAttribute(attr: Attribute): void {
+    this._additionalAttributesNames.findIndex(id => id.isMatch(attr.identity));
+  }
+  /**`
+   * @deprecated
+   */
   protected __removeAttributes(name?: string): void {
+    console.warn("Deprecation warning: Component#__removeAttributes is deprecated.");
     if (name) {
       const index = this._additionalAttributesNames.findIndex(id => id.name === name);
       if (index < 0) {
@@ -271,7 +279,7 @@ export default class Component extends IdentifiableObject {
   protected __bindAttributes(): void {
     Utility.w("Deprecated warning: Component#__bindAttributes() is deprecated. use @attribute decorator instead of.");
     this.attributes.forEach(attr => {
-      const name = attr.name.name;
+      const name = attr.identity.name;
       attr.bindTo(name);
     });
   }

@@ -13,7 +13,7 @@ TestEnvManager.init();
 
 const GOML = "<goml></goml>";
 
-test.beforeEach(async() => {
+test.beforeEach(async () => {
   GrimoireInterface.clear();
   GrimoireInterface.registerNode("goml");
 });
@@ -23,7 +23,7 @@ test("attibute poperties should be initialized correctly", (t) => {
   const idAttr = rootNode.getAttributeRaw("id");
   const baseComponent = rootNode.getComponent(GrimoireComponent);
 
-  t.truthy(idAttr.name.fqn === "grimoirejs.GrimoireComponent.id");
+  t.truthy(idAttr.identity.fqn === "grimoirejs.GrimoireComponent.id");
   t.truthy(idAttr.declaration.default === null);
   t.truthy((idAttr.converter.name as Identity).fqn === "grimoirejs.String");
   t.truthy(idAttr.component === baseComponent);

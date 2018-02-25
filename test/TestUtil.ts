@@ -27,12 +27,12 @@ export default class TestUtil {
 
   public static DummyAttribute(name: Identity, component: Component, declaration: IAttributeDeclaration): StandardAttribute {
     const attr = new StandardAttribute();
-    attr.name = name;
+    attr.identity = name;
     attr.component = component;
     attr.declaration = declaration as IStandardAttributeDeclaration;
     const converterName = Ensure.tobeCnverterName(declaration.converter);
     attr.converter = GrimoireInterface.converters.get(converterName);
-    attr.component.attributes.set(attr.name, attr);
+    attr.component.attributes.set(attr.identity, attr);
     attr.converter.verify(attr);
     return attr;
   }

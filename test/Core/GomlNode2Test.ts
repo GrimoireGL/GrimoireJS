@@ -503,7 +503,7 @@ test("addNode works correctly", (t) => {
     id: "idtest",
   });
   const child = testNode2.children[0];
-  t.truthy(child.name.name === "test-node2");
+  t.truthy(child.identity.name === "test-node2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === "idtest");
   t.truthy(child.element.id === "idtest");
@@ -518,7 +518,7 @@ test("null should be \"\" as id and classname", async(t) => {
     class: null,
   });
   const child = testNode2.children[0];
-  t.truthy(child.name.name === "test-node2");
+  t.truthy(child.identity.name === "test-node2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === null);
   t.truthy(child.element.id === "");
@@ -536,7 +536,7 @@ test("null should be \"\" as id and classname", async(t) => {
     class: null,
   });
   const child = testNode2.children[0];
-  t.truthy(child.name.name === "test-node2");
+  t.truthy(child.identity.name === "test-node2");
   t.truthy(child.getAttribute("testAttr2") === "ADDEDNODE");
   t.truthy(child.getAttribute("id") === null);
   t.truthy(child.element.id === "");

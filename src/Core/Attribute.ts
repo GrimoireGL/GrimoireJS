@@ -66,22 +66,22 @@ export class AttributeBase<
     }
     if (converter.lazy) {
       const attr = new LazyAttribute<T>();
-      attr.name = identity;
+      attr.identity = identity;
       attr.component = component;
       attr.declaration = declaration as ILazyAttributeDeclaration<T>;
       attr.converter = converter;
-      attr.component.attributes.set(attr.name, attr);
+      attr.component.attributes.set(attr.identity, attr);
       if (attr.converter.verify) {
         attr.converter.verify(attr);
       }
       return attr;
     } else {
       const attr = new StandardAttribute<T>();
-      attr.name = identity;
+      attr.identity = identity;
       attr.component = component;
       attr.declaration = declaration as IStandardAttributeDeclaration<T>;
       attr.converter = converter as IStandardConverterDeclaration<T>;
-      attr.component.attributes.set(attr.name, attr);
+      attr.component.attributes.set(attr.identity, attr);
       if (attr.converter.verify) {
         attr.converter.verify(attr);
       }
@@ -93,7 +93,7 @@ export class AttributeBase<
    * The name of attribute.
    * @type {Identity}
    */
-  public name!: Identity;
+  public identity!: Identity;
 
   /**
    * A component reference that this attribute is bound to.
@@ -182,7 +182,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
   public get Value(): T {
     if (this._lastValuete === undefined) {
       const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+      throw new Error(`attribute ${this.identity.name} value is undefined in ${node ? node.identity.name : "undefined"}`);
     }
     return (this._lastValuete as any)();
   }
@@ -202,7 +202,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
   public setValue(val: any) {
     if (val === undefined) {
       const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+      throw new Error(`attribute ${this.identity.name} value is undefined in ${node ? node.identity.name : "undefined"}`);
     }
     if (this._value === val) {
       return;
@@ -272,9 +272,9 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
    * @param {string} variableName [description]
    * @param {any} targetObject [description]
    */
-  public bindTo(variableName = this.name.name, targetObject: any = this.component): void {
-    Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
-    Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
+  public bindTo(variableName = this.identity.name, targetObject: any = this.component): void {
+    Utility.assert(!!variableName, `${this.identity}: variableName cannot be null when call Attribute.bindTo.`);
+    Utility.assert(!!targetObject, `${this.identity}: targetObject cannot be null when call Attribute.bindTo.`);
     if (targetObject[variableName]) {
       console.warn(`component field ${variableName} is already defined.`);
     }
@@ -303,11 +303,11 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
 
     // resolve by goml value
     const resolver = new IdResolver();
-    resolver.add(this.name);
+    resolver.add(this.identity);
     let tagAttrKey;
     for (const key in domValues) {
       if (Ensure.checkFQNString(key)) {
-        if (this.name.fqn === key.substring(1)) {
+        if (this.identity.fqn === key.substring(1)) {
           this.setValue(domValues[key]);
           return;
         }
@@ -318,7 +318,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
         if (tagAttrKey === undefined) {
           tagAttrKey = key;
         } else {
-          throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
+          throw new Error(`tag attribute is ambiguous for ${this.identity.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
         }
       }
     }
@@ -328,7 +328,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
     }
 
     // resolve by node defaults.
-    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.name);
+    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.identity);
     if (nodeDefaultValue !== undefined) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;
@@ -346,7 +346,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
       return () => null;
     }
     const v = this.converter.convert(raw, this, this.converterContext);
-    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`);
+    Utility.assert(v !== undefined, () => `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.identity.name}(${this.identity.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.identity.name}(${this.component.node.identity.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.identity.name}' of this node.`)}`);
     if (typeof v !== "function") {
       throw new Error("lazy converter returns value must be function");
     }
@@ -375,7 +375,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
   public get Value(): Nullable<T> {
     if (this._lastValuete === undefined) {
       const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+      throw new Error(`attribute ${this.identity.name} value is undefined in ${node ? node.identity.name : "undefined"}`);
     }
     return this._lastValuete;
   }
@@ -394,7 +394,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
   public setValue(val: any) {
     if (val === undefined) {
       const node = this.component.node;
-      throw new Error(`attribute ${this.name.name} value is undefined in ${node ? node.name.name : "undefined"}`);
+      throw new Error(`attribute ${this.identity.name} value is undefined in ${node ? node.identity.name : "undefined"}`);
     }
     if (this._value === val) {
       return;
@@ -409,7 +409,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
       evaluated.then(v => {
         this.isPending = false;
         if (v === undefined) {
-          const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+          const errorMessage = `Converting attribute value failed.\n\n* input : ${val}\n* Attribute(Attribute FQN) : ${this.identity.name}(${this.identity.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.identity.name}(${this.component.node.identity.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.identity.name}' of this node.`)}`;
           throw new Error(errorMessage);
         }
         this._lastValuete = v;
@@ -469,9 +469,9 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
    * @param {string} variableName [description]
    * @param {any} targetObject [description]
    */
-  public bindTo(variableName = this.name.name, targetObject: any = this.component): void {
-    Utility.assert(!!variableName, `${this.name}: variableName cannot be null when call Attribute.bindTo.`);
-    Utility.assert(!!targetObject, `${this.name}: targetObject cannot be null when call Attribute.bindTo.`);
+  public bindTo(variableName = this.identity.name, targetObject: any = this.component): void {
+    Utility.assert(!!variableName, `${this.identity}: variableName cannot be null when call Attribute.bindTo.`);
+    Utility.assert(!!targetObject, `${this.identity}: targetObject cannot be null when call Attribute.bindTo.`);
     if (targetObject[variableName]) {
       console.warn(`component field ${variableName} is already defined.`);
     }
@@ -500,11 +500,11 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
 
     // resolve by goml value
     const resolver = new IdResolver();
-    resolver.add(this.name);
+    resolver.add(this.identity);
     let tagAttrKey;
     for (const key in domValues) {
       if (Ensure.checkFQNString(key)) {
-        if (this.name.fqn === key.substring(1)) {
+        if (this.identity.fqn === key.substring(1)) {
           this.setValue(domValues[key]);
           return;
         }
@@ -515,7 +515,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
         if (tagAttrKey === undefined) {
           tagAttrKey = key;
         } else {
-          throw new Error(`tag attribute is ambiguous for ${this.name.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
+          throw new Error(`tag attribute is ambiguous for ${this.identity.fqn}. It has the following possibilities ${tagAttrKey} ${get[0]}`);
         }
       }
     }
@@ -525,7 +525,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     }
 
     // resolve by node defaults.
-    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.name);
+    const nodeDefaultValue = this.component.node.declaration.defaultAttributesActual.hasMatchingValue(this.identity);
     if (nodeDefaultValue !== undefined) {
       this.Value = nodeDefaultValue; // Node指定値で解決
       return;
@@ -544,7 +544,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
     }
     const v = this.converter.convert(raw, this, this.converterContext);
     if (v === undefined) {
-      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.name.name}(${this.name.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.name.name}(${this.component.node.name.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.name.name}' of this node.`)}`;
+      const errorMessage = `Converting attribute value failed.\n\n* input : ${raw}\n* Attribute(Attribute FQN) : ${this.identity.name}(${this.identity.fqn})\n* Component : ${this.component.identity.name}(${this.component.identity.fqn})\n* Node(Node FQN) : ${this.component.node.identity.name}(${this.component.node.identity.fqn})\n* Converter : ${this.declaration.converter}\n\n* Structure map:\n${this.component.node.toStructualString(`--------------Error was thrown from '${this.identity.name}' of this node.`)}`;
       throw new Error(errorMessage);
     }
     return v;

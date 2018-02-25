@@ -88,23 +88,23 @@ export default class AttributeManager {
    * @param attr
    */
   public addAttribute(attr: Attribute): Attribute {
-    const fqn = attr.name.fqn;
+    const fqn = attr.identity.fqn;
     if (this._idResolver.has(fqn)) { // already exists
-      Utility.w(`attribute ${attr.name} is already exist in ${this.tag}`);
+      Utility.w(`attribute ${attr.identity} is already exist in ${this.tag}`);
     }
     if (this._attributesFQNMap[fqn] === undefined) {
       this._attributesFQNMap[fqn] = [];
     }
     this._attributesFQNMap[fqn].push(attr);
-    this._idResolver.add(attr.name);
+    this._idResolver.add(attr.identity);
 
     // check buffer value.
-    const attrBuf = this._attrBuffer.resolve(attr.name.fqn, true);
+    const attrBuf = this._attrBuffer.resolve(attr.identity.fqn, true);
     if (attrBuf !== undefined) {
       attr.Value = attrBuf;
     }
 
-    const watchBuf = this._watchBuffer.guess(attr.name.fqn, true);
+    const watchBuf = this._watchBuffer.guess(attr.identity.fqn, true);
     for (let i = 0; i < watchBuf.length; i++) {
       (attr as any).watch(watchBuf[i], true);
     }
@@ -234,13 +234,13 @@ export default class AttributeManager {
    * @param attr
    */
   public removeAttribute(attr: Attribute): boolean {
-    if (this._attributesFQNMap[attr.name.fqn]) {
-      const attributes = this._attributesFQNMap[attr.name.fqn];
+    if (this._attributesFQNMap[attr.identity.fqn]) {
+      const attributes = this._attributesFQNMap[attr.identity.fqn];
       if (attributes.length === 1) {
-        this._idResolver.remove(attr.name);
+        this._idResolver.remove(attr.identity);
       }
       Utility.remove(attributes, attr);
-      delete this._attributesFQNMap[attr.name.fqn];
+      delete this._attributesFQNMap[attr.identity.fqn];
       return true;
     }
     return false;

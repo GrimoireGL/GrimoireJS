@@ -82,7 +82,7 @@ test("append works correctly with string argument", t => {
   t.truthy(node.children.length === 0);
   node.append("<goml/>");
   t.truthy(node.children.length === 1);
-  t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
+  t.truthy(node.children[0].declaration.identity.fqn === "grimoirejs.goml");
 });
 
 test("append works correctly with gom argument", t => {
@@ -90,7 +90,7 @@ test("append works correctly with gom argument", t => {
   t.truthy(node.children.length === 0);
   node.append({ name: "goml" });
   t.truthy(node.children.length === 1);
-  t.truthy(node.children[0].declaration.name.fqn === "grimoirejs.goml");
+  t.truthy(node.children[0].declaration.identity.fqn === "grimoirejs.goml");
 });
 
 test("remove method works correctly", t => {
