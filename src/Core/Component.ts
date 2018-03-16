@@ -303,6 +303,10 @@ export default class Component extends IdentifiableObject {
     return poc;
   }
 
+  private _callMount(): void {
+
+  }
+
   /**
    * Call hooks before awaking
    */

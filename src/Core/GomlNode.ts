@@ -91,9 +91,9 @@ export default class GomlNode extends EEObject {
    * @return {GomlInterface} [description]
    */
   public get tree(): GomlInterface {
-    if (!this.mounted) {
-      throw new Error("this node is not mounted");
-    }
+    // if (!this.mounted) { // TODO: Converter can retrive tree even if that is not mounted under initialization timing
+    //   throw new Error(`"${this.identity.fqn}" haven't been mounted yet. Make sure you are calling this getter after node initializing.`);
+    // }
     return this._tree;
   }
 
