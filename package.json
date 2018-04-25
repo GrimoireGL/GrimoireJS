@@ -13,7 +13,7 @@
     "grimoire"
   ],
   "dependencies": {
-    "eventemitter3": "^2.0.3"
+    "eventemitter3": "^3.1.0"
   },
   "devDependencies": {
     "ava": "^0.22.0",
