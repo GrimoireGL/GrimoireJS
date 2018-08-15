@@ -127,7 +127,7 @@ export default class GrimoireInterfaceImpl extends EEObject {
    */
   public initializedEventHandlers: (() => void)[] = [];
 
-  private _registeringPluginNamespace: string;
+  private _registeringPluginNamespace!: string;
   private _registrationContext: string = DEFAULT_NAMESPACE;
 
   private _gomlMutationObserber = new GomlMutationObserver();
