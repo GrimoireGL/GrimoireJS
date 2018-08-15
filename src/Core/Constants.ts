@@ -55,6 +55,7 @@ export default {
 /**
  * Interface for EventEmitter
  */
+// @ts-ignore → error TS6133: 'T' is declared but never used.
 export interface IEvent<T> { }
 
 export type EventID<T= any> = string & IEvent<T>;
