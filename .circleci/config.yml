@@ -1,0 +1,154 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:9.6
+    environment:
+      TZ: /usr/share/zoneinfo/UTC
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: sudo apt update && sudo apt install python-pip python-dev
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+      - run: yarn --version
+      - run: yarn install --ignore-scripts --no-progress
+      - run: npm run lint
+      - run: npm run build
+      - save-cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ~/.local
+            - ~/.npm/_cacache
+            - ~/.cache/yarn
+            - node_modules/
+            - yarn.lock
+      - save-cache:
+          key: artifact-cache-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ref/
+            - register/
+            - src/index.ts
+            - src/metaInfo.ts
+  test:
+    docker:
+      - image: circleci/node:9.6
+    environment:
+      TZ: /usr/share/zoneinfo/UTC
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: artifact-cache-{{ .Environment.CIRCLE_SHA1 }}
+      - run: sudo apt update && sudo apt install python-pip python-dev
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+      - run: npm run coverage
+      - run: aws s3 cp ./coverage/ s3://coverage.grimoire.gl/core/$CIRCLE_BRANCH --recursive --region ap-northeast-1 --acl public-read
+      - store_artifacts:
+          path: ./coverage
+          destination: /converge
+
+  common_e2e:
+    docker:
+      - image: circleci/node:9.6
+    environment:
+      TZ: /usr/share/zoneinfo/UTC
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: artifact-cache-{{ .Environment.CIRCLE_SHA1 }}
+      - run: sudo apt update && sudo apt install python-pip python-dev
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+      - run: sh -x shell/e2e.sh
+      - store_artifacts:
+          path: ./register
+          destination: /register
+
+  npm_release:
+    docker:
+      - image: circleci/node:9.6
+    environment:
+      TZ: /usr/share/zoneinfo/UTC
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: artifact-cache-{{ .Environment.CIRCLE_SHA1 }}
+      - run: sudo apt update && sudo apt install python-pip python-dev
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+      - run: sh release.sh
+  deploy_docs:
+    docker:
+      - image: circleci/node:9.6
+    environment:
+      TZ: /usr/share/zoneinfo/UTC
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: artifact-cache-{{ .Environment.CIRCLE_SHA1 }}
+      - run: sudo apt update && sudo apt install python-pip python-dev
+      - run: pip install awscli --upgrade --user
+      - run: echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
+      - run: npm run doc
+      - store_artifacts:
+          path: ./docs
+          destination: /docs
+      - run:
+          name: document deploy
+          command: aws s3 cp ./docs/ s3://api.grimoire.gl/$CIRCLE_PROJECT_REPONAME --recursive --acl public-read
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: gh-pages
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: gh-pages
+      - common_e2e:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              ignore: gh-pages
+      - npm_release:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy_docs:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
