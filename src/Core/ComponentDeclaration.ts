@@ -29,12 +29,12 @@ export default class ComponentDeclaration {
   /**
    * super component constructor.
    */
-  public superComponent: Ctor<Component>;
+  public superComponent!: Ctor<Component>;
 
   /**
    * generated constructor considering inheritance.
    */
-  public ctor: Ctor<Component>;
+  public ctor!: Ctor<Component>;
 
   /**
    * Internal use!
@@ -44,7 +44,7 @@ export default class ComponentDeclaration {
   /**
    * default attributes.
    */
-  public attributes: { [name: string]: IAttributeDeclaration }; // undefined until resolve dependency.
+  public attributes!: { [name: string]: IAttributeDeclaration }; // undefined until resolve dependency.
 
   private _resolvedDependency = false;
 

@@ -93,13 +93,13 @@ export class AttributeBase<
    * The name of attribute.
    * @type {Identity}
    */
-  public name: Identity;
+  public name!: Identity;
 
   /**
    * A component reference that this attribute is bound to.
    * @type {Component}
    */
-  public component: Component;
+  public component!: Component;
 
   /**
    * Indicates that waiting for the converter returned promise.
@@ -110,7 +110,7 @@ export class AttributeBase<
    * The declaration of attribute used for defining this attribute.
    * @type {IAttributeDeclaration}
    */
-  public declaration: D;
+  public declaration!: D;
 
   public converterContext: any = {};
 
@@ -118,7 +118,7 @@ export class AttributeBase<
    * A function to convert any values into ideal type.
    * @type {AttributeConverter}
    */
-  public converter: C;
+  public converter!: C;
 
   protected __observers: ((newValue: V, oldValue: Undef<V>, attr: A) => void)[] = [];
   protected __ignoireActivenessObservers: ((newValue: V, oldValue: Undef<V>, attr: A) => void)[] = [];
@@ -173,7 +173,7 @@ export class LazyAttribute<T = any> extends AttributeBase<T, () => Nullable<T>, 
    */
   private _value: any;
 
-  private _lastValuete: () => Nullable<T>;
+  private _lastValuete!: () => Nullable<T>;
 
   /**
    * Get a value with specified type.
@@ -366,7 +366,7 @@ export class StandardAttribute<T = any> extends AttributeBase<T, T, IStandardAtt
    */
   private _value: any;
 
-  private _lastValuete: null | T;
+  private _lastValuete!: null | T;
 
   /**
    * Get a value with specified type.
