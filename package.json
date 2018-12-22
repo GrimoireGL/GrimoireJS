@@ -42,7 +42,7 @@
     "typedoc-md-theme": "^1.0.1",
     "typescript": "^2.6.1",
     "typescript-awaiter": "^1.0.0",
-    "webpack": "^3.8.1",
+    "webpack": "^4.28.2",
     "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.9.1",
     "xmldom": "^0.1.27",
