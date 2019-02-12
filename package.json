@@ -46,7 +46,7 @@
     "webpack-shell-plugin": "^0.5.0",
     "xhr-mock": "^1.9.1",
     "xmldom": "^0.1.27",
-    "yargs": "^8.0.2"
+    "yargs": "^13.1.0"
   },
   "repository": "http://github.com/GrimoireGL/GrimoireJS",
   "scripts": {
