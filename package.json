@@ -38,7 +38,7 @@
     "trash-cli": "^1.4.0",
     "ts-loader": "^2.3.7",
     "tslint": "^5.8.0",
-    "typedoc": "^0.8.0",
+    "typedoc": "^0.17.0",
     "typedoc-md-theme": "^1.0.1",
     "typescript": "^2.6.1",
     "typescript-awaiter": "^1.0.0",
